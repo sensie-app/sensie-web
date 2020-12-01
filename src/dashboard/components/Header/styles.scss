@@ -1,0 +1,37 @@
+@import '../../styles/index.scss';
+
+.HeaderContainer {
+  @include flex(row, space-between, center, wrap);
+  padding: $step1 0px;  
+  width: 100%;
+}
+
+.HeaderLeftContainer {
+  width: 50%;
+  .HeaderBack {
+    @include flex(row, flex-start, center, wrap);
+    .HeaderLeftIcon {
+      margin-right: $step1;
+    }
+    span {
+      color: $fontColor1;
+    }
+  }    
+}
+
+.HeaderRightContainer {
+  width: 50%;
+  .HeaderCalendar {
+    @include flex(row, flex-end, center, wrap);
+    .HeaderCalendarIcon,
+    .HeaderCalendarDate,
+    .HeaderCalendarArrowIcon,
+    span {
+      margin-left: $step1;
+      color: $fontColor1;
+    };
+    .HeaderCalendarDate {
+      font-weight: bold;
+    };
+  }
+}

@@ -1,0 +1,70 @@
+
+@import '../../styles/index.scss';
+
+.LayoutContainer {
+  @include flex(row, center, center, wrap);
+  background-color: $backgroundColor2;
+}
+
+.LayoutLinkTo {
+  text-decoration: none;
+  color: $fontColor1;
+}
+
+.MuiListItem-gutters {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.LayoutLinkToIcon, .LayoutAvatarImgContainer {
+  padding: $step1 $step3 * 0.6;
+}
+
+.LayoutLinkToText, .LayoutAvatarText {
+  color: $fontColor1;
+}
+
+.LayoutLinkToTextContainer, .LayoutAvatarTextContainer {
+  @include flex(column, center, flex-start, wrap);
+  padding: $step1 $step3 * 0.6;
+}
+
+.LayoutLinkToSubText, .LayoutAvatarSubText {
+  color:$fontColor2;
+  margin-right: $step1;
+}
+
+.LayoutLinkToSelected {
+  .LayoutLinkToIcon {
+    background-color: $actionColor1;
+    border-radius: 0px 5px 5px 0px;
+  }
+  .LayoutLinkToText {
+    color: $actionColor1;
+  }
+}
+
+.LayoutchildrenContainer { 
+  min-height: 85vh;
+  width: 100%;
+}
+
+.LayoutAppBarLeftIconsContainer {
+  @include flex(row, space-between, center, wrap);  
+  width: 100%;
+}
+
+.LayoutListContainer {
+  @include flex(column, space-between, flex-start, wrap);  
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.LayoutAvatarSubTextContainer {
+  @include flex(row, center, center, wrap);
+}
+
+.MuiBadge-colorPrimary {
+  background-color: $actionColor1 !important;
+}

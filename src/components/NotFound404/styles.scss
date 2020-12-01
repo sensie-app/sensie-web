@@ -1,0 +1,9 @@
+@import '../../styles/index.scss';
+
+.NotFound404Container {
+  background: linear-gradient(to bottom, $actionColor1, $actionColor3, $actionColor2);
+  color: $fontColor1;
+  width: 100vw;
+  height: 100vh;
+  @include flex(column, center, center, wrap);
+}
