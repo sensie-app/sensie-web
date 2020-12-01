@@ -68,3 +68,14 @@
 .MuiBadge-colorPrimary {
   background-color: $actionColor1 !important;
 }
+
+.LayoutAppBarLogo {
+  background-image: url('../../assets/logo_sensie_white.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-color: red;
+  border-width: 1px;
+  width: 75px;
+  height: 75px;
+}

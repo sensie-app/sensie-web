@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <section>
       <Header />
-      <Grid container>
+      <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className="HomeG1Container">
             <ClientFlow />

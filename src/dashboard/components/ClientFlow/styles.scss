@@ -1,11 +1,42 @@
 @import '../../styles/index.scss';
 
-.ClientFlowHeaderContainer {
-  
+.ClientFlowContainer {
+  background-color: $backgroundColor3;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  @include flex(row, flex-start, center, wrap);
 }
+
+.ClientFlowBodyContainer {
+  width: 100%;
+}
+
+.ClientFlowHeaderContainer { 
+  @include flex(row, space-between, center, nowrap);
+  padding: 10px 0px;
+}
+
+.ClientFlowHeaderTitle {
+  width: 50%;
+  h3 {
+    color: $fontColor1;
+    font-weight: bold;
+  }
+}
+
 .ClientFlowHeaderChartsS1Container {
-  
+  width: 50%;
+  background-color: blue;
+  @include flex(row, space-between, center, wrap);
 }
+
+.ClientFlowHeaderChartsS1Container {
+  width: 100%;
+  @include flex(row, center, center, wrap);
+}
+
 .ClientFlowChartS3Container {
-  
+  width: 100%;
+  @include flex(row, space-around, center, wrap);
 }

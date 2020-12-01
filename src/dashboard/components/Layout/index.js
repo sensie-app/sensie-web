@@ -11,7 +11,6 @@ import {
   Toolbar,
   List,
   CssBaseline,
-  Typography,
   Divider,
   IconButton,
   Badge,
@@ -25,6 +24,7 @@ import ImageAvatar from '../ImageAvatar'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
 import { COLORS } from '../../constants/theme'
+import { IMG } from '../../constants/assets'
 // styles
 import './styles.scss'
 
@@ -52,6 +52,7 @@ const listItems = [
     link: team
   }
 ]
+// test
 const urlTest = 'https://www.hardwoodandhollywood.com/pop-culture-spin/wp-content/uploads/sites/7/2015/12/richard.png'
 
 const Layout = ({ children }) => {
@@ -117,9 +118,7 @@ const Layout = ({ children }) => {
             <Icon name="menu-outline" size="md" color={fontColor1} />
           </IconButton>
           <div className="LayoutAppBarLeftIconsContainer">
-            <Typography variant="h6" noWrap>
-              Sensie
-            </Typography>
+            <div className="LayoutAppBarLogo" />
             <div>
               <IconButton aria-label="show notifications" color="inherit">
                 <Badge badgeContent={17} color="primary">
