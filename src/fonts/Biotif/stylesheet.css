@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-BlackItalic.woff2') format('woff2'),
+        url('Biotif-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-Bold.woff2') format('woff2'),
+        url('Biotif-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-Black.woff2') format('woff2'),
+        url('Biotif-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-BoldItalic.woff2') format('woff2'),
+        url('Biotif-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif Book';
+    src: url('Biotif-BookItalic.woff2') format('woff2'),
+        url('Biotif-BookItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif Book';
+    src: url('Biotif-Book.woff2') format('woff2'),
+        url('Biotif-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-ExtraBold.woff2') format('woff2'),
+        url('Biotif-ExtraBold.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-ExtraBoldItalic.woff2') format('woff2'),
+        url('Biotif-ExtraBoldItalic.woff') format('woff');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-Light.woff2') format('woff2'),
+        url('Biotif-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-Medium.woff2') format('woff2'),
+        url('Biotif-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-LightItalic.woff2') format('woff2'),
+        url('Biotif-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-MediumItalic.woff2') format('woff2'),
+        url('Biotif-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-RegularItalic.woff2') format('woff2'),
+        url('Biotif-RegularItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif';
+    src: url('Biotif-Regular.woff2') format('woff2'),
+        url('Biotif-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif Semi';
+    src: url('Biotif-SemiBold.woff2') format('woff2'),
+        url('Biotif-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Biotif Semi';
+    src: url('Biotif-SemiBoldItalic.woff2') format('woff2'),
+        url('Biotif-SemiBoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+

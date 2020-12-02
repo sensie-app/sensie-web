@@ -12,9 +12,9 @@ export const COLORS = {
 }
 
 export const SIZE = {
-  xs: 15,
-  s: 20,
-  md: 25,
-  l: 30,
-  xl: 35
+  xs: 10,
+  s: 15,
+  md: 18,
+  l: 25,
+  xl: 30
 }

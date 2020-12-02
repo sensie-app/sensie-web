@@ -32,7 +32,7 @@ const { home, client, team } = DASHBOARD_ROUTES
 // const-colors
 const { backgroundColor1, fontColor1, fontColor2 } = COLORS
 // const-sizes
-const drawerWidth = 240
+const drawerWidth = 192
 // const-items
 const listItems = [
   {
