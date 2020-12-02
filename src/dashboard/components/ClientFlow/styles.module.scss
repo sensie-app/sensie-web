@@ -5,33 +5,38 @@
   border-radius: 10px;
   padding: 20px;
   width: 100%;
+  max-height: 360px;
+  height: 360px;
   @include flex(row, flex-start, center, wrap);
 }
 
 .ClientFlowBodyContainer {
   width: 100%;
+  height: 100%;
+  @include flex(column, space-between, center, wrap);
 }
 
 .ClientFlowHeaderContainer { 
+  width: 100%;
   @include flex(row, space-between, center, nowrap);
   padding: 10px 0px;
 }
 
 .ClientFlowHeaderTitle {
-  width: 50%;
+  width: 45%;
   h3 {
     color: $fontColor1;
     font-weight: bold;
+    font-size: 18px;
   }
 }
 
 .ClientFlowHeaderChartsS1Container {
-  width: 50%;
-  background-color: blue;
+  width: 55%;
   @include flex(row, space-between, center, wrap);
 }
 
-.ClientFlowHeaderChartsS1Container {
+.ClientFlowHeaderChartsS2Container {
   width: 100%;
   @include flex(row, center, center, wrap);
 }

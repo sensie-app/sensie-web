@@ -3,7 +3,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 
-const ImageAvatar = ({ url, size }) => {
+const ImageAvatar = ({ url, alt, size }) => {
   const classes = useStyles()
 
   // handle functions
@@ -18,23 +18,27 @@ const ImageAvatar = ({ url, size }) => {
 
   return (
     <div className={classes.root}>
-      <Avatar alt="Remy Sharp" src={url} className={handleSizeAvatar(size)} />
+      <Avatar alt={alt} src={url} className={handleSizeAvatar(size)} />
     </div>
   )
 }
 
 const useStyles = makeStyles((theme) => ({
-  small: {
+  root: {
     display: 'flex',
     '& > *': {
       margin: theme.spacing(1)
     }
   },
-  medium: {
+  small: {
     width: theme.spacing(3),
     height: theme.spacing(3)
   },
   large: {
+    width: theme.spacing(10),
+    height: theme.spacing(10)
+  },
+  medium: {
     width: theme.spacing(7),
     height: theme.spacing(7)
   }

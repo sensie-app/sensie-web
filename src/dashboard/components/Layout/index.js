@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // react
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 // material-ui
 import clsx from 'clsx'
@@ -13,46 +13,44 @@ import {
   CssBaseline,
   Divider,
   IconButton,
-  Badge,
-  ListItem,
-  ListItemIcon,
-  ListItemText
+  Badge
 } from '@material-ui/core'
 // components
 import Icon from '../Icon'
 import ImageAvatar from '../ImageAvatar'
-// constants-routes
+// constants
 import DASHBOARD_ROUTES from '../../constants/routes'
 import { COLORS } from '../../constants/theme'
+import IMG from '../../constants/images'
 // styles
 import styles from './styles.module.scss'
+// test
+import { userTest } from './testData'
 
-// const-routes
+// constants
 const { home, client, team } = DASHBOARD_ROUTES
-// const-colors
 const { backgroundColor1, fontColor1, fontColor2 } = COLORS
+const { logo } = IMG
 // const-sizes
 const drawerWidth = 192
 // const-items
 const listItems = [
   {
-    title: 'Home',
+    title: <span>{'Home'}</span>,
     icon: 'home-outline',
     link: home
   },
   {
-    title: 'Client Dashboard',
+    title: <Fragment><span>{'Client'}</span><span>{'Dashboard'}</span></Fragment>,
     icon: 'layout-outline',
     link: client
   },
   {
-    title: 'Team',
+    title: <span>{'Team'}</span>,
     icon: 'people-outline',
     link: team
   }
 ]
-// test
-const urlTest = 'https://www.hardwoodandhollywood.com/pop-culture-spin/wp-content/uploads/sites/7/2015/12/richard.png'
 
 const Layout = ({ children }) => {
   // hooks
@@ -70,29 +68,39 @@ const Layout = ({ children }) => {
         key={index}
         className={styles.LayoutLinkTo}
         activeClassName={styles.LayoutLinkToSelected}>
-        <ListItem className={styles.LayoutLinkToListItem}>
-            <ListItemIcon className={styles.LayoutLinkToIcon}><Icon name={item.icon} size="md" color={fontColor1} /></ListItemIcon>
-            <div className={styles.LayoutLinkToTextContainer}>
-              <ListItemText className={styles.LayoutLinkToText} primary={item.title} />
+        <div className={styles.LayoutLinkToListItem}>
+            <div className={styles.LayoutLinkToIcon}>
+              <Icon name={item.icon} size="md" color={fontColor1} />
             </div>
-        </ListItem>
+            <div className={styles.LayoutLinkToTextContainer}>
+              <span className={styles.LayoutLinkToText}>{item.title}</span>
+            </div>
+        </div>
       </NavLink>
     )
   }
 
-  const renderAvatar = () => {
-    return <ListItem className={styles.LayoutAvatarListItem}>
-      <ListItemIcon className={styles.LayoutAvatarImgContainer}>
-        <ImageAvatar url={urlTest} size="small" />
-      </ListItemIcon>
+  const renderAvatar = user => {
+    return <div className={styles.LayoutLinkToListItem}>
+      <div className={styles.LayoutAvatarImgContainer}>
+        <button className={styles.LayoutAvatarBtnImg} onClick={() => handleDrawerOpen()}>
+          <ImageAvatar url={user.avatar} alt={user.name} size="small" />
+        </button>
+      </div>
       <div className={styles.LayoutAvatarTextContainer}>
-        <ListItemText className={styles.LayoutAvatarText} primary="Richard Hendricks" />
-        <div className={styles.LayoutAvatarSubTextContainer}>
-          <span className={styles.LayoutAvatarSubText}>Couch</span>
-          <Icon name="arrow-ios-downward-outline" size="s" color={fontColor2} />
+        <div className={styles.LayoutAvatarText}>
+          {/* // todo: acomodar */}
+          <div className={styles.LayoutAvatarNameContainer}>
+            <span className={styles.LayoutAvatarNameText}>{user.name.split(' ')[0]}</span>
+            <span>{user.name.split(' ')[1]}</span>
+          </div>
+          <div className={styles.LayoutAvatarSubTextContainer}>
+            <span className={styles.LayoutAvatarSubText}>Couch</span>
+            <Icon name="arrow-ios-downward-outline" size="s" color={fontColor2} />
+          </div>
         </div>
       </div>
-    </ListItem>
+    </div>
   }
 
   return (
@@ -117,7 +125,7 @@ const Layout = ({ children }) => {
             <Icon name="menu-outline" size="md" color={fontColor1} />
           </IconButton>
           <div className={styles.LayoutAppBarLeftIconsContainer}>
-            <div className={styles.LayoutAppBarLogo} />
+            <img src={logo} alt="Sensie logo" width="91" />
             <div>
               <IconButton aria-label="show notifications" color="inherit">
                 <Badge badgeContent={17} color="primary">
@@ -135,7 +143,9 @@ const Layout = ({ children }) => {
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open
+          [styles.LayoutDrawerOpen]: open,
+          [classes.drawerClose]: !open,
+          [styles.LayoutDrawerClose]: !open
         })}
         classes={{
           paper: clsx({
@@ -155,7 +165,7 @@ const Layout = ({ children }) => {
             {renderListItems()}
           </div>
           <div>
-            {renderAvatar()}
+            {renderAvatar(userTest)}
           </div>
         </List>
       </Drawer>
@@ -218,7 +228,7 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1
+      width: theme.spacing(8) + 1
     }
   },
   toolbar: {
