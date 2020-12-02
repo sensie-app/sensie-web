@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Header from '../../components/Header'
 import ClientFlow from '../../components/ClientFlow'
 // styles
-import './styles.scss'
+import styles from './styles.module.scss'
 
 const Home = () => {
   return (
@@ -13,17 +13,17 @@ const Home = () => {
       <Header />
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} xl={6}>
-          <div className="HomeG1Container">
+          <div className={styles.HomeG1Container}>
             <ClientFlow />
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>
-          <div className="HomeG2Container">
+          <div className={styles.HomeG2Container}>
             <span>HolaG2</span>
           </div>
         </Grid>
         <Grid item xs={12}>
-          <div className="HomeG3Container">
+          <div className={styles.HomeG3Container}>
             <span>HolaG3</span>
           </div>
         </Grid>

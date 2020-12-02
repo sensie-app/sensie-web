@@ -24,9 +24,8 @@ import ImageAvatar from '../ImageAvatar'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
 import { COLORS } from '../../constants/theme'
-import { IMG } from '../../constants/assets'
 // styles
-import './styles.scss'
+import styles from './styles.module.scss'
 
 // const-routes
 const { home, client, team } = DASHBOARD_ROUTES
@@ -69,12 +68,12 @@ const Layout = ({ children }) => {
       <NavLink
         to={item.link}
         key={index}
-        className="LayoutLinkTo"
-        activeClassName='LayoutLinkToSelected'>
-        <ListItem className='LayoutLinkToListItem'>
-            <ListItemIcon className="LayoutLinkToIcon"><Icon name={item.icon} size="md" color={fontColor1} /></ListItemIcon>
-            <div className="LayoutLinkToTextContainer">
-              <ListItemText className="LayoutLinkToText" primary={item.title} />
+        className={styles.LayoutLinkTo}
+        activeClassName={styles.LayoutLinkToSelected}>
+        <ListItem className={styles.LayoutLinkToListItem}>
+            <ListItemIcon className={styles.LayoutLinkToIcon}><Icon name={item.icon} size="md" color={fontColor1} /></ListItemIcon>
+            <div className={styles.LayoutLinkToTextContainer}>
+              <ListItemText className={styles.LayoutLinkToText} primary={item.title} />
             </div>
         </ListItem>
       </NavLink>
@@ -82,14 +81,14 @@ const Layout = ({ children }) => {
   }
 
   const renderAvatar = () => {
-    return <ListItem className='LayoutAvatarListItem'>
-      <ListItemIcon className="LayoutAvatarImgContainer">
+    return <ListItem className={styles.LayoutAvatarListItem}>
+      <ListItemIcon className={styles.LayoutAvatarImgContainer}>
         <ImageAvatar url={urlTest} size="small" />
       </ListItemIcon>
-      <div className="LayoutAvatarTextContainer">
-        <ListItemText className="LayoutAvatarText" primary="Richard Hendricks" />
-        <div className="LayoutAvatarSubTextContainer">
-          <span className="LayoutAvatarSubText">Couch</span>
+      <div className={styles.LayoutAvatarTextContainer}>
+        <ListItemText className={styles.LayoutAvatarText} primary="Richard Hendricks" />
+        <div className={styles.LayoutAvatarSubTextContainer}>
+          <span className={styles.LayoutAvatarSubText}>Couch</span>
           <Icon name="arrow-ios-downward-outline" size="s" color={fontColor2} />
         </div>
       </div>
@@ -97,7 +96,7 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <div className="LayoutContainer">
+    <div className={styles.LayoutContainer}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -117,8 +116,8 @@ const Layout = ({ children }) => {
           >
             <Icon name="menu-outline" size="md" color={fontColor1} />
           </IconButton>
-          <div className="LayoutAppBarLeftIconsContainer">
-            <div className="LayoutAppBarLogo" />
+          <div className={styles.LayoutAppBarLeftIconsContainer}>
+            <div className={styles.LayoutAppBarLogo} />
             <div>
               <IconButton aria-label="show notifications" color="inherit">
                 <Badge badgeContent={17} color="primary">
@@ -151,7 +150,7 @@ const Layout = ({ children }) => {
           </IconButton>
         </div>
         <Divider />
-        <List className="LayoutListContainer">
+        <List className={styles.LayoutListContainer}>
           <div>
             {renderListItems()}
           </div>
@@ -162,7 +161,7 @@ const Layout = ({ children }) => {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <div className="LayoutchildrenContainer">
+        <div className={styles.LayoutchildrenContainer}>
           {children}
         </div>
       </main>
