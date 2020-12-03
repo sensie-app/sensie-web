@@ -29,7 +29,7 @@ import { userTest } from './testData'
 
 // constants
 const { home, client, team } = DASHBOARD_ROUTES
-const { backgroundColor1, fontColor1, fontColor2 } = COLORS
+const { grayColor8, fontColor1, fontColor2 } = COLORS
 const { logo } = IMG
 // const-sizes
 const drawerWidth = 192
@@ -182,7 +182,7 @@ const Layout = ({ children }) => {
 // styles
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: backgroundColor1,
+    backgroundColor: grayColor8,
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -210,7 +210,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: 'nowrap'
   },
   drawerOpen: {
-    backgroundColor: backgroundColor1,
+    backgroundColor: grayColor8,
     color: fontColor1,
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -219,7 +219,7 @@ const useStyles = makeStyles((theme) => ({
     })
   },
   drawerClose: {
-    backgroundColor: backgroundColor1,
+    backgroundColor: grayColor8,
     color: fontColor1,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,

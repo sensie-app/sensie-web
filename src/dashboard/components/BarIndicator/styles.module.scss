@@ -1,0 +1,29 @@
+@import '../../styles/index.scss';
+
+.BarIndicatorContainer {
+  width: 100%;
+  // padding: 10px;
+}
+
+.BarIndicatorText {
+  color: $fontColor1;
+  font-size: 16px;
+}
+
+.BarIndicatorChartContainer {
+  width: 100%;
+  padding: 2.5px 0px; 
+  @include flex(row, flex-start, center, nowrap);
+}
+
+.BarIndicatorChart {
+  height: 13px;
+  max-height: 13px;  
+  border-radius: 0px 5px 5px 0px;
+  margin-right: 5px;
+}
+
+.BarIndicatorChartText {
+  color: $fontColor1;
+  font-size: 13px;
+}

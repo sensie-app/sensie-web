@@ -6,7 +6,7 @@ $drawerWidthIcon: 61px;
 
 .LayoutContainer {
   @include flex(row, center, center, wrap);
-  background-color: $backgroundColor2;
+  background-color: $grayColor7;
 }
 
 .LayoutLinkTo {

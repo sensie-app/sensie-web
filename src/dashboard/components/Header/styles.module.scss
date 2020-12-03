@@ -8,7 +8,7 @@
 
 .HeaderLeftContainer {
   width: 50%;
-  .HeaderBack {
+  .HeaderBack, .HeaderPeople {
     @include flex(row, flex-start, center, wrap);
     .HeaderLeftIcon {
       margin-right: $step1;
@@ -18,6 +18,15 @@
       color: $fontColor1;
     }
   }    
+  .HeaderBack {
+    &:hover {
+      text-decoration: none;
+      cursor: pointer;
+      span {        
+        color: $actionColor1;
+      }
+    }
+  }
 }
 
 .HeaderRightContainer {

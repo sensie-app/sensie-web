@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid'
 // components
 import Header from '../../components/Header'
 import ClientFlow from '../../components/ClientFlow'
+import TrackAffirmations from '../../components/TrackAffirmations'
 // styles
 import styles from './styles.module.scss'
 
@@ -19,7 +20,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG2Container}>
-            <span>HolaG2</span>
+            <TrackAffirmations />
           </div>
         </Grid>
         <Grid item xs={12}>

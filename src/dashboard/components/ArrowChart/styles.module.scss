@@ -3,7 +3,7 @@
 .ArrowChartContainer {
   @include flex(column, center, flex-start, nowrap);
   padding: 10px 15px;
-  background-color: $backgroundColor2;
+  background-color: $grayColor7;
   border-radius: 5px;
   span {
     color: $grayColor2;

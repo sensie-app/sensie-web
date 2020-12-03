@@ -1,25 +1,28 @@
 // react
 import React from 'react'
+import { Link } from 'react-router-dom'
 // components
 import Icon from '../Icon'
 // constants
 import { COLORS } from '../../constants/theme'
+import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
 
 // const
 const { fontColor1 } = COLORS
+const { home } = DASHBOARD_ROUTES
 
 const Header = ({ withBack = false, withPeople = true }) => {
   return (
     <div className={styles.HeaderContainer}>
       <div className={styles.HeaderLeftContainer}>
-        {withBack && <div className={styles.HeaderBack}>
+        {withBack && <Link to={home} className={styles.HeaderBack}>
           <div className={styles.HeaderLeftIcon}><Icon name="arrow-back-outline" size="md" color={fontColor1}/></div>
           <span>Back</span>
-        </div>}
+        </Link>}
 
-        {withPeople && <div className={styles.HeaderBack}>
+        {withPeople && <div className={styles.HeaderPeople}>
           <div className={styles.HeaderLeftIcon}><Icon name="person-add-outline" size="md" color={fontColor1}/></div>
           <span>Invite People</span>
         </div>}
