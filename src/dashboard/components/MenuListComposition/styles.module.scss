@@ -1,0 +1,24 @@
+@import '../../styles/index.scss';
+
+.MenuListCompositionContainer {
+  display: flex;
+}
+
+.MenuListCompositionMenuContainer {
+  background-color: $grayColor6;
+  @include border(solid, 1px, 5px, $grayColor4);
+}
+
+.MenuListCompositionItem {
+  @include border();
+  @include flex(column, center, center, nowrap);
+  @include font($fontColor1, 16px);
+  padding: 5px 15px;
+  width: 100%;
+  background-color: transparent;
+  
+  &:hover {
+    background-color: $actionColor1;
+    cursor: pointer;
+  }  
+}

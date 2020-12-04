@@ -35,7 +35,6 @@
     @include flex(row, flex-end, center, wrap);
     .HeaderCalendarIcon,
     .HeaderCalendarDate,
-    .HeaderCalendarArrowIcon,
     span {
       margin-left: $step1;
       font-size: 14px;

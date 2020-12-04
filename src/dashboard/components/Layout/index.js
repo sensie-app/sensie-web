@@ -2,6 +2,7 @@
 // react
 import React, { useState, Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 // material-ui
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
@@ -34,29 +35,34 @@ const { grayColor8, fontColor1, fontColor2 } = COLORS
 const { logo } = IMG
 // const-sizes
 const drawerWidth = 192
-// const-items
-const listItems = [
-  {
-    title: <span>{'Home'}</span>,
-    icon: 'home-outline',
-    link: home
-  },
-  {
-    title: <Fragment><span>{'Client'}</span><span>{'Dashboard'}</span></Fragment>,
-    icon: 'layout-outline',
-    link: client
-  },
-  {
-    title: <span>{'Team'}</span>,
-    icon: 'people-outline',
-    link: team
-  }
-]
 
 const Layout = ({ children }) => {
   // hooks
   const [open, setOpen] = useState(false)
   const classes = useStyles()
+  const [t] = useTranslation('global')
+
+  // const-items
+  const listItems = [
+    {
+      title: <span>{t('dashboard.LayoutComponent.home').toUpperCase()}</span>,
+      icon: 'home-outline',
+      link: home
+    },
+    {
+      title: <Fragment>
+        <span>{t('dashboard.LayoutComponent.client').toUpperCase()}</span>
+        <span>{t('dashboard.LayoutComponent.dashboard').toUpperCase()}</span>
+      </Fragment>,
+      icon: 'layout-outline',
+      link: client
+    },
+    {
+      title: <span>{t('dashboard.LayoutComponent.team').toUpperCase()}</span>,
+      icon: 'people-outline',
+      link: team
+    }
+  ]
 
   // handle functions
   const handleDrawerOpen = () => setOpen(!open)
@@ -96,7 +102,7 @@ const Layout = ({ children }) => {
             <span>{user.name.split(' ')[1]}</span>
           </div>
           <div className={styles.LayoutAvatarSubTextContainer}>
-            <span className={styles.LayoutAvatarSubText}>Couch</span>
+            <span className={styles.LayoutAvatarSubText}>{t('dashboard.LayoutComponent.couch')}</span>
             <Icon name="arrow-ios-downward-outline" size="s" color={fontColor2} />
           </div>
         </div>

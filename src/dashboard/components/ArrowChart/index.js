@@ -9,11 +9,12 @@ import { ArrowChartTypes } from '../../constants/charts'
 // styles
 import styles from './styles.module.scss'
 
-const { actionColor1, actionColor2, actionColor3, fontColor1 } = COLORS
-const { UP, DOWN, USER } = ArrowChartTypes
+const { actionColor1, fontColor1 } = COLORS
+const { UP, DOWN, USER, ACTIVITY } = ArrowChartTypes
 
 // icon: up | down | user
 const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
+  console.log('title', title)
   // handle functions
   const handleValue = () => {
     const handleString = (data, limit, letter) => data.substr(0, data.length - limit) + letter
@@ -32,8 +33,9 @@ const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
   const renderIcon = () => {
     switch (icon) {
       case UP: return <Icon name="trending-up-outline" size="md" color={actionColor1}/>
-      case DOWN: return <Icon name="trending-down-outline" size="md" color={actionColor2}/>
-      case USER: return <Icon name="person-outline" size="md" color={actionColor3}/>
+      case DOWN: return <Icon name="trending-down-outline" size="md" color={actionColor1}/>
+      case USER: return <Icon name="person-outline" size="md" color={actionColor1}/>
+      case ACTIVITY: return <Icon name="activity-outline" size="md" color={actionColor1}/>
       default: return <Icon name="question-mark-circle-outline" size="md" color={fontColor1}/>
     }
   }

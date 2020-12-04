@@ -1,7 +1,38 @@
-@mixin flex($fd, $jc, $ai, $fw) {
+@mixin flex(
+  $fd: row, 
+  $jc: center, 
+  $ai: center,
+  $fw: nowrap
+) {
   display: flex;
   flex-direction: $fd;
   justify-content: $jc;
   align-items: $ai;
   flex-wrap: $fw;
+}
+
+@mixin border(
+  $style: none, 
+  $width: 0px, 
+  $radius: 0px, 
+  $color: white
+) {
+  border-style: $style;
+  border-width: $width;
+  border-radius: $radius;
+  border-color: $color;
+}
+
+@mixin font(
+  $color: white,
+  $size: 16px,
+  $weight: normal,
+  $style: normal,
+  $letterSpacing: 0px,
+) {
+  color: $color;
+  font-size: $size;
+  font-weight: $weight;
+  font-style: $style;
+  letter-spacing: $letterSpacing;
 }
