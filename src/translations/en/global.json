@@ -1,0 +1,17 @@
+{  
+  "header": {
+    "hello-world": "Hello world"
+  },
+  "app": {
+    "lng": {
+      "ES": "ES",
+      "EN": "EN"
+    }
+  },
+  "landing": {
+
+  },
+  "dashboard": {
+
+  }
+}

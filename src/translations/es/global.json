@@ -1,0 +1,11 @@
+{
+  "header": {
+    "hello-world": "Hola Mundo"
+  },
+  "app": {
+    "lng": {
+      "ES": "ES",
+      "EN": "EN"
+    }
+  }
+}

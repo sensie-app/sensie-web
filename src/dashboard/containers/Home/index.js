@@ -7,8 +7,11 @@ import ClientFlow from '../../components/ClientFlow'
 import TrackAffirmations from '../../components/TrackAffirmations'
 // styles
 import styles from './styles.module.scss'
+// test
+import { useTranslation } from 'react-i18next'
 
 const Home = () => {
+  const [t] = useTranslation('global')
   return (
     <section>
       <Header />
@@ -25,7 +28,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={12}>
           <div className={styles.HomeG3Container}>
-            <span>HolaG3</span>
+            <span>{t('header.hello-world')}</span>
           </div>
         </Grid>
       </Grid>
