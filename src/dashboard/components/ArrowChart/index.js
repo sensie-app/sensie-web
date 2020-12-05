@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // react
 import React from 'react'
+import PropTypes from 'prop-types'
 // components
 import Icon from '../Icon'
 // constants
@@ -14,7 +15,6 @@ const { UP, DOWN, USER, ACTIVITY } = ArrowChartTypes
 
 // icon: up | down | user
 const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
-  console.log('title', title)
   // handle functions
   const handleValue = () => {
     const handleString = (data, limit, letter) => data.substr(0, data.length - limit) + letter
@@ -48,6 +48,14 @@ const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
       </div>
     </div>
   )
+}
+
+// prop-types
+ArrowChart.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  valueType: PropTypes.string,
+  icon: PropTypes.string.isRequired
 }
 
 export default ArrowChart
