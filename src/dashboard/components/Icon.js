@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 // icons
 import * as eva from 'eva-icons'
 // constants
@@ -43,6 +44,16 @@ const Icon = ({ name, color = '#000', size = null, height = md, width = md, anim
       data-eva-animation={handleAnimation(animation)}
     />
   )
+}
+
+// prop-types
+Icon.propTypes = {
+  name: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  size: PropTypes.string,
+  height: PropTypes.string,
+  width: PropTypes.string,
+  animation: PropTypes.string
 }
 
 export default Icon

@@ -2,12 +2,23 @@
 import React from 'react'
 // components
 import Header from '../components/Header'
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+import { testAction } from '../../redux/actions/test.actions'
 
 const Client = () => {
+  // hooks
+  const dispatch = useDispatch()
+  const { testReducer } = useSelector(state => state)
+
+  // handle functions
+  const handleClickTestRedux = () => dispatch(testAction(!testReducer.value))
+
   return (
     <div>
       <Header withBack withPeople={false} />
       <h1>Client</h1>
+      <button onClick={() => handleClickTestRedux()}>TestRedux - {testReducer.value.toString()}</button>
     </div>
   )
 }

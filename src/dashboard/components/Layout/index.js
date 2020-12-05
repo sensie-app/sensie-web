@@ -3,6 +3,7 @@
 import React, { useState, Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 // material-ui
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
@@ -185,6 +186,11 @@ const Layout = ({ children }) => {
       </main>
     </div>
   )
+}
+
+// prop-types
+Layout.propTypes = {
+  children: PropTypes.element.isRequired
 }
 
 // styles

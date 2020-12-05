@@ -2,6 +2,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 // components
 import Icon from '../Icon'
 import MenuListComposition from '../MenuListComposition'
@@ -48,6 +49,12 @@ const Header = ({ withBack = false, withPeople = true }) => {
       </div>
     </div>
   )
+}
+
+// prop-types
+Header.propTypes = {
+  withBack: PropTypes.bool,
+  withPeople: PropTypes.bool
 }
 
 export default Header

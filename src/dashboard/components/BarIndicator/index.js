@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // react
 import React from 'react'
+import PropTypes from 'prop-types'
 // constants
 import { COLORS } from '../../constants/theme'
 // style
@@ -26,6 +27,12 @@ const BarIndicator = ({ value, title }) => {
       </div>
     </section>
   )
+}
+
+// prop-types
+BarIndicator.propTypes = {
+  value: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired
 }
 
 export default BarIndicator

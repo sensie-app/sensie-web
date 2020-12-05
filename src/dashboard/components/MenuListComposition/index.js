@@ -2,6 +2,7 @@
 // react
 import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 // material-ui
 import {
   Button,
@@ -99,6 +100,11 @@ const MenuListComposition = ({ data }) => {
       </div>
     </div>
   )
+}
+
+// prop-types
+MenuListComposition.propTypes = {
+  data: PropTypes.array.isRequired
 }
 
 export default MenuListComposition
