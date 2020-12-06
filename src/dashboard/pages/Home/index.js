@@ -1,14 +1,15 @@
 // react
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+// material-ui
 import Grid from '@material-ui/core/Grid'
+// containers
+import Header from '../../containers/Header'
 // components
-import Header from '../../components/Header'
 import ClientFlow from '../../components/ClientFlow'
 import TrackAffirmations from '../../components/TrackAffirmations'
 // styles
 import styles from './styles.module.scss'
-// test
-import { useTranslation } from 'react-i18next'
 
 const Home = () => {
   const [t] = useTranslation('global')

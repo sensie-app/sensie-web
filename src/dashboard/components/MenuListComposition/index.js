@@ -1,4 +1,8 @@
 /* eslint-disable react/prop-types */
+
+// TODO:
+// ! ERROR React.StrictMode -> desde Header
+
 // react
 import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -20,11 +24,15 @@ import styles from './styles.module.scss'
 
 // const
 const { fontColor1 } = COLORS
+const defValue = {
+  index: 0,
+  key: 'clickHere'
+}
 
-const MenuListComposition = ({ data }) => {
+const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) => {
   // hooks
   const [open, setOpen] = useState(false)
-  const [item, setItem] = useState('select')
+  const [item, setItem] = useState(defaultValue)
   const anchorRef = useRef(null)
   const prevOpen = useRef(open)
   const [t] = useTranslation('global')
@@ -45,15 +53,9 @@ const MenuListComposition = ({ data }) => {
   }
 
   const handleClick = (value, event) => {
-    setItem(t(`dashboard.MenuListCompositionComponent.${value.key}`))
+    setItem(value)
+    onClickValue(value)
     handleClose(event)
-  }
-
-  const handleListKeyDown = event => {
-    if (event.key === 'Tab') {
-      event.preventDefault()
-      setOpen(false)
-    }
   }
 
   // render functions
@@ -78,7 +80,7 @@ const MenuListComposition = ({ data }) => {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          {item}
+          {t(`dashboard.MenuListCompositionComponent.${item.key}`)}
           <Icon name="arrow-ios-downward-outline" size="md" color={fontColor1} />
         </Button>
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
@@ -89,7 +91,7 @@ const MenuListComposition = ({ data }) => {
             >
               <div className={styles.MenuListCompositionMenuContainer}>
                 <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                  <MenuList autoFocusItem={open} id="menu-list-grow">
                     {renderItems()}
                   </MenuList>
                 </ClickAwayListener>
@@ -104,7 +106,9 @@ const MenuListComposition = ({ data }) => {
 
 // prop-types
 MenuListComposition.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  onClickValue: PropTypes.func.isRequired,
+  defaultValue: PropTypes.object
 }
 
 export default MenuListComposition

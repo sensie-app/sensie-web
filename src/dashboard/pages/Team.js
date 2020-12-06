@@ -1,7 +1,7 @@
 // react
 import React from 'react'
-// components
-import Header from '../components/Header'
+// containers
+import Header from '../containers/Header'
 
 const Team = () => {
   return (

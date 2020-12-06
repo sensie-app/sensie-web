@@ -34,14 +34,16 @@
   .HeaderCalendar {
     @include flex(row, flex-end, center, wrap);
     .HeaderCalendarIcon,
-    .HeaderCalendarDate,
-    span {
-      margin-left: $step1;
+    span {      
       font-size: 14px;
       color: $fontColor1;
     };
-    .HeaderCalendarDate {
-      font-weight: bold;
-    };
+  }
+
+  .HeaderSeparator {
+    padding: 0px 10px;
   }
 }
+
+
+

@@ -1,0 +1,5 @@
+const FILTERS = {
+  GLOBAL_DATE_FILTER: 'GLOBAL_DATE_FILTER'
+}
+
+export default FILTERS

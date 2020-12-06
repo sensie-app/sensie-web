@@ -18,9 +18,9 @@ import {
   Badge
 } from '@material-ui/core'
 // components
-import Icon from '../Icon'
-import ImageAvatar from '../ImageAvatar'
-import { ChangeLngBtn } from '../Globals'
+import Icon from '../../components/Icon'
+import ImageAvatar from '../../components/ImageAvatar'
+// import { ChangeLngBtn } from '../Globals' // btn to change languge
 // constants
 import DASHBOARD_ROUTES from '../../constants/routes'
 import { COLORS } from '../../constants/theme'
@@ -135,7 +135,7 @@ const Layout = ({ children }) => {
           <div className={styles.LayoutAppBarLeftIconsContainer}>
             <img src={logo} alt="Sensie logo" width="91" />
             <div>
-              <ChangeLngBtn />
+              {/* <ChangeLngBtn /> */}
               <IconButton aria-label="show notifications" color="inherit">
                 <Badge badgeContent={17} color="primary">
                   <Icon name="bell-outline" size="md" color={fontColor1} />

@@ -5,14 +5,20 @@ import App from './routes/App'
 import reportWebVitals from './reportWebVitals'
 // styles
 import './styles/global.scss'
+import './styles/dateRangePickerStyle/index.scss'
 // translation
 import { I18nextProvider } from 'react-i18next'
 import i18next from './translations'
+// redux
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </I18nextProvider>
   </React.StrictMode>,
   document.getElementById('root')

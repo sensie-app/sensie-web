@@ -1,22 +1,32 @@
 export const MenuDateHeaderComponent = [
   {
     index: 0,
-    key: 'today'
+    key: 'today',
+    value: ''
   },
   {
     index: 1,
-    key: 'lastDay'
+    key: 'lastDay',
+    value: ''
   },
   {
     index: 2,
-    key: 'lastWeek'
+    key: 'lastWeek',
+    value: ''
   },
   {
     index: 4,
-    key: 'lastMonth'
+    key: 'lastMonth',
+    value: ''
   },
   {
     index: 5,
-    key: 'lastYear'
+    key: 'lastYear',
+    value: ''
+  },
+  {
+    index: 6,
+    key: 'custom',
+    value: ''
   }
 ]

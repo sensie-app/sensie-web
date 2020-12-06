@@ -3,13 +3,14 @@ import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
-// containers
-import Home from '../containers/Home'
-import Client from '../containers/Client'
-import Team from '../containers/Team'
+// pages
+import Home from '../pages/Home'
+import Client from '../pages/Client'
+import Team from '../pages/Team'
 // components
 import { NotFound404 } from '../components/Globals'
-import Layout from '../components/Layout'
+// containers
+import Layout from '../containers/Layout'
 
 const DashboardRoutes = () => {
   const { entrypoint, home, client, team } = DASHBOARD_ROUTES

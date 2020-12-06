@@ -1,7 +1,7 @@
 // react
 import React from 'react'
-// components
-import Header from '../components/Header'
+// containers
+import Header from '../containers/Header'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { testAction } from '../../redux/actions/test.actions'

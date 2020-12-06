@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // react
-// react
 import React from 'react'
+import PropTypes from 'prop-types'
 // styles
 import './styles.scss'
 
@@ -16,4 +16,9 @@ export const NotFound404 = ({ children }) => {
       </div>
     </div>
   )
+}
+
+// prop-types
+NotFound404.propTypes = {
+  children: PropTypes.element
 }
