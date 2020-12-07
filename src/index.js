@@ -5,7 +5,7 @@ import App from './routes/App'
 import reportWebVitals from './reportWebVitals'
 // styles
 import './styles/global.scss'
-import './styles/dateRangePickerStyle/index.scss'
+import './styles/dateRangePickerStyle/index.scss' // global styles for React-dateRangePicker
 // translation
 import { I18nextProvider } from 'react-i18next'
 import i18next from './translations'
