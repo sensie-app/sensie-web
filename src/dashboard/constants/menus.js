@@ -1,8 +1,10 @@
+import { TODAY } from './globals'
+
 export const MenuDateHeaderComponent = [
   {
     index: 0,
     key: 'today',
-    value: ''
+    value: TODAY
   },
   {
     index: 1,

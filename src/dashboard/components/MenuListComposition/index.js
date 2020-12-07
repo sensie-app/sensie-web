@@ -32,7 +32,7 @@ const defValue = {
 const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) => {
   // hooks
   const [open, setOpen] = useState(false)
-  const [item, setItem] = useState(defaultValue)
+  const [item, setItem] = useState(defValue)
   const anchorRef = useRef(null)
   const prevOpen = useRef(open)
   const [t] = useTranslation('global')
@@ -41,6 +41,10 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) =>
     prevOpen.current === true && open === false && anchorRef.current.focus()
     prevOpen.current = open
   }, [open])
+
+  useEffect(() => {
+    setItem(defaultValue)
+  }, [defaultValue])
 
   // handle functions
   const handleToggle = () => setOpen((prevOpen) => !prevOpen)
