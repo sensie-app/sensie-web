@@ -1,4 +1,4 @@
-export const data = [
+export const data1 = [
   {
     day: 20,
     high: 5,

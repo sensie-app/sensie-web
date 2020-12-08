@@ -1,0 +1,22 @@
+@import '../../styles/index.scss';
+
+.PieChartContainer {
+  width: 150px;
+  height: 150px;
+  color: $fontColor1;
+  text-align: center;
+  position: relative;
+}
+
+.PieChartCenterText {
+  position: absolute;
+  top: 0;
+  right:20px;
+  bottom: 0;
+  left: 20px;
+  font-size: 14px;
+  color: $fontColor1;
+  text-align: center;
+  pointer-events: none;
+  @include flex(column, center, center, nowrap);
+}

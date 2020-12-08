@@ -2,6 +2,7 @@
 
 .MenuListCompositionContainer {
   display: flex;
+  z-index: $zIndexLevel1K;
 }
 
 .MenuListCompositionMenuContainer {

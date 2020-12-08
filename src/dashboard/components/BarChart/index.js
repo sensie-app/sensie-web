@@ -1,121 +1,27 @@
 // react
 import React from 'react'
-// install (please make sure versions match peerDependencies)
-// yarn add @nivo/core @nivo/bar
+import PropTypes from 'prop-types'
 import { ResponsiveBar } from '@nivo/bar'
 import { linearGradientDef } from '@nivo/core'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+// theme
+import chartTheme from '../../constants/chartTheme'
 // test data
-import { data, data2 } from './data'
+import { data1 } from './data'
+// import { data2 } from './data'
 
 // const
-const { actionColor1, actionColor2, actionColor3, fontColor1, grayColor3, grayColor6, grayColor8 } = COLORS
+const { actionColor1, actionColor2, actionColor3 } = COLORS
 const margin = 50
-const theme = {
-  background: grayColor6,
-  textColor: grayColor3,
-  fontSize: 11,
-  axis: {
-    domain: {
-      line: {
-        stroke: grayColor3,
-        strokeWidth: 0
-      }
-    },
-    ticks: {
-      line: {
-        stroke: grayColor3,
-        strokeWidth: 0
-      }
-    }
-  },
-  grid: {
-    line: {
-      stroke: grayColor3,
-      strokeWidth: 1
-    }
-  },
-  legends: {
-    text: {
-      fill: '#333333'
-    }
-  },
-  labels: {
-    text: {}
-  },
-  markers: {
-    lineColor: actionColor1,
-    lineStrokeWidth: 1,
-    text: {}
-  },
-  dots: {
-    text: {}
-  },
-  tooltip: {
-    container: {
-      background: grayColor8,
-      color: 'inherit',
-      fontSize: 'inherit',
-      borderRadius: '2px',
-      boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25)',
-      padding: '5px 9px'
-    },
-    basic: {
-      whiteSpace: 'pre',
-      display: 'flex',
-      alignItems: 'center'
-    },
-    table: {},
-    tableCell: {
-      padding: '3px 5px'
-    }
-  },
-  crosshair: {
-    line: {
-      stroke: grayColor6,
-      strokeWidth: 1,
-      strokeOpacity: 0.75,
-      strokeDasharray: '6 6'
-    }
-  },
-  annotations: {
-    text: {
-      fontSize: 13,
-      outlineWidth: 2,
-      outlineColor: fontColor1
-    },
-    link: {
-      stroke: grayColor6,
-      strokeWidth: 1,
-      outlineWidth: 2,
-      outlineColor: fontColor1
-    },
-    outline: {
-      fill: 'none',
-      stroke: grayColor6,
-      strokeWidth: 2,
-      outlineWidth: 2,
-      outlineColor: fontColor1
-    },
-    symbol: {
-      fill: grayColor6,
-      outlineWidth: 2,
-      outlineColor: fontColor1
-    }
-  }
-}
 
-console.log('data', data)
-console.log('data2', data2)
-
-const BarChart = () => (
+const BarChart = ({ data = data1 }) => (
   <div className={styles.BarChartContainer}>
     <ResponsiveBar
         data={data}
-        theme={theme}
+        theme={chartTheme}
         keys={['low', 'medium', 'high']} // opc1: data1
         // keys={['value']} // opc2: data2
         indexBy="day"
@@ -156,15 +62,16 @@ const BarChart = () => (
         axisRight={null}
         axisBottom={{
           tickSize: 0,
-          tickPadding: 10,
+          tickPadding: 20,
           tickRotation: 0,
           legend: '',
           legendPosition: 'middle',
           legendOffset: 32
         }}
         axisLeft={{
+          format: value => value % 25 === 0 && value + ' %',
           tickSize: 0,
-          tickPadding: 10,
+          tickPadding: 0,
           tickRotation: 0,
           legend: '',
           legendPosition: 'middle',
@@ -174,7 +81,15 @@ const BarChart = () => (
         motionStiffness={90}
         motionDamping={15}
     />
+    <div className={styles.BarChartAxisBottom}>
+      <div />
+    </div>
   </div>
 )
+
+// prop-types
+BarChart.propTypes = {
+  data: PropTypes.array.isRequired
+}
 
 export default BarChart

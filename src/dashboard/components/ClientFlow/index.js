@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 // components
 import ArrowChart from '../ArrowChart'
+import PieChart from '..//PieChart'
 // constants
 import { ArrowChartTypes } from '../../constants/charts'
 // styles
@@ -39,9 +40,9 @@ const ClientFlow = () => {
           </div>
           {/* 3 charts */}
           <div className={styles.ClientFlowChartS3Container}>
-            <div>DonutChart</div>
-            <div>DonutChart</div>
-            <div>DonutChart</div>
+            <div><PieChart /></div>
+            <div><PieChart /></div>
+            <div><PieChart /></div>
           </div>
         </div>
       </div>
