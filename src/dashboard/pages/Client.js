@@ -6,6 +6,8 @@ import Header from '../containers/Header'
 import { useDispatch, useSelector } from 'react-redux'
 import { testAction } from '../../redux/actions/test.actions'
 
+import LineChart from '../components/LineChart'
+
 const Client = () => {
   // hooks
   const dispatch = useDispatch()
@@ -18,6 +20,7 @@ const Client = () => {
     <div>
       <Header withBack withPeople={false} />
       <h1>Client</h1>
+      <LineChart />
       <button onClick={() => handleClickTestRedux()}>TestRedux - {testReducer.value.toString()}</button>
     </div>
   )

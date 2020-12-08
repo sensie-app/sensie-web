@@ -1,6 +1,6 @@
 import { COLORS } from '../../constants/theme'
 
-const { grayColor3, grayColor6, grayColor8, actionColor1, fontColor1 } = COLORS
+const { grayColor3, grayColor5, grayColor6, grayColor8, actionColor1, fontColor1 } = COLORS
 
 const theme = {
   background: grayColor6,
@@ -22,7 +22,7 @@ const theme = {
   },
   grid: {
     line: {
-      stroke: grayColor3,
+      stroke: grayColor5,
       strokeWidth: 1
     }
   },

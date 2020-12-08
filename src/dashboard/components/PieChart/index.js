@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -17,28 +16,6 @@ const { actionColor1, actionColor2, actionColor3, grayColor4 } = COLORS
 const margin = 20
 
 console.log('data', data1, data2, data3)
-
-// const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
-//   let total = 0
-//   dataWithArc.forEach(datum => {
-//     total += datum.value
-//   })
-//   return (
-//       <text
-//           x={centerX}
-//           y={centerY}
-//           textAnchor="middle"
-//           dominantBaseline="central"
-//           className={styles.PieChartCenterMetric}
-//           style={{
-//             fontSize: '16px',
-//             fontWeight: '200'
-//           }}
-//       >
-//           {total}
-//       </text>
-//   )
-// }
 
 const PieChart = ({ data = data1 }) => {
   // handle functions
@@ -76,8 +53,6 @@ const PieChart = ({ data = data1 }) => {
         borderColor={{ from: 'color', modifiers: [['darker', '0.1']] }}
         enableRadialLabels={false}
         enableSliceLabels={false}
-        // radialLabel={d => `${d.id} (${d.formattedValue})`}
-        // layers={['slices', 'sliceLabels', 'radialLabels', 'legends', CenteredMetric]}
         theme={chartTheme}
     />
     <div className={styles.PieChartCenterText}>

@@ -69,7 +69,7 @@ const BarChart = ({ data = data1 }) => (
           legendOffset: 32
         }}
         axisLeft={{
-          format: value => value % 25 === 0 && value + ' %',
+          format: value => value % 25 === 0 && value + '%',
           tickSize: 0,
           tickPadding: 0,
           tickRotation: 0,
