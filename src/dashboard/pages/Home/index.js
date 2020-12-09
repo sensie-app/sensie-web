@@ -9,6 +9,7 @@ import Header from '../../containers/Header'
 import ClientFlow from '../../components/ClientFlow'
 import TrackAffirmations from '../../components/TrackAffirmations'
 import ClientSnapshot from '../../components/ClientSnapshot'
+import { HelmetSEO } from '../../components/Globals'
 // import BarChart from '../../components/BarChart'
 // styles
 import styles from './styles.module.scss'
@@ -18,8 +19,12 @@ const Home = () => {
   const [t] = useTranslation('global')
 
   return (
-    <section>
+    <section className={styles.HomeContainer}>
+      {/* seo */}
+      <HelmetSEO title={t('seo.Home.title')} subtitle={t('seo.Home.subtitle')} />
+      {/* header */}
       <Header />
+      {/* body */}
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG1Container}>

@@ -5,6 +5,20 @@
       "EN": "EN"
     }
   },
+  "seo": {
+    "Home": {
+      "title": "SENSIE - Home",
+      "subtitle": "sensei admin panel home page"
+    },
+    "Client": {
+      "title": "SENSIE - Client",
+      "subtitle": "sensei admin panel client page"
+    },
+    "Team": {
+      "title": "SENSIE - Team",
+      "subtitle": "sensei admin panel team page"
+    }
+  },
   "landing": {
 
   },
