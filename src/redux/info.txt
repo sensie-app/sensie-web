@@ -1,4 +1,7 @@
 redux:
 - Filters:
   - GlobalDateFilter
+  - Affirmations
+      - StateFilter
+      - TopicFilter
   

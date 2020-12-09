@@ -41,8 +41,6 @@ const PieChart = ({ data = data1, title = '' }) => {
     return <span>{value[0].value}%</span>
   }
 
-  console.log('renderCenterValue(data)', renderCenterValue(data))
-
   return (
     <div className={styles.PieChartContainer}>
       <h4>{title}</h4>
