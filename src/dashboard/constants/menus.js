@@ -32,3 +32,26 @@ export const MenuDateHeaderComponent = [
     value: ''
   }
 ]
+
+export const MenuFilterStateListAffirmationsComponent = [
+  {
+    index: 0,
+    key: 'all',
+    value: 'all'
+  },
+  {
+    index: 0,
+    key: 'flowing',
+    value: 'flowing'
+  },
+  {
+    index: 0,
+    key: 'blocked',
+    value: 'blocked'
+  },
+  {
+    index: 0,
+    key: 'incomplete',
+    value: 'incomplete'
+  }
+]

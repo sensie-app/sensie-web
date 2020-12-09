@@ -2,6 +2,7 @@
 
 .ClientFlowContainer {
   @include HomeG50Container(); 
+  box-sizing: border-box;
 }
 
 .ClientFlowBodyContainer {
@@ -26,15 +27,19 @@
   height: 80%;
   max-height: 80%;
   width: 100%;
-  @include flex(column, space-between, flex-start, wrap);
+  @include flex(column, flex-start, center, nowrap);
 }
 
-.ClientFlowHeaderChartsS2Container {
+.ClientFlowChartS2Container {
   width: 100%;
-  @include flex(row, center, center, wrap);
+  height: 60%;
+  max-height: 60%;
+  @include flex(row, center, center, nowrap);
 }
 
 .ClientFlowChartS3Container {
+  height: 40%;
+  max-height: 40%;
   width: 100%;
   @include flex(row, space-around, center, wrap);
 }

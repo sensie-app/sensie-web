@@ -3,6 +3,15 @@
 .MenuListCompositionContainer {
   display: flex;
   z-index: $zIndexLevel1K;
+
+  button {
+    background-color: slateblue;
+    width: 100%;
+    @include flex(row, space-between, center, nowrap);
+    span {
+      margin-right: 10px;
+    }
+  }
 }
 
 .MenuListCompositionMenuContainer {

@@ -31,28 +31,28 @@ const BarChart = ({ data = data1 }) => (
         indexScale={{ type: 'band', round: true }}
         colors={[actionColor2, actionColor3, actionColor1]}
         defs={[
-          linearGradientDef('gradientHigh', [
+          linearGradientDef('barGradientHigh', [
             { offset: 0, color: actionColor1 },
             { offset: 100, color: actionColor3 }
           ]),
-          linearGradientDef('gradientMedium', [
+          linearGradientDef('barGradientMedium', [
             { offset: 0, color: actionColor3 },
             { offset: 100, color: actionColor2 }
           ]),
-          linearGradientDef('gradientLow', [
+          linearGradientDef('barGradientLow', [
             { offset: 0, color: actionColor2 },
             { offset: 100, color: actionColor2 }
           ])
         ]}
         fill={[
           // opc1: data
-          { match: { id: 'high' }, id: 'gradientHigh' },
-          { match: { id: 'medium' }, id: 'gradientMedium' },
-          { match: { id: 'low' }, id: 'gradientLow' },
+          { match: { id: 'high' }, id: 'barGradientHigh' },
+          { match: { id: 'medium' }, id: 'barGradientMedium' },
+          { match: { id: 'low' }, id: 'barGradientLow' }
           // opc2: data2
-          { match: ({ data }) => data.value <= 50, id: 'gradientLow' },
-          { match: ({ data }) => data.value <= 75 && data.value > 50, id: 'gradientMedium' },
-          { match: ({ data }) => data.value > 75, id: 'gradientHihg' }
+          // { match: ({ data }) => data.value <= 50, id: 'barGradientLow' },
+          // { match: ({ data }) => data.value <= 75 && data.value > 50, id: 'barGradientMedium' },
+          // { match: ({ data }) => data.value > 75, id: 'barGradientHihg' }
         ]}
         borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
         enableLabel={false}

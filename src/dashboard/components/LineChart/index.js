@@ -15,14 +15,14 @@ import { data1 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3 } = COLORS
-const margin = 40
+const margin = 20
 
 const LineChart = ({ data = data1 }) => {
   return (
     <div className={styles.LineChartContainer}>
        <ResponsiveLine
           data={data}
-          margin={{ top: margin, right: margin, bottom: margin, left: margin }}
+          margin={{ top: margin, right: margin, bottom: margin + 10, left: margin * 2 }}
           enablePoints={false}
           enablePointLabel={false}
           enableGridX={false}

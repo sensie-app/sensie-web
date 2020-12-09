@@ -63,7 +63,7 @@ const theme = {
   },
   crosshair: {
     line: {
-      stroke: grayColor6,
+      stroke: fontColor1,
       strokeWidth: 1,
       strokeOpacity: 0.75,
       strokeDasharray: '6 6'

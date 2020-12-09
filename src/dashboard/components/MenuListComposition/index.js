@@ -84,7 +84,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) =>
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          {t(`dashboard.MenuListCompositionComponent.${item.key}`)}
+          <span>{t(`dashboard.MenuListCompositionComponent.${item.key}`)}</span>
           <Icon name="arrow-ios-downward-outline" size="md" color={fontColor1} />
         </Button>
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 // components
 import ArrowChart from '../ArrowChart'
 import PieChart from '../PieChart'
+import LineChart from '../LineChart'
 // import LineChart from '../LineChart'
 // constants
 import { ArrowChartTypes } from '../../constants/charts'
@@ -34,9 +35,7 @@ const ClientFlow = () => {
         <div className={styles.ClientFlowBodyChartContainer}>
           {/* big chart */}
           <div className={styles.ClientFlowChartS2Container}>
-            {/* <LineChart /> */}
-            {/* <p><a href="https://www.amcharts.com/demos/date-based-line-chart/">Ejemplo1</a></p>
-            <p><a href="https://www.amcharts.com/demos/smoothed-line-chart/">Ejemplo2</a></p> */}
+            <LineChart />
           </div>
           {/* 3 charts */}
           <div className={styles.ClientFlowChartS3Container}>
