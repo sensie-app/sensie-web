@@ -8,6 +8,9 @@ import './styles/global.scss'
 // translation
 import { I18nextProvider } from 'react-i18next'
 import i18next from './translations'
+import Amplify from "aws-amplify";
+import awsExports from "./aws-exports";
+Amplify.configure(awsExports);
 
 ReactDOM.render(
   <React.StrictMode>
