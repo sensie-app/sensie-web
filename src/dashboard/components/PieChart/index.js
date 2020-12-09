@@ -13,11 +13,11 @@ import { data1, data2, data3 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3, grayColor4 } = COLORS
-const margin = 20
+const margin = 5
 
 console.log('data', data1, data2, data3)
 
-const PieChart = ({ data = data1 }) => {
+const PieChart = ({ data = data1, title = '' }) => {
   // handle functions
   const handleDataColor = (data) => {
     const dataWithColor = data.map(_data => {
@@ -43,27 +43,33 @@ const PieChart = ({ data = data1 }) => {
 
   console.log('renderCenterValue(data)', renderCenterValue(data))
 
-  return (<div className={styles.PieChartContainer}>
-    <ResponsivePie
-        data={handleDataColor(data)}
-        margin={{ top: margin, right: margin, bottom: margin, left: margin }}
-        innerRadius={0.75}
-        colors={value => value.data.color }
-        borderWidth={1}
-        borderColor={{ from: 'color', modifiers: [['darker', '0.1']] }}
-        enableRadialLabels={false}
-        enableSliceLabels={false}
-        theme={chartTheme}
-    />
-    <div className={styles.PieChartCenterText}>
-      {renderCenterValue(data)}
+  return (
+    <div className={styles.PieChartContainer}>
+      <h4>{title}</h4>
+      <div className={styles.PieChartDataContainer}>
+        <ResponsivePie
+            data={handleDataColor(data)}
+            margin={{ top: margin, right: margin, bottom: margin, left: margin }}
+            innerRadius={0.75}
+            colors={value => value.data.color }
+            borderWidth={1}
+            borderColor={{ from: 'color', modifiers: [['darker', '0.1']] }}
+            enableRadialLabels={false}
+            enableSliceLabels={false}
+            theme={chartTheme}
+        />
+        <div className={styles.PieChartCenterText}>
+          {renderCenterValue(data)}
+        </div>
+      </div>
     </div>
-  </div>)
+  )
 }
 
 // prop-types
 PieChart.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  title: PropTypes.string
 }
 
 export default PieChart

@@ -1,6 +1,7 @@
 @import '../../styles/index.scss';
 
 .ArrowChartContainer {
+  max-width: 30%;  
   @include flex(column, center, flex-start, nowrap);
   padding: 10px 15px;
   background-color: $grayColor7;

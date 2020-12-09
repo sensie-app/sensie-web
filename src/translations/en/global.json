@@ -16,11 +16,11 @@
       "team": "Team",
       "couch": "Couch"
     },
-    "HeaderComponent": {
+    "Header": {
       "back": "Back",
       "invitePeople": "Invite People" 
     },
-    "MenuListCompositionComponent": {
+    "MenuListComposition": {
       "today": "Today",
       "lastDay": "Last day",
       "lastWeek": "Last week",
@@ -32,19 +32,31 @@
       "all": "All",
       "flowing": "Flowing",
       "blocked": "Blocked",
-      "incomplete": "Incomplete"
+      "incomplete": "Incomplete",
+      "topic": "Topic",
+      "spirit": "Spirit",
+      "health": "Health",
+      "finance": "Finance",
+      "love": "Love",
+      "family": "Family",
+      "parenting": "Parenting",
+      "personal": "Personal",
+      "performance": "Performance"
     },
-    "ClientFlowOverviewComponent": {
+    "ClientFlowOverview": {
       "title": "Client Flow Overview"
     },
-    "ArrowChartComponent": {
+    "ArrowChart": {
       "clients": "Clients",
       "sensies": "Sensies",
       "flow": "Flow"
     },
-    "TrackAffirmationsComponent": {
+    "TrackAffirmations": {
       "title": "Mind - author and track affirmations",
       "viewMore": "View more"
+    },
+    "Home": {
+      "ClientSnapshot": "Client Snapshot"
     }
   }
 }

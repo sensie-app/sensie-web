@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 // TODO:
 // ! ERROR React.StrictMode -> desde Header
 
@@ -68,7 +66,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) =>
       return (
         <button className={styles.MenuListCompositionItem} key={item.index} onClick={() => handleClick(item, event)}>
           <div>
-            {t(`dashboard.MenuListCompositionComponent.${item.key}`)}
+            {t(`dashboard.MenuListComposition.${item.key}`)}
           </div>
         </button>
       )
@@ -84,7 +82,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) =>
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          <span>{t(`dashboard.MenuListCompositionComponent.${item.key}`)}</span>
+          <span>{t(`dashboard.MenuListComposition.${item.key}`)}</span>
           <Icon name="arrow-ios-downward-outline" size="md" color={fontColor1} />
         </Button>
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>

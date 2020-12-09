@@ -1,11 +1,5 @@
 export const data1 = [
   {
-    day: 20,
-    high: 5,
-    medium: 25,
-    low: 50
-  },
-  {
     day: 21,
     high: 15,
     medium: 25,

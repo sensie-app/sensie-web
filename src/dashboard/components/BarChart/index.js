@@ -25,7 +25,7 @@ const BarChart = ({ data = data1 }) => (
         keys={['low', 'medium', 'high']} // opc1: data1
         // keys={['value']} // opc2: data2
         indexBy="day"
-        margin={{ top: margin, right: margin, bottom: margin, left: margin }}
+        margin={{ top: 20, right: 10, bottom: margin, left: margin * 0.5 }}
         padding={0.5}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
@@ -81,15 +81,15 @@ const BarChart = ({ data = data1 }) => (
         motionStiffness={90}
         motionDamping={15}
     />
-    <div className={styles.BarChartAxisBottom}>
+    {/* <div className={styles.BarChartAxisBottom}>
       <div />
-    </div>
+    </div> */}
   </div>
 )
 
 // prop-types
 BarChart.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array
 }
 
 export default BarChart

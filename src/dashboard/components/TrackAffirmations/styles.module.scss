@@ -18,14 +18,15 @@
 
 .TrackAffirmationsHeaderBtnContainer {
   button {
+    @include border(solid, 2px, 5px, $grayColor4);
     background-color: $grayColor5;
-    border-style: solid;
-    border-width: 2px;
-    border-color: $grayColor4;
-    border-radius: 5px;
     padding: 10px 15px;
     font-size: 15px;
     color: $fontColor1;
+    &:hover {
+      @include border(solid, 2px, 5px, $actionColor3);
+      cursor: pointer;
+    }
   }
 }
 

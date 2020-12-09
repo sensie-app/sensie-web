@@ -55,3 +55,46 @@ export const MenuFilterStateListAffirmationsComponent = [
     value: 'incomplete'
   }
 ]
+
+export const MenuFilterTopicsListAffirmationsComponent = [
+  {
+    index: 0,
+    key: 'spirit',
+    value: 'spirit'
+  },
+  {
+    index: 0,
+    key: 'health',
+    value: 'health'
+  },
+  {
+    index: 0,
+    key: 'finance',
+    value: 'finance'
+  },
+  {
+    index: 0,
+    key: 'love',
+    value: 'love'
+  },
+  {
+    index: 0,
+    key: 'family',
+    value: 'family'
+  },
+  {
+    index: 0,
+    key: 'parenting',
+    value: 'parenting'
+  },
+  {
+    index: 0,
+    key: 'personal',
+    value: 'personal'
+  },
+  {
+    index: 0,
+    key: 'performance',
+    value: 'performance'
+  }
+]

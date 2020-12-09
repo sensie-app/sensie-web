@@ -17,10 +17,10 @@ const TrackAffirmations = () => {
         {/* header */}
         <div className={styles.TrackAffirmationsHeaderContainer}>
           <div className={styles.TrackAffirmationsHeaderTitleContainer}>
-            <h3>{t('dashboard.TrackAffirmationsComponent.title')}</h3>
+            <h3>{t('dashboard.TrackAffirmations.title')}</h3>
           </div>
           <div className={styles.TrackAffirmationsHeaderBtnContainer}>
-            <button>{t('dashboard.TrackAffirmationsComponent.viewMore')}</button>
+            <button>{t('dashboard.TrackAffirmations.viewMore')}</button>
           </div>
         </div>
         {/* body */}

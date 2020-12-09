@@ -5,10 +5,10 @@
   z-index: $zIndexLevel1K;
 
   button {
-    background-color: slateblue;
     width: 100%;
     @include flex(row, space-between, center, nowrap);
     span {
+      color: $fontColor1;
       margin-right: 10px;
     }
   }

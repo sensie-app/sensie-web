@@ -5,16 +5,20 @@ import BarIndicator from '../BarIndicator'
 import MenuListComposition from '../MenuListComposition'
 import Icon from '../Icon'
 // constants
-import { MenuFilterStateListAffirmationsComponent } from '../../constants/menus'
+import { MenuFilterStateListAffirmationsComponent, MenuFilterTopicsListAffirmationsComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
 
 // const
 const { fontColor1 } = COLORS
-const defValue = {
+const defValueState = {
   index: -1,
   key: 'state'
+}
+const defValueTopic = {
+  index: -1,
+  key: 'topic'
 }
 
 const ListAffirmations = () => {
@@ -22,12 +26,12 @@ const ListAffirmations = () => {
     <section className={styles.ListAffirmationsContainer}>
       <div className={styles.ListAffirmationsFiltersContainer}>
         <div className={styles.ListAffirmationsFilterBtnMenu}>
-          <div><Icon name="activity-outline" color={fontColor1} size="md" /></div>
-          <div><MenuListComposition data={MenuFilterStateListAffirmationsComponent} onClickValue={() => {}} defaultValue={defValue} /></div>
+          <div className={styles.ListAffirmationsFilterBtnMenuIcon}><Icon name="activity-outline" color={fontColor1} size="md" /></div>
+          <div className={styles.ListAffirmationsFilterBtnMenuComponent}><MenuListComposition data={MenuFilterStateListAffirmationsComponent} onClickValue={() => {}} defaultValue={defValueState} /></div>
         </div>
         <div className={styles.ListAffirmationsFilterBtnMenu}>
-          <Icon name="activity-outline" color={fontColor1} size="md" />
-          <MenuListComposition data={MenuFilterStateListAffirmationsComponent} onClickValue={() => {}} defaultValue={defValue} />
+          <div className={styles.ListAffirmationsFilterBtnMenuIcon}><Icon name="activity-outline" color={fontColor1} size="md" /></div>
+          <div className={styles.ListAffirmationsFilterBtnMenuComponent}><MenuListComposition data={MenuFilterTopicsListAffirmationsComponent} onClickValue={() => {}} defaultValue={defValueTopic} /></div>
         </div>
       </div>
       <div className={styles.ListAffirmationsListContainer}>

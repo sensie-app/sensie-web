@@ -90,13 +90,13 @@ const Header = ({ withBack = false, withPeople = true }) => {
         {/* back option */}
         {withBack && <Link to={home} className={styles.HeaderBack}>
           <div className={styles.HeaderLeftIcon}><Icon name="arrow-back-outline" size="md" color={fontColor1}/></div>
-          <span>{t('dashboard.HeaderComponent.back')}</span>
+          <span>{t('dashboard.Header.back')}</span>
         </Link>}
 
         {/* invite people options */}
         {withPeople && <div className={styles.HeaderPeople}>
           <div className={styles.HeaderLeftIcon}><Icon name="person-add-outline" size="md" color={fontColor1}/></div>
-          <span>{t('dashboard.HeaderComponent.invitePeople')}</span>
+          <span>{t('dashboard.Header.invitePeople')}</span>
         </div>}
       </div>
 

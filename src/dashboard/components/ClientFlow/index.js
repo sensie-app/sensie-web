@@ -24,12 +24,12 @@ const ClientFlow = () => {
         {/* header */}
         <div className={styles.ClientFlowHeaderContainer}>
           <div className={styles.ClientFlowHeaderTitleContainer}>
-            <h3>{t('dashboard.ClientFlowOverviewComponent.title')}</h3>
+            <h3>{t('dashboard.ClientFlowOverview.title')}</h3>
           </div>
           <div className={styles.ClientFlowHeaderChartsS1Container}>
-            <ArrowChart title={t('dashboard.ArrowChartComponent.clients')} value={30000} icon={USER} />
-            <ArrowChart title={t('dashboard.ArrowChartComponent.sensies')} value={10000000} valueType="number" icon={UP} />
-            <ArrowChart title={t('dashboard.ArrowChartComponent.flow')} value={80} valueType="%" icon={ACTIVITY} />
+            <ArrowChart title={t('dashboard.ArrowChart.clients')} value={30000} icon={USER} />
+            <ArrowChart title={t('dashboard.ArrowChart.sensies')} value={10000000} valueType="number" icon={UP} />
+            <ArrowChart title={t('dashboard.ArrowChart.flow')} value={80} valueType="%" icon={ACTIVITY} />
           </div>
         </div>
         <div className={styles.ClientFlowBodyChartContainer}>
@@ -39,9 +39,9 @@ const ClientFlow = () => {
           </div>
           {/* 3 charts */}
           <div className={styles.ClientFlowChartS3Container}>
-            <div><PieChart /></div>
-            <div><PieChart /></div>
-            <div><PieChart /></div>
+            <PieChart title="Hola Mundo" />
+            <PieChart title="Hola Mundo" />
+            <PieChart title="Hola Mundo" />
           </div>
         </div>
       </div>

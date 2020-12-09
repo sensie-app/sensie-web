@@ -4,4 +4,17 @@
 .HomeG2Container,
 .HomeG3Container {    
   width: 100%;  
+  color: $fontColor1;
+  box-sizing: border-box;
+}
+
+.HomeG3Container {
+  .HomeG3ContainerTitle {
+    width: 100%;
+    text-align: center;
+    h3 {
+      padding: 20px 0px;
+      font-size: 22px;
+    }
+  }
 }

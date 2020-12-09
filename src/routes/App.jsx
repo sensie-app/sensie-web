@@ -3,7 +3,7 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 // amplify
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import awsExports from './aws-exports'
+import awsExports from '../aws-exports'
 // containers
 import DashboardRoutes from '../dashboard/routes/dashboard.routes'
 import LandingRoutes from '../landing/routes/landing.routes'
