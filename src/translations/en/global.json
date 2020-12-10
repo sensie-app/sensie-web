@@ -55,6 +55,9 @@
       "personal": "Personal",
       "performance": "Performance"
     },
+    "MultipleSelectCheckbox": {
+      "topics": "Topics"
+    },
     "ClientFlowOverview": {
       "title": "Client Flow Overview"
     },

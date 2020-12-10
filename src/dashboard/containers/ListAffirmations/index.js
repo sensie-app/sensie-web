@@ -1,8 +1,10 @@
 // react
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 // components
 import BarIndicator from '../../components/BarIndicator'
 import MenuListComposition from '../../components/MenuListComposition'
+import MultipleSelectCheckbox from '../../components/MultipleSelectCheckbox'
 import Icon from '../../components/Icon'
 // redux
 import { useDispatch } from 'react-redux'
@@ -19,14 +21,15 @@ const defValueState = {
   index: -1,
   key: 'state'
 }
-const defValueTopic = {
-  index: -1,
-  key: 'topic'
-}
+// const defValueTopic = {
+//   index: -1,
+//   key: 'topic'
+// }
 
 const ListAffirmations = () => {
   // hooks
   const dispatch = useDispatch()
+  const [t] = useTranslation('global')
 
   // handleFunctions
   const handleClickStateMenu = value => dispatch(setAffirmationsStateFilterAction(value))
@@ -51,10 +54,10 @@ const ListAffirmations = () => {
             <Icon name="activity-outline" color={fontColor1} size="md" />
           </div>
           <div className={styles.ListAffirmationsFilterBtnMenuComponent}>
-            <MenuListComposition
+            <MultipleSelectCheckbox
               data={MenuFilterTopicsListAffirmationsComponent}
               onClickValue={value => handleClickTopicMenu(value)}
-              defaultValue={defValueTopic} />
+              title={t('dashboard.MultipleSelectCheckbox.topics')} />
           </div>
         </div>
       </div>

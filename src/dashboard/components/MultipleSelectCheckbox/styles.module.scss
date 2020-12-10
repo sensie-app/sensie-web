@@ -1,12 +1,29 @@
 @import '../../styles/index.scss';
 
 .MultipleSelectCheckboxContainer {
-  background-color: sandybrown;
+  color: $fontColor1;
+  width: 100%;
 }
 
-.MultipleSelectCheckboxFormControl {
-  background-color: red;
-  margin: 10px;
-  min-width: 120;
-  max-width: 300;
+.MultipleSelectCheckboxTextContainer {
+  @include flex(row, center, center, nowrap);
+  color: $fontColor1;
+}
+
+.MultipleSelectCheckboxInputCount {
+  background-color: $fontColor1;
+  color: $grayColor6;
+  @include border(solid, 1px, 5px, $fontColor1);
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.MultipleSelectCheckboxMenuItem {
+  .MultipleSelectCheckboxMenuItemCheckbox {
+    color: $actionColor1;
+  }
+}
+
+.test {
+  background-color: rebeccapurple;
 }

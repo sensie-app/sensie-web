@@ -13,15 +13,10 @@ import {
   Popper,
   MenuList
 } from '@material-ui/core'
-// components
-import Icon from '../Icon'
-// constants
-import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
 
 // const
-const { fontColor1 } = COLORS
 const defValue = {
   index: 0,
   key: 'clickHere'
@@ -83,7 +78,6 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) =>
           onClick={handleToggle}
         >
           <span>{t(`dashboard.MenuListComposition.${item.key}`)}</span>
-          <Icon name="arrow-ios-downward-outline" size="md" color={fontColor1} />
         </Button>
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
           {({ TransitionProps, placement }) => (

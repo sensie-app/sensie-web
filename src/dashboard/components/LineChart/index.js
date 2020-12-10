@@ -77,7 +77,7 @@ const LineChart = ({ data = data1 }) => {
 }
 
 LineChart.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array
 }
 
 export default LineChart

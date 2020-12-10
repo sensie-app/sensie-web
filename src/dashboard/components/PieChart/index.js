@@ -66,7 +66,7 @@ const PieChart = ({ data = data1, title = '' }) => {
 
 // prop-types
 PieChart.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   title: PropTypes.string
 }
 

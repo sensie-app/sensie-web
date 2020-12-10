@@ -15,6 +15,7 @@
   padding: 10px 0px;
   @include flex(row, flex-start, center, wrap);
   .ListAffirmationsFilterBtnMenu {
+    min-width: 30%;
     height: 100%;
     @include flex(row, space-between, center, wrap);
     @include border(solid, 1px, 5px, $grayColor5);
