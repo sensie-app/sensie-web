@@ -19,9 +19,7 @@
       "subtitle": "sensei admin panel team page"
     }
   },
-  "landing": {
-
-  },
+  "landing": {},
   "dashboard": {
     "LayoutComponent": {
       "home": "Home",

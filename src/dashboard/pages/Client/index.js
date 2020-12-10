@@ -1,8 +1,11 @@
 // react
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+// material-ui
+import Grid from '@material-ui/core/Grid'
 // components
 import { HelmetSEO } from '../../components/Globals'
+import MultipleSelectCheckbox from '../../components/MultipleSelectCheckbox'
 // styles
 import styles from './styles.module.scss'
 
@@ -15,6 +18,16 @@ const Client = () => {
       {/* seo */}
       <HelmetSEO title={t('seo.Client.title')} subtitle={t('seo.Client.subtitle')} />
       <h1>Client</h1>
+      <Grid container spacing={1}>
+        {/* affirmations */}
+        <Grid item xs={12} sm={12} md={6} xl={6}>
+          <MultipleSelectCheckbox />
+        </Grid>
+        {/* spider-chart */}
+        <Grid item xs={12} sm={12} md={6} xl={6}>
+        </Grid>
+      </Grid>
+
     </section>
   )
 }

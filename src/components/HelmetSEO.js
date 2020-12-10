@@ -15,5 +15,5 @@ export const HelmetSEO = ({ title = 'sensie', subtitle }) => {
 // prop-types
 HelmetSEO.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired
+  subtitle: PropTypes.string
 }
