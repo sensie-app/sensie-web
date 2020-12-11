@@ -1,0 +1,15 @@
+.gradientBar {
+    top: 1247px;
+    left: 0px;
+    height: 154px;
+    background: transparent linear-gradient(180deg, #00000000 0%, #071215 100%) 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.gradientBarReverse {
+    top: 1247px;
+    left: 0px;
+    height: 154px;
+    background: transparent linear-gradient(180deg, #071215 0%, #00000000 100%) 0% 0% no-repeat padding-box;
+    opacity: 1;
+}

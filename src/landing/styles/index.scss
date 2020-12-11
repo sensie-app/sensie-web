@@ -1,1 +1,24 @@
 @import '../../styles/index.scss'; // global styles
+
+.global {
+    overflow-x: hidden;
+}
+
+.backgroundImg {
+    height: 700px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: #15E7BC;
+}
+
+a:active {
+    color: #15E7BC;
+}
+
+

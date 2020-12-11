@@ -6,7 +6,7 @@ import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import awsExports from '../aws-exports'
 // containers
 import DashboardRoutes from '../dashboard/routes/dashboard.routes'
-import LandingRoutes from '../landing/routes/landing.routes'
+import LandingRoutes from '../landing/routes/Routes'
 // components
 import { NotFound404 } from '../components'
 // utils
