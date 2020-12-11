@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 // TODO: REVISAR PROBLEMA CON LA VERSION DE LA LIBRERIA
+// ! NO USAR DE MOMENTO
+
 import React, { Fragment } from 'react'
 import HeadShake from 'react-reveal/HeadShake'
 import Jump from 'react-reveal/Jump'

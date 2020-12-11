@@ -1,0 +1,76 @@
+{  
+  "app": {
+    "lng": {
+      "ES": "ES",
+      "EN": "EN"
+    }
+  },
+  "seo": {
+    "Home": {
+      "title": "SENSIE - Home",
+      "subtitle": "sensei admin panel home page"
+    },
+    "Client": {
+      "title": "SENSIE - Client",
+      "subtitle": "sensei admin panel client page"
+    },
+    "Team": {
+      "title": "SENSIE - Team",
+      "subtitle": "sensei admin panel team page"
+    }
+  },
+  "landing": {
+
+  },
+  "dashboard": {
+    "LayoutComponent": {
+      "home": "Home",
+      "client": "Client",
+      "dashboard": "Dashboard",
+      "team": "Team",
+      "couch": "Couch"
+    },
+    "Header": {
+      "back": "Back",
+      "invitePeople": "Invite People" 
+    },
+    "MenuListComposition": {
+      "today": "Today",
+      "lastDay": "Last day",
+      "lastWeek": "Last week",
+      "lastMonth": "Last month",
+      "lastYear": "Last year",
+      "custom": "Custom",
+      "clickHere": "Click here!",
+      "state": "State",
+      "all": "All",
+      "flowing": "Flowing",
+      "blocked": "Blocked",
+      "incomplete": "Incomplete",
+      "topic": "Topic",
+      "spirit": "Spirit",
+      "health": "Health",
+      "finance": "Finance",
+      "love": "Love",
+      "family": "Family",
+      "parenting": "Parenting",
+      "personal": "Personal",
+      "performance": "Performance"
+    },
+    "ClientFlowOverview": {
+      "title": "Client Flow Overview"
+    },
+    "ArrowChart": {
+      "clients": "Clients",
+      "sensies": "Sensies",
+      "flow": "Flow"
+    },
+    "TrackAffirmations": {
+      "title": "Mind - author and track affirmations",
+      "viewMore": "View more"
+    },
+    "Home": {
+      "ClientSnapshot": "Client Snapshot"
+    }
+  }
+}

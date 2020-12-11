@@ -1,5 +1,6 @@
 export const ArrowChartTypes = {
   UP: 'up',
   DOWN: 'down',
-  USER: 'user'
+  USER: 'user',
+  ACTIVITY: 'activity'
 }

@@ -1,0 +1,13 @@
+@import '../../styles/variables.scss';
+
+.ChangeLngButton {
+  background-color: transparent;
+  border-style: none;
+  color: $fontColor1;
+  padding: 5px;
+  &:hover {
+    background-color: $actionColor1;
+    opacity: 0.85;
+    cursor: pointer;
+  }
+}

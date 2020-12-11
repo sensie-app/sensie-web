@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
+// react
 import React from 'react'
+import PropTypes from 'prop-types'
+// material-ui
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 
-const ImageAvatar = ({ url, alt, size }) => {
+const ImageAvatar = ({ url, alt, size = 'medium' }) => {
   const classes = useStyles()
 
   // handle functions
@@ -23,6 +26,14 @@ const ImageAvatar = ({ url, alt, size }) => {
   )
 }
 
+// prop-types
+ImageAvatar.propTypes = {
+  url: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  size: PropTypes.string
+}
+
+// styles
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',

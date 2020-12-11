@@ -1,0 +1,111 @@
+type User @model 
+ @key(name: "byOrganization", fields: ["orgId"]) 
+ @key(name: "byGroup", fields: ["groupId"]) {
+  id: ID!
+  owner: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  dob: String!
+  gender: String!
+  domHand: String!
+  goal: String!
+  orgId: ID!
+  affirmations: [Affirmation] @connection(keyName: "byOwner", fields: ["owner"])
+  organization: Organization @connection(fields: ["orgId"])
+  groupId: ID!
+  group: Group @connection(fields: ["groupId"])
+  sensies: [Sensie] @connection(keyName: "byOwner", fields: ["owner"])
+  picture: Picture @connection
+}
+
+type Organization @model 
+ {
+  id: ID!
+  name: String!
+  orgType: String!
+  location: String!
+  tier: String!
+  teams: [Team] @connection(keyName: "byOrganization", fields: ["id"])
+  users: [User] @connection(keyName: "byOrganization", fields: ["id"])
+}
+
+type Team @model 
+ @key(name: "byOrganization", fields: ["organizationId"]) {
+  id: ID!
+  name: String!
+  description: String!
+  organizationId: ID
+  organization: Organization @connection
+  users: [User] @connection(keyName: "byGroup", fields: ["id"])
+}
+
+type Group @model 
+ {
+  id: ID!
+  name: String!
+  description: String!
+  users: [User] @connection(keyName: "byGroup", fields: ["id"])
+}
+
+type Sensie @model 
+ @key(name: "byUser", fields: ["userId"]) 
+ @key(name: "byOwner", fields: ["owner"]) {
+  id: ID!
+  userId: ID
+  user: User @connection
+  owner: ID!
+  timestamp: String!
+
+  accelerometerData: String
+  accelerometerResult: String
+  gyroscopeData: String
+  gyroscopeResult: String
+  swipeData: String
+  swipeResult: String
+  voiceData: String
+  voiceResult: String
+
+  data: String!
+  dataType: String!
+
+  confidence: Float
+  calibration: Boolean
+  result: String
+  userAgreement: Boolean
+  affirmationId: ID!
+  affirmation: Affirmation @connection(fields: ["affirmationId"])
+}
+
+type Topic @model {
+  id: ID!
+  name: String!
+  description: String! 
+  affirmations: [Affirmation] @connection(keyName: "byTopic", fields: ["id"])
+}
+
+type Affirmation @model 
+    @key(name: "byTopic", fields: ["topicId", "name"]) 
+    @key(name: "byOwner", fields: ["userId"]) {
+  id: ID!
+  topicId: ID!
+  name: String!
+  description: String!
+  userId: ID!
+  user: User @connection
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type Picture @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  name: String
+  owner: ID 
+
+  file: S3Object
+}
+

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // react
 import React from 'react'
+import PropTypes from 'prop-types'
 // components
 import Icon from '../Icon'
 // constants
@@ -9,8 +10,8 @@ import { ArrowChartTypes } from '../../constants/charts'
 // styles
 import styles from './styles.module.scss'
 
-const { actionColor1, actionColor2, actionColor3, fontColor1 } = COLORS
-const { UP, DOWN, USER } = ArrowChartTypes
+const { actionColor1, fontColor1 } = COLORS
+const { UP, DOWN, USER, ACTIVITY } = ArrowChartTypes
 
 // icon: up | down | user
 const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
@@ -32,8 +33,9 @@ const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
   const renderIcon = () => {
     switch (icon) {
       case UP: return <Icon name="trending-up-outline" size="md" color={actionColor1}/>
-      case DOWN: return <Icon name="trending-down-outline" size="md" color={actionColor2}/>
-      case USER: return <Icon name="person-outline" size="md" color={actionColor3}/>
+      case DOWN: return <Icon name="trending-down-outline" size="md" color={actionColor1}/>
+      case USER: return <Icon name="person-outline" size="md" color={actionColor1}/>
+      case ACTIVITY: return <Icon name="activity-outline" size="md" color={actionColor1}/>
       default: return <Icon name="question-mark-circle-outline" size="md" color={fontColor1}/>
     }
   }
@@ -46,6 +48,14 @@ const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
       </div>
     </div>
   )
+}
+
+// prop-types
+ArrowChart.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  valueType: PropTypes.string,
+  icon: PropTypes.string.isRequired
 }
 
 export default ArrowChart

@@ -1,0 +1,34 @@
+@import '../../styles/index.scss';
+
+$size: 100px;
+
+.PieChartContainer {
+  @include flex(column, center, center, nowrap);
+  @include border(none, 0px, 5px, transparent);
+  background-color: $grayColor5;
+  padding: 5px 15px;
+  h4 {
+    color: $grayColor2;
+  }
+}
+
+.PieChartDataContainer {
+  width: $size;
+  height: $size;
+  color: $fontColor1;
+  text-align: center;
+  position: relative;
+}
+
+.PieChartCenterText {
+  position: absolute;
+  top: 0;
+  right:20px;
+  bottom: 0;
+  left: 20px;
+  font-size: 14px;
+  color: $fontColor1;
+  text-align: center;
+  pointer-events: none;
+  @include flex(column, center, center, nowrap);
+}

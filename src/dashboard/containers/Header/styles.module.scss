@@ -1,0 +1,49 @@
+@import '../../styles/index.scss';
+
+.HeaderContainer {
+  @include flex(row, space-between, center, wrap);
+  padding: $step1 0px;  
+  width: 100%;
+}
+
+.HeaderLeftContainer {
+  width: 50%;
+  .HeaderBack, .HeaderPeople {
+    @include flex(row, flex-start, center, wrap);
+    .HeaderLeftIcon {
+      margin-right: $step1;
+    }
+    span {
+      font-size: 14px;
+      color: $fontColor1;
+    }
+  }    
+  .HeaderBack {
+    &:hover {
+      text-decoration: none;
+      cursor: pointer;
+      span {        
+        color: $actionColor1;
+      }
+    }
+  }
+}
+
+.HeaderRightContainer {
+  width: 50%;
+  .HeaderCalendar {
+    @include flex(row, flex-end, center, wrap);
+    .HeaderCalendarIcon,
+    span {      
+      font-size: 14px;
+      color: $fontColor1;
+    };
+  }
+
+  .HeaderSeparator {
+    padding: 0px 10px;
+  }
+}
+
+
+

@@ -1,0 +1,45 @@
+{  
+  "app": {
+    "lng": {
+      "ES": "ES",
+      "EN": "EN"
+    }
+  },
+  "landing": {
+
+  },
+  "dashboard": {
+    "LayoutComponent": {
+      "home": "Home",
+      "client": "Client",
+      "dashboard": "Dashboard",
+      "team": "Team",
+      "couch": "Couch"
+    },
+    "HeaderComponent": {
+      "back": "Back",
+      "invitePeople": "Invite People" 
+    },
+    "MenuListCompositionComponent": {
+      "today": "Today",
+      "lastDay": "Last day",
+      "lastWeek": "Last week",
+      "lastMonth": "Last month",
+      "lastYear": "Last year",
+      "custom": "Custom",
+      "clickHere": "Click here!"
+    },
+    "ClientFlowOverviewComponent": {
+      "title": "Client Flow Overview"
+    },
+    "ArrowChartComponent": {
+      "clients": "Clients",
+      "sensies": "Sensies",
+      "flow": "Flow"
+    },
+    "TrackAffirmationsComponent": {
+      "title": "Mind - author and track affirmations",
+      "viewMore": "View more"
+    }
+  }
+}
