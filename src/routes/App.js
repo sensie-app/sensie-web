@@ -3,7 +3,7 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 // containers
 import DashboardRoutes from '../dashboard/routes/dashboard.routes'
-import LandingRoutes from '../landing/routes/landing.routes'
+import LandingRoutes from '../landing/routes/Routes'
 // components
 import { NotFound404 } from '../components'
 // utils
