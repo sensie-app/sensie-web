@@ -49,17 +49,17 @@ const ListAffirmations = () => {
               defaultValue={defValueState} />
           </div>
         </div>
-        <div className={styles.ListAffirmationsFilterBtnMenu}>
-          <div className={styles.ListAffirmationsFilterBtnMenuIcon}>
+        {/* <div className={styles.ListAffirmationsFilterBtnMenu}> */}
+          {/* <div className={styles.ListAffirmationsFilterBtnMenuIcon}>
             <Icon name="activity-outline" color={fontColor1} size="md" />
-          </div>
-          <div className={styles.ListAffirmationsFilterBtnMenuComponent}>
+          </div> */}
+          {/* <div className={styles.ListAffirmationsFilterBtnMenuComponent}> */}
             <MultipleSelectCheckbox
               data={MenuFilterTopicsListAffirmationsComponent}
               onClickValue={value => handleClickTopicMenu(value)}
               title={t('dashboard.MultipleSelectCheckbox.topics')} />
-          </div>
-        </div>
+          {/* </div> */}
+        {/* </div> */}
       </div>
       <div className={styles.ListAffirmationsListContainer}>
         <BarIndicator value={75} title="gráfico" />

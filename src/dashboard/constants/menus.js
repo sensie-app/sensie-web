@@ -59,42 +59,42 @@ export const MenuFilterStateListAffirmationsComponent = [
 export const MenuFilterTopicsListAffirmationsComponent = [
   {
     index: 0,
-    key: 'spirit',
+    label: 'spirit',
     value: 'spirit'
   },
   {
     index: 0,
-    key: 'health',
+    label: 'health',
     value: 'health'
   },
   {
     index: 0,
-    key: 'finance',
+    label: 'finance',
     value: 'finance'
   },
   {
     index: 0,
-    key: 'love',
+    label: 'love',
     value: 'love'
   },
   {
     index: 0,
-    key: 'family',
+    label: 'family',
     value: 'family'
   },
   {
     index: 0,
-    key: 'parenting',
+    label: 'parenting',
     value: 'parenting'
   },
   {
     index: 0,
-    key: 'personal',
+    label: 'personal',
     value: 'personal'
   },
   {
     index: 0,
-    key: 'performance',
+    label: 'performance',
     value: 'performance'
   }
 ]
