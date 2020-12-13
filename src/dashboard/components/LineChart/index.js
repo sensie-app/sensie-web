@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -17,6 +16,7 @@ import { data1 } from './data'
 const { actionColor1, actionColor2, actionColor3 } = COLORS
 const margin = 20
 
+// * component
 const LineChart = ({ data = data1 }) => {
   return (
     <div className={styles.LineChartContainer}>
@@ -76,6 +76,7 @@ const LineChart = ({ data = data1 }) => {
   )
 }
 
+// prop-types
 LineChart.propTypes = {
   data: PropTypes.array
 }

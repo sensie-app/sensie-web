@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next'
 import Grid from '@material-ui/core/Grid'
 // components
 import { HelmetSEO } from '../../components/Globals'
-import MultipleSelectCheckbox from '../../components/MultipleSelectCheckbox'
 // styles
 import styles from './styles.module.scss'
 
+// * page
 const Client = () => {
   // hooks
   const [t] = useTranslation('global')
@@ -21,7 +21,6 @@ const Client = () => {
       <Grid container spacing={1}>
         {/* affirmations */}
         <Grid item xs={12} sm={12} md={6} xl={6}>
-          <MultipleSelectCheckbox />
         </Grid>
         {/* spider-chart */}
         <Grid item xs={12} sm={12} md={6} xl={6}>

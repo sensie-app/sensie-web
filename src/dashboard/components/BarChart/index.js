@@ -18,6 +18,7 @@ const margin = 50
 
 console.log('data', data1, data2)
 
+// * component
 const BarChart = ({ data = data2 }) => {
   // handle functions
   const handleColor = val => {

@@ -3,19 +3,19 @@
 
 const awsmobile = {
     "aws_project_region": "us-west-2",
-    "aws_cognito_identity_pool_id": "us-west-2:bb6f9cd0-bc2f-4685-add5-0e596734cb95",
+    "aws_cognito_identity_pool_id": "us-west-2:236dfcdd-2ad9-49e7-8b5b-0b0e4842f891",
     "aws_cognito_region": "us-west-2",
-    "aws_user_pools_id": "us-west-2_cbUKBqv8l",
-    "aws_user_pools_web_client_id": "2rtke0dg0i31cb3a7ddai01g4u",
+    "aws_user_pools_id": "us-west-2_tUPdinwKO",
+    "aws_user_pools_web_client_id": "p8nvo1ca15m0j3frii0oov2h",
     "oauth": {},
     "aws_cloud_logic_custom": [
         {
             "name": "AdminQueries",
-            "endpoint": "https://pauf5pb2h2.execute-api.us-west-2.amazonaws.com/dev",
+            "endpoint": "https://79e9bqfyfb.execute-api.us-west-2.amazonaws.com/staging",
             "region": "us-west-2"
         }
     ],
-    "aws_appsync_graphqlEndpoint": "https://dgk5vsuuzveivnwcbfouq6ugze.appsync-api.us-west-2.amazonaws.com/graphql",
+    "aws_appsync_graphqlEndpoint": "https://tcf4ie6dczcndjc3ojzzfcuykq.appsync-api.us-west-2.amazonaws.com/graphql",
     "aws_appsync_region": "us-west-2",
     "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS"
 };

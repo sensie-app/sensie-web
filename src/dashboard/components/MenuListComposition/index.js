@@ -13,16 +13,22 @@ import {
   Popper,
   MenuList
 } from '@material-ui/core'
+// components
+import Icon from '../Icon'
+// constants
+import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
 
 // const
+const { fontColor1 } = COLORS
 const defValue = {
   index: 0,
-  key: 'clickHere'
+  name: 'clickHere'
 }
 
-const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) => {
+// * component
+const MenuListComposition = ({ data, onClickValue, defaultValue = defValue, children }) => {
   // hooks
   const [open, setOpen] = useState(false)
   const [item, setItem] = useState(defValue)
@@ -61,7 +67,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) =>
       return (
         <button className={styles.MenuListCompositionItem} key={item.index} onClick={() => handleClick(item, event)}>
           <div>
-            {t(`dashboard.MenuListComposition.${item.key}`)}
+            {t(`dashboard.MenuListComposition.${item.name}`)}
           </div>
         </button>
       )
@@ -70,32 +76,32 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) =>
 
   return (
     <div className={styles.MenuListCompositionContainer}>
-      <div>
-        <Button
-          ref={anchorRef}
-          aria-controls={open ? 'menu-list-grow' : undefined}
-          aria-haspopup="true"
-          onClick={handleToggle}
-        >
-          <span>{t(`dashboard.MenuListComposition.${item.key}`)}</span>
-        </Button>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-            >
-              <div className={styles.MenuListCompositionMenuContainer}>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList autoFocusItem={open} id="menu-list-grow">
-                    {renderItems()}
-                  </MenuList>
-                </ClickAwayListener>
-              </div>
-            </Grow>
-          )}
-        </Popper>
-      </div>
+      <Button
+        ref={anchorRef}
+        aria-controls={open ? 'menu-list-grow' : undefined}
+        aria-haspopup="true"
+        onClick={handleToggle}
+      >
+        {children}
+        <span>{t(`dashboard.MenuListComposition.${item.name}`)}</span>
+        <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
+      </Button>
+      <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+          >
+            <div className={styles.MenuListCompositionMenuContainer}>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList autoFocusItem={open} id="menu-list-grow">
+                  {renderItems()}
+                </MenuList>
+              </ClickAwayListener>
+            </div>
+          </Grow>
+        )}
+      </Popper>
     </div>
   )
 }
@@ -104,7 +110,8 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue }) =>
 MenuListComposition.propTypes = {
   data: PropTypes.array.isRequired,
   onClickValue: PropTypes.func.isRequired,
-  defaultValue: PropTypes.object
+  defaultValue: PropTypes.object,
+  children: PropTypes.element
 }
 
 export default MenuListComposition

@@ -10,10 +10,11 @@ import { ArrowChartTypes } from '../../constants/charts'
 // styles
 import styles from './styles.module.scss'
 
+// const
 const { actionColor1, fontColor1 } = COLORS
 const { UP, DOWN, USER, ACTIVITY } = ArrowChartTypes
 
-// icon: up | down | user
+// * component
 const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
   // handle functions
   const handleValue = () => {

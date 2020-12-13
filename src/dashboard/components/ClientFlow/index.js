@@ -14,6 +14,7 @@ import styles from './styles.module.scss'
 // const
 const { UP, USER, ACTIVITY } = ArrowChartTypes
 
+// * component
 const ClientFlow = () => {
   // hooks
   const [t] = useTranslation('global')

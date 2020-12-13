@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 // react
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +6,7 @@ import ListAffirmations from '../../containers/ListAffirmations'
 // styles
 import styles from './styles.module.scss'
 
+// * component
 const TrackAffirmations = () => {
   // hooks
   const [t] = useTranslation('global')

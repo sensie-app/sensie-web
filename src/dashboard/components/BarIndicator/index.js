@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -7,9 +6,11 @@ import { COLORS } from '../../constants/theme'
 // style
 import styles from './styles.module.scss'
 
+// * component
 const BarIndicator = ({ value, title }) => {
   // handle functions
   const handleValue = () => value.toString() + '%'
+
   const handleColor = () => {
     return value > 75
       ? COLORS.actionColor1

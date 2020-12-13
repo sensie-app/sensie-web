@@ -14,6 +14,7 @@ import { HelmetSEO } from '../../components/Globals'
 // styles
 import styles from './styles.module.scss'
 
+// * page
 const Home = () => {
   // hooks
   const [t] = useTranslation('global')

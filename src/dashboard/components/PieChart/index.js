@@ -17,6 +17,7 @@ const margin = 5
 
 console.log('data', data1, data2, data3)
 
+// * component
 const PieChart = ({ data = data1, title = '' }) => {
   // handle functions
   const handleDataColor = (data) => {

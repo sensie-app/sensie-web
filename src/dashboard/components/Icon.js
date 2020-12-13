@@ -6,8 +6,10 @@ import * as eva from 'eva-icons'
 // constants
 import { SIZE } from '../../constants/theme'
 
-const { xs, s, md, l, xl } = SIZE
+// const
+const { xs, sm, md, l, xl } = SIZE
 
+// * component
 const Icon = ({ name, color = '#000', size = null, height = md, width = md, animation = null }) => {
   // hooks
   useEffect(() => eva.replace(), [])
@@ -16,7 +18,7 @@ const Icon = ({ name, color = '#000', size = null, height = md, width = md, anim
   const handleSize = value => {
     switch (value) {
       case 'xs': return xs
-      case 's': return s
+      case 'sm': return sm
       case 'md': return md
       case 'l': return l
       case 'xl': return xl

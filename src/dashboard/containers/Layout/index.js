@@ -37,6 +37,7 @@ const { logo } = IMG
 // const-sizes
 const drawerWidth = 192
 
+// * container
 const Layout = ({ children }) => {
   // hooks
   const [open, setOpen] = useState(false)
@@ -181,7 +182,7 @@ const Layout = ({ children }) => {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <div className={styles.LayoutchildrenContainer}>
+          <div className={styles.LayoutChildrenContainer}>
             {children}
           </div>
         </main>
@@ -255,7 +256,8 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar
   },
   content: {
-    // flexGrow: 1,
+    width: '100%',
+    flexGrow: 1,
     padding: theme.spacing(3)
   }
 }))

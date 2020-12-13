@@ -13,11 +13,12 @@ import styles from './styles.module.scss'
 // test
 import { data } from './data'
 
-console.log('data', data)
-
 // const
 const { fontColor1 } = COLORS
 
+console.log('data', data)
+
+// * component
 const ClientSnapshot = () => {
   // render functions
   const renderClientSnapshotBarChart = () => {

@@ -18,7 +18,7 @@ export const COLORS = {
 
 export const SIZE = {
   xs: 10,
-  s: 15,
+  sm: 15,
   md: 18,
   l: 25,
   xl: 30

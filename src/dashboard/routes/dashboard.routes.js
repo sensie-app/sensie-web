@@ -1,11 +1,11 @@
 // react
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 // amplify
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import awsExports from '../../aws-exports'
+// import Amplify, { API, graphqlOperation } from 'aws-amplify'
+// import awsExports from '../../aws-exports'
 // graphql
-import { listUsers } from '../../graphql/queries'
+// import { listTopics } from '../../graphql/queries'
 // import {} from '../../graphql/mutations'
 // import {} from '../../graphql/subscriptions'
 // constants-routes
@@ -18,32 +18,46 @@ import Team from '../pages/Team'
 import { NotFound404 } from '../components/Globals'
 // containers
 import Layout from '../containers/Layout'
+// styles
+import '../styles/index.scss'
 
 // amplify config
-const amp = Amplify.configure(awsExports)
-console.log('amp', amp)
+// const amp = Amplify.configure(awsExports)
 
 // const
 const { entrypoint, home, client, team } = DASHBOARD_ROUTES
 
 const DashboardRoutes = () => {
-  // * start test amplify
-  const [api, setApi] = useState([])
+  // // * start test amplify
+  // const [api, setApi] = useState([])
 
-  useEffect(() => {
-    testApi()
-    console.log('api', api)
-  }, [])
+  // useEffect(() => {
+  //   testApi()
+  //   console.log('api', api)
+  // }, [])
 
-  const testApi = async () => {
-    try {
-      console.log(1)
-      const data = await API.graphql(graphqlOperation(listUsers('user', 1, '')))
-      console.log(2, data)
-      setApi(data)
-    } catch (err) { console.log('err', err) }
-  }
-  // * end test amplify
+  // const testApi = async () => {
+  //   try {
+  //     // todo: revisar esto!
+  //     // const data = await API.graphql({
+  //     //   query: {
+  //     //     getUser(id: "U14") {
+  //     //       email
+  //     //       firstName
+  //     //       gender
+  //     //       goal
+  //     //       groupId
+  //     //     }
+  //     //   }
+  //     // })
+  //     // console.log(2, data)
+  //     const data = ''
+  //     setApi(data)
+  //   } catch (err) {
+  //     console.log('err', err)
+  //   }
+  // }
+  // // * end test amplify
 
   return (
     <BrowserRouter>
