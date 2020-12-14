@@ -15,3 +15,12 @@
     display: none !important;
   }
 }
+
+.MuiBadge-colorPrimary {
+  background-color: $actionColor1 !important;
+}
+
+.MuiListItem-gutters {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}

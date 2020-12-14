@@ -28,6 +28,7 @@ const ListAffirmations = () => {
   const [selectValue, setSelectValue] = useState(topicFilter)
 
   useEffect(() => {
+    console.log('selectValue', selectValue)
     selectValue !== topicFilter && dispatch(setAffirmationsTopicFilterAction(selectValue))
   }, [selectValue])
 

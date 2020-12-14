@@ -13,11 +13,7 @@ import { COLORS } from '../../constants/theme'
 import styles from './styles.module.scss'
 
 // const
-const {
-  grayColor6,
-  fontColor1,
-  actionColor1
-} = COLORS
+const { grayColor6, fontColor1, actionColor1 } = COLORS
 const ITEM_HEIGHT = 70
 
 // * component
@@ -26,9 +22,11 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
   const [items, setItems] = useState(defValue)
   const [open, setOpen] = useState(false)
 
+  useEffect(() => setItems(defValue), [open])
+
   useEffect(() => onClickValue(items), [items])
 
-  // const
+  // material-ui const
   const MenuProps = {
     PaperProps: {
       style: {

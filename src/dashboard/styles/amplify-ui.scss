@@ -1,0 +1,8 @@
+@import '../../styles/index.scss'; // global styles
+@import './mixins.scss'; // mixins for dashboard
+
+amplify-authenticator {
+  background-color: $grayColor8;
+  @include flex(row, center, center, nowrap); 
+}
+

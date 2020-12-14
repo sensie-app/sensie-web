@@ -1,13 +1,11 @@
 // react
-import React from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 // amplify
-// import Amplify, { API, graphqlOperation } from 'aws-amplify'
-// import awsExports from '../../aws-exports'
-// graphql
-// import { listTopics } from '../../graphql/queries'
-// import {} from '../../graphql/mutations'
-// import {} from '../../graphql/subscriptions'
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import awsmobile from '../../aws-exports'
+import { AmplifyAuthenticator, AmplifySignIn } from '@aws-amplify/ui-react'
+import '@aws-amplify/ui/dist/style.css'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
 // pages
@@ -16,61 +14,74 @@ import Client from '../pages/Client'
 import Team from '../pages/Team'
 // components
 import { NotFound404 } from '../components/Globals'
+// import Bootstrap from '../components/BootstrapTheme'
 // containers
 import Layout from '../containers/Layout'
 // styles
 import '../styles/index.scss'
+import '../styles/amplify-ui.scss'
 
 // amplify config
-// const amp = Amplify.configure(awsExports)
+const amplifyConfig = Amplify.configure(awsmobile)
+console.log('amplifyConfig', amplifyConfig)
 
 // const
 const { entrypoint, home, client, team } = DASHBOARD_ROUTES
 
+const listTopicsQuery = `
+  query MyQuery {
+    listTopics {
+      items {
+        id
+      }
+    }
+  }
+`
+
 const DashboardRoutes = () => {
-  // // * start test amplify
-  // const [api, setApi] = useState([])
+  // * start test amplify
+  const [api, setApi] = useState([])
 
-  // useEffect(() => {
-  //   testApi()
-  //   console.log('api', api)
-  // }, [])
+  useEffect(() => {
+    testApi()
+    console.log('api', api)
+  }, [])
 
-  // const testApi = async () => {
-  //   try {
-  //     // todo: revisar esto!
-  //     // const data = await API.graphql({
-  //     //   query: {
-  //     //     getUser(id: "U14") {
-  //     //       email
-  //     //       firstName
-  //     //       gender
-  //     //       goal
-  //     //       groupId
-  //     //     }
-  //     //   }
-  //     // })
-  //     // console.log(2, data)
-  //     const data = ''
-  //     setApi(data)
-  //   } catch (err) {
-  //     console.log('err', err)
-  //   }
-  // }
-  // // * end test amplify
+  const testApi = async () => {
+    try {
+      // todo: revisar esto!
+      const data = await API.graphql(graphqlOperation(listTopicsQuery))
+      console.log('dataApi', data)
+      setApi(data)
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
+  // * end test amplify
 
   return (
-    <BrowserRouter>
-      <Layout>
-        <Switch>
-          <Route path={home} component={Home} />
-          <Route path={client} component={Client} />
-          <Route path={team} component={Team} />
-          <Redirect from={entrypoint} to={home} />
-          <Route component={NotFound404} />
-        </Switch>
-      </Layout>
-    </BrowserRouter>
+    <AmplifyAuthenticator>
+      <AmplifySignIn
+        // headerText="SENSIE"
+        hideSignUp={true}
+        slot="sign-in"
+      />
+      <div>
+        <BrowserRouter>
+          <Switch>
+            <Layout>
+              <Fragment>
+                <Route path={home} component={Home} />
+                <Route path={client} component={Client} />
+                <Route path={team} component={Team} />
+                <Redirect from={entrypoint} to={home} />
+              </Fragment>
+            </Layout>
+            <Route component={NotFound404} />
+          </Switch>
+        </BrowserRouter>
+      </div>
+    </AmplifyAuthenticator>
   )
 }
 

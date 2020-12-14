@@ -11,7 +11,7 @@ $grayColor4: #696C76;
 $grayColor5: #2C3436;
 $grayColor6: #242A2B;
 $grayColor7: #151E1F;
-$grayColor8: #071215;
+$grayColor8: #030303;
 
 // steps
 $step1: 10px;
@@ -22,3 +22,17 @@ $step3: 30px;
 $zIndexLevel1K: 100;
 $zIndexLevel999: 999;
 $zIndexLevel998: 998;
+
+// amplify
+:root {
+  --amplify-primary-color: #15E7BC;
+  --amplify-secondary-color: white;
+  --amplify-primary-tint: #12b897;
+  --amplify-primary-shade: #56CCF2;
+  --amplify-grey: #696C76;
+  --amplify-light-grey: #696C76;
+  --amplify-white: #151E1F;
+  --amplify-red: red;
+  --amplify-tertiary-shade:	#FF46B5;
+  --border-style: 5px;
+}

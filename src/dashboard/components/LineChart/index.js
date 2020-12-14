@@ -38,7 +38,7 @@ const LineChart = ({ data = data1 }) => {
           curve="natural"
           lineWidth={5}
           enableArea={true}
-          areaOpacity={0.08}
+          areaOpacity={0.5}
           enableSlices={false}
           useMesh={true}
           crosshairType="cross"

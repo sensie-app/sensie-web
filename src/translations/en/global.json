@@ -21,12 +21,15 @@
   },
   "landing": {},
   "dashboard": {
-    "LayoutComponent": {
+    "Layout": {
       "home": "Home",
       "client": "Client",
       "dashboard": "Dashboard",
       "team": "Team",
-      "couch": "Couch"
+      "couch": "Couch",
+      "signOut": "Sign out",
+      "signOut?": "Are you sure you want to exit the SENSIE panel?",
+      "close": "Close"
     },
     "Header": {
       "back": "Back",
