@@ -35,7 +35,7 @@ const ClientSnapshot = () => {
               <Icon name="expand-outline" color={fontColor1} size="md" />
             </div>
             {/* body */}
-            <div>
+            <div className={styles.ClientSnapshotChartContainer}>
               <BarChart />
             </div>
           </div>

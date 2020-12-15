@@ -1,10 +1,10 @@
 import FILTERS from '../constants/filters.constants'
-import { MenuDateHeaderComponent, MenuFilterStateListAffirmationsComponentDefaultValueState } from '../../dashboard/constants/menus'
+import { MenuDateHeaderComponent, MenuFilterStateAffirmationsListComponentDefaultValueState } from '../../dashboard/constants/menus'
 
 const INITIAL_STATE = {
   globalDateFilter: MenuDateHeaderComponent[0],
   affirmations: {
-    stateFilter: MenuFilterStateListAffirmationsComponentDefaultValueState,
+    stateFilter: MenuFilterStateAffirmationsListComponentDefaultValueState,
     topicFilter: []
   }
 }

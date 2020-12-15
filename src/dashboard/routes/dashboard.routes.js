@@ -62,7 +62,6 @@ const DashboardRoutes = () => {
   return (
     <AmplifyAuthenticator>
       <AmplifySignIn
-        // headerText="SENSIE"
         hideSignUp={true}
         slot="sign-in"
       />

@@ -3,6 +3,7 @@
 
 amplify-authenticator {
   background-color: $grayColor8;
-  @include flex(row, center, center, nowrap); 
+  width: 100%;
+  flex: 1;
 }
 

@@ -14,12 +14,14 @@ import { data1, data2 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3 } = COLORS
-const margin = 50
 
 console.log('data', data1, data2)
 
 // * component
-const BarChart = ({ data = data2 }) => {
+const BarChart = ({ data = data2, miniature = false }) => {
+  // const
+  const margin = miniature ? 0 : 50
+
   // handle functions
   const handleColor = val => {
     return val.value <= 50
@@ -36,7 +38,7 @@ const BarChart = ({ data = data2 }) => {
           theme={chartTheme}
           keys={['value']} // opc2: data2
           indexBy="day"
-          margin={{ top: 25, right: 10, bottom: margin, left: margin * 0.5 }}
+          margin={{ top: margin * 0.5, right: margin * 0.2, bottom: margin, left: margin * 0.75 }}
           padding={0.5}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
@@ -66,23 +68,29 @@ const BarChart = ({ data = data2 }) => {
           enableGridY={false}
           axisTop={null}
           axisRight={null}
-          axisBottom={{
-            tickSize: 0,
-            tickPadding: 20,
-            tickRotation: 0,
-            legend: '',
-            legendPosition: 'middle',
-            legendOffset: 32
-          }}
-          axisLeft={{
-            format: value => value % 25 === 0 && value + '%',
-            tickSize: 0,
-            tickPadding: 0,
-            tickRotation: 0,
-            legend: '',
-            legendPosition: 'middle',
-            legendOffset: -40
-          }}
+          axisBottom={
+            miniature
+              ? null
+              : {
+                  tickSize: 0,
+                  tickPadding: 20,
+                  tickRotation: 0,
+                  legend: '',
+                  legendPosition: 'middle',
+                  legendOffset: 32
+                }}
+          axisLeft={
+            miniature
+              ? null
+              : {
+                  format: value => value % 25 === 0 && value + '%',
+                  tickSize: 0,
+                  tickPadding: 0,
+                  tickRotation: 0,
+                  legend: '',
+                  legendPosition: 'middle',
+                  legendOffset: -40
+                }}
           animate={true}
           motionStiffness={90}
           motionDamping={15}
@@ -96,7 +104,8 @@ const BarChart = ({ data = data2 }) => {
 
 // prop-types
 BarChart.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
+  miniature: PropTypes.bool
 }
 
 export default BarChart

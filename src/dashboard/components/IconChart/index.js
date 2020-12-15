@@ -6,16 +6,16 @@ import PropTypes from 'prop-types'
 import Icon from '../Icon'
 // constants
 import { COLORS } from '../../constants/theme'
-import { ArrowChartTypes } from '../../constants/charts'
+import { IconChartTypes } from '../../constants/charts'
 // styles
 import styles from './styles.module.scss'
 
 // const
 const { actionColor1, fontColor1 } = COLORS
-const { UP, DOWN, USER, ACTIVITY } = ArrowChartTypes
+const { UP, DOWN, USER, ACTIVITY } = IconChartTypes
 
 // * component
-const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
+const IconChart = ({ title, value, valueType = 'number', icon }) => {
   // handle functions
   const handleValue = () => {
     const handleString = (data, limit, letter) => data.substr(0, data.length - limit) + letter
@@ -41,7 +41,7 @@ const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
     }
   }
   return (
-    <div className={styles.ArrowChartContainer}>
+    <div className={styles.IconChartContainer}>
       <span>{title}</span>
       <div>
         <span>{handleValue()}{valueType === '%' && valueType}</span>
@@ -52,11 +52,11 @@ const ArrowChart = ({ title, value, valueType = 'number', icon }) => {
 }
 
 // prop-types
-ArrowChart.propTypes = {
+IconChart.propTypes = {
   title: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   valueType: PropTypes.string,
   icon: PropTypes.string.isRequired
 }
 
-export default ArrowChart
+export default IconChart

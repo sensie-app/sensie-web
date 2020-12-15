@@ -1,35 +1,49 @@
 // react
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 // components
-import ListAffirmations from '../../containers/ListAffirmations'
+import AffirmationsList from '../../containers/AffirmationsList'
+// components
+import Title from '../Title'
 // styles
 import styles from './styles.module.scss'
 
 // * component
-const TrackAffirmations = () => {
-  // hooks
-  const [t] = useTranslation('global')
-
+const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = false }) => {
   return (
-    <section className={styles.TrackAffirmationsContainer}>
+    <section className={`${styles.TrackAffirmationsContainer} ${fixHeight && styles.TrackAffirmationsContainerHeight}`}>
       <div className={styles.TrackAffirmationsBodyContainer}>
         {/* header */}
         <div className={styles.TrackAffirmationsHeaderContainer}>
           <div className={styles.TrackAffirmationsHeaderTitleContainer}>
-            <h3>{t('dashboard.TrackAffirmations.title')}</h3>
+            <Title text={title} />
           </div>
           <div className={styles.TrackAffirmationsHeaderBtnContainer}>
-            <button>{t('dashboard.TrackAffirmations.viewMore')}</button>
+            <Link to={btn.route}>
+              <button>{btn.title}</button>
+            </Link>
           </div>
         </div>
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
-          <ListAffirmations />
+          <AffirmationsList chipsUp={chipsUp} limit={limit} />
         </div>
       </div>
     </section>
   )
+}
+
+// prop-types
+TrackAffirmations.propTypes = {
+  chipsUp: PropTypes.bool,
+  limit: PropTypes.number,
+  title: PropTypes.string.isRequired,
+  btn: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    route: PropTypes.string.isRequired
+  }),
+  fixHeight: PropTypes.bool
 }
 
 export default TrackAffirmations

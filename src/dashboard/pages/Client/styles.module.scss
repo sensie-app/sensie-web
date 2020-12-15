@@ -2,4 +2,14 @@
 
 .ClientContainer {
   width: 100%;
+  flex: 1;
 }
+
+.ClientG1Container, .ClientG2Container {
+  background-color: $grayColor6;
+  border-radius: 5px;
+  padding: 10px 15px;
+  width: 100%;
+  @include flex(row, flex-start, center, wrap);
+}
+

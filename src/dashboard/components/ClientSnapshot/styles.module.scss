@@ -1,6 +1,8 @@
 @import '../../styles/index.scss';
 
-.ClientSnapshotContainer {}
+.ClientSnapshotContainer {
+  width: 100%;
+}
 
 .ClientSnapshotBarChartContainer {
   background-color: $grayColor6;
@@ -17,4 +19,8 @@
       }
     }
   }
+}
+
+.ClientSnapshotChartContainer {
+  height: 200px;
 }

@@ -64,17 +64,28 @@
     "ClientFlowOverview": {
       "title": "Client Flow Overview"
     },
-    "ArrowChart": {
+    "IconChart": {
       "clients": "Clients",
       "sensies": "Sensies",
       "flow": "Flow"
     },
-    "TrackAffirmations": {
-      "title": "Mind - author and track affirmations",
+    "Home": {
+      "mindAuthorAndTrackAffirmations": "Mind - author and track affirmations",
+      "ClientSnapshot": "Client Snapshot",
       "viewMore": "View more"
     },
-    "Home": {
-      "ClientSnapshot": "Client Snapshot"
+    "Client": {
+      "author": "Author",
+      "affirmations": "Affirmations"
+    },
+    "User": {
+      "awarness": "Awarness",
+      "resilence": "Resilence",
+      "trust": "Trust"
+    },
+    "UserList": {
+      "summary": "summary",
+      "details": "details"
     }
   }
 }

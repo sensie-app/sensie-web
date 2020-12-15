@@ -33,13 +33,13 @@ export const MenuDateHeaderComponent = [
   }
 ]
 
-export const MenuFilterStateListAffirmationsComponentDefaultValueState = {
+export const MenuFilterStateAffirmationsListComponentDefaultValueState = {
   index: -1,
   name: 'state',
   value: 'state'
 }
 
-export const MenuFilterStateListAffirmationsComponent = [
+export const MenuFilterStateAffirmationsListComponent = [
   {
     index: 0,
     name: 'all',
@@ -62,7 +62,7 @@ export const MenuFilterStateListAffirmationsComponent = [
   }
 ]
 
-export const MenuFilterTopicsListAffirmationsComponent = [
+export const MenuFilterTopicsAffirmationsListComponent = [
   {
     index: 0,
     name: 'spirit',

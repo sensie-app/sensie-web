@@ -1,0 +1,18 @@
+@import '../../styles/index.scss';
+
+.PercentageChartContainer {
+  width: 100%;
+  padding: 10px;
+  @include flex(column, center, center, nowrap);
+
+  span {
+    color: $fontColor1;
+    font-size: 13px;
+    padding-bottom: 5px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 16px;
+  }
+}

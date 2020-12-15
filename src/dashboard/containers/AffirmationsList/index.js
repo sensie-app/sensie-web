@@ -1,6 +1,7 @@
 // react
 import React, { Fragment, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 // components
 import BarIndicator from '../../components/BarIndicator'
 import MenuListComposition from '../../components/MenuListComposition'
@@ -11,16 +12,18 @@ import Chip from '../../components/Chip'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction } from '../../../redux/actions/filters.actions'
 // constants
-import { MenuFilterStateListAffirmationsComponent, MenuFilterTopicsListAffirmationsComponent } from '../../constants/menus'
+import { MenuFilterStateAffirmationsListComponent, MenuFilterTopicsAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+// test data
+import { data } from './data'
 
 // const
 const { fontColor1 } = COLORS
 
 // * container
-const ListAffirmations = () => {
+const AffirmationsList = ({ chipsUp = false, limit }) => {
   // hooks
   const dispatch = useDispatch()
   const { filtersReducer: { affirmations: { topicFilter, stateFilter } } } = useSelector(state => state)
@@ -28,7 +31,6 @@ const ListAffirmations = () => {
   const [selectValue, setSelectValue] = useState(topicFilter)
 
   useEffect(() => {
-    console.log('selectValue', selectValue)
     selectValue !== topicFilter && dispatch(setAffirmationsTopicFilterAction(selectValue))
   }, [selectValue])
 
@@ -43,7 +45,13 @@ const ListAffirmations = () => {
   const renderMultipleSelectCheckboxChildren = () => {
     return (
       <Fragment>
-        <span className={styles.ListAffirmationsMultipleSelectCheckboxItemCount}>{selectValue.length}</span>
+        {
+          selectValue.length === 0
+            ? <Icon custom="topic" color={fontColor1} size="md" />
+            : <span className={styles.AffirmationsListMultipleSelectCheckboxItemCount}>
+                {selectValue.length}
+              </span>
+        }
         <span>{t('dashboard.MultipleSelectCheckbox.topics')}</span>
         <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
       </Fragment>
@@ -58,23 +66,30 @@ const ListAffirmations = () => {
     return selectValue.map(item => <Chip key={item.index} label={item} onClose={value => handleClickCloseChip(value)}/>)
   }
 
+  const renderAffirmationsBarIndicator = () => {
+    const _data = limit ? data.slice(0, limit) : data
+    return _data.map((affirmation, index) => (
+      <BarIndicator key={index} value={affirmation.value} title={affirmation.title} />
+    ))
+  }
+
   return (
-    <section className={styles.ListAffirmationsContainer}>
-      <div className={styles.ListAffirmationsFiltersContainer}>
-        <div className={styles.ListAffirmationsFilterBtnMenu}>
-          <div className={styles.ListAffirmationsFilterBtnMenuComponent}>
+    <section className={styles.AffirmationsListContainer}>
+      <div className={styles.AffirmationsListFiltersContainer}>
+        <div className={styles.AffirmationsListFilterBtnMenu}>
+          <div className={styles.AffirmationsListFilterBtnMenuComponent}>
             <MenuListComposition
-              data={MenuFilterStateListAffirmationsComponent}
+              data={MenuFilterStateAffirmationsListComponent}
               onClickValue={value => handleClickStateMenu(value)}
               defaultValue={stateFilter}>
                 {renderMenuListCompositionChildren()}
               </MenuListComposition>
           </div>
         </div>
-        <div className={styles.ListAffirmationsFilterBtnMenu}>
-          <div className={styles.ListAffirmationsFilterBtnMenuComponent}>
+        <div className={styles.AffirmationsListFilterBtnMenu}>
+          <div className={styles.AffirmationsListFilterBtnMenuComponent}>
             <MultipleSelectCheckbox
-              data={MenuFilterTopicsListAffirmationsComponent}
+              data={MenuFilterTopicsAffirmationsListComponent}
               onClickValue={value => handleClickTopicMenu(value)}
               defValue={topicFilter}
             >
@@ -83,18 +98,25 @@ const ListAffirmations = () => {
           </div>
         </div>
       </div>
-      <div className={styles.ListAffirmationsListContainer}>
-        <div className={styles.ListAffirmationsListBarIndicatorContainer}>
-          <BarIndicator value={75} title="Affirmation" />
-          <BarIndicator value={100} title="Affirmation" />
-          <BarIndicator value={45} title="Affirmation" />
-        </div>
-        <div className={styles.ListAffirmationsListChipsContainer}>
+      <div className={styles.AffirmationsListBodyContainer}>
+        {chipsUp && <div className={`${styles.AffirmationsListChipsContainer} ${styles.AffirmationsListChipsUp}`}>
           {renderChipsItems()}
+        </div>}
+        <div className={styles.AffirmationsListBarIndicatorContainer}>
+          {renderAffirmationsBarIndicator()}
         </div>
+        {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>
+          {renderChipsItems()}
+        </div>}
       </div>
     </section>
   )
 }
 
-export default ListAffirmations
+// prop-types
+AffirmationsList.propTypes = {
+  chipsUp: PropTypes.bool,
+  limit: PropTypes.number
+}
+
+export default AffirmationsList

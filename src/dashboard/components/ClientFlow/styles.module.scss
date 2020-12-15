@@ -2,6 +2,7 @@
 
 .ClientFlowContainer {
   @include HomeG50Container(); 
+  @include heightGrid();
   box-sizing: border-box;
 }
 

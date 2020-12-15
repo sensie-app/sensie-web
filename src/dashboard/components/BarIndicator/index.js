@@ -6,6 +6,9 @@ import { COLORS } from '../../constants/theme'
 // style
 import styles from './styles.module.scss'
 
+// const
+const { actionColor1, actionColor2, actionColor3 } = COLORS
+
 // * component
 const BarIndicator = ({ value, title }) => {
   // handle functions
@@ -13,18 +16,26 @@ const BarIndicator = ({ value, title }) => {
 
   const handleColor = () => {
     return value > 75
-      ? COLORS.actionColor1
+      ? actionColor1
       : value < 50
-        ? COLORS.actionColor2
-        : COLORS.actionColor3
+        ? actionColor2
+        : actionColor3
   }
+
+  const handleValue0 = (ifTrue, ifFalse) => value === 0 ? ifTrue : ifFalse
 
   return (
     <section className={styles.BarIndicatorContainer}>
       <span className={styles.BarIndicatorText}>{title}</span>
       <div className={styles.BarIndicatorChartContainer}>
-        <div className={styles.BarIndicatorChart} style={{ backgroundColor: handleColor(), width: handleValue() }} />
-        <span className={styles.BarIndicatorChartText}>{handleValue()}</span>
+        <div
+          className={styles.BarIndicatorChart}
+          style={{
+            backgroundColor: handleValue0('red', handleColor()),
+            width: handleValue0('1%', handleValue())
+          }}
+        />
+        <span className={styles.BarIndicatorChartText}>{handleValue0('0%', handleValue())}</span>
       </div>
     </section>
   )

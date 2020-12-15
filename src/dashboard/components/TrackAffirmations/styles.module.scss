@@ -4,6 +4,10 @@
   @include HomeG50Container();   
 }
 
+.TrackAffirmationsContainerHeight {
+  @include heightGrid();
+}
+
 .TrackAffirmationsBodyContainer {  
   @include HomeG50BodyContainer();
 }
