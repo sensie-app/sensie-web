@@ -15,6 +15,10 @@ import styles from './styles.module.scss'
 const { UP, USER, ACTIVITY } = IconChartTypes
 
 // * component
+/**
+ * ClientFlow component
+ * @component
+ */
 const ClientFlow = () => {
   // hooks
   const [t] = useTranslation('global')

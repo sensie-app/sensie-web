@@ -12,6 +12,10 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
 // * componet
+/**
+ * AlertDialog component
+ * @component
+ */
 const AlertDialog = ({
   children,
   title,
@@ -25,16 +29,32 @@ const AlertDialog = ({
   // hooks
   const [open, setOpen] = React.useState(false)
 
-  // handle functions
+  // ? handle functions
+  /**
+   * handle open
+   * @return  {boolean} open = true
+   */
   const handleClickOpen = () => setOpen(true)
 
+  /**
+   * handle close
+   * @return  {boolean} open = false
+   */
   const handleClose = () => setOpen(false)
 
+  /**
+   * handle disagree action button
+   * @return  {boolean | undefined} open = false + disagree action
+   */
   const handleDisagreeOnClick = () => {
     handleClose()
     disagreeOnClick()
   }
 
+  /**
+   * handle agree action button
+   * @return  {boolean | undefined} open = true + agree action
+   */
   const handleAgreeOnClick = () => {
     handleClose()
     agreeOnClick()
@@ -73,13 +93,21 @@ const AlertDialog = ({
 
 // prop-types
 AlertDialog.propTypes = {
+  /** children -> open dialog button */
   children: PropTypes.element.isRequired,
+  /** Dialog title */
   title: PropTypes.string.isRequired,
+  /** Dialog description */
   description: PropTypes.string,
+  /** Dialog disagree button title */
   disagreeText: PropTypes.string,
+  /** Dialog disagree button action */
   disagreeOnClick: PropTypes.func,
+  /** Dialog agree button title */
   agreeText: PropTypes.string,
+  /** Dialog agree button action */
   agreeOnClick: PropTypes.func,
+  /** change button (agree button, amplify logout button) */
   withLogout: PropTypes.bool
 }
 

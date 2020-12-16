@@ -23,6 +23,10 @@ import { data } from './data'
 const { fontColor1 } = COLORS
 
 // * container
+/**
+ * AffirmationsList container
+ * @component
+ */
 const AffirmationsList = ({ chipsUp = false, limit }) => {
   // hooks
   const dispatch = useDispatch()
@@ -34,14 +38,33 @@ const AffirmationsList = ({ chipsUp = false, limit }) => {
     selectValue !== topicFilter && dispatch(setAffirmationsTopicFilterAction(selectValue))
   }, [selectValue])
 
-  // handleFunctions
+  // ? handle Functions
+  /**
+   * handle click state menu
+   * @param {DataAffirmation} value
+   * @returns {undefined} setAffirmationsStateFilterAction (dispatch REDUX)
+   */
   const handleClickStateMenu = value => dispatch(setAffirmationsStateFilterAction(value))
 
+  /**
+   * handle click topic menu
+   * @param {DataAffirmation} value
+   * @returns {undefined} selectValue = value
+   */
   const handleClickTopicMenu = value => setSelectValue(value)
 
+  /**
+   * handle click close chip
+   * @param {DataAffirmation} value
+   * @returns {undefined} selectValue = value(filtered)
+   */
   const handleClickCloseChip = value => setSelectValue(selectValue.filter(item => item !== value))
 
-  // render functions
+  // ? render functions
+  /**
+   * render multiple select - checkbox (children)
+   * @return {undefined} (html)
+   */
   const renderMultipleSelectCheckboxChildren = () => {
     return (
       <Fragment>
@@ -58,14 +81,26 @@ const AffirmationsList = ({ chipsUp = false, limit }) => {
     )
   }
 
+  /**
+   * render Icon
+   * @return {undefined} Icon (html)
+   */
   const renderMenuListCompositionChildren = () => (
     <Icon name="activity-outline" color={fontColor1} size="md" />
   )
 
+  /**
+   * render chips items
+   * @return {undefined} Chips[] (html)
+   */
   const renderChipsItems = () => {
     return selectValue.map(item => <Chip key={item.index} label={item} onClose={value => handleClickCloseChip(value)}/>)
   }
 
+  /**
+   * render affirmations
+   * @return {undefined} BarIndicator[] (html)
+   */
   const renderAffirmationsBarIndicator = () => {
     const _data = limit ? data.slice(0, limit) : data
     return _data.map((affirmation, index) => (
@@ -115,7 +150,9 @@ const AffirmationsList = ({ chipsUp = false, limit }) => {
 
 // prop-types
 AffirmationsList.propTypes = {
+  /** whether chips are displayed above or below the declaration list */
   chipsUp: PropTypes.bool,
+  /** number of affirmations */
   limit: PropTypes.number
 }
 

@@ -28,13 +28,19 @@ const defValue = {
 }
 
 // * component
-const MenuListComposition = ({ data, onClickValue, defaultValue = defValue, children }) => {
+/**
+ * MenuListComposition component
+ * @component
+ */
+const MenuListComposition = ({ data, onClickValue, defaultValue = null, children }) => {
   // hooks
   const [open, setOpen] = useState(false)
   const [item, setItem] = useState(defValue)
   const anchorRef = useRef(null)
   const prevOpen = useRef(open)
   const [t] = useTranslation('global')
+
+  useEffect(() => defaultValue === null && setItem(defValue), [])
 
   useEffect(() => {
     prevOpen.current === true && open === false && anchorRef.current.focus()
@@ -45,23 +51,44 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue, chil
     setItem(defaultValue)
   }, [defaultValue])
 
-  // handle functions
+  // ? handle functions
+  /**
+   * handle open - close
+   * @return  {boolean} true | false
+   */
   const handleToggle = () => setOpen((prevOpen) => !prevOpen)
 
+  /**
+   * handle close
+   * @param {Object} event event
+   * @return  {boolean} false
+   */
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return
     }
     setOpen(false)
   }
-
+  /**
+   * handle click
+   * @param {Array} value value
+   * @param {Object} event event
+   * @return  {Array | undefined | boolean}
+   * item = value
+   * onClickValue
+   * open = false
+   */
   const handleClick = (value, event) => {
     setItem(value)
     onClickValue(value)
     handleClose(event)
   }
 
-  // render functions
+  // ? render functions
+  /**
+   * render items
+   * @return  {undefined} items (html)
+   */
   const renderItems = () => {
     return data.map(item => {
       return (
@@ -108,9 +135,13 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = defValue, chil
 
 // prop-types
 MenuListComposition.propTypes = {
+  /** data */
   data: PropTypes.array.isRequired,
+  /** click action */
   onClickValue: PropTypes.func.isRequired,
+  /** default value */
   defaultValue: PropTypes.object,
+  /** children -> btn open menu */
   children: PropTypes.element
 }
 

@@ -18,11 +18,21 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
 console.log('data', data1, data2)
 
 // * component
-const BarChart = ({ data = data2, miniature = false }) => {
+/**
+ * BarChart component
+ * @component
+ */
+const BarChart = ({ data, miniature = false }) => {
   // const
+  /** @type {number} */
   const margin = miniature ? 0 : 50
 
-  // handle functions
+  // ? handle functions
+  /**
+   * handle color
+   * @param {number} val value
+   * @return {string} color (actionColor1, actionColor2, actionColor3)
+   */
   const handleColor = val => {
     return val.value <= 50
       ? actionColor2
@@ -34,7 +44,7 @@ const BarChart = ({ data = data2, miniature = false }) => {
   return (
     <div className={styles.BarChartContainer}>
       <ResponsiveBar
-          data={data}
+          data={data2}
           theme={chartTheme}
           keys={['value']} // opc2: data2
           indexBy="day"
@@ -104,7 +114,9 @@ const BarChart = ({ data = data2, miniature = false }) => {
 
 // prop-types
 BarChart.propTypes = {
+  /** data [{day(number), value(number)}, {...}, ...] */
   data: PropTypes.array,
+  /** miniature chart */
   miniature: PropTypes.bool
 }
 

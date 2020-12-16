@@ -5,6 +5,10 @@ import PropTypes from 'prop-types'
 import { COLORS } from '../constants/theme'
 
 // * component
+/**
+ * Title component
+ * @component
+ */
 const Title = ({
   text,
   color = COLORS.fontColor1,
@@ -20,9 +24,13 @@ const Title = ({
 
 // prop-types
 Title.propTypes = {
+  /** Text */
   text: PropTypes.string.isRequired,
+  /** Color */
   color: PropTypes.string,
+  /** Margin */
   margin: PropTypes.string,
+  /** Padding */
   padding: PropTypes.string
 }
 

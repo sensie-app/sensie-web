@@ -1,4 +1,8 @@
 // react
+/**
+ * React routes
+ * @module Dashboard
+ */
 import React, { Fragment, useEffect, useState } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 // amplify
@@ -14,14 +18,16 @@ import Client from '../pages/Client'
 import Team from '../pages/Team'
 // components
 import { NotFound404 } from '../components/Globals'
-// import Bootstrap from '../components/BootstrapTheme'
 // containers
 import Layout from '../containers/Layout'
 // styles
 import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
+// doc types
+import '../doc/types'
 
 // amplify config
+/** @type {Object} Amplify configure */
 const amplifyConfig = Amplify.configure(awsmobile)
 console.log('amplifyConfig', amplifyConfig)
 
@@ -37,7 +43,6 @@ const listTopicsQuery = `
     }
   }
 `
-
 const DashboardRoutes = () => {
   // * start test amplify
   const [api, setApi] = useState([])

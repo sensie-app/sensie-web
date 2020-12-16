@@ -10,8 +10,16 @@ import styles from './styles.module.scss'
 const { actionColor1, actionColor2, actionColor3 } = COLORS
 
 // * component
+/**
+ * PercentageChart component
+ * @component
+ */
 const PercentageChart = ({ title, value }) => {
-  // render functions
+  // ? render functions
+  /**
+   * render value with color
+   * @return  {undefined} value (html)
+   */
   const renderValue = () => {
     return value > 75
       ? <h4 style={{ color: actionColor1 }}>{value}%</h4>
@@ -30,7 +38,9 @@ const PercentageChart = ({ title, value }) => {
 
 // prop-types
 PercentageChart.propTypes = {
+  /** title */
   title: PropTypes.string.isRequired,
+  /** value */
   value: PropTypes.number.isRequired
 }
 

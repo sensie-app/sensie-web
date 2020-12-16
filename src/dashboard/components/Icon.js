@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+// react
 import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 // icons
@@ -12,13 +12,17 @@ const { xs, sm, md, l, xl } = SIZE
 const { icon } = IMG
 
 // * component
+/**
+ * Icon component
+ * @component
+ */
 const Icon = ({
   name = null, // eva-icons names
   custom = null, // custom icons in constants/images -> IMG.icon
   color = '#000',
   size = null,
-  height = md,
-  width = md,
+  height = null,
+  width = null,
   animation = null
 }) => {
   // hooks
@@ -29,7 +33,11 @@ const Icon = ({
     eva.replace()
   }, [])
 
-  // handle functions
+  // ? handle functions
+  /**
+   * @param   {string} value  size of the icon (string || null)
+   * @return  {string} size value (small, medium, large)
+   */
   const handleSize = value => {
     switch (value) {
       case 'xs': return xs
@@ -37,10 +45,15 @@ const Icon = ({
       case 'md': return md
       case 'l': return l
       case 'xl': return xl
+      case null: return md
       default: return value
     }
   }
 
+  /**
+   * @param   {string} value  name of the icon animation (string || null)
+   * @return  {string} animation (zoom, pulse, shake, flip)
+   */
   const handleAnimation = value => {
     return (
       value !== 'zoom' &&
@@ -52,12 +65,11 @@ const Icon = ({
     )
   }
 
-  const handleName = () => {
-    // setCustomIcon(icon.filter(value => value.name === custom))
-    const test = icon.filter(value => value.name === custom)
-    console.log('test', test)
-    setCustomIcon(test[0])
-  }
+  /**
+   * modifies the customIcon state if the value of custom is in the assets / icons folder
+   * @return  {string} customIcon
+   */
+  const handleName = () => setCustomIcon(icon.filter(value => value.name === custom)[0])
 
   return (
     <Fragment>
@@ -77,12 +89,19 @@ const Icon = ({
 
 // prop-types
 Icon.propTypes = {
+  /** Icon name eva-icons */
   name: PropTypes.string,
+  /** Icon custom name ../assets/icons */
   custom: PropTypes.string,
+  /** Icon color */
   color: PropTypes.string,
+  /** Icon size (width & height) */
   size: PropTypes.string,
+  /** Icon height (only) */
   height: PropTypes.string,
+  /** Icon width (only) */
   width: PropTypes.string,
+  /** Icon animation eva-icons */
   animation: PropTypes.string
 }
 

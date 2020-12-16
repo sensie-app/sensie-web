@@ -17,6 +17,10 @@ const { grayColor6, fontColor1, actionColor1 } = COLORS
 const ITEM_HEIGHT = 70
 
 // * component
+/**
+ * MultipleSelectCheckbox component
+ * @component
+ */
 const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
   // hooks
   const [items, setItems] = useState(defValue)
@@ -38,7 +42,12 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
     }
   }
 
-  // handle functions
+  // ? handle functions
+  /**
+   * handle changes
+   * @param {Object} event event
+   * @return  {boolean | undefined} open = true + items = event.target.value
+   */
   const handleChange = event => {
     !open && handleOpen(true)
     setItems(event.target.value)
@@ -46,7 +55,11 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
 
   const handleOpen = (value = !open) => setOpen(value)
 
-  // render functions
+  // ? render functions
+  /**
+   * render menu item with checkbox and label
+   * @return  {undefined} MenuItem (html)
+   */
   const renderItems = () => {
     return data.map(value => (
       <MenuItem key={value.index} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
@@ -79,9 +92,13 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
 
 // prop-types
 MultipleSelectCheckbox.propTypes = {
+  /** data */
   data: PropTypes.array.isRequired,
+  /** children -> button open select */
   children: PropTypes.element.isRequired,
+  /** action */
   onClickValue: PropTypes.func.isRequired,
+  /** default value */
   defValue: PropTypes.array.isRequired
 }
 

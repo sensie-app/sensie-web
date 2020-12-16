@@ -14,14 +14,21 @@ import { data1 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3 } = COLORS
-const margin = 20
 
 // * component
-const LineChart = ({ data = data1 }) => {
+/**
+ * LineChart component
+ * @component
+ */
+const LineChart = ({ data }) => {
+  // const
+  /** @type {number} */
+  const margin = 20
+
   return (
     <div className={styles.LineChartContainer}>
        <ResponsiveLine
-          data={data}
+          data={data1}
           margin={{ top: margin, right: margin, bottom: margin + 10, left: margin * 2 }}
           enablePoints={false}
           enablePointLabel={false}
@@ -78,6 +85,7 @@ const LineChart = ({ data = data1 }) => {
 
 // prop-types
 LineChart.propTypes = {
+  /** data [{ id: high, data: [{x(number), y(number | null)}, ...] }, { id: medium, data: [...] }, { id: low, data: [...] }] */
   data: PropTypes.array
 }
 

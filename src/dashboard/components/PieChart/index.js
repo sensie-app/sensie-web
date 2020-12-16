@@ -18,8 +18,17 @@ const margin = 5
 console.log('data', data1, data2, data3)
 
 // * component
+/**
+ * PieChart component
+ * @component
+ */
 const PieChart = ({ data = data1, title = '' }) => {
-  // handle functions
+  // ? handle functions
+  /**
+   * handle data color
+   * @param {Object} data { id(string), label(string), value(string) }
+   * @return  {undefined} data
+   */
   const handleDataColor = (data) => {
     const dataWithColor = data.map(_data => {
       if (_data.id === 'empty') {
@@ -36,7 +45,12 @@ const PieChart = ({ data = data1, title = '' }) => {
     return dataWithColor
   }
 
-  // render functions
+  // ? render functions
+  /**
+   * render center value info
+   * @param {Object} data { id(string), label(string), value(string) }
+   * @return {undefined} data% (html)
+   */
   const renderCenterValue = data => {
     const value = data.filter(_data => _data.id === 'value')
     return <span>{value[0].value}%</span>
@@ -67,7 +81,9 @@ const PieChart = ({ data = data1, title = '' }) => {
 
 // prop-types
 PieChart.propTypes = {
+  /** data chart { id(string), label(string), value(number) } */
   data: PropTypes.array,
+  /** title chart */
   title: PropTypes.string
 }
 

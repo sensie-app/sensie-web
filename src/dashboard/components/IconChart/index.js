@@ -15,8 +15,16 @@ const { actionColor1, fontColor1 } = COLORS
 const { UP, DOWN, USER, ACTIVITY } = IconChartTypes
 
 // * component
+/**
+ * IconChart component
+ * @component
+ */
 const IconChart = ({ title, value, valueType = 'number', icon }) => {
-  // handle functions
+  // ? handle functions
+  /**
+   * handle value
+   * @return  {undefined} value
+   */
   const handleValue = () => {
     const handleString = (data, limit, letter) => data.substr(0, data.length - limit) + letter
 
@@ -30,7 +38,11 @@ const IconChart = ({ title, value, valueType = 'number', icon }) => {
     return _value
   }
 
-  // render functions
+  // ? render functions
+  /**
+   * render icon
+   * @return  {undefined} Icon (component)
+   */
   const renderIcon = () => {
     switch (icon) {
       case UP: return <Icon name="trending-up-outline" size="md" color={actionColor1}/>
@@ -53,9 +65,13 @@ const IconChart = ({ title, value, valueType = 'number', icon }) => {
 
 // prop-types
 IconChart.propTypes = {
+  /** title */
   title: PropTypes.string.isRequired,
+  /** value */
   value: PropTypes.number.isRequired,
+  /** value type */
   valueType: PropTypes.string,
+  /** icon (UP, DOWN, USER, ACTIVITY) */
   icon: PropTypes.string.isRequired
 }
 

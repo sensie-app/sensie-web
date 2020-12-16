@@ -39,6 +39,10 @@ const { logo } = IMG
 const drawerWidth = 210
 
 // * container
+/**
+ * Layout container
+ * @component
+ */
 const Layout = ({ children }) => {
   // hooks
   const [open, setOpen] = useState(false)
@@ -46,6 +50,7 @@ const Layout = ({ children }) => {
   const [t] = useTranslation('global')
 
   // const-items
+  /** @type {Array.<Item>} */
   const listItems = [
     {
       title: <span>{t('dashboard.Layout.home').toUpperCase()}</span>,
@@ -67,10 +72,18 @@ const Layout = ({ children }) => {
     }
   ]
 
-  // handle functions
+  // ? handle functions
+  /**
+   * handle drawer open
+   * @returns {boolean} open = !open
+   */
   const handleDrawerOpen = () => setOpen(!open)
 
-  // render functions
+  // ? render functions
+  /**
+   * render list items
+   * @returns {undefined} list items (html)
+   */
   const renderListItems = () => {
     return listItems.map((item, index) =>
       <NavLink
@@ -90,6 +103,11 @@ const Layout = ({ children }) => {
     )
   }
 
+  /**
+   * render avatar drawer
+   * @param {User} user
+   * @returns {undefined} user avatar (html)
+   */
   const renderAvatar = user => {
     return <div className={styles.LayoutLinkToListItem}>
       <div className={styles.LayoutAvatarImgContainer}>
@@ -196,6 +214,7 @@ const Layout = ({ children }) => {
 
 // prop-types
 Layout.propTypes = {
+  /** children */
   children: PropTypes.element.isRequired
 }
 

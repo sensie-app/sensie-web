@@ -10,6 +10,10 @@ import Title from '../Title'
 import styles from './styles.module.scss'
 
 // * component
+/**
+ * TrackAffirmations component
+ * @component
+ */
 const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = false }) => {
   return (
     <section className={`${styles.TrackAffirmationsContainer} ${fixHeight && styles.TrackAffirmationsContainerHeight}`}>
@@ -36,13 +40,18 @@ const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = fal
 
 // prop-types
 TrackAffirmations.propTypes = {
+  /** whether chips are displayed above or below the declaration list */
   chipsUp: PropTypes.bool,
+  /** number of affirmations */
   limit: PropTypes.number,
+  /** title section */
   title: PropTypes.string.isRequired,
+  /** btn: { title(string), route(string) } */
   btn: PropTypes.shape({
     title: PropTypes.string.isRequired,
     route: PropTypes.string.isRequired
   }),
+  /** fixed height (true, false) */
   fixHeight: PropTypes.bool
 }
 

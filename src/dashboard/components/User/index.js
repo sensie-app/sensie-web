@@ -1,5 +1,5 @@
 // react
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 // components
@@ -18,13 +18,22 @@ const { UP, USER, ACTIVITY } = IconChartTypes
 const { summary } = UserListBtns
 
 // * component
-const User = ({ user = { name: 'Harrison Ford', url: '' }, show = summary }) => {
-  console.log('show', show)
-  console.log('show === summary', show === summary)
+/**
+ * User component
+ * @component
+ */
+const User = ({ user = { name: 'Harrison Ford', url: '' }, show = null }) => {
   // hooks
   const [t] = useTranslation('global')
+  const [showState, setShowState] = useState(show)
 
-  // render functions
+  useEffect(() => showState === null && setShowState(summary), [])
+
+  // ? render functions
+  /**
+   * render user name
+   * @return  {undefined} name + lastname (html)
+   */
   const renderName = () => {
     const _user = user.name.split(' ')
     return <div>
@@ -41,7 +50,7 @@ const User = ({ user = { name: 'Harrison Ford', url: '' }, show = summary }) => 
         {renderName()}
       </div>
       {/* body */}
-      { show.showInfo === summary
+      { showState.showInfo === summary
         ? <Fragment>
             <div className={styles.UserBodyContainer}>
               <PercentageChart title={t('dashboard.User.awarness')} value={90} />
@@ -65,9 +74,11 @@ const User = ({ user = { name: 'Harrison Ford', url: '' }, show = summary }) => 
 
 // prop-types
 User.propTypes = {
+  /** show: { showInfo } */
   show: PropTypes.shape({
     showInfo: PropTypes.string
   }),
+  /** user: { name, url } */
   user: PropTypes.shape({
     name: PropTypes.string,
     url: PropTypes.string

@@ -10,10 +10,22 @@ import styles from './styles.module.scss'
 const { actionColor1, actionColor2, actionColor3 } = COLORS
 
 // * component
+/**
+ * BarIndicator component
+ * @component
+ */
 const BarIndicator = ({ value, title }) => {
-  // handle functions
+  // ? handle functions
+  /**
+   * handle value
+   * @return {string} value + %
+   */
   const handleValue = () => value.toString() + '%'
 
+  /**
+   * handle color
+   * @return {string} color (actionColor1, actionColor2, actionColor3)
+   */
   const handleColor = () => {
     return value > 75
       ? actionColor1
@@ -22,6 +34,12 @@ const BarIndicator = ({ value, title }) => {
         : actionColor3
   }
 
+  /**
+   * handle value (value = 0)
+   * @param {string} ifTrue value = 0
+   * @param {string} ifFalse value != 0
+   * @return {string}
+   */
   const handleValue0 = (ifTrue, ifFalse) => value === 0 ? ifTrue : ifFalse
 
   return (
@@ -43,7 +61,9 @@ const BarIndicator = ({ value, title }) => {
 
 // prop-types
 BarIndicator.propTypes = {
+  /** value */
   value: PropTypes.number.isRequired,
+  /** title */
   title: PropTypes.string.isRequired
 }
 

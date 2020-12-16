@@ -12,6 +12,10 @@ import styles from './styles.module.scss'
 const { fontColor1 } = COLORS
 
 // * component
+/**
+ * Chip component
+ * @component
+ */
 const Chip = ({ label, withClose = true, onClose = () => {} }) => {
   return (
     <div className={styles.ChipContainer}>
@@ -25,9 +29,13 @@ const Chip = ({ label, withClose = true, onClose = () => {} }) => {
   )
 }
 
+// prop-types
 Chip.propTypes = {
+  /** label */
   label: PropTypes.object.isRequired,
+  /** withClose */
   withClose: PropTypes.bool,
+  /** onClose action */
   onClose: PropTypes.func
 }
 

@@ -18,11 +18,18 @@ import styles from './styles.module.scss'
 const { home } = DASHBOARD_ROUTES
 
 // * page
+/**
+ * Client page
+ * @component
+ */
 const Client = () => {
   // hooks
   const [t] = useTranslation('global')
 
   // const
+  /**
+   * @type {BTN}
+   */
   const btn = {
     title: t('dashboard.Client.author'),
     route: home

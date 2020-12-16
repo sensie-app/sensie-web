@@ -18,14 +18,23 @@ import styles from './styles.module.scss'
 const { fontColor1 } = COLORS
 const { summary, details } = UserListBtns
 
-// * component
+// * container
+/**
+ * UserList container
+ * @component
+ */
 const UsersList = () => {
   // hooks
   const [t] = useTranslation('global')
   const dispatch = useDispatch()
   const { showReducer: { userList: showInfo } } = useSelector(state => state)
 
-  // handle functions
+  // ? handle functions
+  /**
+   * handle click
+   * @param {Object} clickBtn
+   * @returns {Object} dispatch REDUX
+   */
   const handleClick = clickBtn => dispatch(setUserListInfo(clickBtn))
 
   return (

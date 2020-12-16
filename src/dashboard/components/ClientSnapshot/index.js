@@ -19,8 +19,16 @@ const { fontColor1 } = COLORS
 console.log('data', data)
 
 // * component
+/**
+ * ClientSnapshot component
+ * @component
+ */
 const ClientSnapshot = () => {
-  // render functions
+  // ? render functions
+  /**
+   * render client snapshot with bar chart
+   * @return  {undefined} component (html)
+   */
   const renderClientSnapshotBarChart = () => {
     return data.map((client, index) => {
       return (

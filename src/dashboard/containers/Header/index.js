@@ -25,6 +25,10 @@ const { fontColor1 } = COLORS
 const { home } = DASHBOARD_ROUTES
 
 // * container
+/**
+ * Header container
+ * @component
+ */
 const Header = ({ withBack = false, withPeople = true }) => {
   // hooks
   const dispatch = useDispatch()
@@ -51,7 +55,11 @@ const Header = ({ withBack = false, withPeople = true }) => {
     }
   }, [datePickerValue])
 
-  // handle functions
+  // ? handle functions
+  /**
+   * handle dates
+   * @returns {undefined} filter.value = date[]
+   */
   const handleDates = () => {
     switch (filter.name) {
       case 'today':
@@ -73,11 +81,19 @@ const Header = ({ withBack = false, withPeople = true }) => {
     return filter
   }
 
+  /**
+   * handle custom dates
+   * @returns {undefined} filter.value = date[]
+   */
   const handleCustomDates = () => {
     filter.value = [moment(datePickerValue[0]).format(), moment(datePickerValue[1]).format()]
   }
 
-  // render functions
+  // ? render functions
+  /**
+   * render date
+   * @returns {string} Date with format
+   */
   const renderDate = () => {
     const { name, value } = filter
     return name !== 'custom' && value.length === 2
@@ -132,7 +148,9 @@ const Header = ({ withBack = false, withPeople = true }) => {
 
 // prop-types
 Header.propTypes = {
+  /** with back */
   withBack: PropTypes.bool,
+  /** with people */
   withPeople: PropTypes.bool
 }
 

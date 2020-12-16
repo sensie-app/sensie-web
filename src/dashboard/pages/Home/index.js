@@ -19,11 +19,16 @@ import styles from './styles.module.scss'
 const { client } = DASHBOARD_ROUTES
 
 // * page
+/**
+ * Home page
+ * @component
+ */
 const Home = () => {
   // hooks
   const [t] = useTranslation('global')
 
   // const
+  /** @type {BTN} */
   const btn = {
     title: t('dashboard.Home.viewMore'),
     route: client
