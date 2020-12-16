@@ -18,6 +18,10 @@ const { UP, DOWN, USER, ACTIVITY } = IconChartTypes
 /**
  * IconChart component
  * @component
+ * @param {string} title
+ * @param {number} value
+ * @param {string} valueType
+ * @param {string} icon
  */
 const IconChart = ({ title, value, valueType = 'number', icon }) => {
   // ? handle functions

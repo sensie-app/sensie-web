@@ -15,6 +15,13 @@ const { icon } = IMG
 /**
  * Icon component
  * @component
+ * @param {(string|null)} name
+ * @param {(string|null)} custom
+ * @param {string} color
+ * @param {(string|null)} size
+ * @param {(string|null)} height
+ * @param {(string|null)} width
+ * @param {(string|null)} animation
  */
 const Icon = ({
   name = null, // eva-icons names

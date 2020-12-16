@@ -1,12 +1,13 @@
 // react
 import React from 'react'
-import PropTypes from 'prop-types'
 import { ResponsiveLine } from '@nivo/line'
 import { linearGradientDef } from '@nivo/core'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+// prop-types
+import { LineChartDataPropTypes } from '../../prop-types'
 // theme
 import chartTheme from '../../constants/chartTheme'
 // data
@@ -19,6 +20,7 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
 /**
  * LineChart component
  * @component
+ * @param {Array.LineChartData} data
  */
 const LineChart = ({ data }) => {
   // const
@@ -85,8 +87,7 @@ const LineChart = ({ data }) => {
 
 // prop-types
 LineChart.propTypes = {
-  /** data [{ id: high, data: [{x(number), y(number | null)}, ...] }, { id: medium, data: [...] }, { id: low, data: [...] }] */
-  data: PropTypes.array
+  data: LineChartDataPropTypes
 }
 
 export default LineChart

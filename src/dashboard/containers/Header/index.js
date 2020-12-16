@@ -28,6 +28,8 @@ const { home } = DASHBOARD_ROUTES
 /**
  * Header container
  * @component
+ * @param {boolean} withBack
+ * @param {boolean} withPeople
  */
 const Header = ({ withBack = false, withPeople = true }) => {
   // hooks

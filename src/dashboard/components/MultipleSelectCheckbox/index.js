@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+// prop-types
+import { MenuDataPropTypes } from '../../prop-types'
 
 // const
 const { grayColor6, fontColor1, actionColor1 } = COLORS
@@ -20,6 +22,10 @@ const ITEM_HEIGHT = 70
 /**
  * MultipleSelectCheckbox component
  * @component
+ * @param {Array.MenuData} data
+ * @param {undefined} onClickValue
+ * @param {undefined} children
+ * @param {MenuData} defValue
  */
 const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
   // hooks
@@ -93,7 +99,7 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
 // prop-types
 MultipleSelectCheckbox.propTypes = {
   /** data */
-  data: PropTypes.array.isRequired,
+  data: MenuDataPropTypes,
   /** children -> button open select */
   children: PropTypes.element.isRequired,
   /** action */

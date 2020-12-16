@@ -1,8 +1,4 @@
 // react
-/**
- * React routes
- * @module Dashboard
- */
 import React, { Fragment, useEffect, useState } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 // amplify
@@ -27,7 +23,6 @@ import '../styles/amplify-ui.scss'
 import '../doc/types'
 
 // amplify config
-/** @type {Object} Amplify configure */
 const amplifyConfig = Amplify.configure(awsmobile)
 console.log('amplifyConfig', amplifyConfig)
 

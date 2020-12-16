@@ -13,6 +13,8 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
 /**
  * PercentageChart component
  * @component
+ * @param {string} title
+ * @param {number} value
  */
 const PercentageChart = ({ title, value }) => {
   // ? render functions

@@ -15,6 +15,14 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 /**
  * AlertDialog component
  * @component
+ * @param {undefined} children
+ * @param {string} title
+ * @param {string} description
+ * @param {string} agreeText
+ * @param {string} disagreeText
+ * @param {undefined} agreeOnClick
+ * @param {undefined} disagreeOnClick
+ * @param {boolean} withLogout
  */
 const AlertDialog = ({
   children,

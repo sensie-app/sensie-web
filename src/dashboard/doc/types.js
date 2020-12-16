@@ -22,3 +22,46 @@
   * @property {string} name
   * @property {string} url
   */
+
+/**
+ * @typedef {Object} BarChartData
+ * @property {number} day
+ * @property {number} value
+ */
+
+/**
+ * @typedef {Object} AxesLineChart
+ * @property {number} x
+ * @property {(number|null)} y
+ */
+
+/**
+ * @typedef {Object} LineChartData
+ * @property {string} id
+ * @property {AxesLineChart} data
+ */
+
+/**
+ * @typedef {Object} PieChartData
+ * @property {string} id
+ * @property {string} label
+ * @property {number} value
+ */
+
+/**
+ * @typedef {Object} ReduxShowReducerUserList
+ * @property {string} showInfo {summary | details}
+ */
+
+/**
+ * @typedef {Object} BtnTrackAffirmation
+ * @property {string} title
+ * @property {string} route
+ */
+
+/**
+ * @typedef {Object} MenuData
+ * @property {number} index
+ * @property {string} name
+ * @property {string} value
+ */

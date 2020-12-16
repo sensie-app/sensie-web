@@ -12,6 +12,8 @@ import { IconChartTypes } from '../../constants/charts'
 import { UserListBtns } from '../../constants/globals'
 // styles
 import styles from './styles.module.scss'
+// prop-types
+import { UserPropTypes } from '../../prop-types'
 
 // const
 const { UP, USER, ACTIVITY } = IconChartTypes
@@ -21,6 +23,8 @@ const { summary } = UserListBtns
 /**
  * User component
  * @component
+ * @param {User} user
+ * @param {ReduxShowReducerUserList} show
  */
 const User = ({ user = { name: 'Harrison Ford', url: '' }, show = null }) => {
   // hooks
@@ -78,11 +82,7 @@ User.propTypes = {
   show: PropTypes.shape({
     showInfo: PropTypes.string
   }),
-  /** user: { name, url } */
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    url: PropTypes.string
-  })
+  user: UserPropTypes
 }
 
 export default User

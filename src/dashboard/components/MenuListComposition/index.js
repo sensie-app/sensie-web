@@ -19,6 +19,8 @@ import Icon from '../Icon'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+// prop-types
+import { MenuDataPropTypes } from '../../prop-types'
 
 // const
 const { fontColor1 } = COLORS
@@ -31,6 +33,10 @@ const defValue = {
 /**
  * MenuListComposition component
  * @component
+ * @param {Array.MenuData} data
+ * @param {undefined} onClickValue
+ * @param {(MenuData|null)} defaultValue
+ * @param {undefined} children
  */
 const MenuListComposition = ({ data, onClickValue, defaultValue = null, children }) => {
   // hooks
@@ -136,7 +142,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
 // prop-types
 MenuListComposition.propTypes = {
   /** data */
-  data: PropTypes.array.isRequired,
+  data: MenuDataPropTypes,
   /** click action */
   onClickValue: PropTypes.func.isRequired,
   /** default value */

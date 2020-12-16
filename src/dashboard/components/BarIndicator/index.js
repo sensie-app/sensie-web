@@ -13,6 +13,8 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
 /**
  * BarIndicator component
  * @component
+ * @param {number} value
+ * @param {string} title
  */
 const BarIndicator = ({ value, title }) => {
   // ? handle functions

@@ -26,6 +26,8 @@ const { fontColor1 } = COLORS
 /**
  * AffirmationsList container
  * @component
+ * @param {boolean} chipsUp
+ * @param {number} limit
  */
 const AffirmationsList = ({ chipsUp = false, limit }) => {
   // hooks

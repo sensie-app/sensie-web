@@ -15,6 +15,9 @@ const { fontColor1 } = COLORS
 /**
  * Chip component
  * @component
+ * @param {string} label
+ * @param {boolean} withClose
+ * @param {undefined} onClose
  */
 const Chip = ({ label, withClose = true, onClose = () => {} }) => {
   return (

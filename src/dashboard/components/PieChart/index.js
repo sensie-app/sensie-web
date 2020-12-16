@@ -6,27 +6,29 @@ import { ResponsivePie } from '@nivo/pie'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+// prop-types
+import { PieChartDataPropTypes } from '../../prop-types'
 // theme
 import chartTheme from '../../constants/chartTheme'
 // test
-import { data1, data2, data3 } from './data'
+import { data1 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3, grayColor4 } = COLORS
 const margin = 5
 
-console.log('data', data1, data2, data3)
-
 // * component
 /**
  * PieChart component
  * @component
+ * @param {PieChartData} data
+ * @param {string} title
  */
 const PieChart = ({ data = data1, title = '' }) => {
   // ? handle functions
   /**
    * handle data color
-   * @param {Object} data { id(string), label(string), value(string) }
+   * @param {PieChartData} data
    * @return  {undefined} data
    */
   const handleDataColor = (data) => {
@@ -48,7 +50,7 @@ const PieChart = ({ data = data1, title = '' }) => {
   // ? render functions
   /**
    * render center value info
-   * @param {Object} data { id(string), label(string), value(string) }
+   * @param {PieChartData} data
    * @return {undefined} data% (html)
    */
   const renderCenterValue = data => {
@@ -81,9 +83,7 @@ const PieChart = ({ data = data1, title = '' }) => {
 
 // prop-types
 PieChart.propTypes = {
-  /** data chart { id(string), label(string), value(number) } */
-  data: PropTypes.array,
-  /** title chart */
+  data: PieChartDataPropTypes,
   title: PropTypes.string
 }
 

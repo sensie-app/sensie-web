@@ -7,20 +7,22 @@ import { linearGradientDef } from '@nivo/core'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+// prop-types
+import { BarChartDataPropTypes } from '../../prop-types/index'
 // theme
 import chartTheme from '../../constants/chartTheme'
 // test data
-import { data1, data2 } from './data'
+import { data2 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3 } = COLORS
-
-console.log('data', data1, data2)
 
 // * component
 /**
  * BarChart component
  * @component
+ * @param {Array.BarChartData} data
+ * @param {boolean} miniature
  */
 const BarChart = ({ data, miniature = false }) => {
   // const
@@ -44,7 +46,7 @@ const BarChart = ({ data, miniature = false }) => {
   return (
     <div className={styles.BarChartContainer}>
       <ResponsiveBar
-          data={data2}
+          data={data2} // todo: use data
           theme={chartTheme}
           keys={['value']} // opc2: data2
           indexBy="day"
@@ -114,9 +116,7 @@ const BarChart = ({ data, miniature = false }) => {
 
 // prop-types
 BarChart.propTypes = {
-  /** data [{day(number), value(number)}, {...}, ...] */
-  data: PropTypes.array,
-  /** miniature chart */
+  data: BarChartDataPropTypes,
   miniature: PropTypes.bool
 }
 

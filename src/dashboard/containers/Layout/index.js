@@ -42,6 +42,7 @@ const drawerWidth = 210
 /**
  * Layout container
  * @component
+ * @param {undefined} children
  */
 const Layout = ({ children }) => {
   // hooks
