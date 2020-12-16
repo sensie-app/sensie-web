@@ -1,13 +1,13 @@
-/* eslint-disable react/prop-types */
 // react
 import React from 'react'
-import PropTypes from 'prop-types'
 import { ResponsiveLine } from '@nivo/line'
 import { linearGradientDef } from '@nivo/core'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+// prop-types
+import { LineChartDataPropTypes } from '../../prop-types'
 // theme
 import chartTheme from '../../constants/chartTheme'
 // data
@@ -15,13 +15,22 @@ import { data1 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3 } = COLORS
-const margin = 20
 
-const LineChart = ({ data = data1 }) => {
+// * component
+/**
+ * LineChart component
+ * @component
+ * @param {Array.LineChartData} data
+ */
+const LineChart = ({ data }) => {
+  // const
+  /** @type {number} */
+  const margin = 20
+
   return (
     <div className={styles.LineChartContainer}>
        <ResponsiveLine
-          data={data}
+          data={data1}
           margin={{ top: margin, right: margin, bottom: margin + 10, left: margin * 2 }}
           enablePoints={false}
           enablePointLabel={false}
@@ -38,7 +47,7 @@ const LineChart = ({ data = data1 }) => {
           curve="natural"
           lineWidth={5}
           enableArea={true}
-          areaOpacity={0.08}
+          areaOpacity={0.5}
           enableSlices={false}
           useMesh={true}
           crosshairType="cross"
@@ -76,8 +85,9 @@ const LineChart = ({ data = data1 }) => {
   )
 }
 
+// prop-types
 LineChart.propTypes = {
-  data: PropTypes.array.isRequired
+  data: LineChartDataPropTypes
 }
 
 export default LineChart

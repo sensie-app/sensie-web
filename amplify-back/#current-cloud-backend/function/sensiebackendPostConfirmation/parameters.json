@@ -1,5 +1,0 @@
-{
-  "modules": ["add-to-group" "add-to-db"],
-  "GROUP": "users",
-  "AppSyncApiName": "sensiebackend"
-}

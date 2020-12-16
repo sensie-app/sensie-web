@@ -1,35 +1,63 @@
-/* eslint-disable react/prop-types */
 // react
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 // components
-import ListAffirmations from '../../containers/ListAffirmations'
+import AffirmationsList from '../../containers/AffirmationsList'
+// components
+import Title from '../Title'
 // styles
 import styles from './styles.module.scss'
 
-const TrackAffirmations = () => {
-  // hooks
-  const [t] = useTranslation('global')
-
+// * component
+/**
+ * TrackAffirmations component
+ * @component
+ * @param {boolean} chipsUp
+ * @param {number} limit
+ * @param {string} title
+ * @param {BtnTrackAffirmation} btn
+ * @param {boolean} fixHeight
+ */
+const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = false }) => {
   return (
-    <section className={styles.TrackAffirmationsContainer}>
+    <section className={`${styles.TrackAffirmationsContainer} ${fixHeight && styles.TrackAffirmationsContainerHeight}`}>
       <div className={styles.TrackAffirmationsBodyContainer}>
         {/* header */}
         <div className={styles.TrackAffirmationsHeaderContainer}>
           <div className={styles.TrackAffirmationsHeaderTitleContainer}>
-            <h3>{t('dashboard.TrackAffirmations.title')}</h3>
+            <Title text={title} />
           </div>
           <div className={styles.TrackAffirmationsHeaderBtnContainer}>
-            <button>{t('dashboard.TrackAffirmations.viewMore')}</button>
+            <Link to={btn.route}>
+              <button>{btn.title}</button>
+            </Link>
           </div>
         </div>
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
-          <ListAffirmations />
+          <AffirmationsList chipsUp={chipsUp} limit={limit} />
         </div>
       </div>
     </section>
   )
+}
+
+// prop-types
+TrackAffirmations.propTypes = {
+  /** whether chips are displayed above or below the declaration list */
+  chipsUp: PropTypes.bool,
+  /** number of affirmations */
+  limit: PropTypes.number,
+  /** title section */
+  title: PropTypes.string.isRequired,
+  /** btn: { title(string), route(string) } */
+  btn: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    route: PropTypes.string.isRequired
+  }),
+  /** fixed height (true, false) */
+  fixHeight: PropTypes.bool
 }
 
 export default TrackAffirmations

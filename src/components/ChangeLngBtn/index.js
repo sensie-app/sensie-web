@@ -7,7 +7,7 @@ export const ChangeLngBtn = () => {
   const [t, i18n] = useTranslation('global')
   const [lngEN, setLngEN] = useState(true)
 
-  // handle functions
+  // ? handle functions
   const handleClick = () => {
     lngEN ? i18n.changeLanguage('es') : i18n.changeLanguage('en')
     setLngEN(!lngEN)

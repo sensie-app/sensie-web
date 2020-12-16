@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -6,10 +5,23 @@ import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 
+// * component
+/**
+ * ImageAvatar component
+ * @component
+ * @param {string} url
+ * @param {string} alt
+ * @param {string} size (small | medium | large)
+ */
 const ImageAvatar = ({ url, alt, size = 'medium' }) => {
+  // hooks
   const classes = useStyles()
 
-  // handle functions
+  // ? handle functions
+  /**
+   * @param   {string} size  size of the avatar (string)
+   * @return  {string} size value (small, medium, large)
+   */
   const handleSizeAvatar = size => {
     switch (size) {
       case 'small': return classes.small
@@ -28,8 +40,11 @@ const ImageAvatar = ({ url, alt, size = 'medium' }) => {
 
 // prop-types
 ImageAvatar.propTypes = {
+  /** Image url */
   url: PropTypes.string.isRequired,
+  /** Image alt prop */
   alt: PropTypes.string.isRequired,
+  /** Image size [small, medium, large] */
   size: PropTypes.string
 }
 
@@ -50,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(10)
   },
   medium: {
-    width: theme.spacing(7),
-    height: theme.spacing(7)
+    width: theme.spacing(6),
+    height: theme.spacing(6)
   }
 }))
 

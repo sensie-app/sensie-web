@@ -1,9 +1,8 @@
 @import '../../styles/index.scss';
 
 .MenuListCompositionContainer {
-  display: flex;
+  @include flex(row, center, center, nowrap);
   z-index: $zIndexLevel1K;
-
   button {
     width: 100%;
     @include flex(row, space-between, center, nowrap);

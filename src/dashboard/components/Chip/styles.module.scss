@@ -1,0 +1,35 @@
+@import '../../styles/index.scss';
+
+.ChipContainer {
+  @include flex(row, space-between, center, nowrap);
+  @include border(none, 0px, 5px, transparent);
+  background-color: $grayColor7;
+  padding: 10px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  
+  span {
+    color: $fontColor1;
+    margin-right: 10px;
+  }
+
+  button {
+    width: 10px;
+    @include border(none, 0px, 0px, transparent);
+    @include flex(row, center, center, nowrap);
+    background-color: transparent;
+    span {
+      display: none;   
+      margin: 0px; 
+    }
+  }
+
+  &:hover {
+    button {
+      cursor: pointer;
+      span {
+        display: block;
+      }
+    } 
+  }
+}

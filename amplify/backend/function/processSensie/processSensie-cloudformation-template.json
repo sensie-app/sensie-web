@@ -101,7 +101,7 @@
         "Layers": [],
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-sensiebackend-dev-205201-deployment",
+          "S3Bucket": "amplify-sensiebackend-staging-184656-deployment",
           "S3Key": "amplify-builds/processSensie-666631586d4a6f344b7a-build.zip"
         }
       }

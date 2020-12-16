@@ -3,6 +3,7 @@ import React from 'react'
 // containers
 import Header from '../containers/Header'
 
+// * page
 const Team = () => {
   return (
     <div>

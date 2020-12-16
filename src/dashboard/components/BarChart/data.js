@@ -39,31 +39,27 @@ export const data1 = [
 
 export const data2 = [
   {
-    day: 'AD',
-    value: 80
+    day: 21,
+    value: 95
   },
   {
-    day: 'AE',
-    value: 50
+    day: 22,
+    value: 25
   },
   {
-    day: 'AF',
-    value: 100
-  },
-  {
-    day: 'AG',
-    value: 70
-  },
-  {
-    day: 'AI',
-    value: 45
-  },
-  {
-    day: 'AL',
+    day: 23,
     value: 60
   },
   {
-    day: 'AM',
-    value: 0
+    day: 24,
+    value: 100
+  },
+  {
+    day: 25,
+    value: 75
+  },
+  {
+    day: 26,
+    value: 10
   }
 ]

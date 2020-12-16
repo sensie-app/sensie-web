@@ -2,6 +2,7 @@
 
 .ClientFlowContainer {
   @include HomeG50Container(); 
+  @include heightGrid();
   box-sizing: border-box;
 }
 
@@ -24,8 +25,8 @@
 }
 
 .ClientFlowBodyChartContainer {
-  height: 80%;
-  max-height: 80%;
+  height: 85%;
+  max-height: 85%;
   width: 100%;
   @include flex(column, flex-start, center, nowrap);
 }

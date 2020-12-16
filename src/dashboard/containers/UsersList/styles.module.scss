@@ -1,0 +1,40 @@
+@import '../../styles/index.scss';
+
+.UserListContainer {
+  width: 100%;
+}
+
+.UsersListHeaderContainer {
+  width: 100%;
+  @include flex(column, center, flex-start, nowrap);
+}
+
+.UsersListHeaderTitle {
+  width: 100%;
+  padding: 10px 0px;
+}
+
+.UsersListHeaderAction {
+  width: 100%;
+  @include flex(row, space-between, center, nowrap);
+  div {
+    @include flex(row, flex-start, center, nowrap);
+    padding: 10px 0px;
+
+    button {
+      margin-right: 10px;
+      background-color: $grayColor8;
+      color: $fontColor1;
+      padding: 5px 10px;
+      opacity: 0.95;
+      @include border(solid, 1px, 5px, $grayColor8);
+      
+      &:hover {
+        opacity: 1;
+        cursor: pointer;
+        @include border(solid, 1px, 5px, $actionColor1);
+      }
+    }
+
+  }
+}

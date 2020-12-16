@@ -10,13 +10,29 @@ import ClientFlow from '../../components/ClientFlow'
 import TrackAffirmations from '../../components/TrackAffirmations'
 import ClientSnapshot from '../../components/ClientSnapshot'
 import { HelmetSEO } from '../../components/Globals'
-// import BarChart from '../../components/BarChart'
+// constants-routes
+import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
 
+// const
+const { client } = DASHBOARD_ROUTES
+
+// * page
+/**
+ * Home page
+ * @component
+ */
 const Home = () => {
   // hooks
   const [t] = useTranslation('global')
+
+  // const
+  /** @type {BTN} */
+  const btn = {
+    title: t('dashboard.Home.viewMore'),
+    route: client
+  }
 
   return (
     <section className={styles.HomeContainer}>
@@ -33,7 +49,12 @@ const Home = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG2Container}>
-            <TrackAffirmations />
+            <TrackAffirmations
+              title={t('dashboard.Home.mindAuthorAndTrackAffirmations')}
+              limit={3}
+              btn={btn}
+              fixHeight={true}
+            />
           </div>
         </Grid>
         <Grid item xs={12}>

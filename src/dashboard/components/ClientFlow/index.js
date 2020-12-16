@@ -2,18 +2,23 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 // components
-import ArrowChart from '../ArrowChart'
+import IconChart from '../IconChart'
 import PieChart from '../PieChart'
 import LineChart from '../LineChart'
-// import LineChart from '../LineChart'
+import Title from '../Title'
 // constants
-import { ArrowChartTypes } from '../../constants/charts'
+import { IconChartTypes } from '../../constants/charts'
 // styles
 import styles from './styles.module.scss'
 
 // const
-const { UP, USER, ACTIVITY } = ArrowChartTypes
+const { UP, USER, ACTIVITY } = IconChartTypes
 
+// * component
+/**
+ * ClientFlow component
+ * @component
+ */
 const ClientFlow = () => {
   // hooks
   const [t] = useTranslation('global')
@@ -24,12 +29,12 @@ const ClientFlow = () => {
         {/* header */}
         <div className={styles.ClientFlowHeaderContainer}>
           <div className={styles.ClientFlowHeaderTitleContainer}>
-            <h3>{t('dashboard.ClientFlowOverview.title')}</h3>
+            <Title text={t('dashboard.ClientFlowOverview.title')} />
           </div>
           <div className={styles.ClientFlowHeaderChartsS1Container}>
-            <ArrowChart title={t('dashboard.ArrowChart.clients')} value={30000} icon={USER} />
-            <ArrowChart title={t('dashboard.ArrowChart.sensies')} value={10000000} valueType="number" icon={UP} />
-            <ArrowChart title={t('dashboard.ArrowChart.flow')} value={80} valueType="%" icon={ACTIVITY} />
+            <IconChart title={t('dashboard.IconChart.clients')} value={30000} icon={USER} />
+            <IconChart title={t('dashboard.IconChart.sensies')} value={10000000} valueType="number" icon={UP} />
+            <IconChart title={t('dashboard.IconChart.flow')} value={80} valueType="%" icon={ACTIVITY} />
           </div>
         </div>
         <div className={styles.ClientFlowBodyChartContainer}>

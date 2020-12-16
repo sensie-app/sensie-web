@@ -1,29 +1,29 @@
 import FILTERS from '../constants/filters.constants'
-import { MenuDateHeaderComponent } from '../../dashboard/constants/menus'
+import { MenuDateHeaderComponent, MenuFilterStateAffirmationsListComponentDefaultValueState } from '../../dashboard/constants/menus'
 
 const INITIAL_STATE = {
   globalDateFilter: MenuDateHeaderComponent[0],
   affirmations: {
-    stateFilter: null,
-    topicFilter: null
+    stateFilter: MenuFilterStateAffirmationsListComponentDefaultValueState,
+    topicFilter: []
   }
 }
 
 const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_TOPIC_FILTER } = FILTERS
 
-const filtersReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
+const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
+  switch (type) {
     case GLOBAL_DATE_FILTER:
       return {
         ...state,
-        globalDateFilter: action.payload
+        globalDateFilter: payload
       }
 
     case AFFIRMATIONS_STATE_FILTER:
       return {
         ...state,
         affirmations: {
-          stateFilter: action.payload,
+          stateFilter: payload,
           topicFilter: state.affirmations.topicFilter
         }
       }
@@ -32,7 +32,7 @@ const filtersReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         affirmations: {
-          topicFilter: action.payload,
+          topicFilter: payload,
           stateFilter: state.affirmations.stateFilter
         }
       }

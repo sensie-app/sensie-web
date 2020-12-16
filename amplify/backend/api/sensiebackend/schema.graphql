@@ -8,8 +8,8 @@ type User @model
   email: String!
   dob: String!
   gender: String!
-  domHand: String!
-  goal: String!
+  domHand: String
+  goal: String
   orgId: ID!
   affirmations: [Affirmation] @connection(keyName: "byOwner", fields: ["owner"])
   organization: Organization @connection(fields: ["orgId"])

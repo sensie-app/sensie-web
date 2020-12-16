@@ -24,62 +24,81 @@ const moment = require('moment')
 const { fontColor1 } = COLORS
 const { home } = DASHBOARD_ROUTES
 
+// * container
+/**
+ * Header container
+ * @component
+ * @param {boolean} withBack
+ * @param {boolean} withPeople
+ */
 const Header = ({ withBack = false, withPeople = true }) => {
   // hooks
   const dispatch = useDispatch()
-  const { filtersReducer } = useSelector(state => state)
+  const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const [datePickerValue, setDatePickerValue] = useState(null)
-  const [filter, setFilter] = useState(filtersReducer.globalDateFilter)
-  const [filterDefault, setFilterDefault] = useState(filtersReducer.globalDateFilter)
+  const [datePickerValue, setDatePickerValue] = useState(globalDateFilter.name === 'custom' ? globalDateFilter.value : null)
+  const [filter, setFilter] = useState(globalDateFilter)
+  const [filterDefault, setFilterDefault] = useState(globalDateFilter)
 
   useEffect(() => {
-    datePickerValue === null
-      ? handleClickMenuValue(MenuDateHeaderComponent[0])
-      : handleCustomDates()
-  }, [datePickerValue])
-
-  useEffect(() => { setFilterDefault(filter) }, [filter])
-
-  // handle functions
-  const handleClickMenuValue = value => {
-    handleDates(value)
-    setFilter(value)
-    dispatch(setGlobalDateFilterAction(value))
-  }
-
-  const handleDates = data => {
-    switch (data.key) {
-      case 'today':
-        data.value = TODAY
-        break
-      case 'lastDay':
-        data.value = [moment().subtract(1, 'd').format(), TODAY]
-        break
-      case 'lastWeek':
-        data.value = [moment().subtract(7, 'd').format(), TODAY]
-        break
-      case 'lastMonth':
-        data.value = [moment().subtract(1, 'M').format(), TODAY]
-        break
-      case 'lastYear':
-        data.value = [moment().subtract(1, 'y').format(), TODAY]
-        break
-    }
-    return data
-  }
-
-  const handleCustomDates = () => {
-    if (filter.key === 'custom' && datePickerValue !== null) {
-      filter.value = [moment(datePickerValue[0]).format(), moment(datePickerValue[1]).format()]
+    setFilterDefault(filter)
+    if (filter.name !== 'custom') {
+      handleDates()
       dispatch(setGlobalDateFilterAction(filter))
     }
+  }, [filter])
+
+  useEffect(() => {
+    if (filter.name === 'custom') {
+      datePickerValue !== null
+        ? handleCustomDates()
+        : setFilter(MenuDateHeaderComponent[0]) // today for default
+      dispatch(setGlobalDateFilterAction(filter))
+    }
+  }, [datePickerValue])
+
+  // ? handle functions
+  /**
+   * handle dates
+   * @returns {undefined} filter.value = date[]
+   */
+  const handleDates = () => {
+    switch (filter.name) {
+      case 'today':
+        filter.value = TODAY
+        break
+      case 'lastDay':
+        filter.value = [moment().subtract(1, 'd').format(), TODAY]
+        break
+      case 'lastWeek':
+        filter.value = [moment().subtract(7, 'd').format(), TODAY]
+        break
+      case 'lastMonth':
+        filter.value = [moment().subtract(1, 'M').format(), TODAY]
+        break
+      case 'lastYear':
+        filter.value = [moment().subtract(1, 'y').format(), TODAY]
+        break
+    }
+    return filter
   }
 
-  // render functions
+  /**
+   * handle custom dates
+   * @returns {undefined} filter.value = date[]
+   */
+  const handleCustomDates = () => {
+    filter.value = [moment(datePickerValue[0]).format(), moment(datePickerValue[1]).format()]
+  }
+
+  // ? render functions
+  /**
+   * render date
+   * @returns {string} Date with format
+   */
   const renderDate = () => {
-    const { key, value } = filter
-    return key !== 'custom' && value.length === 2
+    const { name, value } = filter
+    return name !== 'custom' && value.length === 2
       ? `${moment(value[0]).format('yyyy/MM/DD')} to ${moment(value[1]).format('yyyy/MM/DD')}`
       : `${moment(value).format('yyyy/MM/DD')}`
   }
@@ -104,10 +123,9 @@ const Header = ({ withBack = false, withPeople = true }) => {
       <div className={styles.HeaderRightContainer}>
         <div className={styles.HeaderCalendar}>
           <div className={styles.HeaderCalendarIcon}>
-            {filter.key === 'custom'
+            {filter.name === 'custom'
               ? <DateRangePicker
-                  autoFocus={true}
-                  className={styles.test}
+                  autoFocus={datePickerValue === null}
                   onChange={setDatePickerValue}
                   format="yyyy/MM/dd"
                   rangeDivider=" to "
@@ -123,7 +141,7 @@ const Header = ({ withBack = false, withPeople = true }) => {
             }
           </div>
           <span className={styles.HeaderSeparator}> | </span>
-          <MenuListComposition data={MenuDateHeaderComponent} onClickValue={value => handleClickMenuValue(value)} defaultValue={filterDefault} />
+          <MenuListComposition data={MenuDateHeaderComponent} onClickValue={value => setFilter(value)} defaultValue={filterDefault} />
         </div>
       </div>
     </div>
@@ -132,7 +150,9 @@ const Header = ({ withBack = false, withPeople = true }) => {
 
 // prop-types
 Header.propTypes = {
+  /** with back */
   withBack: PropTypes.bool,
+  /** with people */
   withPeople: PropTypes.bool
 }
 

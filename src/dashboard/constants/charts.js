@@ -1,4 +1,4 @@
-export const ArrowChartTypes = {
+export const IconChartTypes = {
   UP: 'up',
   DOWN: 'down',
   USER: 'user',

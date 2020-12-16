@@ -130,8 +130,8 @@
         "Runtime": "nodejs10.x",
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-sensiebackend-dev-205201-deployment",
-          "S3Key": "amplify-builds/sensiebackendPostConfirmation-6874656e594b47706d4b-build.zip"
+          "S3Bucket": "amplify-sensiebackend-staging-184656-deployment",
+          "S3Key": "amplify-builds/sensiebackendPostConfirmation-46424358647a4d444b4d-build.zip"
         },
         "Layers": []
       }

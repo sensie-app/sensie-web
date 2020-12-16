@@ -1,0 +1,26 @@
+.MuiInput-underline::before, .MuiInput-underline::after {
+  border-style: none !important; 
+}
+
+.MuiInput-root {
+  z-index: $zIndexLevel998 !important;
+  position: absolute !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.MuiInputBase-root {
+  svg {
+    display: none !important;
+  }
+}
+
+.MuiBadge-colorPrimary {
+  background-color: $actionColor1 !important;
+}
+
+.MuiListItem-gutters {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}

@@ -7,89 +7,117 @@ import { linearGradientDef } from '@nivo/core'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+// prop-types
+import { BarChartDataPropTypes } from '../../prop-types/index'
 // theme
 import chartTheme from '../../constants/chartTheme'
 // test data
-import { data1 } from './data'
-// import { data2 } from './data'
+import { data2 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3 } = COLORS
-const margin = 50
 
-const BarChart = ({ data = data1 }) => (
-  <div className={styles.BarChartContainer}>
-    <ResponsiveBar
-        data={data}
-        theme={chartTheme}
-        keys={['low', 'medium', 'high']} // opc1: data1
-        // keys={['value']} // opc2: data2
-        indexBy="day"
-        margin={{ top: 20, right: 10, bottom: margin, left: margin * 0.5 }}
-        padding={0.5}
-        valueScale={{ type: 'linear' }}
-        indexScale={{ type: 'band', round: true }}
-        colors={[actionColor2, actionColor3, actionColor1]}
-        defs={[
-          linearGradientDef('barGradientHigh', [
-            { offset: 0, color: actionColor1 },
-            { offset: 100, color: actionColor3 }
-          ]),
-          linearGradientDef('barGradientMedium', [
-            { offset: 0, color: actionColor3 },
-            { offset: 100, color: actionColor2 }
-          ]),
-          linearGradientDef('barGradientLow', [
-            { offset: 0, color: actionColor2 },
-            { offset: 100, color: actionColor2 }
-          ])
-        ]}
-        fill={[
-          // opc1: data
-          { match: { id: 'high' }, id: 'barGradientHigh' },
-          { match: { id: 'medium' }, id: 'barGradientMedium' },
-          { match: { id: 'low' }, id: 'barGradientLow' }
-          // opc2: data2
-          // { match: ({ data }) => data.value <= 50, id: 'barGradientLow' },
-          // { match: ({ data }) => data.value <= 75 && data.value > 50, id: 'barGradientMedium' },
-          // { match: ({ data }) => data.value > 75, id: 'barGradientHihg' }
-        ]}
-        borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-        enableLabel={false}
-        enableGridX={false}
-        enableGridY={false}
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          tickSize: 0,
-          tickPadding: 20,
-          tickRotation: 0,
-          legend: '',
-          legendPosition: 'middle',
-          legendOffset: 32
-        }}
-        axisLeft={{
-          format: value => value % 25 === 0 && value + '%',
-          tickSize: 0,
-          tickPadding: 0,
-          tickRotation: 0,
-          legend: '',
-          legendPosition: 'middle',
-          legendOffset: -40
-        }}
-        animate={true}
-        motionStiffness={90}
-        motionDamping={15}
-    />
-    {/* <div className={styles.BarChartAxisBottom}>
-      <div />
-    </div> */}
-  </div>
-)
+// * component
+/**
+ * BarChart component
+ * @component
+ * @param {Array.BarChartData} data
+ * @param {boolean} miniature
+ */
+const BarChart = ({ data, miniature = false }) => {
+  // const
+  /** @type {number} */
+  const margin = miniature ? 0 : 50
+
+  // ? handle functions
+  /**
+   * handle color
+   * @param {number} val value
+   * @return {string} color (actionColor1, actionColor2, actionColor3)
+   */
+  const handleColor = val => {
+    return val.value <= 50
+      ? actionColor2
+      : val.value > 50 && val.value <= 75
+        ? actionColor3
+        : val.value > 75 && actionColor1
+  }
+
+  return (
+    <div className={styles.BarChartContainer}>
+      <ResponsiveBar
+          data={data2} // todo: use data
+          theme={chartTheme}
+          keys={['value']} // opc2: data2
+          indexBy="day"
+          margin={{ top: margin * 0.5, right: margin * 0.2, bottom: margin, left: margin * 0.75 }}
+          padding={0.5}
+          valueScale={{ type: 'linear' }}
+          indexScale={{ type: 'band', round: true }}
+          colors={val => handleColor(val)}
+          defs={[
+            linearGradientDef('gradientBarHigh', [
+              { offset: 0, color: actionColor1, opacity: 1 },
+              { offset: 100, color: 'inherit', opacity: 0.8 }
+            ]),
+            linearGradientDef('gradientBarMedium', [
+              { offset: 0, color: actionColor3, opacity: 1 },
+              { offset: 100, color: 'inherit', opacity: 0.8 }
+            ]),
+            linearGradientDef('gradientBarLow', [
+              { offset: 0, color: actionColor2, opacity: 1 },
+              { offset: 100, color: 'inherit', opacity: 0.8 }
+            ])
+          ]}
+          fill={[
+            { match: ({ data }) => data.value <= 50, id: 'gradientBarLow' },
+            { match: ({ data }) => data.value <= 75 && data.value > 50, id: 'gradientBarMedium' },
+            { match: ({ data }) => data.value > 75, id: 'gradientBarHigh' }
+          ]}
+          borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+          enableLabel={false}
+          enableGridX={false}
+          enableGridY={false}
+          axisTop={null}
+          axisRight={null}
+          axisBottom={
+            miniature
+              ? null
+              : {
+                  tickSize: 0,
+                  tickPadding: 20,
+                  tickRotation: 0,
+                  legend: '',
+                  legendPosition: 'middle',
+                  legendOffset: 32
+                }}
+          axisLeft={
+            miniature
+              ? null
+              : {
+                  format: value => value % 25 === 0 && value + '%',
+                  tickSize: 0,
+                  tickPadding: 0,
+                  tickRotation: 0,
+                  legend: '',
+                  legendPosition: 'middle',
+                  legendOffset: -40
+                }}
+          animate={true}
+          motionStiffness={90}
+          motionDamping={15}
+      />
+      {/* <div className={styles.BarChartAxisBottom}>
+        <div />
+      </div> */}
+    </div>
+  )
+}
 
 // prop-types
 BarChart.propTypes = {
-  data: PropTypes.array
+  data: BarChartDataPropTypes,
+  miniature: PropTypes.bool
 }
 
 export default BarChart

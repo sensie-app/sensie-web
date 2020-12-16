@@ -13,13 +13,22 @@ import styles from './styles.module.scss'
 // test
 import { data } from './data'
 
-console.log('data', data)
-
 // const
 const { fontColor1 } = COLORS
 
+console.log('data', data)
+
+// * component
+/**
+ * ClientSnapshot component
+ * @component
+ */
 const ClientSnapshot = () => {
-  // render functions
+  // ? render functions
+  /**
+   * render client snapshot with bar chart
+   * @return  {undefined} component (html)
+   */
   const renderClientSnapshotBarChart = () => {
     return data.map((client, index) => {
       return (
@@ -34,7 +43,7 @@ const ClientSnapshot = () => {
               <Icon name="expand-outline" color={fontColor1} size="md" />
             </div>
             {/* body */}
-            <div>
+            <div className={styles.ClientSnapshotChartContainer}>
               <BarChart />
             </div>
           </div>

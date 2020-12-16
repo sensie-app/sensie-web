@@ -1,0 +1,30 @@
+@import '../../styles/index.scss';
+
+.MultipleSelectCheckboxContainer {
+  @include flex(row, center, center, nowrap);
+  position: relative;
+  button {
+    // background-color: violet;
+    width: 100%;
+    @include flex(row, space-between, center, nowrap);
+    span {
+      color: $fontColor1;
+      margin-right: 10px;
+    }
+  }
+}
+
+.MultipleSelectCheckboxMenuItem {
+  .MultipleSelectCheckboxMenuItemCheckbox {
+    color: $actionColor1;
+  }
+}
+
+.MultipleSelectCheckboxButton {
+  color: $fontColor1;
+  background-color: transparent;
+  @include border(none, 0px, 0px, transparent);
+  &:hover, &:focus, &:active {
+    @include border(none, 0px, 0px, transparent);
+  }
+}

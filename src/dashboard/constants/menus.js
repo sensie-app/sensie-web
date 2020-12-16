@@ -3,98 +3,104 @@ import { TODAY } from './globals'
 export const MenuDateHeaderComponent = [
   {
     index: 0,
-    key: 'today',
+    name: 'today',
     value: TODAY
   },
   {
     index: 1,
-    key: 'lastDay',
+    name: 'lastDay',
     value: ''
   },
   {
     index: 2,
-    key: 'lastWeek',
+    name: 'lastWeek',
     value: ''
   },
   {
     index: 4,
-    key: 'lastMonth',
+    name: 'lastMonth',
     value: ''
   },
   {
     index: 5,
-    key: 'lastYear',
+    name: 'lastYear',
     value: ''
   },
   {
     index: 6,
-    key: 'custom',
+    name: 'custom',
     value: ''
   }
 ]
 
-export const MenuFilterStateListAffirmationsComponent = [
+export const MenuFilterStateAffirmationsListComponentDefaultValueState = {
+  index: -1,
+  name: 'state',
+  value: 'state'
+}
+
+export const MenuFilterStateAffirmationsListComponent = [
   {
     index: 0,
-    key: 'all',
+    name: 'all',
     value: 'all'
   },
   {
-    index: 0,
-    key: 'flowing',
+    index: 1,
+    name: 'flowing',
     value: 'flowing'
   },
   {
-    index: 0,
-    key: 'blocked',
+    index: 2,
+    name: 'blocked',
     value: 'blocked'
   },
   {
-    index: 0,
-    key: 'incomplete',
+    index: 3,
+    name: 'incomplete',
     value: 'incomplete'
   }
 ]
 
-export const MenuFilterTopicsListAffirmationsComponent = [
+export const MenuFilterTopicsAffirmationsListComponent = [
   {
     index: 0,
-    key: 'spirit',
+    name: 'spirit',
     value: 'spirit'
   },
   {
-    index: 0,
-    key: 'health',
+    index: 1,
+    name: 'health',
     value: 'health'
   },
   {
-    index: 0,
-    key: 'finance',
+    index: 2,
+    name: 'finance',
     value: 'finance'
   },
   {
-    index: 0,
-    key: 'love',
+    index: 3,
+    name: 'love',
     value: 'love'
   },
   {
-    index: 0,
-    key: 'family',
+    index: 4,
+    name: 'family',
     value: 'family'
   },
   {
-    index: 0,
-    key: 'parenting',
+    index: 5,
+    name: 'parenting',
     value: 'parenting'
   },
   {
-    index: 0,
-    key: 'personal',
+    index: 6,
+    name: 'personal',
     value: 'personal'
   },
   {
-    index: 0,
-    key: 'performance',
+    index: 7,
+    name: 'performance',
     value: 'performance'
   }
 ]

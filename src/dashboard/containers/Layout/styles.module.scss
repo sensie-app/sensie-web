@@ -1,13 +1,13 @@
 
 @import '../../styles/index.scss';
 
-$drawerWidth: 192px;
-$drawerWidthIcon: 61px;
+$drawerWidth: 210px;
+$drawerWidthIcon: 55px;
 
 .LayoutContainer {
   @include flex(row, center, center, wrap);
   background-color: $grayColor7;
-  margin-left: 60px;
+  margin-left: $drawerWidthIcon;
 }
 
 .LayoutLinkTo {
@@ -26,7 +26,7 @@ $drawerWidthIcon: 61px;
 
 .LayoutLinkToIcon, .LayoutAvatarImgContainer {
   text-align: center;
-  padding: $step1;
+  padding: 5px;
   max-width: $drawerWidthIcon;
   width: $drawerWidthIcon;
   height: 100%;  
@@ -84,7 +84,7 @@ $drawerWidthIcon: 61px;
   }
 }
 
-.LayoutchildrenContainer { 
+.LayoutChildrenContainer { 
   min-height: 85vh;
   width: 100%;
 }

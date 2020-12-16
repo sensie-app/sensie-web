@@ -20,6 +20,7 @@ import {
 // components
 import Icon from '../../components/Icon'
 import ImageAvatar from '../../components/ImageAvatar'
+import AlertDialog from '../../components/AlertDialog'
 // import { ChangeLngBtn } from '../Globals' // btn to change languge
 // constants
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -35,8 +36,14 @@ const { home, client, team } = DASHBOARD_ROUTES
 const { grayColor8, fontColor1, fontColor2 } = COLORS
 const { logo } = IMG
 // const-sizes
-const drawerWidth = 192
+const drawerWidth = 210
 
+// * container
+/**
+ * Layout container
+ * @component
+ * @param {undefined} children
+ */
 const Layout = ({ children }) => {
   // hooks
   const [open, setOpen] = useState(false)
@@ -44,31 +51,40 @@ const Layout = ({ children }) => {
   const [t] = useTranslation('global')
 
   // const-items
+  /** @type {Array.<Item>} */
   const listItems = [
     {
-      title: <span>{t('dashboard.LayoutComponent.home').toUpperCase()}</span>,
+      title: <span>{t('dashboard.Layout.home').toUpperCase()}</span>,
       icon: 'home-outline',
       link: home
     },
     {
       title: <Fragment>
-        <span>{t('dashboard.LayoutComponent.client').toUpperCase()}</span>
-        <span>{t('dashboard.LayoutComponent.dashboard').toUpperCase()}</span>
+        <span>{t('dashboard.Layout.client').toUpperCase()}</span>
+        <span>{t('dashboard.Layout.dashboard').toUpperCase()}</span>
       </Fragment>,
       icon: 'layout-outline',
       link: client
     },
     {
-      title: <span>{t('dashboard.LayoutComponent.team').toUpperCase()}</span>,
+      title: <span>{t('dashboard.Layout.team').toUpperCase()}</span>,
       icon: 'people-outline',
       link: team
     }
   ]
 
-  // handle functions
+  // ? handle functions
+  /**
+   * handle drawer open
+   * @returns {boolean} open = !open
+   */
   const handleDrawerOpen = () => setOpen(!open)
 
-  // render functions
+  // ? render functions
+  /**
+   * render list items
+   * @returns {undefined} list items (html)
+   */
   const renderListItems = () => {
     return listItems.map((item, index) =>
       <NavLink
@@ -88,6 +104,11 @@ const Layout = ({ children }) => {
     )
   }
 
+  /**
+   * render avatar drawer
+   * @param {User} user
+   * @returns {undefined} user avatar (html)
+   */
   const renderAvatar = user => {
     return <div className={styles.LayoutLinkToListItem}>
       <div className={styles.LayoutAvatarImgContainer}>
@@ -103,8 +124,8 @@ const Layout = ({ children }) => {
             <span>{user.name.split(' ')[1]}</span>
           </div>
           <div className={styles.LayoutAvatarSubTextContainer}>
-            <span className={styles.LayoutAvatarSubText}>{t('dashboard.LayoutComponent.couch')}</span>
-            <Icon name="arrow-ios-downward-outline" size="s" color={fontColor2} />
+            <span className={styles.LayoutAvatarSubText}>{t('dashboard.Layout.couch')}</span>
+            <Icon name="arrow-ios-downward-outline" size="sm" color={fontColor2} />
           </div>
         </div>
       </div>
@@ -143,7 +164,9 @@ const Layout = ({ children }) => {
                   </Badge>
                 </IconButton>
                 <IconButton aria-label="show 17 new notifications" aria-controls="logout-menu" color="inherit" onClick={() => {}}>
-                  <Icon name="log-out-outline" size="md" color={fontColor1} />
+                    <AlertDialog title={t('dashboard.Layout.signOut')} withLogout={true} description={t('dashboard.Layout.signOut?')} disagreeText={t('dashboard.Layout.close')}>
+                      <Icon name="log-out-outline" size="md" color={fontColor1} />
+                    </AlertDialog>
                 </IconButton>
               </div>
             </div>
@@ -181,7 +204,7 @@ const Layout = ({ children }) => {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <div className={styles.LayoutchildrenContainer}>
+          <div className={styles.LayoutChildrenContainer}>
             {children}
           </div>
         </main>
@@ -192,6 +215,7 @@ const Layout = ({ children }) => {
 
 // prop-types
 Layout.propTypes = {
+  /** children */
   children: PropTypes.element.isRequired
 }
 
@@ -255,7 +279,8 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar
   },
   content: {
-    // flexGrow: 1,
+    width: '100%',
+    flexGrow: 1,
     padding: theme.spacing(3)
   }
 }))

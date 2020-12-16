@@ -19,16 +19,17 @@
       "subtitle": "sensei admin panel team page"
     }
   },
-  "landing": {
-
-  },
+  "landing": {},
   "dashboard": {
-    "LayoutComponent": {
+    "Layout": {
       "home": "Home",
       "client": "Client",
       "dashboard": "Dashboard",
       "team": "Team",
-      "couch": "Couch"
+      "couch": "Couch",
+      "signOut": "Sign out",
+      "signOut?": "Are you sure you want to exit the SENSIE panel?",
+      "close": "Close"
     },
     "Header": {
       "back": "Back",
@@ -57,20 +58,34 @@
       "personal": "Personal",
       "performance": "Performance"
     },
+    "MultipleSelectCheckbox": {
+      "topics": "Topics"
+    },
     "ClientFlowOverview": {
       "title": "Client Flow Overview"
     },
-    "ArrowChart": {
+    "IconChart": {
       "clients": "Clients",
       "sensies": "Sensies",
       "flow": "Flow"
     },
-    "TrackAffirmations": {
-      "title": "Mind - author and track affirmations",
+    "Home": {
+      "mindAuthorAndTrackAffirmations": "Mind - author and track affirmations",
+      "ClientSnapshot": "Client Snapshot",
       "viewMore": "View more"
     },
-    "Home": {
-      "ClientSnapshot": "Client Snapshot"
+    "Client": {
+      "author": "Author",
+      "affirmations": "Affirmations"
+    },
+    "User": {
+      "awarness": "Awarness",
+      "resilence": "Resilence",
+      "trust": "Trust"
+    },
+    "UserList": {
+      "summary": "summary",
+      "details": "details"
     }
   }
 }

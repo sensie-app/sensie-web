@@ -1,24 +1,27 @@
 // Home Grid 50%
 @mixin HomeG50Container {
   background-color: $grayColor6;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px 15px;
   width: 100%;
+  @include flex(row, flex-start, center, wrap);
+}
+
+@mixin heightGrid {
   max-height: 450px;
   height: 450px;
-  @include flex(row, flex-start, center, wrap);
 }
 
 // Home Grid 50%
 @mixin HomeG50BodyContainer {
   width: 100%;
   height: 100%;
-  @include flex(column, space-between, flex-start, wrap);
+  @include flex(column, flex-start, flex-start, wrap);
 }
 
 // Home Grid 50%
 @mixin HomeG50HeaderContainer { 
-  height: 20%;
+  height: 15%;
   width: 100%;
   @include flex(row, space-between, center, nowrap);
 }
