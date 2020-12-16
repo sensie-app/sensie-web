@@ -2,10 +2,17 @@ import React from 'react'
 import {
   makeStyles,
   Grid,
-  Box
+  Box,
+  Typography,
+  Button,
+  Hidden
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import LANDING_ROUTES from '../constants/routes'
+import InstagramIcon from '@material-ui/icons/Instagram'
+import TwitterIcon from '@material-ui/icons/Twitter'
+import FacebookIcon from '@material-ui/icons/Facebook'
+import Email from './Email'
 
 const { home, science, aboutsensie } = LANDING_ROUTES
 
@@ -19,7 +26,7 @@ const useStyles = makeStyles({
     fontWeight: 'lighter'
   },
   blockOne: {
-    backgroundColor: '#071215'
+    backgroundColor: '#000'
   },
   blockTwo: {
     minHeight: '55px',
@@ -28,6 +35,11 @@ const useStyles = makeStyles({
   textTab: {
     fontSize: '13px',
     color: 'white',
+    fontWeight: 'bold'
+  },
+  btnSuscribe: {
+    borderRadius: 10,
+    fontSize: '13px',
     fontWeight: 'bold'
   }
 })
@@ -40,55 +52,67 @@ const Footer = () => {
         <Grid item xs={1}></Grid>
         <Grid item container xs={10}>
           <Grid item xs={6} style={{ alignSelf: 'center' }}>
-          <Grid
-                item
-                container
-                xs={8}
-                sm={8}
-                direction="column"
-                className={ classes.textTab }
-              >
-                    <NavLink to={home}>
-                      <Box my={1} mt={4}>
+            <Grid
+              container
+              item
+              xs={8}
+              sm={8}
+              direction="column"
+              className={classes.textTab}
+            >
+              <NavLink to={home}>
+                <Box my={1} mt={4}>
+                  HOW IT WORKS
+                </Box>
+              </NavLink>
 
-                       HOW IT WORKS
-                      </Box>
-                    </NavLink>
+              <NavLink to={science}>
+                <Box my={1}>SCIENCE</Box>
+              </NavLink>
 
-                    <NavLink to={science}>
-                    <Box my={1}>
+              <NavLink to={science}>
+                <Box my={1}>MEMBERSHIP</Box>
+              </NavLink>
 
-                        SCIENCE
-                        </Box>
+              <NavLink to={science}>
+                <Box my={1}>BLOG</Box>
+              </NavLink>
 
-                    </NavLink>
-
-                    <NavLink to={science}>
-                    <Box my={1}>
-
-                       MEMBERSHIP
-                       </Box>
-
-                    </NavLink>
-
-                    <NavLink to={science}>
-                    <Box my={1}>
-
-                        BLOG
-                        </Box>
-
-                    </NavLink>
-
-                    <NavLink to={aboutsensie}>
-                    <Box my={1} mb={4}>
-
-                        ABOUT SENSIE
-                        </Box>
-
-                    </NavLink>
-                  </Grid>
+              <NavLink to={aboutsensie}>
+                <Box my={1} mb={4}>
+                  ABOUT SENSIE
+                </Box>
+              </NavLink>
+            </Grid>
           </Grid>
-          <Grid item xs={6}></Grid>
+          <Grid item xs={12} sm={4}>
+            <Grid item container direction="column" className={classes.textTab}>
+              <Box my={1} mt={4}>
+                SUSCRIBE TO NEWLESTTER
+              </Box>
+
+              <Box mt={2}>
+                <Typography>Email</Typography>
+                <Box mt={1}>
+                  <Email />
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <Hidden xsDown>
+              <Box my={14}></Box>
+            </Hidden>
+            <Box mt={2} ml={2}>
+              <Button
+                color="primary"
+                variant="outlined"
+                className={classes.btnSuscribe}
+              >
+                Subscribe
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
       </Grid>
@@ -103,9 +127,23 @@ const Footer = () => {
           alignItems="center"
           className={classes.footerText}
         >
-          <Grid item xs={4}>Copyright Sensie. All rights reserved.</Grid>
-          <Grid item xs={4} style={{ textAlign: '-webkit-center' }}>Sensie technology is pantented</Grid>
-          <Grid item xs={4} style={{ textAlign: '-webkit-right' }}>Logos</Grid>
+          <Grid item xs={4}>
+            Copyright Sensie. All rights reserved.
+          </Grid>
+          <Grid item xs={4} style={{ textAlign: '-webkit-center' }}>
+            Sensie technology is pantented
+          </Grid>
+          <Grid item xs={4} container justify="flex-end">
+            <Box>
+              <InstagramIcon fontSize="small" />
+            </Box>
+            <Box ml={4}>
+              <TwitterIcon fontSize="small" />
+            </Box>
+            <Box ml={4}>
+              <FacebookIcon fontSize="small" />
+            </Box>
+          </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
       </Grid>
