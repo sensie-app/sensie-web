@@ -99,7 +99,7 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
 // prop-types
 MultipleSelectCheckbox.propTypes = {
   /** data */
-  data: MenuDataPropTypes,
+  data: MenuDataPropTypes, // Todo: revisar!
   /** children -> button open select */
   children: PropTypes.element.isRequired,
   /** action */

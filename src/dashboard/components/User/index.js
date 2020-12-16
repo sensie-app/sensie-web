@@ -1,5 +1,5 @@
 // react
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 // components
@@ -26,12 +26,9 @@ const { summary } = UserListBtns
  * @param {User} user
  * @param {ReduxShowReducerUserList} show
  */
-const User = ({ user = { name: 'Harrison Ford', url: '' }, show = null }) => {
+const User = ({ user = { name: 'Harrison Ford', url: '' }, show }) => {
   // hooks
   const [t] = useTranslation('global')
-  const [showState, setShowState] = useState(show)
-
-  useEffect(() => showState === null && setShowState(summary), [])
 
   // ? render functions
   /**
@@ -54,7 +51,7 @@ const User = ({ user = { name: 'Harrison Ford', url: '' }, show = null }) => {
         {renderName()}
       </div>
       {/* body */}
-      { showState.showInfo === summary
+      { show.showInfo === summary
         ? <Fragment>
             <div className={styles.UserBodyContainer}>
               <PercentageChart title={t('dashboard.User.awarness')} value={90} />

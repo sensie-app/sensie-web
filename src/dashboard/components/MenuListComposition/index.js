@@ -77,9 +77,9 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
   }
   /**
    * handle click
-   * @param {Array} value value
+   * @param {MenuData} value value
    * @param {Object} event event
-   * @return  {Array | undefined | boolean}
+   * @return  {MenuData | undefined | boolean}
    * item = value
    * onClickValue
    * open = false
@@ -142,7 +142,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
 // prop-types
 MenuListComposition.propTypes = {
   /** data */
-  data: MenuDataPropTypes,
+  data: MenuDataPropTypes, // Todo: revisar!
   /** click action */
   onClickValue: PropTypes.func.isRequired,
   /** default value */

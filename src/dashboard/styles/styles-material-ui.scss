@@ -10,6 +10,10 @@
   left: 0;
 }
 
+.MuiList-padding {
+  box-sizing: border-box !important;
+}
+
 .MuiInputBase-root {
   svg {
     display: none !important;

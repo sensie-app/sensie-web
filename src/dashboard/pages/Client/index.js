@@ -9,6 +9,7 @@ import UsersList from '../../containers/UsersList'
 // components
 import { HelmetSEO } from '../../components/Globals'
 import TrackAffirmations from '../../components/TrackAffirmations'
+import SpiderChart from '../../components/SpiderChart'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
@@ -55,6 +56,11 @@ const Client = () => {
         </Grid>
         {/* spider-chart + user-list */}
         <Grid item xs={12} sm={12} md={6} xl={6}>
+          <div className={styles.ClientG1Container}>
+            <div className={styles.ClientG2Container} style={{ height: '400px', width: '100%' }}>
+              <SpiderChart />
+            </div>
+          </div>
           <div className={styles.ClientG1Container}>
             <UsersList />
           </div>
