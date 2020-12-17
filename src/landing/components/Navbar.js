@@ -39,7 +39,7 @@ const useStyle = makeStyles((theme) => ({
     justifyContent: 'center'
   },
   navbarStyle: {
-    backgroundColor: 'rgba(7, 18, 21, 0.5)',
+    backgroundColor: 'rgba(7, 18, 21, 0.8)',
     minHeight: '90px'
   },
   toolbarStyle: {
@@ -73,47 +73,28 @@ const Navbar = () => {
                 xs={8}
                 sm={8}
                 direction="row"
-                className={ classes.textTab }
+                className={classes.textTab}
               >
-                    <NavLink to={home}>
-                      <Box mx={1}>
+                <NavLink to={home}>
+                  <Box mx={1}>HOW IT WORKS</Box>
+                </NavLink>
 
-                       HOW IT WORKS
-                      </Box>
-                    </NavLink>
+                <NavLink to={science}>
+                  <Box mx={1}>SCIENCE</Box>
+                </NavLink>
 
-                    <NavLink to={science}>
-                    <Box mx={1}>
+                <NavLink to={science}>
+                  <Box mx={1}>MEMBERSHIP</Box>
+                </NavLink>
 
-                        SCIENCE
-                        </Box>
+                <NavLink to={science}>
+                  <Box mx={1}>BLOG</Box>
+                </NavLink>
 
-                    </NavLink>
-
-                    <NavLink to={science}>
-                    <Box mx={1}>
-
-                       MEMBERSHIP
-                       </Box>
-
-                    </NavLink>
-
-                    <NavLink to={science}>
-                    <Box mx={1}>
-
-                        BLOG
-                        </Box>
-
-                    </NavLink>
-
-                    <NavLink to={aboutsensie}>
-                    <Box mx={1}>
-
-                        ABOUT SENSIE
-                        </Box>
-
-                    </NavLink>
-                  </Grid>
+                <NavLink to={aboutsensie}>
+                  <Box mx={1}>ABOUT SENSIE</Box>
+                </NavLink>
+              </Grid>
             </Hidden>
             <Hidden smDown>
               <Grid item xs={3} sm={2}>
@@ -146,9 +127,7 @@ const Navbar = () => {
           </Grid>
         </Toolbar>
       </AppBar>
-      <div
-        style={{ minHeight: '90px', backgroundColor: '#071215' }}
-      ></div>
+      <div style={{ minHeight: '90px', backgroundColor: '#071215' }}></div>
     </>
   )
 }

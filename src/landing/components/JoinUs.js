@@ -3,15 +3,18 @@ import React from 'react'
 import { makeStyles, Grid, Box, Typography } from '@material-ui/core'
 
 const useStyle = makeStyles({
-
+  title: {
+    fontWeight: 'bold',
+    fontSize: '30px'
+  },
   text: {
     color: 'white',
     alignSelf: 'center',
-    fontSize: '20px'
+    fontSize: '30px'
   }
 })
 
-const Manifesto = ({ title, text }) => {
+const JoinUs = ({ title, text }) => {
   const classes = useStyle()
   return (
     <Grid container direction="column">
@@ -33,4 +36,4 @@ const Manifesto = ({ title, text }) => {
   )
 }
 
-export default Manifesto
+export default JoinUs

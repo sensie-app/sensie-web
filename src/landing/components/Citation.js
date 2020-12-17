@@ -41,9 +41,8 @@ const Citation = () => {
       </Grid>
       <Grid xs={1}></Grid>
       <Grid xs={10} item className={classes.textStyle}>
-        <Box mt={2}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit
-          vero recusandae eum sapiente soluta architecto odio.
+        <Box mt={3}>
+        Sensie is a new way to identify stress and a way to demostrate to athletes that anxiety has a physical affect on the body.
         </Box>
       </Grid>
       <Grid xs={1}></Grid>

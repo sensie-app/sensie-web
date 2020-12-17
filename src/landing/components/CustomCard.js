@@ -43,15 +43,16 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around'
   },
   btnSuscribe: {
-    borderRadius: 50,
+    borderRadius: 10,
     fontSize: '13px',
     fontWeight: 'bold'
   },
   btnLearnMore: {
-    borderRadius: 50,
+    borderRadius: 10,
     fontSize: '13px',
     fontWeight: 'bold',
     marginTop: '6px',
+    marginLeft: '0px !important',
     color: 'white'
   },
   button: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const CustomCard = ({ largeCard }) => {
+const CustomCard = ({ title, price, largeCard }) => {
   useEffect(() => {
     AOS.init()
     AOS.refresh()
@@ -104,18 +105,15 @@ const CustomCard = ({ largeCard }) => {
           className={classes.lcard}
           backgroundcolor={largeCard && '#071215'}
         >
-          <CardHeader title="GROUP" className={classes.header} />
+          <CardHeader title={title} className={classes.header} />
           <Divider variant="middle" />
           <CardContent>
             <Typography variant="h4" align="center">
-              u$s 200
+              {price}
             </Typography>
-            <Typography align="center">
-              Lorem ipsum dolor
-            </Typography>
+            <Typography align="center">Lorem ipsum dolor</Typography>
             <Box my={2}>
-
-            <WifiRoundedIcon/>
+              <WifiRoundedIcon />
             </Box>
             <Typography align="center">Manage tasks</Typography>
             <Typography align="center">Sync notes</Typography>
@@ -132,15 +130,18 @@ const CustomCard = ({ largeCard }) => {
               billingAddress
               shippingAddress
             >
-              <Button fullWidth variant="contained"
-                color="primary" className={classes.btnSuscribe}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.btnSuscribe}
+              >
                 Suscribe
               </Button>
             </StripeCheckout>
-              <Button fullWidth className={classes.btnLearnMore}
-                >
-                Learn more
-              </Button>
+            <Button fullWidth className={classes.btnLearnMore}>
+              Learn more
+            </Button>
           </CardActions>
         </Card>
       </Box>
@@ -149,18 +150,15 @@ const CustomCard = ({ largeCard }) => {
     return (
       <Box borderRadius={16} style={{ maxWidth: '270px' }}>
         <Card className={classes.scard}>
-          <CardHeader title="GROUP" className={classes.header} />
+          <CardHeader title={title} className={classes.header} />
           <Divider variant="middle" />
           <CardContent>
             <Typography variant="h4" align="center">
-              u$s 200
+              {price}
             </Typography>
-            <Typography align="center">
-              Lorem ipsum dolor
-            </Typography>
+            <Typography align="center">Lorem ipsum dolor</Typography>
             <Box my={2}>
-
-            <WifiRoundedIcon/>
+              <WifiRoundedIcon />
             </Box>
             <Typography align="center">Manage tasks</Typography>
             <Typography align="center">Sync notes</Typography>
@@ -177,14 +175,18 @@ const CustomCard = ({ largeCard }) => {
               billingAddress
               shippingAddress
             >
-              <Button fullWidth color="primary" variant='outlined' className={classes.btnSuscribe}>
+              <Button
+                fullWidth
+                color="primary"
+                variant="outlined"
+                className={classes.btnSuscribe}
+              >
                 Suscribe
               </Button>
             </StripeCheckout>
-              <Button fullWidth className={classes.btnLearnMore}
-               >
-                Learn more
-              </Button>
+            <Button fullWidth className={classes.btnLearnMore}>
+              Learn more
+            </Button>
           </CardActions>
         </Card>
       </Box>
