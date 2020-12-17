@@ -76,7 +76,9 @@
     },
     "Client": {
       "author": "Author",
-      "affirmations": "Affirmations"
+      "affirmations": "Affirmations",
+      "affirmation": "Affirmation",
+      "iHaveAllThatNeed": "I have all that need"
     },
     "User": {
       "awarness": "Awarness",

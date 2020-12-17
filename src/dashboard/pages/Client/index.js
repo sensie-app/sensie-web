@@ -10,6 +10,9 @@ import UsersList from '../../containers/UsersList'
 import { HelmetSEO } from '../../components/Globals'
 import TrackAffirmations from '../../components/TrackAffirmations'
 import SpiderChart from '../../components/SpiderChart'
+import Title from '../../components/Title'
+// constants
+import { COLORS } from '../../constants/theme'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
@@ -17,6 +20,7 @@ import styles from './styles.module.scss'
 
 // const
 const { home } = DASHBOARD_ROUTES
+const { fontColor1, grayColor3 } = COLORS
 
 // * page
 /**
@@ -57,8 +61,17 @@ const Client = () => {
         {/* spider-chart + user-list */}
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.ClientG1Container}>
-            <div className={styles.ClientG2Container} style={{ height: '400px', width: '100%' }}>
-              <SpiderChart />
+            <div className={styles.ClientG2Container}>
+              {/* header */}
+              <div className={styles.ClientSpiderHeaderContainer}>
+                <div className={styles.ClientSpiderHeaderTitleContainer}>
+                  <Title text={`${t('dashboard.Client.affirmation')}:`} color={fontColor1} margin="0px 10px 0px 0px" />
+                  <Title text={t('dashboard.Client.iHaveAllThatNeed')} color={grayColor3} />
+                </div>
+              </div>
+              <div style={{ height: '400px', width: '100%' }}>
+                <SpiderChart />
+              </div>
             </div>
           </div>
           <div className={styles.ClientG1Container}>

@@ -65,3 +65,11 @@
  * @property {string} name
  * @property {string} value
  */
+
+/**
+ * @typedef {Object} SpiderData
+ * @property {string} color
+ * @property {string} index
+ * @property {string} key
+ * @property {number} value
+ */

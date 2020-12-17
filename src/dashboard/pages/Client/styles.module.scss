@@ -17,7 +17,11 @@
   margin-bottom: 10px;
 }
 
-// .ClientG2Container {
-//   height: 100%;
-//   max-height: 30vh;
-// }
+.ClientSpiderHeaderContainer {
+  width: 100%;
+  padding: 10px 0px;
+}
+
+.ClientSpiderHeaderTitleContainer {
+  @include flex(row, flex-start, center, wrap);
+}

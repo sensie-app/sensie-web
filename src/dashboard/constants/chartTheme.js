@@ -1,9 +1,9 @@
 import { COLORS } from '../../constants/theme'
 
+// const
 const { grayColor3, grayColor5, grayColor6, grayColor8, actionColor1, fontColor1 } = COLORS
 
 const theme = {
-  // background: grayColor6,
   textColor: grayColor3,
   fontSize: 11,
   axis: {
