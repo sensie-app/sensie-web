@@ -37,7 +37,7 @@ const User = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.UserG2Container}>
-            <Symbol />
+            <Symbol level={0} />
           </div>
         </Grid>
         <Grid item xs={12}>
