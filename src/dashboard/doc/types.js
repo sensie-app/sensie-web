@@ -25,7 +25,7 @@
 
 /**
  * @typedef {Object} BarChartData
- * @property {number} day
+ * @property {string} day
  * @property {number} value
  */
 

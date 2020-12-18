@@ -16,7 +16,7 @@ import styles from './styles.module.scss'
 import { UserPropTypes } from '../../prop-types'
 
 // const
-const { UP, USER, ACTIVITY } = IconChartTypes
+const { USER, UP, DOWN } = IconChartTypes
 const { summary } = UserListBtns
 
 // * component
@@ -53,7 +53,7 @@ const User = ({ user = { name: 'Harrison Ford', url: '' }, show }) => {
       {/* body */}
       { show.showInfo === summary
         ? <Fragment>
-            <div className={styles.UserBodyContainer}>
+            <div className={styles.UserBodyContainer} style={{ width: '50%' }}>
               <PercentageChart title={t('dashboard.User.awarness')} value={90} />
               <PercentageChart title={t('dashboard.User.resilence')} value={60} />
               <PercentageChart title={t('dashboard.User.trust')} value={45} />
@@ -63,10 +63,10 @@ const User = ({ user = { name: 'Harrison Ford', url: '' }, show }) => {
               <BarChart miniature={true} />
             </div>
           </Fragment>
-        : <div className={styles.UserBodyContainer}>
-            <IconChart title={t('dashboard.IconChart.clients')} value={30000} icon={USER} />
-            <IconChart title={t('dashboard.IconChart.sensies')} value={10000000} valueType="number" icon={UP} />
-            <IconChart title={t('dashboard.IconChart.flow')} value={80} valueType="%" icon={ACTIVITY} />
+        : <div className={styles.UserBodyContainer} style={{ width: '60%' }}>
+            <IconChart title={t('dashboard.IconChart.engagement')} value={30000} icon={UP} theme={2} />
+            <IconChart title={t('dashboard.IconChart.sensies')} value={10000000} valueType="number" icon={DOWN} theme={2} />
+            <IconChart title={t('dashboard.IconChart.flow')} value={80} valueType="%" icon={USER} theme={2} />
           </div>
       }
     </div>

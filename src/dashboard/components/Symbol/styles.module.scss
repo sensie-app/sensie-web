@@ -1,0 +1,7 @@
+@import '../../styles/index.scss';
+
+.SymbolContainer {
+  @include G50Container();  
+  @include heightGrid();
+  @include flex(column, center, center, nowrap);
+}

@@ -9,11 +9,21 @@
   padding: 10px;
 }
 
+.AffirmationsListFilterBtnMenuContainerTheme1 {
+  @include flex(row, flex-start, center, nowrap);
+  width: 100%;
+}
+
+.AffirmationsListFilterBtnMenuContainerTheme2 {
+  @include flex(row, flex-end, center, nowrap);
+  width: 50%;
+}
+
 .AffirmationsListFiltersContainer {
   height: 20%;
   width: 100%;
   padding: 10px 0px;
-  @include flex(row, flex-start, center, wrap);
+  @include flex(row, space-between, center, wrap);
   .AffirmationsListFilterBtnMenu {
     min-width: 30%;
     height: 100%;
@@ -55,6 +65,10 @@
   width: 100%;
 }   
 
+.AffirmationsListFilterBtnMenuTitleContainer {
+  @include G50HeaderTitleContainer();  
+}
+
 .AffirmationsListMultipleSelectCheckboxItemCount {
   color: $grayColor6 !important;
   background-color: white;
@@ -62,3 +76,4 @@
   // margin-left: 2.5px;
   @include border(none, 0px, 5px, transparent)
 }
+

@@ -1,0 +1,13 @@
+@import '../../styles/index.scss';
+
+.UserContainer {
+  width: 100%;
+}
+
+.UserG1Container,
+.UserG2Container,
+.UserG3Container {    
+  width: 100%;  
+  color: $fontColor1;
+  box-sizing: border-box;
+}

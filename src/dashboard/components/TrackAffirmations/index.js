@@ -18,13 +18,14 @@ import styles from './styles.module.scss'
  * @param {string} title
  * @param {BtnTrackAffirmation} btn
  * @param {boolean} fixHeight
+ * @param {number} theme
  */
-const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = false }) => {
+const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = false, theme = 1 }) => {
   return (
     <section className={`${styles.TrackAffirmationsContainer} ${fixHeight && styles.TrackAffirmationsContainerHeight}`}>
       <div className={styles.TrackAffirmationsBodyContainer}>
         {/* header */}
-        <div className={styles.TrackAffirmationsHeaderContainer}>
+        {theme === 1 && <div className={styles.TrackAffirmationsHeaderContainer}>
           <div className={styles.TrackAffirmationsHeaderTitleContainer}>
             <Title text={title} />
           </div>
@@ -33,10 +34,10 @@ const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = fal
               <button>{btn.title}</button>
             </Link>
           </div>
-        </div>
+        </div>}
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
-          <AffirmationsList chipsUp={chipsUp} limit={limit} />
+          <AffirmationsList chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
         </div>
       </div>
     </section>
@@ -53,11 +54,13 @@ TrackAffirmations.propTypes = {
   title: PropTypes.string.isRequired,
   /** btn: { title(string), route(string) } */
   btn: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    route: PropTypes.string.isRequired
+    title: PropTypes.string,
+    route: PropTypes.string
   }),
   /** fixed height (true, false) */
-  fixHeight: PropTypes.bool
+  fixHeight: PropTypes.bool,
+  /** theme (1,2) */
+  theme: PropTypes.number
 }
 
 export default TrackAffirmations

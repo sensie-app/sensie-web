@@ -12,6 +12,7 @@ import DASHBOARD_ROUTES from '../constants/routes'
 import Home from '../pages/Home'
 import Client from '../pages/Client'
 import Team from '../pages/Team'
+import User from '../pages/User'
 // components
 import { NotFound404 } from '../components/Globals'
 // containers
@@ -27,7 +28,7 @@ const amplifyConfig = Amplify.configure(awsmobile)
 console.log('amplifyConfig', amplifyConfig)
 
 // const
-const { entrypoint, home, client, team } = DASHBOARD_ROUTES
+const { entrypoint, home, client, team, user } = DASHBOARD_ROUTES
 
 const listTopicsQuery = `
   query MyQuery {
@@ -72,6 +73,7 @@ const DashboardRoutes = () => {
               <Fragment>
                 <Route path={home} component={Home} />
                 <Route path={client} component={Client} />
+                <Route path={user} component={User} />
                 <Route path={team} component={Team} />
                 <Redirect from={entrypoint} to={home} />
               </Fragment>

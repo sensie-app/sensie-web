@@ -10,8 +10,7 @@
   max-height: 65px;
   height: 65px;
   
-  .UserBodyContainer {
-    width: 50%;    
+  .UserBodyContainer {    
     @include flex(row, space-between, center, nowrap);
   }
 

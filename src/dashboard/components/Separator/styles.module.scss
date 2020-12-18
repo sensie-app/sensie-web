@@ -1,0 +1,16 @@
+@import '../../styles/index.scss';
+
+.SeparatorContainer {
+  span {
+    width: 50%;
+    height: 100%;
+  }
+}
+
+.Separator1 {
+  @include border(solid, 0px 1px 0px 0px, 0px, $grayColor3);
+}
+
+.Separator2 {
+  @include border(solid, 0px 0px 0px 1px, 0px, $grayColor3);
+}

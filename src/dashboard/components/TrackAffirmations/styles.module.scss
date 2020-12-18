@@ -1,7 +1,7 @@
 @import '../../styles/index.scss';
 
 .TrackAffirmationsContainer {
-  @include HomeG50Container();   
+  @include G50Container();   
 }
 
 .TrackAffirmationsContainerHeight {
@@ -9,15 +9,15 @@
 }
 
 .TrackAffirmationsBodyContainer {  
-  @include HomeG50BodyContainer();
+  @include G50BodyContainer();
 }
 
 .TrackAffirmationsHeaderContainer { 
-  @include HomeG50HeaderContainer();  
+  @include G50HeaderContainer();  
 }
 
 .TrackAffirmationsHeaderTitleContainer {
-  @include HomeG50HeaderTitleContainer();   
+  @include G50HeaderTitleContainer();   
 }
 
 .TrackAffirmationsHeaderBtnContainer {
