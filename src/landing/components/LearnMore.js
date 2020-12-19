@@ -1,18 +1,14 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import LANDING_ROUTES from '../constants/routes'
+import { HashLink as Link } from 'react-router-hash-link'
 
-const { science } = LANDING_ROUTES
+const { scc } = LANDING_ROUTES
 
 const LearnMore = () => {
   return (
-        <div>
-            <NavLink to={science}>
-
-                        Learn more &gt;
-
-                    </NavLink>
-        </div>
+    <div>
+      <Link to={scc}>Learn more &gt;</Link>
+    </div>
   )
 }
 

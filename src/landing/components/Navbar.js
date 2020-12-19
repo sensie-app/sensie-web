@@ -8,7 +8,8 @@ import {
   makeStyles,
   Hidden
 } from '@material-ui/core'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { HashLink as Link } from 'react-router-hash-link'
 
 import LANDING_ROUTES from '../constants/routes'
 
@@ -16,7 +17,7 @@ import LANDING_ROUTES from '../constants/routes'
 import LogoSensie from './Logo'
 import CustomizedMenus from './Menu'
 
-const { home, science, aboutsensie } = LANDING_ROUTES
+const { home, membership, howitworks, scienceanchor, abs, hm } = LANDING_ROUTES
 
 const useStyle = makeStyles((theme) => ({
   offset: {
@@ -39,7 +40,8 @@ const useStyle = makeStyles((theme) => ({
   },
   navbarStyle: {
     backgroundColor: 'rgba(7, 18, 21, 0.8)',
-    minHeight: '90px'
+    minHeight: '90px',
+    backdropFilter: 'blur(10px)'
   },
   toolbarStyle: {
     minHeight: '90px'
@@ -60,7 +62,7 @@ const Navbar = () => {
             </Hidden>
             <Grid item xs={4} sm={2}>
               <Box display="flex" justifyContent="flex-start">
-                <Link to={home}>
+                <Link to={hm}>
                   <LogoSensie />
                 </Link>
               </Box>
@@ -74,25 +76,25 @@ const Navbar = () => {
                 direction="row"
                 className={classes.textTab}
               >
-                <NavLink to={home}>
+                <Link to={howitworks}>
                   <Box mx={1}>HOW IT WORKS</Box>
-                </NavLink>
+                </Link>
 
-                <NavLink to={science}>
+                <Link to={scienceanchor}>
                   <Box mx={1}>SCIENCE</Box>
-                </NavLink>
+                </Link>
 
-                <NavLink to={science}>
+                <Link to={membership}>
                   <Box mx={1}>MEMBERSHIP</Box>
-                </NavLink>
+                </Link>
 
-                <NavLink to={science}>
+                <NavLink to={home}>
                   <Box mx={1}>BLOG</Box>
                 </NavLink>
 
-                <NavLink to={aboutsensie}>
+                <Link to={abs}>
                   <Box mx={1}>ABOUT SENSIE</Box>
-                </NavLink>
+                </Link>
               </Grid>
             </Hidden>
             <Hidden smDown>
@@ -124,7 +126,6 @@ const Navbar = () => {
           </Grid>
         </Toolbar>
       </AppBar>
-      <div style={{ minHeight: '90px', backgroundColor: '#071215' }}></div>
     </>
   )
 }
