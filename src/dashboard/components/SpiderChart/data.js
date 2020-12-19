@@ -29,7 +29,7 @@ export const data1 = [
   },
   {
     user: 'userF',
-    value: 100,
+    value: 90,
     high: 90,
     medium: 75,
     low: 50

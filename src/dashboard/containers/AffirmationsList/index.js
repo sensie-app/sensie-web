@@ -8,6 +8,7 @@ import MenuListComposition from '../../components/MenuListComposition'
 import MultipleSelectCheckbox from '../../components/MultipleSelectCheckbox'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
+import Title from '../../components/Title'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction } from '../../../redux/actions/filters.actions'
@@ -28,8 +29,10 @@ const { fontColor1 } = COLORS
  * @component
  * @param {boolean} chipsUp
  * @param {number} limit
+ * @param {string} title
+ * @param {number} theme
  */
-const AffirmationsList = ({ chipsUp = false, limit }) => {
+const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => {
   // hooks
   const dispatch = useDispatch()
   const { filtersReducer: { affirmations: { topicFilter, stateFilter } } } = useSelector(state => state)
@@ -113,25 +116,30 @@ const AffirmationsList = ({ chipsUp = false, limit }) => {
   return (
     <section className={styles.AffirmationsListContainer}>
       <div className={styles.AffirmationsListFiltersContainer}>
-        <div className={styles.AffirmationsListFilterBtnMenu}>
-          <div className={styles.AffirmationsListFilterBtnMenuComponent}>
-            <MenuListComposition
-              data={MenuFilterStateAffirmationsListComponent}
-              onClickValue={value => handleClickStateMenu(value)}
-              defaultValue={stateFilter}>
-                {renderMenuListCompositionChildren()}
-              </MenuListComposition>
+        {theme === 2 && <div className={styles.AffirmationsListFilterBtnMenuTitleContainer}>
+          <Title text={title} />
+        </div>}
+        <div className={theme === 2 ? styles.AffirmationsListFilterBtnMenuContainerTheme2 : styles.AffirmationsListFilterBtnMenuContainerTheme1}>
+          <div className={styles.AffirmationsListFilterBtnMenu}>
+            <div className={styles.AffirmationsListFilterBtnMenuComponent}>
+              <MenuListComposition
+                data={MenuFilterStateAffirmationsListComponent}
+                onClickValue={value => handleClickStateMenu(value)}
+                defaultValue={stateFilter}>
+                  {renderMenuListCompositionChildren()}
+                </MenuListComposition>
+            </div>
           </div>
-        </div>
-        <div className={styles.AffirmationsListFilterBtnMenu}>
-          <div className={styles.AffirmationsListFilterBtnMenuComponent}>
-            <MultipleSelectCheckbox
-              data={MenuFilterTopicsAffirmationsListComponent}
-              onClickValue={value => handleClickTopicMenu(value)}
-              defValue={topicFilter}
-            >
-              {renderMultipleSelectCheckboxChildren()}
-            </MultipleSelectCheckbox>
+          <div className={styles.AffirmationsListFilterBtnMenu}>
+            <div className={styles.AffirmationsListFilterBtnMenuComponent}>
+              <MultipleSelectCheckbox
+                data={MenuFilterTopicsAffirmationsListComponent}
+                onClickValue={value => handleClickTopicMenu(value)}
+                defValue={topicFilter}
+              >
+                {renderMultipleSelectCheckboxChildren()}
+              </MultipleSelectCheckbox>
+            </div>
           </div>
         </div>
       </div>
@@ -155,7 +163,12 @@ AffirmationsList.propTypes = {
   /** whether chips are displayed above or below the declaration list */
   chipsUp: PropTypes.bool,
   /** number of affirmations */
-  limit: PropTypes.number
+  limit: PropTypes.number,
+  /** title if theme = 2 */
+  title: PropTypes.string,
+  /** theme (1, 2) */
+  theme: PropTypes.number
+
 }
 
 export default AffirmationsList

@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ResponsiveBar } from '@nivo/bar'
-import { linearGradientDef } from '@nivo/core'
+// import { linearGradientDef } from '@nivo/core'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
@@ -55,26 +55,27 @@ const BarChart = ({ data, miniature = false }) => {
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
           colors={val => handleColor(val)}
-          defs={[
-            linearGradientDef('gradientBarHigh', [
-              { offset: 0, color: actionColor1, opacity: 1 },
-              { offset: 100, color: 'inherit', opacity: 0.8 }
-            ]),
-            linearGradientDef('gradientBarMedium', [
-              { offset: 0, color: actionColor3, opacity: 1 },
-              { offset: 100, color: 'inherit', opacity: 0.8 }
-            ]),
-            linearGradientDef('gradientBarLow', [
-              { offset: 0, color: actionColor2, opacity: 1 },
-              { offset: 100, color: 'inherit', opacity: 0.8 }
-            ])
-          ]}
-          fill={[
-            { match: ({ data }) => data.value <= 50, id: 'gradientBarLow' },
-            { match: ({ data }) => data.value <= 75 && data.value > 50, id: 'gradientBarMedium' },
-            { match: ({ data }) => data.value > 75, id: 'gradientBarHigh' }
-          ]}
+          // defs={[
+          //   linearGradientDef('gradientBarHigh', [
+          //     { offset: 0, color: actionColor1, opacity: 1 },
+          //     { offset: 100, color: 'inherit', opacity: 0.8 }
+          //   ]),
+          //   linearGradientDef('gradientBarMedium', [
+          //     { offset: 0, color: actionColor3, opacity: 1 },
+          //     { offset: 100, color: 'inherit', opacity: 0.8 }
+          //   ]),
+          //   linearGradientDef('gradientBarLow', [
+          //     { offset: 0, color: actionColor2, opacity: 1 },
+          //     { offset: 100, color: 'inherit', opacity: 0.8 }
+          //   ])
+          // ]}
+          // fill={[
+          //   { match: ({ data }) => data.value <= 50, id: 'gradientBarLow' },
+          //   { match: ({ data }) => data.value <= 75 && data.value > 50, id: 'gradientBarMedium' },
+          //   { match: ({ data }) => data.value > 75, id: 'gradientBarHigh' }
+          // ]}
           borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+          borderRadius={5}
           enableLabel={false}
           enableGridX={false}
           enableGridY={false}

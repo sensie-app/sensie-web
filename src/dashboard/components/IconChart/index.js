@@ -11,7 +11,7 @@ import { IconChartTypes } from '../../constants/charts'
 import styles from './styles.module.scss'
 
 // const
-const { actionColor1, fontColor1 } = COLORS
+const { actionColor1, actionColor2, actionColor3, fontColor1 } = COLORS
 const { UP, DOWN, USER, ACTIVITY } = IconChartTypes
 
 // * component
@@ -22,8 +22,10 @@ const { UP, DOWN, USER, ACTIVITY } = IconChartTypes
  * @param {number} value
  * @param {string} valueType
  * @param {string} icon
+ * @param {number} theme theme: (1 | 2)
+ * @param {string} forcedColor
  */
-const IconChart = ({ title, value, valueType = 'number', icon }) => {
+const IconChart = ({ title, value, valueType = 'number', icon, theme = 1, forcedColor = null }) => {
   // ? handle functions
   /**
    * handle value
@@ -49,15 +51,15 @@ const IconChart = ({ title, value, valueType = 'number', icon }) => {
    */
   const renderIcon = () => {
     switch (icon) {
-      case UP: return <Icon name="trending-up-outline" size="md" color={actionColor1}/>
-      case DOWN: return <Icon name="trending-down-outline" size="md" color={actionColor1}/>
-      case USER: return <Icon name="person-outline" size="md" color={actionColor1}/>
-      case ACTIVITY: return <Icon name="activity-outline" size="md" color={actionColor1}/>
-      default: return <Icon name="question-mark-circle-outline" size="md" color={fontColor1}/>
+      case UP: return <Icon name="trending-up-outline" size="md" color={forcedColor !== null ? forcedColor : actionColor1}/>
+      case DOWN: return <Icon name="trending-down-outline" size="md" color={forcedColor !== null ? forcedColor : actionColor2}/>
+      case USER: return <Icon name="person-outline" size="md" color={forcedColor !== null ? forcedColor : actionColor3}/>
+      case ACTIVITY: return <Icon name="activity-outline" size="md" color={forcedColor !== null ? forcedColor : actionColor1}/>
+      default: return <Icon name="question-mark-circle-outline" size="md" color={forcedColor !== null ? forcedColor : fontColor1}/>
     }
   }
   return (
-    <div className={styles.IconChartContainer}>
+    <div className={`${styles.IconChartContainer} ${theme === 1 ? styles.IconChartBackground1 : styles.IconChartBackground2}`}>
       <span>{title}</span>
       <div>
         <span>{handleValue()}{valueType === '%' && valueType}</span>
@@ -76,7 +78,11 @@ IconChart.propTypes = {
   /** value type */
   valueType: PropTypes.string,
   /** icon (UP, DOWN, USER, ACTIVITY) */
-  icon: PropTypes.string.isRequired
+  icon: PropTypes.string.isRequired,
+  /** theme (1, 2) */
+  theme: PropTypes.number,
+  /** forcedColor */
+  forcedColor: PropTypes.string
 }
 
 export default IconChart

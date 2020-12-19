@@ -1,22 +1,22 @@
 @import '../../styles/index.scss';
 
 .ClientFlowContainer {
-  @include HomeG50Container(); 
+  @include G50Container(); 
   @include heightGrid();
   box-sizing: border-box;
 }
 
 .ClientFlowBodyContainer {
-  @include HomeG50BodyContainer();
+  @include G50BodyContainer();
 }
 
 .ClientFlowHeaderContainer { 
-  @include HomeG50HeaderContainer();
+  @include G50HeaderContainer();
 }
 
 .ClientFlowHeaderTitleContainer {
   width: 45%;
-  @include HomeG50HeaderTitleContainer(); 
+  @include G50HeaderTitleContainer(); 
 }
 
 .ClientFlowHeaderChartsS1Container {

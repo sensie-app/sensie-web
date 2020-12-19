@@ -25,7 +25,7 @@
 
 /**
  * @typedef {Object} BarChartData
- * @property {number} day
+ * @property {string} day
  * @property {number} value
  */
 
@@ -64,4 +64,12 @@
  * @property {number} index
  * @property {string} name
  * @property {string} value
+ */
+
+/**
+ * @typedef {Object} SpiderData
+ * @property {string} color
+ * @property {string} index
+ * @property {string} key
+ * @property {number} value
  */

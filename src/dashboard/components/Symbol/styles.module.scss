@@ -1,0 +1,22 @@
+@import '../../styles/index.scss';
+
+.SymbolContainer {
+  position: relative;
+  @include G50Container();  
+  @include heightGrid();
+  @include flex(column, center, center, nowrap);
+}
+
+.SymbolBtnsTestContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  @include flex(row, center, center, nowrap);
+  button {
+    @include border(solid, 1px, 5px, $actionColor1);
+    color: $fontColor1;
+    margin-left: 2.5px;
+    padding: 2.5px;
+    background-color: $grayColor8;
+  }
+}

@@ -1,5 +1,5 @@
 // Home Grid 50%
-@mixin HomeG50Container {
+@mixin G50Container {
   background-color: $grayColor6;
   border-radius: 5px;
   padding: 10px 15px;
@@ -13,21 +13,21 @@
 }
 
 // Home Grid 50%
-@mixin HomeG50BodyContainer {
+@mixin G50BodyContainer {
   width: 100%;
   height: 100%;
   @include flex(column, flex-start, flex-start, wrap);
 }
 
 // Home Grid 50%
-@mixin HomeG50HeaderContainer { 
+@mixin G50HeaderContainer { 
   height: 15%;
   width: 100%;
   @include flex(row, space-between, center, nowrap);
 }
 
 // Home Grid 50%
-@mixin HomeG50HeaderTitleContainer {
+@mixin G50HeaderTitleContainer {
   h3 {
     color: $fontColor1;
     font-weight: bold;

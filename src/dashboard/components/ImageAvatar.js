@@ -1,9 +1,15 @@
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 // material-ui
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
+// constants
+import DASHBOARD_ROUTES from '../constants/routes'
+
+// const
+const { user } = DASHBOARD_ROUTES
 
 // * component
 /**
@@ -11,7 +17,7 @@ import Avatar from '@material-ui/core/Avatar'
  * @component
  * @param {string} url
  * @param {string} alt
- * @param {string} size (small | medium | large)
+ * @param {string} size (small | medium | large | xlarge)
  */
 const ImageAvatar = ({ url, alt, size = 'medium' }) => {
   // hooks
@@ -19,21 +25,24 @@ const ImageAvatar = ({ url, alt, size = 'medium' }) => {
 
   // ? handle functions
   /**
-   * @param   {string} size  size of the avatar (string)
-   * @return  {string} size value (small, medium, large)
+   * @param {string} size  size of the avatar (string)
+   * @return {string} size value (small, medium, large, xlarge)
    */
   const handleSizeAvatar = size => {
     switch (size) {
       case 'small': return classes.small
       case 'medium': return classes.medium
-      case 'large': return classes.medium
+      case 'large': return classes.large
+      case 'xlarge': return classes.xlarge
       default: return classes.medium
     }
   }
 
   return (
     <div className={classes.root}>
-      <Avatar alt={alt} src={url} className={handleSizeAvatar(size)} />
+      <Link to={user}>
+        <Avatar alt={alt} src={url} className={handleSizeAvatar(size)} />
+      </Link>
     </div>
   )
 }
@@ -60,13 +69,17 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(3),
     height: theme.spacing(3)
   },
+  medium: {
+    width: theme.spacing(6),
+    height: theme.spacing(6)
+  },
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10)
   },
-  medium: {
-    width: theme.spacing(6),
-    height: theme.spacing(6)
+  xlarge: {
+    width: theme.spacing(18),
+    height: theme.spacing(18)
   }
 }))
 

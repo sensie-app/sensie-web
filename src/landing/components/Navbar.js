@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom'
 import { HashLink as Link } from 'react-router-hash-link'
 
 import LANDING_ROUTES from '../constants/routes'
+import APP_ROUTES from '../../constants/routes'
 
 // Components
 import LogoSensie from './Logo'
@@ -101,14 +102,16 @@ const Navbar = () => {
               <Grid item xs={3} sm={2}>
                 <Box display="flex" justifyContent="flex-end">
                   <Box>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      size="large"
-                      className={classes.btnStyle}
-                    >
-                      LOGIN
-                    </Button>
+                    <a href={APP_ROUTES.dashboard + '/'}>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        size="large"
+                        className={classes.btnStyle}
+                      >
+                        LOGIN
+                      </Button>
+                    </a>
                   </Box>
                   <Box>
                     <Button

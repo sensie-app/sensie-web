@@ -39,27 +39,27 @@ export const data1 = [
 
 export const data2 = [
   {
-    day: 21,
+    day: '21/11',
     value: 95
   },
   {
-    day: 22,
+    day: '22/11',
     value: 25
   },
   {
-    day: 23,
+    day: '23/11',
     value: 60
   },
   {
-    day: 24,
+    day: '24/11',
     value: 100
   },
   {
-    day: 25,
+    day: '25/11',
     value: 75
   },
   {
-    day: 26,
+    day: '26/11',
     value: 10
   }
 ]

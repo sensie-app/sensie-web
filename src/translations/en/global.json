@@ -14,6 +14,10 @@
       "title": "SENSIE - Client",
       "subtitle": "sensei admin panel client page"
     },
+    "User": {
+      "title": "SENSIE - User",
+      "subtitle": "sensei admin panel user page"
+    },
     "Team": {
       "title": "SENSIE - Team",
       "subtitle": "sensei admin panel team page"
@@ -67,7 +71,13 @@
     "IconChart": {
       "clients": "Clients",
       "sensies": "Sensies",
-      "flow": "Flow"
+      "flow": "Flow",
+      "engagement": "Engagement"
+    },
+    "PieChart": {
+      "awarness": "Awarness",
+      "resilence": "Resilence",
+      "trust": "Trust"
     },
     "Home": {
       "mindAuthorAndTrackAffirmations": "Mind - author and track affirmations",
@@ -76,12 +86,16 @@
     },
     "Client": {
       "author": "Author",
-      "affirmations": "Affirmations"
+      "affirmations": "Affirmations",
+      "affirmation": "Affirmation",
+      "iHaveAllThatNeed": "I have all that need"
     },
     "User": {
       "awarness": "Awarness",
       "resilence": "Resilence",
-      "trust": "Trust"
+      "trust": "Trust",
+      "trackAffirmations": "Track affirmations"
+      
     },
     "UserList": {
       "summary": "summary",

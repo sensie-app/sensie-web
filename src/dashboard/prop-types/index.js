@@ -7,7 +7,7 @@ export const UserPropTypes = PropTypes.shape({
 
 export const BarChartDataPropTypes = PropTypes.shape([
   PropTypes.shape({
-    day: PropTypes.number.isRequired,
+    day: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired
   })
 ])

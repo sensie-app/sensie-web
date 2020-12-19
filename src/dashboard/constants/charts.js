@@ -2,5 +2,6 @@ export const IconChartTypes = {
   UP: 'up',
   DOWN: 'down',
   USER: 'user',
-  ACTIVITY: 'activity'
+  ACTIVITY: 'activity',
+  ARROW: 'arrow'
 }
