@@ -1,5 +1,6 @@
 // react
 import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 // components
@@ -10,6 +11,7 @@ import IconChart from '../IconChart'
 // constants
 import { IconChartTypes } from '../../constants/charts'
 import { UserListBtns } from '../../constants/globals'
+import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
 // prop-types
@@ -24,7 +26,7 @@ const { summary } = UserListBtns
  * User component
  * @component
  * @param {User} user
- * @param {ReduxShowReducerUserList} show
+ * @param {string} show
  */
 const User = ({ user = { name: 'Harrison Ford', url: '' }, show }) => {
   // hooks
@@ -37,7 +39,7 @@ const User = ({ user = { name: 'Harrison Ford', url: '' }, show }) => {
    */
   const renderName = () => {
     const _user = user.name.split(' ')
-    return <div>
+    return <div className={styles.UserAvatarContainerRenderName}>
       <span>{_user[0]}</span>
       <span>{_user[1]}</span>
     </div>
@@ -46,12 +48,14 @@ const User = ({ user = { name: 'Harrison Ford', url: '' }, show }) => {
   return (
     <div className={styles.UserContainer}>
       {/* avatar */}
-      <div className={styles.UserAvatarContainer}>
-        <ImageAvatar url="https://www.gstatic.com/tv/thumb/persons/25704/25704_v9_bb.jpg" alt="test" />
-        {renderName()}
-      </div>
+      <Link to={DASHBOARD_ROUTES.user}>
+        <div className={styles.UserAvatarContainer}>
+          <ImageAvatar url="https://www.gstatic.com/tv/thumb/persons/25704/25704_v9_bb.jpg" alt="test" />
+          {renderName()}
+        </div>
+      </Link>
       {/* body */}
-      { show.showInfo === summary
+      { show === summary
         ? <Fragment>
             <div className={styles.UserBodyContainer} style={{ width: '50%' }}>
               <PercentageChart title={t('dashboard.User.awarness')} value={90} />
@@ -76,9 +80,7 @@ const User = ({ user = { name: 'Harrison Ford', url: '' }, show }) => {
 // prop-types
 User.propTypes = {
   /** show: { showInfo } */
-  show: PropTypes.shape({
-    showInfo: PropTypes.string
-  }),
+  show: PropTypes.string,
   user: UserPropTypes
 }
 

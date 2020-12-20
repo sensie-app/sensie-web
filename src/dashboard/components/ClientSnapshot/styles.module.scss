@@ -17,10 +17,22 @@
         margin-left: 10px;
         font-size: 16px;
       }
+      &:hover {
+        h4 {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
     }
   }
 }
 
 .ClientSnapshotChartContainer {
   height: 200px;
+}
+
+.ClientSnapshotFooter {
+  width: 100%;
+  @include flex(row, flex-end, center, nowrap);
+  padding: 5px 0px;
 }

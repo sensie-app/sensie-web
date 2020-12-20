@@ -31,3 +31,13 @@
     }
   }
 }
+
+.UserAvatarContainerRenderName {
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    span {
+      color: $actionColor1;
+    }
+  }
+}

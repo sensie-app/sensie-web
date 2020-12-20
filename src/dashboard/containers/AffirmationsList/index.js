@@ -3,7 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // components
-import BarIndicator from '../../components/BarIndicator'
+import AffirmationChart from '../../components/AffirmationChart'
 import MenuListComposition from '../../components/MenuListComposition'
 import MultipleSelectCheckbox from '../../components/MultipleSelectCheckbox'
 import Icon from '../../components/Icon'
@@ -11,7 +11,7 @@ import Chip from '../../components/Chip'
 import Title from '../../components/Title'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction } from '../../../redux/actions/filters.actions'
+import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
 // constants
 import { MenuFilterStateAffirmationsListComponent, MenuFilterTopicsAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
@@ -21,7 +21,7 @@ import styles from './styles.module.scss'
 import { data } from './data'
 
 // const
-const { fontColor1 } = COLORS
+const { fontColor1, grayColor5 } = COLORS
 
 // * container
 /**
@@ -30,7 +30,7 @@ const { fontColor1 } = COLORS
  * @param {boolean} chipsUp
  * @param {number} limit
  * @param {string} title
- * @param {number} theme
+ * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
  */
 const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => {
   // hooks
@@ -64,6 +64,29 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
    * @returns {undefined} selectValue = value(filtered)
    */
   const handleClickCloseChip = value => setSelectValue(selectValue.filter(item => item !== value))
+
+  /**
+   * handle click affirmation
+   * @param {AffirmationChart} value
+   * @returns {AffirmationChart} redux
+   */
+  const handleClickAffirmation = value => dispatch(setAffirmationAction(value))
+
+  /**
+   * handle theme styles (theme = 3)
+   * @returns {string} return style object
+   */
+  const handleTheme3Styles = () => {
+    const styles = {}
+    if (theme === 3) {
+      styles.backgroundColor = 'transparent'
+      styles.padding = '10px 0px'
+    } else {
+      styles.backgroundColor = grayColor5
+      styles.padding = '10px 20px'
+    }
+    return styles
+  }
 
   // ? render functions
   /**
@@ -104,12 +127,12 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
 
   /**
    * render affirmations
-   * @return {undefined} BarIndicator[] (html)
+   * @return {undefined} AffirmationChart[] (html)
    */
-  const renderAffirmationsBarIndicator = () => {
+  const renderAffirmationsAffirmationChart = () => {
     const _data = limit ? data.slice(0, limit) : data
     return _data.map((affirmation, index) => (
-      <BarIndicator key={index} value={affirmation.value} title={affirmation.title} />
+      <AffirmationChart key={index} data={affirmation} onClickValue={value => handleClickAffirmation(value)} />
     ))
   }
 
@@ -125,9 +148,10 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
               <MenuListComposition
                 data={MenuFilterStateAffirmationsListComponent}
                 onClickValue={value => handleClickStateMenu(value)}
+                theme={2}
                 defaultValue={stateFilter}>
-                  {renderMenuListCompositionChildren()}
-                </MenuListComposition>
+                {renderMenuListCompositionChildren()}
+              </MenuListComposition>
             </div>
           </div>
           <div className={styles.AffirmationsListFilterBtnMenu}>
@@ -143,12 +167,12 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
           </div>
         </div>
       </div>
-      <div className={styles.AffirmationsListBodyContainer}>
+      <div className={styles.AffirmationsListBodyContainer} style={handleTheme3Styles()}>
         {chipsUp && <div className={`${styles.AffirmationsListChipsContainer} ${styles.AffirmationsListChipsUp}`}>
           {renderChipsItems()}
         </div>}
-        <div className={styles.AffirmationsListBarIndicatorContainer}>
-          {renderAffirmationsBarIndicator()}
+        <div className={styles.AffirmationsListAffirmationChartContainer}>
+          {renderAffirmationsAffirmationChart()}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>
           {renderChipsItems()}

@@ -27,7 +27,7 @@ const UsersList = () => {
   // hooks
   const [t] = useTranslation('global')
   const dispatch = useDispatch()
-  const { showReducer: { userList: showInfo } } = useSelector(state => state)
+  const { showReducer: { userList } } = useSelector(state => state)
 
   // ? handle functions
   /**
@@ -37,27 +37,32 @@ const UsersList = () => {
    */
   const handleClick = clickBtn => dispatch(setUserListInfo(clickBtn))
 
+  const handleActive = btn => userList.showInfo === btn
+
+  console.log('showInfo', userList.showInfo)
+  console.log('handleActive', handleActive('summary'))
+
   return (
     <section className={styles.UserListContainer}>
       {/* header */}
       <div className={styles.UsersListHeaderContainer}>
         <div className={styles.UsersListHeaderTitle}>
-          <Title text="Window" />
+          <Title text={t('dashboard.UserList.clients')} />
         </div>
         <div className={styles.UsersListHeaderAction}>
           <div>
-            <button onClick={() => handleClick(summary)}>{t(`dashboard.UserList.${summary}`)}</button>
-            <button onClick={() => handleClick(details)}>{t(`dashboard.UserList.${details}`)}</button>
+            <button className={handleActive('summary') && styles.UsersListHeaderActionActiveBtn} onClick={() => handleClick(summary)}>{t(`dashboard.UserList.${summary}`)}</button>
+            <button className={handleActive('details') && styles.UsersListHeaderActionActiveBtn} onClick={() => handleClick(details)}>{t(`dashboard.UserList.${details}`)}</button>
           </div>
           <Icon name="search-outline" color={fontColor1} size="md" />
         </div>
       </div>
       {/* body */}
-      <User show={showInfo} />
-      <User show={showInfo} />
-      <User show={showInfo} />
-      <User show={showInfo} />
-      <User show={showInfo} />
+      <User show={userList.showInfo} />
+      <User show={userList.showInfo} />
+      <User show={userList.showInfo} />
+      <User show={userList.showInfo} />
+      <User show={userList.showInfo} />
     </section>
   )
 }

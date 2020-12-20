@@ -41,13 +41,11 @@
 
 .AffirmationsListBodyContainer {
   @include flex(column, space-between, center, nowrap);
-  background-color: $grayColor5;
   height: 80%;
   max-height: 80%;
   width: 100%;
-  padding: 10px 20px;
 
-  .AffirmationsListBarIndicatorContainer {
+  .AffirmationsListAffirmationChartContainer {
     @include flex(column, space-between, center, nowrap);
     width: 100%;
   }

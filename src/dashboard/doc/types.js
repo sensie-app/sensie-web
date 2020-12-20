@@ -73,3 +73,10 @@
  * @property {string} key
  * @property {number} value
  */
+
+/**
+ * @typedef {Object} AffirmationChart
+ * @property {number} id
+ * @property {string} title
+ * @property {number} value
+ */

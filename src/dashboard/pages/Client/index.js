@@ -6,13 +6,10 @@ import Grid from '@material-ui/core/Grid'
 // containers
 import Header from '../../containers/Header'
 import UsersList from '../../containers/UsersList'
+import Affirmation from '../../containers/Affirmation'
 // components
 import { HelmetSEO } from '../../components/Globals'
 import TrackAffirmations from '../../components/TrackAffirmations'
-import SpiderChart from '../../components/SpiderChart'
-import Title from '../../components/Title'
-// constants
-import { COLORS } from '../../constants/theme'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
@@ -20,7 +17,6 @@ import styles from './styles.module.scss'
 
 // const
 const { home } = DASHBOARD_ROUTES
-const { fontColor1, grayColor3 } = COLORS
 
 // * page
 /**
@@ -45,7 +41,7 @@ const Client = () => {
       {/* seo */}
       <HelmetSEO title={t('seo.Client.title')} subtitle={t('seo.Client.subtitle')} />
       {/* header */}
-      <Header />
+      <Header withBack={true} withPeople={false} />
       {/* body */}
       <Grid container spacing={1}>
         {/* affirmations */}
@@ -55,24 +51,14 @@ const Client = () => {
               chipsUp={true}
               title={t('dashboard.Client.affirmations')}
               btn={btn}
+              theme={3}
             />
           </div>
         </Grid>
         {/* spider-chart + user-list */}
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.ClientG1Container}>
-            <div className={styles.ClientG2Container}>
-              {/* header */}
-              <div className={styles.ClientSpiderHeaderContainer}>
-                <div className={styles.ClientSpiderHeaderTitleContainer}>
-                  <Title text={`${t('dashboard.Client.affirmation')}:`} color={fontColor1} margin="0px 10px 0px 0px" />
-                  <Title text={t('dashboard.Client.iHaveAllThatNeed')} color={grayColor3} />
-                </div>
-              </div>
-              <div style={{ height: '400px', width: '100%' }}>
-                <SpiderChart />
-              </div>
-            </div>
+            <Affirmation />
           </div>
           <div className={styles.ClientG1Container}>
             <UsersList />

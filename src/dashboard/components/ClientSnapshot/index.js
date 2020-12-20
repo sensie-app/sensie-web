@@ -1,13 +1,16 @@
 // react
 import React from 'react'
+import { Link } from 'react-router-dom'
 // material-ui
 import Grid from '@material-ui/core/Grid'
 // components
 import ImageAvatar from '../ImageAvatar'
 import BarChart from '../BarChart'
 import Icon from '../Icon'
+import MyPagination from '../MyPagination'
 // constants
 import { COLORS } from '../../constants/theme'
+import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
 // test
@@ -15,8 +18,7 @@ import { data } from './data'
 
 // const
 const { fontColor1 } = COLORS
-
-console.log('data', data)
+const { user } = DASHBOARD_ROUTES
 
 // * component
 /**
@@ -36,11 +38,15 @@ const ClientSnapshot = () => {
           <div className={styles.ClientSnapshotBarChartContainer}>
             {/* header */}
             <div className={styles.ClientSnapshotBarChartHeader}>
-              <div>
-                <ImageAvatar url={client.url} alt={client.name} size="medium" />
-                <h4>{client.name}</h4>
-              </div>
-              <Icon name="expand-outline" color={fontColor1} size="md" />
+              <Link to={user}>
+                <div>
+                  <ImageAvatar url={client.url} alt={client.name} size="medium" />
+                  <h4>{client.name}</h4>
+                </div>
+              </Link>
+              <Link to={user}>
+                  <Icon name="expand-outline" color={fontColor1} size="md" animation="pulse" />
+              </Link>
             </div>
             {/* body */}
             <div className={styles.ClientSnapshotChartContainer}>
@@ -57,6 +63,9 @@ const ClientSnapshot = () => {
       <Grid container spacing={1}>
         {renderClientSnapshotBarChart()}
       </Grid>
+      <div className={styles.ClientSnapshotFooter}>
+        <MyPagination count={10} />
+      </div>
     </section>
   )
 }

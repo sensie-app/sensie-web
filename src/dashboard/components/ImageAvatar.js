@@ -1,15 +1,9 @@
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 // material-ui
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
-// constants
-import DASHBOARD_ROUTES from '../constants/routes'
-
-// const
-const { user } = DASHBOARD_ROUTES
 
 // * component
 /**
@@ -40,9 +34,7 @@ const ImageAvatar = ({ url, alt, size = 'medium' }) => {
 
   return (
     <div className={classes.root}>
-      <Link to={user}>
-        <Avatar alt={alt} src={url} className={handleSizeAvatar(size)} />
-      </Link>
+      <Avatar alt={alt} src={url} className={handleSizeAvatar(size)} />
     </div>
   )
 }

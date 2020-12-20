@@ -37,8 +37,9 @@ const defValue = {
  * @param {undefined} onClickValue
  * @param {(MenuData|null)} defaultValue
  * @param {undefined} children
+ * @param {number} theme
  */
-const MenuListComposition = ({ data, onClickValue, defaultValue = null, children }) => {
+const MenuListComposition = ({ data, onClickValue, defaultValue = null, children, theme = 1 }) => {
   // hooks
   const [open, setOpen] = useState(false)
   const [item, setItem] = useState(defValue)
@@ -90,6 +91,20 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
     handleClose(event)
   }
 
+  /**
+   * handle theme styles
+   * @return {string} retrun styles
+   */
+  const handleThemeStyles = () => {
+    const styles = {}
+    if (theme === 1) {
+      styles.padding = '5px 5px'
+    } else {
+      styles.padding = '5px 40px'
+    }
+    return styles
+  }
+
   // ? render functions
   /**
    * render items
@@ -98,7 +113,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
   const renderItems = () => {
     return data.map(item => {
       return (
-        <button className={styles.MenuListCompositionItem} key={item.index} onClick={() => handleClick(item, event)}>
+        <button style={handleThemeStyles()} className={styles.MenuListCompositionItem} key={item.index} onClick={() => handleClick(item, event)}>
           <div>
             {t(`dashboard.MenuListComposition.${item.name}`)}
           </div>
@@ -148,7 +163,9 @@ MenuListComposition.propTypes = {
   /** default value */
   defaultValue: PropTypes.object,
   /** children -> btn open menu */
-  children: PropTypes.element
+  children: PropTypes.element,
+  /** theme */
+  theme: PropTypes.number
 }
 
 export default MenuListComposition

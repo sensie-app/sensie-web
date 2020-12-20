@@ -1,6 +1,7 @@
 // react
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { useTranslation } from 'react-i18next'
 // material-ui
 import MenuItem from '@material-ui/core/MenuItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -31,6 +32,7 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
   // hooks
   const [items, setItems] = useState(defValue)
   const [open, setOpen] = useState(false)
+  const [t] = useTranslation('global')
 
   useEffect(() => setItems(defValue), [open])
 
@@ -70,7 +72,7 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
     return data.map(value => (
       <MenuItem key={value.index} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
         <Checkbox checked={items.indexOf(value) > -1} color={actionColor1} className={styles.MultipleSelectCheckboxMenuItemCheckbox} />
-        <ListItemText primary={value.name} />
+        <ListItemText primary={t(`dashboard.MenuFilterTopicsAffirmationsList.${value.name}`)} />
       </MenuItem>
     ))
   }

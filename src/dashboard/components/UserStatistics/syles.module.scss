@@ -49,7 +49,7 @@ $size: 100px;
 
 .UserStatisticsBorder {
   width: 100%;
-  @include border(solid, 0px 0px 1px 0px, 0px, $grayColor3);
+  @include border(solid, 0px 0px 1px 0px, 0px, $grayColor5);
 }
 
 .UserStatisticsBodyContainer {
