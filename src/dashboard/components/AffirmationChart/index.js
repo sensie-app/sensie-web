@@ -11,12 +11,13 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
 
 // * component
 /**
- * BarIndicator component
+ * AffirmationChart component
  * @component
- * @param {number} value
- * @param {string} title
+ * @param {AffirmationChart} data
+ * @param {undefined} onClickValue
  */
-const BarIndicator = ({ value, title }) => {
+const AffirmationChart = ({ data, onClickValue = () => {} }) => {
+  const { value, title } = data
   // ? handle functions
   /**
    * handle value
@@ -45,28 +46,30 @@ const BarIndicator = ({ value, title }) => {
   const handleValue0 = (ifTrue, ifFalse) => value === 0 ? ifTrue : ifFalse
 
   return (
-    <section className={styles.BarIndicatorContainer}>
-      <span className={styles.BarIndicatorText}>{title}</span>
-      <div className={styles.BarIndicatorChartContainer}>
-        <div
-          className={styles.BarIndicatorChart}
-          style={{
-            backgroundColor: handleValue0('red', handleColor()),
-            width: handleValue0('1%', handleValue())
-          }}
-        />
-        <span className={styles.BarIndicatorChartText}>{handleValue0('0%', handleValue())}</span>
-      </div>
+    <section className={styles.AffirmationChartContainer}>
+      <button onClick={() => onClickValue(data)}>
+        <span className={styles.AffirmationChartText}>{title}</span>
+        <div className={styles.AffirmationChartChartContainer}>
+          <div
+            className={styles.AffirmationChartChart}
+            style={{
+              backgroundColor: handleColor(),
+              width: handleValue0('0.5%', handleValue())
+            }}
+          />
+          <span className={styles.AffirmationChartChartText}>{handleValue0('0%', handleValue())}</span>
+        </div>
+      </button>
     </section>
   )
 }
 
 // prop-types
-BarIndicator.propTypes = {
+AffirmationChart.propTypes = {
   /** value */
-  value: PropTypes.number.isRequired,
-  /** title */
-  title: PropTypes.string.isRequired
+  data: PropTypes.number.isRequired,
+  /** onClickValue */
+  onClickValue: PropTypes.func
 }
 
-export default BarIndicator
+export default AffirmationChart

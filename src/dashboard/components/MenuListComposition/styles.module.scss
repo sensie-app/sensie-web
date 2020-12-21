@@ -22,7 +22,6 @@
   @include border();
   @include flex(column, center, center, nowrap);
   @include font($fontColor1, 16px);
-  padding: 5px 15px;
   width: 100%;
   background-color: transparent;
   

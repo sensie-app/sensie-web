@@ -25,7 +25,7 @@ const Symbol = ({ level }) => {
   // hooks
   const [showLevel, setShowLevel] = useState(0)
 
-  // render functions
+  // ? render functions
   const renderLevels = () => {
     switch (showLevel) {
       case 0: return <FlowerOfLife level={level} />

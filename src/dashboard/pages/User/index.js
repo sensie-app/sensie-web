@@ -27,7 +27,7 @@ const User = () => {
       {/* seo */}
       <HelmetSEO title={t('seo.User.title')} subtitle={t('seo.User.subtitle')} />
       {/* header */}
-      <Header />
+      <Header withBack={true} withPeople={false} />
       {/* body */}
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} xl={6}>

@@ -65,7 +65,7 @@ const PieChart = ({ data = data1, title = '' }) => {
         <ResponsivePie
             data={handleDataColor(data)}
             margin={{ top: margin, right: margin, bottom: margin, left: margin }}
-            innerRadius={0.75}
+            innerRadius={0.85}
             colors={value => value.data.color }
             borderWidth={1}
             borderColor={{ from: 'color', modifiers: [['darker', '0.1']] }}

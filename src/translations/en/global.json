@@ -86,20 +86,32 @@
     },
     "Client": {
       "author": "Author",
-      "affirmations": "Affirmations",
-      "affirmation": "Affirmation",
-      "iHaveAllThatNeed": "I have all that need"
+      "affirmations": "Affirmations"
     },
     "User": {
       "awarness": "Awarness",
       "resilence": "Resilence",
       "trust": "Trust",
-      "trackAffirmations": "Track affirmations"
-      
+      "trackAffirmations": "Track affirmations"      
+    },
+    "Affirmation": {
+      "selectAOption": "Select a option",
+      "affirmation": "Affirmation"
     },
     "UserList": {
-      "summary": "summary",
-      "details": "details"
+      "summary": "Summary",
+      "details": "Details",
+      "clients": "Clients"
+    },
+    "MenuFilterTopicsAffirmationsList": {
+      "spirit": "Spirit",
+      "health": "Health",
+      "finance": "Finance",
+      "love": "Love",
+      "family": "Family",
+      "parenting": "Parenting",
+      "personal": "Personal",
+      "performance": "Performance"
     }
   }
 }

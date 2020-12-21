@@ -21,7 +21,7 @@ const TheConnectedBeing = ({ level }) => {
   // hooks
   const [symbolLevel, setSymbolLevel] = useState(level)
 
-  // handle functions
+  // ? handle functions
   /**
     * handle level (test)
     * @returns {number} return symbolLevel

@@ -5,7 +5,7 @@
   flex: 1;
 }
 
-.ClientG1Container, .ClientG2Container {
+.ClientG1Container {
   background-color: $grayColor6;
   border-radius: 5px;
   padding: 10px 15px;
@@ -15,13 +15,4 @@
 
 .ClientG1Container {
   margin-bottom: 10px;
-}
-
-.ClientSpiderHeaderContainer {
-  width: 100%;
-  padding: 10px 0px;
-}
-
-.ClientSpiderHeaderTitleContainer {
-  @include flex(row, flex-start, center, wrap);
 }

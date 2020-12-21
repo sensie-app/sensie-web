@@ -1,16 +1,30 @@
+/**
+ * @module FiltersReducer
+ */
+
+import './doc'
 import FILTERS from '../constants/filters.constants'
 import { MenuDateHeaderComponent, MenuFilterStateAffirmationsListComponentDefaultValueState } from '../../dashboard/constants/menus'
 
+/**
+ * @type {INITIAL_STATE_FILTERS}
+ */
 const INITIAL_STATE = {
   globalDateFilter: MenuDateHeaderComponent[0],
   affirmations: {
     stateFilter: MenuFilterStateAffirmationsListComponentDefaultValueState,
-    topicFilter: []
+    topicFilter: [],
+    affirmation: null
   }
 }
 
-const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_TOPIC_FILTER } = FILTERS
+const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION } = FILTERS
 
+/**
+ * [REDUX:REDUCER] filtersReducer
+ * @param {INITIAL_STATE_FILTERS} state
+ * @param {undefined} action
+ */
 const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
     case GLOBAL_DATE_FILTER:
@@ -23,8 +37,9 @@ const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
       return {
         ...state,
         affirmations: {
+          topicFilter: state.affirmations.topicFilter,
           stateFilter: payload,
-          topicFilter: state.affirmations.topicFilter
+          affirmation: state.affirmations.affirmation
         }
       }
 
@@ -33,7 +48,18 @@ const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
         ...state,
         affirmations: {
           topicFilter: payload,
-          stateFilter: state.affirmations.stateFilter
+          stateFilter: state.affirmations.stateFilter,
+          affirmation: state.affirmations.affirmation
+        }
+      }
+
+    case AFFIRMATIONS_AFFIRMATION:
+      return {
+        ...state,
+        affirmations: {
+          topicFilter: state.affirmations.topicFilter,
+          stateFilter: state.affirmations.stateFilter,
+          affirmation: payload
         }
       }
 

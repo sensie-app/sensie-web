@@ -19,6 +19,7 @@
 
 /**
   * @typedef {Object} User
+  * @property {string} id
   * @property {string} name
   * @property {string} url
   */
@@ -71,5 +72,12 @@
  * @property {string} color
  * @property {string} index
  * @property {string} key
+ * @property {number} value
+ */
+
+/**
+ * @typedef {Object} AffirmationChart
+ * @property {number} id
+ * @property {string} title
  * @property {number} value
  */

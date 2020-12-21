@@ -1,14 +1,14 @@
 // redux
 import { combineReducers } from 'redux'
 // reducers
-import testReducer from './test.reducer'
 import filtersReducer from './filters.reducer'
 import showReducer from './show.reducer'
+import paginationReducer from './pagination.reducer'
 
 const reducers = combineReducers({
-  testReducer,
   filtersReducer,
-  showReducer
+  showReducer,
+  paginationReducer
 })
 
 export default reducers

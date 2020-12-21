@@ -24,12 +24,13 @@
     button {
       margin-right: 10px;
       background-color: $grayColor8;
-      color: $fontColor1;
+      color: $grayColor2;
       padding: 5px 10px;
       opacity: 0.95;
       @include border(solid, 1px, 5px, $grayColor8);
       
       &:hover {
+        color: $fontColor1;
         opacity: 1;
         cursor: pointer;
         @include border(solid, 1px, 5px, $actionColor1);
@@ -37,4 +38,17 @@
     }
 
   }
+}
+
+.UsersListHeaderActionActiveBtn {
+  color: $fontColor1 !important;
+  opacity: 1 !important;
+  cursor: pointer;
+  border: solid 1px $actionColor1 !important;
+  border-radius: 5px !important;
+}
+
+.UserListPagination {
+  width: 100%;
+  @include flex(row, flex-end, center, nowrap);
 }

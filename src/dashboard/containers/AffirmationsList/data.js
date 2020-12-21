@@ -1,50 +1,62 @@
 export const data = [
   {
-    title: 'affirmation',
+    id: 1,
+    title: 'affirmation 1',
     value: 75
   },
   {
-    title: 'affirmation',
+    id: 2,
+    title: 'affirmation 2',
     value: 45
   },
   {
-    title: 'affirmation',
+    id: 3,
+    title: 'affirmation 3',
     value: 25
   },
   {
-    title: 'affirmation',
+    id: 4,
+    title: 'affirmation 4',
     value: 0
   },
   {
-    title: 'affirmation',
+    id: 5,
+    title: 'affirmation 5',
     value: 100
   },
   {
-    title: 'affirmation',
+    id: 6,
+    title: 'affirmation 6',
     value: 50
   },
   {
-    title: 'affirmation',
+    id: 7,
+    title: 'affirmation 7',
     value: 93
   },
   {
-    title: 'affirmation',
+    id: 8,
+    title: 'affirmation 8',
     value: 85
   },
   {
-    title: 'affirmation',
+    id: 9,
+    title: 'affirmation 9',
     value: 50
   },
   {
-    title: 'affirmation',
+    id: 10,
+    title: 'affirmation 10',
     value: 10
   },
   {
-    title: 'affirmation',
+    id: 11,
+    title: 'affirmation 11',
     value: 100
   },
   {
-    title: 'affirmation',
+    id: 12,
+    title: 'affirmation 12',
     value: 50
   }
 ]

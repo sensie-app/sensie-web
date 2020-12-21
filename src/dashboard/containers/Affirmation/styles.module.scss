@@ -1,0 +1,23 @@
+@import '../../styles/index.scss';
+
+.AffirmationContainer {
+  background-color: $grayColor6;
+  border-radius: 5px;
+  padding: 10px 15px;
+  width: 100%;
+  @include flex(row, flex-start, center, wrap);
+}
+
+.AffirmationSpiderHeaderContainer {
+  width: 100%;
+  padding: 10px 0px;
+}
+
+.AffirmationSpiderHeaderTitleContainer {
+  @include flex(row, flex-start, center, wrap);
+}
+
+.AffirmationPagination {
+  width: 100%;
+  @include flex(row, flex-end, center, nowrap);
+}
