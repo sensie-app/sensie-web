@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Box } from '@material-ui/core'
+import { Grid, Box, Typography } from '@material-ui/core'
 import Title from '../components/Title/Title'
 import { Parallax, Background } from 'react-parallax'
 import Epigraph from '../components/Epigraph'
@@ -7,20 +7,31 @@ import Subtitle from '../components/Subtitle'
 import backgroundScienceMan1 from '../assets/img/backgroundScienceMan1.png'
 import backgroundScienceMan2 from '../assets/img/backgroundScienceMan2.png'
 import Lead from '../components/Lead'
+import { HashLink as Link } from 'react-router-hash-link'
+import LANDING_ROUTES from '../constants/routes'
+
+const { scienceanchor } = LANDING_ROUTES
 
 const Science = () => {
   return (
-    <div style={{ backgroundColor: '#071215' }}>
+    <div id="scc" style={{ backgroundColor: '#071215' }}>
       {/* BLOQUE 1 */}
       <Parallax strength={400}>
         <Background className="backgroundImg">
-          <img src={backgroundScienceMan1} alt="fill murray" />
+          <img src={backgroundScienceMan1} />
         </Background>
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
-            <Grid item xs={12} sm={7}>
-              <Box mt={10} mb={26}>
+            <Grid item xs={12} sm={7} data-aos="zoom-out-up">
+              <Box mt={22} mb={41}>
+                <Box>
+                  <Grid>
+                    <Link to={scienceanchor}>
+                      <Typography>&lt; Back</Typography>
+                    </Link>
+                  </Grid>
+                </Box>
                 <Box>
                   <Grid>
                     <Title title="The Science" />
@@ -31,7 +42,7 @@ const Science = () => {
                     <Subtitle subtitle="Muscle tension is a relax reaction to stress." />
                   </Grid>
                 </Box>
-                <Box mt={16}>
+                <Box mt={5}>
                   <Grid>
                     <Lead lead="Tendons" />
                   </Grid>
@@ -53,7 +64,7 @@ const Science = () => {
 
       <Parallax strength={400}>
         <Background className="backgroundImg">
-          <img src={backgroundScienceMan2} alt="fill murray" />
+          <img src={backgroundScienceMan2} />
         </Background>
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>

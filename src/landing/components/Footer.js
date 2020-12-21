@@ -7,14 +7,14 @@ import {
   Button,
   Hidden
 } from '@material-ui/core'
-import { NavLink } from 'react-router-dom'
 import LANDING_ROUTES from '../constants/routes'
 import InstagramIcon from '@material-ui/icons/Instagram'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import FacebookIcon from '@material-ui/icons/Facebook'
 import Email from './Email'
+import { HashLink as Link } from 'react-router-hash-link'
 
-const { home, science, aboutsensie } = LANDING_ROUTES
+const { home, membership, howitworks, scienceanchor, abs } = LANDING_ROUTES
 
 const useStyles = makeStyles({
   footerStyle: {
@@ -60,29 +60,29 @@ const Footer = () => {
               direction="column"
               className={classes.textTab}
             >
-              <NavLink to={home}>
+              <Link to={howitworks}>
                 <Box my={1} mt={4}>
                   HOW IT WORKS
                 </Box>
-              </NavLink>
+              </Link>
 
-              <NavLink to={science}>
+              <Link to={scienceanchor}>
                 <Box my={1}>SCIENCE</Box>
-              </NavLink>
+              </Link>
 
-              <NavLink to={science}>
+              <Link to={membership}>
                 <Box my={1}>MEMBERSHIP</Box>
-              </NavLink>
+              </Link>
 
-              <NavLink to={science}>
+              <Link to={home}>
                 <Box my={1}>BLOG</Box>
-              </NavLink>
+              </Link>
 
-              <NavLink to={aboutsensie}>
+              <Link to={abs}>
                 <Box my={1} mb={4}>
                   ABOUT SENSIE
                 </Box>
-              </NavLink>
+              </Link>
             </Grid>
           </Grid>
           <Grid item xs={12} sm={4}>

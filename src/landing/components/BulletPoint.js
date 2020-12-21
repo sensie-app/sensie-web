@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Item = ({ IconItem, title = false }) => {
+const BulletPoint = ({ IconItem, title = false }) => {
   const classes = useStyles()
   return (
     <Grid container direction="column">
@@ -30,4 +30,4 @@ const Item = ({ IconItem, title = false }) => {
   )
 }
 
-export default Item
+export default BulletPoint
