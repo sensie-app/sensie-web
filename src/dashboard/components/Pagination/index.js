@@ -1,89 +1,47 @@
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
-// components
-import Icon from '../Icon'
-// constants
-import { COLORS } from '../../constants/theme'
 // material-ui
-import { usePagination } from '@material-ui/lab/Pagination'
 import { makeStyles } from '@material-ui/core/styles'
+import Pagination from '@material-ui/lab/Pagination'
 // styles
 import styles from './styles.module.scss'
 
-// const
-const { fontColor1 } = COLORS
-
-// material styles
-const useStyles = makeStyles({
-  ul: {
-    listStyle: 'none',
-    padding: 0,
-    margin: 0,
-    display: 'flex',
-    alignItems: 'center'
+// material-ui styles
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      marginTop: theme.spacing(2)
+    }
   }
-})
+}))
 
 // * component
 /**
- * Pagination component
+ * PaginationMUI component
  * @param {number} count
- * @param {undefined} onClickValue function
+ * @param {undefined} onChange function()
+ * @param {number} defaultPage
  */
-const Pagination = ({ count, onClickValue }) => {
+const PaginationMUI = ({ count, onChange, defaultPage }) => {
   // hooks
   const classes = useStyles()
-  const { items } = usePagination({
-    count
-  })
-
-  // ? handle functions
-  /**
-   * handle types
-   * @param {string} type
-   * @returns {undefined} Icon component
-   */
-  const handleTypes = type => {
-    if (type === 'next') return <Icon color={fontColor1} name="arrow-ios-forward-outline" />
-    if (type === 'previous') return <Icon color={fontColor1} name="arrow-ios-back-outline" />
-  }
 
   return (
-    <nav className={styles.PaginationContainer}>
-      <ul className={classes.ul}>
-        {items.map(({ page, type, selected, ...item }, index) => {
-          let children = null
-
-          if (type === 'start-ellipsis' || type === 'end-ellipsis') {
-            children = '…'
-          } else if (type === 'page') {
-            children = (
-              <button onClick={selected && onClickValue(page)} className={selected ? styles.PaginationButtonSelected : styles.PaginationButton} type="button" {...item}>
-                {page}
-              </button>
-            )
-          } else {
-            children = (
-              <button onClick={selected && onClickValue(page)} className={styles.PaginationButtonArrow} type="button" {...item}>
-                {handleTypes(type)}
-              </button>
-            )
-          }
-
-          return <li key={index}>{children}</li>
-        })}
-      </ul>
-    </nav>
+    <div className={classes.root}>
+      <Pagination className={styles.test} defaultPage={defaultPage} count={count} onChange={onChange} variant="outlined" shape="rounded" />
+    </div>
   )
 }
 
 // prop-types
-Pagination.propTypes = {
+PaginationMUI.propTypes = {
   /** count */
-  count: PropTypes.number.isRequired,
-  /** onClickValue */
-  onClickValue: PropTypes.func.isRequired
+  count: PropTypes.number.isRequire,
+  /** onChange */
+  onChange: PropTypes.func.isRequire,
+  /** defaultPage */
+  defaultPage: PropTypes.number.isRequire
 }
 
-export default Pagination
+export default PaginationMUI

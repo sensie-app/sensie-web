@@ -13,10 +13,11 @@ import { UserListBtns } from '../../constants/globals'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserListInfo } from '../../../redux/actions/show.actions'
+import { setPaginationUserListAction } from '../../../redux/actions/pagination.actions'
 // styles
 import styles from './styles.module.scss'
 // test data
-import { data } from '../../components/ClientSnapshot/data'
+import { data } from '../ClientSnapshot/data'
 
 // const
 const { fontColor1 } = COLORS
@@ -32,7 +33,10 @@ const UsersList = ({ users = data }) => {
   // hooks
   const [t] = useTranslation('global')
   const dispatch = useDispatch()
-  const { showReducer: { userList } } = useSelector(state => state)
+  const {
+    showReducer: { userList },
+    paginationReducer: { pagination: { pagUsersList } }
+  } = useSelector(state => state)
 
   // ? handle functions
   /**
@@ -48,6 +52,14 @@ const UsersList = ({ users = data }) => {
    * @returns {string} userList.showInfo = btn
    */
   const handleActive = btn => userList.showInfo === btn
+
+  /**
+   * handle paginaion change
+   * @param {*} event
+   * @param {number} value
+   * @returns {undefined} redux action
+   */
+  const handlePaginationChange = (event, value) => dispatch(setPaginationUserListAction(value))
 
   // ? render functions
   const renderUsers = () => {
@@ -74,7 +86,7 @@ const UsersList = ({ users = data }) => {
       {/* body */}
       {renderUsers()}
       <div className={styles.UserListPagination}>
-        <Pagination count={10} onClickValue={page => console.log(page)}/>
+        <Pagination count={10} onChange={handlePaginationChange} defaultPage={pagUsersList} />
       </div>
     </section>
   )

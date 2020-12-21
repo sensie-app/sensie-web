@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next'
 import Grid from '@material-ui/core/Grid'
 // containers
 import Header from '../../containers/Header'
+import ClientSnapshot from '../../containers/ClientSnapshot'
 // components
 import ClientFlow from '../../components/ClientFlow'
 import TrackAffirmations from '../../components/TrackAffirmations'
-import ClientSnapshot from '../../components/ClientSnapshot'
 import { HelmetSEO } from '../../components/Globals'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'

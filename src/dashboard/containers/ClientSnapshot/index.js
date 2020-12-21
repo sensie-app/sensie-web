@@ -3,11 +3,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 // material-ui
 import Grid from '@material-ui/core/Grid'
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+import { setPaginationClientSnapshotAction } from '../../../redux/actions/pagination.actions'
 // components
-import ImageAvatar from '../ImageAvatar'
-import BarChart from '../BarChart'
-import Icon from '../Icon'
-import Pagination from '../Pagination'
+import ImageAvatar from '../../components/ImageAvatar'
+import BarChart from '../../components/BarChart'
+import Icon from '../../components/Icon'
+import Pagination from '../../components/Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -26,6 +29,19 @@ const { user } = DASHBOARD_ROUTES
  * @component
  */
 const ClientSnapshot = () => {
+  // hooks
+  const dispatch = useDispatch()
+  const { paginationReducer: { pagination: { pagClientSnapshot } } } = useSelector(state => state)
+
+  // ? handle functions
+  /**
+   * handle paginaion change
+   * @param {*} event
+   * @param {number} value
+   * @returns {undefined} redux action
+   */
+  const handlePaginationChange = (event, value) => dispatch(setPaginationClientSnapshotAction(value))
+
   // ? render functions
   /**
    * render client snapshot with bar chart
@@ -64,7 +80,7 @@ const ClientSnapshot = () => {
         {renderClientSnapshotBarChart()}
       </Grid>
       <div className={styles.ClientSnapshotFooter}>
-        <Pagination count={10} onClickValue={page => console.log(page)} />
+        <Pagination count={10} onChange={handlePaginationChange} defaultPage={pagClientSnapshot} />
       </div>
     </section>
   )

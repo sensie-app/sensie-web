@@ -28,3 +28,11 @@
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
+
+.Mui-selected {
+  background-color: $actionColor1 !important;
+}
+
+.MuiPaginationItem-root, .MuiPaginationItem-ellipsis {
+  color: $fontColor1 !important;
+}

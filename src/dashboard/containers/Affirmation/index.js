@@ -2,11 +2,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 // redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setPaginationAffirmationAction } from '../../../redux/actions/pagination.actions'
 // components
 import Title from '../../components/Title'
 import SpiderChart from '../../components/SpiderChart'
-import Pagination from '../../components/Pagination'
+import PaginationMUI from '../../components/Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
@@ -23,7 +24,19 @@ const { fontColor1, grayColor3 } = COLORS
 const Affirmation = () => {
   // hooks
   const [t] = useTranslation('global')
-  const { filtersReducer: { affirmations: { affirmation } } } = useSelector(state => state)
+  const dispatch = useDispatch()
+  const {
+    filtersReducer: { affirmations: { affirmation } },
+    paginationReducer: { pagination: { pagAffirmation } }
+  } = useSelector(state => state)
+
+  /**
+   * handle paginaion change
+   * @param {*} event
+   * @param {number} value
+   * @returns {undefined} redux action
+   */
+  const handlePaginationChange = (event, value) => dispatch(setPaginationAffirmationAction(value))
 
   return (
     <div className={styles.AffirmationContainer}>
@@ -38,7 +51,7 @@ const Affirmation = () => {
         <SpiderChart />
       </div>
       <div className={styles.AffirmationPagination}>
-        <Pagination count={10} onClickValue={page => console.log(page)} />
+        <PaginationMUI count={10} onChange={handlePaginationChange} defaultPage={pagAffirmation} />
       </div>
     </div>
   )
