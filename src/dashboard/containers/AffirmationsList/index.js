@@ -9,9 +9,11 @@ import MultipleSelectCheckbox from '../../components/MultipleSelectCheckbox'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import Title from '../../components/Title'
+import Pagination from '../../components/Pagination'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
+import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagination.actions'
 // constants
 import { MenuFilterStateAffirmationsListComponent, MenuFilterTopicsAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
@@ -35,7 +37,10 @@ const { fontColor1, grayColor5 } = COLORS
 const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => {
   // hooks
   const dispatch = useDispatch()
-  const { filtersReducer: { affirmations: { topicFilter, stateFilter } } } = useSelector(state => state)
+  const {
+    filtersReducer: { affirmations: { topicFilter, stateFilter } },
+    paginationReducer: { pagination: { pagAffirmationsList } }
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [selectValue, setSelectValue] = useState(topicFilter)
 
@@ -87,6 +92,14 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
     }
     return styles
   }
+
+  /**
+   * handle paginaion change
+   * @param {*} event
+   * @param {number} value
+   * @returns {undefined} redux action
+   */
+  const handlePaginationChange = (event, value) => dispatch(setPaginationAffirmationsListAction(value))
 
   // ? render functions
   /**
@@ -173,6 +186,9 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
         </div>}
         <div className={styles.AffirmationsListAffirmationChartContainer}>
           {renderAffirmationsAffirmationChart()}
+          {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
+            <Pagination count={10} onChange={handlePaginationChange} defaultPage={pagAffirmationsList} />
+          </div>}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>
           {renderChipsItems()}

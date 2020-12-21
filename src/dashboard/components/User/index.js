@@ -28,7 +28,7 @@ const { summary } = UserListBtns
  * @param {User} user
  * @param {string} show
  */
-const User = ({ user = { name: 'Harrison Ford', url: '' }, show }) => {
+const User = ({ user, show }) => {
   // hooks
   const [t] = useTranslation('global')
 
@@ -50,7 +50,7 @@ const User = ({ user = { name: 'Harrison Ford', url: '' }, show }) => {
       {/* avatar */}
       <Link to={DASHBOARD_ROUTES.user}>
         <div className={styles.UserAvatarContainer}>
-          <ImageAvatar url="https://www.gstatic.com/tv/thumb/persons/25704/25704_v9_bb.jpg" alt="test" />
+          <ImageAvatar url={user.url} alt="test" />
           {renderName()}
         </div>
       </Link>

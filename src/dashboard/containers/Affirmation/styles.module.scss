@@ -16,3 +16,8 @@
 .AffirmationSpiderHeaderTitleContainer {
   @include flex(row, flex-start, center, wrap);
 }
+
+.AffirmationPagination {
+  width: 100%;
+  @include flex(row, flex-end, center, nowrap);
+}
