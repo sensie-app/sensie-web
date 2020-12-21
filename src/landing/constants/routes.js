@@ -5,8 +5,14 @@ const { landing } = APP_ROUTES
 const LANDING_ROUTES = {
   entrypoint: landing + '/',
   home: landing + '/home',
+  hm: landing + '/home/#hm',
+  membership: landing + '/home/#membership',
+  howitworks: landing + '/home/#howitworks',
+  scienceanchor: landing + '/home/#science',
   science: landing + '/science',
-  aboutsensie: landing + '/aboutsensie'
+  aboutsensie: landing + '/aboutsensie',
+  abs: landing + '/aboutsensie/#abs',
+  scc: landing + '/science/#scc'
 }
 
 export default LANDING_ROUTES
