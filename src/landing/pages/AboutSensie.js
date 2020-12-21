@@ -81,50 +81,127 @@ const AboutSensie = () => {
         </Grid>
         <Grid item xs={1}></Grid>
         <Grid container justify-content="space-evenly">
-          <Grid item xs={1} sm={2}></Grid>
+          <Grid item xs={1}></Grid>
           <Grid
             item
             xs={10}
-            sm={8}
+            sm={12}
             container
             justify="space-evenly"
             alignItems="center"
-            data-aos="zoom-out-up"
           >
-            <Grid item xs={12}>
-
-            <AboutUs
-              title="Our Team"
-              textWithoutColor="We are a team of yogis, scientists, and engineers dedicated to"
-              textWithColor="empowering humanity"
-              textWithoutColor2="to take well-being back into their own hands."
-            />
+            <Grid item xs={12} data-aos="zoom-out-up">
+              <AboutUs
+                title="Scientific Advisory Board"
+                // textWithoutColor="We are a team of yogis, scientists, and engineers dedicated to"
+                // textWithColor="empowering humanity"
+                // textWithoutColor2="to take well-being back into their own hands."
+              />
             </Grid>
-            <Box mt={8} textAlign="center">
-              <Member avatar={Mike} name="MIKE DANNHEIM" role="CEO & FOUNDER" />
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={Mike}
+                name="Dr. Eva Selhub"
+                urlLinkedin="https://www.linkedin.com/in/theloveresponse/"
+              />
             </Box>
-            <Box mt={8} textAlign="center">
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={RedTshirt}
+                name="Dr. Anne Jensen"
+                urlLinkedin="https://www.linkedin.com/in/anne-jensen-bb26a63/"
+              />
+            </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={HinnerkBoriss}
+                name="Bill Softsky"
+                urlLinkedin="https://www.fairobserver.com/author/william-softky/"
+              />
+            </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={KeithTribble}
+                name="Enitan Marcelle"
+                urlLinkedin="https://www.linkedin.com/in/enitanmarcelle/"
+              />
+            </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={SatyenRaja}
+                name="Mikey Siegel"
+                urlLinkedin="https://www.linkedin.com/in/mikeysiegel/"
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={1}></Grid>
+          <Grid
+            item
+            xs={10}
+            sm={12}
+            container
+            justify="space-evenly"
+            alignItems="center"
+          >
+            <Grid item xs={12} data-aos="zoom-out-up">
+              <AboutUs
+                title="Our Team"
+                // textWithoutColor="We are a team of yogis, scientists, and engineers dedicated to"
+                // textWithColor="empowering humanity"
+                // textWithoutColor2="to take well-being back into their own hands."
+              />
+            </Grid>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={Mike}
+                name="MIKE DANNHEIM"
+                role="CEO & FOUNDER"
+                urlLinkedin="https://www.linkedin.com/in/michaeldannheim/"
+              />
+            </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
               <Member
                 avatar={RedTshirt}
                 name="THOMAS GERSTEN"
                 role="COFOUNDER"
+                urlLinkedin="https://www.linkedin.com/in/thomas-gersten-2281371/"
               />
             </Box>
-            <Box mt={8} textAlign="center">
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
               <Member
                 avatar={HinnerkBoriss}
                 name="DR. HINNERK BORISS"
                 role="CFO"
+                urlLinkedin="https://www.linkedin.com/in/hboriss/"
               />
             </Box>
-            <Box mt={8} textAlign="center">
-              <Member avatar={KeithTribble} name="KEITH TRIBBLE" role="BD" />
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={KeithTribble}
+                name="KEITH TRIBBLE"
+                role="BD"
+                urlLinkedin="https://www.linkedin.com/in/keithtribble/"
+              />
             </Box>
-            <Box mt={8} textAlign="center">
-              <Member avatar={SatyenRaja} name="SATYEN RAJA" role="CCO" />
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={SatyenRaja}
+                name="SATYEN RAJA"
+                role="CCO"
+                urlLinkedin="https://www.linkedin.com/in/satyenraja/"
+              />
+            </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={SatyenRaja}
+                name="ANNMARIE CHEERESO"
+                role="COACHING PARTNER"
+                urlLinkedin="https://www.linkedin.com/in/annmarie-chereso-a3ab2311/"
+              />
             </Box>
           </Grid>
-          <Grid item xs={1} sm={2}></Grid>
+          <Grid item xs={1}></Grid>
         </Grid>
         <Grid item xs={1}></Grid>
         <Grid item container xs={10} data-aos="zoom-out-up">

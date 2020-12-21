@@ -22,11 +22,13 @@ import '../styles/index.scss'
 
 // Img
 import MindfullBeginner from '../assets/img/MindfullBeginner.svg'
-import TheIntellectualizer from '../assets/img/TheIntellectualizer.svg'
-import TheIntuitiveBull from '../assets/img/TheIntuitiveBull.svg'
-import TheDoubter from '../assets/img/TheDoubter.svg'
-import OnthePath from '../assets/img/OnthePath.svg'
-import TheConnectedBeing from '../assets/img/TheConnectedBeing.svg'
+// import TheIntellectualizer from '../assets/img/TheIntellectualizer.svg'
+// import TheIntuitiveBull from '../assets/img/TheIntuitiveBull.svg'
+// import TheDoubter from '../assets/img/TheDoubter.svg'
+// import OnthePath from '../assets/img/OnthePath.svg'
+// import TheConnectedBeing from '../assets/img/TheConnectedBeing.svg'
+// import TheConnectedBeing from '../assets/img/TheConnectedBeing.svg'
+import Lock from '../assets/img/lock.svg'
 import MetatronStae from '../assets/img/MetatronStae.svg'
 // import membership from '../assets/img/membership.jpg'
 import MiamiHerald from '../assets/img/miamiheraldpng.png'
@@ -95,8 +97,7 @@ const Home = () => {
         <Grid item xs={1} md={5}>
           <Hidden smDown>
             <Box mt={-16}>
-
-            <Trazado />
+              <Trazado />
             </Box>
           </Hidden>
         </Grid>
@@ -192,7 +193,7 @@ const Home = () => {
 
       {/* BLOQUE 3 Citation */}
       <Grid container direction="column">
-        <Box mt={2} mb={10}>
+        <Box mt={2} mb={6}>
           <Grid item xs={12} data-aos="zoom-out-up">
             <Phrases
               textWithoutColor="Start measuring and expanding self-awareness."
@@ -201,80 +202,73 @@ const Home = () => {
           </Grid>
         </Box>
         <Grid item container>
-          <Grid item xs={2}></Grid>
-          <Grid item container xs={8} justify="space-evenly">
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
+          <Grid item xs={5}></Grid>
+          <Grid item container xs={2} lg={12} justify="space-evenly">
+            <Box mt={4} data-aos="zoom-out-up">
               <WisdomCard
                 ImageW={MindfullBeginner}
                 level="Level 1"
                 text="Mindfull Beginner"
-                width="120px"
+                width="100px"
                 height="120px"
               />
-            </Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
+            </Box>
+            <Box mt={4} data-aos="zoom-out-up" data-aos-delay="100">
               <WisdomCard
-                ImageW={TheIntellectualizer}
+                ImageW={Lock}
                 level="Level 2"
                 text="The Intellectualizer"
                 width="120px"
                 height="120px"
               />
-            </Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
+            </Box>
+            <Box mt={4} data-aos="zoom-out-up" data-aos-delay="200">
               <WisdomCard
-                ImageW={TheIntuitiveBull}
+                ImageW={Lock}
                 level="Level 3"
                 text="The Intuitive Bull"
                 width="120px"
                 height="120px"
               />
-            </Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
+            </Box>
+            <Box mt={4} data-aos="zoom-out-up" data-aos-delay="300">
               <WisdomCard
-                ImageW={TheDoubter}
+                ImageW={Lock}
                 level="Level 4"
                 text="The Doubter"
                 width="120px"
                 height="120px"
               />
-            </Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
+            </Box>
+            <Box mt={4} data-aos="zoom-out-up" data-aos-delay="400">
               <WisdomCard
-                ImageW={OnthePath}
+                ImageW={Lock}
                 level="Level 5"
                 text="On The Path"
                 width="120px"
                 height="120px"
               />
-            </Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
+            </Box>
+            <Box mt={4} data-aos="zoom-out-up" data-aos-delay="500">
               <WisdomCard
-                ImageW={TheConnectedBeing}
+                ImageW={Lock}
                 level="Level 6"
                 text="The Connected Being"
                 width="120px"
                 height="120px"
               />
-            </Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
+            </Box>
+            <Box mt={4} data-aos="zoom-out-up" data-aos-delay="600">
               <WisdomCard
                 ImageW={MetatronStae}
                 level="Level 7"
                 text="Metatron Stae"
-                width="169px"
-                height="169px"
+                width="120px"
+                height="120px"
               />
-            </Grid>
-            <Grid item xs={12} sm={6}></Grid>
+            </Box>
           </Grid>
-          <Grid item xs={2}></Grid>
+          <Grid item xs={5}></Grid>
         </Grid>
       </Grid>
       {/* BLOQUE 4 How it works */}

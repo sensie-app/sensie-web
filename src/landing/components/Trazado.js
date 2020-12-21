@@ -6,7 +6,8 @@ import animation from '../scripts/data.json'
 
 const useStyles = makeStyles({
   root: {
-    height: 1000
+    height: 1000,
+    opacity: '0.3'
   }
 })
 
@@ -15,7 +16,6 @@ const Trazado = () => {
   const animationContainer = React.createRef()
 
   useEffect(() => {
-    console.log('pase')
     const anim = lottie.loadAnimation({
       container: animationContainer.current,
       animationData: animation

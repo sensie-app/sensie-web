@@ -5,17 +5,19 @@ import { Box, Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275
+    width: 160
   },
   level: {
-    fontSize: 14,
+    fontSize: 11,
     fontWeight: '400',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    textAlign: '-webkit-center'
   },
   text: {
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
+    textAlign: '-webkit-center'
   },
   box: {
     alignSelf: 'center'
@@ -26,14 +28,14 @@ const WisdomCard = ({ ImageW, level, text, width, height }) => {
   const classes = useStyles()
 
   return (
-      <Box my={3} className={classes.root}>
+      <Box className={classes.root}>
         <Grid container alignItems="center">
-          <Grid item xs={5}>
+          <Grid item xs={12}>
             <Box textAlign="-webkit-center">
               <img style={{ width: width, height: height }} src={ImageW} />
             </Box>
           </Grid>
-          <Grid item xs={7}>
+          <Grid item xs={12}>
             <Box className={classes.level} color="primary.main">
               {level}
             </Box>

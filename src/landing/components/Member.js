@@ -1,8 +1,8 @@
+/* eslint-disable multiline-ternary */
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { Box, Avatar, makeStyles, Grid } from '@material-ui/core'
-import InstagramIcon from '@material-ui/icons/Instagram'
-import TwitterIcon from '@material-ui/icons/Twitter'
+import LinkedInIcon from '@material-ui/icons/LinkedIn'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   large: {
-    width: theme.spacing(30),
-    height: theme.spacing(30)
+    width: theme.spacing(25),
+    height: theme.spacing(25)
   },
   nameStyle: {
     fontSize: 20,
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Member = ({ avatar, name, role }) => {
+const Member = ({ avatar, name, role, urlLinkedin }) => {
   const classes = useStyles()
 
   return (
@@ -43,21 +43,19 @@ const Member = ({ avatar, name, role }) => {
             {name}
           </Grid>
         </Box>
-        <Box mt={1} className={classes.roleStyle}>
+        {role ? (<Box mt={1} className={classes.roleStyle}>
           <Grid item xs={12}>
             {role}
           </Grid>{' '}
-        </Box>
+        </Box>) : (null)}
+
         <Box mt={2} className={classes.iconStyle}>
           <Grid item container justify="center">
-            <Box mr={2}>
-              <Grid item xs={6}>
-                <InstagramIcon fontSize="small" />
-              </Grid>
-            </Box>
-            <Box ml={2}>
-              <Grid item xs={6}>
-                <TwitterIcon fontSize="small" />
+            <Box>
+              <Grid item xs={12}>
+                <a href={urlLinkedin} target="_blank" rel="noopener noreferrer">
+                  <LinkedInIcon fontSize="small" />
+                </a>
               </Grid>
             </Box>
           </Grid>
