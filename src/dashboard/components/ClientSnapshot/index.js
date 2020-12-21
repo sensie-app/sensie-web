@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import ImageAvatar from '../ImageAvatar'
 import BarChart from '../BarChart'
 import Icon from '../Icon'
-import MyPagination from '../MyPagination'
+import Pagination from '../Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -64,7 +64,7 @@ const ClientSnapshot = () => {
         {renderClientSnapshotBarChart()}
       </Grid>
       <div className={styles.ClientSnapshotFooter}>
-        <MyPagination count={10} />
+        <Pagination count={10} onClickValue={page => console.log(page)} />
       </div>
     </section>
   )

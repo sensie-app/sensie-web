@@ -9,6 +9,7 @@ import MultipleSelectCheckbox from '../../components/MultipleSelectCheckbox'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import Title from '../../components/Title'
+import Pagination from '../../components/Pagination'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
@@ -173,6 +174,9 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
         </div>}
         <div className={styles.AffirmationsListAffirmationChartContainer}>
           {renderAffirmationsAffirmationChart()}
+          {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
+            <Pagination count={10} onClickValue={page => console.log(page)}/>
+          </div>}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>
           {renderChipsItems()}

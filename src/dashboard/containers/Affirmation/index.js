@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 // components
 import Title from '../../components/Title'
 import SpiderChart from '../../components/SpiderChart'
+import Pagination from '../../components/Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
@@ -35,6 +36,9 @@ const Affirmation = () => {
       </div>
       <div style={{ height: '400px', width: '100%' }}>
         <SpiderChart />
+      </div>
+      <div className={styles.AffirmationPagination}>
+        <Pagination count={10} onClickValue={page => console.log(page)} />
       </div>
     </div>
   )

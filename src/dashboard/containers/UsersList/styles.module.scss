@@ -47,3 +47,8 @@
   border: solid 1px $actionColor1 !important;
   border-radius: 5px !important;
 }
+
+.UserListPagination {
+  width: 100%;
+  @include flex(row, flex-end, center, nowrap);
+}

@@ -1,0 +1,45 @@
+@import '../../styles/index.scss';
+
+.PaginationContainer{
+  padding: 10px 0px;
+  color: $fontColor1;
+}
+
+.PaginationButton, .PaginationButtonSelected {
+  background-color: transparent;
+  min-width: 30px;
+  min-height: 30px;
+  @include border(solid, 1px, 5px, $grayColor3);
+  margin: 0px 5px;
+  padding: 5px;
+  color: $fontColor1;
+}
+
+.PaginationButtonArrow {
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+  @include border(solid, 1px, 5px, $grayColor3);
+  margin: 0px 5px;
+  padding: 5px;
+  color: $fontColor1;
+  &:hover {
+    background-color: $grayColor5;
+    cursor: pointer;
+  }
+}
+
+.PaginationButton {
+  &:hover, &:focus, &:active {
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: $actionColor1;
+    @include border(solid, 1px, 5px, $fontColor1);
+  }
+}
+
+.PaginationButtonSelected {
+  cursor: pointer;
+    background-color: $actionColor1;
+    @include border(solid, 1px, 5px, $fontColor1);
+}

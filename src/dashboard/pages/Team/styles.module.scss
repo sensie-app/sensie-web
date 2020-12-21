@@ -1,0 +1,9 @@
+@import '../../styles/index.scss';
+
+.TeamContainer {
+  width: 100%;
+  @include flex(column, center, center, nowrap);
+  h1 {
+    color: $fontColor1;
+  }
+}

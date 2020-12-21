@@ -49,6 +49,11 @@
     @include flex(column, space-between, center, nowrap);
     width: 100%;
   }
+
+  .AffirmationsListAffirmationChartPagination{
+    @include flex(row, flex-end, center, nowrap);
+    width: 100%;
+  }
   .AffirmationsListChipsContainer {
     @include flex(row, flex-start, center, wrap);
     padding: 5px 0px;
