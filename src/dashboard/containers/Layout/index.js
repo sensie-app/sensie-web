@@ -20,21 +20,23 @@ import {
 // components
 import Icon from '../../components/Icon'
 import ImageAvatar from '../../components/ImageAvatar'
-import AlertDialog from '../../components/AlertDialog'
 // import { ChangeLngBtn } from '../Globals' // btn to change languge
+import AlertDialog from '../../components/AlertDialog'
+// redux
+import { useSelector } from 'react-redux'
 // constants
 import DASHBOARD_ROUTES from '../../constants/routes'
 import { COLORS } from '../../constants/theme'
 import IMG from '../../constants/images'
 // styles
 import styles from './styles.module.scss'
-// test
-import { userTest } from './testData'
+// user test
+// import { userTest } from './testData'
 
 // constants
 const { home, client, team } = DASHBOARD_ROUTES
 const { grayColor8, fontColor1, fontColor2 } = COLORS
-const { logo } = IMG
+const { logo, avatarFemale, avatarMale } = IMG
 // const-sizes
 const drawerWidth = 210
 
@@ -46,6 +48,7 @@ const drawerWidth = 210
  */
 const Layout = ({ children }) => {
   // hooks
+  const { userReducer: { user: { data: { UserAttributes } } } } = useSelector(state => state)
   const [open, setOpen] = useState(false)
   const classes = useStyles()
   const [t] = useTranslation('global')
@@ -109,19 +112,21 @@ const Layout = ({ children }) => {
    * @param {User} user
    * @returns {undefined} user avatar (html)
    */
-  const renderAvatar = user => {
+  const renderAvatar = () => {
+    const user = UserAttributes
+    const filterValue = tag => user.filter(us => us.Name === tag)[0].Value
     return <div className={styles.LayoutLinkToListItem}>
       <div className={styles.LayoutAvatarImgContainer}>
         <button className={styles.LayoutAvatarBtnImg} onClick={() => handleDrawerOpen()}>
-          <ImageAvatar url={user.avatar} alt={user.name} size="small" />
+          <ImageAvatar url={filterValue('gender') === 'Male' ? avatarMale : avatarFemale} alt={filterValue('name')} size="medium" />
         </button>
       </div>
       <div className={styles.LayoutAvatarTextContainer}>
         <div className={styles.LayoutAvatarText}>
           {/* // todo: acomodar */}
           <div className={styles.LayoutAvatarNameContainer}>
-            <span className={styles.LayoutAvatarNameText}>{user.name.split(' ')[0]}</span>
-            <span>{user.name.split(' ')[1]}</span>
+            <span className={styles.LayoutAvatarNameText}>{filterValue('name')}</span>
+            <span>{filterValue('family_name')}</span>
           </div>
           <div className={styles.LayoutAvatarSubTextContainer}>
             <span className={styles.LayoutAvatarSubText}>{t('dashboard.Layout.couch')}</span>
@@ -131,6 +136,30 @@ const Layout = ({ children }) => {
       </div>
     </div>
   }
+
+  // const renderAvatarTest = () => {
+  //   const user = userTest
+  //   console.log('user', user)
+  //   return <div className={styles.LayoutLinkToListItem}>
+  //     <div className={styles.LayoutAvatarImgContainer}>
+  //       <button className={styles.LayoutAvatarBtnImg} onClick={() => handleDrawerOpen()}>
+  //         <ImageAvatar url={user.avatar} alt={user.name} size="small" />
+  //       </button>
+  //     </div>
+  //     <div className={styles.LayoutAvatarTextContainer}>
+  //       <div className={styles.LayoutAvatarText}>
+  //         {/* // todo: acomodar */}
+  //         <div className={styles.LayoutAvatarNameContainer}>
+  //           <span className={styles.LayoutAvatarNameText}>{user.name}</span>
+  //         </div>
+  //         <div className={styles.LayoutAvatarSubTextContainer}>
+  //           <span className={styles.LayoutAvatarSubText}>{t('dashboard.Layout.couch')}</span>
+  //           <Icon name="arrow-ios-downward-outline" size="sm" color={fontColor2} />
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </div>
+  // }
 
   return (
     <Fragment>
@@ -198,7 +227,7 @@ const Layout = ({ children }) => {
               {renderListItems()}
             </div>
             <div>
-              {renderAvatar(userTest)}
+              { UserAttributes && renderAvatar() }
             </div>
           </List>
         </Drawer>

@@ -1,3 +1,3 @@
-# Containers (conexion) 
+# Containers
 > Redux
-> Amplify
+> Amplify queries

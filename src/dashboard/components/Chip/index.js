@@ -1,7 +1,7 @@
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 // component
 import Icon from '../Icon'
 // constants
@@ -22,11 +22,19 @@ const { fontColor1 } = COLORS
  */
 const Chip = ({ label, withClose = true, onClose = () => {} }) => {
   // hooks
-  const [t] = useTranslation('global')
+  // const [t] = useTranslation('global')
+
+  // ? handle functions
+  /**
+   * handle large name
+   * @param {string} name
+   * @param {number} large
+   */
+  const handleLargeName = (name, large) => name.substr(0, large) + '...'
 
   return (
     <div className={styles.ChipContainer}>
-      <span>{t(`dashboard.MenuFilterTopicsAffirmationsList.${label.value}`)}</span>
+      <span>{handleLargeName(label.name, 6)}</span>
       <button onClick={() => onClose(label)}>
         {withClose && <span>
           <Icon name="close-outline" size="sm" color={fontColor1} />

@@ -17,6 +17,10 @@ import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagi
 // constants
 import { MenuFilterStateAffirmationsListComponent, MenuFilterTopicsAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
+// hooks
+import useGraphQlApi from '../../hooks/useGraphQlApi'
+// graphql
+import { listTopicsQuery } from '../../graphql/queries'
 // styles
 import styles from './styles.module.scss'
 // test data
@@ -36,9 +40,10 @@ const { fontColor1, grayColor5 } = COLORS
  */
 const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => {
   // hooks
+  const dbTopics = useGraphQlApi(listTopicsQuery())
   const dispatch = useDispatch()
   const {
-    filtersReducer: { affirmations: { topicFilter, stateFilter } },
+    filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } },
     paginationReducer: { pagination: { pagAffirmationsList } }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
@@ -144,8 +149,8 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
    */
   const renderAffirmationsAffirmationChart = () => {
     const _data = limit ? data.slice(0, limit) : data
-    return _data.map((affirmation, index) => (
-      <AffirmationChart key={index} data={affirmation} onClickValue={value => handleClickAffirmation(value)} />
+    return _data.map((_affirmation, index) => (
+      <AffirmationChart key={index} data={_affirmation} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === _affirmation} />
     ))
   }
 
@@ -171,6 +176,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
             <div className={styles.AffirmationsListFilterBtnMenuComponent}>
               <MultipleSelectCheckbox
                 data={MenuFilterTopicsAffirmationsListComponent}
+                topics={dbTopics}
                 onClickValue={value => handleClickTopicMenu(value)}
                 defValue={topicFilter}
               >

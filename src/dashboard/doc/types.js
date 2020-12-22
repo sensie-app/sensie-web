@@ -62,9 +62,9 @@
 
 /**
  * @typedef {Object} MenuData
- * @property {number} index
+ * @property {string} id
  * @property {string} name
- * @property {string} value
+ * @property {string} description
  */
 
 /**

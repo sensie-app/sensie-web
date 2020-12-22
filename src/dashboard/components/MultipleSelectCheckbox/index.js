@@ -1,13 +1,18 @@
+/* eslint-disable react/prop-types */
 // react
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 // material-ui
 import MenuItem from '@material-ui/core/MenuItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Select from '@material-ui/core/Select'
 import Checkbox from '@material-ui/core/Checkbox'
 import Button from '@material-ui/core/Button'
+// components
+import Popover from '../Popover'
+import Icon from '../Icon'
+// import CircularProgress from '../CircularProgress'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
@@ -16,7 +21,7 @@ import styles from './styles.module.scss'
 import { MenuDataPropTypes } from '../../prop-types'
 
 // const
-const { grayColor6, fontColor1, actionColor1 } = COLORS
+const { grayColor4, grayColor6, fontColor1, actionColor1 } = COLORS
 const ITEM_HEIGHT = 70
 
 // * component
@@ -28,11 +33,13 @@ const ITEM_HEIGHT = 70
  * @param {undefined} children
  * @param {MenuData} defValue
  */
-const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
+const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics }) => {
+  console.log('data', data)
+  console.log('topics', topics)
   // hooks
   const [items, setItems] = useState(defValue)
   const [open, setOpen] = useState(false)
-  const [t] = useTranslation('global')
+  // const [t] = useTranslation('global')
 
   useEffect(() => setItems(defValue), [open])
 
@@ -61,7 +68,18 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
     setItems(event.target.value)
   }
 
+  /**
+   * handle open
+   * @param {boolean} boolean setOpen
+   */
   const handleOpen = (value = !open) => setOpen(value)
+
+  /**
+   * handle large name
+   * @param {string} name
+   * @param {number} large
+   */
+  const handleLargeName = (name, large) => name.substr(0, large) + '...'
 
   // ? render functions
   /**
@@ -69,18 +87,23 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue }) => {
    * @return  {undefined} MenuItem (html)
    */
   const renderItems = () => {
-    return data.map(value => (
-      <MenuItem key={value.index} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
+    return topics.value !== null && !topics.loading && topics.value.data.listTopics.items.map(value => (
+      <MenuItem key={value.id} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
         <Checkbox checked={items.indexOf(value) > -1} color={actionColor1} className={styles.MultipleSelectCheckboxMenuItemCheckbox} />
-        <ListItemText primary={t(`dashboard.MenuFilterTopicsAffirmationsList.${value.name}`)} />
+        <ListItemText primary={handleLargeName(value.name, 10)} />
+        <div>
+          <Popover text={value.description}>
+            <Icon name="info-outline" color={grayColor4} size="md" />
+          </Popover>
+        </div>
       </MenuItem>
     ))
   }
 
   return (
     <div className={styles.MultipleSelectCheckboxContainer} id="container">
-      <Button className={styles.MultipleSelectCheckboxButton} onClick={() => handleOpen(true)}>{children}</Button>
-
+      <Button disabled={topics.loading} className={styles.MultipleSelectCheckboxButton} onClick={() => handleOpen(true)}>{children}</Button>
+      {/* {topics.loading && <CircularProgress color={actionColor1} />} */}
       <Select
         id="select"
         onBlurCapture={e => e.relatedTarget === null && handleOpen(false)}

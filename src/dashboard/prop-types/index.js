@@ -35,8 +35,8 @@ export const PieChartDataPropTypes = PropTypes.shape([
 // todo: revisar!
 export const MenuDataPropTypes = PropTypes.shape([
   PropTypes.shape({
-    index: PropTypes.number,
-    name: PropTypes.string,
-    value: PropTypes.string
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string
   })
 ])

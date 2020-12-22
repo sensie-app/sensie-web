@@ -14,6 +14,8 @@ import { HelmetSEO } from '../../components/Globals'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
+// hooks
+// import { useGetLocalStorage } from '../../hooks/useLocalStorage'
 
 // const
 const { client } = DASHBOARD_ROUTES
@@ -26,6 +28,8 @@ const { client } = DASHBOARD_ROUTES
 const Home = () => {
   // hooks
   const [t] = useTranslation('global')
+
+  // const data = useGraphQlApi()
 
   // const
   /** @type {BTN} */

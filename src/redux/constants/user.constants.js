@@ -1,0 +1,8 @@
+const USER = {
+  USER_ID: 'USER_ID',
+  LAST_AUTH_USER: 'LAST_AUTH_USER',
+  USER_DATA: 'USER_DATA',
+  USER_ACCESS_TOKEN: 'ACCESS_TOKEN'
+}
+
+export default USER

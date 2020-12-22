@@ -1,11 +1,14 @@
 // react
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 // amplify
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import Amplify from 'aws-amplify'
 import awsmobile from '../../aws-exports'
 import { AmplifyAuthenticator, AmplifySignIn } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui/dist/style.css'
+// redux
+import { useDispatch } from 'react-redux'
+import { setLastAuthUserAction, setUserAccessTokenAction, setUserDataAction, setUserIdAction } from '../../redux/actions/user.actions'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
 // pages
@@ -17,6 +20,8 @@ import User from '../pages/User'
 import { NotFound404 } from '../components/Globals'
 // containers
 import Layout from '../containers/Layout'
+// helpers
+import { storageService } from '../helpers/storage'
 // styles
 import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
@@ -30,35 +35,21 @@ console.log('amplifyConfig', amplifyConfig)
 // const
 const { entrypoint, home, client, team, user } = DASHBOARD_ROUTES
 
-const listTopicsQuery = `
-  query MyQuery {
-    listTopics {
-      items {
-        id
-      }
-    }
-  }
-`
 const DashboardRoutes = () => {
-  // * start test amplify
-  const [api, setApi] = useState([])
+  // hooks
+  const dispatch = useDispatch()
+  const tag1 = 'CognitoIdentityServiceProvider.' + amplifyConfig.aws_user_pools_web_client_id + '.LastAuthUser'
+  const lastAuthUser = storageService.getValue(tag1)
+  const tag2 = 'CognitoIdentityServiceProvider.' + amplifyConfig.aws_user_pools_web_client_id + '.' + lastAuthUser
+  const accessToken = storageService.getValue(tag2 + '.accessToken')
+  const userData = storageService.getJSONValue(tag2 + '.userData')
 
   useEffect(() => {
-    testApi()
-    console.log('api', api)
+    dispatch(setLastAuthUserAction(lastAuthUser))
+    dispatch(setUserAccessTokenAction(accessToken))
+    dispatch(setUserDataAction(userData))
+    dispatch(setUserIdAction(userData.Username))
   }, [])
-
-  const testApi = async () => {
-    try {
-      // todo: revisar esto!
-      const data = await API.graphql(graphqlOperation(listTopicsQuery))
-      console.log('dataApi', data)
-      setApi(data)
-    } catch (err) {
-      console.log('err', err)
-    }
-  }
-  // * end test amplify
 
   return (
     <AmplifyAuthenticator>

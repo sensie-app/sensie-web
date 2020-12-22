@@ -7,7 +7,7 @@ import PAGINATION from '../constants/pagination.constants'
 const { PAGINATION_AFFIRMATION, PAGINATION_AFFIRMATIONS_LIST, PAGINATION_CLIENT_SNAPSHOT, PAGINATION_USERS_LIST } = PAGINATION
 
 /**
- * [REDUX:ACTION] setGlobalDateFilterAction
+ * [REDUX:ACTION] setPaginationAffirmationAction
  * @param {string} data
  */
 export const setPaginationAffirmationAction = data => {
@@ -18,7 +18,7 @@ export const setPaginationAffirmationAction = data => {
 }
 
 /**
- * [REDUX:ACTION] setGlobalDateFilterAction
+ * [REDUX:ACTION] setPaginationAffirmationsListAction
  * @param {string} data
  */
 export const setPaginationAffirmationsListAction = data => {
@@ -29,7 +29,7 @@ export const setPaginationAffirmationsListAction = data => {
 }
 
 /**
- * [REDUX:ACTION] setGlobalDateFilterAction
+ * [REDUX:ACTION] setPaginationClientSnapshotAction
  * @param {string} data
  */
 export const setPaginationClientSnapshotAction = data => {
@@ -40,7 +40,7 @@ export const setPaginationClientSnapshotAction = data => {
 }
 
 /**
- * [REDUX:ACTION] setGlobalDateFilterAction
+ * [REDUX:ACTION] setPaginationUserListAction
  * @param {string} data
  */
 export const setPaginationUserListAction = data => {
