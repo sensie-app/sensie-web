@@ -32,18 +32,24 @@ const FlowerOfLife = ({ level }) => {
     setSymbolLevel(newLevel > MaxLevel ? 0 : newLevel)
   }
   /**
-   * handle color
+   * handle stroke color
    * @param {number} circle
    * @returns {string} return color (actionColor1, grayColor3)
    */
-  const handleColor = circle => symbolLevel >= circle ? actionColor1 : grayColor3
+  const handleStrokeColor = circle => symbolLevel >= circle ? actionColor1 : grayColor3
+
+  /**
+   * handle stroke width
+   * @param {number} circle
+   * @returns {string} return color (actionColor1, grayColor3)
+   */
+  const handleStrokeWidth = circle => symbolLevel >= circle ? 5 : 3
 
   /**
    * handle color complete
    * @returns {string} return color (white, hendleColor())
    */
-  const handleColorComplete = () => symbolLevel === MaxLevel ? fontColor1 : handleColor()
-  console.log('handleColorComplete()', handleColorComplete())
+  const handleStrokeColorComplete = () => symbolLevel === MaxLevel ? fontColor1 : handleStrokeColor()
 
   return (
     <div>
@@ -95,30 +101,30 @@ const FlowerOfLife = ({ level }) => {
           <circle cx="396.374" cy="105.324" r="1.5" transform="rotate(-95.7345 396.374 105.324)" fill="white"/>
           <circle cx="374.455" cy="277.375" r="1.5" transform="rotate(-95.7345 374.455 277.375)" fill="white"/>
         </g>
-        <circle cx="206.564" cy="207" r="80" stroke={handleColorComplete()} strokeWidth="3"/>
-        <circle cx="137.282" cy="247" r="80" transform="rotate(60 137.282 247)" stroke={handleColor(5)} strokeWidth="3"/>
-        <circle cx="137.282" cy="167" r="80" transform="rotate(-60 137.282 167)" stroke={handleColor(6)} strokeWidth="3"/>
-        <circle cx="206.564" cy="287" r="80" stroke={handleColor(4)} strokeWidth="3"/>
-        <circle cx="275.846" cy="247" r="80" transform="rotate(-60 275.846 247)" stroke={handleColor(3)} strokeWidth="3"/>
-        <circle cx="275.846" cy="167" r="80" transform="rotate(60 275.846 167)" stroke={handleColor(2)} strokeWidth="3"/>
-        <circle cx="207" cy="127" r="80" stroke={handleColor(1)} strokeWidth="3"/>
-        <circle cx="207" cy="127" r="4" fill={handleColorComplete()}/>
-        <circle cx="207" cy="287" r="4" fill={handleColorComplete()}/>
-        <circle cx="207" cy="207" r="4" fill={handleColorComplete()}/>
-        <circle cx="276.143" cy="166.759" r="4" transform="rotate(-30.1996 276.143 166.759)" fill={handleColorComplete()}/>
-        <circle r="4" transform="matrix(-0.864278 -0.503014 -0.503014 0.864278 137.858 166.759)" fill={handleColorComplete()}/>
-        <circle cx="137.858" cy="247.241" r="4" transform="rotate(-30.1996 137.858 247.241)" fill={handleColorComplete()}/>
-        <circle r="4" transform="matrix(-0.864278 -0.503014 -0.503014 0.864278 276.142 247.241)" fill={handleColorComplete()}/>
-        <circle r="4" transform="matrix(1 0 0 -1 345.142 207.445)" fill={handleColorComplete()}/>
-        <circle r="4" transform="matrix(1 0 0 -1 68.1426 207.445)" fill={handleColorComplete()}/>
-        <circle r="4" transform="matrix(1 0 0 -1 275.892 87.5007)" fill={handleColorComplete()}/>
-        <circle r="4" transform="matrix(1 0 0 -1 137.392 327.389)" fill={handleColorComplete()}/>
-        <circle cx="137.392" cy="87.5007" r="4" fill={handleColorComplete()}/>
-        <circle cx="275.892" cy="327.389" r="4" fill={handleColorComplete()}/>
+        <circle cx="206.564" cy="207" r="80" stroke={handleStrokeColorComplete()} strokeWidth={handleStrokeWidth(7)}/>
+        <circle cx="137.282" cy="247" r="80" transform="rotate(60 137.282 247)" stroke={handleStrokeColor(5)} strokeWidth={handleStrokeWidth(5)}/>
+        <circle cx="137.282" cy="167" r="80" transform="rotate(-60 137.282 167)" stroke={handleStrokeColor(6)} strokeWidth={handleStrokeWidth(6)}/>
+        <circle cx="206.564" cy="287" r="80" stroke={handleStrokeColor(4)} strokeWidth={handleStrokeWidth(4)}/>
+        <circle cx="275.846" cy="247" r="80" transform="rotate(-60 275.846 247)" stroke={handleStrokeColor(3)} strokeWidth={handleStrokeWidth(3)}/>
+        <circle cx="275.846" cy="167" r="80" transform="rotate(60 275.846 167)" stroke={handleStrokeColor(2)} strokeWidth={handleStrokeWidth(2)}/>
+        <circle cx="207" cy="127" r="80" stroke={handleStrokeColor(1)} strokeWidth={handleStrokeWidth(1)}/>
+        <circle cx="207" cy="127" r="4" fill={handleStrokeColorComplete()}/>
+        <circle cx="207" cy="287" r="4" fill={handleStrokeColorComplete()}/>
+        <circle cx="207" cy="207" r="4" fill={handleStrokeColorComplete()}/>
+        <circle cx="276.143" cy="166.759" r="4" transform="rotate(-30.1996 276.143 166.759)" fill={handleStrokeColorComplete()}/>
+        <circle r="4" transform="matrix(-0.864278 -0.503014 -0.503014 0.864278 137.858 166.759)" fill={handleStrokeColorComplete()}/>
+        <circle cx="137.858" cy="247.241" r="4" transform="rotate(-30.1996 137.858 247.241)" fill={handleStrokeColorComplete()}/>
+        <circle r="4" transform="matrix(-0.864278 -0.503014 -0.503014 0.864278 276.142 247.241)" fill={handleStrokeColorComplete()}/>
+        <circle r="4" transform="matrix(1 0 0 -1 345.142 207.445)" fill={handleStrokeColorComplete()}/>
+        <circle r="4" transform="matrix(1 0 0 -1 68.1426 207.445)" fill={handleStrokeColorComplete()}/>
+        <circle r="4" transform="matrix(1 0 0 -1 275.892 87.5007)" fill={handleStrokeColorComplete()}/>
+        <circle r="4" transform="matrix(1 0 0 -1 137.392 327.389)" fill={handleStrokeColorComplete()}/>
+        <circle cx="137.392" cy="87.5007" r="4" fill={handleStrokeColorComplete()}/>
+        <circle cx="275.892" cy="327.389" r="4" fill={handleStrokeColorComplete()}/>
         <defs>
           <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(207 207) rotate(90) scale(207)">
-            <stop stopColor={handleColorComplete()}/>
-            <stop offset="1" stopColor={handleColorComplete()} stopOpacity="0"/>
+            <stop stopColor={handleStrokeColorComplete()}/>
+            <stop offset="1" stopColor={handleStrokeColorComplete()} stopOpacity="0"/>
           </radialGradient>
         </defs>
         </svg>

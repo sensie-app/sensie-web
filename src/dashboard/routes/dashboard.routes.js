@@ -9,6 +9,7 @@ import '@aws-amplify/ui/dist/style.css'
 // redux
 import { useDispatch } from 'react-redux'
 import { setLastAuthUserAction, setUserAccessTokenAction, setUserDataAction, setUserIdAction } from '../../redux/actions/user.actions'
+import { setTopicsAction } from '../../redux/actions/topics.action'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
 // pages
@@ -20,29 +21,37 @@ import User from '../pages/User'
 import { NotFound404 } from '../components/Globals'
 // containers
 import Layout from '../containers/Layout'
-// helpers
-import { storageService } from '../helpers/storage'
+// hooks
+import useGraphQlApi from '../hooks/useGraphQlApi'
+import useLocalStorage from '../hooks/useLocalStorage'
+// graphql queries
+import { listTopicsQuery } from '../graphql/queries'
 // styles
 import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
 
-// amplify config
+// * amplify config
 const amplifyConfig = Amplify.configure(awsmobile)
-console.log('amplifyConfig', amplifyConfig)
 
 // const
 const { entrypoint, home, client, team, user } = DASHBOARD_ROUTES
 
+// * component
+/**
+ * DashboardRoutes component
+ * @component
+ */
 const DashboardRoutes = () => {
+  // const
+  const tag = 'CognitoIdentityServiceProvider.' + amplifyConfig.aws_user_pools_web_client_id
   // hooks
+  const dbTopics = useGraphQlApi(listTopicsQuery())
   const dispatch = useDispatch()
-  const tag1 = 'CognitoIdentityServiceProvider.' + amplifyConfig.aws_user_pools_web_client_id + '.LastAuthUser'
-  const lastAuthUser = storageService.getValue(tag1)
-  const tag2 = 'CognitoIdentityServiceProvider.' + amplifyConfig.aws_user_pools_web_client_id + '.' + lastAuthUser
-  const accessToken = storageService.getValue(tag2 + '.accessToken')
-  const userData = storageService.getJSONValue(tag2 + '.userData')
+  const [lastAuthUser] = useLocalStorage(tag + '.LastAuthUser', null, '')
+  const [accessToken] = useLocalStorage(tag + '.' + lastAuthUser + '.accessToken', null, '')
+  const [userData] = useLocalStorage(tag + '.' + lastAuthUser + '.userData', null)
 
   useEffect(() => {
     dispatch(setLastAuthUserAction(lastAuthUser))
@@ -50,6 +59,11 @@ const DashboardRoutes = () => {
     dispatch(setUserDataAction(userData))
     dispatch(setUserIdAction(userData.Username))
   }, [])
+
+  useEffect(() => {
+    const { loading, value } = dbTopics
+    value !== null && !loading && dispatch(setTopicsAction(value.listTopics.items))
+  }, [dbTopics])
 
   return (
     <AmplifyAuthenticator>

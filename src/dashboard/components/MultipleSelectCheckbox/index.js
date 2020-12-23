@@ -12,7 +12,6 @@ import Button from '@material-ui/core/Button'
 // components
 import Popover from '../Popover'
 import Icon from '../Icon'
-// import CircularProgress from '../CircularProgress'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
@@ -34,8 +33,6 @@ const ITEM_HEIGHT = 70
  * @param {MenuData} defValue
  */
 const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics }) => {
-  console.log('data', data)
-  console.log('topics', topics)
   // hooks
   const [items, setItems] = useState(defValue)
   const [open, setOpen] = useState(false)
@@ -87,7 +84,8 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics
    * @return  {undefined} MenuItem (html)
    */
   const renderItems = () => {
-    return topics.value !== null && !topics.loading && topics.value.data.listTopics.items.map(value => (
+    // return topics.value !== null && !topics.loading && topics.value.data.listTopics.items.map(value => {
+    return data.map(value => (
       <MenuItem key={value.id} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
         <Checkbox checked={items.indexOf(value) > -1} color={actionColor1} className={styles.MultipleSelectCheckboxMenuItemCheckbox} />
         <ListItemText primary={handleLargeName(value.name, 10)} />
@@ -102,8 +100,7 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics
 
   return (
     <div className={styles.MultipleSelectCheckboxContainer} id="container">
-      <Button disabled={topics.loading} className={styles.MultipleSelectCheckboxButton} onClick={() => handleOpen(true)}>{children}</Button>
-      {/* {topics.loading && <CircularProgress color={actionColor1} />} */}
+      <Button className={styles.MultipleSelectCheckboxButton} onClick={() => handleOpen(true)}>{children}</Button>
       <Select
         id="select"
         onBlurCapture={e => e.relatedTarget === null && handleOpen(false)}

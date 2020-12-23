@@ -15,7 +15,11 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
 // hooks
-// import { useGetLocalStorage } from '../../hooks/useLocalStorage'
+import useGraphQlApi from '../../hooks/useGraphQlApi'
+// graphql
+import { getUsersAllQuery } from '../../graphql/queries'
+// redux
+import { useSelector } from 'react-redux'
 
 // const
 const { client } = DASHBOARD_ROUTES
@@ -27,9 +31,31 @@ const { client } = DASHBOARD_ROUTES
  */
 const Home = () => {
   // hooks
+  const {
+    // userReducer: { user },
+    filtersReducer: { globalDateFilter }
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
+  // const dbGetUsersAll = useGraphQlApi(getUsersAllQuery()) // todo: test
+  // console.log('query:', user, globalDateFilter)
+  const dbGetUsersAll = useGraphQlApi(getUsersAllQuery('8e5a85d1-3f68-4fca-8db9-9f0e18e91082', globalDateFilter.value), globalDateFilter) // Todo: use this
 
-  // const data = useGraphQlApi()
+  const handleDataClientFlow = () => {
+    const { loading, value } = dbGetUsersAll
+    let sensiesCount = 0
+    let usersCount = 0
+    if (value !== null && !loading) {
+      const _users = value.getUser.organization.users.items
+      usersCount = _users.length
+      _users.map(_user => (
+        sensiesCount = sensiesCount + _user.sensies.items.length
+      ))
+    }
+    return {
+      client: usersCount,
+      sensies: sensiesCount
+    }
+  }
 
   // const
   /** @type {BTN} */
@@ -48,7 +74,7 @@ const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG1Container}>
-            <ClientFlow />
+            <ClientFlow client={handleDataClientFlow().client} sensies={handleDataClientFlow().sensies} />
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>

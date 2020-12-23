@@ -11,29 +11,27 @@ import { API, graphqlOperation } from 'aws-amplify'
  * @param {string} state
  * @returns {Object} response
  */
-const useGraphQlApi = (query, state = '') => {
+const useGraphQlApi = (query, ...state) => {
+  console.log('state', state)
   const [value, setValue] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     sendQuery()
-  }, [state])
+  }, [...state])
 
   const sendQuery = async () => {
     try {
       setLoading(true)
       const response = await API.graphql(graphqlOperation(query))
       setLoading(false)
-      setValue(response)
+      setValue(response.data)
     } catch (err) {
       console.log('err', err)
     }
   }
 
-  return {
-    loading,
-    value
-  }
+  return { loading, value }
 }
 
 // prop-types

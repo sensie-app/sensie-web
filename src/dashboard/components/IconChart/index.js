@@ -29,17 +29,15 @@ const IconChart = ({ title, value, valueType = 'number', icon, theme = 1, forced
   // ? handle functions
   /**
    * handle value
-   * @return  {undefined} value
+   * @return {undefined} value
    */
   const handleValue = () => {
-    const handleString = (data, limit, letter) => data.substr(0, data.length - limit) + letter
-
     let _value = value
     if (valueType === 'number') {
       _value = _value.toString()
       const units = _value.length
-      if (units > 3 && units <= 6) _value = handleString(_value, 3, 'K')
-      if (units > 6) _value = handleString(_value, 6, 'M')
+      if (units > 3 && units <= 6) _value = (_value / 1000).toString() + 'K'
+      if (units > 6) _value = (_value / 1000000).toString() + 'M'
     }
     return _value
   }

@@ -15,12 +15,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
 import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagination.actions'
 // constants
-import { MenuFilterStateAffirmationsListComponent, MenuFilterTopicsAffirmationsListComponent } from '../../constants/menus'
+import { MenuFilterStateAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
-// hooks
-import useGraphQlApi from '../../hooks/useGraphQlApi'
-// graphql
-import { listTopicsQuery } from '../../graphql/queries'
 // styles
 import styles from './styles.module.scss'
 // test data
@@ -40,11 +36,11 @@ const { fontColor1, grayColor5 } = COLORS
  */
 const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => {
   // hooks
-  const dbTopics = useGraphQlApi(listTopicsQuery())
   const dispatch = useDispatch()
   const {
     filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } },
-    paginationReducer: { pagination: { pagAffirmationsList } }
+    paginationReducer: { pagination: { pagAffirmationsList } },
+    topicsReducer: { topics }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [selectValue, setSelectValue] = useState(topicFilter)
@@ -175,8 +171,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
           <div className={styles.AffirmationsListFilterBtnMenu}>
             <div className={styles.AffirmationsListFilterBtnMenuComponent}>
               <MultipleSelectCheckbox
-                data={MenuFilterTopicsAffirmationsListComponent}
-                topics={dbTopics}
+                data={topics}
                 onClickValue={value => handleClickTopicMenu(value)}
                 defValue={topicFilter}
               >
