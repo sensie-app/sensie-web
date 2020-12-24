@@ -15,8 +15,9 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
  * @component
  * @param {AffirmationChart} data
  * @param {undefined} onClickValue
+ * @param {boolean} isActive
  */
-const AffirmationChart = ({ data, onClickValue = () => {} }) => {
+const AffirmationChart = ({ data, onClickValue = () => {}, isActive = false }) => {
   const { value, title } = data
   // ? handle functions
   /**
@@ -47,7 +48,7 @@ const AffirmationChart = ({ data, onClickValue = () => {} }) => {
 
   return (
     <section className={styles.AffirmationChartContainer}>
-      <button onClick={() => onClickValue(data)}>
+      <button onClick={() => onClickValue(data)} className={isActive && styles.AffirmationChartBtnActive}>
         <span className={styles.AffirmationChartText}>{title}</span>
         <div className={styles.AffirmationChartChartContainer}>
           <div
@@ -69,7 +70,9 @@ AffirmationChart.propTypes = {
   /** value */
   data: PropTypes.number.isRequired,
   /** onClickValue */
-  onClickValue: PropTypes.func
+  onClickValue: PropTypes.func,
+  /** isActive */
+  isActive: PropTypes.bool
 }
 
 export default AffirmationChart

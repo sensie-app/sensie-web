@@ -68,6 +68,7 @@ const PieChart = ({ data = data1, title = '' }) => {
             innerRadius={0.85}
             colors={value => value.data.color }
             borderWidth={1}
+            cornerRadius={5}
             borderColor={{ from: 'color', modifiers: [['darker', '0.1']] }}
             enableRadialLabels={false}
             enableSliceLabels={false}

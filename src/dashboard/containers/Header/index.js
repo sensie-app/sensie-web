@@ -65,7 +65,7 @@ const Header = ({ withBack = false, withPeople = true }) => {
   const handleDates = () => {
     switch (filter.name) {
       case 'today':
-        filter.value = TODAY
+        filter.value = [TODAY, TODAY]
         break
       case 'lastDay':
         filter.value = [moment().subtract(1, 'd').format(), TODAY]

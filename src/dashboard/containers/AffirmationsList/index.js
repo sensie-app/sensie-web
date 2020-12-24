@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
 import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagination.actions'
 // constants
-import { MenuFilterStateAffirmationsListComponent, MenuFilterTopicsAffirmationsListComponent } from '../../constants/menus'
+import { MenuFilterStateAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
@@ -38,8 +38,9 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
   // hooks
   const dispatch = useDispatch()
   const {
-    filtersReducer: { affirmations: { topicFilter, stateFilter } },
-    paginationReducer: { pagination: { pagAffirmationsList } }
+    filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } },
+    paginationReducer: { pagination: { pagAffirmationsList } },
+    topicsReducer: { topics }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [selectValue, setSelectValue] = useState(topicFilter)
@@ -144,8 +145,8 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
    */
   const renderAffirmationsAffirmationChart = () => {
     const _data = limit ? data.slice(0, limit) : data
-    return _data.map((affirmation, index) => (
-      <AffirmationChart key={index} data={affirmation} onClickValue={value => handleClickAffirmation(value)} />
+    return _data.map((_affirmation, index) => (
+      <AffirmationChart key={index} data={_affirmation} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === _affirmation} />
     ))
   }
 
@@ -170,7 +171,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
           <div className={styles.AffirmationsListFilterBtnMenu}>
             <div className={styles.AffirmationsListFilterBtnMenuComponent}>
               <MultipleSelectCheckbox
-                data={MenuFilterTopicsAffirmationsListComponent}
+                data={topics}
                 onClickValue={value => handleClickTopicMenu(value)}
                 defValue={topicFilter}
               >

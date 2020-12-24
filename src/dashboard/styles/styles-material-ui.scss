@@ -29,8 +29,10 @@
   padding-right: 0px !important;
 }
 
-.Mui-selected {
-  background-color: $actionColor1 !important;
+.MuiPagination-ul {
+  .Mui-selected {
+    background-color: $actionColor1 !important;
+  }
 }
 
 .MuiPaginationItem-root, .MuiPaginationItem-ellipsis {

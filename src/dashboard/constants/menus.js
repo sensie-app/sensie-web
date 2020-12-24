@@ -64,42 +64,42 @@ export const MenuFilterStateAffirmationsListComponent = [
 
 export const MenuFilterTopicsAffirmationsListComponent = [
   {
-    index: 0,
+    index: 'T0',
     name: 'spirit',
     value: 'spirit'
   },
   {
-    index: 1,
+    index: 'T1',
     name: 'health',
     value: 'health'
   },
   {
-    index: 2,
+    index: 'T2',
     name: 'finance',
     value: 'finance'
   },
   {
-    index: 3,
+    index: 'T3',
     name: 'love',
     value: 'love'
   },
   {
-    index: 4,
+    index: 'T4',
     name: 'family',
     value: 'family'
   },
   {
-    index: 5,
+    index: 'T5',
     name: 'parenting',
     value: 'parenting'
   },
   {
-    index: 6,
+    index: 'T6',
     name: 'personal',
     value: 'personal'
   },
   {
-    index: 7,
+    index: 'T7',
     name: 'performance',
     value: 'performance'
   }

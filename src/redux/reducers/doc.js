@@ -33,3 +33,14 @@
  * @typedef {Object} INITIAL_STATE_SHOW
  * @property {userList} userList
  */
+
+/**
+ * @typedef {Object} TOPICS
+ * @param {string} id
+ * @param {string} name
+ * @param {string} description
+ */
+
+/**
+ * @typedef {Array.TOPICS} INITIAL_STATE_TOPICS
+ */

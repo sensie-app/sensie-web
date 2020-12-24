@@ -1,6 +1,7 @@
 // react
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 // components
 import IconChart from '../IconChart'
 import PieChart from '../PieChart'
@@ -20,8 +21,10 @@ const { actionColor1 } = COLORS
 /**
  * ClientFlow component
  * @component
+ * @param {number} client
+ * @param {number} sensies
  */
-const ClientFlow = () => {
+const ClientFlow = ({ client, sensies }) => {
   // hooks
   const [t] = useTranslation('global')
 
@@ -34,8 +37,8 @@ const ClientFlow = () => {
             <Title text={t('dashboard.ClientFlowOverview.title')} />
           </div>
           <div className={styles.ClientFlowHeaderChartsS1Container}>
-            <IconChart title={t('dashboard.IconChart.clients')} value={30000} icon={USER} forcedColor={actionColor1} />
-            <IconChart title={t('dashboard.IconChart.sensies')} value={10000000} valueType="number" icon={UP} />
+            <IconChart title={t('dashboard.IconChart.clients')} value={client} icon={USER} forcedColor={actionColor1} />
+            <IconChart title={t('dashboard.IconChart.sensies')} value={sensies} valueType="number" icon={UP} />
             <IconChart title={t('dashboard.IconChart.flow')} value={80} valueType="%" icon={ACTIVITY} />
           </div>
         </div>
@@ -54,6 +57,14 @@ const ClientFlow = () => {
       </div>
     </section>
   )
+}
+
+// prop-types
+ClientFlow.propTypes = {
+  /** client */
+  client: PropTypes.number.isRequired,
+  /** sensies */
+  sensies: PropTypes.number.isRequired
 }
 
 export default ClientFlow

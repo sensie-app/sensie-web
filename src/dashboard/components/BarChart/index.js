@@ -51,7 +51,7 @@ const BarChart = ({ data, miniature = false }) => {
           keys={['value']} // opc2: data2
           indexBy="day"
           margin={{ top: margin * 0.5, right: margin * 0.2, bottom: margin, left: margin * 0.75 }}
-          padding={0.5}
+          padding={miniature ? 0.5 : 0.7}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
           colors={val => handleColor(val)}

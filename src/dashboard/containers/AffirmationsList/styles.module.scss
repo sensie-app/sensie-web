@@ -56,7 +56,6 @@
   }
   .AffirmationsListChipsContainer {
     @include flex(row, flex-start, center, wrap);
-    padding: 5px 0px;
     width: 100%;
   }
   .AffirmationsListChipsUp {

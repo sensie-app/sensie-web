@@ -20,21 +20,23 @@ import {
 // components
 import Icon from '../../components/Icon'
 import ImageAvatar from '../../components/ImageAvatar'
-import AlertDialog from '../../components/AlertDialog'
 // import { ChangeLngBtn } from '../Globals' // btn to change languge
+import AlertDialog from '../../components/AlertDialog'
+// redux
+import { useSelector } from 'react-redux'
 // constants
 import DASHBOARD_ROUTES from '../../constants/routes'
 import { COLORS } from '../../constants/theme'
 import IMG from '../../constants/images'
 // styles
 import styles from './styles.module.scss'
-// test
-import { userTest } from './testData'
+// user test
+// import { userTest } from './testData'
 
 // constants
-const { home, client, team } = DASHBOARD_ROUTES
+const { home, client } = DASHBOARD_ROUTES
 const { grayColor8, fontColor1, fontColor2 } = COLORS
-const { logo } = IMG
+const { logo, avatarFemale, avatarMale } = IMG
 // const-sizes
 const drawerWidth = 210
 
@@ -46,6 +48,7 @@ const drawerWidth = 210
  */
 const Layout = ({ children }) => {
   // hooks
+  const { userReducer: { user: { data } } } = useSelector(state => state)
   const [open, setOpen] = useState(false)
   const classes = useStyles()
   const [t] = useTranslation('global')
@@ -65,12 +68,12 @@ const Layout = ({ children }) => {
       </Fragment>,
       icon: 'layout-outline',
       link: client
-    },
-    {
-      title: <span>{t('dashboard.Layout.team').toUpperCase()}</span>,
-      icon: 'people-outline',
-      link: team
     }
+    // {
+    //   title: <span>{t('dashboard.Layout.team').toUpperCase()}</span>,
+    //   icon: 'people-outline',
+    //   link: team
+    // }
   ]
 
   // ? handle functions
@@ -106,22 +109,22 @@ const Layout = ({ children }) => {
 
   /**
    * render avatar drawer
-   * @param {User} user
    * @returns {undefined} user avatar (html)
    */
-  const renderAvatar = user => {
+  const renderAvatar = () => {
+    const user = data
     return <div className={styles.LayoutLinkToListItem}>
       <div className={styles.LayoutAvatarImgContainer}>
         <button className={styles.LayoutAvatarBtnImg} onClick={() => handleDrawerOpen()}>
-          <ImageAvatar url={user.avatar} alt={user.name} size="small" />
+          <ImageAvatar url={user.gender === 'Male' ? avatarMale : avatarFemale} alt={user.name} size="medium" />
         </button>
       </div>
       <div className={styles.LayoutAvatarTextContainer}>
         <div className={styles.LayoutAvatarText}>
           {/* // todo: acomodar */}
           <div className={styles.LayoutAvatarNameContainer}>
-            <span className={styles.LayoutAvatarNameText}>{user.name.split(' ')[0]}</span>
-            <span>{user.name.split(' ')[1]}</span>
+            <span className={styles.LayoutAvatarNameText}>{user.name}</span>
+            <span>{user.family_name}</span>
           </div>
           <div className={styles.LayoutAvatarSubTextContainer}>
             <span className={styles.LayoutAvatarSubText}>{t('dashboard.Layout.couch')}</span>
@@ -198,7 +201,7 @@ const Layout = ({ children }) => {
               {renderListItems()}
             </div>
             <div>
-              {renderAvatar(userTest)}
+              { data && renderAvatar() }
             </div>
           </List>
         </Drawer>

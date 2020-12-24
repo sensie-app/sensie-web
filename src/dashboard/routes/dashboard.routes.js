@@ -1,11 +1,9 @@
 // react
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-// amplify
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import awsmobile from '../../aws-exports'
-import { AmplifyAuthenticator, AmplifySignIn } from '@aws-amplify/ui-react'
-import '@aws-amplify/ui/dist/style.css'
+// redux
+import { useDispatch } from 'react-redux'
+import { setTopicsAction } from '../../redux/actions/topics.action'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
 // pages
@@ -16,57 +14,40 @@ import User from '../pages/User'
 // components
 import { NotFound404 } from '../components/Globals'
 // containers
+import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
+// hooks
+import useGraphQlApi from '../hooks/useGraphQlApi'
+// graphql queries
+import { listTopicsQuery } from '../graphql/queries'
+// amplify
+import '@aws-amplify/ui/dist/style.css'
 // styles
 import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
 
-// amplify config
-const amplifyConfig = Amplify.configure(awsmobile)
-console.log('amplifyConfig', amplifyConfig)
-
 // const
 const { entrypoint, home, client, team, user } = DASHBOARD_ROUTES
 
-const listTopicsQuery = `
-  query MyQuery {
-    listTopics {
-      items {
-        id
-      }
-    }
-  }
-`
+// * component
+/**
+ * DashboardRoutes component
+ * @component
+ */
 const DashboardRoutes = () => {
-  // * start test amplify
-  const [api, setApi] = useState([])
+  // hooks
+  const dbTopics = useGraphQlApi(listTopicsQuery())
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    testApi()
-    console.log('api', api)
-  }, [])
-
-  const testApi = async () => {
-    try {
-      // todo: revisar esto!
-      const data = await API.graphql(graphqlOperation(listTopicsQuery))
-      console.log('dataApi', data)
-      setApi(data)
-    } catch (err) {
-      console.log('err', err)
-    }
-  }
-  // * end test amplify
+    const { loading, value } = dbTopics
+    value !== null && !loading && dispatch(setTopicsAction(value.listTopics.items))
+  }, [dbTopics])
 
   return (
-    <AmplifyAuthenticator>
-      <AmplifySignIn
-        hideSignUp={true}
-        slot="sign-in"
-      />
-      <div>
+    <AuthStateApp>
         <BrowserRouter>
           <Switch>
             <Layout>
@@ -81,8 +62,7 @@ const DashboardRoutes = () => {
             <Route component={NotFound404} />
           </Switch>
         </BrowserRouter>
-      </div>
-    </AmplifyAuthenticator>
+    </AuthStateApp>
   )
 }
 

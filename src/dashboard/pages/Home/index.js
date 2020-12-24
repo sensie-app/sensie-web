@@ -14,6 +14,12 @@ import { HelmetSEO } from '../../components/Globals'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
+// hooks
+import useGraphQlApi from '../../hooks/useGraphQlApi'
+// graphql
+import { getUsersAllQuery } from '../../graphql/queries'
+// redux
+import { useSelector } from 'react-redux'
 
 // const
 const { client } = DASHBOARD_ROUTES
@@ -25,7 +31,31 @@ const { client } = DASHBOARD_ROUTES
  */
 const Home = () => {
   // hooks
+  const {
+    userReducer: { user },
+    filtersReducer: { globalDateFilter }
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
+  const dbGetUsersAll = useGraphQlApi(getUsersAllQuery()) // todo: test
+  // const dbGetUsersAll = useGraphQlApi(getUsersAllQuery(user.id, globalDateFilter.value), globalDateFilter) // Todo: use this
+  console.log('query:', user, globalDateFilter)
+
+  const handleDataClientFlow = () => {
+    const { loading, value } = dbGetUsersAll
+    let sensiesCount = 0
+    let usersCount = 0
+    if (value !== null && !loading) {
+      const _users = value.getUser.organization.users.items
+      usersCount = _users.length
+      _users.map(_user => (
+        sensiesCount = sensiesCount + _user.sensies.items.length
+      ))
+    }
+    return {
+      client: usersCount,
+      sensies: sensiesCount
+    }
+  }
 
   // const
   /** @type {BTN} */
@@ -44,7 +74,7 @@ const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG1Container}>
-            <ClientFlow />
+            <ClientFlow client={handleDataClientFlow().client} sensies={handleDataClientFlow().sensies} />
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>

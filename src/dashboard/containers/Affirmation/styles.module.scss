@@ -3,7 +3,7 @@
 .AffirmationContainer {
   background-color: $grayColor6;
   border-radius: 5px;
-  padding: 10px 15px;
+  // padding: 10px 15px;
   width: 100%;
   @include flex(row, flex-start, center, wrap);
 }
