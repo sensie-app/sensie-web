@@ -32,13 +32,13 @@ const { client } = DASHBOARD_ROUTES
 const Home = () => {
   // hooks
   const {
-    // userReducer: { user },
+    userReducer: { user },
     filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
-  // const dbGetUsersAll = useGraphQlApi(getUsersAllQuery()) // todo: test
-  // console.log('query:', user, globalDateFilter)
-  const dbGetUsersAll = useGraphQlApi(getUsersAllQuery('8e5a85d1-3f68-4fca-8db9-9f0e18e91082', globalDateFilter.value), globalDateFilter) // Todo: use this
+  const dbGetUsersAll = useGraphQlApi(getUsersAllQuery()) // todo: test
+  // const dbGetUsersAll = useGraphQlApi(getUsersAllQuery(user.id, globalDateFilter.value), globalDateFilter) // Todo: use this
+  console.log('query:', user, globalDateFilter)
 
   const handleDataClientFlow = () => {
     const { loading, value } = dbGetUsersAll

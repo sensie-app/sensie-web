@@ -48,7 +48,7 @@ const drawerWidth = 210
  */
 const Layout = ({ children }) => {
   // hooks
-  const { userReducer: { user: { data: { UserAttributes } } } } = useSelector(state => state)
+  const { userReducer: { user: { data } } } = useSelector(state => state)
   const [open, setOpen] = useState(false)
   const classes = useStyles()
   const [t] = useTranslation('global')
@@ -109,24 +109,22 @@ const Layout = ({ children }) => {
 
   /**
    * render avatar drawer
-   * @param {User} user
    * @returns {undefined} user avatar (html)
    */
   const renderAvatar = () => {
-    const user = UserAttributes
-    const filterValue = tag => user.filter(us => us.Name === tag)[0].Value
+    const user = data
     return <div className={styles.LayoutLinkToListItem}>
       <div className={styles.LayoutAvatarImgContainer}>
         <button className={styles.LayoutAvatarBtnImg} onClick={() => handleDrawerOpen()}>
-          <ImageAvatar url={filterValue('gender') === 'Male' ? avatarMale : avatarFemale} alt={filterValue('name')} size="medium" />
+          <ImageAvatar url={user.gender === 'Male' ? avatarMale : avatarFemale} alt={user.name} size="medium" />
         </button>
       </div>
       <div className={styles.LayoutAvatarTextContainer}>
         <div className={styles.LayoutAvatarText}>
           {/* // todo: acomodar */}
           <div className={styles.LayoutAvatarNameContainer}>
-            <span className={styles.LayoutAvatarNameText}>{filterValue('name')}</span>
-            <span>{filterValue('family_name')}</span>
+            <span className={styles.LayoutAvatarNameText}>{user.name}</span>
+            <span>{user.family_name}</span>
           </div>
           <div className={styles.LayoutAvatarSubTextContainer}>
             <span className={styles.LayoutAvatarSubText}>{t('dashboard.Layout.couch')}</span>
@@ -136,30 +134,6 @@ const Layout = ({ children }) => {
       </div>
     </div>
   }
-
-  // const renderAvatarTest = () => {
-  //   const user = userTest
-  //   console.log('user', user)
-  //   return <div className={styles.LayoutLinkToListItem}>
-  //     <div className={styles.LayoutAvatarImgContainer}>
-  //       <button className={styles.LayoutAvatarBtnImg} onClick={() => handleDrawerOpen()}>
-  //         <ImageAvatar url={user.avatar} alt={user.name} size="small" />
-  //       </button>
-  //     </div>
-  //     <div className={styles.LayoutAvatarTextContainer}>
-  //       <div className={styles.LayoutAvatarText}>
-  //         {/* // todo: acomodar */}
-  //         <div className={styles.LayoutAvatarNameContainer}>
-  //           <span className={styles.LayoutAvatarNameText}>{user.name}</span>
-  //         </div>
-  //         <div className={styles.LayoutAvatarSubTextContainer}>
-  //           <span className={styles.LayoutAvatarSubText}>{t('dashboard.Layout.couch')}</span>
-  //           <Icon name="arrow-ios-downward-outline" size="sm" color={fontColor2} />
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // }
 
   return (
     <Fragment>
@@ -227,7 +201,7 @@ const Layout = ({ children }) => {
               {renderListItems()}
             </div>
             <div>
-              { UserAttributes && renderAvatar() }
+              { data && renderAvatar() }
             </div>
           </List>
         </Drawer>

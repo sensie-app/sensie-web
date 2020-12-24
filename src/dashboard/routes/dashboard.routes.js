@@ -1,14 +1,8 @@
 // react
 import React, { Fragment, useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-// amplify
-import Amplify from 'aws-amplify'
-import awsmobile from '../../aws-exports'
-import { AmplifyAuthenticator, AmplifySignIn } from '@aws-amplify/ui-react'
-import '@aws-amplify/ui/dist/style.css'
 // redux
 import { useDispatch } from 'react-redux'
-import { setLastAuthUserAction, setUserAccessTokenAction, setUserDataAction, setUserIdAction } from '../../redux/actions/user.actions'
 import { setTopicsAction } from '../../redux/actions/topics.action'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
@@ -20,20 +14,19 @@ import User from '../pages/User'
 // components
 import { NotFound404 } from '../components/Globals'
 // containers
+import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
 // hooks
 import useGraphQlApi from '../hooks/useGraphQlApi'
-import useLocalStorage from '../hooks/useLocalStorage'
 // graphql queries
 import { listTopicsQuery } from '../graphql/queries'
+// amplify
+import '@aws-amplify/ui/dist/style.css'
 // styles
 import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
-
-// * amplify config
-const amplifyConfig = Amplify.configure(awsmobile)
 
 // const
 const { entrypoint, home, client, team, user } = DASHBOARD_ROUTES
@@ -44,21 +37,9 @@ const { entrypoint, home, client, team, user } = DASHBOARD_ROUTES
  * @component
  */
 const DashboardRoutes = () => {
-  // const
-  const tag = 'CognitoIdentityServiceProvider.' + amplifyConfig.aws_user_pools_web_client_id
   // hooks
   const dbTopics = useGraphQlApi(listTopicsQuery())
   const dispatch = useDispatch()
-  const [lastAuthUser] = useLocalStorage(tag + '.LastAuthUser', null, '')
-  const [accessToken] = useLocalStorage(tag + '.' + lastAuthUser + '.accessToken', null, '')
-  const [userData] = useLocalStorage(tag + '.' + lastAuthUser + '.userData', null)
-
-  useEffect(() => {
-    dispatch(setLastAuthUserAction(lastAuthUser))
-    dispatch(setUserAccessTokenAction(accessToken))
-    dispatch(setUserDataAction(userData))
-    dispatch(setUserIdAction(userData.Username))
-  }, [])
 
   useEffect(() => {
     const { loading, value } = dbTopics
@@ -66,12 +47,7 @@ const DashboardRoutes = () => {
   }, [dbTopics])
 
   return (
-    <AmplifyAuthenticator>
-      <AmplifySignIn
-        hideSignUp={true}
-        slot="sign-in"
-      />
-      <div>
+    <AuthStateApp>
         <BrowserRouter>
           <Switch>
             <Layout>
@@ -86,8 +62,7 @@ const DashboardRoutes = () => {
             <Route component={NotFound404} />
           </Switch>
         </BrowserRouter>
-      </div>
-    </AmplifyAuthenticator>
+    </AuthStateApp>
   )
 }
 
