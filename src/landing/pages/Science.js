@@ -24,7 +24,7 @@ const Science = () => {
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
             <Grid item xs={12} sm={7} data-aos="zoom-out-up">
-              <Box mt={22} mb={41}>
+              <Box mt={22} mb={50}>
                 <Box>
                   <Grid>
                     <Link to={scienceanchor}>
@@ -71,7 +71,7 @@ const Science = () => {
           <Grid item container xs={10}>
             <Grid xs={12} sm={5}></Grid>
             <Grid item xs={12} sm={7}>
-              <Box mt={40} mb={40} ml={8}>
+              <Box mt={40} mb={45} ml={8}>
                 <Box mt={16}>
                   <Grid data-aos="zoom-out-up">
                     <Lead lead="Cerebellum" />

@@ -6,8 +6,11 @@ import animation from '../scripts/data.json'
 
 const useStyles = makeStyles({
   root: {
-    height: 1000,
-    opacity: '0.3'
+    opacity: '0.1',
+    position: 'absolute',
+    width: '56%',
+    marginTop: '-18%',
+    marginLeft: '-7%'
   }
 })
 
