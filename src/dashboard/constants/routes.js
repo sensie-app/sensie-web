@@ -7,7 +7,8 @@ const DASHBOARD_ROUTES = {
   home: dashboard + '/home',
   client: dashboard + '/client',
   team: dashboard + '/team',
-  user: dashboard + '/user'
+  user: dashboard + '/user',
+  affirmations: dashboard + '/affirmations'
 }
 
 export default DASHBOARD_ROUTES

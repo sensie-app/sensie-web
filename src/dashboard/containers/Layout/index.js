@@ -30,11 +30,9 @@ import { COLORS } from '../../constants/theme'
 import IMG from '../../constants/images'
 // styles
 import styles from './styles.module.scss'
-// user test
-// import { userTest } from './testData'
 
 // constants
-const { home, client } = DASHBOARD_ROUTES
+const { home, client, affirmations } = DASHBOARD_ROUTES
 const { grayColor8, fontColor1, fontColor2 } = COLORS
 const { logo, avatarFemale, avatarMale } = IMG
 // const-sizes
@@ -68,12 +66,17 @@ const Layout = ({ children }) => {
       </Fragment>,
       icon: 'layout-outline',
       link: client
-    }
+    },
     // {
     //   title: <span>{t('dashboard.Layout.team').toUpperCase()}</span>,
     //   icon: 'people-outline',
     //   link: team
     // }
+    {
+      title: <span>{t('dashboard.Layout.affirmations').toUpperCase()}</span>,
+      icon: 'list-outline',
+      link: affirmations
+    }
   ]
 
   // ? handle functions
