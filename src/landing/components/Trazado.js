@@ -8,9 +8,9 @@ const useStyles = makeStyles({
   root: {
     opacity: '0.1',
     position: 'absolute',
-    width: '56%',
-    marginTop: '-18%',
-    marginLeft: '-7%'
+    width: '59%',
+    marginTop: '-21%',
+    marginLeft: '-10%'
   }
 })
 

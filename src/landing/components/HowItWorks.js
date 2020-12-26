@@ -4,13 +4,11 @@ import React from 'react'
 import { Box, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles({
-
   boxStyle: {
     fontSize: 50,
     color: 'white',
     textAlign: '-webkit-center',
-    fontWeight: 'bold',
-    position: 'absolute'
+    fontWeight: 'bold'
   }
 })
 
