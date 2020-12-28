@@ -1,5 +1,5 @@
 // react
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
@@ -56,7 +56,7 @@ const User = ({ user, show }) => {
       </Link>
       {/* body */}
       { show === summary
-        ? <Fragment>
+        ? <div className={styles.UserBodySummary}>
             <div className={styles.UserBodyContainer} style={{ width: '50%' }}>
               <PercentageChart title={t('dashboard.User.awarness')} value={90} />
               <PercentageChart title={t('dashboard.User.resilence')} value={60} />
@@ -66,7 +66,7 @@ const User = ({ user, show }) => {
             <div className={styles.UserChartContainer}>
               <BarChart miniature={true} />
             </div>
-          </Fragment>
+          </div>
         : <div className={styles.UserBodyContainer} style={{ width: '60%' }}>
             <IconChart title={t('dashboard.IconChart.engagement')} value={30000} icon={UP} theme={2} />
             <IconChart title={t('dashboard.IconChart.sensies')} value={10000000} valueType="number" icon={DOWN} theme={2} />

@@ -1,3 +1,4 @@
+// flexbox mixin
 @mixin flex(
   $fd: row, 
   $jc: center, 
@@ -11,6 +12,7 @@
   flex-wrap: $fw;
 }
 
+// border mixin
 @mixin border(
   $style: none, 
   $width: 0px, 
@@ -23,6 +25,7 @@
   border-color: $color;
 }
 
+// font mixin
 @mixin font(
   $color: white,
   $size: 16px,
@@ -35,4 +38,19 @@
   font-weight: $weight;
   font-style: $style;
   letter-spacing: $letterSpacing;
+}
+
+// background image mixin
+@mixin backgroundImg(
+  $size: contain,
+  $position: center,
+  $repeat: no-repeat,
+  $clip: border-box,
+  $attachment: initial,
+) {
+  background-position: $position;
+  background-repeat: $repeat;
+  background-size: $size;
+  background-clip: $clip;
+  background-attachment: $attachment;
 }

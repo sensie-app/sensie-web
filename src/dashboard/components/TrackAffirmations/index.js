@@ -1,11 +1,10 @@
 // react
 import React from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 // components
 import AffirmationsList from '../../containers/AffirmationsList'
 // components
-import Title from '../Title'
+import TitleAndButton from '../../components/TitleAndButton'
 // styles
 import styles from './styles.module.scss'
 
@@ -25,16 +24,7 @@ const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = fal
     <section className={`${styles.TrackAffirmationsContainer} ${fixHeight && styles.TrackAffirmationsContainerHeight}`}>
       <div className={styles.TrackAffirmationsBodyContainer}>
         {/* header */}
-        {theme === 1 && <div className={styles.TrackAffirmationsHeaderContainer}>
-          <div className={styles.TrackAffirmationsHeaderTitleContainer}>
-            <Title text={title} />
-          </div>
-          <div className={styles.TrackAffirmationsHeaderBtnContainer}>
-            <Link to={btn.route}>
-              <button>{btn.title}</button>
-            </Link>
-          </div>
-        </div>}
+        {theme !== 2 && <TitleAndButton title={title} btnTitle={btn.title} route={btn.route} />}
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
           <AffirmationsList chipsUp={chipsUp} limit={limit} title={title} theme={theme} />

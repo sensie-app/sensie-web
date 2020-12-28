@@ -1,0 +1,85 @@
+@import '../../styles/index.scss';
+
+.CreatePackContainer {
+  margin: 10px;
+}
+
+.CreatePackBtn {  
+  width: 250px;
+  height: 250px;
+  color: $grayColor3;
+  font-size: 20px;
+  font-weight: bold;
+  @include flex(column, center, center, nowrap);
+  @include border(solid, 1.5px, 5px, $grayColor3);
+}
+
+.CreatePackBody {
+  @include flex(row, space-between, center, wrap);
+  width: 500px;
+  height: 150px;
+  padding: 10px;
+}
+
+.CreactePackBodyBtnImg {
+  width: 30%;
+  @include border(solid, 1px, 5px, $fontColor1);
+  height: 100%;
+  label {
+    padding: 10px;
+    height: 100%;
+    color: $fontColor1;
+    @include flex(column, center, center, nowrap);
+  }
+  input {
+    display: none;
+  }
+  &:hover {
+    cursor: pointer !important;
+    @include border(solid, 1px, 5px, $actionColor1);
+    label {
+      color: $actionColor1
+    }
+  }
+}
+
+.CreatePackBodyForm {
+  width: 60%;
+  height: 100%;
+  @include flex(column, space-between, center, nowrap);
+  .CreatePackBodyFormInput {
+    width: 100%;
+    padding: 0px 10px;
+    @include flex(column, space-between, flex-start, nowrap);
+    span {
+      color: $fontColor1;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+      background-color: $grayColor6;
+      color: $fontColor1;
+      padding: 5px;
+      @include border(solid, 1px, 5px, transparent);
+    }
+  }
+  .CreatePackBodyFormBtn {
+    width: 100%;
+    padding: 0px 10px;
+    button {
+      float: right;
+      background-color: $grayColor6;    
+      color: $actionColor1;
+      padding: 5px 15px;
+      @include border(solid, 1px, 5px, transparent);
+      &:hover {
+        cursor: pointer;
+        @include border(solid, 1px, 5px, $actionColor1);
+      }
+    }    
+  }
+}
+
+#iconButtonFile {
+  display: none;
+}

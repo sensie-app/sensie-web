@@ -10,8 +10,12 @@
   max-height: 65px;
   height: 65px;
   
-  .UserBodyContainer {    
+  .UserBodySummary {
     @include flex(row, space-between, center, nowrap);
+  }
+
+  .UserBodyContainer {    
+    @include flex(row, flex-end, center, nowrap);
   }
 
   .UserChartContainer {

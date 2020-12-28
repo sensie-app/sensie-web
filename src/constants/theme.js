@@ -21,5 +21,6 @@ export const SIZE = {
   sm: 15,
   md: 18,
   l: 25,
-  xl: 30
+  xl: 30,
+  xxl: 60
 }
