@@ -150,7 +150,7 @@ const Home = () => {
       {/* BLOQUE 2 Carousel & Sponsor */}
 
       <Grid direction="column">
-        <Box mt={6} mb={18}>
+        <Box mt={10} mb={18}>
           <Grid container>
             <Grid item xs={1} sm={3}></Grid>
             <Grid item xs={10} sm={6} data-aos="zoom-out-up">
@@ -249,7 +249,7 @@ const Home = () => {
         </Box>
       </Grid>
       {/* BLOQUE 4 How it works */}
-      <div style={{ height: 630, backgroundColor: '#000000' }} id="howitworks">
+      <div style={{ height: 720, mixBlendMode: 'lighten' }} id="howitworks">
         <Grid container className={classes.background}>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
@@ -312,10 +312,10 @@ const Home = () => {
       </div>
       {/* BLOQUE 5 The Science */}
       <div id="science"></div>
-      <Parallax strength={400}>
-        <Background className="backgroundImg">
+      <Parallax strength={400} bgImage={backgroundScience}>
+        {/* <Background className="backgroundImg">
           <img src={backgroundScience} />
-        </Background>
+        </Background> */}
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
@@ -352,17 +352,21 @@ const Home = () => {
       {/* BLOQUE 6 Web and mobile solution */}
       <Grid container direction="column">
         <Box my={14}>
-          <Grid item xs={12} data-aos="zoom-out-up">
-            {showDashboard ? (
-              <Grid item xs={12} data-aos="zoom-out">
+          <Box mx={28}>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={12}>
                 <HowItWorks
                   textWithoutColor="At"
                   textWithColor="Sensie"
                   textWithoutColor2="we provide the best tools to help elevate human flourishing"
-                />
-              </Grid>
+                  />
+                  </Grid>
+          <Grid item xs={1}></Grid>
+          </Box>
+          <Grid item xs={12} >
+            {showDashboard ? (null
             ) : (
-              <Box>
+              <Box mt={18}>
                 <Grid item xs={12} data-aos="zoom-out">
                   <Title
                     title="Web and Mobile Solution"
@@ -376,21 +380,21 @@ const Home = () => {
                     ml={10}
                     mt={36}
                   >
-                    <Box>
+                    <Box mr={16}>
                       <Users
                         title="Individual / Team Member"
                         subtitle="Stress impairs your ability to make good decisions."
                         text="Take a step back, use Sensie to give yourself space to think through options, find focus and get in the zone."
                       />
                     </Box>
-                    <Box mt={8}>
+                    <Box mt={8} mr={16}>
                       <Users
                         title="Coach"
                         subtitle="Overview your clients/team performance and measure engagement around your therapies, practices or training sessions."
                         text="Enable them to take the right call in every aspect of their performance."
                       />
                     </Box>
-                    <Box mt={8}>
+                    <Box mt={8} mr={16}>
                       <Users
                         title="Corporation"
                         subtitle="Assess many teams or groups within your organization."
@@ -416,10 +420,10 @@ const Home = () => {
       </Grid>
 
       {/* BLOQUE 7 Citation */}
-      <Parallax strength={400}>
-        <Background className="backgroundSelfAwareness">
+      <Parallax strength={400} bgImage={backgroundSelfAwareness}>
+        {/* <Background className="backgroundSelfAwareness">
           <img src={backgroundSelfAwareness} />
-        </Background>
+        </Background> */}
         <Grid container direction="column">
           <Box my={34}>
             <Grid item xs={12} data-aos="zoom-out-up">
