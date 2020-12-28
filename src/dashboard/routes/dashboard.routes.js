@@ -12,6 +12,7 @@ import Client from '../pages/Client'
 import Team from '../pages/Team'
 import User from '../pages/User'
 import Affirmations from '../pages/Affirmations'
+import AddPacks from '../pages/AddPacks'
 // components
 import { NotFound404 } from '../components/Globals'
 // containers
@@ -30,7 +31,7 @@ import '../styles/amplify-ui.scss'
 import '../doc/types'
 
 // const
-const { entrypoint, home, client, team, user, affirmations } = DASHBOARD_ROUTES
+const { entrypoint, home, client, team, user, affirmations, addPacks } = DASHBOARD_ROUTES
 
 // * component
 /**
@@ -58,6 +59,7 @@ const DashboardRoutes = () => {
                 <Route path={user} component={User} />
                 <Route path={team} component={Team} />
                 <Route path={affirmations} component={Affirmations} />
+                <Route path={addPacks} component={AddPacks} />
                 <Redirect from={entrypoint} to={home} />
               </Fragment>
             </Layout>

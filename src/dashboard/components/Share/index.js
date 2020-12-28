@@ -21,19 +21,22 @@ const Share = () => {
   // hooks
   const [t] = useTranslation('global')
 
-  // ? handle functions
-
   return (
-    <ModalComponent initialState={false} title="test modal">
+    <ModalComponent initialState={false} title={t('dashboard.Share.shareTo') + ':'}>
       <button className={styles.ShareButton}>
         <div>
           <Icon name="share-outline" color={fontColor1} size="md" />
           <span>{t('dashboard.Share.share')}</span>
         </div>
       </button>
-      <div style={{ backgroundColor: 'red' }}>
-        <h1>Hola Modal!</h1>
-      </div>
+      <ul className={styles.ShareModalBodyContent}>
+        <li>
+          <button>{t('dashboard.Share.allClients')}</button>
+        </li>
+        <li>
+          <button>{t('dashboard.Share.selectedClients')}</button>
+        </li>
+      </ul>
     </ModalComponent>
   )
 }

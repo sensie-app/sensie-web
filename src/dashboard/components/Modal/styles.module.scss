@@ -1,12 +1,24 @@
 @import '../../styles/index.scss';
 
 .ModalComponentContainer {
+  button {
+    background-color: transparent;
+    border-style: none;
+  }
+}
+
+.ModalContainer {
   @include flex(row, center, center, nowrap);  
+}
+
+.ModalComponentBodyContainer {
+  width: 30vw;
+  background-color: $grayColor8;
+  padding: 20px;
 }
 
 .ModalComponentHeader {
   width: 100%;
-  padding: 5px;
   @include flex(row, space-between, center, nowrap);
   span {
     color: $fontColor1;

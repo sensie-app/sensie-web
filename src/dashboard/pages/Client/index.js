@@ -16,7 +16,7 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 import styles from './styles.module.scss'
 
 // const
-const { home } = DASHBOARD_ROUTES
+const { affirmations } = DASHBOARD_ROUTES
 
 // * page
 /**
@@ -33,7 +33,7 @@ const Client = () => {
    */
   const btn = {
     title: t('dashboard.Client.author'),
-    route: home
+    route: affirmations
   }
 
   return (

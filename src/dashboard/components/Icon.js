@@ -8,7 +8,7 @@ import { SIZE } from '../../constants/theme'
 import IMG from '../constants/images'
 
 // const
-const { xs, sm, md, l, xl } = SIZE
+const { xs, sm, md, l, xl, xxl } = SIZE
 const { icon } = IMG
 
 // * component
@@ -52,6 +52,7 @@ const Icon = ({
       case 'md': return md
       case 'l': return l
       case 'xl': return xl
+      case 'xxl': return xxl
       case null: return md
       default: return value
     }

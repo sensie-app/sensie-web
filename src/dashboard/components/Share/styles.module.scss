@@ -17,3 +17,22 @@
     opacity: 1;
   }
 }
+
+.ShareModalBodyContent {
+  width: 100%;
+  padding: 20px 0px ;
+  li {
+    padding: 5px 0px;
+    button {
+      padding: 5px 10px;
+      color: $fontColor1;
+      background-color: transparent;
+      border-style: none;
+      margin-left: 10px;
+      &:hover {
+        cursor: pointer;
+        color: $actionColor1;
+      }
+    }
+  }
+}

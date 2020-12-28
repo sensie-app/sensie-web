@@ -101,7 +101,10 @@
       "topics": "Topics"
     },
     "Share": {
-      "share": "Share"
+      "share": "Share",
+      "shareTo": "Share to",
+      "allClients": "All clients",
+      "selectedClients": "Selected clients"
     },
     "Affirmation": {
       "selectAOption": "Select a option",
@@ -121,6 +124,27 @@
       "parenting": "Parenting",
       "personal": "Personal",
       "performance": "Performance"
+    },
+    "Pack": {
+      "affirmations": "affirmations"
+    },
+    "Packs": {
+      "spirit": "Spirit",
+      "health": "Health",
+      "family": "Family",
+      "finance": "Finance",
+      "fun": "Fun",
+      "parenting": "Parenting",
+      "perfomance": "Perfomance",
+      "personal": "Personal",
+      "love": "Love"
+    },
+    "CreatePack": {
+      "createNewPack": "Create new pack",
+      "addImage": "Add a image",
+      "packName": "Pack name",
+      "newPack": "New pack",
+      "create": "Create"
     }
   }
 }

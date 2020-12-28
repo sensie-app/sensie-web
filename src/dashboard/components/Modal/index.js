@@ -22,8 +22,9 @@ const { grayColor3 } = COLORS
  * @param {Array.undefined} children (array) children[0]: Button Content, children[1]: Modal Content
  * @param {boolean} initialState
  * @param {string} title
+ * @param {string} width
  */
-const ModalComponent = ({ children, initialState = false, title = '' }) => {
+const ModalComponent = ({ children, initialState = false, title = '', width = '25%' }) => {
   // hooks
   const [open, setOpen] = useState(initialState)
 
@@ -33,14 +34,14 @@ const ModalComponent = ({ children, initialState = false, title = '' }) => {
   const handleClose = () => setOpen(false)
 
   return (
-    <div>
+    <div className={styles.ModalComponentContainer}>
       <button type="button" onClick={handleOpen}>
         {children[0]}
       </button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        className={styles.ModalComponentContainer}
+        className={styles.ModalContainer}
         open={open}
         onClose={handleClose}
         closeAfterTransition
@@ -50,7 +51,7 @@ const ModalComponent = ({ children, initialState = false, title = '' }) => {
         }}
       >
         <Fade in={open}>
-          <div>
+          <div className={styles.ModalComponentBodyContainer} style={{ width: width }}>
             <div className={styles.ModalComponentHeader}>
               <span>{title}</span>
               <button onClick={() => handleClose()}>
@@ -72,7 +73,9 @@ ModalComponent.propTypes = {
   /** handleOpen */
   initialState: PropTypes.bool.isRequired,
   /** title */
-  title: PropTypes.string
+  title: PropTypes.string,
+  /** width */
+  width: PropTypes.string
 }
 
 export default ModalComponent

@@ -1,0 +1,23 @@
+@import '../../styles/index.scss';
+
+.TrackAffirmationsHeaderContainer { 
+  @include G50HeaderContainer();  
+}
+
+.TrackAffirmationsHeaderTitleContainer {
+  @include G50HeaderTitleContainer();   
+}
+
+.TrackAffirmationsHeaderBtnContainer {
+  button {
+    @include border(solid, 2px, 5px, $grayColor4);
+    background-color: $grayColor5;
+    padding: 10px 15px;
+    font-size: 15px;
+    color: $fontColor1;
+    &:hover {
+      @include border(solid, 2px, 5px, $actionColor3);
+      cursor: pointer;
+    }
+  }
+}

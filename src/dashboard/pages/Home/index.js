@@ -81,8 +81,8 @@ const Home = () => {
           <div className={styles.HomeG2Container}>
             <TrackAffirmations
               title={t('dashboard.Home.mindAuthorAndTrackAffirmations')}
-              limit={3}
               btn={btn}
+              limit={3}
               fixHeight={true}
             />
           </div>
