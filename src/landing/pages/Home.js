@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable multiline-ternary */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Box, makeStyles, Hidden } from '@material-ui/core'
 import { Parallax, Background } from 'react-parallax'
 
@@ -16,43 +16,41 @@ import CarouselComponent from '../components/carouselComponent/CarouselComponent
 import Phrases from '../components/Phrases'
 import Trazado from '../components/Trazado'
 import CustomCard from '../components/CustomCard'
+import Epigraph from '../components/Epigraph'
+import Lead from '../components/Lead'
+import LearnMore from '../components/LearnMore'
+import Whip from '../components/Whip'
+import WisdomCard from '../components/WisdomCard'
+import HowItWorks from '../components/HowItWorks'
+import BackgroundVideo from '../components/BackgroundVideo'
+import Hand from '../components/Hand'
+import Users from '../components/Users'
+
 // CSS
 import '../assets/css/GradientBar.css'
 import '../styles/index.scss'
 
 // Img
 import MindfullBeginner from '../assets/img/MindfullBeginner.svg'
-import TheIntellectualizer from '../assets/img/TheIntellectualizer.svg'
-import TheIntuitiveBull from '../assets/img/TheIntuitiveBull.svg'
-import TheDoubter from '../assets/img/TheDoubter.svg'
-import OnthePath from '../assets/img/OnthePath.svg'
-import TheConnectedBeing from '../assets/img/TheConnectedBeing.svg'
+import Lock from '../assets/img/lock.svg'
+import Lock2 from '../assets/img/lock2.svg'
 import MetatronStae from '../assets/img/MetatronStae.svg'
-// import membership from '../assets/img/membership.jpg'
 import MiamiHerald from '../assets/img/miamiheraldpng.png'
 import AmericanPsychiatric from '../assets/img/americanpsychiatricpng.png'
 import Wired from '../assets/img/wiredpng.png'
 import Transtech from '../assets/img/transtechpng.png'
 import BerkeleyWell from '../assets/img/berkeleywellpng.png'
-import StartUpFiu from '../assets/img/startupfiupng.png'
-// import backgroundCarrousel from '../assets/img/backgroundCarrousel.png'
-// import backgroundPhrases from '../assets/img/backgroundPhrases.jpg'
 import backgroundScience from '../assets/img/backgroundScience.png'
-import backgroundWisdom from '../assets/img/backgroundWisdom.png'
 import backgroundSelfAwareness from '../assets/img/backgroundSelfAwareness.png'
-// import backgroundTrazado from '../assets/img/Trazado.svg'
+import SquareHandG from '../assets/video/SquareHandG.mp4'
 
 // Icons
+import Measure from '../assets/img/Measure.svg'
 import Blockages from '../assets/img/Blockages.svg'
 import Awareness from '../assets/img/Awareness.svg'
 import EcologyHuman from '../assets/img/EcologyHuman.svg'
 import AppleStore from '../assets/img/app-store.svg'
 import PlayStore from '../assets/img/google-play.svg'
-import Epigraph from '../components/Epigraph'
-import Lead from '../components/Lead'
-import LearnMore from '../components/LearnMore'
-import Whip from '../components/Whip'
-import WisdomCard from '../components/WisdomCard'
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -60,30 +58,36 @@ const useStyles = makeStyles((theme) => ({
   },
 
   background: {
-    backgroundColor: '#071215'
+    backgroundColor: '#000000'
+  },
+  particles: {
+    position: 'absolute',
+    opacity: '0.3'
   }
 }))
 
 const Home = () => {
   const classes = useStyles()
 
-  const [show, setShow] = useState(true)
-  setTimeout(() => {
-    setShow(!show)
-  }, 6000)
+  const [showWhip, setShowWhip] = useState(true)
+  const [showDashboard, setShowDashboard] = useState(true)
 
-  // function showScroll () {
-  //   const scrollTop = document.documentElement.scrollTop
-  //   console.log(scrollTop)
-  //   if (scrollTop > 2128) {
-  //     //   setTimeout(() => {
-  //     //     setshow(!show)
-  //     //   }, 6000)
-  //     console.log('ahora')
-  //   }
-  // }
-
-  // window.addEventListener('scroll', showScroll)
+  useEffect(() => {
+    window.onscroll = function () {
+      const scrollWhip = window.scrollY
+      const scrollDashboard = window.scrollY
+      if (scrollWhip > 1500) {
+        setTimeout(() => {
+          setShowWhip(false)
+        }, 2500)
+      }
+      if (scrollDashboard > 2800) {
+        setTimeout(() => {
+          setShowDashboard(false)
+        }, 4000)
+      }
+    }
+  }, [])
 
   return (
     <div id="hm" style={{ backgroundColor: '#071215' }}>
@@ -95,22 +99,30 @@ const Home = () => {
         <Grid item xs={1} md={5}>
           <Hidden smDown>
             <Box mt={-16}>
-
-            <Trazado />
+              <Trazado />
             </Box>
+          </Hidden>
+          <Hidden smDown>
+            <Hand />
           </Hidden>
         </Grid>
         <Grid item xs={10} md={6} data-aos="zoom-out-up">
-          <Box mt={8}>
+          <Box mt={6}>
             <Title title="Your Smarthphone Just Got Smarter" />
           </Box>
-          <Box mt={1} mr={1}>
-            <Subtitle subtitle="Sensie is a millon dolar coach, available whenever, wherever." />
+          <Box mr={1}>
+            <Subtitle subtitle="Sensie is everyone's million dollar coach - available whenever, wherever." />
           </Box>
           <Box mt={3}>
             <BulletPoint
+              IconItem={Measure}
+              title={'Measure Self Awareness'}
+            />
+          </Box>
+          <Box mt={2}>
+            <BulletPoint
               IconItem={Blockages}
-              title={'Identify perfomance blockages'}
+              title={'Identify and clear performance blockages'}
             />
           </Box>
           <Box mt={2}>
@@ -138,7 +150,7 @@ const Home = () => {
       {/* BLOQUE 2 Carousel & Sponsor */}
 
       <Grid direction="column">
-        <Box mt={-20} mb={18}>
+        <Box mt={10} mb={18}>
           <Grid container>
             <Grid item xs={1} sm={3}></Grid>
             <Grid item xs={10} sm={6} data-aos="zoom-out-up">
@@ -174,9 +186,6 @@ const Home = () => {
               <Box mt={8} textAlign="center">
                 <Sponsor SponsorImg={Transtech} width="135px" height="20px" />
               </Box>
-              <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={StartUpFiu} width="135px" height="15px" />
-              </Box>
               <Box mt={8}>
                 <Sponsor
                   SponsorImg={BerkeleyWell}
@@ -192,7 +201,7 @@ const Home = () => {
 
       {/* BLOQUE 3 Citation */}
       <Grid container direction="column">
-        <Box mt={2} mb={10}>
+        <Box mt={2} mb={6}>
           <Grid item xs={12} data-aos="zoom-out-up">
             <Phrases
               textWithoutColor="Start measuring and expanding self-awareness."
@@ -200,90 +209,52 @@ const Home = () => {
             />
           </Grid>
         </Box>
-        <Grid item container>
-          <Grid item xs={2}></Grid>
-          <Grid item container xs={8} justify="space-evenly">
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
-              <WisdomCard
-                ImageW={MindfullBeginner}
-                level="Level 1"
-                text="Mindfull Beginner"
-                width="120px"
-                height="120px"
-              />
+        <Box>
+          <Grid item container>
+            <Grid item xs={5} md={2}></Grid>
+            <Grid item container xs={2} sm={12} md={8} justify="space-evenly">
+              <Box mt={4} data-aos="fade-right">
+                <WisdomCard
+                  ImageW={MindfullBeginner}
+                  level="Level 1"
+                  text="Mindfull Beginner"
+                  width="100px"
+                  height="120px"
+                />
+              </Box>
+              <Box mt={4} data-aos="fade-right" data-aos-delay="200">
+                <WisdomCard
+                  ImageW={Lock}
+                  level="Level 2"
+                  text="The Intellectualizer"
+                  width="120px"
+                  height="120px"
+                />
+              </Box>
+              <Box mt={4} data-aos="fade-right" data-aos-delay="400">
+                <WisdomCard ImageW={Lock2} width="120px" height="120px" />
+              </Box>
+              <Box mt={4} data-aos="fade-right" data-aos-delay="600">
+                <WisdomCard
+                  ImageW={MetatronStae}
+                  level="Level 7"
+                  text="Metatron Stae"
+                  width="120px"
+                  height="120px"
+                />
+              </Box>
             </Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
-              <WisdomCard
-                ImageW={TheIntellectualizer}
-                level="Level 2"
-                text="The Intellectualizer"
-                width="120px"
-                height="120px"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
-              <WisdomCard
-                ImageW={TheIntuitiveBull}
-                level="Level 3"
-                text="The Intuitive Bull"
-                width="120px"
-                height="120px"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
-              <WisdomCard
-                ImageW={TheDoubter}
-                level="Level 4"
-                text="The Doubter"
-                width="120px"
-                height="120px"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
-              <WisdomCard
-                ImageW={OnthePath}
-                level="Level 5"
-                text="On The Path"
-                width="120px"
-                height="120px"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
-              <WisdomCard
-                ImageW={TheConnectedBeing}
-                level="Level 6"
-                text="The Connected Being"
-                width="120px"
-                height="120px"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
-              <WisdomCard
-                ImageW={MetatronStae}
-                level="Level 7"
-                text="Metatron Stae"
-                width="169px"
-                height="169px"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}></Grid>
+            <Grid item xs={5} md={2}></Grid>
           </Grid>
-          <Grid item xs={2}></Grid>
-        </Grid>
+        </Box>
       </Grid>
       {/* BLOQUE 4 How it works */}
-      <div style={{ height: 700 }} id="howitworks">
+      <div style={{ height: 720, mixBlendMode: 'lighten' }} id="howitworks">
         <Grid container className={classes.background}>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
             <Grid item xs={12} sm={6}>
-              <Box my={23}>
+              <Box my={18}>
                 <Grid data-aos="zoom-out-up">
                   <Title title="How it works" />
                 </Grid>
@@ -292,21 +263,21 @@ const Home = () => {
                     <Epigraph epigraph="Sensie use sensor technology existing in the smartphone." />
                   </Grid>
                 </Box>
-                {show ? (
-                  <div>
+                {!showWhip ? (
+                  <div data-aos="zoom-in">
                     <Box mt={8}>
-                      <Grid data-aos="zoom-out-up">
+                      <Grid>
                         <Lead lead="Sensie uses existing sensors in your phone to measure de movement in the gesture and detect stress." />
                       </Grid>
                     </Box>
 
                     <Box mt={2}>
-                      <Grid data-aos="zoom-out-up">
+                      <Grid>
                         <Epigraph epigraph="After detection, Sensie helps release stress through automated personalized coaching procedures." />
                       </Grid>
                     </Box>
                     <Box my={4}>
-                      <Grid container direction="row" data-aos="zoom-out-up">
+                      <Grid container direction="row">
                         <DownloadImg ImgStore={AppleStore} />
                         <DownloadImg ImgStore={PlayStore} />
                       </Grid>
@@ -314,7 +285,7 @@ const Home = () => {
                   </div>
                 ) : (
                   <Grid data-aos="zoom-out-up">
-                    <Box mt={22}>
+                    <Box mt={14} mb={4}>
                       <Whip
                         textWithoutColor="Whip 3x"
                         textWithColor="to detect stress"
@@ -324,17 +295,27 @@ const Home = () => {
                 )}
               </Box>
             </Grid>
-            <Grid xs={12} sm={6}></Grid>
+            <Grid xs={12} sm={6}>
+              <video
+                width="auto"
+                height="auto"
+                autoPlay
+                muted
+                src={SquareHandG}
+              >
+                <source src={SquareHandG} type="video/mp4" />
+              </video>
+            </Grid>
           </Grid>
           <Grid item xs={1}></Grid>
         </Grid>
       </div>
       {/* BLOQUE 5 The Science */}
       <div id="science"></div>
-      <Parallax strength={300}>
-        <Background className="backgroundImg">
+      <Parallax strength={400} bgImage={backgroundScience}>
+        {/* <Background className="backgroundImg">
           <img src={backgroundScience} />
-        </Background>
+        </Background> */}
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
@@ -369,33 +350,80 @@ const Home = () => {
       </Parallax>
 
       {/* BLOQUE 6 Web and mobile solution */}
-      <Grid container id="webandmobilesolution" direction="column">
+      <Grid container direction="column">
         <Box my={14}>
-          <Grid item xs={12} data-aos="zoom-out-up">
-            <Grid
-              item
-              xs={12}
-              data-aos="fade-up"
-              data-aos-duration="3000"
-              alignItems="center"
-            >
-              <Title title="Web and Mobile Solution" centerTitle={true} />
-            </Grid>
+          <Box mx={28}>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={12}>
+                <HowItWorks
+                  textWithoutColor="At"
+                  textWithColor="Sensie"
+                  textWithoutColor2="we provide the best tools to help elevate human flourishing"
+                  />
+                  </Grid>
+          <Grid item xs={1}></Grid>
+          </Box>
+          <Grid item xs={12} >
+            {showDashboard ? (null
+            ) : (
+              <Box mt={18}>
+                <Grid item xs={12} data-aos="zoom-out">
+                  <Title
+                    title="Web and Mobile Solution"
+                    titleDashboard={true}
+                  />
+                </Grid>
+                <Grid item xs={6}></Grid>
+                <Grid item xs={6} style={{ position: 'absolute' }}>
+                  <Box
+                    data-aos="fade-right"
+                    ml={10}
+                    mt={36}
+                  >
+                    <Box mr={16}>
+                      <Users
+                        title="Individual / Team Member"
+                        subtitle="Stress impairs your ability to make good decisions."
+                        text="Take a step back, use Sensie to give yourself space to think through options, find focus and get in the zone."
+                      />
+                    </Box>
+                    <Box mt={8} mr={16}>
+                      <Users
+                        title="Coach"
+                        subtitle="Overview your clients/team performance and measure engagement around your therapies, practices or training sessions."
+                        text="Enable them to take the right call in every aspect of their performance."
+                      />
+                    </Box>
+                    <Box mt={8} mr={16}>
+                      <Users
+                        title="Corporation"
+                        subtitle="Assess many teams or groups within your organization."
+                        text="Improve happiness and relieve over people to help them find their best-selves with Sensie."
+                      />
+                    </Box>
+                  </Box>
+                </Grid>
+              </Box>
+            )}
             <Grid
               container
               xs={12}
               direction="row"
               style={{ alignItems: 'center' }}
-            ></Grid>
+            >
+              <Box data-aos-delay="3000">
+                <BackgroundVideo />
+              </Box>
+            </Grid>
           </Grid>
         </Box>
       </Grid>
 
       {/* BLOQUE 7 Citation */}
-      <Parallax strength={300}>
-        <Background className="backgroundSelfAwareness">
+      <Parallax strength={400} bgImage={backgroundSelfAwareness}>
+        {/* <Background className="backgroundSelfAwareness">
           <img src={backgroundSelfAwareness} />
-        </Background>
+        </Background> */}
         <Grid container direction="column">
           <Box my={34}>
             <Grid item xs={12} data-aos="zoom-out-up">
@@ -410,39 +438,41 @@ const Home = () => {
 
       {/* BLOQUE 8 Membership */}
       <div id="membership"></div>
-      <Grid container id="membership" direction="column">
-        <Box my={14}>
-          <Grid item xs={12} data-aos="zoom-out-up">
-            <Grid item xs={12} data-aos="zoom-out-up" alignItems="center">
-              <Title title="Membership" centerTitle={true} />
+        <Grid container direction="column">
+          <Box my={8}>
+            <Grid item xs={12} data-aos="zoom-out-up">
+              <Box mb={5} mt={3}>
+                <Grid item xs={12} data-aos="zoom-out-up" alignItems="center">
+                  <Title title="Membership" titleMembership={true} />
+                </Grid>
+              </Box>
+              <Grid
+                container
+                xs={12}
+                direction="row"
+                style={{ alignItems: 'center' }}
+              >
+                <Grid item xs={12} sm={4}>
+                  <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
+                    <CustomCard title="FREEMIUM" price="$0" />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
+                    {' '}
+                    <CustomCard title="GROUP" price="$200" largeCard={true} />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
+                    {' '}
+                    <CustomCard title="ENTERPRISE" price="$300" />
+                  </Box>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid
-              container
-              xs={12}
-              direction="row"
-              style={{ alignItems: 'center' }}
-            >
-              <Grid item xs={12} sm={4}>
-                <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
-                  <CustomCard title="FREEMIUM" price="$0" />
-                </Box>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
-                  {' '}
-                  <CustomCard title="GROUP" price="$200" largeCard={true} />
-                </Box>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
-                  {' '}
-                  <CustomCard title="ENTERPRISE" price="$300" />
-                </Box>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Box>
-      </Grid>
+          </Box>
+        </Grid>
     </div>
   )
 }

@@ -94,7 +94,7 @@ const Navbar = () => {
                 </NavLink>
 
                 <Link to={abs}>
-                  <Box mx={1}>ABOUT SENSIE</Box>
+                  <Box mx={1}>ABOUT</Box>
                 </Link>
               </Grid>
             </Hidden>

@@ -1,6 +1,10 @@
 import React from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import './CarouselComponent.scss'
+import KurtBilups from '../../assets/img/KurtBilups.jpg'
+import JTGtorfy from '../../assets/img/JTGtorfy.jpg'
+import DanaBaruch from '../../assets/img/DanaBaruch.jpg'
+import LauraLea from '../../assets/img/LauraLea.jpg'
 
 import Citation from '../Citation'
 
@@ -19,16 +23,36 @@ const CarouselComponent = () => {
         showArrows={false}
       >
         <div>
-          <Citation />
+          <Citation
+            avatar={KurtBilups}
+            text="Sensie is a new way to demonstrate to athletes that anxiety has a physical affect on the body."
+            name="Kurt Bilups"
+            role="CBT Therapist"
+          />
         </div>
         <div>
-          <Citation />
+          <Citation
+            avatar={JTGtorfy}
+            text="Sensie gives you feedback to alert you if stress is present in your muscles, but it is the felt experience that is the most impactful change in awareness."
+            name="J.T. Gyorfy"
+            role="Tech Beach Co-Founder"
+          />
         </div>
         <div>
-          <Citation />
+          <Citation
+            avatar={DanaBaruch}
+            text="Sensie can help my clients get more clarity on the connection between their thoughts and feelings."
+            name="Dana Baruch"
+            role="Executive Coach"
+          />
         </div>
         <div>
-          <Citation />
+          <Citation
+            avatar={LauraLea}
+            text="I help people release trapped emotions to heal theirs bodies and minds. Sensie helps me do this more quickly."
+            name="Laura Lea"
+            role="Yoga Teacher"
+          />
         </div>
       </Carousel>
     </Box>

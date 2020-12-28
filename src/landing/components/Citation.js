@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { Grid, Avatar, makeStyles, Box } from '@material-ui/core'
 import Quotes from '../assets/img/Quotes.svg'
@@ -23,12 +25,12 @@ const useStyles = makeStyles({
   nameStyle: {
     textAlign: '-webkit-left'
   },
-  profesionStyle: {
+  roleStyle: {
     margin: 0
   }
 })
 
-const Citation = () => {
+const Citation = ({ avatar, text, name, role }) => {
   const classes = useStyles()
   return (
     <Grid container>
@@ -42,22 +44,22 @@ const Citation = () => {
       <Grid xs={1}></Grid>
       <Grid xs={10} item className={classes.textStyle}>
         <Box mt={3}>
-        Sensie is a new way to identify stress and a way to demostrate to athletes that anxiety has a physical affect on the body.
+        {text}
         </Box>
       </Grid>
       <Grid xs={1}></Grid>
       <Grid item xs={6} className={classes.avatarStyle}>
         <Box mr={3} mt={4}>
-          <Avatar />
+            <Avatar src={avatar}/>
         </Box>
       </Grid>
       <Grid item xs={6} className={classes.nameStyle}>
         <Box mt={4.5}>
           <Box>
-            <p className={classes.textStyle}>JOHN DOE</p>
+              <p className={classes.textStyle}>{name}</p>
           </Box>
           <Box color="primary.main">
-            <p className={classes.profesionStyle}>Therapist</p>
+              <p className={classes.roleStyle}>{role}</p>
           </Box>
         </Box>
       </Grid>

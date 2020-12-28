@@ -2,29 +2,33 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core'
 import lottie from 'lottie-web'
-import animation from '../scripts/data.json'
+import animation from '../scripts/lottie/data.json'
 
 const useStyles = makeStyles({
   root: {
-    opacity: '0.1',
-    position: 'absolute',
-    width: '59%',
-    marginTop: '-21%',
-    marginLeft: '-10%'
+    // opacity: '0.1',
+    // position: 'absolute',
+    width: '100%',
+    height: '100vh',
+    mixBlendMode: 'lighten'
+    // marginTop: ''
+    // marginLeft: '-10%'
   }
 })
 
-const Trazado = () => {
+const VideoLottie = () => {
   const classes = useStyles()
   const animationContainer = React.createRef()
 
   useEffect(() => {
     const anim = lottie.loadAnimation({
       container: animationContainer.current,
-      animationData: animation
+      animationData: animation,
+      loop: true,
+      autoplay: false
     })
   }, [])
   return <div ref={animationContainer} className={classes.root}></div>
 }
 
-export default Trazado
+export default VideoLottie

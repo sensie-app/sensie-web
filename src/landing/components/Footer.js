@@ -4,17 +4,12 @@ import {
   Grid,
   Box,
   Typography,
-  Button,
-  Hidden
+  Button
 } from '@material-ui/core'
-import LANDING_ROUTES from '../constants/routes'
 import InstagramIcon from '@material-ui/icons/Instagram'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import FacebookIcon from '@material-ui/icons/Facebook'
 import Email from './Email'
-import { HashLink as Link } from 'react-router-hash-link'
-
-const { home, membership, howitworks, scienceanchor, abs } = LANDING_ROUTES
 
 const useStyles = makeStyles({
   footerStyle: {
@@ -49,61 +44,18 @@ const Footer = () => {
   return (
     <div>
       <Grid container className={classes.blockOne}>
-        <Grid item xs={1}></Grid>
-        <Grid item container xs={10}>
-          <Grid item xs={6} style={{ alignSelf: 'center' }}>
-            <Grid
-              container
-              item
-              xs={8}
-              sm={8}
-              direction="column"
-              className={classes.textTab}
-            >
-              <Link to={howitworks}>
-                <Box my={1} mt={4}>
-                  HOW IT WORKS
-                </Box>
-              </Link>
+        <Grid item xs={4}></Grid>
+        <Grid item container xs={4} direction="column" className={classes.textTab}>
+            <Box my={1} mt={4}>
+              SUSCRIBE TO NEWLESTTER
+            </Box>
 
-              <Link to={scienceanchor}>
-                <Box my={1}>SCIENCE</Box>
-              </Link>
-
-              <Link to={membership}>
-                <Box my={1}>MEMBERSHIP</Box>
-              </Link>
-
-              <Link to={home}>
-                <Box my={1}>BLOG</Box>
-              </Link>
-
-              <Link to={abs}>
-                <Box my={1} mb={4}>
-                  ABOUT SENSIE
-                </Box>
-              </Link>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Grid item container direction="column" className={classes.textTab}>
-              <Box my={1} mt={4}>
-                SUSCRIBE TO NEWLESTTER
+            <Box mt={2}>
+              <Typography>Email</Typography>
+              <Box mt={1}>
+                <Email />
               </Box>
-
-              <Box mt={2}>
-                <Typography>Email</Typography>
-                <Box mt={1}>
-                  <Email />
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={2}>
-            <Hidden xsDown>
-              <Box my={14}></Box>
-            </Hidden>
-            <Box mt={2} ml={2}>
+              <Box mt={2} mb={4}>
               <Button
                 color="primary"
                 variant="outlined"
@@ -112,9 +64,9 @@ const Footer = () => {
                 Subscribe
               </Button>
             </Box>
-          </Grid>
+            </Box>
         </Grid>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={4}></Grid>
       </Grid>
       <Grid container className={classes.blockTwo}>
         <Grid item xs={1}></Grid>
