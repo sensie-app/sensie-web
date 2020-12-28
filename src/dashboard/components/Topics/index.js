@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
-const { spiritImg, helathImg, financeImg, funImg, loveImg, familyImg, parentingImg, personalImg, performanceImg } = IMG
+const { spiritImg, healthImg, financeImg, funImg, loveImg, familyImg, parentingImg, personalImg, performanceImg } = IMG
 
 // * component
 /**
@@ -32,7 +32,7 @@ const Topics = () => {
           <Topic route="route" title={t(`dashboard.Packs.${spirit}`)} topic={spirit} img={spiritImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route="route" title={t(`dashboard.Packs.${health}`)} topic={health} img={helathImg} />
+          <Topic route="route" title={t(`dashboard.Packs.${health}`)} topic={health} img={healthImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
           <Topic route="route" title={t(`dashboard.Packs.${finance}`)} topic={finance} img={financeImg} />
