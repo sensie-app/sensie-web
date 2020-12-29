@@ -21,22 +21,39 @@ const Share = () => {
   // hooks
   const [t] = useTranslation('global')
 
+  // ? render functions
+  /**
+   * render modal button
+   * @returns {undefined} button (html)
+   */
+  const renderModalBtn = () => (
+    <button className={styles.ShareButton}>
+      <div>
+        <Icon name="share-outline" color={fontColor1} size="md" />
+        <span>{t('dashboard.Share.share')}</span>
+      </div>
+    </button>
+  )
+
+  /**
+   * render modal body
+   * @returns {undefined} ul (html)
+   */
+  const renderModalBody = () => (
+    <ul className={styles.ShareModalBodyContent}>
+      <li>
+        <button>{t('dashboard.Share.allClients')}</button>
+      </li>
+      <li>
+        <button>{t('dashboard.Share.selectedClients')}</button>
+      </li>
+    </ul>
+  )
+
   return (
     <ModalComponent initialState={false} title={t('dashboard.Share.shareTo') + ':'}>
-      <button className={styles.ShareButton}>
-        <div>
-          <Icon name="share-outline" color={fontColor1} size="md" />
-          <span>{t('dashboard.Share.share')}</span>
-        </div>
-      </button>
-      <ul className={styles.ShareModalBodyContent}>
-        <li>
-          <button>{t('dashboard.Share.allClients')}</button>
-        </li>
-        <li>
-          <button>{t('dashboard.Share.selectedClients')}</button>
-        </li>
-      </ul>
+      {renderModalBtn()}
+      {renderModalBody()}
     </ModalComponent>
   )
 }
