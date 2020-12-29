@@ -4,7 +4,6 @@
   @include flex(row, center, center, nowrap);
   position: relative;
   button {
-    // background-color: violet;
     width: 100%;
     @include flex(row, space-between, center, nowrap);
     span {

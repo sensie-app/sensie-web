@@ -30,8 +30,10 @@ const { home } = DASHBOARD_ROUTES
  * @component
  * @param {boolean} withBack
  * @param {boolean} withPeople
+ * @param {boolean} withDate
+ * @param {string} backTo
  */
-const Header = ({ withBack = false, withPeople = true }) => {
+const Header = ({ withBack = false, withPeople = true, withDate = true, backTo = home }) => {
   // hooks
   const dispatch = useDispatch()
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
@@ -107,7 +109,7 @@ const Header = ({ withBack = false, withPeople = true }) => {
     <div className={styles.HeaderContainer}>
       <div className={styles.HeaderLeftContainer}>
         {/* back option */}
-        {withBack && <Link to={home} className={styles.HeaderBack}>
+        {withBack && <Link to={backTo} className={styles.HeaderBack}>
           <div className={styles.HeaderLeftIcon}><Icon name="arrow-back-outline" size="md" color={fontColor1}/></div>
           <span>{t('dashboard.Header.back')}</span>
         </Link>}
@@ -121,7 +123,7 @@ const Header = ({ withBack = false, withPeople = true }) => {
 
       {/* date */}
       <div className={styles.HeaderRightContainer}>
-        <div className={styles.HeaderCalendar}>
+        {withDate && <div className={styles.HeaderCalendar}>
           <div className={styles.HeaderCalendarIcon}>
             {filter.name === 'custom'
               ? <DateRangePicker
@@ -142,7 +144,7 @@ const Header = ({ withBack = false, withPeople = true }) => {
           </div>
           <span className={styles.HeaderSeparator}> | </span>
           <MenuListComposition data={MenuDateHeaderComponent} onClickValue={value => setFilter(value)} defaultValue={filterDefault} />
-        </div>
+        </div>}
       </div>
     </div>
   )
@@ -153,7 +155,11 @@ Header.propTypes = {
   /** with back */
   withBack: PropTypes.bool,
   /** with people */
-  withPeople: PropTypes.bool
+  withPeople: PropTypes.bool,
+  /** with date */
+  withDate: PropTypes.bool,
+  /** back to */
+  backTo: PropTypes.string
 }
 
 export default Header
