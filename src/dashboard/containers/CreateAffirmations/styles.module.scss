@@ -1,0 +1,102 @@
+@import '../../styles/index.scss';
+
+.CreateAffirmationsContainer {
+  width: 100%;  
+}
+
+.CreateAffirmationsHeaderContainer {
+  width: 100%;
+  padding: 10px 0px;
+  @include flex(row, flex-start, center, nowrap);
+  button {    
+    @include flex(row, center, center, nowrap);
+    background-color: $grayColor8;
+    color: $fontColor1;
+    padding: 5px 10px;
+    font-size: 16px;
+    @include border(solid, 1px, 5px, $grayColor8);
+    margin-left: 10px;
+    &:hover {
+      @include border(solid, 1px, 5px, $actionColor1);
+      cursor: pointer;
+    }
+  }  
+  .CreateAffirmationsCheckbox {
+    color: $actionColor1;
+  }
+}
+
+.CreateAffirmationsForm {
+  width: 100%;
+  background-color: $grayColor5;
+  border-radius: 5px;
+  padding: 10px;
+
+  .CreateAffirmationsFormTopContainer {
+    @include flex(row, space-between, center, nowrap);
+    width: 100%;
+
+    .CreateAffirmationsFormD1 {
+      @include flex(row, flex-start, center, nowrap);
+      width: 75%;    
+      .CreateAffirmationsFormD1Inputs {
+        margin-right: 10px;
+        width: 50%;
+        @include flex(column, flex-start, center, nowrap);
+        input {
+          width: 100%;
+          border-style: none;
+          border-radius: 5px;
+          color: $fontColor1;
+          background-color: $grayColor7;
+          padding: 5px 10px;
+          font-size: 16px;
+        }
+      }
+      .CreateAffirmationsFormD1Btns{
+        width: 50%;
+        @include flex(row, flex-start, center, nowrap);
+        .CreateAffirmationsFormButtonDone {
+          width: 100px;
+          color: $actionColor1;
+          @include border(solid, 1px, 5px, $actionColor1);
+          padding: 6px 15px;
+          background-color: transparent;
+          margin-right: 20px;
+          font-size: 16px;
+        }
+        button {
+          width: 150px;
+          border-radius: 5px;
+          background-color: $grayColor7;
+        }
+      }
+    }
+  
+    .CreateAffirmationsFormD2 {
+      @include flex(row, flex-end, center, nowrap);
+      width: 25%;
+      div {
+        @include flex(row, space-between, center, wrap);
+        width: 25%;
+        padding: 0px 10px;
+      }
+    }
+  }
+
+  hr {
+    border-color: $grayColor4;
+    margin: 10px 0px;
+  }
+
+}
+
+.CreateAffirmationsList {
+  margin-top: 10px;
+}
+
+.CreateAffirmationsChipsContainer {
+  @include flex(row, flex-start, center, wrap);
+  padding: 10px 0px;
+  width: 100%;
+}

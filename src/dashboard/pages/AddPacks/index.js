@@ -3,9 +3,9 @@ import React, { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 // containers
 import Header from '../../containers/Header'
+import CreateAffirmations from '../../containers/CreateAffirmations'
 // components
 import Share from '../../components/Share'
-import CreateAffirmations from '../../components/CreateAffirmations'
 // constants
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'

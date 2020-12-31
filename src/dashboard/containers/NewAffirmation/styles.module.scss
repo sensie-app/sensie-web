@@ -1,0 +1,46 @@
+@import '../../styles/index.scss';
+
+.NewAffirmationContainer {
+  width: 100%;
+  @include flex(column, space-between, flex-start, wrap);
+  background-color: $grayColor5;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.NewAffirmationSTop {
+  @include flex(row, space-between, center, wrap);
+  width: 100%;
+  .NewAffirmationS1 {
+    @include flex(row, flex-start, center, wrap);
+    width: 75%;
+    h4 {
+      font-size: 16px;
+      color: $fontColor1;
+    }
+    .NewAffirmationCheckbox {
+      color: $actionColor1 !important;
+    }
+  }
+  
+  .NewAffirmationS2 {
+    @include flex(row, space-between, center, wrap);
+    width: 25%;
+  
+    .NewAffirmationS2TopicsBtn {
+      width: 50%;
+      button {
+        width: 150px;
+        border-radius: 5px;
+        background-color: $grayColor7;
+      }
+    }
+    
+    .NewAffirmationS2Icons {
+      @include flex(row, space-between, center, wrap);
+      width: 25%;
+      padding: 0px 10px;
+    }
+  }
+}
+

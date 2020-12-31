@@ -147,7 +147,8 @@
       "create": "Create"
     },
     "CreateAffirmations": {
-      "addNew": "Add new"
+      "addNew": "Add new",
+      "writeNewAffirmation": "Write a new affirmation"
     }
   }
 }
