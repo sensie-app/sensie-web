@@ -25,6 +25,7 @@ import HowItWorks from '../components/HowItWorks'
 import BackgroundVideo from '../components/BackgroundVideo'
 import Hand from '../components/Hand'
 import Users from '../components/Users'
+import VerticalCarousel from '../components/verticalCarousel/VerticalCarousel'
 
 // CSS
 import '../assets/css/GradientBar.css'
@@ -114,10 +115,7 @@ const Home = () => {
             <Subtitle subtitle="Sensie is everyone's million dollar coach - available whenever, wherever." />
           </Box>
           <Box mt={3}>
-            <BulletPoint
-              IconItem={Measure}
-              title={'Measure Self Awareness'}
-            />
+            <BulletPoint IconItem={Measure} title={'Measure Self Awareness'} />
           </Box>
           <Box mt={2}>
             <BulletPoint
@@ -150,7 +148,7 @@ const Home = () => {
       {/* BLOQUE 2 Carousel & Sponsor */}
 
       <Grid direction="column">
-        <Box mt={10} mb={18}>
+        <Box mt={2} mb={18}>
           <Grid container>
             <Grid item xs={1} sm={3}></Grid>
             <Grid item xs={10} sm={6} data-aos="zoom-out-up">
@@ -295,11 +293,12 @@ const Home = () => {
                 )}
               </Box>
             </Grid>
-            <Grid xs={12} sm={6}>
+            <Grid xs={12} sm={6} style={{ textAlign: 'right' }}>
               <video
                 width="auto"
                 height="auto"
                 autoPlay
+                loop
                 muted
                 src={SquareHandG}
               >
@@ -312,10 +311,10 @@ const Home = () => {
       </div>
       {/* BLOQUE 5 The Science */}
       <div id="science"></div>
-      <Parallax strength={400} bgImage={backgroundScience}>
-        {/* <Background className="backgroundImg">
+      <Parallax strength={300}>
+        <Background className="backgroundImg">
           <img src={backgroundScience} />
-        </Background> */}
+        </Background>
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
@@ -353,19 +352,18 @@ const Home = () => {
       <Grid container direction="column">
         <Box my={14}>
           <Box mx={28}>
-          <Grid item xs={1}></Grid>
-          <Grid item xs={12}>
-                <HowItWorks
-                  textWithoutColor="At"
-                  textWithColor="Sensie"
-                  textWithoutColor2="we provide the best tools to help elevate human flourishing"
-                  />
-                  </Grid>
-          <Grid item xs={1}></Grid>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={12}>
+              <HowItWorks
+                textWithoutColor="At"
+                textWithColor="Sensie"
+                textWithoutColor2="we provide the best tools to help elevate human flourishing"
+              />
+            </Grid>
+            <Grid item xs={1}></Grid>
           </Box>
-          <Grid item xs={12} >
-            {showDashboard ? (null
-            ) : (
+          <Grid item xs={12}>
+            {showDashboard ? null : (
               <Box mt={18}>
                 <Grid item xs={12} data-aos="zoom-out">
                   <Title
@@ -375,32 +373,8 @@ const Home = () => {
                 </Grid>
                 <Grid item xs={6}></Grid>
                 <Grid item xs={6} style={{ position: 'absolute' }}>
-                  <Box
-                    data-aos="fade-right"
-                    ml={10}
-                    mt={36}
-                  >
-                    <Box mr={16}>
-                      <Users
-                        title="Individual / Team Member"
-                        subtitle="Stress impairs your ability to make good decisions."
-                        text="Take a step back, use Sensie to give yourself space to think through options, find focus and get in the zone."
-                      />
-                    </Box>
-                    <Box mt={8} mr={16}>
-                      <Users
-                        title="Coach"
-                        subtitle="Overview your clients/team performance and measure engagement around your therapies, practices or training sessions."
-                        text="Enable them to take the right call in every aspect of their performance."
-                      />
-                    </Box>
-                    <Box mt={8} mr={16}>
-                      <Users
-                        title="Corporation"
-                        subtitle="Assess many teams or groups within your organization."
-                        text="Improve happiness and relieve over people to help them find their best-selves with Sensie."
-                      />
-                    </Box>
+                  <Box data-aos="fade-right" ml={10} mt={36}>
+                    <VerticalCarousel />
                   </Box>
                 </Grid>
               </Box>
@@ -411,19 +385,24 @@ const Home = () => {
               direction="row"
               style={{ alignItems: 'center' }}
             >
-              <Box data-aos-delay="3000">
-                <BackgroundVideo />
-              </Box>
+              <Hidden mdUp>
+                <VerticalCarousel />
+              </Hidden>
+              <Hidden smDown>
+                <Box data-aos-delay="3000">
+                  <BackgroundVideo />
+                </Box>
+              </Hidden>
             </Grid>
           </Grid>
         </Box>
       </Grid>
 
       {/* BLOQUE 7 Citation */}
-      <Parallax strength={400} bgImage={backgroundSelfAwareness}>
-        {/* <Background className="backgroundSelfAwareness">
+      <Parallax strength={300}>
+        <Background className="backgroundSelfAwareness">
           <img src={backgroundSelfAwareness} />
-        </Background> */}
+        </Background>
         <Grid container direction="column">
           <Box my={34}>
             <Grid item xs={12} data-aos="zoom-out-up">
@@ -438,41 +417,66 @@ const Home = () => {
 
       {/* BLOQUE 8 Membership */}
       <div id="membership"></div>
-        <Grid container direction="column">
-          <Box my={8}>
-            <Grid item xs={12} data-aos="zoom-out-up">
-              <Box mb={5} mt={3}>
-                <Grid item xs={12} data-aos="zoom-out-up" alignItems="center">
-                  <Title title="Membership" titleMembership={true} />
-                </Grid>
-              </Box>
+      <Grid container direction="column">
+        <Box my={8}>
+          <Grid item xs={12} data-aos="zoom-out-up">
+            <Box mb={5} mt={3}>
+              <Grid item xs={12} data-aos="zoom-out-up" alignItems="center">
+                <Title title="Membership" titleMembership={true} />
+              </Grid>
+            </Box>
+            <Box px={12}>
               <Grid
                 container
                 xs={12}
                 direction="row"
                 style={{ alignItems: 'center' }}
               >
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} md={4}>
                   <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
-                    <CustomCard title="FREEMIUM" price="$0" />
+                    <CustomCard
+                      title="FREEMIUM"
+                      price="$0"
+                      detail1="Coach Dashboard"
+                      detail2="Client Dashboard"
+                      detail3="Basic affirmations authoring"
+                      freeCard={true}
+                    />
                   </Box>
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} md={4}>
                   <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
                     {' '}
-                    <CustomCard title="GROUP" price="$200" largeCard={true} />
+                    <CustomCard
+                      title="GROUP"
+                      price="$200"
+                      groupCard={true}
+                      detail1="Coach Dashboard"
+                      detail2="Client Dashboard"
+                      detail3="Individual Client Dashboard"
+                      detail4="Unlimited affirmations authoring"
+                    />
                   </Box>
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} md={4}>
                   <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
                     {' '}
-                    <CustomCard title="ENTERPRISE" price="$300" />
+                    <CustomCard
+                      title="ENTERPRISE"
+                      price="$300"
+                      detail1="Coach Dashboard"
+                      detail2="Client Dashboard"
+                      detail3="Individual Client Dashboard"
+                      detail4="Unlimited affirmations authoring"
+                      detail5="Personalized Support"
+                    />
                   </Box>
                 </Grid>
               </Grid>
-            </Grid>
-          </Box>
-        </Grid>
+            </Box>
+          </Grid>
+        </Box>
+      </Grid>
     </div>
   )
 }

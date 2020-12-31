@@ -8,7 +8,8 @@ import {
   CardActions,
   makeStyles,
   Button,
-  Box
+  Box,
+  Grid
 } from '@material-ui/core'
 import axios from 'axios'
 import AOS from 'aos'
@@ -22,8 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     color: 'white',
     backgroundColor: '#0D1D21',
-    maxWidth: '265px',
-    height: '423px'
+    height: '440px'
   },
   lcard: {
     borderRadius: 16,
@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     color: 'white',
     backgroundColor: 'transparent',
-    maxWidth: '265px',
     height: '481px'
   },
   header: {
@@ -60,7 +59,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const CustomCard = ({ title, price, largeCard }) => {
+const CustomCard = ({
+  title,
+  price,
+  groupCard,
+  freeCard,
+  detail1,
+  detail2,
+  detail3,
+  detail4,
+  detail5
+}) => {
   useEffect(() => {
     AOS.init()
     AOS.refresh()
@@ -93,17 +102,17 @@ const CustomCard = ({ title, price, largeCard }) => {
     }
   }
 
-  if (largeCard) {
+  if (groupCard) {
     return (
       <Box
         border={3}
         borderColor="primary.main"
         borderRadius={16}
-        style={{ maxWidth: '270px' }}
+        style={{ width: '270px' }}
       >
         <Card
           className={classes.lcard}
-          backgroundcolor={largeCard && '#071215'}
+          backgroundcolor={groupCard && '#071215'}
         >
           <CardHeader title={title} className={classes.header} />
           <Divider variant="middle" />
@@ -112,15 +121,16 @@ const CustomCard = ({ title, price, largeCard }) => {
               {price}
             </Typography>
             <Typography align="center">Lorem ipsum dolor</Typography>
-            <Box my={2}>
+            <Box my={1.5}>
               <WifiRoundedIcon />
             </Box>
-            <Typography align="center">Manage tasks</Typography>
-            <Typography align="center">Sync notes</Typography>
-            <Typography align="center">Set deadline</Typography>
-            <Box my="100px"></Box>
+            <Typography align="center">{detail1}</Typography>
+            <Typography align="center">{detail2}</Typography>
+            <Typography align="center">{detail3}</Typography>
+            <Typography align="center">{detail4}</Typography>
           </CardContent>
           <Divider variant="middle" />
+          <Box mt={7}></Box>
           <CardActions className={classes.action}>
             <StripeCheckout
               stripeKey="pk_test_51HorsiEx1EF8da2rRutkb30fv24rp8dzBRK31Rc85N3AjcFfu5CQMTHRnAlLeyJVDId4l8IFfuNngQmBt5qNQqkl00ADoUwRo2"
@@ -146,48 +156,111 @@ const CustomCard = ({ title, price, largeCard }) => {
         </Card>
       </Box>
     )
+  } else if (freeCard) {
+    return (
+      <Box borderRadius={16} style={{ width: '270px' }}>
+        <Card className={classes.scard}>
+          <Grid container alignItems="flex-end">
+            <Grid item xs={12}>
+              <CardHeader title={title} className={classes.header} />
+            </Grid>
+            <Divider variant="middle" />
+            <Grid item xs={12}>
+              <CardContent>
+                <Typography variant="h4" align="center">
+                  {price}
+                </Typography>
+                <Typography align="center">Lorem ipsum dolor</Typography>
+                <Box my={1.5}>
+                  <WifiRoundedIcon />
+                </Box>
+                <Typography align="center">{detail1}</Typography>
+                <Typography align="center">{detail2}</Typography>
+                <Typography align="center">{detail3}</Typography>
+              </CardContent>
+            </Grid>
+            <Divider variant="middle" />
+            <Grid item xs={12}>
+              <Box mt={7}></Box>
+              <CardActions className={classes.action}>
+                <StripeCheckout
+                  stripeKey="pk_test_51HorsiEx1EF8da2rRutkb30fv24rp8dzBRK31Rc85N3AjcFfu5CQMTHRnAlLeyJVDId4l8IFfuNngQmBt5qNQqkl00ADoUwRo2"
+                  token={handleToken}
+                  name="SENSIE"
+                  amount={product.price * 100}
+                  billingAddress
+                  shippingAddress
+                >
+                  <Button
+                    fullWidth
+                    color="primary"
+                    variant="outlined"
+                    className={classes.btnSuscribe}
+                  >
+                    Suscribe
+                  </Button>
+                </StripeCheckout>
+                <Button fullWidth className={classes.btnLearnMore}>
+                  Learn more
+                </Button>
+              </CardActions>
+            </Grid>
+          </Grid>
+        </Card>
+      </Box>
+    )
   } else {
     return (
-      <Box borderRadius={16} style={{ maxWidth: '270px' }}>
+      <Box borderRadius={16} style={{ width: '270px' }}>
         <Card className={classes.scard}>
-          <CardHeader title={title} className={classes.header} />
-          <Divider variant="middle" />
-          <CardContent>
-            <Typography variant="h4" align="center">
-              {price}
-            </Typography>
-            <Typography align="center">Lorem ipsum dolor</Typography>
-            <Box my={2}>
-              <WifiRoundedIcon />
-            </Box>
-            <Typography align="center">Manage tasks</Typography>
-            <Typography align="center">Sync notes</Typography>
-            <Typography align="center">Set deadline</Typography>
-            <Box my="40px"></Box>
-          </CardContent>
-          <Divider variant="middle" />
-          <CardActions className={classes.action}>
-            <StripeCheckout
-              stripeKey="pk_test_51HorsiEx1EF8da2rRutkb30fv24rp8dzBRK31Rc85N3AjcFfu5CQMTHRnAlLeyJVDId4l8IFfuNngQmBt5qNQqkl00ADoUwRo2"
-              token={handleToken}
-              name="SENSIE"
-              amount={product.price * 100}
-              billingAddress
-              shippingAddress
-            >
-              <Button
-                fullWidth
-                color="primary"
-                variant="outlined"
-                className={classes.btnSuscribe}
-              >
-                Suscribe
-              </Button>
-            </StripeCheckout>
-            <Button fullWidth className={classes.btnLearnMore}>
-              Learn more
-            </Button>
-          </CardActions>
+          <Grid container alignItems="flex-end">
+            <Grid item xs={12}>
+              <CardHeader title={title} className={classes.header} />
+            </Grid>
+            <Divider variant="middle" />
+            <Grid item xs={12}>
+              <CardContent>
+                <Typography variant="h4" align="center">
+                  {price}
+                </Typography>
+                <Typography align="center">Lorem ipsum dolor</Typography>
+                <Box my={1.5}>
+                  <WifiRoundedIcon />
+                </Box>
+                <Typography align="center">{detail1}</Typography>
+                <Typography align="center">{detail2}</Typography>
+                <Typography align="center">{detail3}</Typography>
+                <Typography align="center">{detail4}</Typography>
+                <Typography align="center">{detail5}</Typography>
+              </CardContent>
+            </Grid>
+            <Divider variant="middle" />
+            <Grid item xs={12}>
+              <Box mt={1}></Box>
+              <CardActions className={classes.action}>
+                <StripeCheckout
+                  stripeKey="pk_test_51HorsiEx1EF8da2rRutkb30fv24rp8dzBRK31Rc85N3AjcFfu5CQMTHRnAlLeyJVDId4l8IFfuNngQmBt5qNQqkl00ADoUwRo2"
+                  token={handleToken}
+                  name="SENSIE"
+                  amount={product.price * 100}
+                  billingAddress
+                  shippingAddress
+                >
+                  <Button
+                    fullWidth
+                    color="primary"
+                    variant="outlined"
+                    className={classes.btnSuscribe}
+                  >
+                    Suscribe
+                  </Button>
+                </StripeCheckout>
+                <Button fullWidth className={classes.btnLearnMore}>
+                  Learn more
+                </Button>
+              </CardActions>
+            </Grid>
+          </Grid>
         </Card>
       </Box>
     )

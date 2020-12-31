@@ -6,7 +6,7 @@ const useStyles = makeStyles({
   root: {
     width: '100%',
     position: 'relative',
-    marginTop: '22%',
+    marginTop: '10%',
     marginLeft: '-10%'
   }
 })

@@ -45,17 +45,23 @@ const Footer = () => {
     <div>
       <Grid container className={classes.blockOne}>
         <Grid item xs={4}></Grid>
-        <Grid item container xs={4} direction="column" className={classes.textTab}>
-            <Box my={1} mt={4}>
-              SUSCRIBE TO NEWLESTTER
-            </Box>
+        <Grid
+          item
+          container
+          xs={4}
+          direction="column"
+          className={classes.textTab}
+        >
+          <Box my={1} mt={6}>
+            SUSCRIBE TO NEWLESTTER
+          </Box>
 
-            <Box mt={2}>
-              <Typography>Email</Typography>
-              <Box mt={1}>
-                <Email />
-              </Box>
-              <Box mt={2} mb={4}>
+          <Box mt={2}>
+            <Typography>Email</Typography>
+            <Box mt={1}>
+              <Email />
+            </Box>
+            <Box mt={2} mb={6}>
               <Button
                 color="primary"
                 variant="outlined"
@@ -64,7 +70,7 @@ const Footer = () => {
                 Subscribe
               </Button>
             </Box>
-            </Box>
+          </Box>
         </Grid>
         <Grid item xs={4}></Grid>
       </Grid>
@@ -87,13 +93,31 @@ const Footer = () => {
           </Grid>
           <Grid item xs={4} container justify="flex-end">
             <Box>
-              <InstagramIcon fontSize="small" />
+              <a
+                href="https://www.instagram.com/sensieapp/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <InstagramIcon fontSize="small" />
+              </a>
             </Box>
             <Box ml={4}>
-              <TwitterIcon fontSize="small" />
+              <a
+                href="https://twitter.com/sensie_app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <TwitterIcon fontSize="small" />
+              </a>
             </Box>
             <Box ml={4}>
-              <FacebookIcon fontSize="small" />
+              <a
+                href="https://www.facebook.com/sensieapp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FacebookIcon fontSize="small" />
+              </a>
             </Box>
           </Grid>
         </Grid>
