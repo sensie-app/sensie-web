@@ -1,0 +1,21 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-sensiebackend-staging-185139-authRole",
+      "UnauthRoleArn": "arn:aws:iam::937543024053:role/amplify-sensiebackend-staging-185139-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::937543024053:role/amplify-sensiebackend-staging-185139-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-sensiebackend-staging-185139-deployment",
+      "UnauthRoleName": "amplify-sensiebackend-staging-185139-unauthRole",
+      "StackName": "amplify-sensiebackend-staging-185139",
+      "StackId": "arn:aws:cloudformation:us-west-2:937543024053:stack/amplify-sensiebackend-staging-185139/1b627030-4b13-11eb-8e27-0a64a191e09f",
+      "AmplifyAppId": "d21p0afd9l7qbp"
+    },
+    "categories": {
+      "auth": {
+        "userPoolGroups": {},
+        "sensiebackend": {}
+      }
+    }
+  }
+}

@@ -61,7 +61,9 @@
       "family": "Family",
       "parenting": "Parenting",
       "personal": "Personal",
-      "performance": "Performance"
+      "performance": "Performance",
+      "editAffirmation": "Edit affirmation",
+      "deleteAffirmation": "Delete affirmation"
     },
     "MultipleSelectCheckbox": {
       "topics": "Topics"

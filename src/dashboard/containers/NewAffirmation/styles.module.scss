@@ -6,6 +6,7 @@
   background-color: $grayColor5;
   border-radius: 5px;
   padding: 10px;
+  margin-bottom: 10px;
 }
 
 .NewAffirmationSTop {
@@ -40,7 +41,38 @@
       @include flex(row, space-between, center, wrap);
       width: 25%;
       padding: 0px 10px;
+      .NewAffirmationMenuActions {
+        width: 50%;
+        div ul {
+          @include flex(column, flex-start, center, nowrap);
+          button {
+            padding: 0px;
+            width: 100%;
+            div {
+              padding: 5px 15px;
+            }
+          }
+        }
+      }
+      button {
+        width: 50%;
+        border-style: none;
+        background-color: transparent;
+        opacity: 0.8;
+        &:hover {
+          opacity: 1;
+          cursor: pointer;
+        }
+      }
     }
   }
 }
 
+.NewAffirmationSBottom {
+  width: 100%;
+  @include flex(row, flex-start, center, wrap);
+}
+
+.NewAffirmationCountCheckbox {
+  @include CountCheckboxInBtn();
+}

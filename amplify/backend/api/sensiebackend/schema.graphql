@@ -1,0 +1,161 @@
+type User @model 
+ @key(name: "SortByOrganization", fields: ["userOrganizationId"]) 
+ @key(name: "SortByTeam", fields: ["userTeamId"])
+ @key(name: "SortByGroup", fields: ["userGroupId"]) {
+  id: ID!
+  owner: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  dob: String!
+  gender: String!
+  domHand: String
+  goal: String
+  userOrganizationId: ID
+  organization: Organization 
+  affirmations: [Affirmation] @connection(keyName: "byOwner", fields: ["owner"])
+  selfAwareness: Float 
+  userGroupId: ID
+  group: Group
+  userTeamId: ID
+  team: Team @connection
+  sensies: [Sensie] @connection(keyName: "byOwner", fields: ["owner"])
+  picture: Picture @connection
+}
+
+type Organization @model 
+ {
+  id: ID!
+  name: String!
+  orgType: String!
+  location: String!
+  tier: String!
+  teams: [Team] @connection(keyName: "byOrganization", fields: ["id"])
+  users: [User] @connection(keyName: "SortByOrganization", fields: ["id"])
+}
+
+type Team @model 
+ @key(name: "byOrganization", fields: ["organizationId"]) {
+  id: ID!
+  name: String!
+  description: String!
+  organizationId: ID
+  organization: Organization @connection
+  users: [User] @connection(keyName: "SortByTeam", fields: ["id"])
+}
+
+type Group @model 
+ {
+  id: ID!
+  name: String!
+  description: String!
+  users: [User] @connection(keyName: "SortByGroup", fields: ["id"])
+}
+
+type Sensie @model 
+ @key(name: "byUser", fields: ["userId"]) 
+ @key(name: "byOwner", fields: ["owner"]) {
+  id: ID!
+  userId: ID!
+  user: User @connection(fields: ["userId"])
+  owner: ID!
+  timestamp: String!
+
+  accelerometerData: String
+  accelerometerResult: String
+  gyroscopeData: String
+  gyroscopeResult: String
+  swipeData: String
+  swipeResult: String
+  voiceData: String
+  voiceResult: String
+
+  data: String!
+  dataType: String!
+
+  confidence: Float
+  calibration: Boolean
+  result: String
+  userAgreement: Boolean
+  affirmationId: ID!
+  affirmation: Affirmation @connection(fields: ["affirmationId"])
+}
+
+type Pack @model {
+  id: ID!
+  name: String!
+  description: String! 
+  affirmations: [PackAffirmationJoin] @connection(keyName: "byPack", fields: ["id"])
+  picture: Picture @connection
+}
+
+type Topic @model {
+  id: ID!
+  name: String!
+  description: String! 
+  affirmations: [TopicAffirmationJoin] @connection(keyName: "byTopic", fields: ["id"])
+  picture: Picture @connection
+}
+
+type Affirmation @model 
+ @key(name: "byTopic", fields: ["topicId", "name"])
+ @key(name: "byPack", fields: ["packId"]) 
+ @key(name: "byOwner", fields: ["userId"]) {
+  id: ID!
+  topicId: ID
+  topics: [TopicAffirmationJoin] @connection(keyName: "byAffirmation", fields: ["id"])
+  packId: ID
+  packs: [PackAffirmationJoin] @connection(keyName: "byAffirmation", fields: ["id"])
+  name: String!
+  description: String!
+  userId: ID!
+  user: User @connection
+}
+
+type PackAffirmationJoin @model(queries: null)
+ @key(name: "byPack", fields: ["packId", "affirmationId"])
+ @key(name: "byAffirmation", fields: ["affirmationId","packId"]){
+  id: ID!
+  packId: ID!
+  affirmationId: ID!
+  pack: Pack! @connection(fields: ["packId"])
+  affirmation: Affirmation! @connection(fields: ["affirmationId"])
+}
+
+type TopicAffirmationJoin @model(queries: null)
+ @key(name: "byTopic", fields: ["topicId", "affirmationId"])
+ @key(name: "byAffirmation", fields: ["affirmationId","topicId"]){
+  id: ID!
+  topicId: ID!
+  affirmationId: ID!
+  topic: Topic! @connection(fields: ["topicId"])
+  affirmation: Affirmation! @connection(fields: ["affirmationId"])
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type Picture @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  name: String
+  owner: ID 
+
+  file: S3Object
+}
+
+type BlogPost @model {
+ id: ID!
+ title: String!
+ content: String!
+ comments: [Comment] @connection(keyName: "byPost")
+}
+
+type Comment @model
+ @key(name: "byPost", fields: ["postId", "content"]) {
+ id: ID!
+ content: String
+ postId: ID!
+}

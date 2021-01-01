@@ -93,13 +93,13 @@ const AuthStateApp = ({ children }) => {
               label: 'bday',
               placeholder: '06/17/1990',
               required: false
-            },
-            {
-              type: 'organization_id',
-              label: 'organizationId',
-              placeholder: 'ORG1',
-              required: true
             }
+            // {
+            //   type: 'organization_id',
+            //   label: 'organizationId',
+            //   placeholder: 'ORG1',
+            //   required: true
+            // }
 
           ]}
         />

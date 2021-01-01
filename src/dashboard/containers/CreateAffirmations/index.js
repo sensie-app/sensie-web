@@ -1,5 +1,5 @@
 // react
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,7 +9,8 @@ import Checkbox from '@material-ui/core/Checkbox'
 // components
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
-import MultipleSelectCheckbox from '../../components/MultipleSelectCheckbox'
+import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
+// containers
 import NewAffirmation from '../NewAffirmation'
 // constants
 import { COLORS } from '../../constants/theme'
@@ -18,6 +19,7 @@ import styles from './styles.module.scss'
 
 // const
 const { fontColor1, actionColor1 } = COLORS
+// const cleanAffirmation = { title: '', topics: [] }
 
 // * container
 /**
@@ -26,17 +28,16 @@ const { fontColor1, actionColor1 } = COLORS
  */
 const CreateAffirmations = () => {
   // hooks
+  const inputRef = useRef(null)
   const dispatch = useDispatch()
-  const {
-    topicsReducer: { topics },
-    affirmationsReducer: { newAffirmation, lastAffirmations }
-  } = useSelector(state => state)
+  const { affirmationsReducer: { newAffirmation, lastAffirmations } } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [selectAllCheckbox, setSelectAllCheckbox] = useState(false)
-  const [affirmation, setAffirmation] = useState(newAffirmation)
-  const [test, setTest] = useState([])
+  const [title, setTitle] = useState(newAffirmation.title)
+  const [topics, setTopics] = useState(newAffirmation.topics)
+  const [listAffirmations, setListAffirmations] = useState([])
 
-  console.log('lastAffirmations', lastAffirmations)
+  useEffect(() => dispatch(setNewAffirmationAction({ title, topics })), [title, topics])
 
   // ? handle functions
   /**
@@ -44,57 +45,36 @@ const CreateAffirmations = () => {
    * @param {DataAffirmation} value
    * @returns {undefined} selectTopics = value
    */
-  const handleClickTopicMenu = value => {
-    const _affirmation = affirmation
-    _affirmation.topics = value
-    setAffirmation(_affirmation)
-    dispatch(setNewAffirmationAction(_affirmation)) // todo: revisar hook y quitar
-  }
+  const handleClickTopicMenu = value => setTopics(value)
 
   /**
    * handle click close chip
    * @param {DataAffirmation} value
    * @returns {undefined} selectTopics = value(filtered)
    */
-  const handleClickCloseChip = value => {
-    const _affirmation = affirmation
-    _affirmation.topics = _affirmation.topics.filter(item => item !== value)
-    setAffirmation(_affirmation)
-    dispatch(setNewAffirmationAction(_affirmation)) // todo: revisar hook y quitar
-  }
+  const handleClickCloseChip = value => setTopics(topics.filter(item => item !== value))
 
   /**
    * handle input value
    * @param {undefined} event
    * @returns {Object} setAffirmation()
    */
-  const handleInputValue = event => {
-    const _affirmation = affirmation
-    _affirmation.title = event.target.value
-    setAffirmation(_affirmation)
-    dispatch(setNewAffirmationAction(_affirmation)) // todo: revisar hook y quitar
-  }
+  const handleInputValue = event => setTitle(event.target.value)
 
   /**
    * handle click btn done
    * @return {}
    */
   const handleClickBtnDone = () => {
-    const _test = test
-    _test.push(affirmation)
-    setTest(_test)
-    // console.log('lastAffirmations', lastAffirmations)
-    // console.log('newAffirmation', newAffirmation)
-    // console.log('affirmation', affirmation)
-    // const test = lastAffirmations
-    // console.log('test1', test)
-    // test.push(newAffirmation)
-    // console.log('test2', test)
-    dispatch(setLastAffirmationsAction(test))
+    inputRef.current.value = ''
+    const _list = listAffirmations
+    _list.push({ title, topics })
+    setListAffirmations(_list)
+    dispatch(setLastAffirmationsAction(_list))
+    setTitle('')
+    setTopics([])
     // TODO: use Mutation
   }
-
-  console.log('test', test)
 
   // ? render functions
   /**
@@ -107,7 +87,7 @@ const CreateAffirmations = () => {
         {
           newAffirmation.topics.length === 0
             ? <Icon custom="topic" color={fontColor1} size="md" />
-            : <span className={styles.AffirmationsListMultipleSelectCheckboxItemCount}>
+            : <span className={styles.CreateAffirmationsCountCheckbox}>
                 {newAffirmation.topics.length}
               </span>
         }
@@ -122,7 +102,7 @@ const CreateAffirmations = () => {
    * @return {undefined} Chips[] (html)
    */
   const renderChipsItems = () => {
-    return affirmation.topics.map(item => <Chip key={item.index} label={item} onClose={value => handleClickCloseChip(value)}/>)
+    return topics.map(item => <Chip key={item.index} label={item} onClose={value => handleClickCloseChip(value)}/>)
   }
 
   /**
@@ -136,17 +116,16 @@ const CreateAffirmations = () => {
           <div className={styles.CreateAffirmationsFormD1}>
             <div className={styles.CreateAffirmationsFormD1Inputs}>
               <input
+                ref={inputRef}
                 placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
                 onChange={handleInputValue}
               />
             </div>
             <div className={styles.CreateAffirmationsFormD1Btns}>
               <button onClick={() => handleClickBtnDone()} className={styles.CreateAffirmationsFormButtonDone}>Done</button>
-              {/* // TODO: adaptar componente a esta sección (redux) */}
               <MultipleSelectCheckbox
-                data={topics}
                 onClickValue={value => handleClickTopicMenu(value)}
-                defValue={affirmation.topics}
+                defValue={topics}
               >
                 {renderMultipleSelectCheckboxChildren()}
               </MultipleSelectCheckbox>
@@ -167,6 +146,14 @@ const CreateAffirmations = () => {
     )
   }
 
+  /**
+   * render last affirmations
+   * @returns {undefined} NewAffirmation (component)
+   */
+  const renderLastAffirmations = () => {
+    return lastAffirmations.map((item, index) => <NewAffirmation key={index} title={item.title} selectedTopics={item.topics} />)
+  }
+
   return (
     <div className={styles.CreateAffirmationsContainer}>
       {/* header */}
@@ -180,7 +167,7 @@ const CreateAffirmations = () => {
         {renderFormItem()}
         {/* list affirmations */}
         <div className={styles.CreateAffirmationsList}>
-          <NewAffirmation />
+          {renderLastAffirmations()}
         </div>
       </div>
     </div>

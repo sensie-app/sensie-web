@@ -10,36 +10,41 @@ import Select from '@material-ui/core/Select'
 import Checkbox from '@material-ui/core/Checkbox'
 import Button from '@material-ui/core/Button'
 // components
-import Popover from '../Popover'
-import Icon from '../Icon'
+import Popover from '../../components/Popover'
+import Icon from '../../components/Icon'
 // constants
 import { COLORS } from '../../constants/theme'
+// redux
+import { useSelector } from 'react-redux'
 // styles
 import styles from './styles.module.scss'
-// prop-types
-import { MenuDataPropTypes } from '../../prop-types'
+// test data
+import { testData } from './data'
 
 // const
 const { grayColor4, grayColor6, fontColor1, actionColor1 } = COLORS
 const ITEM_HEIGHT = 70
 
-// * component
+// * containers
 /**
- * MultipleSelectCheckbox component
+ * MultipleSelectCheckbox containers
  * @component
- * @param {Array.MenuData} data
+ * @param {Array.Menutopics} topics
  * @param {undefined} onClickValue
  * @param {undefined} children
- * @param {MenuData} defValue
+ * @param {Menutopics} defValue
+ * @param {boolean} disabled (default: false)
  */
-const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics }) => {
+const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = false }) => {
   // hooks
+  const { topicsReducer: { topics } } = useSelector(state => state)
   const [items, setItems] = useState(defValue)
   const [open, setOpen] = useState(false)
+  const [data, setData] = useState(topics)
   // const [t] = useTranslation('global')
 
+  useEffect(() => setData(topics.length > 0 ? topics : testData), [])
   useEffect(() => setItems(defValue), [open])
-
   useEffect(() => onClickValue(items), [items])
 
   // material-ui const
@@ -76,7 +81,7 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics
    * @param {string} name
    * @param {number} large
    */
-  const handleLargeName = (name, large) => name.substr(0, large) + '...'
+  const handleLargeName = (name, large) => name.length > large ? name.substr(0, large) + '...' : name
 
   // ? render functions
   /**
@@ -84,8 +89,7 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics
    * @return  {undefined} MenuItem (html)
    */
   const renderItems = () => {
-    // return topics.value !== null && !topics.loading && topics.value.data.listTopics.items.map(value => {
-    return data.map(value => (
+    return data.length > 0 && data.map(value => (
       <MenuItem key={value.id} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
         <Checkbox checked={items.indexOf(value) > -1} color={actionColor1} className={styles.MultipleSelectCheckboxMenuItemCheckbox} />
         <ListItemText primary={handleLargeName(value.name, 10)} />
@@ -100,7 +104,7 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics
 
   return (
     <div className={styles.MultipleSelectCheckboxContainer} id="container">
-      <Button className={styles.MultipleSelectCheckboxButton} onClick={() => handleOpen(true)}>{children}</Button>
+      <Button disabled={disabled} className={styles.MultipleSelectCheckboxButton} onClick={() => handleOpen(true)}>{children}</Button>
       <Select
         id="select"
         onBlurCapture={e => e.relatedTarget === null && handleOpen(false)}
@@ -112,7 +116,7 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics
         onChange={handleChange}
         MenuProps={MenuProps}
       >
-        {renderItems()}
+        { renderItems() }
       </Select>
     </div>
   )
@@ -120,14 +124,14 @@ const MultipleSelectCheckbox = ({ data, onClickValue, children, defValue, topics
 
 // prop-types
 MultipleSelectCheckbox.propTypes = {
-  /** data */
-  data: MenuDataPropTypes, // Todo: revisar!
   /** children -> button open select */
   children: PropTypes.element.isRequired,
   /** action */
   onClickValue: PropTypes.func.isRequired,
   /** default value */
-  defValue: PropTypes.array.isRequired
+  defValue: PropTypes.array.isRequired,
+  /** disabled */
+  disabled: PropTypes.bool
 }
 
 export default MultipleSelectCheckbox

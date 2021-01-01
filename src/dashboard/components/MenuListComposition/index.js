@@ -2,7 +2,7 @@
 // ! ERROR React.StrictMode -> desde Header
 
 // react
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -35,11 +35,12 @@ const defValue = {
  * @component
  * @param {Array.MenuData} data
  * @param {undefined} onClickValue
- * @param {(MenuData|null)} defaultValue
+ * @param {(MenuData|null)} defaultValue (default: null)
  * @param {undefined} children
- * @param {number} theme
+ * @param {number} theme (default: 1)
+ * @param {boolean} withName (default: true)
  */
-const MenuListComposition = ({ data, onClickValue, defaultValue = null, children, theme = 1 }) => {
+const MenuListComposition = ({ data, onClickValue, defaultValue = null, children, theme = 1, withName = true }) => {
   // hooks
   const [open, setOpen] = useState(false)
   const [item, setItem] = useState(defValue)
@@ -48,15 +49,11 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
   const [t] = useTranslation('global')
 
   useEffect(() => defaultValue === null && setItem(defValue), [])
-
+  useEffect(() => setItem(defaultValue), [defaultValue])
   useEffect(() => {
     prevOpen.current === true && open === false && anchorRef.current.focus()
     prevOpen.current = open
   }, [open])
-
-  useEffect(() => {
-    setItem(defaultValue)
-  }, [defaultValue])
 
   // ? handle functions
   /**
@@ -111,7 +108,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
    * @return  {undefined} items (html)
    */
   const renderItems = () => {
-    return data.map(item => {
+    return data.length > 0 && data.map(item => {
       return (
         <button style={handleThemeStyles()} className={styles.MenuListCompositionItem} key={item.index} onClick={() => handleClick(item, event)}>
           <div>
@@ -130,9 +127,14 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        {children}
-        <span>{t(`dashboard.MenuListComposition.${item.name}`)}</span>
-        <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
+        {withName
+          ? <Fragment>
+              {children}
+              <span>{t(`dashboard.MenuListComposition.${item.name}`)}</span>
+              <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
+            </Fragment>
+          : children
+        }
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
@@ -165,7 +167,9 @@ MenuListComposition.propTypes = {
   /** children -> btn open menu */
   children: PropTypes.element,
   /** theme */
-  theme: PropTypes.number
+  theme: PropTypes.number,
+  /** withName */
+  withName: PropTypes.bool
 }
 
 export default MenuListComposition

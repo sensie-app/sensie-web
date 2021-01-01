@@ -64,6 +64,10 @@
           background-color: transparent;
           margin-right: 20px;
           font-size: 16px;
+          &:hover {
+            cursor: pointer;
+            @include border(solid, 1px, 5px, $fontColor1);
+          }
         }
         button {
           width: 150px;
@@ -99,4 +103,8 @@
   @include flex(row, flex-start, center, wrap);
   padding: 10px 0px;
   width: 100%;
+}
+
+.CreateAffirmationsCountCheckbox {
+  @include CountCheckboxInBtn();
 }

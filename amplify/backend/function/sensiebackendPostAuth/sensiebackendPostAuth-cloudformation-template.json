@@ -37,12 +37,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "processSensie",
+            "sensiebackendPostAuth",
             {
               "Fn::Join": [
                 "",
                 [
-                  "processSensie",
+                  "sensiebackendPostAuth",
                   "-",
                   {
                     "Ref": "env"
@@ -60,12 +60,12 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "API_SENSIEBACKEND_SENSIETABLE_NAME": {
+            "API_SENSIEBACKEND_USERTABLE_NAME": {
               "Fn::ImportValue": {
-                "Fn::Sub": "${apisensiebackendGraphQLAPIIdOutput}:GetAtt:SensieTable:Name"
+                "Fn::Sub": "${apisensiebackendGraphQLAPIIdOutput}:GetAtt:UserTable:Name"
               }
             },
-            "API_SENSIEBACKEND_SENSIETABLE_ARN": {
+            "API_SENSIEBACKEND_USERTABLE_ARN": {
               "Fn::Join": [
                 "",
                 [
@@ -80,7 +80,7 @@
                   ":table/",
                   {
                     "Fn::ImportValue": {
-                      "Fn::Sub": "${apisensiebackendGraphQLAPIIdOutput}:GetAtt:SensieTable:Name"
+                      "Fn::Sub": "${apisensiebackendGraphQLAPIIdOutput}:GetAtt:UserTable:Name"
                     }
                   }
                 ]
@@ -101,8 +101,8 @@
         "Layers": [],
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-sensiebackend-staging-184656-deployment",
-          "S3Key": "amplify-builds/processSensie-666631586d4a6f344b7a-build.zip"
+          "S3Bucket": "amplify-sensiebackend-staging-185139-deployment",
+          "S3Key": "amplify-builds/sensiebackendPostAuth-50534b55773279454577-build.zip"
         }
       }
     },
@@ -112,12 +112,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "sensiebackendLambdaRole169c1df9",
+            "sensiebackendLambdaRole60b278ed",
             {
               "Fn::Join": [
                 "",
                 [
-                  "sensiebackendLambdaRole169c1df9",
+                  "sensiebackendLambdaRole60b278ed",
                   "-",
                   {
                     "Ref": "env"
@@ -216,8 +216,7 @@
                 "dynamodb:Scan",
                 "dynamodb:Query",
                 "dynamodb:Update*",
-                "dynamodb:RestoreTable*",
-                "dynamodb:Delete*"
+                "dynamodb:RestoreTable*"
               ],
               "Resource": [
                 {
@@ -235,7 +234,7 @@
                       ":table/",
                       {
                         "Fn::ImportValue": {
-                          "Fn::Sub": "${apisensiebackendGraphQLAPIIdOutput}:GetAtt:SensieTable:Name"
+                          "Fn::Sub": "${apisensiebackendGraphQLAPIIdOutput}:GetAtt:UserTable:Name"
                         }
                       }
                     ]
@@ -256,7 +255,7 @@
                       ":table/",
                       {
                         "Fn::ImportValue": {
-                          "Fn::Sub": "${apisensiebackendGraphQLAPIIdOutput}:GetAtt:SensieTable:Name"
+                          "Fn::Sub": "${apisensiebackendGraphQLAPIIdOutput}:GetAtt:UserTable:Name"
                         }
                       },
                       "/index/*"

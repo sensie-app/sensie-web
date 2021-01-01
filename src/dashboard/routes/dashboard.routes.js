@@ -16,7 +16,7 @@ import AddPacks from '../pages/AddPacks'
 // components
 import { NotFound404 } from '../components/Globals'
 // containers
-import AuthStateApp from '../containers/AuthStateApp'
+// import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
 // hooks
 import useGraphQlApi from '../hooks/useGraphQlApi'
@@ -49,7 +49,7 @@ const DashboardRoutes = () => {
   }, [dbTopics])
 
   return (
-    <AuthStateApp>
+  // <AuthStateApp>
         <BrowserRouter>
           <Switch>
             <Layout>
@@ -66,7 +66,7 @@ const DashboardRoutes = () => {
             <Route component={NotFound404} />
           </Switch>
         </BrowserRouter>
-    </AuthStateApp>
+  // </AuthStateApp>
   )
 }
 
