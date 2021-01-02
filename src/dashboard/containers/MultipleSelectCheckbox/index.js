@@ -89,8 +89,8 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
    * @return  {undefined} MenuItem (html)
    */
   const renderItems = () => {
-    return data.length > 0 && data.map(value => (
-      <MenuItem key={value.id} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
+    return data.length > 0 && data.map((value, index) => (
+      <MenuItem key={index} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
         <Checkbox checked={items.indexOf(value) > -1} color={actionColor1} className={styles.MultipleSelectCheckboxMenuItemCheckbox} />
         <ListItemText primary={handleLargeName(value.name, 10)} />
         <div>
@@ -104,7 +104,7 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
 
   return (
     <div className={styles.MultipleSelectCheckboxContainer} id="container">
-      <Button disabled={disabled} className={styles.MultipleSelectCheckboxButton} onClick={() => handleOpen(true)}>{children}</Button>
+      <Button disabled={disabled} className={`${styles.MultipleSelectCheckboxButton} ${disabled ? styles.MultipleSelectCheckboxButtonDisabled : undefined}`} onClick={() => handleOpen(true)}>{children}</Button>
       <Select
         id="select"
         onBlurCapture={e => e.relatedTarget === null && handleOpen(false)}

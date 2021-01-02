@@ -127,6 +127,9 @@
       "personal": "Personal",
       "performance": "Performance"
     },
+    "Topic": {
+      "affirmations": "affirmations"
+    },
     "Pack": {
       "affirmations": "affirmations"
     },
@@ -150,7 +153,8 @@
     },
     "CreateAffirmations": {
       "addNew": "Add new",
-      "writeNewAffirmation": "Write a new affirmation"
+      "writeNewAffirmation": "Write a new affirmation",
+      "errorToast": "A title and at least one topic is necessary to create a new affirmation.."
     }
   }
 }

@@ -18,7 +18,7 @@ const { affirmations } = DASHBOARD_ROUTES
 
 // * page
 /**
- * AddPack component
+ * AddPack page component
  * @component
  */
 const AddPacks = () => {

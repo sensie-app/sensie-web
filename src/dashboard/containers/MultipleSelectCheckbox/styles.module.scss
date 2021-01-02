@@ -23,10 +23,15 @@
 }
 
 .MultipleSelectCheckboxButton {
+  opacity: 1;
   color: $fontColor1;
   background-color: transparent;
   @include border(none, 0px, 0px, transparent);
   &:hover, &:focus, &:active {
     @include border(none, 0px, 0px, transparent);
   }
+}
+
+.MultipleSelectCheckboxButtonDisabled {
+  opacity: 0.8;
 }

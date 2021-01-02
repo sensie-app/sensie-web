@@ -3,7 +3,7 @@
  */
 
 import SHOW from '../constants/show.constants'
-import { UserListBtns } from '../../dashboard/constants/globals'
+import { UserListBtns, CreatePacksTags } from '../../dashboard/constants/globals'
 
 /**
  * @type {INITIAL_STATE_SHOW}
@@ -11,10 +11,11 @@ import { UserListBtns } from '../../dashboard/constants/globals'
 const INITIAL_STATE = {
   userList: {
     showInfo: UserListBtns.summary
-  }
+  },
+  showPacksOrTopics: CreatePacksTags.packs
 }
 
-const { SHOW_USER_LIST_INFO } = SHOW
+const { SHOW_USER_LIST_INFO, SHOW_PACKS_OR_TOPICS } = SHOW
 
 /**
  * [REDUX:REDUCER] showReducer
@@ -29,6 +30,15 @@ const showReducer = (state = INITIAL_STATE, { payload, type }) => {
         userList: {
           showInfo: payload
         }
+      }
+
+    case SHOW_PACKS_OR_TOPICS:
+      return {
+        ...state,
+        userList: {
+          showInfo: state.userList.showInfo
+        },
+        showPacksOrTopics: payload
       }
 
     default: return state

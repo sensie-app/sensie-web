@@ -1,5 +1,5 @@
 // react
-import React, { useState, Fragment, useEffect } from 'react'
+import React, { useState, Fragment, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -7,6 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 // component
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
+import Toast from '../../components/Toast'
 import MenuListComposition from '../../components/MenuListComposition'
 // containers
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
@@ -32,17 +33,30 @@ const NewAffirmation = ({ title, selectedTopics }) => {
   const dispatch = useDispatch()
   const { affirmationsReducer: { lastAffirmations } } = useSelector(state => state)
   const [t] = useTranslation('global')
+  const inputRef = useRef(null)
   const [check, setCheck] = useState(false)
   const [selectTopics, setSelectTopics] = useState(selectedTopics)
+  const [itemTitle, setItemTitle] = useState(title)
   const [showChips, setShowChips] = useState(true)
   const [disabledTopics, setDisabledTopics] = useState(true)
   const [menuAction, setMenuAction] = useState({})
+  const [showErrorToast, setShowErrorToast] = useState(false)
 
   useEffect(() => {
-    menuAction.value === 'edit' && dispatch(setLastAffirmationsAction(
-      lastAffirmations.map(item => item.title === title ? { title, topics: selectTopics } : item))
-    )
-  }, [selectTopics])
+    if (menuAction.value === 'edit') {
+      if (itemTitle === '' || selectTopics.length === 0) {
+        setShowErrorToast(true)
+      } else {
+        setShowErrorToast(false)
+        dispatch(setLastAffirmationsAction(
+          lastAffirmations.map(item => item.title === title
+            ? { title: itemTitle, topics: selectTopics }
+            : item
+          )
+        ))
+      }
+    }
+  }, [selectTopics, itemTitle])
 
   useEffect(() => {
     menuAction.value === 'edit'
@@ -72,7 +86,28 @@ const NewAffirmation = ({ title, selectedTopics }) => {
    * @param {DataAffirmation} value
    * @returns {undefined} setMenuAction
    */
-  const handleClickStateMenu = value => setMenuAction(value)
+  const handleClickStateMenu = value => {
+    console.log('value', value)
+    setMenuAction(value)
+  }
+
+  /**
+   * handle input value
+   * @param {undefined} event
+   * @returns {Object} setItemTitle()
+   */
+  const handleInputValue = event => setItemTitle(event.target.value)
+
+  /**
+   * handle click btn done
+   * @return {}
+   */
+  const handleClickBtnDone = () => {
+    // inputRef.current.value = ''
+    setMenuAction({})
+    setDisabledTopics(true)
+    // TODO: use Mutation
+  }
 
   // ? render functions
   /**
@@ -90,7 +125,7 @@ const NewAffirmation = ({ title, selectedTopics }) => {
               </span>
         }
         <span>{t('dashboard.MultipleSelectCheckbox.topics')}</span>
-        {!disabledTopics && <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />}
+        <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
       </Fragment>
     )
   }
@@ -100,7 +135,7 @@ const NewAffirmation = ({ title, selectedTopics }) => {
    * @return {undefined} Chips[] (html)
    */
   const renderChipsItems = () => {
-    return selectTopics.map(item => <Chip key={item.index} disabled={disabledTopics} label={item} onClose={value => handleClickCloseChip(value)}/>)
+    return selectTopics.map((item, index) => <Chip key={index} disabled={disabledTopics} label={item} onClose={value => handleClickCloseChip(value)}/>)
   }
 
   return (
@@ -108,7 +143,17 @@ const NewAffirmation = ({ title, selectedTopics }) => {
       <div className={styles.NewAffirmationSTop}>
         <div className={styles.NewAffirmationS1}>
           <Checkbox checked={check} className={styles.NewAffirmationCheckbox} onChange={() => setCheck(!check)} />
-          <h4>{title}</h4>
+          {!disabledTopics
+            ? <div className={styles.NewAffirmationEditTitleContainer}>
+                <input
+                  ref={inputRef}
+                  value={title}
+                  placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
+                  onChange={handleInputValue}
+                />
+                <button onClick={() => handleClickBtnDone()}>Done</button>
+              </div>
+            : <h4>{itemTitle}</h4>}
         </div>
 
         <div className={styles.NewAffirmationS2}>
@@ -140,6 +185,7 @@ const NewAffirmation = ({ title, selectedTopics }) => {
       <div className={styles.NewAffirmationSBottom}>
         {showChips && renderChipsItems()}
       </div>
+      {showErrorToast && <Toast type="error">{t('dashboard.CreateAffirmations.errorToast')}</Toast>}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 // react
 import React, { Fragment, useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setNewAffirmationAction, setLastAffirmationsAction } from '../../../redux/actions/affirmations.actions'
@@ -9,6 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 // components
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
+import Toast from '../../components/Toast'
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
 // containers
 import NewAffirmation from '../NewAffirmation'
@@ -19,14 +21,14 @@ import styles from './styles.module.scss'
 
 // const
 const { fontColor1, actionColor1 } = COLORS
-// const cleanAffirmation = { title: '', topics: [] }
 
 // * container
 /**
  * CreateAffirmations container
  * @component
+ * @param {boolean} initShowForm
  */
-const CreateAffirmations = () => {
+const CreateAffirmations = ({ initShowForm = true }) => {
   // hooks
   const inputRef = useRef(null)
   const dispatch = useDispatch()
@@ -36,6 +38,8 @@ const CreateAffirmations = () => {
   const [title, setTitle] = useState(newAffirmation.title)
   const [topics, setTopics] = useState(newAffirmation.topics)
   const [listAffirmations, setListAffirmations] = useState([])
+  const [showErrorToast, setShowErrorToast] = useState(false)
+  const [showNewForm, setShowNewForm] = useState(initShowForm)
 
   useEffect(() => dispatch(setNewAffirmationAction({ title, topics })), [title, topics])
 
@@ -66,14 +70,20 @@ const CreateAffirmations = () => {
    * @return {}
    */
   const handleClickBtnDone = () => {
-    inputRef.current.value = ''
-    const _list = listAffirmations
-    _list.push({ title, topics })
-    setListAffirmations(_list)
-    dispatch(setLastAffirmationsAction(_list))
-    setTitle('')
-    setTopics([])
-    // TODO: use Mutation
+    if (title === '' || topics.length === 0) {
+      setShowErrorToast(true)
+    } else {
+      setShowErrorToast(false)
+      inputRef.current.value = ''
+      const _list = listAffirmations
+      _list.push({ title, topics })
+      setListAffirmations(_list)
+      dispatch(setLastAffirmationsAction(_list))
+      setTitle('')
+      setTopics([])
+      setShowNewForm(false)
+      // TODO: use Mutation
+    }
   }
 
   // ? render functions
@@ -102,7 +112,7 @@ const CreateAffirmations = () => {
    * @return {undefined} Chips[] (html)
    */
   const renderChipsItems = () => {
-    return topics.map(item => <Chip key={item.index} label={item} onClose={value => handleClickCloseChip(value)}/>)
+    return topics.map((item, index) => <Chip key={index} label={item} onClose={value => handleClickCloseChip(value)}/>)
   }
 
   /**
@@ -142,6 +152,7 @@ const CreateAffirmations = () => {
         <div className={styles.CreateAffirmationsChipsContainer}>
           {renderChipsItems()}
         </div>
+        {showErrorToast && <Toast variant="filled" type="error">{t('dashboard.CreateAffirmations.errorToast')}</Toast>}
       </div>
     )
   }
@@ -159,12 +170,15 @@ const CreateAffirmations = () => {
       {/* header */}
       <div className={styles.CreateAffirmationsHeaderContainer}>
         <Checkbox checked={selectAllCheckbox} onChange={() => setSelectAllCheckbox(!selectAllCheckbox)} color={actionColor1} className={styles.CreateAffirmationsCheckbox} />
-        <button><Icon name="plus-outline" color={fontColor1} size="md" /> {t('dashboard.CreateAffirmations.addNew')}</button>
+        <button onClick={() => setShowNewForm(true)}>
+          <Icon name="plus-outline" color={fontColor1} size="md" />
+          {t('dashboard.CreateAffirmations.addNew')}
+        </button>
       </div>
       {/* list affirmations */}
       <div className={styles.CreateAffirmationsBodyContainer}>
         {/* create affirmation */}
-        {renderFormItem()}
+        {showNewForm && renderFormItem()}
         {/* list affirmations */}
         <div className={styles.CreateAffirmationsList}>
           {renderLastAffirmations()}
@@ -172,6 +186,12 @@ const CreateAffirmations = () => {
       </div>
     </div>
   )
+}
+
+// prop-types
+CreateAffirmations.propTypes = {
+  /** initShowForm */
+  initShowForm: PropTypes.bool
 }
 
 export default CreateAffirmations

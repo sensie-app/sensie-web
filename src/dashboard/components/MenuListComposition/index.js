@@ -20,7 +20,7 @@ import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
 // prop-types
-import { MenuDataPropTypes } from '../../prop-types'
+// import { MenuDataPropTypes } from '../../prop-types'
 
 // const
 const { fontColor1 } = COLORS
@@ -159,7 +159,8 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
 // prop-types
 MenuListComposition.propTypes = {
   /** data */
-  data: MenuDataPropTypes, // Todo: revisar!
+  // data: MenuDataPropTypes, // Todo: revisar!
+  data: PropTypes.array.isRequired,
   /** click action */
   onClickValue: PropTypes.func.isRequired,
   /** default value */

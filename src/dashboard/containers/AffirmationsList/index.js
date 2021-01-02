@@ -186,7 +186,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
         <div className={styles.AffirmationsListAffirmationChartContainer}>
           {renderAffirmationsAffirmationChart()}
           {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
-            <Pagination count={10} onChange={handlePaginationChange} defaultPage={pagAffirmationsList} />
+            <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />
           </div>}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>

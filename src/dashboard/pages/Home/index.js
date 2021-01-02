@@ -26,7 +26,7 @@ const { client } = DASHBOARD_ROUTES
 
 // * page
 /**
- * Home page
+ * Home page component
  * @component
  */
 const Home = () => {
