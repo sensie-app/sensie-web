@@ -10,7 +10,6 @@ import Checkbox from '@material-ui/core/Checkbox'
 // components
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
-import Toast from '../../components/Toast'
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
 import AffirmationsByTopics from '../../components/AffirmationsByTopics'
 // containers
@@ -40,7 +39,8 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
   const [title, setTitle] = useState(newAffirmation.title)
   const [topics, setTopics] = useState(newAffirmation.topics)
   const [listAffirmations, setListAffirmations] = useState([])
-  const [showErrorToast, setShowErrorToast] = useState(false)
+  const [showErrorTitle, setShowErrorTitle] = useState(false)
+  const [showErrorTopics, setShowErrorTopics] = useState(false)
   const [showNewForm, setShowNewForm] = useState(initShowForm)
 
   useEffect(() => dispatch(setNewAffirmationAction({ title, topics })), [title, topics])
@@ -72,10 +72,9 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
    * @return {}
    */
   const handleClickBtnDone = () => {
-    if (title === '' || topics.length === 0) {
-      setShowErrorToast(true)
-    } else {
-      setShowErrorToast(false)
+    setShowErrorTitle(title === '')
+    setShowErrorTopics(topics.length === 0)
+    if (title !== '' && topics.length > 0) {
       inputRef.current.value = ''
       const _list = listAffirmations
       _list.push({ title, topics })
@@ -125,22 +124,29 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
     return (
       <div className={styles.CreateAffirmationsForm}>
         <div className={styles.CreateAffirmationsFormTopContainer}>
-          <div className={styles.CreateAffirmationsFormD1}>
+          <div className={`${styles.CreateAffirmationsFormD1} ${showErrorTitle || showErrorTopics ? styles.CreateAffirmationsFormD1FlexError : styles.CreateAffirmationsFormD1Flex}`}>
             <div className={styles.CreateAffirmationsFormD1Inputs}>
               <input
                 ref={inputRef}
                 placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
                 onChange={handleInputValue}
+                className={showErrorTitle ? styles.inputBorderError : styles.inputBorder}
               />
+              {showErrorTitle && <span className={styles.errorMessage}>{t('dashboard.CreateAffirmations.errorTitle')}</span>}
             </div>
             <div className={styles.CreateAffirmationsFormD1Btns}>
+              <div>
+                <div className={showErrorTopics ? styles.btnTopicsError : styles.btnTopics}>
+                  <MultipleSelectCheckbox
+                    onClickValue={value => handleClickTopicMenu(value)}
+                    defValue={topics}
+                  >
+                    {renderMultipleSelectCheckboxChildren()}
+                  </MultipleSelectCheckbox>
+                </div>
+                {showErrorTopics && <span className={styles.errorMessage}>{t('dashboard.CreateAffirmations.errorTopic')}</span>}
+              </div>
               <button onClick={() => handleClickBtnDone()} className={styles.CreateAffirmationsFormButtonDone}>Done</button>
-              <MultipleSelectCheckbox
-                onClickValue={value => handleClickTopicMenu(value)}
-                defValue={topics}
-              >
-                {renderMultipleSelectCheckboxChildren()}
-              </MultipleSelectCheckbox>
             </div>
           </div>
           <div className={styles.CreateAffirmationsFormD2}>
@@ -154,7 +160,6 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
         <div className={styles.CreateAffirmationsChipsContainer}>
           {renderChipsItems()}
         </div>
-        {showErrorToast && <Toast variant="filled" type="error">{t('dashboard.CreateAffirmations.errorToast')}</Toast>}
       </div>
     )
   }
