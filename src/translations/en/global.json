@@ -155,6 +155,25 @@
       "addNew": "Add new",
       "writeNewAffirmation": "Write a new affirmation",
       "errorToast": "A title and at least one topic is necessary to create a new affirmation.."
+    },
+    "AffirmationsByTopics": {
+      "title": "Recommended affirmations by topics"
+    },
+    "SageDashboard": {
+      "title": "Enjoyers Activity",
+      "title2": "Monthly Run Rate",
+      "enjoyers": "Enjoyers",
+      "newEnjoyers": "New enjoyers",
+      "activeEnjoyers": "Active enjoyers",
+      "virality": "Virality",
+      "flow": "Flow",
+      "vDissScore": "V.Diss Score",
+      "sensies": "Sensies",
+      "sensiesActiveEnjoyers": "Sensies / Active Enjoyers",
+      "lastMonth": "Last month",
+      "medianDailyStreak": "Median Daily Streak",
+      "top10AvgDailyStreak": "Top 10% Avg. Daily Streak",
+      "top40AvgDailyStreak": "Top 40% Avg. Daily Streak"
     }
   }
 }

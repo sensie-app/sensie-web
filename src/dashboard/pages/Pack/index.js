@@ -57,7 +57,7 @@ const Pack = () => {
         </div>
         {/* body */}
         <div className={styles.PackBodyContainer}>
-          <CreateAffirmations initShowForm={false} />
+          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} />
         </div>
       </div>
     </Fragment>

@@ -1,0 +1,18 @@
+@import '../../styles/index.scss';
+
+.SageDashboardContainer {
+  width: 100%;
+  @include flex(column, space-between, center, nowrap);
+}
+
+.SageDashboardSectionContainer {
+  margin: 10px;
+  background-color: $grayColor6;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+
+  .SageDashboardSectionInfoContainer {
+    width: 100%;
+  }
+}

@@ -7,6 +7,7 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 // components
 import Icon from '../../components/Icon'
 import MenuListComposition from '../../components/MenuListComposition'
+import Title from '../../components/Title'
 // constants
 import { COLORS } from '../../constants/theme'
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -28,12 +29,14 @@ const { home } = DASHBOARD_ROUTES
 /**
  * Header container
  * @component
- * @param {boolean} withBack
- * @param {boolean} withPeople
- * @param {boolean} withDate
- * @param {string} backTo
+ * @param {boolean} withBack (default: false)
+ * @param {boolean} withPeople (default: true)
+ * @param {boolean} withDate (default: true)
+ * @param {boolean} withTitle (default: false)
+ * @param {string} title (default: ')
+ * @param {string} backTo (default: home)
  */
-const Header = ({ withBack = false, withPeople = true, withDate = true, backTo = home }) => {
+const Header = ({ withBack = false, withPeople = true, withDate = true, withTitle = false, title = '', backTo = home }) => {
   // hooks
   const dispatch = useDispatch()
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
@@ -109,13 +112,18 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, backTo =
     <div className={styles.HeaderContainer}>
       <div className={styles.HeaderLeftContainer}>
         {/* back option */}
-        {withBack && <Link to={backTo} className={styles.HeaderBack}>
+        {withBack && !withPeople && !withTitle && <Link to={backTo} className={styles.HeaderBack}>
           <div className={styles.HeaderLeftIcon}><Icon name="arrow-back-outline" size="md" color={fontColor1}/></div>
           <span>{t('dashboard.Header.back')}</span>
         </Link>}
 
+        {/* title */}
+        {withTitle && !withBack && !withPeople && <div className={styles.HeaderTitle}>
+          <Title text={title} color={fontColor1} />
+        </div>}
+
         {/* invite people options */}
-        {withPeople && <div className={styles.HeaderPeople}>
+        {withPeople && !withBack && !withTitle && <div className={styles.HeaderPeople}>
           <div className={styles.HeaderLeftIcon}><Icon name="person-add-outline" size="md" color={fontColor1}/></div>
           <span>{t('dashboard.Header.invitePeople')}</span>
         </div>}
@@ -158,6 +166,10 @@ Header.propTypes = {
   withPeople: PropTypes.bool,
   /** with date */
   withDate: PropTypes.bool,
+  /** with title */
+  withTitle: PropTypes.bool,
+  /** title */
+  title: PropTypes.string,
   /** back to */
   backTo: PropTypes.string
 }

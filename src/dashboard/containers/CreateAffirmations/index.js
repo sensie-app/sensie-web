@@ -12,6 +12,7 @@ import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import Toast from '../../components/Toast'
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
+import AffirmationsByTopics from '../../components/AffirmationsByTopics'
 // containers
 import NewAffirmation from '../NewAffirmation'
 // constants
@@ -27,8 +28,9 @@ const { fontColor1, actionColor1 } = COLORS
  * CreateAffirmations container
  * @component
  * @param {boolean} initShowForm
+ * @param {boolean} withAffirmationsByTopics
  */
-const CreateAffirmations = ({ initShowForm = true }) => {
+const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = true }) => {
   // hooks
   const inputRef = useRef(null)
   const dispatch = useDispatch()
@@ -184,6 +186,10 @@ const CreateAffirmations = ({ initShowForm = true }) => {
           {renderLastAffirmations()}
         </div>
       </div>
+      {/* affirmations by topics */}
+      {withAffirmationsByTopics && <div className={styles.CreateAffirmationsAffirmationsByTopicsContainer}>
+        <AffirmationsByTopics />
+      </div>}
     </div>
   )
 }
@@ -191,7 +197,9 @@ const CreateAffirmations = ({ initShowForm = true }) => {
 // prop-types
 CreateAffirmations.propTypes = {
   /** initShowForm */
-  initShowForm: PropTypes.bool
+  initShowForm: PropTypes.bool,
+  /** withAffirmationsByTopics */
+  withAffirmationsByTopics: PropTypes.bool
 }
 
 export default CreateAffirmations

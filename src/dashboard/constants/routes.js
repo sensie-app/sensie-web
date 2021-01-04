@@ -11,7 +11,8 @@ const DASHBOARD_ROUTES = {
   affirmations: dashboard + '/affirmations',
   addPacks: dashboard + '/add_packs',
   pack: dashboard + '/pack',
-  topic: dashboard + '/topic'
+  topic: dashboard + '/topic',
+  sageDashboard: dashboard + '/sage_dashboard'
 }
 
 export default DASHBOARD_ROUTES

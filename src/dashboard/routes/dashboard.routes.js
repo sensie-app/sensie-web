@@ -1,5 +1,5 @@
 // react
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 // redux
 import { useDispatch } from 'react-redux'
@@ -15,6 +15,7 @@ import Affirmations from '../pages/Affirmations'
 import AddPacks from '../pages/AddPacks'
 import Pack from '../pages/Pack'
 import Topic from '../pages/Topic'
+import SageDashboard from '../pages/SageDashboard'
 // components
 import { NotFound404 } from '../components/Globals'
 // containers
@@ -33,7 +34,18 @@ import '../styles/amplify-ui.scss'
 import '../doc/types'
 
 // const
-const { entrypoint, home, client, team, user, affirmations, addPacks, pack, topic } = DASHBOARD_ROUTES
+const {
+  entrypoint,
+  home,
+  client,
+  team,
+  user,
+  affirmations,
+  addPacks,
+  pack,
+  topic,
+  sageDashboard
+} = DASHBOARD_ROUTES
 
 // * component
 /**
@@ -55,17 +67,16 @@ const DashboardRoutes = () => {
         <BrowserRouter>
           <Switch>
             <Layout>
-              <Fragment>
-                <Route path={home} component={Home} />
-                <Route path={client} component={Client} />
-                <Route path={user} component={User} />
-                <Route path={team} component={Team} />
-                <Route path={affirmations} component={Affirmations} />
-                <Route path={addPacks} component={AddPacks} />
-                <Route path={pack + '/:id'} component={Pack} />
-                <Route path={topic + '/:id'} component={Topic} />
-                <Redirect from={entrypoint} to={home} />
-              </Fragment>
+              <Route path={home} component={Home} />
+              <Route path={client} component={Client} />
+              <Route path={user} component={User} />
+              <Route path={team} component={Team} />
+              <Route path={affirmations} component={Affirmations} />
+              <Route path={addPacks} component={AddPacks} />
+              <Route path={sageDashboard} component={SageDashboard} />
+              <Route path={pack + '/:id'} component={Pack} />
+              <Route path={topic + '/:id'} component={Topic} />
+              <Redirect from={entrypoint} to={home} />
             </Layout>
             <Route component={NotFound404} />
           </Switch>

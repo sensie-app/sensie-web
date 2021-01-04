@@ -7,7 +7,7 @@ import Header from '../../containers/Header'
 import CreateAffirmations from '../../containers/CreateAffirmations'
 // components
 import Share from '../../components/Share'
-import TopicItem from '../../components/TopicItem'
+import SvgIcon from '../../components/SvgIcon'
 // constants
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -77,7 +77,7 @@ const Topic = () => {
             <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${handleImg()})` }} />
             <div className={styles.TopicHeaderTextContainer}>
               <div className={styles.TopicHeaderTextTitle}>
-                <TopicItem topic={id} width="30px" />
+                <SvgIcon icon={id} size="30px" />
                 <span>{id}</span>
               </div>
               <div className={styles.TopicHeaderTextAffirmations}>
@@ -91,7 +91,7 @@ const Topic = () => {
         </div>
         {/* body */}
         <div className={styles.TopicBodyContainer}>
-          <CreateAffirmations initShowForm={false} />
+          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} />
         </div>
       </div>
     </Fragment>

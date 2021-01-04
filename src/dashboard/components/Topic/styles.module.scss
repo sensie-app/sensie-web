@@ -3,8 +3,6 @@
 .TopicContainer {
   position: relative;
   margin: 10px;
-  width: 250px;
-  height: 250px;
   border-radius: 5px;
   @include backgroundImg(cover);
 }
@@ -20,9 +18,9 @@
     color: $actionColor1;
   }
   div {
-    height: 75%;
     @include flex(column, center, center, nowrap);    
     span {
+      color: $fontColor1;
       margin-top: 10px;
     }
   }

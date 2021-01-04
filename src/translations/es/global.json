@@ -5,41 +5,159 @@
       "EN": "EN"
     }
   },
-  "landing": {
-
+  "seo": {
+    "Home": {
+      "title": "SENSIE - Home",
+      "subtitle": "sensei admin panel home page"
+    },
+    "Client": {
+      "title": "SENSIE - Client",
+      "subtitle": "sensei admin panel client page"
+    },
+    "User": {
+      "title": "SENSIE - User",
+      "subtitle": "sensei admin panel user page"
+    },
+    "Team": {
+      "title": "SENSIE - Team",
+      "subtitle": "sensei admin panel team page"
+    }
   },
+  "landing": {},
   "dashboard": {
-    "LayoutComponent": {
+    "Layout": {
       "home": "Home",
       "client": "Client",
       "dashboard": "Dashboard",
       "team": "Team",
-      "couch": "Couch"
+      "couch": "Couch",
+      "signOut": "Sign out",
+      "signOut?": "Are you sure you want to exit the SENSIE panel?",
+      "close": "Close",
+      "affirmations": "Affirmations"
     },
-    "HeaderComponent": {
+    "Header": {
       "back": "Back",
       "invitePeople": "Invite People" 
     },
-    "MenuListCompositionComponent": {
+    "MenuListComposition": {
       "today": "Today",
       "lastDay": "Last day",
       "lastWeek": "Last week",
       "lastMonth": "Last month",
       "lastYear": "Last year",
       "custom": "Custom",
-      "clickHere": "Click here!"
+      "clickHere": "Click here!",
+      "state": "State",
+      "all": "All",
+      "flowing": "Flowing",
+      "blocked": "Blocked",
+      "incomplete": "Incomplete",
+      "topic": "Topic",
+      "spirit": "Spirit",
+      "health": "Health",
+      "finance": "Finance",
+      "love": "Love",
+      "family": "Family",
+      "parenting": "Parenting",
+      "personal": "Personal",
+      "performance": "Performance",
+      "editAffirmation": "Edit affirmation",
+      "deleteAffirmation": "Delete affirmation"
     },
-    "ClientFlowOverviewComponent": {
+    "MultipleSelectCheckbox": {
+      "topics": "Topics"
+    },
+    "ClientFlowOverview": {
       "title": "Client Flow Overview"
     },
-    "ArrowChartComponent": {
+    "IconChart": {
       "clients": "Clients",
       "sensies": "Sensies",
-      "flow": "Flow"
+      "flow": "Flow",
+      "engagement": "Engagement"
     },
-    "TrackAffirmationsComponent": {
-      "title": "Mind - author and track affirmations",
+    "PieChart": {
+      "awarness": "Awarness",
+      "resilence": "Resilence",
+      "trust": "Trust"
+    },
+    "Home": {
+      "mindAuthorAndTrackAffirmations": "Mind - author and track affirmations",
+      "ClientSnapshot": "Client Snapshot",
       "viewMore": "View more"
+    },
+    "Client": {
+      "author": "Author",
+      "affirmations": "Affirmations"
+    },
+    "User": {
+      "awarness": "Awarness",
+      "resilence": "Resilence",
+      "trust": "Trust",
+      "trackAffirmations": "Track affirmations"      
+    },
+    "Affirmations": {
+      "affirmations": "Affirmations",
+      "packs": "Packs",
+      "topics": "Topics"
+    },
+    "Share": {
+      "share": "Share",
+      "shareTo": "Share to",
+      "allClients": "All clients",
+      "selectedClients": "Selected clients"
+    },
+    "Affirmation": {
+      "selectAOption": "Select a option",
+      "affirmation": "Affirmation"
+    },
+    "UserList": {
+      "summary": "Summary",
+      "details": "Details",
+      "clients": "Clients"
+    },
+    "MenuFilterTopicsAffirmationsList": {
+      "spirit": "Spirit",
+      "health": "Health",
+      "finance": "Finance",
+      "love": "Love",
+      "family": "Family",
+      "parenting": "Parenting",
+      "personal": "Personal",
+      "performance": "Performance"
+    },
+    "Topic": {
+      "affirmations": "affirmations"
+    },
+    "Pack": {
+      "affirmations": "affirmations"
+    },
+    "Packs": {
+      "spirit": "Spirit",
+      "health": "Health",
+      "family": "Family",
+      "finance": "Finance",
+      "fun": "Fun",
+      "parenting": "Parenting",
+      "perfomance": "Perfomance",
+      "personal": "Personal",
+      "love": "Love"
+    },
+    "CreatePack": {
+      "createNewPack": "Create new pack",
+      "addImage": "Add a image",
+      "packName": "Pack name",
+      "newPack": "New pack",
+      "create": "Create"
+    },
+    "CreateAffirmations": {
+      "addNew": "Add new",
+      "writeNewAffirmation": "Write a new affirmation",
+      "errorToast": "A title and at least one topic is necessary to create a new affirmation.."
+    },
+    "AffirmationsByTopics": {
+      "title": "Recommended affirmations by topics"
     }
   }
 }
