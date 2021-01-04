@@ -4,7 +4,8 @@ import { Box, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
-    fontSize: 20
+    fontSize: 20,
+    height: 200
   },
   titleStyle: {
     fontWeight: 500

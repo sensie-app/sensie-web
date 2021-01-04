@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
   textStyle: {
     fontSize: '13px',
-    color: 'white',
+    color: '#FFFFFF',
     fontWeight: 'bold'
   },
   btnSend: {

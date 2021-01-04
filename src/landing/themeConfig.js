@@ -8,6 +8,13 @@ const theme = CreateMuiTheme({
     secondary: {
       main: '#071215'
     }
+  },
+  overrides: {
+    MuiInputBase: {
+      input: {
+        color: '#FFFFFF'
+      }
+    }
   }
 })
 

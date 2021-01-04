@@ -26,7 +26,7 @@ const BoxModel1 = ({ evaIcon = null, customIcon = null, value, text }) => {
     <div className={styles.BoxModel1Container}>
       <div className={styles.BoxModel1IconContainer}>
         {evaIcon !== null && customIcon === null && <Icon name={evaIcon} size="xl" color={actionColor1} />}
-        {evaIcon === null && customIcon !== null && <SvgIcon icon={customIcon} size="xl" color={actionColor1} />}
+        {evaIcon === null && customIcon !== null && <SvgIcon icon={customIcon} size="l" color={actionColor1} />}
       </div>
       <div className={styles.BoxModel1InfoContainer}>
         <div className={styles.BoxModelInfoValue}>
