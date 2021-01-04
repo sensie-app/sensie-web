@@ -19,8 +19,9 @@ const { fontColor1 } = COLORS
  * @param {string} label
  * @param {boolean} withClose
  * @param {undefined} onClose
+ * @param {boolean} disabled (default: false)
  */
-const Chip = ({ label, withClose = true, onClose = () => {} }) => {
+const Chip = ({ label, withClose = true, onClose = () => {}, disabled = false }) => {
   // hooks
   // const [t] = useTranslation('global')
 
@@ -35,8 +36,8 @@ const Chip = ({ label, withClose = true, onClose = () => {} }) => {
   return (
     <div className={styles.ChipContainer}>
       <span>{handleLargeName(label.name, 6)}</span>
-      <button onClick={() => onClose(label)}>
-        {withClose && <span>
+      <button onClick={() => onClose(label)} disabled={disabled}>
+        {withClose && !disabled && <span>
           <Icon name="close-outline" size="sm" color={fontColor1} />
         </span>}
       </button>
@@ -51,7 +52,9 @@ Chip.propTypes = {
   /** withClose */
   withClose: PropTypes.bool,
   /** onClose action */
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  /** disabled */
+  disabled: PropTypes.bool
 }
 
 export default Chip

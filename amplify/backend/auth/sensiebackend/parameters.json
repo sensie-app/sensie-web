@@ -1,6 +1,6 @@
 {
     "identityPoolName": "sensiebackend_identitypool",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "sensie55acbfae",
     "userPoolName": "sensiebackend_userpool",
     "autoVerifiedAttributes": [

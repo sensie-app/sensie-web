@@ -20,6 +20,7 @@ import {
 // components
 import Icon from '../../components/Icon'
 import ImageAvatar from '../../components/ImageAvatar'
+import SvgIcon from '../../components/SvgIcon'
 // import { ChangeLngBtn } from '../Globals' // btn to change languge
 import AlertDialog from '../../components/AlertDialog'
 // redux
@@ -32,7 +33,7 @@ import IMG from '../../constants/images'
 import styles from './styles.module.scss'
 
 // constants
-const { home, client, affirmations } = DASHBOARD_ROUTES
+const { home, client, affirmations, sageDashboard } = DASHBOARD_ROUTES
 const { grayColor8, fontColor1, fontColor2 } = COLORS
 const { logo, avatarFemale, avatarMale } = IMG
 // const-sizes
@@ -76,6 +77,12 @@ const Layout = ({ children }) => {
       title: <span>{t('dashboard.Layout.affirmations').toUpperCase()}</span>,
       icon: 'list-outline',
       link: affirmations
+    },
+    {
+      title: <span>{t('dashboard.Layout.sageDashboard').toUpperCase()}</span>,
+      icon: null,
+      icon2: 'sageDashboard',
+      link: sageDashboard
     }
   ]
 
@@ -100,7 +107,10 @@ const Layout = ({ children }) => {
         activeClassName={styles.LayoutLinkToSelected}>
         <div className={styles.LayoutLinkToListItem}>
             <div className={styles.LayoutLinkToIcon}>
-              <Icon name={item.icon} size="md" color={fontColor1} />
+              {item.icon !== null
+                ? <Icon name={item.icon} size="md" color={fontColor1} />
+                : <SvgIcon icon={item.icon2} />
+              }
             </div>
             <div className={styles.LayoutLinkToTextContainer}>
               <span className={styles.LayoutLinkToText}>{item.title}</span>

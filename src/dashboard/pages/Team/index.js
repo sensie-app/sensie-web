@@ -7,7 +7,7 @@ import styles from './styles.module.scss'
 
 // * page
 /**
- * Team page
+ * Team page component
  * @component
  */
 const Team = () => {

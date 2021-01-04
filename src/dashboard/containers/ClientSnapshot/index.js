@@ -80,7 +80,7 @@ const ClientSnapshot = () => {
         {renderClientSnapshotBarChart()}
       </Grid>
       <div className={styles.ClientSnapshotFooter}>
-        <Pagination count={10} onChange={handlePaginationChange} defaultPage={pagClientSnapshot} />
+        <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagClientSnapshot} />
       </div>
     </section>
   )

@@ -6,13 +6,15 @@ import showReducer from './show.reducer'
 import paginationReducer from './pagination.reducer'
 import userReducer from './user.reducer'
 import topicsReducer from './topics.reducer'
+import affirmationsReducer from './affirmations.reducer'
 
 const reducers = combineReducers({
   filtersReducer,
   showReducer,
   paginationReducer,
   userReducer,
-  topicsReducer
+  topicsReducer,
+  affirmationsReducer
 })
 
 export default reducers

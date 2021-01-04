@@ -23,8 +23,7 @@
   @include flex(column, center, center, nowrap);
   @include font($fontColor1, 16px);
   width: 100%;
-  background-color: transparent;
-  
+  background-color: transparent;  
   &:hover {
     background-color: $actionColor1;
     cursor: pointer;

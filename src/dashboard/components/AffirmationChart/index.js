@@ -48,7 +48,7 @@ const AffirmationChart = ({ data, onClickValue = () => {}, isActive = false }) =
 
   return (
     <section className={styles.AffirmationChartContainer}>
-      <button onClick={() => onClickValue(data)} className={isActive && styles.AffirmationChartBtnActive}>
+      <button onClick={() => onClickValue(data)} className={isActive ? styles.AffirmationChartBtnActive : undefined}>
         <span className={styles.AffirmationChartText}>{title}</span>
         <div className={styles.AffirmationChartChartContainer}>
           <div
@@ -68,7 +68,7 @@ const AffirmationChart = ({ data, onClickValue = () => {}, isActive = false }) =
 // prop-types
 AffirmationChart.propTypes = {
   /** value */
-  data: PropTypes.number.isRequired,
+  data: PropTypes.object.isRequired,
   /** onClickValue */
   onClickValue: PropTypes.func,
   /** isActive */

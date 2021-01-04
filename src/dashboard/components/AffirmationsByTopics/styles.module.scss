@@ -1,0 +1,35 @@
+@import '../../styles/index.scss';
+
+.AffirmationsByTopicsContainer {
+  width: 100%;
+}
+
+.AffirmationsByTopicsTitleContainer {
+  width: 100%;
+  @include flex(row, flex-start, center, nowrap);
+  padding-bottom: 10px;
+  margin-top: 20px;
+  .AffirmationsByTopicsTitleTopic {
+    color: $fontColor1;
+    font-style: italic;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+}
+
+.AffirmationsByTopicsHeaderContainer {
+  width: 100%;
+  padding: 10px 0px;
+  @include flex(row, flex-start, center, wrap);
+  button {
+    background-color: transparent;
+    border-style: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.AffirmationsByTopicsListContainer {
+  width: 100%;
+}

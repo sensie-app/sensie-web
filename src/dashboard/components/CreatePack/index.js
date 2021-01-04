@@ -68,6 +68,7 @@ const CreatePack = () => {
       <Modal
         title={t('dashboard.CreatePack.newPack')}
         width='38%'
+        initialState={false}
       >
         {renderModalBtn()}
         {renderModalBody()}

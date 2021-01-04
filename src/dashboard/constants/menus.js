@@ -104,3 +104,16 @@ export const MenuFilterTopicsAffirmationsListComponent = [
     value: 'performance'
   }
 ]
+
+export const MenuItemNewAffirmationComponent = [
+  {
+    index: 0,
+    name: 'editAffirmation',
+    value: 'edit'
+  },
+  {
+    index: 1,
+    name: 'deleteAffirmation',
+    value: 'delete'
+  }
+]
