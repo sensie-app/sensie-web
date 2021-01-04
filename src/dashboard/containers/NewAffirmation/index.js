@@ -21,7 +21,7 @@ import { setLastAffirmationsAction } from '../../../redux/actions/affirmations.a
 import styles from './styles.module.scss'
 
 // const
-const { fontColor1 } = COLORS
+const { fontColor1, actionColor2, actionColor1 } = COLORS
 
 // * component
 /**
@@ -41,6 +41,8 @@ const NewAffirmation = ({ title, selectedTopics }) => {
   const [disabledTopics, setDisabledTopics] = useState(true)
   const [menuAction, setMenuAction] = useState({})
   const [showErrorToast, setShowErrorToast] = useState(false)
+  const [toAdd, setToAdd] = useState(true)
+  console.log('setToAdd', setToAdd)
 
   useEffect(() => {
     if (menuAction.value === 'edit') {
@@ -157,6 +159,16 @@ const NewAffirmation = ({ title, selectedTopics }) => {
         </div>
 
         <div className={styles.NewAffirmationS2}>
+          {!toAdd
+            ? <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => {}}>
+                <Icon name="minus-circle-outline" color={actionColor2} size="md" />
+                <span>{t('dashboard.NewAffirmation.remove')}</span>
+              </button>
+            : <button className={styles.NewAffirmationS2AddBtn} onClick={() => {}}>
+                <Icon name="minus-circle-outline" color={actionColor1} size="md" />
+                <span>{t('dashboard.NewAffirmation.add')}</span>
+              </button>
+          }
           <div className={styles.NewAffirmationS2TopicsBtn}>
             {/* // TODO: adaptar componente a esta sección (redux) */}
             <MultipleSelectCheckbox
