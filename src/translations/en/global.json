@@ -160,7 +160,8 @@
     "CreateAffirmations": {
       "addNew": "Add new",
       "writeNewAffirmation": "Write a new affirmation",
-      "errorToast": "A title and at least one topic is necessary to create a new affirmation.."
+      "errorTitle": "A title is needed for each affirmation",
+      "errorTopic": "Select at least one topic"
     },
     "AffirmationsByTopics": {
       "title": "Recommended affirmations by topics"

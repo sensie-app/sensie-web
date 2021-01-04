@@ -7,7 +7,7 @@
 .CreateAffirmationsHeaderContainer {
   width: 100%;
   padding: 10px 0px;
-  @include flex(row, flex-start, center, nowrap);
+  @include flex(row, space-between, center, nowrap);
   button {    
     @include flex(row, center, center, nowrap);
     background-color: $grayColor8;
@@ -49,21 +49,20 @@
           padding: 7.5px 10px;
           font-size: 16px;
         }
-        span {
-          color: $actionColor4;
-          font-size: 13px;
-        }
       }
       .CreateAffirmationsFormD1Btns{
         width: 50%;
-        @include flex(row, flex-start, center, nowrap);
+        @include flex(row, flex-start, flex-start, nowrap);
+        div {
+          @include flex(column, center, flex-start, nowrap);
+        }
         .CreateAffirmationsFormButtonDone {
           width: 100px;
           color: $actionColor1;
           @include border(solid, 1px, 5px, $actionColor1);
           padding: 6px 15px;
           background-color: transparent;
-          margin: 0px 20px;
+          margin: 2px 20px;
           font-size: 16px;
           &:hover {
             cursor: pointer;
@@ -132,4 +131,11 @@
 
 .btnTopics {
   @include border(solid, 1px, 5px, transparent);
+}
+
+.errorMessage {
+  color: $actionColor4;
+  font-size: 13px;
+  margin-top: 2.5px;
+  width: 100%;
 }
