@@ -8,5 +8,6 @@ export const iconsConstants = {
   perfomance: 'perfomance',
   personal: 'personal',
   love: 'love',
-  sageDashboard: 'sageDashboard'
+  sageDashboard: 'sageDashboard',
+  sensieCircles: 'sensieCircles'
 }

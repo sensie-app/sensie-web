@@ -9,8 +9,13 @@ import Header from '../../containers/Header'
 import BoxModel1 from '../../components/StatisticsBoxes/BoxModel1'
 import BoxModel2 from '../../components/StatisticsBoxes/BoxModel2'
 import BoxModel3 from '../../components/StatisticsBoxes/BoxModel3'
+// constants
+import { iconsConstants } from '../../constants/icons'
 // styles
 import styles from './styles.module.scss'
+
+// const
+const { sensieCircles } = iconsConstants
 
 // * page
 /**
@@ -40,10 +45,10 @@ const SageDashboard = () => {
               <BoxModel2 text={t('dashboard.SageDashboard.flow')}/>
             </Grid>
             <Grid item xs={12} sm={12} md={3} xl={3}>
-              <BoxModel1 evaIcon="question-mark-outline" value={160} text={t('dashboard.SageDashboard.sensies')}/>
+              <BoxModel1 customIcon={sensieCircles} value={160} text={t('dashboard.SageDashboard.sensies')}/>
             </Grid>
             <Grid item xs={12} sm={12} md={3} xl={3}>
-              <BoxModel1 evaIcon="question-mark-outline" value={160} text={t('dashboard.SageDashboard.sensiesActiveEnjoyers')}/>
+              <BoxModel1 customIcon={sensieCircles} value={160} text={t('dashboard.SageDashboard.sensiesActiveEnjoyers')}/>
             </Grid>
             <Grid item xs={12} sm={12} md={3} xl={3}>
               <BoxModel2 text={t('dashboard.SageDashboard.vDissScore')}/>
