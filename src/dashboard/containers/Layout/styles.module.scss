@@ -64,6 +64,15 @@ $drawerWidthIcon: 55px;
 
 .LayoutAvatarNameContainer {
   @include flex(row, space-between, center, wrap);
+  &:hover {
+    cursor: pointer;
+    @include border(solid, 0px 0px 1px 0px, 0px, $actionColor1);
+    span {
+      &:hover {
+        color: $actionColor1;
+      }
+    }
+  }
 }
 
 .LayoutAvatarNameText {
@@ -93,6 +102,9 @@ $drawerWidthIcon: 55px;
 .LayoutAppBarLeftIconsContainer {
   @include flex(row, space-between, center, wrap);  
   width: 100%;
+  div {
+    @include flex(row, space-between, center, wrap);  
+  }
 }
 
 .LayoutListContainer {
@@ -121,3 +133,5 @@ $drawerWidthIcon: 55px;
     display: none;
   }
 }
+
+.LayoutAppBarLeftIconsNotifications {}

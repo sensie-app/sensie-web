@@ -37,7 +37,6 @@
     width: 100%;
 
     .CreateAffirmationsFormD1 {
-      @include flex(row, flex-start, center, nowrap);
       width: 75%;    
       .CreateAffirmationsFormD1Inputs {
         margin-right: 10px;
@@ -45,12 +44,14 @@
         @include flex(column, flex-start, center, nowrap);
         input {
           width: 100%;
-          border-style: none;
-          border-radius: 5px;
           color: $fontColor1;
           background-color: $grayColor7;
-          padding: 5px 10px;
+          padding: 7.5px 10px;
           font-size: 16px;
+        }
+        span {
+          color: $actionColor4;
+          font-size: 13px;
         }
       }
       .CreateAffirmationsFormD1Btns{
@@ -62,7 +63,7 @@
           @include border(solid, 1px, 5px, $actionColor1);
           padding: 6px 15px;
           background-color: transparent;
-          margin-right: 20px;
+          margin: 0px 20px;
           font-size: 16px;
           &:hover {
             cursor: pointer;
@@ -107,4 +108,28 @@
 
 .CreateAffirmationsCountCheckbox {
   @include CountCheckboxInBtn();
+}
+
+.inputBorderError {
+  @include border(solid, 1px, 5px, $actionColor4);
+}
+
+.inputBorder {
+  @include border(solid, 1px, 5px, transparent);
+}
+
+.CreateAffirmationsFormD1FlexError {
+  @include flex(row, flex-start, flex-start, nowrap);
+}
+
+.CreateAffirmationsFormD1Flex {
+  @include flex(row, flex-start, center, nowrap);
+}
+
+.btnTopicsError {
+  @include border(solid, 1px, 5px, $actionColor4);
+}
+
+.btnTopics {
+  @include border(solid, 1px, 5px, transparent);
 }

@@ -16,10 +16,11 @@ import AddPacks from '../pages/AddPacks'
 import Pack from '../pages/Pack'
 import Topic from '../pages/Topic'
 import SageDashboard from '../pages/SageDashboard'
+import Profile from '../pages/Profile'
 // components
 import { NotFound404 } from '../components/Globals'
 // containers
-// import AuthStateApp from '../containers/AuthStateApp'
+import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
 // hooks
 import useGraphQlApi from '../hooks/useGraphQlApi'
@@ -44,7 +45,8 @@ const {
   addPacks,
   pack,
   topic,
-  sageDashboard
+  sageDashboard,
+  profile
 } = DASHBOARD_ROUTES
 
 // * component
@@ -63,25 +65,26 @@ const DashboardRoutes = () => {
   }, [dbTopics])
 
   return (
-  // <AuthStateApp>
-        <BrowserRouter>
-          <Switch>
-            <Layout>
-              <Route path={home} component={Home} />
-              <Route path={client} component={Client} />
-              <Route path={user} component={User} />
-              <Route path={team} component={Team} />
-              <Route path={affirmations} component={Affirmations} />
-              <Route path={addPacks} component={AddPacks} />
-              <Route path={sageDashboard} component={SageDashboard} />
-              <Route path={pack + '/:id'} component={Pack} />
-              <Route path={topic + '/:id'} component={Topic} />
-              <Redirect from={entrypoint} to={home} />
-            </Layout>
-            <Route component={NotFound404} />
-          </Switch>
-        </BrowserRouter>
-  // </AuthStateApp>
+    <AuthStateApp>
+      <BrowserRouter>
+        <Switch>
+          <Layout>
+            <Route path={home} component={Home} />
+            <Route path={client} component={Client} />
+            <Route path={user} component={User} />
+            <Route path={team} component={Team} />
+            <Route path={affirmations} component={Affirmations} />
+            <Route path={addPacks} component={AddPacks} />
+            <Route path={sageDashboard} component={SageDashboard} />
+            <Route path={profile} component={Profile} />
+            <Route path={pack + '/:id'} component={Pack} />
+            <Route path={topic + '/:id'} component={Topic} />
+            <Redirect from={entrypoint} to={home} />
+          </Layout>
+          <Route component={NotFound404} />
+        </Switch>
+      </BrowserRouter>
+    </AuthStateApp>
   )
 }
 

@@ -2,7 +2,7 @@
 // ! ERROR React.StrictMode -> desde Header
 
 // react
-import React, { useState, useEffect, useRef, Fragment } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -14,44 +14,28 @@ import {
   MenuList
 } from '@material-ui/core'
 // components
-import Icon from '../Icon'
+import ImageAvatar from '../ImageAvatar'
+// import Icon from '../Icon'
 // constants
-import { COLORS } from '../../constants/theme'
+// import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
-// prop-types
-// import { MenuDataPropTypes } from '../../prop-types'
-
-// const
-const { fontColor1 } = COLORS
-const defValue = {
-  index: 0,
-  name: 'clickHere'
-}
 
 // * component
 /**
- * MenuListComposition component
+ * MenuListNotifications component
  * @component
  * @param {Array.MenuData} data
  * @param {undefined} onClickValue
- * @param {(MenuData|null)} defaultValue (default: null)
  * @param {undefined} children
- * @param {number} theme (default: 1)
- * @param {boolean} withName (default: true)
- * @param {boolean} onlyChildren (default: false)
  */
-const MenuListComposition = ({ data, onClickValue, defaultValue = null, children, theme = 1, withName = true, onlyChildren = false }) => {
+const MenuListNotifications = ({ data, onClickValue, children }) => {
   // hooks
   const [open, setOpen] = useState(false)
-  const [item, setItem] = useState(defValue)
   const anchorRef = useRef(null)
   const prevOpen = useRef(open)
   const [t] = useTranslation('global')
-  console.log('item', item)
 
-  useEffect(() => defaultValue === null && setItem(defValue), [])
-  useEffect(() => setItem(defaultValue), [defaultValue])
   useEffect(() => {
     prevOpen.current === true && open === false && anchorRef.current.focus()
     prevOpen.current = open
@@ -85,19 +69,8 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
    * open = false
    */
   const handleClick = (value, event) => {
-    setItem(value)
     onClickValue(value)
     handleClose(event)
-  }
-
-  /**
-   * handle theme styles
-   * @return {string} retrun styles
-   */
-  const handleThemeStyles = () => {
-    const styles = {}
-    styles.padding = theme === 1 ? '5px 5px' : '5px 40px'
-    return styles
   }
 
   // ? render functions
@@ -106,13 +79,16 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
    * @return  {undefined} items (html)
    */
   const renderItems = () => {
-    console.log('data', data)
     return data.length > 0 && data.map(item => {
-      console.log('item', item)
       return (
-        <button style={handleThemeStyles()} className={styles.MenuListCompositionItem} key={item.index} onClick={() => handleClick(item, event)}>
-          <div>
-            {t(`dashboard.MenuListComposition.${item.name}`)}
+        <button className={styles.MenuListNotificationsItem} key={item.index} onClick={() => handleClick(item, event)}>
+          <div className={styles.MenuListNotificationsItemInfo}>
+            <ImageAvatar url={item.value.url} alt={item.value.name} size="medium" />
+            <b>{item.value.name}</b>
+            <span>{item.value.message}</span>
+          </div>
+          <div className={styles.MenuListNotificationsItemTime}>
+            <span>{item.value.time}</span>
           </div>
         </button>
       )
@@ -120,21 +96,14 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
   }
 
   return (
-    <div className={styles.MenuListCompositionContainer}>
+    <div className={styles.MenuListNotificationsContainer}>
       <Button
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        {withName
-          ? <Fragment>
-              {children}
-              <span>{t(`dashboard.MenuListComposition.${item.name}`)}</span>
-              <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
-            </Fragment>
-          : children
-        }
+        {children}
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
@@ -142,10 +111,22 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
             {...TransitionProps}
             style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
           >
-            <div className={styles.MenuListCompositionMenuContainer}>
+            <div className={styles.MenuListNotificationsMenuContainer}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow">
-                  {renderItems()}
+                  {/* header */}
+                  <div className={styles.MenuListNotificationsMenuHeader}>
+                    <h4>{t('dashboard.MenuListNotifications.activity')}</h4>
+                    <span>{t('dashboard.MenuListNotifications.markAllAsRead')}</span>
+                  </div>
+                  {/* items */}
+                  <div className={styles.MenuListNotificationsMenuItems}>
+                    {renderItems()}
+                  </div>
+                  {/* footer */}
+                  <div className={styles.MenuListNotificationsMenuFooter}>
+                    <button>{t('dashboard.MenuListNotifications.viewAll')}</button>
+                  </div>
                 </MenuList>
               </ClickAwayListener>
             </div>
@@ -157,22 +138,12 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
 }
 
 // prop-types
-MenuListComposition.propTypes = {
-  /** data */
-  // data: MenuDataPropTypes, // Todo: revisar!
+MenuListNotifications.propTypes = {
   data: PropTypes.array.isRequired,
   /** click action */
   onClickValue: PropTypes.func.isRequired,
-  /** default value */
-  defaultValue: PropTypes.object,
   /** children -> btn open menu */
-  children: PropTypes.element,
-  /** theme */
-  theme: PropTypes.number,
-  /** withName */
-  withName: PropTypes.bool,
-  /** only children */
-  onlyChildren: PropTypes.bool
+  children: PropTypes.element
 }
 
-export default MenuListComposition
+export default MenuListNotifications

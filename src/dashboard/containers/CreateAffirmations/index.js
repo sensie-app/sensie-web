@@ -10,7 +10,6 @@ import Checkbox from '@material-ui/core/Checkbox'
 // components
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
-import Toast from '../../components/Toast'
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
 import AffirmationsByTopics from '../../components/AffirmationsByTopics'
 // containers
@@ -125,22 +124,26 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
     return (
       <div className={styles.CreateAffirmationsForm}>
         <div className={styles.CreateAffirmationsFormTopContainer}>
-          <div className={styles.CreateAffirmationsFormD1}>
+          <div className={`${styles.CreateAffirmationsFormD1} ${showErrorToast ? styles.CreateAffirmationsFormD1FlexError : styles.CreateAffirmationsFormD1Flex}`}>
             <div className={styles.CreateAffirmationsFormD1Inputs}>
               <input
                 ref={inputRef}
                 placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
                 onChange={handleInputValue}
+                className={showErrorToast ? styles.inputBorderError : styles.inputBorder}
               />
+              {showErrorToast && <span>{t('dashboard.CreateAffirmations.errorToast')}</span>}
             </div>
             <div className={styles.CreateAffirmationsFormD1Btns}>
+              <div className={showErrorToast ? styles.btnTopicsError : styles.btnTopics}>
+                <MultipleSelectCheckbox
+                  onClickValue={value => handleClickTopicMenu(value)}
+                  defValue={topics}
+                >
+                  {renderMultipleSelectCheckboxChildren()}
+                </MultipleSelectCheckbox>
+              </div>
               <button onClick={() => handleClickBtnDone()} className={styles.CreateAffirmationsFormButtonDone}>Done</button>
-              <MultipleSelectCheckbox
-                onClickValue={value => handleClickTopicMenu(value)}
-                defValue={topics}
-              >
-                {renderMultipleSelectCheckboxChildren()}
-              </MultipleSelectCheckbox>
             </div>
           </div>
           <div className={styles.CreateAffirmationsFormD2}>
@@ -154,7 +157,6 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
         <div className={styles.CreateAffirmationsChipsContainer}>
           {renderChipsItems()}
         </div>
-        {showErrorToast && <Toast variant="filled" type="error">{t('dashboard.CreateAffirmations.errorToast')}</Toast>}
       </div>
     )
   }

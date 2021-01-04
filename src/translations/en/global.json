@@ -34,7 +34,8 @@
       "signOut": "Sign out",
       "signOut?": "Are you sure you want to exit the SENSIE panel?",
       "close": "Close",
-      "affirmations": "Affirmations"
+      "affirmations": "Affirmations",
+      "sage": "Sage"
     },
     "Header": {
       "back": "Back",
@@ -64,6 +65,11 @@
       "performance": "Performance",
       "editAffirmation": "Edit affirmation",
       "deleteAffirmation": "Delete affirmation"
+    },
+    "MenuListNotifications": {
+      "activity": "Activity",
+      "markAllAsRead": "Mark all as read",
+      "viewAll": "View all"
     },
     "MultipleSelectCheckbox": {
       "topics": "Topics"
