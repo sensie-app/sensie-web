@@ -155,7 +155,8 @@
       "addImage": "Add a image",
       "packName": "Pack name",
       "newPack": "New pack",
-      "create": "Create"
+      "create": "Create",
+      "error": "Enter a name for the pack"
     },
     "CreateAffirmations": {
       "addNew": "Add new",
@@ -181,6 +182,21 @@
       "medianDailyStreak": "Median Daily Streak",
       "top10AvgDailyStreak": "Top 10% Avg. Daily Streak",
       "top40AvgDailyStreak": "Top 40% Avg. Daily Streak"
+    },
+    "NewAffirmation": {
+      "remove": "Remove",
+      "add": "Add"
+    },
+    "Profile": {
+      "profile": "Profile",
+      "fristLastName": "First and last name",
+      "role": "Role",
+      "email": "Email",
+      "useSensie": "How would you like to use Sensie?",
+      "uploadImage": "Upload image",
+      "removeImage": "Remove image",
+      "cancel": "Cancel",
+      "save": "Save"
     }
   }
 }

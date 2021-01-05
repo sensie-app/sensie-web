@@ -6,7 +6,7 @@
   height: 125px;
   @include flex(row, space-between, center, nowrap);
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 5px;
 
   .BoxModel3ValueContainer {
     width: 50%;

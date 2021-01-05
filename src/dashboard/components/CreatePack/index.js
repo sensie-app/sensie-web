@@ -1,7 +1,7 @@
 // react
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 // components
 import Icon from '../Icon'
 import Modal from '../Modal'
@@ -23,6 +23,33 @@ const { addPacks } = DASHBOARD_ROUTES
 const CreatePack = () => {
   // hooks
   const [t] = useTranslation('global')
+  const inputRef = useRef(null)
+  const [showError, setShowError] = useState(false)
+  const [value, setValue] = useState('')
+  const [redirect, setRedirect] = useState(false)
+
+  // ? handle functions
+  /**
+   * handle input value
+   * @param {undefined} event
+   * @returns {Object} setAffirmation()
+   */
+  const handleInputValue = event => {
+    event.preventDefault()
+    setValue(event.target.value)
+  }
+
+  const handleForm = e => {
+    e.preventDefault()
+    if (value.length === 0) {
+      setShowError(true)
+      setRedirect(false)
+    } else {
+      setShowError(false)
+      setRedirect(true)
+    }
+    // return showError && value !== '' && <Redirect to={addPacks} />
+  }
 
   // ? render functions
   /**
@@ -49,17 +76,24 @@ const CreatePack = () => {
           <span>{t('dashboard.CreatePack.addImage')}</span>
         </label>
       </div>
-      <div className={styles.CreatePackBodyForm}>
+      <form className={styles.CreatePackBodyForm}>
         <div className={styles.CreatePackBodyFormInput}>
-          <span>{t('dashboard.CreatePack.packName')}</span>
-          <input />
+          <label>{t('dashboard.CreatePack.packName')}</label>
+          <input
+            ref={inputRef}
+            onChange={handleInputValue}
+            className={showError ? styles.inputBorderError : styles.inputBorder}
+          />
+          {showError && <span>{t('dashboard.CreatePack.error')}</span>}
         </div>
         <div className={styles.CreatePackBodyFormBtn}>
-          <Link to={addPacks}>
-            <button>{t('dashboard.CreatePack.create')}</button>
-          </Link>
+          <button
+            type="submit"
+            onClick={e => handleForm(e)}
+          >{t('dashboard.CreatePack.create')}</button>
+          {redirect && <Redirect to={addPacks} />}
         </div>
-      </div>
+      </form>
     </form>
   )
 

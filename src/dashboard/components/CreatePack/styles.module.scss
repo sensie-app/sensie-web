@@ -50,8 +50,8 @@
   .CreatePackBodyFormInput {
     width: 100%;
     padding: 0px 10px;
-    @include flex(column, space-between, flex-start, nowrap);
-    span {
+    @include flex(column, space-between, flex-start, nowrap);    
+    label {
       color: $fontColor1;
       margin-bottom: 10px;
     }
@@ -60,7 +60,10 @@
       background-color: $grayColor6;
       color: $fontColor1;
       padding: 5px;
-      @include border(solid, 1px, 5px, transparent);
+    }
+    span {
+      font-size: 13px;
+      color: $actionColor4;
     }
   }
   .CreatePackBodyFormBtn {
@@ -82,4 +85,12 @@
 
 #iconButtonFile {
   display: none;
+}
+
+.inputBorderError {
+  @include border(solid, 1px, 5px, $actionColor4);
+}
+
+.inputBorder {
+  @include border(solid, 1px, 5px, transparent);
 }

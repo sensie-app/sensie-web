@@ -109,7 +109,9 @@ const Layout = ({ children }) => {
         to={item.link}
         key={index}
         className={styles.LayoutLinkTo}
-        activeClassName={styles.LayoutLinkToSelected}>
+        activeClassName={styles.LayoutLinkToSelected}
+        onClick={() => setOpen(false)}
+        >
         <div className={styles.LayoutLinkToListItem}>
             <div className={styles.LayoutLinkToIcon}>
               {item.icon !== null
@@ -140,7 +142,7 @@ const Layout = ({ children }) => {
       <div className={styles.LayoutAvatarTextContainer}>
         <div className={styles.LayoutAvatarText}>
           {/* // todo: acomodar */}
-          <Link to={profile}>
+          <Link to={profile} onClick={() => setOpen(false)}>
             <div className={styles.LayoutAvatarNameContainer}>
               <span className={styles.LayoutAvatarNameText}>{user.name}</span>
               <span>{user.family_name}</span>

@@ -6,6 +6,7 @@ export const COLORS = {
   actionColor1: '#15E7BC',
   actionColor2: '#FF46B5',
   actionColor3: '#56CCF2',
+  actionColor4: '#FF5959',
   grayColor1: '#EDEDEF',
   grayColor2: '#D2D3D6',
   grayColor3: '#B1B3B8',

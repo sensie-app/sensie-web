@@ -20,7 +20,7 @@ import { COLORS } from '../../constants/theme'
 import styles from './styles.module.scss'
 
 // const
-const { fontColor1, actionColor1 } = COLORS
+const { fontColor1, actionColor1, actionColor2, actionColor4 } = COLORS
 
 // * container
 /**
@@ -176,8 +176,22 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
     <div className={styles.CreateAffirmationsContainer}>
       {/* header */}
       <div className={styles.CreateAffirmationsHeaderContainer}>
-        <Checkbox checked={selectAllCheckbox} onChange={() => setSelectAllCheckbox(!selectAllCheckbox)} color={actionColor1} className={styles.CreateAffirmationsCheckbox} />
-        <button onClick={() => setShowNewForm(true)}>
+        <div>
+          <Checkbox checked={selectAllCheckbox} onChange={() => setSelectAllCheckbox(!selectAllCheckbox)} color={actionColor1} className={styles.CreateAffirmationsCheckbox} />
+          {selectAllCheckbox
+            ? <div className={styles.CreateAffirmationsHeaderActions}>
+                <button>
+                  <Icon name="trash-2-outline" color={actionColor4} size="md" />
+                </button>
+                <button>
+                  <Icon name="minus-circle-outline" color={actionColor2} size="md" />
+                </button>
+              </div>
+            : <h5>Select all</h5>
+          }
+        </div>
+
+        <button disabled={showNewForm} onClick={() => setShowNewForm(true)} style={{ opacity: !showNewForm ? 1 : 0.5 }}>
           <Icon name="plus-outline" color={fontColor1} size="md" />
           {t('dashboard.CreateAffirmations.addNew')}
         </button>
