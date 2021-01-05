@@ -20,9 +20,9 @@ const { grayColor3 } = COLORS
  * ModalComponent component
  * @component
  * @param {Array.undefined} children (array) children[0]: Button Content, children[1]: Modal Content
- * @param {boolean} initialState
- * @param {string} title
- * @param {string} width
+ * @param {boolean} initialState (default: false)
+ * @param {string} title (default: '')
+ * @param {string} width (default: '25%')
  */
 const ModalComponent = ({ children, initialState = false, title = '', width = '25%' }) => {
   // hooks

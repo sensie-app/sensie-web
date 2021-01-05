@@ -12,7 +12,6 @@ import { API, graphqlOperation } from 'aws-amplify'
  * @returns {Object} response
  */
 const useGraphQlApi = (query, ...state) => {
-  console.log('state', state)
   const [value, setValue] = useState(null)
   const [loading, setLoading] = useState(true)
 

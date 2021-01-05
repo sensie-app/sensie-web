@@ -1,7 +1,3 @@
-/**
- * @module AffirmationsActions
- */
-
 import AFFIRMATIONS from '../constants/affirmations.constants'
 
 const {
@@ -13,10 +9,6 @@ const {
   CLEAN_LAST_AFFIRMATIONS
 } = AFFIRMATIONS
 
-/**
- * [REDUX:ACTION] setNewAffirmation
- * @param {string} data
- */
 export const setNewAffirmationAction = data => {
   return {
     type: NEW_AFFIRMATION,
@@ -24,10 +16,6 @@ export const setNewAffirmationAction = data => {
   }
 }
 
-/**
- * [REDUX:ACTION] setEditAffirmation
- * @param {string} data
- */
 export const setEditAffirmationAction = data => {
   return {
     type: EDIT_AFFIRMATION,
@@ -35,10 +23,6 @@ export const setEditAffirmationAction = data => {
   }
 }
 
-/**
- * [REDUX:ACTION] setLastAffirmations
- * @param {string} data
- */
 export const setLastAffirmationsAction = data => {
   return {
     type: LAST_AFFIRMATIONS,
@@ -46,27 +30,18 @@ export const setLastAffirmationsAction = data => {
   }
 }
 
-/**
- * [REDUX:ACTION] cleanNewAffirmation
- */
 export const cleanNewAffirmationAction = () => {
   return {
     type: CLEAN_NEW_AFFIRMATION
   }
 }
 
-/**
- * [REDUX:ACTION] cleanEditAffirmation
- */
 export const cleanEditAffirmationAction = () => {
   return {
     type: CLEAN_EDIT_AFFIRMATION
   }
 }
 
-/**
- * [REDUX:ACTION] cleanLastAffirmations
- */
 export const cleanLastAffirmationsAction = () => {
   return {
     type: CLEAN_LAST_AFFIRMATIONS

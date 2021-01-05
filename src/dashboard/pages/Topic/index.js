@@ -52,6 +52,10 @@ const Topic = () => {
   console.log('id', id)
 
   // ? handle functions
+  /**
+   * handle img
+   * @returns {string} img
+   */
   const handleImg = () => {
     switch (id) {
       case spirit: return spiritImg
@@ -91,7 +95,7 @@ const Topic = () => {
         </div>
         {/* body */}
         <div className={styles.TopicBodyContainer}>
-          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} />
+          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} addToPack={true} />
         </div>
       </div>
     </Fragment>

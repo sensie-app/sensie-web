@@ -30,7 +30,11 @@ const Affirmations = () => {
   const [show, setShow] = useState(showPacksOrTopics)
 
   // ? handle functions
-  // const handleShow = section => section === SHOW.packs ? setShow(SHOW.packs) : setShow(SHOW.topics)
+  /**
+   * handle show
+   * @param {string} section
+   * @returns {undefined}
+   */
   const handleShow = section => {
     setShow(section)
     dispatch(setShowPacksOrTopicsAction(section))

@@ -30,7 +30,7 @@
       "client": "Client",
       "dashboard": "Dashboard",
       "team": "Team",
-      "couch": "Couch",
+      "couch": "Coach",
       "signOut": "Sign out",
       "signOut?": "Are you sure you want to exit the SENSIE panel?",
       "close": "Close",
@@ -84,7 +84,7 @@
       "engagement": "Engagement"
     },
     "PieChart": {
-      "awarness": "Awarness",
+      "awarness": "Awareness",
       "resilence": "Resilence",
       "trust": "Trust"
     },
@@ -163,7 +163,9 @@
       "writeNewAffirmation": "Write a new affirmation",
       "errorTitle": "A title is needed for each affirmation",
       "errorTopic": "Select at least one topic",
-      "removeToPack": "Remove to pack"
+      "removeToPack": "Remove to pack",
+      "addToPack": "Add to pack",
+      "delete": "Delete"
     },
     "AffirmationsByTopics": {
       "title": "Recommended affirmations by topics",

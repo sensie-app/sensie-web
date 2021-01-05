@@ -27,10 +27,7 @@ const Client = () => {
   // hooks
   const [t] = useTranslation('global')
 
-  // const
-  /**
-   * @type {BTN}
-   */
+  // ? const
   const btn = {
     title: t('dashboard.Client.author'),
     route: affirmations

@@ -20,10 +20,10 @@ const { UP, DOWN, USER, ACTIVITY } = IconChartTypes
  * @component
  * @param {string} title
  * @param {number} value
- * @param {string} valueType
+ * @param {string} valueType (default: 'number')
  * @param {string} icon
- * @param {number} theme theme: (1 | 2)
- * @param {string} forcedColor
+ * @param {number} theme theme: (1 | 2) (default: 1)
+ * @param {string} forcedColor (default: null)
  */
 const IconChart = ({ title, value, valueType = 'number', icon, theme = 1, forcedColor = null }) => {
   // ? handle functions

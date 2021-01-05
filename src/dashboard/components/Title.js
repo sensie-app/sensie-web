@@ -10,8 +10,8 @@ import { COLORS } from '../constants/theme'
  * @component
  * @param {string} title
  * @param {string} color
- * @param {string} margin
- * @param {string} padding
+ * @param {string} margin (default: '0px 0px')
+ * @param {string} padding (default: '0px 0px')
  */
 const Title = ({
   text,

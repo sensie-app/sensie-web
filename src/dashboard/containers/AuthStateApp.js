@@ -9,6 +9,12 @@ import Amplify from 'aws-amplify'
 import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react'
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components'
 import awsconfig from '../../aws-exports'
+// hooks
+// import useGraphQlApi from '../hooks/useGraphQlApi'
+// utils
+import { gqlquery } from '../utils/queries'
+// graphql queries
+import { getUsersQueryById } from '../graphql/queries'
 
 // amplify config
 Amplify.configure(awsconfig)
@@ -16,6 +22,7 @@ Amplify.configure(awsconfig)
 // * container
 /**
  * AuthStateApp container (Amplify)
+ * @component
  * @param {undefined} children
  */
 const AuthStateApp = ({ children }) => {
@@ -31,13 +38,21 @@ const AuthStateApp = ({ children }) => {
     })
   }, [])
 
-  useEffect(() => {
+  useEffect(async () => {
     if (user !== null && authState === 'signedin') {
-      const { username, attributes } = user
-      dispatch(setUserDataAction(attributes))
+      const { username } = user
+      const dbUser = await handleUserQuery(username)
+      dispatch(setUserDataAction(dbUser.value.data.getUser))
       dispatch(setUserIdAction(username))
     }
   }, [user])
+
+  // ? handle functions
+  /**
+   * handle user query (graphQl query)
+   * @param {string} id
+   */
+  const handleUserQuery = async id => await gqlquery(getUsersQueryById(id))
 
   return authState === AuthState.SignedIn && user
     ? <div className="App">{children}</div>
