@@ -1,18 +1,22 @@
 // react
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+// material-ui
+import Checkbox from '@material-ui/core/Checkbox'
 // components
 import Topic from '../Topic'
 import Title from '../Title'
 // constants
 import TopicsConstants from '../../constants/topics'
 import IMG from '../../constants/images'
+import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
 
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
 const { spiritImg, healthImg, financeImg, funImg, loveImg, familyImg, parentingImg, personalImg, performanceImg, noImg } = IMG
+const { actionColor1 } = COLORS
 
 // * component
 /**
@@ -23,6 +27,7 @@ const AffirmationsByTopics = () => {
   // hooks
   const [t] = useTranslation('global')
   const [topic, setTopic] = useState(null)
+  const [selectAllCheckbox, setSelectAllCheckbox] = useState(false)
 
   // ? handle functions
   /**
@@ -78,7 +83,20 @@ const AffirmationsByTopics = () => {
       </div>
       {/* header images */}
       <div className={styles.AffirmationsByTopicsHeaderContainer}>
-        {renderImagesBox()}
+        <div className={styles.AffirmationsByTopicsBoxesContainer}>
+          {renderImagesBox()}
+        </div>
+        <div className={styles.AffirmationsByTopicsActionContainer}>
+          <Checkbox checked={selectAllCheckbox} onChange={() => setSelectAllCheckbox(!selectAllCheckbox)} color={actionColor1} className={styles.AffirmationsByTopicsCheckbox} />
+          {selectAllCheckbox
+            ? <div className={styles.CreateAffirmationsHeaderActions}>
+                <button>
+                  <span>{t('dashboard.AffirmationsByTopics.addToPack')}</span>
+                </button>
+              </div>
+            : <h5>Select all</h5>
+          }
+        </div>
       </div>
       {/* affirmations list */}
       <div className={styles.AffirmationsByTopicsListContainer}>
