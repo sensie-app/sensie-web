@@ -41,7 +41,7 @@ const NewAffirmation = ({ title, selectedTopics }) => {
   const [disabledTopics, setDisabledTopics] = useState(true)
   const [menuAction, setMenuAction] = useState({})
   const [showErrorToast, setShowErrorToast] = useState(false)
-  const [toAdd, setToAdd] = useState(true)
+  const [toAdd, setToAdd] = useState(false)
   console.log('setToAdd', setToAdd)
 
   useEffect(() => {

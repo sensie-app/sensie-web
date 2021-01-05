@@ -155,7 +155,8 @@
       "addImage": "Add a image",
       "packName": "Pack name",
       "newPack": "New pack",
-      "create": "Create"
+      "create": "Create",
+      "error": "Enter a name for the pack"
     },
     "CreateAffirmations": {
       "addNew": "Add new",
@@ -183,7 +184,8 @@
       "top40AvgDailyStreak": "Top 40% Avg. Daily Streak"
     },
     "NewAffirmation": {
-      "remove": "Remove"
+      "remove": "Remove",
+      "add": "Add"
     },
     "Profile": {
       "profile": "Profile",
