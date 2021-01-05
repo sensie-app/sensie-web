@@ -20,16 +20,17 @@ import { COLORS } from '../../constants/theme'
 import styles from './styles.module.scss'
 
 // const
-const { fontColor1, actionColor1, actionColor4 } = COLORS
+const { fontColor1, actionColor1 } = COLORS
 
 // * container
 /**
  * CreateAffirmations container
  * @component
- * @param {boolean} initShowForm
- * @param {boolean} withAffirmationsByTopics
+ * @param {boolean} initShowForm (default: true)
+ * @param {boolean} withAffirmationsByTopics (default: true)
+ * @param {boolean} addToPack (default: false)
  */
-const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = true }) => {
+const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = true, addToPack = false }) => {
   // hooks
   const inputRef = useRef(null)
   const dispatch = useDispatch()
@@ -180,12 +181,17 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
           <Checkbox checked={selectAllCheckbox} onChange={() => setSelectAllCheckbox(!selectAllCheckbox)} color={actionColor1} className={styles.CreateAffirmationsCheckbox} />
           {selectAllCheckbox
             ? <div className={styles.CreateAffirmationsHeaderActions}>
-                <button className={styles.CreateAffirmationsDeletebtn}>
-                  <Icon name="trash-2-outline" color={actionColor4} size="md" />
+                <button>
+                  <span>{t('dashboard.CreateAffirmations.delete')}</span>
                 </button>
-                <button className={styles.CreateAffirmationsRemoveBtn}>
-                  <span>{t('dashboard.CreateAffirmations.removeToPack')}</span>
-                </button>
+                {!addToPack
+                  ? <button>
+                      <span>{t('dashboard.CreateAffirmations.removeToPack')}</span>
+                    </button>
+                  : <button>
+                      <span>{t('dashboard.CreateAffirmations.addToPack')}</span>
+                    </button>
+                }
               </div>
             : <h5>Select all</h5>
           }
@@ -218,7 +224,9 @@ CreateAffirmations.propTypes = {
   /** initShowForm */
   initShowForm: PropTypes.bool,
   /** withAffirmationsByTopics */
-  withAffirmationsByTopics: PropTypes.bool
+  withAffirmationsByTopics: PropTypes.bool,
+  /** addToPack */
+  addToPack: PropTypes.bool
 }
 
 export default CreateAffirmations

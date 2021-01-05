@@ -1,12 +1,5 @@
-/**
- * @module PaginationReducer
- */
-
 import PAGINATION from '../constants/pagination.constants'
 
-/**
- * @type {INITIAL_STATE_SHOW}
- */
 const INITIAL_STATE = {
   pagination: {
     pagAffirmation: 1,
@@ -18,11 +11,6 @@ const INITIAL_STATE = {
 
 const { PAGINATION_AFFIRMATION, PAGINATION_AFFIRMATIONS_LIST, PAGINATION_CLIENT_SNAPSHOT, PAGINATION_USERS_LIST } = PAGINATION
 
-/**
- * [REDUX:REDUCER] paginationReducer
- * @param {INITIAL_STATE_SHOW} state
- * @param {undefined} action
- */
 const paginationReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
     case PAGINATION_AFFIRMATION:

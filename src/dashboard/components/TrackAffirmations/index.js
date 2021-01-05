@@ -12,12 +12,12 @@ import styles from './styles.module.scss'
 /**
  * TrackAffirmations component
  * @component
- * @param {boolean} chipsUp
+ * @param {boolean} chipsUp (default: false)
  * @param {number} limit
  * @param {string} title
  * @param {BtnTrackAffirmation} btn
- * @param {boolean} fixHeight
- * @param {number} theme
+ * @param {boolean} fixHeight (default: false)
+ * @param {number} theme (default: 1)
  */
 const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = false, theme = 1 }) => {
   return (

@@ -20,7 +20,7 @@ const { actionColor1, actionColor2, actionColor3, grayColor3 } = COLORS
  * @component
  * @param {undefined} data
  */
-const SpiderChart = ({ data = data1 }) => {
+const SpiderChart = ({ data }) => {
   // const
   /** @type {number} */
   const margin = 30
@@ -43,7 +43,7 @@ const SpiderChart = ({ data = data1 }) => {
     <div className={styles.SpiderChartContainer}>
       <ResponsiveRadar
           theme={chartTheme}
-          data={data}
+          data={data1}
           indexBy="user"
           keys={['value']}
           colors={[grayColor3]}

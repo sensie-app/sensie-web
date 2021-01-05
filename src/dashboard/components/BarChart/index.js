@@ -22,7 +22,7 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
  * BarChart component
  * @component
  * @param {Array.BarChartData} data
- * @param {boolean} miniature
+ * @param {boolean} miniature (default: false)
  */
 const BarChart = ({ data, miniature = false }) => {
   // const

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
  * Toast component
  * @param {string} type types: error, warning, info, success - (default: success)
  * @param {undefined} children
- * @param {undefined} onClose
+ * @param {undefined} onClose (default: () => {}))
  */
 const Toast = ({ type = 'success', children, onClose = () => {} }) => {
   // hooks

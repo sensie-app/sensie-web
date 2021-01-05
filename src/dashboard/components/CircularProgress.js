@@ -8,7 +8,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 // * component
 /**
  * CircularIndeterminate component
- * @param {string} color
+ * @param {string} color (default: 'white')
+ * @param {number} size (default: 20)
  */
 const CircularIndeterminate = ({ color = 'white', size = 20 }) => {
   // material-ui-styles

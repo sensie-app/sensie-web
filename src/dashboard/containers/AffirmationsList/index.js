@@ -29,9 +29,9 @@ const { fontColor1, grayColor5 } = COLORS
 /**
  * AffirmationsList container
  * @component
- * @param {boolean} chipsUp
+ * @param {boolean} chipsUp (default: false)
  * @param {number} limit
- * @param {string} title
+ * @param {string} title (default: ')
  * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
  */
 const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => {
