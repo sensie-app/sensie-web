@@ -1,0 +1,17 @@
+{
+  "name": "Sensie",
+  "short_name": "Sensie",
+  "lang": "en-US",
+  "start_url": "https://dev.d1wojw5nslzwz.amplifyapp.com/dashboard/home",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "theme_color": "#071215",
+  "icons": [
+    {
+      "src": "./public/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "background_color": "#071215"
+}
