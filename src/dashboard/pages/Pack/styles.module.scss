@@ -1,0 +1,53 @@
+@import '../../styles/index.scss';
+
+.PackContainer {
+  width: 100%;
+  min-height: 80vh;
+  padding: 20px 40px;
+  border-radius: 5px;
+  background-color: $grayColor6;
+}
+
+.PackHeaderContainer {
+  width: 100%;
+  height: 220px;
+  padding: 20px 0px;
+  @include flex(row, space-between, flex-end, wrap);
+  @include border(solid, 0px 0px 1px 0px, 0px, $grayColor5);
+}
+
+.PackHeaderImgContainer {
+  @include flex(row, flex-start, flex-end, wrap);
+
+  .PackHeaderImg {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    @include backgroundImg(cover);
+  }
+  
+  .PackHeaderTextContainer {
+    height: 100%;
+    @include flex(column, flex-end, flex-start, nowrap);
+    color: $fontColor1;
+    padding: 0px 10px;
+    span {
+      font-size: 23px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    div {
+      padding: 5px 10px;
+      background-color: $grayColor7;
+      border-radius: 5px;
+      span {
+        font-size: 13px;
+        color: $grayColor3;
+      }
+    }
+  }
+}
+
+.PackHeaderShareContainer {
+  padding: 0px 10px;
+}

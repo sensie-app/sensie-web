@@ -86,7 +86,7 @@ const UsersList = ({ users = data }) => {
       {/* body */}
       {renderUsers()}
       <div className={styles.UserListPagination}>
-        <Pagination count={10} onChange={handlePaginationChange} defaultPage={pagUsersList} />
+        <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagUsersList} />
       </div>
     </section>
   )

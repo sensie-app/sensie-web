@@ -2,7 +2,7 @@
 // ! ERROR React.StrictMode -> desde Header
 
 // react
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -20,7 +20,7 @@ import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
 // prop-types
-import { MenuDataPropTypes } from '../../prop-types'
+// import { MenuDataPropTypes } from '../../prop-types'
 
 // const
 const { fontColor1 } = COLORS
@@ -35,28 +35,27 @@ const defValue = {
  * @component
  * @param {Array.MenuData} data
  * @param {undefined} onClickValue
- * @param {(MenuData|null)} defaultValue
+ * @param {(MenuData|null)} defaultValue (default: null)
  * @param {undefined} children
- * @param {number} theme
+ * @param {number} theme (default: 1)
+ * @param {boolean} withName (default: true)
+ * @param {boolean} onlyChildren (default: false)
  */
-const MenuListComposition = ({ data, onClickValue, defaultValue = null, children, theme = 1 }) => {
+const MenuListComposition = ({ data, onClickValue, defaultValue = null, children, theme = 1, withName = true, onlyChildren = false }) => {
   // hooks
   const [open, setOpen] = useState(false)
   const [item, setItem] = useState(defValue)
   const anchorRef = useRef(null)
   const prevOpen = useRef(open)
   const [t] = useTranslation('global')
+  console.log('item', item)
 
   useEffect(() => defaultValue === null && setItem(defValue), [])
-
+  useEffect(() => setItem(defaultValue), [defaultValue])
   useEffect(() => {
     prevOpen.current === true && open === false && anchorRef.current.focus()
     prevOpen.current = open
   }, [open])
-
-  useEffect(() => {
-    setItem(defaultValue)
-  }, [defaultValue])
 
   // ? handle functions
   /**
@@ -97,11 +96,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
    */
   const handleThemeStyles = () => {
     const styles = {}
-    if (theme === 1) {
-      styles.padding = '5px 5px'
-    } else {
-      styles.padding = '5px 40px'
-    }
+    styles.padding = theme === 1 ? '5px 5px' : '5px 40px'
     return styles
   }
 
@@ -111,7 +106,9 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
    * @return  {undefined} items (html)
    */
   const renderItems = () => {
-    return data.map(item => {
+    console.log('data', data)
+    return data.length > 0 && data.map(item => {
+      console.log('item', item)
       return (
         <button style={handleThemeStyles()} className={styles.MenuListCompositionItem} key={item.index} onClick={() => handleClick(item, event)}>
           <div>
@@ -130,9 +127,14 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        {children}
-        <span>{t(`dashboard.MenuListComposition.${item.name}`)}</span>
-        <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
+        {withName
+          ? <Fragment>
+              {children}
+              <span>{t(`dashboard.MenuListComposition.${item.name}`)}</span>
+              <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
+            </Fragment>
+          : children
+        }
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
@@ -157,7 +159,8 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
 // prop-types
 MenuListComposition.propTypes = {
   /** data */
-  data: MenuDataPropTypes, // Todo: revisar!
+  // data: MenuDataPropTypes, // Todo: revisar!
+  data: PropTypes.array.isRequired,
   /** click action */
   onClickValue: PropTypes.func.isRequired,
   /** default value */
@@ -165,7 +168,11 @@ MenuListComposition.propTypes = {
   /** children -> btn open menu */
   children: PropTypes.element,
   /** theme */
-  theme: PropTypes.number
+  theme: PropTypes.number,
+  /** withName */
+  withName: PropTypes.bool,
+  /** only children */
+  onlyChildren: PropTypes.bool
 }
 
 export default MenuListComposition

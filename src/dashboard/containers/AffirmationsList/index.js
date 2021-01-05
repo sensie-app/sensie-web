@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 // components
 import AffirmationChart from '../../components/AffirmationChart'
 import MenuListComposition from '../../components/MenuListComposition'
-import MultipleSelectCheckbox from '../../components/MultipleSelectCheckbox'
+import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import Title from '../../components/Title'
@@ -39,8 +39,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
   const dispatch = useDispatch()
   const {
     filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } },
-    paginationReducer: { pagination: { pagAffirmationsList } },
-    topicsReducer: { topics }
+    paginationReducer: { pagination: { pagAffirmationsList } }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [selectValue, setSelectValue] = useState(topicFilter)
@@ -171,7 +170,6 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
           <div className={styles.AffirmationsListFilterBtnMenu}>
             <div className={styles.AffirmationsListFilterBtnMenuComponent}>
               <MultipleSelectCheckbox
-                data={topics}
                 onClickValue={value => handleClickTopicMenu(value)}
                 defValue={topicFilter}
               >
@@ -188,7 +186,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => 
         <div className={styles.AffirmationsListAffirmationChartContainer}>
           {renderAffirmationsAffirmationChart()}
           {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
-            <Pagination count={10} onChange={handlePaginationChange} defaultPage={pagAffirmationsList} />
+            <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />
           </div>}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>

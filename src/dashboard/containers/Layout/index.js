@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // react
 import React, { useState, Fragment } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -19,7 +19,9 @@ import {
 } from '@material-ui/core'
 // components
 import Icon from '../../components/Icon'
+import MenuListNotifications from '../../components/MenuListNotifications'
 import ImageAvatar from '../../components/ImageAvatar'
+import SvgIcon from '../../components/SvgIcon'
 // import { ChangeLngBtn } from '../Globals' // btn to change languge
 import AlertDialog from '../../components/AlertDialog'
 // redux
@@ -30,12 +32,13 @@ import { COLORS } from '../../constants/theme'
 import IMG from '../../constants/images'
 // styles
 import styles from './styles.module.scss'
+// test data
+import { notificationsTest } from './testData'
 
 // constants
-const { home, client, affirmations } = DASHBOARD_ROUTES
-const { grayColor8, fontColor1, fontColor2 } = COLORS
+const { home, client, affirmations, sageDashboard, profile } = DASHBOARD_ROUTES
+const { grayColor8, fontColor1 } = COLORS
 const { logo, avatarFemale, avatarMale } = IMG
-// const-sizes
 const drawerWidth = 210
 
 // * container
@@ -76,6 +79,15 @@ const Layout = ({ children }) => {
       title: <span>{t('dashboard.Layout.affirmations').toUpperCase()}</span>,
       icon: 'list-outline',
       link: affirmations
+    },
+    {
+      title: <Fragment>
+        <span>{t('dashboard.Layout.sage').toUpperCase()}</span>
+        <span>{t('dashboard.Layout.dashboard').toUpperCase()}</span>
+      </Fragment>,
+      icon: null,
+      icon2: 'sageDashboard',
+      link: sageDashboard
     }
   ]
 
@@ -97,10 +109,15 @@ const Layout = ({ children }) => {
         to={item.link}
         key={index}
         className={styles.LayoutLinkTo}
-        activeClassName={styles.LayoutLinkToSelected}>
+        activeClassName={styles.LayoutLinkToSelected}
+        onClick={() => setOpen(false)}
+        >
         <div className={styles.LayoutLinkToListItem}>
             <div className={styles.LayoutLinkToIcon}>
-              <Icon name={item.icon} size="md" color={fontColor1} />
+              {item.icon !== null
+                ? <Icon name={item.icon} size="md" color={fontColor1} />
+                : <SvgIcon icon={item.icon2} />
+              }
             </div>
             <div className={styles.LayoutLinkToTextContainer}>
               <span className={styles.LayoutLinkToText}>{item.title}</span>
@@ -125,13 +142,15 @@ const Layout = ({ children }) => {
       <div className={styles.LayoutAvatarTextContainer}>
         <div className={styles.LayoutAvatarText}>
           {/* // todo: acomodar */}
-          <div className={styles.LayoutAvatarNameContainer}>
-            <span className={styles.LayoutAvatarNameText}>{user.name}</span>
-            <span>{user.family_name}</span>
-          </div>
+          <Link to={profile} onClick={() => setOpen(false)}>
+            <div className={styles.LayoutAvatarNameContainer}>
+              <span className={styles.LayoutAvatarNameText}>{user.name}</span>
+              <span>{user.family_name}</span>
+            </div>
+          </Link>
           <div className={styles.LayoutAvatarSubTextContainer}>
             <span className={styles.LayoutAvatarSubText}>{t('dashboard.Layout.couch')}</span>
-            <Icon name="arrow-ios-downward-outline" size="sm" color={fontColor2} />
+            {/* <Icon name="arrow-ios-downward-outline" size="sm" color={fontColor2} /> */}
           </div>
         </div>
       </div>
@@ -164,15 +183,24 @@ const Layout = ({ children }) => {
               <img src={logo} alt="Sensie logo" width="91" />
               <div>
                 {/* <ChangeLngBtn /> */}
-                <IconButton aria-label="show notifications" color="inherit">
-                  <Badge badgeContent={17} color="primary">
-                    <Icon name="bell-outline" size="md" color={fontColor1} />
-                  </Badge>
-                </IconButton>
+                <div className={styles.LayoutAppBarLeftIconsNotifications}>
+                  <MenuListNotifications
+                    data={notificationsTest}
+                    onClickValue={value => console.log(value)}
+                    theme={2}
+                    withName={false}
+                    defaultValue={null}>
+                    <IconButton aria-label="show notifications" color="inherit">
+                      <Badge badgeContent={17} color="primary">
+                        <Icon name="bell-outline" size="md" color={fontColor1} />
+                      </Badge>
+                    </IconButton>
+                  </MenuListNotifications>
+                </div>
                 <IconButton aria-label="show 17 new notifications" aria-controls="logout-menu" color="inherit" onClick={() => {}}>
-                    <AlertDialog title={t('dashboard.Layout.signOut')} withLogout={true} description={t('dashboard.Layout.signOut?')} disagreeText={t('dashboard.Layout.close')}>
-                      <Icon name="log-out-outline" size="md" color={fontColor1} />
-                    </AlertDialog>
+                  <AlertDialog title={t('dashboard.Layout.signOut')} withLogout={true} description={t('dashboard.Layout.signOut?')} disagreeText={t('dashboard.Layout.close')}>
+                    <Icon name="log-out-outline" size="md" color={fontColor1} />
+                  </AlertDialog>
                 </IconButton>
               </div>
             </div>

@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 // component
 import Icon from '../Icon'
-import ModalComponent from '../Modal'
+import Modal from '../Modal'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
@@ -51,10 +51,10 @@ const Share = () => {
   )
 
   return (
-    <ModalComponent initialState={false} title={t('dashboard.Share.shareTo') + ':'}>
+    <Modal initialState={false} title={t('dashboard.Share.shareTo') + ':'}>
       {renderModalBtn()}
       {renderModalBody()}
-    </ModalComponent>
+    </Modal>
   )
 }
 

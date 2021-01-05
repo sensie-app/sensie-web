@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 
 // * page
 /**
- * User page
+ * User page component
  * @component
  */
 const User = () => {

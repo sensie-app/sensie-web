@@ -20,7 +20,7 @@ const { affirmations } = DASHBOARD_ROUTES
 
 // * page
 /**
- * Client page
+ * Client page component
  * @component
  */
 const Client = () => {

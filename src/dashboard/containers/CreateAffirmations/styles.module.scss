@@ -1,0 +1,189 @@
+@import '../../styles/index.scss';
+
+.CreateAffirmationsContainer {
+  width: 100%;  
+}
+
+.CreateAffirmationsHeaderContainer {
+  width: 100%;
+  padding: 10px 0px;
+  @include flex(row, space-between, center, nowrap);
+  div {
+    @include flex(row, flex-start, center, nowrap);
+  }
+  .CreateAffirmationsRemoveBtn {
+    background-color: transparent;
+    @include border(solid, 1px, 5px, $grayColor3);
+    color: $grayColor3;
+    padding: 5px 15px;
+    margin-left: 10px;
+    font-size: 13px;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+      @include border(solid, 1px, 5px, $grayColor3);
+      cursor: pointer;
+    }
+  }
+  .CreateAffirmationsDeletebtn {    
+    @include flex(row, center, center, nowrap);
+    background-color: $grayColor8;
+    color: $fontColor1;
+    padding: 5px 10px;
+    font-size: 16px;
+    @include border(solid, 1px, 5px, $grayColor8);
+    margin-left: 10px;
+    &:hover {
+      cursor: pointer;
+    }
+  }  
+  .CreateAffirmationsAddBtn {
+    @include flex(row, center, center, nowrap);
+    background-color: $grayColor8;
+    color: $fontColor1;
+    padding: 5px 10px;
+    font-size: 16px;
+    @include border(solid, 1px, 5px, $grayColor8);
+    margin-left: 10px;
+    &:hover {
+      @include border(solid, 1px, 5px, $fontColor1);
+      cursor: pointer;
+    }
+  }
+  .CreateAffirmationsCheckbox {
+    color: $actionColor1;
+  }
+  h5 {
+    color: $grayColor3;
+  }
+}
+
+.CreateAffirmationsForm {
+  width: 100%;
+  background-color: $grayColor5;
+  border-radius: 5px;
+  padding: 10px;
+
+  .CreateAffirmationsFormTopContainer {
+    @include flex(row, space-between, center, nowrap);
+    width: 100%;
+
+    .CreateAffirmationsFormD1 {
+      width: 75%;    
+      .CreateAffirmationsFormD1Inputs {
+        margin-right: 10px;
+        width: 50%;
+        @include flex(column, flex-start, center, nowrap);
+        input {
+          width: 100%;
+          color: $fontColor1;
+          background-color: $grayColor7;
+          padding: 7.5px 10px;
+          font-size: 16px;
+        }
+      }
+      .CreateAffirmationsFormD1Btns{
+        width: 50%;
+        @include flex(row, flex-start, flex-start, nowrap);
+        div {
+          @include flex(column, center, flex-start, nowrap);
+        }
+        .CreateAffirmationsFormButtonDone {
+          width: 100px;
+          color: $actionColor1;
+          @include border(solid, 1px, 5px, $actionColor1);
+          padding: 6px 15px;
+          background-color: transparent;
+          margin: 2px 20px;
+          font-size: 16px;
+          opacity: 0.8;
+          &:hover {
+            cursor: pointer;
+            opacity: 1;
+          }
+        }
+        button {
+          width: 150px;
+          border-radius: 5px;
+          background-color: $grayColor7;
+        }
+      }
+    }
+  
+    .CreateAffirmationsFormD2 {
+      @include flex(row, flex-end, center, nowrap);
+      width: 25%;
+      div {
+        @include flex(row, space-between, center, wrap);
+        width: 25%;
+        padding: 0px 10px;
+      }
+    }
+  }
+
+  hr {
+    border-color: $grayColor4;
+    margin: 10px 0px;
+  }
+
+}
+
+.CreateAffirmationsList {
+  margin-top: 10px;
+}
+
+.CreateAffirmationsChipsContainer {
+  @include flex(row, flex-start, center, wrap);
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.CreateAffirmationsCountCheckbox {
+  @include CountCheckboxInBtn();
+}
+
+.inputBorderError {
+  @include border(solid, 1px, 5px, $actionColor4);
+}
+
+.inputBorder {
+  @include border(solid, 1px, 5px, transparent);
+}
+
+.CreateAffirmationsFormD1FlexError {
+  @include flex(row, flex-start, flex-start, nowrap);
+}
+
+.CreateAffirmationsFormD1Flex {
+  @include flex(row, flex-start, center, nowrap);
+}
+
+.btnTopicsError {
+  @include border(solid, 1px, 5px, $actionColor4);
+}
+
+.btnTopics {
+  @include border(solid, 1px, 5px, transparent);
+}
+
+.errorMessage {
+  color: $actionColor4;
+  font-size: 13px;
+  margin-top: 2.5px;
+  width: 100%;
+}
+
+.CreateAffirmationsHeaderActions {
+  @include flex(row, flex-start, center, nowrap);
+  button {
+    @include border(solid, 1px, 5px, transparent);
+    background-color: $grayColor5;
+    opacity: 0.8;
+    margin-left: 10px;
+    &:hover {
+      opacity: 1;
+      @include border(solid, 1px, 5px, transparent);
+      cursor: pointer;
+    }
+  }
+}

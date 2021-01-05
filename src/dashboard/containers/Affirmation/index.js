@@ -51,7 +51,7 @@ const Affirmation = () => {
         <SpiderChart />
       </div>
       <div className={styles.AffirmationPagination}>
-        <PaginationMUI count={10} onChange={handlePaginationChange} defaultPage={pagAffirmation} />
+        <PaginationMUI count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmation} />
       </div>
     </div>
   )

@@ -1,0 +1,40 @@
+@import '../../../styles/index.scss';
+
+.BoxModel1Container {
+  background-color: $grayColor5;
+  width: 100%;
+  height: 125px;
+  @include flex(row, space-between, center, nowrap);
+  padding: 10px;
+  border-radius: 5px;
+
+  .BoxModel1IconContainer {
+    width: 30%;
+    height: 100%;
+    padding: 20px;
+    @include flex(column, center, center, nowrap);
+  }
+  
+  .BoxModel1InfoContainer {
+    width: 70%;
+    height: 100%;
+    @include flex(column, center, flex-start, nowrap);
+
+    .BoxModelInfoValue {
+      span {
+        width: 100%;
+        font-size: 30px;
+        font-weight: bold;
+        color: $grayColor3;
+      }
+    }
+    
+    .BoxModel1InfoText {
+      span {
+        width: 100%;
+        color: $grayColor3;
+      }
+    }
+  }
+}
+

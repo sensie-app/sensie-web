@@ -37,11 +37,11 @@ const PaginationMUI = ({ count, onChange, defaultPage }) => {
 // prop-types
 PaginationMUI.propTypes = {
   /** count */
-  count: PropTypes.number.isRequire,
+  count: PropTypes.number,
   /** onChange */
-  onChange: PropTypes.func.isRequire,
+  onChange: PropTypes.func,
   /** defaultPage */
-  defaultPage: PropTypes.number.isRequire
+  defaultPage: PropTypes.string
 }
 
 export default PaginationMUI

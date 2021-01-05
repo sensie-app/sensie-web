@@ -120,5 +120,11 @@
         }
       }
     }
+  },
+  "storage": {
+    "sensiecontent": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

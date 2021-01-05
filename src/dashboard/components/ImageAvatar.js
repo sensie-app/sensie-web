@@ -44,7 +44,7 @@ ImageAvatar.propTypes = {
   /** Image url */
   url: PropTypes.string.isRequired,
   /** Image alt prop */
-  alt: PropTypes.string.isRequired,
+  alt: PropTypes.string,
   /** Image size [small, medium, large] */
   size: PropTypes.string
 }

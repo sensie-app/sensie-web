@@ -6,3 +6,8 @@ export const UserListBtns = {
   summary: 'summary',
   details: 'details'
 }
+
+export const CreatePacksTags = {
+  topics: 'topics',
+  packs: 'packs'
+}

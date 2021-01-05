@@ -1,32 +1,40 @@
 // react
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+import { setShowPacksOrTopicsAction } from '../../../redux/actions/show.actions'
 // components
 import Title from '../../components/Title'
 import Share from '../../components/Share'
 import Packs from '../../components/Packs'
 import Topics from '../../components/Topics'
+// constants
+import { CreatePacksTags } from '../../constants/globals'
 // styles
 import styles from './styles.module.scss'
 
 // const
-const SHOW = {
-  packs: 'pack',
-  topics: 'topics'
-}
+const { topics, packs } = CreatePacksTags
 
 // * page
 /**
- * Affirmations page
+ * Affirmations page component
  * @component
  */
 const Affirmations = () => {
   // hooks
+  const dispatch = useDispatch()
+  const { showReducer: { showPacksOrTopics } } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const [show, setShow] = useState(SHOW.packs)
+  const [show, setShow] = useState(showPacksOrTopics)
 
   // ? handle functions
-  const handleShow = section => section === SHOW.packs ? setShow(SHOW.packs) : setShow(SHOW.topics)
+  // const handleShow = section => section === SHOW.packs ? setShow(SHOW.packs) : setShow(SHOW.topics)
+  const handleShow = section => {
+    setShow(section)
+    dispatch(setShowPacksOrTopicsAction(section))
+  }
 
   return (
     <div className={styles.AffirmationsContainer}>
@@ -38,14 +46,14 @@ const Affirmations = () => {
           </div>
           <div className={styles.AffirmationsHeaderTabsContainer}>
             <div>
-              <button className={show === SHOW.packs && styles.AffirmationsBtnSelected} onClick={() => handleShow(SHOW.packs)}><span>{t('dashboard.Affirmations.packs')}</span></button>
-              <button className={show === SHOW.topics && styles.AffirmationsBtnSelected} onClick={() => handleShow(SHOW.topics)}><span>{t('dashboard.Affirmations.topics')}</span></button>
+              <button className={show === packs && styles.AffirmationsBtnSelected} onClick={() => handleShow(packs)}><span>{t('dashboard.Affirmations.packs')}</span></button>
+              <button className={show === topics && styles.AffirmationsBtnSelected} onClick={() => handleShow(topics)}><span>{t('dashboard.Affirmations.topics')}</span></button>
             </div>
             <Share />
           </div>
         </div>
         <div>
-          { show === SHOW.packs ? <Packs /> : <Topics /> }
+          { show === packs ? <Packs /> : <Topics /> }
         </div>
       </div>
     </div>

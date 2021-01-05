@@ -26,7 +26,7 @@ const { client } = DASHBOARD_ROUTES
 
 // * page
 /**
- * Home page
+ * Home page component
  * @component
  */
 const Home = () => {
@@ -36,8 +36,7 @@ const Home = () => {
     filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const dbGetUsersAll = useGraphQlApi(getUsersAllQuery()) // todo: test
-  // const dbGetUsersAll = useGraphQlApi(getUsersAllQuery(user.id, globalDateFilter.value), globalDateFilter) // Todo: use this
+  const dbGetUsersAll = useGraphQlApi(getUsersAllQuery(user.id, globalDateFilter.value), globalDateFilter) // Todo: use this
   console.log('query:', user, globalDateFilter)
 
   const handleDataClientFlow = () => {
@@ -75,6 +74,7 @@ const Home = () => {
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG1Container}>
             <ClientFlow client={handleDataClientFlow().client} sensies={handleDataClientFlow().sensies} />
+            {/* <ClientFlow client={1} sensies={1} /> */}
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>

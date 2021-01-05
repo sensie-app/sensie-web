@@ -1,0 +1,71 @@
+@import '../../styles/index.scss';
+
+.MenuListNotificationsContainer {
+  @include flex(row, center, center, nowrap);
+  z-index: $zIndexLevel1K;
+  button {
+    width: 100%;
+    @include flex(row, space-between, center, nowrap);
+    span {
+      color: $fontColor1;
+      margin-right: 10px;
+    }
+  }
+}
+
+.MenuListNotificationsMenuContainer {
+  padding: 10px;
+  width: 500px;
+  background-color: $grayColor6;
+  @include border(solid, 1px, 5px, $grayColor4);
+}
+
+.MenuListNotificationsItem {
+  @include border(solid, 1px, 5px, transparent);
+  @include flex(column, center, center, nowrap);
+  @include font($fontColor1, 16px);
+  width: 100%;
+  background-color: $grayColor5;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  &:hover {
+    background-color: $actionColor1;
+    cursor: pointer;
+  }
+  .MenuListNotificationsItemInfo {
+    width: 75%;
+    @include flex(row, flex-start, center, nowrap);
+    b, span {
+      margin-left: 10px;
+    }
+  }
+  .MenuListNotificationsItemTime {
+    width: 25%;
+    @include flex(row, flex-end, center, nowrap);
+  }
+}
+
+.MenuListNotificationsMenuHeader {
+  @include flex(row, space-between, center, nowrap);
+  width: 100%;
+  padding: 10px;
+}
+
+.MenuListNotificationsMenuFooter {
+  width: 100%;
+  padding: 10px;
+  button {
+    background-color: transparent;
+    color: $fontColor1;
+    @include flex(row, center, center, nowrap);
+    @include border(solid, 1px, 0px, transparent);
+    &:hover {
+      @include border(solid, 1px, 0px, $grayColor3);
+      cursor: pointer;
+    }
+  }
+}
+
+.MenuListNotificationsMenuItems {
+  padding: 10px;
+}

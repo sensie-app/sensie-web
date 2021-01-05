@@ -34,7 +34,8 @@
       "signOut": "Sign out",
       "signOut?": "Are you sure you want to exit the SENSIE panel?",
       "close": "Close",
-      "affirmations": "Affirmations"
+      "affirmations": "Affirmations",
+      "sage": "Sage"
     },
     "Header": {
       "back": "Back",
@@ -61,7 +62,14 @@
       "family": "Family",
       "parenting": "Parenting",
       "personal": "Personal",
-      "performance": "Performance"
+      "performance": "Performance",
+      "editAffirmation": "Edit affirmation",
+      "deleteAffirmation": "Delete affirmation"
+    },
+    "MenuListNotifications": {
+      "activity": "Activity",
+      "markAllAsRead": "Mark all as read",
+      "viewAll": "View all"
     },
     "MultipleSelectCheckbox": {
       "topics": "Topics"
@@ -125,6 +133,9 @@
       "personal": "Personal",
       "performance": "Performance"
     },
+    "Topic": {
+      "affirmations": "affirmations"
+    },
     "Pack": {
       "affirmations": "affirmations"
     },
@@ -144,10 +155,50 @@
       "addImage": "Add a image",
       "packName": "Pack name",
       "newPack": "New pack",
-      "create": "Create"
+      "create": "Create",
+      "error": "Enter a name for the pack"
     },
     "CreateAffirmations": {
-      "addNew": "Add new"
+      "addNew": "Add new",
+      "writeNewAffirmation": "Write a new affirmation",
+      "errorTitle": "A title is needed for each affirmation",
+      "errorTopic": "Select at least one topic",
+      "removeToPack": "Remove to pack"
+    },
+    "AffirmationsByTopics": {
+      "title": "Recommended affirmations by topics",
+      "addToPack": "Add to pack"
+    },
+    "SageDashboard": {
+      "title": "Enjoyers Activity",
+      "title2": "Monthly Run Rate",
+      "enjoyers": "Enjoyers",
+      "newEnjoyers": "New enjoyers",
+      "activeEnjoyers": "Active enjoyers",
+      "virality": "Virality",
+      "flow": "Flow",
+      "vDissScore": "V.Diss Score",
+      "sensies": "Sensies",
+      "sensiesActiveEnjoyers": "Sensies / Active Enjoyers",
+      "lastMonth": "Last month",
+      "medianDailyStreak": "Median Daily Streak",
+      "top10AvgDailyStreak": "Top 10% Avg. Daily Streak",
+      "top40AvgDailyStreak": "Top 40% Avg. Daily Streak"
+    },
+    "NewAffirmation": {
+      "remove": "Remove",
+      "add": "Add"
+    },
+    "Profile": {
+      "profile": "Profile",
+      "fristLastName": "First and last name",
+      "role": "Role",
+      "email": "Email",
+      "useSensie": "How would you like to use Sensie?",
+      "uploadImage": "Upload image",
+      "removeImage": "Remove image",
+      "cancel": "Cancel",
+      "save": "Save"
     }
   }
 }

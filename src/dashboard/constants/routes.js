@@ -9,7 +9,11 @@ const DASHBOARD_ROUTES = {
   team: dashboard + '/team',
   user: dashboard + '/user',
   affirmations: dashboard + '/affirmations',
-  addPacks: dashboard + '/add_packs'
+  addPacks: dashboard + '/add_packs',
+  pack: dashboard + '/pack',
+  topic: dashboard + '/topic',
+  sageDashboard: dashboard + '/sage_dashboard',
+  profile: dashboard + '/profile'
 }
 
 export default DASHBOARD_ROUTES
