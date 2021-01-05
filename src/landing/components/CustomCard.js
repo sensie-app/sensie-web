@@ -117,10 +117,10 @@ const CustomCard = ({
           <CardHeader title={title} className={classes.header} />
           <Divider variant="middle" />
           <CardContent>
-            <Typography variant="h4" align="center">
+            <Typography variant="h5" align="center">
               {price}
             </Typography>
-            <Typography align="center">Lorem ipsum dolor</Typography>
+            <Typography align="center">Up to 6 people</Typography>
             <Box my={1.5}>
               <WifiRoundedIcon />
             </Box>
@@ -167,10 +167,10 @@ const CustomCard = ({
             <Divider variant="middle" />
             <Grid item xs={12}>
               <CardContent>
-                <Typography variant="h4" align="center">
+                <Typography variant="h5" align="center">
                   {price}
                 </Typography>
-                <Typography align="center">Lorem ipsum dolor</Typography>
+                <Typography align="center">Simple way to start</Typography>
                 <Box my={1.5}>
                   <WifiRoundedIcon />
                 </Box>
@@ -220,10 +220,10 @@ const CustomCard = ({
             <Divider variant="middle" />
             <Grid item xs={12}>
               <CardContent>
-                <Typography variant="h4" align="center">
+                <Typography variant="h5" align="center">
                   {price}
                 </Typography>
-                <Typography align="center">Lorem ipsum dolor</Typography>
+                <Typography align="center">More than 6 people</Typography>
                 <Box my={1.5}>
                   <WifiRoundedIcon />
                 </Box>

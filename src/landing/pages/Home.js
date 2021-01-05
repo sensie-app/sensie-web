@@ -125,14 +125,8 @@ const Home = () => {
           </Box>
           <Box mt={2}>
             <BulletPoint
-              IconItem={Awareness}
-              title={'Gain deep personal insights'}
-            />
-          </Box>
-          <Box mt={2}>
-            <BulletPoint
               IconItem={EcologyHuman}
-              title={'Feel amazing on demand'}
+              title={'Gain deep personal insights'}
             />
           </Box>
           <Box mt={3}>
@@ -148,7 +142,7 @@ const Home = () => {
       {/* BLOQUE 2 Carousel & Sponsor */}
 
       <Grid direction="column">
-        <Box mt={2} mb={18}>
+        <Box mb={18}>
           <Grid container>
             <Grid item xs={1} sm={3}></Grid>
             <Grid item xs={10} sm={6} data-aos="zoom-out-up">
@@ -364,7 +358,7 @@ const Home = () => {
           </Box>
           <Grid item xs={12}>
             {showDashboard ? null : (
-              <Box mt={18}>
+              <Box mt={14}>
                 <Grid item xs={12} data-aos="zoom-out">
                   <Title
                     title="Web and Mobile Solution"
@@ -373,7 +367,7 @@ const Home = () => {
                 </Grid>
                 <Grid item xs={6}></Grid>
                 <Grid item xs={6} style={{ position: 'absolute' }}>
-                  <Box data-aos="fade-right" ml={10} mt={36}>
+                  <Box data-aos="fade-right" ml={10} mt={42}>
                     <VerticalCarousel />
                   </Box>
                 </Grid>
@@ -435,8 +429,8 @@ const Home = () => {
                 <Grid item xs={12} md={4}>
                   <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
                     <CustomCard
-                      title="FREEMIUM"
-                      price="$0"
+                      title="BASIC"
+                      price="Free"
                       detail1="Coach Dashboard"
                       detail2="Client Dashboard"
                       detail3="Basic affirmations authoring"
@@ -449,7 +443,7 @@ const Home = () => {
                     {' '}
                     <CustomCard
                       title="GROUP"
-                      price="$200"
+                      price="$10 usd/month"
                       groupCard={true}
                       detail1="Coach Dashboard"
                       detail2="Client Dashboard"
@@ -463,7 +457,7 @@ const Home = () => {
                     {' '}
                     <CustomCard
                       title="ENTERPRISE"
-                      price="$300"
+                      price="$20 usd/month"
                       detail1="Coach Dashboard"
                       detail2="Client Dashboard"
                       detail3="Individual Client Dashboard"
