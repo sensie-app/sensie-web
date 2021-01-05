@@ -21,7 +21,7 @@ import { setLastAffirmationsAction } from '../../../redux/actions/affirmations.a
 import styles from './styles.module.scss'
 
 // const
-const { fontColor1, actionColor2, actionColor1 } = COLORS
+const { fontColor1 } = COLORS
 
 // * component
 /**
@@ -161,11 +161,9 @@ const NewAffirmation = ({ title, selectedTopics }) => {
         <div className={styles.NewAffirmationS2}>
           {!toAdd
             ? <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => {}}>
-                <Icon name="minus-circle-outline" color={actionColor2} size="md" />
                 <span>{t('dashboard.NewAffirmation.remove')}</span>
               </button>
             : <button className={styles.NewAffirmationS2AddBtn} onClick={() => {}}>
-                <Icon name="minus-circle-outline" color={actionColor1} size="md" />
                 <span>{t('dashboard.NewAffirmation.add')}</span>
               </button>
           }

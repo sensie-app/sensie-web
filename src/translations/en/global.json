@@ -162,10 +162,12 @@
       "addNew": "Add new",
       "writeNewAffirmation": "Write a new affirmation",
       "errorTitle": "A title is needed for each affirmation",
-      "errorTopic": "Select at least one topic"
+      "errorTopic": "Select at least one topic",
+      "removeToPack": "Remove to pack"
     },
     "AffirmationsByTopics": {
-      "title": "Recommended affirmations by topics"
+      "title": "Recommended affirmations by topics",
+      "addToPack": "Add to pack"
     },
     "SageDashboard": {
       "title": "Enjoyers Activity",

@@ -19,13 +19,41 @@
 
 .AffirmationsByTopicsHeaderContainer {
   width: 100%;
-  padding: 10px 0px;
-  @include flex(row, flex-start, center, wrap);
-  button {
-    background-color: transparent;
-    border-style: none;
-    &:hover {
-      cursor: pointer;
+  @include flex(column, center, flex-start, nowrap);
+  .AffirmationsByTopicsActionContainer {
+    width: 100%;
+    padding: 10px 0px;
+    @include flex(row, flex-start, center, wrap);
+    h5 {
+      color: $grayColor3;
+    }
+    .AffirmationsByTopicsCheckbox {
+      color: $actionColor1;
+    }
+    div button {
+      background-color: transparent;
+      @include border(solid, 1px, 5px, $grayColor3);
+      color: $grayColor3;
+      padding: 5px 15px;
+      margin-left: 10px;
+      font-size: 13px;
+      opacity: 0.8;
+      &:hover {
+        opacity: 1;
+        cursor: pointer;
+      }
+    }
+  }
+  .AffirmationsByTopicsBoxesContainer {
+    width: 100%;
+    padding: 10px 0px;
+    @include flex(row, flex-start, center, wrap);
+    button {
+      background-color: transparent;
+      border-style: none;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
@@ -33,3 +61,4 @@
 .AffirmationsByTopicsListContainer {
   width: 100%;
 }
+

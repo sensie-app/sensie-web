@@ -11,8 +11,21 @@
   div {
     @include flex(row, flex-start, center, nowrap);
   }
-  
-  button {    
+  .CreateAffirmationsRemoveBtn {
+    background-color: transparent;
+    @include border(solid, 1px, 5px, $grayColor3);
+    color: $grayColor3;
+    padding: 5px 15px;
+    margin-left: 10px;
+    font-size: 13px;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+      @include border(solid, 1px, 5px, $grayColor3);
+      cursor: pointer;
+    }
+  }
+  .CreateAffirmationsDeletebtn {    
     @include flex(row, center, center, nowrap);
     background-color: $grayColor8;
     color: $fontColor1;
@@ -21,10 +34,22 @@
     @include border(solid, 1px, 5px, $grayColor8);
     margin-left: 10px;
     &:hover {
-      @include border(solid, 1px, 5px, $actionColor1);
       cursor: pointer;
     }
   }  
+  .CreateAffirmationsAddBtn {
+    @include flex(row, center, center, nowrap);
+    background-color: $grayColor8;
+    color: $fontColor1;
+    padding: 5px 10px;
+    font-size: 16px;
+    @include border(solid, 1px, 5px, $grayColor8);
+    margin-left: 10px;
+    &:hover {
+      @include border(solid, 1px, 5px, $fontColor1);
+      cursor: pointer;
+    }
+  }
   .CreateAffirmationsCheckbox {
     color: $actionColor1;
   }
@@ -71,9 +96,10 @@
           background-color: transparent;
           margin: 2px 20px;
           font-size: 16px;
+          opacity: 0.8;
           &:hover {
             cursor: pointer;
-            @include border(solid, 1px, 5px, $fontColor1);
+            opacity: 1;
           }
         }
         button {
