@@ -201,6 +201,10 @@
       "removeImage": "Remove image",
       "cancel": "Cancel",
       "save": "Save"
+    },
+    "WrongOrientation": {
+      "message": "Please rotate your device",
+      "description": "We support landscape mode only"
     }
   }
 }

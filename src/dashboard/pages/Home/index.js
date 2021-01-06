@@ -39,6 +39,7 @@ const Home = () => {
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [dbOrganization, setDbOrganization] = useState(null)
+  // const orientation = useDeviceOrientation()
 
   useEffect(async () => {
     const response = await gqlquery(
@@ -57,7 +58,6 @@ const Home = () => {
    */
   const handleTotalClients = () => {
     if (dbOrganization !== null) {
-      console.log('dbOrganization', dbOrganization)
       const { loading, value: { data } } = dbOrganization
       return !loading && data !== null && data.getOrganization !== null
         ? data.getOrganization.users.items.length

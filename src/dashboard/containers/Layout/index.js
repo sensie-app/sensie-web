@@ -2,6 +2,7 @@
 // react
 import React, { useState, Fragment } from 'react'
 import { NavLink, Link } from 'react-router-dom'
+import MediaQuery from 'react-responsive'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -22,6 +23,7 @@ import Icon from '../../components/Icon'
 import MenuListNotifications from '../../components/MenuListNotifications'
 import ImageAvatar from '../../components/ImageAvatar'
 import SvgIcon from '../../components/SvgIcon'
+import WrongOrientation from '../../components/WrongOrientation'
 // import { ChangeLngBtn } from '../Globals' // btn to change languge
 import AlertDialog from '../../components/AlertDialog'
 // redux
@@ -159,6 +161,11 @@ const Layout = ({ children }) => {
 
   return (
     <Fragment>
+      {/* Orientation */}
+      <MediaQuery maxDeviceWidth={767}>
+        <WrongOrientation />
+      </MediaQuery>
+      <MediaQuery minDeviceWidth={768}>
       <div className={styles.LayoutContainer}>
         <CssBaseline />
         <AppBar
@@ -243,6 +250,7 @@ const Layout = ({ children }) => {
           </div>
         </main>
       </div>
+      </MediaQuery>
     </Fragment>
   )
 }
