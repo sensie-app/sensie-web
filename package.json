@@ -26,6 +26,7 @@
         "@testing-library/react": "^11.2.2",
         "@testing-library/user-event": "^12.2.2",
         "@wojtekmaj/react-daterange-picker": "^3.0.0",
+        "aos": "^2.3.4",
         "aws-amplify": "^3.3.11",
         "axios": "^0.21.0",
         "eva-icons": "^1.1.3",
