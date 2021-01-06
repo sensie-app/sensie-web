@@ -22,7 +22,7 @@ const margin = 5
  * PieChart component
  * @component
  * @param {PieChartData} data
- * @param {string} title
+ * @param {string} title (default: '')
  */
 const PieChart = ({ data = data1, title = '' }) => {
   // ? handle functions

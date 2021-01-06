@@ -1,5 +1,5 @@
 // react
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // components
@@ -27,12 +27,13 @@ const { summary, details } = UserListBtns
 /**
  * UserList container
  * @component
- * @param {Array:User} users
+ * @param {Array:User} users (default: null)
  */
-const UsersList = ({ users = data }) => {
+const UsersList = ({ users = null }) => {
   // hooks
   const [t] = useTranslation('global')
   const dispatch = useDispatch()
+  const [usersList] = useState(users === null ? data : users)
   const {
     showReducer: { userList },
     paginationReducer: { pagination: { pagUsersList } }
@@ -63,7 +64,7 @@ const UsersList = ({ users = data }) => {
 
   // ? render functions
   const renderUsers = () => {
-    return users.map((user, index) => {
+    return usersList.map((user, index) => {
       return <User user={user} key={index} show={userList.showInfo} />
     })
   }

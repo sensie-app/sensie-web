@@ -11,6 +11,9 @@ import styles from './styles.module.scss'
 /**
  * TitleAndButton
  * @component
+ * @param {string} title
+ * @param {string} route
+ * @param {string} btnTitle
  */
 const TitleAndButton = ({ title, route, btnTitle }) => {
   return (

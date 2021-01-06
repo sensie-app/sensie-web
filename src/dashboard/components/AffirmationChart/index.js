@@ -15,7 +15,7 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
  * @component
  * @param {AffirmationChart} data
  * @param {undefined} onClickValue
- * @param {boolean} isActive
+ * @param {boolean} isActive (default: false)
  */
 const AffirmationChart = ({ data, onClickValue = () => {}, isActive = false }) => {
   const { value, title } = data

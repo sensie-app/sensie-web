@@ -144,8 +144,8 @@ const Layout = ({ children }) => {
           {/* // todo: acomodar */}
           <Link to={profile} onClick={() => setOpen(false)}>
             <div className={styles.LayoutAvatarNameContainer}>
-              <span className={styles.LayoutAvatarNameText}>{user.name}</span>
-              <span>{user.family_name}</span>
+              <span className={styles.LayoutAvatarNameText}>{user.firstName}</span>
+              <span>{user.lastName}</span>
             </div>
           </Link>
           <div className={styles.LayoutAvatarSubTextContainer}>

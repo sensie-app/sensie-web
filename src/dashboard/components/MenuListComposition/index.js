@@ -48,7 +48,6 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
   const anchorRef = useRef(null)
   const prevOpen = useRef(open)
   const [t] = useTranslation('global')
-  console.log('item', item)
 
   useEffect(() => defaultValue === null && setItem(defValue), [])
   useEffect(() => setItem(defaultValue), [defaultValue])
@@ -106,9 +105,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
    * @return  {undefined} items (html)
    */
   const renderItems = () => {
-    console.log('data', data)
     return data.length > 0 && data.map(item => {
-      console.log('item', item)
       return (
         <button style={handleThemeStyles()} className={styles.MenuListCompositionItem} key={item.index} onClick={() => handleClick(item, event)}>
           <div>

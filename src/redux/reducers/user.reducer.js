@@ -1,12 +1,5 @@
-/**
- * @module UserReducer
- */
-
 import USER from '../constants/user.constants'
 
-/**
- * @type {INITIAL_STATE_SHOW}
- */
 const INITIAL_STATE = {
   user: {
     id: null,
@@ -18,10 +11,6 @@ const INITIAL_STATE = {
 
 const { USER_ID, LAST_AUTH_USER, USER_ACCESS_TOKEN, USER_DATA } = USER
 
-/**
- * [REDUX:REDUCER] userReducer
- * @param {undefined} action
- */
 const userReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
     case USER_ID:

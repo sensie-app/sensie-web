@@ -1,14 +1,6 @@
-/**
- * @module FiltersReducer
- */
-
-import './doc'
 import FILTERS from '../constants/filters.constants'
 import { MenuDateHeaderComponent, MenuFilterStateAffirmationsListComponentDefaultValueState } from '../../dashboard/constants/menus'
 
-/**
- * @type {INITIAL_STATE_FILTERS}
- */
 const INITIAL_STATE = {
   globalDateFilter: MenuDateHeaderComponent[0],
   affirmations: {
@@ -20,11 +12,6 @@ const INITIAL_STATE = {
 
 const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION } = FILTERS
 
-/**
- * [REDUX:REDUCER] filtersReducer
- * @param {INITIAL_STATE_FILTERS} state
- * @param {undefined} action
- */
 const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
     case GLOBAL_DATE_FILTER:

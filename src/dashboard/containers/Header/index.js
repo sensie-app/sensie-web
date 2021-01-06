@@ -34,9 +34,9 @@ const { home } = DASHBOARD_ROUTES
  * @param {boolean} withDate (default: true)
  * @param {boolean} withTitle (default: false)
  * @param {string} title (default: ')
- * @param {string} backTo (default: home)
+ * @param {string} backTo (default: null)
  */
-const Header = ({ withBack = false, withPeople = true, withDate = true, withTitle = false, title = '', backTo = home }) => {
+const Header = ({ withBack = false, withPeople = true, withDate = true, withTitle = false, title = '', backTo = null }) => {
   // hooks
   const dispatch = useDispatch()
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
@@ -44,6 +44,7 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
   const [datePickerValue, setDatePickerValue] = useState(globalDateFilter.name === 'custom' ? globalDateFilter.value : null)
   const [filter, setFilter] = useState(globalDateFilter)
   const [filterDefault, setFilterDefault] = useState(globalDateFilter)
+  const [backToRoute] = useState(backTo === null ? home : backTo)
 
   useEffect(() => {
     setFilterDefault(filter)
@@ -112,7 +113,7 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
     <div className={styles.HeaderContainer}>
       <div className={styles.HeaderLeftContainer}>
         {/* back option */}
-        {withBack && !withPeople && !withTitle && <Link to={backTo} className={styles.HeaderBack}>
+        {withBack && !withPeople && !withTitle && <Link to={backToRoute} className={styles.HeaderBack}>
           <div className={styles.HeaderLeftIcon}><Icon name="arrow-back-outline" size="md" color={fontColor1}/></div>
           <span>{t('dashboard.Header.back')}</span>
         </Link>}

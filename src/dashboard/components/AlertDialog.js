@@ -20,9 +20,9 @@ import DialogTitle from '@material-ui/core/DialogTitle'
  * @param {string} description
  * @param {string} agreeText
  * @param {string} disagreeText
- * @param {undefined} agreeOnClick
- * @param {undefined} disagreeOnClick
- * @param {boolean} withLogout
+ * @param {undefined} agreeOnClick (default: () => {}))
+ * @param {undefined} disagreeOnClick (default: () => {})
+ * @param {boolean} withLogout (default: false)
  */
 const AlertDialog = ({
   children,

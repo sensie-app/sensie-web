@@ -25,7 +25,7 @@ const Profile = () => {
   // hooks
   const { userReducer: { user: { data } } } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const [name, setName] = useState(data.name + ' ' + data.family_name)
+  const [name, setName] = useState(data.firstName + ' ' + data.lastName)
   console.log('setName', setName)
 
   return (

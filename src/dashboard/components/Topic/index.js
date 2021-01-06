@@ -21,7 +21,7 @@ const { actionColor1 } = COLORS
  * Topic component
  * @component
  * @param {string} route
- * @param {string} img (default: noImg)
+ * @param {string} img (default: null)
  * @param {string} title
  * @param {string} topic
  * @param {boolean} withLink (default: true)
@@ -31,7 +31,7 @@ const { actionColor1 } = COLORS
  */
 const Topic = ({
   route,
-  img = noImg,
+  img = null,
   title,
   topic,
   withLink = true,
@@ -39,7 +39,9 @@ const Topic = ({
   size = '250px',
   iconSize = '50px'
 }) => {
+  // hooks
   const [check, setCheck] = useState(false)
+  const [image] = useState(img === null ? noImg : img)
 
   // ? handle functions
   /**
@@ -49,7 +51,7 @@ const Topic = ({
   const handleCheck = () => setCheck(!check)
 
   return (
-    <div className={styles.TopicContainer} style={{ backgroundImage: `url(${img})`, width: size, height: size }}>
+    <div className={styles.TopicContainer} style={{ backgroundImage: `url(${image})`, width: size, height: size }}>
       <div className={styles.TopicBodyContainer}>
         {witCheckbox && <Checkbox checked={check} onChange={handleCheck} color={actionColor1} className={styles.TopicCheckbox} />}
         {withLink
