@@ -39,7 +39,7 @@ const Science = () => {
                 </Box>
                 <Box>
                   <Grid>
-                    <Subtitle subtitle="Muscle tension is a relax reaction to stress." />
+                    <Subtitle subtitle="Muscle tension is a reflex reaction to stress." />
                   </Grid>
                 </Box>
                 <Box mt={5}>

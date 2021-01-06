@@ -109,13 +109,13 @@ const Home = () => {
         </Grid>
         <Grid item xs={10} md={6} data-aos="zoom-out-up">
           <Box mt={6}>
-            <Title title="Your Smarthphone Just Got Smarter" />
+            <Title title="Your Smartphone Just Got Smarter" />
           </Box>
           <Box mr={1}>
             <Subtitle subtitle="Sensie is everyone's million dollar coach - available whenever, wherever." />
           </Box>
           <Box mt={3}>
-            <BulletPoint IconItem={Measure} title={'Measure Self Awareness'} />
+            <BulletPoint IconItem={Measure} title={'Measure self-awareness'} />
           </Box>
           <Box mt={2}>
             <BulletPoint
@@ -144,11 +144,11 @@ const Home = () => {
       <Grid direction="column">
         <Box mb={18}>
           <Grid container>
-            <Grid item xs={1} sm={3}></Grid>
-            <Grid item xs={10} sm={6} data-aos="zoom-out-up">
+            <Grid item md={3}></Grid>
+            <Grid item xs={12} md={6} data-aos="zoom-out-up">
               <CarouselComponent />
             </Grid>
-            <Grid item xs={1} sm={3}></Grid>
+            <Grid item md={3}></Grid>
           </Grid>
           <Grid container justify-content="space-evenly">
             <Grid item xs={1} sm={2}></Grid>
@@ -163,26 +163,26 @@ const Home = () => {
               data-aos="zoom-out-up"
             >
               <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={MiamiHerald} width="136px" height="40px" />
+                <Sponsor SponsorImg={MiamiHerald} width="176px" height="60px" />
               </Box>
               <Box mt={8} textAlign="center">
                 <Sponsor
                   SponsorImg={AmericanPsychiatric}
-                  width="132px"
-                  height="28px"
+                  width="172px"
+                  height="40px"
                 />
               </Box>
               <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={Wired} width="146px" height="20px" />
+                <Sponsor SponsorImg={Wired} width="186px" height="32px" />
               </Box>
               <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={Transtech} width="135px" height="20px" />
+                <Sponsor SponsorImg={Transtech} width="175px" height="32px" />
               </Box>
               <Box mt={8}>
                 <Sponsor
                   SponsorImg={BerkeleyWell}
-                  width="125px"
-                  height="54px"
+                  width="165px"
+                  height="84px"
                 />
               </Box>
             </Grid>
@@ -209,7 +209,7 @@ const Home = () => {
                 <WisdomCard
                   ImageW={MindfullBeginner}
                   level="Level 1"
-                  text="Mindfull Beginner"
+                  text="Mindful Beginner"
                   width="100px"
                   height="120px"
                 />
@@ -230,7 +230,7 @@ const Home = () => {
                 <WisdomCard
                   ImageW={MetatronStae}
                   level="Level 7"
-                  text="Metatron Stae"
+                  text="Metatron State"
                   width="120px"
                   height="120px"
                 />
@@ -252,14 +252,14 @@ const Home = () => {
                 </Grid>
                 <Box mt={1}>
                   <Grid data-aos="zoom-out-up">
-                    <Epigraph epigraph="Sensie use sensor technology existing in the smartphone." />
+                    <Epigraph epigraph="Sensie is pioneering kinetic biomarkers to help assist human flourishing at scale." />
                   </Grid>
                 </Box>
                 {!showWhip ? (
                   <div data-aos="zoom-in">
                     <Box mt={8}>
                       <Grid>
-                        <Lead lead="Sensie uses existing sensors in your phone to measure de movement in the gesture and detect stress." />
+                        <Lead lead="Sensie uses existing sensors in your phone to measure movement in the gesture and detect stress." />
                       </Grid>
                     </Box>
 
@@ -321,7 +321,7 @@ const Home = () => {
                 </Box>
                 <Box>
                   <Grid data-aos="zoom-out-up">
-                    <Subtitle subtitle="Muscle tension is a relax reaction to stress." />
+                    <Subtitle subtitle="Muscle tension is a reflex reaction to stress." />
                   </Grid>
                 </Box>
                 <Box>
@@ -345,16 +345,14 @@ const Home = () => {
       {/* BLOQUE 6 Web and mobile solution */}
       <Grid container direction="column">
         <Box my={14}>
-          <Box mx={28}>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={12}>
+          <Box mx={18}>
+            <Grid item xs={12} data-aos="zoom-out-up">
               <HowItWorks
                 textWithoutColor="At"
                 textWithColor="Sensie"
                 textWithoutColor2="we provide the best tools to help elevate human flourishing"
               />
             </Grid>
-            <Grid item xs={1}></Grid>
           </Box>
           <Grid item xs={12}>
             {showDashboard ? null : (
@@ -365,12 +363,14 @@ const Home = () => {
                     titleDashboard={true}
                   />
                 </Grid>
-                <Grid item xs={6}></Grid>
-                <Grid item xs={6} style={{ position: 'absolute' }}>
-                  <Box data-aos="fade-right" ml={10} mt={42}>
-                    <VerticalCarousel />
-                  </Box>
-                </Grid>
+                <Hidden smDown>
+                  <Grid item xs={6}></Grid>
+                  <Grid item xs={6} style={{ position: 'absolute' }}>
+                    <Box data-aos="fade-right" ml={10} mt={42}>
+                      <VerticalCarousel />
+                    </Box>
+                  </Grid>
+                </Hidden>
               </Box>
             )}
             <Grid
@@ -380,7 +380,9 @@ const Home = () => {
               style={{ alignItems: 'center' }}
             >
               <Hidden mdUp>
-                <VerticalCarousel />
+                <Box mt={30}>
+                  <VerticalCarousel />
+                </Box>
               </Hidden>
               <Hidden smDown>
                 <Box data-aos-delay="3000">
@@ -410,7 +412,7 @@ const Home = () => {
       </Parallax>
 
       {/* BLOQUE 8 Membership */}
-      <div id="membership"></div>
+      {/* <div id="membership"></div>
       <Grid container direction="column">
         <Box my={8}>
           <Grid item xs={12} data-aos="zoom-out-up">
@@ -470,7 +472,7 @@ const Home = () => {
             </Box>
           </Grid>
         </Box>
-      </Grid>
+      </Grid> */}
     </div>
   )
 }

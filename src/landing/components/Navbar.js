@@ -18,7 +18,7 @@ import APP_ROUTES from '../../constants/routes'
 import LogoSensie from './Logo'
 import CustomizedMenus from './Menu'
 
-const { home, membership, howitworks, scienceanchor, abs, hm } = LANDING_ROUTES
+const { home, /* membership, */ howitworks, scienceanchor, abs, hm } = LANDING_ROUTES
 
 const useStyle = makeStyles((theme) => ({
   offset: {
@@ -85,9 +85,9 @@ const Navbar = () => {
                   <Box mx={1}>SCIENCE</Box>
                 </Link>
 
-                <Link to={membership}>
+                {/* <Link to={membership}>
                   <Box mx={1}>MEMBERSHIP</Box>
-                </Link>
+                </Link> */}
 
                 <NavLink to={home}>
                   <Box mx={1}>BLOG</Box>
