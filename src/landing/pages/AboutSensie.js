@@ -2,10 +2,10 @@ import React from 'react'
 import { makeStyles, Grid, Box } from '@material-ui/core'
 import Title from '../components/Title/Title'
 import Features from '../components/Features'
-import Idea from '../assets/img/idea.svg'
-import Innovation from '../assets/img/innovation.svg'
-import Microscope from '../assets/img/microscope.svg'
-import NeuroImaging from '../assets/img/neuroimaging.svg'
+// import Idea from '../assets/img/idea.svg'
+// import Innovation from '../assets/img/innovation.svg'
+// import Microscope from '../assets/img/microscope.svg'
+// import NeuroImaging from '../assets/img/neuroimaging.svg'
 import Manifesto from '../components/Manifesto'
 import Mike from '../assets/img/MikeDannheim.png'
 import MikeySiegel from '../assets/img/MikeySiegel.jpg'
@@ -23,10 +23,14 @@ import WilliamSoftky from '../assets/img/WilliamSoftky.jpg'
 import JoinUs from '../components/JoinUs'
 import FormFooter from '../components/FormFooter'
 import Member from '../components/Member'
+import VisionMision from '../components/VisionMision'
 
 const useStyles = makeStyles({
   background: {
     backgroundColor: '#071215'
+  },
+  members: {
+    textAlign: '-webkit-center'
   },
   title: {
     fontWeight: 'bold',
@@ -43,21 +47,120 @@ const AboutSensie = () => {
       <Grid container className={classes.background}>
         <Grid item xs={1}></Grid>
         <Grid item container xs={10}>
-          <Grid item xs={12} data-aos="zoom-out-up">
-            <Box mt={16} mb={4}>
-              <Title title="About"></Title>
+          <Box className={classes.members}>
+            <Grid item xs={12} data-aos="zoom-out-up">
+              <Box mt={16} mb={4}>
+                <Title title="About"></Title>
+              </Box>
+            </Grid>
+            <Grid item xs={1}></Grid>
+            <Grid xs={10} data-aos="zoom-out-up">
+              <Box mt={4} mx={4}>
+                <Manifesto
+                  title="MANIFESTO"
+                  text="Our manifesto is how we share our culture with the world. It’s evolving, ever-expanding and is intended to uplift, empower, and shift us into ways of being that help us and the world simultaneously thrive. Like attracts like, our values and manifesto are designed to attract likeminded teammates, partners and customers to help us fulfill our mission and vision. Internally, our manifesto and values are used as guiding principles to help us move in a rhythm that supports our teammates, customers, partners and investors."
+                  feel="Like an instrument, I perform based on how I "
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={1}></Grid>
+          </Box>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={5}>
+            <Box mt={6}>
+              <Features text={'We move slowly and fix things.'} />
             </Box>
-          </Grid>
-          <Grid xs={5} data-aos="zoom-out-up">
-            <Box mt={4}>
-              <Manifesto
-                title="MANIFESTO"
-                text="To foster people and communities that are connected to themselves and their feelings; to empower the world in building lives driven by intention and purpose"
+            <Box mt={2}>
+              <Features
+                text={'The greatest power I will ever experience is awareness.'}
+              />
+            </Box>
+            <Box mt={2}>
+              <Features text={'Awareness is the seat of intelligence.'} />
+            </Box>
+            <Box mt={2}>
+              <Features
+                text={
+                  'A day is an act of creation, how I feel is what I créate.'
+                }
+              />
+            </Box>
+            <Box mt={2}>
+              <Features text={'I can choose how I feel.'} />
+            </Box>
+            <Box mt={2}>
+              <Features
+                text={
+                  'Feelings of powerlessness are a reminder that I’m supported by a community of loving beings.'
+                }
+              />
+            </Box>
+            <Box mt={2}>
+              <Features
+                text={
+                  'My ability to be vulnerable and authentically relate and connect are the medicine.'
+                }
+              />
+            </Box>
+            <Box mt={2}>
+              <Features text={'All things in balance.'} />
+            </Box>
+            <Box mt={2}>
+              <Features
+                text={
+                  'The act of observation is my center, no matter what is going on out there I can rest peacefully within here.'
+                }
+              />
+            </Box>
+            <Box mt={2}>
+              <Features text={'Intention > goals'} />
+            </Box>
+            <Box mt={2}>
+              <Features
+                text={
+                  'Goals create desire, desire creates desire and gets us nowhere Intention creates ways of being, ways of being create focused action, focused action creates effort and output in the direction of our intention.'
+                }
               />
             </Box>
           </Grid>
-          <Grid xs={1}></Grid>
-          <Grid xs={6} data-aos="zoom-out-up">
+          <Grid item xs={5}>
+            <Box mt={6}>
+              <Features
+                text={
+                  'At Sensie we start each day and every meeting authentically relating to our feelings and to each other as a reminder of our power.'
+                }
+              />
+            </Box>
+            <Box mt={2}>
+              <Features
+                text={
+                  'Every Sensie teammate sets their long, mid and short term intentions (relative). We share our intentions with our team and our family to co-create and manifest that which we would like to see in the world.'
+                }
+              />
+            </Box>
+            <Box mt={2}>
+              <Features
+                text={
+                  'We commit to supporting each other from a place of authentically supporting ourselves. The statement, “I am supported” and my feelings associated with it are a litmus test for my well being.'
+                }
+              />
+            </Box>
+            <Box mt={2}>
+              <Features text={'We don’t take ourselves too seriously.'} />
+            </Box>
+            <Box mt={2}>
+              <Features text={'We bring play to our work.'} />
+            </Box>
+            <Box mt={2}>
+              <Features
+                text={
+                  'Deeply committed, but not attached to making the vision a reality everyday'
+                }
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={1}></Grid>
+          {/* <Grid xs={12} data-aos="zoom-out-up">
             <Box mt={4}>
               <Features
                 icon={Idea}
@@ -90,7 +193,22 @@ const AboutSensie = () => {
                 }
               />
             </Box>
+          </Grid> */}
+          <Grid item xs={3}></Grid>
+          <Grid item xs={6}>
+            <Box style={{ textAlign: '-webkit-center' }} mt={10}>
+
+            <VisionMision
+              title="VISION"
+              text="A world of people connected to their feelings living happier, healthier lives."
+              />
+            <VisionMision
+              title="MISSION"
+              text="To reconnect the world to their hearts and intuitive wisdom."
+              />
+            </Box>
           </Grid>
+          <Grid item xs={3}></Grid>
         </Grid>
         <Grid item xs={1}></Grid>
         <Grid container justify-content="space-evenly">
