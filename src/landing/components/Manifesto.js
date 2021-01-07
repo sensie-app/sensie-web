@@ -18,7 +18,7 @@ const useStyle = makeStyles({
   }
 })
 
-const Manifesto = ({ title, text, feel }) => {
+const Manifesto = ({ title, text, feel, feel2 }) => {
   const classes = useStyle()
   return (
     <Grid container direction="column">
@@ -33,7 +33,7 @@ const Manifesto = ({ title, text, feel }) => {
       </Grid>{' '}
       <Grid item container xs={12}>
         <Grid item xs={12}>
-          <Box mt={2}>
+          <Box mt={2} style={{ textAlign: 'justify' }}>
             <Typography className={classes.text}>{text}</Typography>
           </Box>
         </Grid>
@@ -48,7 +48,7 @@ const Manifesto = ({ title, text, feel }) => {
         <Grid item xs={4}>
           <Box mt={3}>
             <Typography className={classes.feel}>
-              {feel}
+              {feel}<br/>{feel2}
               <span style={{ color: '#15E7BC' }}>feel</span>.
             </Typography>
           </Box>

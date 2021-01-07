@@ -59,7 +59,8 @@ const AboutSensie = () => {
                 <Manifesto
                   title="MANIFESTO"
                   text="Our manifesto is how we share our culture with the world. It’s evolving, ever-expanding and is intended to uplift, empower, and shift us into ways of being that help us and the world simultaneously thrive. Like attracts like, our values and manifesto are designed to attract likeminded teammates, partners and customers to help us fulfill our mission and vision. Internally, our manifesto and values are used as guiding principles to help us move in a rhythm that supports our teammates, customers, partners and investors."
-                  feel="Like an instrument, I perform based on how I "
+                  feel="Like an instrument, I perform "
+                  feel2="based on how I "
                 />
               </Box>
             </Grid>
@@ -67,55 +68,55 @@ const AboutSensie = () => {
           </Box>
           <Grid item xs={1}></Grid>
           <Grid item xs={5}>
-            <Box mt={6}>
+            <Box mt={6} data-aos="zoom-out-up">
               <Features text={'We move slowly and fix things.'} />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={'The greatest power I will ever experience is awareness.'}
               />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features text={'Awareness is the seat of intelligence.'} />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
                   'A day is an act of creation, how I feel is what I créate.'
                 }
               />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features text={'I can choose how I feel.'} />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
                   'Feelings of powerlessness are a reminder that I’m supported by a community of loving beings.'
                 }
               />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
                   'My ability to be vulnerable and authentically relate and connect are the medicine.'
                 }
               />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features text={'All things in balance.'} />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
                   'The act of observation is my center, no matter what is going on out there I can rest peacefully within here.'
                 }
               />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features text={'Intention > goals'} />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
                   'Goals create desire, desire creates desire and gets us nowhere Intention creates ways of being, ways of being create focused action, focused action creates effort and output in the direction of our intention.'
@@ -124,34 +125,34 @@ const AboutSensie = () => {
             </Box>
           </Grid>
           <Grid item xs={5}>
-            <Box mt={6}>
+            <Box mt={6} data-aos="zoom-out-up">
               <Features
                 text={
                   'At Sensie we start each day and every meeting authentically relating to our feelings and to each other as a reminder of our power.'
                 }
               />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
                   'Every Sensie teammate sets their long, mid and short term intentions (relative). We share our intentions with our team and our family to co-create and manifest that which we would like to see in the world.'
                 }
               />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
                   'We commit to supporting each other from a place of authentically supporting ourselves. The statement, “I am supported” and my feelings associated with it are a litmus test for my well being.'
                 }
               />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features text={'We don’t take ourselves too seriously.'} />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features text={'We bring play to our work.'} />
             </Box>
-            <Box mt={2}>
+            <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
                   'Deeply committed, but not attached to making the vision a reality everyday'
@@ -196,15 +197,18 @@ const AboutSensie = () => {
           </Grid> */}
           <Grid item xs={3}></Grid>
           <Grid item xs={6}>
-            <Box style={{ textAlign: '-webkit-center' }} mt={10}>
-
-            <VisionMision
-              title="VISION"
-              text="A world of people connected to their feelings living happier, healthier lives."
+            <Box
+              style={{ textAlign: '-webkit-center' }}
+              mt={10}
+              data-aos="zoom-out-up"
+            >
+              <VisionMision
+                title="VISION"
+                text="A world of people connected to their feelings living happier, healthier lives."
               />
-            <VisionMision
-              title="MISSION"
-              text="To reconnect the world to their hearts and intuitive wisdom."
+              <VisionMision
+                title="MISSION"
+                text="To reconnect the world to their hearts and intuitive wisdom."
               />
             </Box>
           </Grid>
