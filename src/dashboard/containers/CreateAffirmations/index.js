@@ -193,7 +193,7 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
                     </button>
                 }
               </div>
-            : <h5>Select all</h5>
+            : <h5>{t('dashboard.CreateAffirmations.selectAll')}</h5>
           }
         </div>
 

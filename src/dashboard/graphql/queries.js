@@ -1,5 +1,5 @@
 
-export const getUsersQueryById = (id) => `
+export const getUsersByIdQuery = id => `
   query MyQuery {
     getUser(id: "${id}") {
       email
@@ -16,7 +16,7 @@ export const getUsersQueryById = (id) => `
   }
 `
 
-export const getOrganizationById = (id, dates) => `
+export const getOrganizationByIdQuery = (id, dates) => `
   query MyQuery {
     getOrganization(id: "${id}") {
       users {
@@ -59,6 +59,94 @@ export const listTopicsQuery = () => `
         id
         description
         name
+      }
+    }
+  }
+`
+
+export const listTopicsWiyhAffirmationsIdsQuery = () => `
+  query MyQuery {
+    listTopics {
+      items {
+        description
+        id
+        name
+        affirmations {
+          items {
+            id
+          }
+        }
+      }
+    }
+  }
+`
+
+export const getTopicByIdQuery = id => `
+  query MyQuery {
+    getTopic(id: "${id}") {
+      name
+      id
+      description
+      affirmations {
+        items {
+          affirmation {
+            name
+            id
+            topics {
+              items {
+                topic {
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const listPacksWiyhAffirmationsIdsQuery = () => `
+  query MyQuery {
+    listPacks {
+      items {
+        name
+        id
+        description
+        affirmations {
+          items {
+            affirmationId
+          }
+        }
+      }
+    }
+  }
+`
+
+export const getPackByIdQuery = id => `
+  query MyQuery {
+    getPack(id: "${id}") {
+      description
+      id
+      name
+      affirmations {
+        items {
+          affirmation {
+            description
+            id
+            name
+            topics {
+              items {
+                topic {
+                  description
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

@@ -39,7 +39,7 @@
         font-size: 23px;
         font-weight: bold;
       }
-    }
+    }    
     .TopicHeaderTextAffirmations {
       padding: 5px 10px;
       background-color: $grayColor7;
@@ -55,4 +55,13 @@
 
 .TopicHeaderShareContainer {
   padding: 0px 10px;
+}
+
+.TopicHeaderTextDescription {
+  padding: 10px;
+  width: 90%;
+  h6 {
+    font-size: 10px;
+    color: $fontColor1;
+  }
 }

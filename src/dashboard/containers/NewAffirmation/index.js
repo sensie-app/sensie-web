@@ -27,8 +27,13 @@ const { fontColor1 } = COLORS
 /**
  * NewAffirmation component
  * @component
+ * @param {string} title
+ * @param {array} selectedTopics
+ * @param {boolean} withRemoveBtn (default: true)
+ * @param {boolean} withAddBtn (default: false)
  */
-const NewAffirmation = ({ title, selectedTopics }) => {
+const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBtn = false }) => {
+  console.log('selectedTopics', selectedTopics)
   // hooks
   const dispatch = useDispatch()
   const { affirmationsReducer: { lastAffirmations } } = useSelector(state => state)
@@ -41,8 +46,6 @@ const NewAffirmation = ({ title, selectedTopics }) => {
   const [disabledTopics, setDisabledTopics] = useState(true)
   const [menuAction, setMenuAction] = useState({})
   const [showErrorToast, setShowErrorToast] = useState(false)
-  const [toAdd, setToAdd] = useState(false)
-  console.log('setToAdd', setToAdd)
 
   useEffect(() => {
     if (menuAction.value === 'edit') {
@@ -137,7 +140,7 @@ const NewAffirmation = ({ title, selectedTopics }) => {
    * @return {undefined} Chips[] (html)
    */
   const renderChipsItems = () => {
-    return selectTopics.map((item, index) => <Chip key={index} disabled={disabledTopics} label={item} onClose={value => handleClickCloseChip(value)}/>)
+    return selectTopics.map((topic, index) => <Chip key={index} disabled={disabledTopics} label={topic} onClose={value => handleClickCloseChip(value)}/>)
   }
 
   return (
@@ -159,11 +162,11 @@ const NewAffirmation = ({ title, selectedTopics }) => {
         </div>
 
         <div className={styles.NewAffirmationS2}>
-          {!toAdd
-            ? <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => {}}>
+          {withRemoveBtn && !withAddBtn && <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => {}}>
                 <span>{t('dashboard.NewAffirmation.remove')}</span>
-              </button>
-            : <button className={styles.NewAffirmationS2AddBtn} onClick={() => {}}>
+             </button>
+          }
+          {withAddBtn && !withRemoveBtn && <button className={styles.NewAffirmationS2AddBtn} onClick={() => {}}>
                 <span>{t('dashboard.NewAffirmation.add')}</span>
               </button>
           }
@@ -205,7 +208,11 @@ NewAffirmation.propTypes = {
   /** title */
   title: PropTypes.string.isRequired,
   /** selectedTopics */
-  selectedTopics: PropTypes.array.isRequired
+  selectedTopics: PropTypes.array.isRequired,
+  /** withRemoveBtn */
+  withRemoveBtn: PropTypes.bool,
+  /** withAddBtn */
+  withAddBtn: PropTypes.bool
 }
 
 export default NewAffirmation

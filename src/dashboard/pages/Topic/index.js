@@ -1,10 +1,11 @@
 // react
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 // containers
 import Header from '../../containers/Header'
 import CreateAffirmations from '../../containers/CreateAffirmations'
+import NewAffirmation from '../../containers/NewAffirmation'
 // components
 import Share from '../../components/Share'
 import SvgIcon from '../../components/SvgIcon'
@@ -12,13 +13,17 @@ import SvgIcon from '../../components/SvgIcon'
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 import TopicsConstants from '../../constants/topics'
+// utils
+import { gqlquery } from '../../utils/queries'
+// graphql queries
+import { getTopicByIdQuery } from '../../graphql/queries'
 // styles
 import styles from './styles.module.scss'
 
 // const
 const {
   noImg,
-  connectionMomentsImg,
+  // connectionMomentsImg,
   spiritImg,
   healthImg,
   financeImg,
@@ -31,12 +36,6 @@ const {
 } = IMG
 const { affirmations } = DASHBOARD_ROUTES
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
-const TopicDefault = {
-  id: 1,
-  title: 'Connection moments',
-  img: connectionMomentsImg,
-  affirmations: 5
-}
 
 // * page
 /**
@@ -46,10 +45,20 @@ const TopicDefault = {
 const Topic = () => {
   // hooks
   const [t] = useTranslation('global')
-  const { id } = useParams() // todo: use id for get Topic info
-  const [Topic, setTopic] = useState(TopicDefault)
-  console.log('setTopic', setTopic)
-  console.log('id', id)
+  const { id } = useParams()
+  const [dbTopic, setDbTopic] = useState([])
+  const [waitQuery, setWaitQuery] = useState(true)
+
+  useEffect(async () => {
+    const { loading, value } = await gqlquery(getTopicByIdQuery(id))
+    console.log('value', value)
+    if (!loading && value !== null) {
+      setDbTopic(value.data.getTopic)
+      setWaitQuery(false)
+    } else {
+      setWaitQuery(true)
+    }
+  }, [])
 
   // ? handle functions
   /**
@@ -71,6 +80,36 @@ const Topic = () => {
     }
   }
 
+  /**
+   * handleCountAffirmations
+   * @returns {number}
+   */
+  const handleCountAffirmations = () => !waitQuery && dbTopic.affirmations.items.length
+
+  /**
+   * handleArrTopics
+   * @returns {Array}
+   */
+  const handleArrTopics = topics => topics.map(item => item.topic)
+
+  // ? render functions
+  /**
+   * renderDbAffirmations
+   * @returns {undefined} NewAffirmation container
+   */
+  const renderDbAffirmations = () => {
+    return !waitQuery && dbTopic.affirmations.items.map(item => {
+      const { id, name, topics } = item.affirmation
+      return <NewAffirmation
+        key={id}
+        title={name}
+        selectedTopics={handleArrTopics(topics.items)}
+        withRemoveBtn={false}
+        withAddBtn={false}
+      />
+    })
+  }
+
   return (
     <Fragment>
       <Header withBack={true} withPeople={false} withDate={false} backTo={affirmations} />
@@ -82,10 +121,13 @@ const Topic = () => {
             <div className={styles.TopicHeaderTextContainer}>
               <div className={styles.TopicHeaderTextTitle}>
                 <SvgIcon icon={id} size="30px" />
-                <span>{id}</span>
+                {!waitQuery && <span>{dbTopic.name}</span>}
               </div>
+              {/* <div className={styles.TopicHeaderTextDescription}>
+                <h6>{dbTopic.description}</h6>
+              </div> */}
               <div className={styles.TopicHeaderTextAffirmations}>
-                <span>{Topic.affirmations} {t('dashboard.Topic.affirmations')}</span>
+                <span>{handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
               </div>
             </div>
           </div>
@@ -96,6 +138,7 @@ const Topic = () => {
         {/* body */}
         <div className={styles.TopicBodyContainer}>
           <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} addToPack={true} />
+          {renderDbAffirmations()}
         </div>
       </div>
     </Fragment>

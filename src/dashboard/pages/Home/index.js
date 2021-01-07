@@ -17,7 +17,7 @@ import styles from './styles.module.scss'
 // hooks
 // import useGraphQlApi from '../../hooks/useGraphQlApi'
 // graphql
-import { getOrganizationById } from '../../graphql/queries'
+import { getOrganizationByIdQuery } from '../../graphql/queries'
 // utils
 import { gqlquery } from '../../utils/queries'
 // redux
@@ -42,7 +42,7 @@ const Home = () => {
 
   useEffect(async () => {
     const response = await gqlquery(
-      getOrganizationById(
+      getOrganizationByIdQuery(
         user && user.data.userOrganizationId,
         globalDateFilter && globalDateFilter.value
       )
@@ -57,7 +57,6 @@ const Home = () => {
    */
   const handleTotalClients = () => {
     if (dbOrganization !== null) {
-      console.log('dbOrganization', dbOrganization)
       const { loading, value: { data } } = dbOrganization
       return !loading && data !== null && data.getOrganization !== null
         ? data.getOrganization.users.items.length
