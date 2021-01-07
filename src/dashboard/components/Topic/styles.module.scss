@@ -18,11 +18,24 @@
     color: $actionColor1;
   }
   div {
-    @include flex(column, center, center, nowrap);    
+    @include flex(column, center, center, nowrap); 
     span {
       color: $fontColor1;
-      margin-top: 10px;
+      text-align: center;
     }
   }
+  .TopicHeaderContainer {
+    width: 100%;
+    padding: 0px 10px;
+    @include flex(row, flex-start, center, nowrap); 
+    margin-top: 10px;
+    span {
+      color: $actionColor1;
+      text-align: center;
+    }
+    h6 {
+      color: $fontColor1;
+      font-size: 13px;
+    }
+  }   
 }
-

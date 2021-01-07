@@ -1,6 +1,7 @@
 // react
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 // material-ui
 import Grid from '@material-ui/core/Grid'
 // components
@@ -9,6 +10,8 @@ import Topic from '../Topic'
 import TopicsConstants from '../../constants/topics'
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
+// utils
+// import { gqlquery } from '../../utils/queries'
 // styles
 import styles from './styles.module.scss'
 
@@ -21,45 +24,70 @@ const { topic } = DASHBOARD_ROUTES
 /**
  * Topics component
  * @component
+ * @param {array} data
  */
-const Topics = () => {
+const Topics = ({ data }) => {
   // hooks
   const [t] = useTranslation('global')
+
+  // ? render functions
+  /**
+   * renderTopics
+   * @returns {undefined} Topic componnet
+   */
+  const renderTopics = () => {
+    return data && data.map(item => {
+      const countAffirmation = item.affirmations.items.length
+      return (
+        <Grid key={item.id} item xs={12} sm={6} md={3} xl={3}>
+          <Topic route={topic + '/' + item.id} title={item.name} topic={item.name} count={countAffirmation} />
+        </Grid>
+      )
+    })
+  }
 
   return (
     <div className={styles.TopicsContainer}>
       <Grid container spacing={1}>
         {/* affirmations */}
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={topic + '/spirit'} title={t(`dashboard.Packs.${spirit}`)} topic={spirit} img={spiritImg} />
+          <Topic route={null} title={t(`dashboard.Packs.${spirit}`)} topic={spirit} img={spiritImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={topic + '/health'} title={t(`dashboard.Packs.${health}`)} topic={health} img={healthImg} />
+          <Topic route={null} title={t(`dashboard.Packs.${health}`)} topic={health} img={healthImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={topic + '/finance'} title={t(`dashboard.Packs.${finance}`)} topic={finance} img={financeImg} />
+          <Topic route={null} title={t(`dashboard.Packs.${finance}`)} topic={finance} img={financeImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={topic + '/fun'} title={t(`dashboard.Packs.${fun}`)} topic={fun} img={funImg} />
+          <Topic route={null} title={t(`dashboard.Packs.${fun}`)} topic={fun} img={funImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={topic + '/love'} title={t(`dashboard.Packs.${love}`)} topic={love} img={loveImg} />
+          <Topic route={null} title={t(`dashboard.Packs.${love}`)} topic={love} img={loveImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={topic + '/family'} title={t(`dashboard.Packs.${family}`)} topic={family} img={familyImg} />
+          <Topic route={null} title={t(`dashboard.Packs.${family}`)} topic={family} img={familyImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={topic + '/parenting'} title={t(`dashboard.Packs.${parenting}`)} topic={parenting} img={parentingImg} />
+          <Topic route={null} title={t(`dashboard.Packs.${parenting}`)} topic={parenting} img={parentingImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={topic + '/personal'} title={t(`dashboard.Packs.${personal}`)} topic={personal} img={personalImg} />
+          <Topic route={null} title={t(`dashboard.Packs.${personal}`)} topic={personal} img={personalImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={topic + '/perfomance'} title={t(`dashboard.Packs.${perfomance}`)} topic={perfomance} img={performanceImg} />
+          <Topic route={null} title={t(`dashboard.Packs.${perfomance}`)} topic={perfomance} img={performanceImg} />
         </Grid>
+        {/* // bd topics */}
+        {renderTopics()}
       </Grid>
     </div>
   )
+}
+
+// prop types
+Topics.propTypes = {
+  /** data */
+  data: PropTypes.array
 }
 
 export default Topics

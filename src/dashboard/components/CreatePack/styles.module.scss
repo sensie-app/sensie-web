@@ -16,7 +16,6 @@
 
 .CreatePackBody {
   @include flex(row, space-between, center, wrap);
-  width: 500px;
   height: 150px;
   padding: 10px;
 }

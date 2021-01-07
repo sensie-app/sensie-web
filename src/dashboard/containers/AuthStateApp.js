@@ -14,7 +14,7 @@ import awsconfig from '../../aws-exports'
 // utils
 import { gqlquery } from '../utils/queries'
 // graphql queries
-import { getUsersQueryById } from '../graphql/queries'
+import { getUsersByIdQuery } from '../graphql/queries'
 
 // amplify config
 Amplify.configure(awsconfig)
@@ -52,7 +52,7 @@ const AuthStateApp = ({ children }) => {
    * handle user query (graphQl query)
    * @param {string} id
    */
-  const handleUserQuery = async id => await gqlquery(getUsersQueryById(id))
+  const handleUserQuery = async id => await gqlquery(getUsersByIdQuery(id))
 
   return authState === AuthState.SignedIn && user
     ? <div className="App">{children}</div>

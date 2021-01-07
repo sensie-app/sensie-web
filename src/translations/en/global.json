@@ -165,7 +165,8 @@
       "errorTopic": "Select at least one topic",
       "removeToPack": "Remove to pack",
       "addToPack": "Add to pack",
-      "delete": "Delete"
+      "delete": "Delete",
+      "selectAll": "Select all"
     },
     "AffirmationsByTopics": {
       "title": "Recommended affirmations by topics",
@@ -201,6 +202,10 @@
       "removeImage": "Remove image",
       "cancel": "Cancel",
       "save": "Save"
+    },
+    "WrongOrientation": {
+      "message": "Please rotate your device",
+      "description": "We support landscape mode only"
     }
   }
 }

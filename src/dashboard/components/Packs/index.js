@@ -1,48 +1,60 @@
 // react
 import React from 'react'
+import PropTypes from 'prop-types'
 // material-ui
 import Grid from '@material-ui/core/Grid'
 // components
 import Pack from '../Pack'
 import CreatePack from '../CreatePack'
 // constants
-import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
 
 // const
-const { connectionMomentsImg, joyAffirmationsImg, sleepImg } = IMG
 const { pack } = DASHBOARD_ROUTES
 
 // * component
 /**
  * Packs component
  * @component
+ * @param {array} data
  */
-const Packs = () => {
+const Packs = ({ data }) => {
+  // ? render functions
+  /**
+   * renderPacks
+   * @returns {undefined} Pack componnet
+   */
+  // TODO: TERMINAR ESTO! COPIAR EJEMLPO DE COMPONENTS/TOPICS Y COMPONENTS/TOPIC
+  const renderPacks = () => {
+    return data && data.map(item => {
+      const countAffirmation = item.affirmations.items.length
+      return (
+        <Grid key={item.id} item xs={12} sm={6} md={3} xl={3}>
+          <Pack route={pack + '/' + item.id} title={item.name} totalAffirmations={countAffirmation} />
+        </Grid>
+      )
+    })
+  }
+
   return (
     <div className={styles.PacksContainer}>
       <Grid container spacing={1}>
         {/* affirmations */}
-        <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Pack route={pack + '/1'} title="Connection moments" totalAffirmations={10} img={connectionMomentsImg} />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Pack route={pack} title="Joy affirmations" totalAffirmations={10} img={joyAffirmationsImg} />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Pack route={pack} title="Before sleep ritual" totalAffirmations={10} img={sleepImg} />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Pack route={pack} title="HolaMundo" totalAffirmations={10} />
-        </Grid>
+        {renderPacks()}
+        {/* create affirmations */}
         <Grid item xs={12} sm={6} md={3} xl={3}>
           <CreatePack />
         </Grid>
       </Grid>
     </div>
   )
+}
+
+// prop-types
+Packs.propTypes = {
+  data: PropTypes.array
 }
 
 export default Packs

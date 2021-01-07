@@ -28,6 +28,7 @@ const { actionColor1 } = COLORS
  * @param {boolean} witCheckbox (default: true)
  * @param {string} size (default: 250px)
  * @param {string} iconSize (default: 50px)
+ * @param {number} count (default: 0)
  */
 const Topic = ({
   route,
@@ -37,7 +38,8 @@ const Topic = ({
   withLink = true,
   witCheckbox = true,
   size = '250px',
-  iconSize = '50px'
+  iconSize = '50px',
+  count = 0
 }) => {
   // hooks
   const [check, setCheck] = useState(false)
@@ -53,7 +55,12 @@ const Topic = ({
   return (
     <div className={styles.TopicContainer} style={{ backgroundImage: `url(${image})`, width: size, height: size }}>
       <div className={styles.TopicBodyContainer}>
-        {witCheckbox && <Checkbox checked={check} onChange={handleCheck} color={actionColor1} className={styles.TopicCheckbox} />}
+        {witCheckbox &&
+          <div className={styles.TopicHeaderContainer}>
+            <Checkbox checked={check} onChange={handleCheck} color={actionColor1} className={styles.TopicCheckbox} />
+            {count !== 0 && <h6>{count} Affirmations</h6>}
+          </div>
+        }
         {withLink
           ? <Link to={route}>
               <div style={{ height: '75%' }}>
@@ -88,7 +95,9 @@ Topic.propTypes = {
   /** size */
   size: PropTypes.string,
   /** iconSize */
-  iconSize: PropTypes.string
+  iconSize: PropTypes.string,
+  /** count */
+  count: PropTypes.number
 }
 
 export default Topic
