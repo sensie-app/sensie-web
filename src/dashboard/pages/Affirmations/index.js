@@ -1,5 +1,5 @@
 // react
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,12 +10,14 @@ import Share from '../../components/Share'
 import Packs from '../../components/Packs'
 import Topics from '../../components/Topics'
 import CircularProgress from '../../components/CircularProgress'
+import CreatePack from '../../components/CreatePack'
 // constants
 import { CreatePacksTags } from '../../constants/globals'
 // utils
 import { gqlquery } from '../../utils/queries'
 // graphql
 import { listTopicsWiyhAffirmationsIdsQuery, listPacksWiyhAffirmationsIdsQuery } from '../../graphql/queries'
+import { createPackMutation } from '../../graphql/mutations'
 // styles
 import styles from './styles.module.scss'
 
@@ -57,6 +59,18 @@ const Affirmations = () => {
     dispatch(setShowPacksOrTopicsAction(section))
   }
 
+  /**
+   * handleSavePack
+   * @param {string} name
+   * @param {string} description
+   * @param {string} imgId
+   * @returns {string} new pack id
+   */
+  const handleSavePack = async (name, description, imgId) => {
+    const newPack = await gqlquery(createPackMutation(name, description, imgId))
+    return !newPack.loading && newPack.value !== null ? newPack.value.data.createPack.id : null
+  }
+
   return (
     <div className={styles.AffirmationsContainer}>
       <div className={styles.AffirmationsContentContainer}>
@@ -78,7 +92,13 @@ const Affirmations = () => {
               <CircularProgress />
             </div>
           : <div>
-              { show === CreatePacksTags.packs ? <Packs data={!waitQuery && packs}/> : <Topics data={!waitQuery && topics} /> }
+              { show === CreatePacksTags.packs
+                ? <Fragment>
+                    <Packs data={!waitQuery && packs}/>
+                    <CreatePack onSave={handleSavePack} />
+                  </Fragment>
+                : <Topics data={!waitQuery && topics} />
+              }
             </div>
         }
       </div>

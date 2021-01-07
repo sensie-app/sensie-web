@@ -24,6 +24,7 @@ const { fontColor1 } = COLORS
 const Chip = ({ label, withClose = true, onClose = () => {}, disabled = false }) => {
   // hooks
   // const [t] = useTranslation('global')
+  console.log('label', label)
 
   // ? handle functions
   /**

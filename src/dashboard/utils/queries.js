@@ -12,3 +12,15 @@ export const gqlquery = async query => {
   }
   return response
 }
+
+export const gqlmutation = async (query, input) => {
+  const response = { loading: true, value: null }
+  try {
+    const value = await API.graphql(graphqlOperation(query, { input: input }))
+    response.value = value
+    response.loading = false
+  } catch (error) {
+    console.log('error', error)
+  }
+  return response
+}

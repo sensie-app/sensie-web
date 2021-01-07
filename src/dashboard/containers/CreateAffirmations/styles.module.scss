@@ -6,7 +6,7 @@
 
 .CreateAffirmationsHeaderContainer {
   width: 100%;
-  padding: 10px 0px;
+  padding: 10px 10px;
   @include flex(row, space-between, center, nowrap);
   div {
     @include flex(row, flex-start, center, nowrap);
