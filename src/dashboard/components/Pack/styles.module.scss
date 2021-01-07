@@ -3,9 +3,12 @@
 .PackContainer {
   padding: 10px;
   position: relative;
+  height: 400px;
+  max-height: 400px;  
+
   .PackImgContainer {
     width: 250px;
-    height: 250px;
+    height: 65%;
     border-radius: 5px;
     margin-bottom: 10px;
     @include backgroundImg(cover)
@@ -18,7 +21,9 @@
   }
 }
 .PackBodyContainer {
-  @include flex(column, center, center, nowrap);
+  @include flex(column, space-between, center, nowrap);
+  height: 35%;
+  padding: 10px 0px;
   color: $fontColor1;
   span {
     font-size: 16px;

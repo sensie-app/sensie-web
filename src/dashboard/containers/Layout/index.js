@@ -166,90 +166,90 @@ const Layout = ({ children }) => {
         <WrongOrientation />
       </MediaQuery>
       <MediaQuery minDeviceWidth={768}>
-      <div className={styles.LayoutContainer}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, {
-                [classes.hide]: open
-              })}
-            >
-              <Icon name="menu-outline" size="md" color={fontColor1} />
-            </IconButton>
-            <div className={styles.LayoutAppBarLeftIconsContainer}>
-              <img src={logo} alt="Sensie logo" width="91" />
-              <div>
-                {/* <ChangeLngBtn /> */}
-                <div className={styles.LayoutAppBarLeftIconsNotifications}>
-                  <MenuListNotifications
-                    data={notificationsTest}
-                    onClickValue={value => console.log(value)}
-                    theme={2}
-                    withName={false}
-                    defaultValue={null}>
-                    <IconButton aria-label="show notifications" color="inherit">
-                      <Badge badgeContent={17} color="primary">
-                        <Icon name="bell-outline" size="md" color={fontColor1} />
-                      </Badge>
-                    </IconButton>
-                  </MenuListNotifications>
+        <div className={styles.LayoutContainer}>
+          <CssBaseline />
+          <AppBar
+            position="fixed"
+            className={clsx(classes.appBar, {
+              [classes.appBarShift]: open
+            })}
+          >
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                className={clsx(classes.menuButton, {
+                  [classes.hide]: open
+                })}
+              >
+                <Icon name="menu-outline" size="md" color={fontColor1} />
+              </IconButton>
+              <div className={styles.LayoutAppBarLeftIconsContainer}>
+                <img src={logo} alt="Sensie logo" width="91" />
+                <div>
+                  {/* <ChangeLngBtn /> */}
+                  <div className={styles.LayoutAppBarLeftIconsNotifications}>
+                    <MenuListNotifications
+                      data={notificationsTest}
+                      onClickValue={value => console.log(value)}
+                      theme={2}
+                      withName={false}
+                      defaultValue={null}>
+                      <IconButton aria-label="show notifications" color="inherit">
+                        <Badge badgeContent={17} color="primary">
+                          <Icon name="bell-outline" size="md" color={fontColor1} />
+                        </Badge>
+                      </IconButton>
+                    </MenuListNotifications>
+                  </div>
+                  <IconButton aria-label="show 17 new notifications" aria-controls="logout-menu" color="inherit" onClick={() => {}}>
+                    <AlertDialog title={t('dashboard.Layout.signOut')} withLogout={true} description={t('dashboard.Layout.signOut?')} disagreeText={t('dashboard.Layout.close')}>
+                      <Icon name="log-out-outline" size="md" color={fontColor1} />
+                    </AlertDialog>
+                  </IconButton>
                 </div>
-                <IconButton aria-label="show 17 new notifications" aria-controls="logout-menu" color="inherit" onClick={() => {}}>
-                  <AlertDialog title={t('dashboard.Layout.signOut')} withLogout={true} description={t('dashboard.Layout.signOut?')} disagreeText={t('dashboard.Layout.close')}>
-                    <Icon name="log-out-outline" size="md" color={fontColor1} />
-                  </AlertDialog>
-                </IconButton>
               </div>
-            </div>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="permanent"
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [styles.LayoutDrawerOpen]: open,
-            [classes.drawerClose]: !open,
-            [styles.LayoutDrawerClose]: !open
-          })}
-          classes={{
-            paper: clsx({
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="permanent"
+            className={clsx(classes.drawer, {
               [classes.drawerOpen]: open,
-              [classes.drawerClose]: !open
-            })
-          }}
-        >
-          <div className={classes.toolbar}>
-            <IconButton onClick={handleDrawerOpen}>
-              <Icon name="chevron-left-outline" size="md" color={fontColor1} />
-            </IconButton>
-          </div>
-          <Divider />
-          <List className={styles.LayoutListContainer}>
-            <div>
-              {renderListItems()}
+              [styles.LayoutDrawerOpen]: open,
+              [classes.drawerClose]: !open,
+              [styles.LayoutDrawerClose]: !open
+            })}
+            classes={{
+              paper: clsx({
+                [classes.drawerOpen]: open,
+                [classes.drawerClose]: !open
+              })
+            }}
+          >
+            <div className={classes.toolbar}>
+              <IconButton onClick={handleDrawerOpen}>
+                <Icon name="chevron-left-outline" size="md" color={fontColor1} />
+              </IconButton>
             </div>
-            <div>
-              { data && renderAvatar() }
+            <Divider />
+            <List className={styles.LayoutListContainer}>
+              <div>
+                {renderListItems()}
+              </div>
+              <div>
+                { data && renderAvatar() }
+              </div>
+            </List>
+          </Drawer>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <div className={styles.LayoutChildrenContainer}>
+              {children}
             </div>
-          </List>
-        </Drawer>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <div className={styles.LayoutChildrenContainer}>
-            {children}
-          </div>
-        </main>
-      </div>
+          </main>
+        </div>
       </MediaQuery>
     </Fragment>
   )
@@ -258,7 +258,7 @@ const Layout = ({ children }) => {
 // prop-types
 Layout.propTypes = {
   /** children */
-  children: PropTypes.element.isRequired
+  children: PropTypes.element
 }
 
 // styles material-ui

@@ -17,7 +17,7 @@ import styles from './styles.module.scss'
 // hooks
 // import useGraphQlApi from '../../hooks/useGraphQlApi'
 // graphql
-import { getOrganizationById } from '../../graphql/queries'
+import { getOrganizationByIdQuery } from '../../graphql/queries'
 // utils
 import { gqlquery } from '../../utils/queries'
 // redux
@@ -39,11 +39,10 @@ const Home = () => {
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [dbOrganization, setDbOrganization] = useState(null)
-  // const orientation = useDeviceOrientation()
 
   useEffect(async () => {
     const response = await gqlquery(
-      getOrganizationById(
+      getOrganizationByIdQuery(
         user && user.data.userOrganizationId,
         globalDateFilter && globalDateFilter.value
       )

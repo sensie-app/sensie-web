@@ -41,9 +41,9 @@ const Pack = ({ route, img = noImg, title, totalAffirmations }) => {
       <Link to={route}>
         <div className={styles.PackImgContainer} style={{ backgroundImage: `url(${img})` }} />
       </Link>
+      <Checkbox checked={check} onChange={handleCheck} color={actionColor1} className={styles.PackCheckbox} />
       <div className={styles.PackBodyContainer}>
         <span>{title}</span>
-        <Checkbox checked={check} onChange={handleCheck} color={actionColor1} className={styles.PackCheckbox} />
         <div>
           <span>{totalAffirmations} {t('dashboard.Pack.affirmations')}</span>
         </div>
