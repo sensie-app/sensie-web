@@ -15,6 +15,8 @@ import KeithTribble from '../assets/img/KeithTribble.png'
 import SatyenRaja from '../assets/img/SatyenRaja.png'
 import AnneJensen from '../assets/img/AnneJensen.jpg'
 import AnnmarieChereso from '../assets/img/AnnmarieChereso.png'
+import JeremyTabke from '../assets/img/JeremyTabke.png'
+import GescheHaas from '../assets/img/GescheHaas.png'
 import EvaSelhub from '../assets/img/EvaSelhub.png'
 import EnitanMarcelle from '../assets/img/EnitanMarcelle.jpg'
 import WilliamSoftky from '../assets/img/WilliamSoftky.jpg'
@@ -103,7 +105,7 @@ const AboutSensie = () => {
           >
             <Grid item xs={12}>
               <Box mt={14} className={classes.title} data-aos="zoom-out-up">
-                <span>Scientific Advisory Board</span>
+                <span>Advisory Board</span>
               </Box>
             </Grid>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">
@@ -141,6 +143,20 @@ const AboutSensie = () => {
                 urlLinkedin="https://www.linkedin.com/in/mikeysiegel/"
               />
             </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={AnnmarieChereso}
+                name="Annmarie Cheereso"
+                urlLinkedin="https://www.linkedin.com/in/annmarie-chereso-a3ab2311/"
+              />
+            </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={GescheHaas}
+                name="Gesche Haas"
+                urlLinkedin="https://www.linkedin.com/in/gesche/"
+              />
+            </Box>
           </Grid>
           <Grid item xs={1}></Grid>
           <Grid item xs={1}></Grid>
@@ -152,14 +168,10 @@ const AboutSensie = () => {
             justify="space-evenly"
             alignItems="center"
           >
-            <Grid item xs={12} >
-                            <Box mt={14} className={classes.title} data-aos="zoom-out-up">
-
-              <span
-                className={classes.title}>
-                  Our Team
-              </span>
-                </Box>
+            <Grid item xs={12}>
+              <Box mt={14} className={classes.title} data-aos="zoom-out-up">
+                <span className={classes.title}>Our Team</span>
+              </Box>
             </Grid>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">
               <Member
@@ -203,10 +215,10 @@ const AboutSensie = () => {
             </Box>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">
               <Member
-                avatar={AnnmarieChereso}
-                name="ANNMARIE CHEERESO"
-                role="COACHING PARTNER"
-                urlLinkedin="https://www.linkedin.com/in/annmarie-chereso-a3ab2311/"
+                avatar={JeremyTabke}
+                name="JEREMY TABKE"
+                role="HEAD OF ENGINEERING"
+                urlLinkedin="https://www.linkedin.com/in/jeremytabke/"
               />
             </Box>
           </Grid>

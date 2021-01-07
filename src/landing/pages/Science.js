@@ -49,7 +49,7 @@ const Science = () => {
                 </Box>
                 <Box mt={2} mr={18}>
                   <Grid>
-                    <Epigraph epigraph="The body containing nerve tissue make them excellent sensory receptors to sense muscle tension." />
+                    <Epigraph epigraph="Muscle fiber and tendons act as sensory receptors to help you gauge how much tension is in the body." />
                   </Grid>
                 </Box>
               </Box>
@@ -79,7 +79,7 @@ const Science = () => {
                 </Box>
                 <Box mt={2}>
                   <Grid data-aos="zoom-out-up">
-                    <Epigraph epigraph="The brain is the linking part that receives those signals from the body to regulate and coordinate movement." />
+                    <Epigraph epigraph="The brain is the linking part that receives signals from the body to regulate and coordinate movement, emotion and how we show up in the world." />
                   </Grid>
                 </Box>
               </Box>

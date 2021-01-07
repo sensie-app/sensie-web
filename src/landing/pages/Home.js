@@ -15,24 +15,17 @@ import DownloadImg from '../components/DownloadImg'
 import CarouselComponent from '../components/carouselComponent/CarouselComponent'
 import Phrases from '../components/Phrases'
 import Trazado from '../components/Trazado'
-// import CustomCard from '../components/CustomCard'
 import Epigraph from '../components/Epigraph'
 import Lead from '../components/Lead'
 import LearnMore from '../components/LearnMore'
 import Whip from '../components/Whip'
 import WisdomCard from '../components/WisdomCard'
 import HowItWorks from '../components/HowItWorks'
-// import videoWebAndMobile from '../assets/video/Sensie.mp4'
-import videoWebAndMobile from '../assets/video/sensievideo2.mp4'
 import Hand from '../components/Hand'
-import Users from '../components/Users'
 import VerticalCarousel from '../components/verticalCarousel/VerticalCarousel'
+// import CustomCard from '../components/CustomCard'
 
-// CSS
-import '../assets/css/GradientBar.css'
-import '../styles/index.scss'
-
-// Img
+// Img and video
 import MindfullBeginner from '../assets/img/MindfullBeginner.svg'
 import Lock from '../assets/img/lock.svg'
 import Lock2 from '../assets/img/lock2.svg'
@@ -42,16 +35,14 @@ import AmericanPsychiatric from '../assets/img/americanpsychiatricpng.png'
 import Wired from '../assets/img/wiredpng.png'
 import Transtech from '../assets/img/transtechpng.png'
 import BerkeleyWell from '../assets/img/berkeleywellpng.png'
-// import backgroundScience from '../assets/img/backgroundScience.png'
 import backgroundScience from '../assets/img/backgroundScience1.png'
-// import backgroundSelfAwareness from '../assets/img/backgroundSelfAwareness.png'
 import backgroundSelfAwareness from '../assets/img/backgroundSelfAwareness1.png'
 import SquareHandG from '../assets/video/SquareHandG.mp4'
+import videoWebAndMobile from '../assets/video/sensievideo2.mp4'
 
 // Icons
 import Measure from '../assets/img/Measure.svg'
 import Blockages from '../assets/img/Blockages.svg'
-import Awareness from '../assets/img/Awareness.svg'
 import EcologyHuman from '../assets/img/EcologyHuman.svg'
 import AppleStore from '../assets/img/app-store.svg'
 import PlayStore from '../assets/img/google-play.svg'
@@ -78,6 +69,8 @@ const Home = () => {
   const [playDashboard, setPlayDashboard] = useState(true)
 
   useEffect(() => {
+    const whipVideo = document.getElementById('videowhip')
+    const dashboardVideo = document.getElementById('videosensie')
     window.onscroll = function () {
       const scrollTop = window.scrollY
       const docHeight = document.body.offsetHeight
@@ -85,7 +78,6 @@ const Home = () => {
       const scrollPercent = scrollTop / (docHeight - winHeight)
       const scrollPercentRounded = Math.round(scrollPercent * 100)
       if (playWhip) {
-        const whipVideo = document.getElementById('videowhip')
         function playWhip () {
           setPlayWhip(false)
           whipVideo.play()
@@ -98,9 +90,7 @@ const Home = () => {
         }
       }
       if (playDashboard) {
-        const dashboardVideo = document.getElementById('videosensie')
         function playDashboard () {
-          console.log('paso por aca')
           setPlayDashboard(false)
           dashboardVideo.play()
         }
@@ -154,8 +144,14 @@ const Home = () => {
           </Box>
           <Box mt={3}>
             <Grid container direction="row">
-              <DownloadImg ImgStore={AppleStore} />
-              <DownloadImg ImgStore={PlayStore} />
+              <DownloadImg
+                ImgStore={AppleStore}
+                link="https://apps.apple.com/us/app/sensie/id1092166597"
+              />
+              <DownloadImg
+                ImgStore={PlayStore}
+                link="https://play.google.com/store/apps/details?id=com.sensie"
+              />
             </Grid>
           </Box>
         </Grid>
@@ -186,26 +182,43 @@ const Home = () => {
               data-aos="zoom-out-up"
             >
               <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={MiamiHerald} width="176px" height="60px" />
+                <Sponsor
+                  SponsorImg={MiamiHerald}
+                  width="176px"
+                  height="60px"
+                  link="https://www.miamiherald.com/news/business/biz-monday/article232516282.html"
+                />
               </Box>
               <Box mt={8} textAlign="center">
                 <Sponsor
                   SponsorImg={AmericanPsychiatric}
                   width="172px"
                   height="40px"
+                  link="https://www.youtube.com/watch?v=GUgC5q2VloI&ab_channel=CodyRallMDwithTechforpsych"
                 />
               </Box>
               <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={Wired} width="186px" height="32px" />
+                <Sponsor
+                  SponsorImg={Wired}
+                  width="186px"
+                  height="32px"
+                  link="https://www.wired.co.uk/article/consciousness-hacking-silicon-valley-enlightenment-brain"
+                />
               </Box>
               <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={Transtech} width="175px" height="32px" />
+                <Sponsor
+                  SponsorImg={Transtech}
+                  width="175px"
+                  height="32px"
+                  link="http://transtech200.com/"
+                />
               </Box>
               <Box mt={8}>
                 <Sponsor
                   SponsorImg={BerkeleyWell}
                   width="165px"
                   height="84px"
+                  link="https://www.berkeleywellbeing.com/the-top-50-wellness-products-2016.html"
                 />
               </Box>
             </Grid>
@@ -293,8 +306,14 @@ const Home = () => {
                     </Box>
                     <Box my={4}>
                       <Grid container direction="row">
-                        <DownloadImg ImgStore={AppleStore} />
-                        <DownloadImg ImgStore={PlayStore} />
+                        <DownloadImg
+                          ImgStore={AppleStore}
+                          link="https://apps.apple.com/us/app/sensie/id1092166597"
+                        />
+                        <DownloadImg
+                          ImgStore={PlayStore}
+                          link="https://play.google.com/store/apps/details?id=com.sensie"
+                        />
                       </Grid>
                     </Box>
                   </div>
@@ -329,8 +348,12 @@ const Home = () => {
       {/* BLOQUE 5 The Science */}
       <div id="science"></div>
       <Parallax strength={300}>
-        <Background >
-          <img src={backgroundScience} alt='background science' className={classes.bgImg}/>
+        <Background>
+          <img
+            src={backgroundScience}
+            alt="background science"
+            className={classes.bgImg}
+          />
         </Background>
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
@@ -383,12 +406,6 @@ const Home = () => {
             <Grid item xs={12}>
               {showDashboard ? null : (
                 <Box>
-                  {/* <Grid item xs={12} data-aos="zoom-out">
-                  <Title
-                  title="Web and Mobile Solution"
-                    titleDashboard={true}
-                    />
-                  </Grid> */}
                   <Hidden smDown>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={6} style={{ position: 'absolute' }}>

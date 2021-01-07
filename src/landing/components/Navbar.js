@@ -5,8 +5,7 @@ import {
   Grid,
   Box,
   Button,
-  makeStyles,
-  Hidden
+  makeStyles
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { HashLink as Link } from 'react-router-hash-link'
@@ -16,7 +15,7 @@ import APP_ROUTES from '../../constants/routes'
 
 // Components
 import LogoSensie from './Logo'
-import CustomizedMenus from './Menu'
+// import CustomizedMenus from './Menu'
 
 const { home, /* membership, */ howitworks, scienceanchor, abs, hm } = LANDING_ROUTES
 
@@ -56,11 +55,11 @@ const Navbar = () => {
       <AppBar position="fixed" className={classes.navbarStyle}>
         <Toolbar className={classes.toolbarStyle}>
           <Grid container alignItems="center">
-            <Hidden mdUp>
+            {/* <Hidden mdUp>
               <Grid xs={1}>
                 <CustomizedMenus />
               </Grid>
-            </Hidden>
+            </Hidden> */}
             <Grid item xs={4} sm={2}>
               <Box display="flex" justifyContent="flex-start">
                 <Link to={hm}>
@@ -68,7 +67,6 @@ const Navbar = () => {
                 </Link>
               </Box>
             </Grid>
-            <Hidden smDown>
               <Grid
                 item
                 container
@@ -97,8 +95,6 @@ const Navbar = () => {
                   <Box mx={1}>ABOUT</Box>
                 </Link>
               </Grid>
-            </Hidden>
-            <Hidden smDown>
               <Grid item xs={3} sm={2}>
                 <Box display="flex" justifyContent="flex-end">
                   <Box>
@@ -125,7 +121,6 @@ const Navbar = () => {
                   </Box>
                 </Box>
               </Grid>
-            </Hidden>
           </Grid>
         </Toolbar>
       </AppBar>

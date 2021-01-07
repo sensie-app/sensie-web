@@ -9,11 +9,13 @@ const useStyle = makeStyles({
   }
 })
 
-const DownloadImg = ({ ImgStore }) => {
+const DownloadImg = ({ ImgStore, link }) => {
   const classes = useStyle()
   return (
     <Box mr={2}>
-      <img src={ImgStore} className={classes.root} />
+      <a href={link} target="_blank" rel="noopener noreferrer">
+        <img src={ImgStore} className={classes.root} />
+      </a>
     </Box>
   )
 }
