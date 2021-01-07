@@ -46,48 +46,48 @@ const BarChart = ({ data, miniature = false }) => {
   return (
     <div className={styles.BarChartContainer}>
       <ResponsiveBar
-          data={data2} // todo: use data
-          theme={chartTheme}
-          keys={['value']} // opc2: data2
-          indexBy="day"
-          margin={{ top: margin * 0.5, right: margin * 0.2, bottom: margin, left: margin * 0.75 }}
-          padding={miniature ? 0.5 : 0.7}
-          valueScale={{ type: 'linear' }}
-          indexScale={{ type: 'band', round: true }}
-          colors={val => handleColor(val)}
-          borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-          borderRadius={5}
-          enableLabel={false}
-          enableGridX={false}
-          enableGridY={false}
-          axisTop={null}
-          axisRight={null}
-          axisBottom={
-            miniature
-              ? null
-              : {
-                  tickSize: 0,
-                  tickPadding: 20,
-                  tickRotation: 0,
-                  legend: '',
-                  legendPosition: 'middle',
-                  legendOffset: 15
-                }}
-          axisLeft={
-            miniature
-              ? null
-              : {
-                  format: value => value % 25 === 0 && value + '%',
-                  tickSize: 0,
-                  tickPadding: 0,
-                  tickRotation: 0,
-                  legend: '',
-                  legendPosition: 'middle',
-                  legendOffset: -40
-                }}
-          animate={true}
-          motionStiffness={90}
-          motionDamping={15}
+        data={data2} // todo: use data
+        theme={chartTheme}
+        keys={['value']} // opc2: data2
+        indexBy="day"
+        margin={{ top: margin * 0.5, right: margin * 0.2, bottom: margin, left: margin * 0.75 }}
+        padding={miniature ? 0.5 : 0.7}
+        valueScale={{ type: 'linear' }}
+        indexScale={{ type: 'band', round: true }}
+        colors={val => handleColor(val)}
+        borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+        borderRadius={5}
+        enableLabel={false}
+        enableGridX={false}
+        enableGridY={false}
+        axisTop={null}
+        axisRight={null}
+        axisBottom={
+          miniature
+            ? null
+            : {
+                tickSize: 0,
+                tickPadding: 20,
+                tickRotation: 0,
+                legend: '',
+                legendPosition: 'middle',
+                legendOffset: 15
+              }}
+        axisLeft={
+          miniature
+            ? null
+            : {
+                format: value => value % 25 === 0 && value + '%',
+                tickSize: 0,
+                tickPadding: 0,
+                tickRotation: 0,
+                legend: '',
+                legendPosition: 'middle',
+                legendOffset: -40
+              }}
+        animate={true}
+        motionStiffness={90}
+        motionDamping={15}
       />
       {/* <div className={styles.BarChartAxisBottom}>
         <div />

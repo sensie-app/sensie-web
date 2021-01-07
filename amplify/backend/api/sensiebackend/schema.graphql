@@ -12,7 +12,7 @@ type User @model
   domHand: String
   goal: String
   userOrganizationId: ID
-  organization: Organization 
+  organization: Organization @connection
   affirmations: [Affirmation] @connection(keyName: "byOwner", fields: ["owner"])
   selfAwareness: Float 
   userGroupId: ID

@@ -17,6 +17,7 @@ import { CreatePacksTags } from '../../constants/globals'
 import { gqlquery } from '../../utils/queries'
 // graphql
 import { listTopicsWiyhAffirmationsIdsQuery, listPacksWiyhAffirmationsIdsQuery } from '../../graphql/queries'
+import { listTopics } from '../../../graphql/queries'
 import { createPackMutation } from '../../graphql/mutations'
 // styles
 import styles from './styles.module.scss'
@@ -37,6 +38,7 @@ const Affirmations = () => {
   const [waitQuery, setWaitQuery] = useState(true)
 
   useEffect(async () => {
+    console.log('listTopics', await gqlquery(listTopics))
     const dbTopics = await gqlquery(listTopicsWiyhAffirmationsIdsQuery())
     const dbPacks = await gqlquery(listPacksWiyhAffirmationsIdsQuery())
     if (!dbTopics.loading && dbTopics.value !== null && !dbPacks.loading && dbPacks.value !== null) {

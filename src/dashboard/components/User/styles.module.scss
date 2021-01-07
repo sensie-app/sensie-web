@@ -4,7 +4,7 @@
   width: 100%;
   background-color: $grayColor5;
   @include border(solid, 0px, 5px, transparent);
-  @include flex(row, space-between, center, wrap);
+  @include flex(row, space-between, center, nowrap);
   padding: 0px 5px;
   margin-bottom: 5px;
   max-height: 65px;
@@ -16,6 +16,7 @@
 
   .UserBodyContainer {    
     @include flex(row, flex-end, center, nowrap);
+    width: 50%;
   }
 
   .UserChartContainer {
@@ -43,5 +44,16 @@
     span {
       color: $actionColor1;
     }
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .UserBodyContainer {    
+    @include flex(row, flex-end, center, nowrap);
+    width: 100% !important;
+  }
+
+  .UserChartContainer {
+    display: none;
   }
 }

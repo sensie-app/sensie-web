@@ -14,10 +14,11 @@ import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 import TopicsConstants from '../../constants/topics'
 // utils
-import { gqlquery, gqlmutation } from '../../utils/queries'
+import { gqlquery } from '../../utils/queries'
 // graphql queries
 import { getTopicByIdQuery } from '../../graphql/queries'
-import { createAffirmationMutation, createAffirmation } from '../../graphql/mutations'
+// import { createAffirmationMutation } from '../../graphql/mutations'
+import { createAffirmation } from '../../../graphql/mutations'
 // styles
 import styles from './styles.module.scss'
 
@@ -53,6 +54,7 @@ const Topic = () => {
 
   useEffect(async () => {
     const { loading, value } = await gqlquery(getTopicByIdQuery(id))
+    console.log('value', value)
     if (!loading && value !== null) {
       setDbTopic(value.data.getTopic)
       const defTopic = [{
@@ -109,13 +111,16 @@ const Topic = () => {
    * @returns {string} new affirmation id
    */
   const handleSaveAffirmation = async (name, description, packId, topicId, userId) => {
-    const newAffirmation = await gqlquery(createAffirmationMutation(name, description, packId, topicId, userId))
+    const input = {
+      name,
+      description,
+      packId,
+      topicId,
+      userId
+    }
+    const newAffirmation = await gqlquery(createAffirmation, { input })
     console.log('newAffirmation', newAffirmation)
-    // return !newAffirmation.loading && newAffirmation.value !== null ? newAffirmation.value.data.createAffirmation.id : null
-
-    const response = { name, description, packId, topicId, userId }
-    const newAffirmation2 = await gqlmutation(createAffirmation, { input: response })
-    return !newAffirmation2.loading && newAffirmation2.value !== null ? newAffirmation2.value.data.createAffirmation.id : null
+    return !newAffirmation.loading && newAffirmation.value !== null ? newAffirmation.value.data.createAffirmation.id : null
   }
 
   // ? render functions

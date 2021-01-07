@@ -96,7 +96,7 @@ const Pack = () => {
         </div>
         {/* body */}
         <div className={styles.PackBodyContainer}>
-          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} />
+          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} />
           {renderDbAffirmations()}
         </div>
       </div>

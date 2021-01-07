@@ -15,29 +15,3 @@ export const createAffirmationMutation = (name, description, packId, topicId, us
     }
   `
 }
-
-export const createAffirmation = (input) => {
-  return `
-    mutation MyMutation {
-      createAffirmation(input: {description: ${input}) {
-        id
-      }
-    }
-  `
-}
-
-// export const createAffirmation = /* GraphQL */ `
-//   mutation CreateAffirmation(
-//     $input,
-//     $condition
-//   ) {
-//     createAffirmation(input: $input, condition: $condition) {
-//       id
-//       topicId
-//       name
-//       description
-//       createdAt
-//       updatedAt
-//     }
-//   }
-// `

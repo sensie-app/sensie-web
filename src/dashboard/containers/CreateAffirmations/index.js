@@ -50,7 +50,10 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
   const [showErrorTopics, setShowErrorTopics] = useState(false)
   const [showNewForm, setShowNewForm] = useState(initShowForm)
 
-  useEffect(() => defaultTopic !== 0 && defaultTopic.length !== 0 && setTopics(defaultTopic), [defaultTopic])
+  useEffect(() => {
+    console.log('1', 1)
+    defaultTopic !== '0' && defaultTopic.length !== 0 ? setTopics(defaultTopic) : setTopics(newAffirmation.topics)
+  }, [defaultTopic])
   useEffect(() => dispatch(setNewAffirmationAction({ title, topics })), [title, topics])
   console.log('defaultTopic', defaultTopic)
   console.log('topics', topics)
@@ -100,10 +103,10 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
       setTitle('')
       setTopics([])
       setShowNewForm(false)
+
       console.log('handleArrTopicsId(topics)', handleArrTopicsId(topics))
-      const affId = await onSave(title, '...', '0', handleArrTopicsId(topics), user.id)
+      const affId = await onSave(title, 'description', defaultPack, defaultTopic[0].id, user.id)
       console.log('affId', affId)
-      // TODO: use Mutation
     }
   }
 
