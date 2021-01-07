@@ -18,7 +18,7 @@ const VerticalCarousel = () => {
         autoPlay
         infiniteLoop
         showArrows={false}
-        // showIndicators={false}
+        showIndicators={false}
         axis="vertical"
         interval='7000'
       >

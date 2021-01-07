@@ -11,7 +11,7 @@ const BackgroundVideo = () => {
           height="100%"
           autoPlay
           muted
-        src={videoWebAndMobile}
+          src={videoWebAndMobile}
         >
           <source src={videoWebAndMobile} type="video/mp4" />
         </video>

@@ -22,7 +22,8 @@ import LearnMore from '../components/LearnMore'
 import Whip from '../components/Whip'
 import WisdomCard from '../components/WisdomCard'
 import HowItWorks from '../components/HowItWorks'
-import BackgroundVideo from '../components/BackgroundVideo'
+// import videoWebAndMobile from '../assets/video/Sensie.mp4'
+import videoWebAndMobile from '../assets/video/sensievideo2.mp4'
 import Hand from '../components/Hand'
 import Users from '../components/Users'
 import VerticalCarousel from '../components/verticalCarousel/VerticalCarousel'
@@ -41,8 +42,10 @@ import AmericanPsychiatric from '../assets/img/americanpsychiatricpng.png'
 import Wired from '../assets/img/wiredpng.png'
 import Transtech from '../assets/img/transtechpng.png'
 import BerkeleyWell from '../assets/img/berkeleywellpng.png'
-import backgroundScience from '../assets/img/backgroundScience.png'
-import backgroundSelfAwareness from '../assets/img/backgroundSelfAwareness.png'
+// import backgroundScience from '../assets/img/backgroundScience.png'
+import backgroundScience from '../assets/img/backgroundScience1.png'
+// import backgroundSelfAwareness from '../assets/img/backgroundSelfAwareness.png'
+import backgroundSelfAwareness from '../assets/img/backgroundSelfAwareness1.png'
 import SquareHandG from '../assets/video/SquareHandG.mp4'
 
 // Icons
@@ -61,9 +64,8 @@ const useStyles = makeStyles((theme) => ({
   background: {
     backgroundColor: '#000000'
   },
-  particles: {
-    position: 'absolute',
-    opacity: '0.3'
+  bgImg: {
+    width: '100vw'
   }
 }))
 
@@ -72,24 +74,45 @@ const Home = () => {
 
   const [showWhip, setShowWhip] = useState(true)
   const [showDashboard, setShowDashboard] = useState(true)
+  const [playWhip, setPlayWhip] = useState(true)
+  const [playDashboard, setPlayDashboard] = useState(true)
 
   useEffect(() => {
     window.onscroll = function () {
-      const scrollWhip = window.scrollY
-      const scrollDashboard = window.scrollY
-      if (scrollWhip > 1500) {
-        setTimeout(() => {
-          setShowWhip(false)
-        }, 2500)
+      const scrollTop = window.scrollY
+      const docHeight = document.body.offsetHeight
+      const winHeight = window.innerHeight
+      const scrollPercent = scrollTop / (docHeight - winHeight)
+      const scrollPercentRounded = Math.round(scrollPercent * 100)
+      if (playWhip) {
+        const whipVideo = document.getElementById('videowhip')
+        function playWhip () {
+          setPlayWhip(false)
+          whipVideo.play()
+        }
+        if (scrollPercentRounded > 38 && playWhip) {
+          playWhip()
+          setTimeout(() => {
+            setShowWhip(false)
+          }, 2500)
+        }
       }
-      if (scrollDashboard > 2800) {
-        setTimeout(() => {
-          setShowDashboard(false)
-        }, 4000)
+      if (playDashboard) {
+        const dashboardVideo = document.getElementById('videosensie')
+        function playDashboard () {
+          console.log('paso por aca')
+          setPlayDashboard(false)
+          dashboardVideo.play()
+        }
+        if (scrollPercentRounded > 73 && playDashboard) {
+          playDashboard()
+          setTimeout(() => {
+            setShowDashboard(false)
+          }, 3500)
+        }
       }
     }
-  }, [])
-
+  }, [playDashboard, playWhip])
   return (
     <div id="hm" style={{ backgroundColor: '#071215' }}>
       {/* BLOQUE 1 Your Smarthphone Just Got Smarter */}
@@ -144,11 +167,11 @@ const Home = () => {
       <Grid direction="column">
         <Box mb={18}>
           <Grid container>
-            <Grid item md={3}></Grid>
-            <Grid item xs={12} md={6} data-aos="zoom-out-up">
+            <Grid item xs={1} sm={3}></Grid>
+            <Grid item xs={10} sm={6} data-aos="zoom-out-up">
               <CarouselComponent />
             </Grid>
-            <Grid item md={3}></Grid>
+            <Grid item xs={1} sm={3}></Grid>
           </Grid>
           <Grid container justify-content="space-evenly">
             <Grid item xs={1} sm={2}></Grid>
@@ -209,7 +232,7 @@ const Home = () => {
                 <WisdomCard
                   ImageW={MindfullBeginner}
                   level="Level 1"
-                  text="Mindful Beginner"
+                  text="Mindfull Beginner"
                   width="100px"
                   height="120px"
                 />
@@ -289,9 +312,9 @@ const Home = () => {
             </Grid>
             <Grid xs={12} sm={6} style={{ textAlign: 'right' }}>
               <video
+                id="videowhip"
                 width="auto"
                 height="auto"
-                autoPlay
                 loop
                 muted
                 src={SquareHandG}
@@ -306,8 +329,8 @@ const Home = () => {
       {/* BLOQUE 5 The Science */}
       <div id="science"></div>
       <Parallax strength={300}>
-        <Background className="backgroundImg">
-          <img src={backgroundScience} />
+        <Background >
+          <img src={backgroundScience} alt='background science' className={classes.bgImg}/>
         </Background>
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
@@ -343,61 +366,74 @@ const Home = () => {
       </Parallax>
 
       {/* BLOQUE 6 Web and mobile solution */}
-      <Grid container direction="column">
-        <Box my={14}>
-          <Box mx={18}>
-            <Grid item xs={12} data-aos="zoom-out-up">
-              <HowItWorks
-                textWithoutColor="At"
-                textWithColor="Sensie"
-                textWithoutColor2="we provide the best tools to help elevate human flourishing"
-              />
+      <div style={{ mixBlendMode: 'lighten' }}>
+        <Grid container direction="column">
+          <Box my={14}>
+            <Box mx={28} mb={10}>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={12}>
+                <HowItWorks
+                  textWithoutColor="At"
+                  textWithColor="Sensie"
+                  textWithoutColor2="we provide the best tools to help elevate human flourishing"
+                />
+              </Grid>
+              <Grid item xs={1}></Grid>
+            </Box>
+            <Grid item xs={12}>
+              {showDashboard ? null : (
+                <Box>
+                  {/* <Grid item xs={12} data-aos="zoom-out">
+                  <Title
+                  title="Web and Mobile Solution"
+                    titleDashboard={true}
+                    />
+                  </Grid> */}
+                  <Hidden smDown>
+                    <Grid item xs={6}></Grid>
+                    <Grid item xs={6} style={{ position: 'absolute' }}>
+                      <Box data-aos="fade-up" ml={10} mt="54%">
+                        <VerticalCarousel />
+                      </Box>
+                    </Grid>
+                  </Hidden>
+                </Box>
+              )}
+              <Grid
+                container
+                xs={12}
+                direction="row"
+                style={{ alignItems: 'center' }}
+              >
+                <Hidden mdUp>
+                  <VerticalCarousel />
+                </Hidden>
+                <Hidden smDown>
+                  <Box data-aos-delay="3000">
+                    <video
+                      id="videosensie"
+                      width="100%"
+                      height="100%"
+                      muted
+                      src={videoWebAndMobile}
+                    >
+                      <source src={videoWebAndMobile} type="video/mp4" />
+                    </video>
+                  </Box>
+                </Hidden>
+              </Grid>
             </Grid>
           </Box>
-          <Grid item xs={12}>
-            {showDashboard ? null : (
-              <Box mt={14}>
-                <Grid item xs={12} data-aos="zoom-out">
-                  <Title
-                    title="Web and Mobile Solution"
-                    titleDashboard={true}
-                  />
-                </Grid>
-                <Hidden smDown>
-                  <Grid item xs={6}></Grid>
-                  <Grid item xs={6} style={{ position: 'absolute' }}>
-                    <Box data-aos="fade-right" ml={10} mt={42}>
-                      <VerticalCarousel />
-                    </Box>
-                  </Grid>
-                </Hidden>
-              </Box>
-            )}
-            <Grid
-              container
-              xs={12}
-              direction="row"
-              style={{ alignItems: 'center' }}
-            >
-              <Hidden mdUp>
-                <Box mt={30}>
-                  <VerticalCarousel />
-                </Box>
-              </Hidden>
-              <Hidden smDown>
-                <Box data-aos-delay="3000">
-                  <BackgroundVideo />
-                </Box>
-              </Hidden>
-            </Grid>
-          </Grid>
-        </Box>
-      </Grid>
-
+        </Grid>
+      </div>
       {/* BLOQUE 7 Citation */}
       <Parallax strength={300}>
-        <Background className="backgroundSelfAwareness">
-          <img src={backgroundSelfAwareness} />
+        <Background>
+          <img
+            src={backgroundSelfAwareness}
+            alt="self awareness"
+            className={classes.bgImg}
+          />
         </Background>
         <Grid container direction="column">
           <Box my={34}>
