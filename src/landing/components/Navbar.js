@@ -60,7 +60,7 @@ const Navbar = () => {
                 <CustomizedMenus />
               </Grid>
             </Hidden> */}
-            <Grid item xs={4} sm={2}>
+            <Grid item xs={12} sm={2}>
               <Box display="flex" justifyContent="flex-start">
                 <Link to={hm}>
                   <LogoSensie />
@@ -70,8 +70,8 @@ const Navbar = () => {
               <Grid
                 item
                 container
-                xs={8}
-                sm={8}
+              xs={12}
+              sm={8}
                 direction="row"
                 className={classes.textTab}
               >
@@ -95,7 +95,7 @@ const Navbar = () => {
                   <Box mx={1}>ABOUT</Box>
                 </Link>
               </Grid>
-              <Grid item xs={3} sm={2}>
+              <Grid item xs={12} sm={2}>
                 <Box display="flex" justifyContent="flex-end">
                   <Box>
                     <a href={APP_ROUTES.dashboard + '/'}>

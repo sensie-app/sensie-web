@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, Box } from '@material-ui/core'
 
 const useStyles = makeStyles({
   leadStyle: {
     color: 'white',
-    fontSize: '30px'
+    fontSize: '20px'
   }
 })
 
 const Lead = ({ lead }) => {
   const classes = useStyles()
   return (
-        <div>
+        <Box mt={2}>
             <p className={classes.leadStyle}>{lead}</p>
-        </div>
+        </Box>
   )
 }
 

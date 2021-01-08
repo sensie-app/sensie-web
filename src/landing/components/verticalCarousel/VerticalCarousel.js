@@ -11,36 +11,36 @@ const Carousel = require('react-responsive-carousel').Carousel
 
 const VerticalCarousel = () => {
   return (
-    <Box mt={6} mx={4}>
+    <Box mx={2}>
       <Carousel
         showStatus={false}
         showThumbs={false}
         autoPlay
         infiniteLoop
         showArrows={false}
-        showIndicators={false}
-        axis="vertical"
-        interval='7000'
+        // showIndicators={false}
+        interval="7000"
       >
         <div>
           <Users
             title="Individual / Team Member"
-            subtitle="Stress impairs your ability to make good decisions."
-            text="Take a step back, use Sensie to give yourself space to think through options, find focus and get in the zone."
+            subtitle="Assess your state of mind to gauge game time readiness."
+            text="Identify blindspots and performance blockages, clear them, find focus and get in the zone."
           />
         </div>
         <div>
           <Users
             title="Coach"
-            subtitle="Overview your clients/team performance and measure engagement around your therapies, practices or training sessions."
-            text="Enable them to take the right call in every aspect of their performance."
+            subtitle="Provide clients or your team with personalized care 24/7 virtually."
+            text="Assess your coaching clients and teams performance state, resilience, and symptoms of health at a glance. Measure engagement around your therapies, practices and training sessions.
+            Empower your clients to self heal and make the right call in every aspect of their performance."
           />
         </div>
         <div>
           <Users
             title="Corporation"
-            subtitle="Assess many teams or groups within your organization."
-            text="Improve happiness and relieve over people to help them find their best-selves with Sensie."
+            subtitle="Upgrading executive health to optimal wellness translates into success."
+            text="Improve employee engagement, productivity, focus and creativity while simultaneously driving down sick time, injury, and absenteeism. Create an engaged corporate culture that cares and fosters deep team connection."
           />
         </div>
       </Carousel>

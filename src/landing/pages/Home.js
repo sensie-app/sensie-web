@@ -20,7 +20,7 @@ import Lead from '../components/Lead'
 import LearnMore from '../components/LearnMore'
 import Whip from '../components/Whip'
 import WisdomCard from '../components/WisdomCard'
-import HowItWorks from '../components/HowItWorks'
+import WebAndMobileTitle from '../components/WebAndMobileTitle'
 import Hand from '../components/Hand'
 import VerticalCarousel from '../components/verticalCarousel/VerticalCarousel'
 // import CustomCard from '../components/CustomCard'
@@ -69,9 +69,9 @@ const Home = () => {
   const [playDashboard, setPlayDashboard] = useState(true)
 
   useEffect(() => {
-    const whipVideo = document.getElementById('videowhip')
-    const dashboardVideo = document.getElementById('videosensie')
     window.onscroll = function () {
+      const whipVideo = document.getElementById('videowhip')
+      const dashboardVideo = document.getElementById('videosensie')
       const scrollTop = window.scrollY
       const docHeight = document.body.offsetHeight
       const winHeight = window.innerHeight
@@ -82,7 +82,7 @@ const Home = () => {
           setPlayWhip(false)
           whipVideo.play()
         }
-        if (scrollPercentRounded > 38 && playWhip) {
+        if (scrollPercentRounded > 38 && playWhip && whipVideo) {
           playWhip()
           setTimeout(() => {
             setShowWhip(false)
@@ -94,7 +94,7 @@ const Home = () => {
           setPlayDashboard(false)
           dashboardVideo.play()
         }
-        if (scrollPercentRounded > 73 && playDashboard) {
+        if (scrollPercentRounded > 73 && playDashboard && dashboardVideo) {
           playDashboard()
           setTimeout(() => {
             setShowDashboard(false)
@@ -133,7 +133,7 @@ const Home = () => {
           <Box mt={2}>
             <BulletPoint
               IconItem={Blockages}
-              title={'Identify and clear performance blockages'}
+              title={'Identify and clear inner conflict'}
             />
           </Box>
           <Box mt={2}>
@@ -245,7 +245,7 @@ const Home = () => {
                 <WisdomCard
                   ImageW={MindfullBeginner}
                   level="Level 1"
-                  text="Mindfull Beginner"
+                  text="Mindful Beginner"
                   width="100px"
                   height="120px"
                 />
@@ -288,14 +288,16 @@ const Home = () => {
                 </Grid>
                 <Box mt={1}>
                   <Grid data-aos="zoom-out-up">
-                    <Epigraph epigraph="Sensie is pioneering kinetic biomarkers to help assist human flourishing at scale." />
+                    <Epigraph epigraph="Sensie uses smartphone sensors to track movement and measure muscular tension associated with thought and spoken word." />
                   </Grid>
                 </Box>
                 {!showWhip ? (
                   <div data-aos="zoom-in">
-                    <Box mt={8}>
+                    <Box mt={6}>
                       <Grid>
-                        <Lead lead="Sensie uses existing sensors in your phone to measure movement in the gesture and detect stress." />
+                        <Lead lead="1. Sensie offers a topic to consider - think and feel about" />
+                        <Lead lead="2. You then whip the phone 3x " />
+                        <Lead lead="3. Sensie measures the recoil of the hand to assess if their is tension " />
                       </Grid>
                     </Box>
 
@@ -329,18 +331,20 @@ const Home = () => {
                 )}
               </Box>
             </Grid>
-            <Grid xs={12} sm={6} style={{ textAlign: 'right' }}>
-              <video
-                id="videowhip"
-                width="auto"
-                height="auto"
-                loop
-                muted
-                src={SquareHandG}
-              >
-                <source src={SquareHandG} type="video/mp4" />
-              </video>
-            </Grid>
+            <Hidden smDown>
+              <Grid xs={12} sm={6} style={{ textAlign: 'right' }}>
+                <video
+                  id="videowhip"
+                  width="auto"
+                  height="auto"
+                  loop
+                  muted
+                  src={SquareHandG}
+                >
+                  <source src={SquareHandG} type="video/mp4" />
+                </video>
+              </Grid>
+            </Hidden>
           </Grid>
           <Grid item xs={1}></Grid>
         </Grid>
@@ -392,24 +396,24 @@ const Home = () => {
       <div style={{ mixBlendMode: 'lighten' }}>
         <Grid container direction="column">
           <Box my={14}>
-            <Box mx={28} mb={10}>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={12}>
-                <HowItWorks
-                  textWithoutColor="At"
-                  textWithColor="Sensie"
-                  textWithoutColor2="we provide the best tools to help elevate human flourishing"
-                />
-              </Grid>
-              <Grid item xs={1}></Grid>
-            </Box>
+            <Grid item xs={12}>
+              <WebAndMobileTitle
+                textWithoutColor="At"
+                textWithColor="Sensie"
+                textWithoutColor2="we provide the best tools to help elevate human flourishing"
+              />
+            </Grid>
             <Grid item xs={12}>
               {showDashboard ? null : (
                 <Box>
                   <Hidden smDown>
                     <Grid item xs={6}></Grid>
-                    <Grid item xs={6} style={{ position: 'absolute' }}>
-                      <Box data-aos="fade-up" ml={10} mt="54%">
+                    <Grid
+                      item
+                      xs={6}
+                      style={{ position: 'absolute', zIndex: '1000' }}
+                    >
+                      <Box data-aos="fade-right" ml={6} mt="50%">
                         <VerticalCarousel />
                       </Box>
                     </Grid>
@@ -420,7 +424,7 @@ const Home = () => {
                 container
                 xs={12}
                 direction="row"
-                style={{ alignItems: 'center' }}
+                style={{ justifyContent: 'space-evenly' }}
               >
                 <Hidden mdUp>
                   <VerticalCarousel />

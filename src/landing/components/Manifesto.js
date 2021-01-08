@@ -44,8 +44,8 @@ const Manifesto = ({ title, text, feel, feel2 }) => {
         </Box>
       </Grid>
       <Grid item container xs={12}>
-        <Grid item xs={4}></Grid>
-        <Grid item xs={4}>
+        <Grid item xs={0} sm={2}></Grid>
+        <Grid item xs={12} sm={8}>
           <Box mt={3}>
             <Typography className={classes.feel}>
               {feel}<br/>{feel2}
@@ -53,7 +53,7 @@ const Manifesto = ({ title, text, feel, feel2 }) => {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={4}></Grid>
+        <Grid item xs={0} sm={2}></Grid>
       </Grid>
     </Grid>
   )

@@ -38,28 +38,28 @@ const Member = ({ avatar, name, role, urlLinkedin }) => {
         <Grid item xs={12}>
           <Avatar alt="Remy Sharp" src={avatar} className={classes.large} />
         </Grid>{' '}
+          <Grid item xs={12}>
         <Box mt={2} className={classes.nameStyle}>
-          <Grid item xs={12}>
             {name}
-          </Grid>
         </Box>
-        {role ? (<Box mt={1} className={classes.roleStyle}>
+          </Grid>
+        {role ? (
           <Grid item xs={12}>
+          <Box mt={1} className={classes.roleStyle}>
             {role}
-          </Grid>{' '}
-        </Box>) : (null)}
+          </Box>
+          </Grid>
+        ) : (null)}
 
-        <Box mt={2} className={classes.iconStyle}>
           <Grid item container justify="center">
-            <Box>
               <Grid item xs={12}>
+        <Box mt={2} className={classes.iconStyle}>
                 <a href={urlLinkedin} target="_blank" rel="noopener noreferrer">
                   <LinkedInIcon fontSize="small" />
                 </a>
-              </Grid>
-            </Box>
-          </Grid>
         </Box>
+              </Grid>
+          </Grid>
       </Grid>{' '}
     </Box>
   )

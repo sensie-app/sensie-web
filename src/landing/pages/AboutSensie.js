@@ -13,13 +13,15 @@ import ThomasGersten from '../assets/img/ThomasGersten.png'
 import HinnerkBoriss from '../assets/img/HinnerkBoriss.png'
 import KeithTribble from '../assets/img/KeithTribble.png'
 import SatyenRaja from '../assets/img/SatyenRaja.png'
-import AnneJensen from '../assets/img/AnneJensen.jpg'
+import AnneJensen from '../assets/img/AnneJensen.png'
 import AnnmarieChereso from '../assets/img/AnnmarieChereso.png'
 import JeremyTabke from '../assets/img/JeremyTabke.png'
 import GescheHaas from '../assets/img/GescheHaas.png'
 import EvaSelhub from '../assets/img/EvaSelhub.png'
-import EnitanMarcelle from '../assets/img/EnitanMarcelle.jpg'
+import EnitanMarcelle from '../assets/img/EnitanMarcelle.png'
 import WilliamSoftky from '../assets/img/WilliamSoftky.jpg'
+import RobertHanna from '../assets/img/RobertHanna.jpg'
+import LuisGallardo from '../assets/img/LuisGallardo.jpg'
 import JoinUs from '../components/JoinUs'
 import FormFooter from '../components/FormFooter'
 import Member from '../components/Member'
@@ -82,7 +84,7 @@ const AboutSensie = () => {
             <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
-                  'A day is an act of creation, how I feel is what I créate.'
+                  'A day is an act of creation, how I feel is what I create.'
                 }
               />
             </Box>
@@ -161,42 +163,8 @@ const AboutSensie = () => {
             </Box>
           </Grid>
           <Grid item xs={1}></Grid>
-          {/* <Grid xs={12} data-aos="zoom-out-up">
-            <Box mt={4}>
-              <Features
-                icon={Idea}
-                text={
-                  'We are a team of yogis, scientists, and engineers dedicated to empowering humanity to take well-being back into their own hands. That starts with a focus on emotional intelligence and providing a clear, objective signal for the body’s response to stress.'
-                }
-              />
-            </Box>
-            <Box mt={4}>
-              <Features
-                icon={Innovation}
-                text={
-                  'Technology of all kinds can help us along the way, but our vision is one in which we advance our ability to adapt, effectively cope with stress and govern our own internal states. The future for well-being is tool-based and supported by helping us see what was previously unseen. Unlimited possibilities await.'
-                }
-              />
-            </Box>
-            <Box mt={4}>
-              <Features
-                icon={Microscope}
-                text={
-                  'We’re building off of over one hundred years of cutting edge research, working closely with our community and in collaboration with private and public partners and scientists to get functional tools into the hands of people everywhere. We’re starting with a focus on stress reduction.'
-                }
-              />
-            </Box>
-            <Box mt={4}>
-              <Features
-                icon={NeuroImaging}
-                text={
-                  'Recent breakthroughs in the fields of neuroscience and physiology have unlocked the mind/body connection. By applying sensing technology, we aim to empower humanity to take their health into their own hands.'
-                }
-              />
-            </Box>
-          </Grid> */}
-          <Grid item xs={3}></Grid>
-          <Grid item xs={6}>
+          <Grid item xs={1} sm={3}></Grid>
+          <Grid item xs={10} sm={6}>
             <Box
               style={{ textAlign: '-webkit-center' }}
               mt={10}
@@ -212,7 +180,7 @@ const AboutSensie = () => {
               />
             </Box>
           </Grid>
-          <Grid item xs={3}></Grid>
+          <Grid item xs={1} sm={3}></Grid>
         </Grid>
         <Grid item xs={1}></Grid>
         <Grid container justify-content="space-evenly">
@@ -234,6 +202,7 @@ const AboutSensie = () => {
               <Member
                 avatar={EvaSelhub}
                 name="Dr. Eva Selhub"
+                role="MD"
                 urlLinkedin="https://www.linkedin.com/in/theloveresponse/"
               />
             </Box>
@@ -241,13 +210,15 @@ const AboutSensie = () => {
               <Member
                 avatar={AnneJensen}
                 name="Dr. Anne Jensen"
+                role="MSc, DC, DPhil (PhD)"
                 urlLinkedin="https://www.linkedin.com/in/anne-jensen-bb26a63/"
               />
             </Box>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">
               <Member
                 avatar={WilliamSoftky}
-                name="Bill Softsky"
+                name="Bill Softky"
+                role="PhD"
                 urlLinkedin="https://www.fairobserver.com/author/william-softky/"
               />
             </Box>
@@ -255,6 +226,7 @@ const AboutSensie = () => {
               <Member
                 avatar={EnitanMarcelle}
                 name="Enitan Marcelle"
+                role="PhD candidate"
                 urlLinkedin="https://www.linkedin.com/in/enitanmarcelle/"
               />
             </Box>
@@ -262,6 +234,7 @@ const AboutSensie = () => {
               <Member
                 avatar={MikeySiegel}
                 name="Mikey Siegel"
+                role="MS"
                 urlLinkedin="https://www.linkedin.com/in/mikeysiegel/"
               />
             </Box>
@@ -269,6 +242,7 @@ const AboutSensie = () => {
               <Member
                 avatar={AnnmarieChereso}
                 name="Annmarie Cheereso"
+                role="-"
                 urlLinkedin="https://www.linkedin.com/in/annmarie-chereso-a3ab2311/"
               />
             </Box>
@@ -276,7 +250,16 @@ const AboutSensie = () => {
               <Member
                 avatar={GescheHaas}
                 name="Gesche Haas"
+                role="-"
                 urlLinkedin="https://www.linkedin.com/in/gesche/"
+              />
+            </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={LuisGallardo}
+                name="Luis Gallardo"
+                role="-"
+                urlLinkedin="https://www.linkedin.com/in/luisgallardo/"
               />
             </Box>
           </Grid>
@@ -295,14 +278,6 @@ const AboutSensie = () => {
                 <span className={classes.title}>Our Team</span>
               </Box>
             </Grid>
-            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
-              <Member
-                avatar={Mike}
-                name="MIKE DANNHEIM"
-                role="CEO & FOUNDER"
-                urlLinkedin="https://www.linkedin.com/in/michaeldannheim/"
-              />
-            </Box>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">
               <Member
                 avatar={ThomasGersten}
@@ -337,10 +312,26 @@ const AboutSensie = () => {
             </Box>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">
               <Member
+                avatar={RobertHanna}
+                name="ROBERT HANNAH"
+                role="DATA ANALYST"
+                urlLinkedin="https://www.linkedin.com/in/robert-hannah-55241a188/"
+              />
+            </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
                 avatar={JeremyTabke}
                 name="JEREMY TABKE"
                 role="HEAD OF ENGINEERING"
                 urlLinkedin="https://www.linkedin.com/in/jeremytabke/"
+              />
+            </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={Mike}
+                name="MIKE DANNHEIM"
+                role="CEO & FOUNDER"
+                urlLinkedin="https://www.linkedin.com/in/michaeldannheim/"
               />
             </Box>
           </Grid>
@@ -348,7 +339,7 @@ const AboutSensie = () => {
         </Grid>
         <Grid item xs={1}></Grid>
         <Grid item container xs={10} data-aos="zoom-out-up">
-          <Grid xs={5}>
+          <Grid xs={12} sm={5}>
             <Box mt={12}>
               <JoinUs
                 title="Join us"
@@ -356,8 +347,8 @@ const AboutSensie = () => {
               />
             </Box>
           </Grid>
-          <Grid xs={1}></Grid>
-          <Grid xs={6}>
+          <Grid xs={0} sm={1}></Grid>
+          <Grid xs={12} sm={6}>
             <Box my={15}>
               <FormFooter />
             </Box>

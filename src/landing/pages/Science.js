@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Box, Typography } from '@material-ui/core'
+import { Grid, Box, Typography, makeStyles } from '@material-ui/core'
 import Title from '../components/Title/Title'
 import { Parallax, Background } from 'react-parallax'
 import Epigraph from '../components/Epigraph'
@@ -12,13 +12,20 @@ import LANDING_ROUTES from '../constants/routes'
 
 const { scienceanchor } = LANDING_ROUTES
 
+const useStyles = makeStyles({
+  bgImg: {
+    width: '100vw'
+  }
+})
+
 const Science = () => {
+  const classes = useStyles()
   return (
     <div id="scc" style={{ backgroundColor: '#071215' }}>
       {/* BLOQUE 1 */}
       <Parallax strength={400}>
         <Background className="backgroundImg">
-          <img src={backgroundScienceMan1} />
+          <img className={classes.bgImg} src={backgroundScienceMan1} />
         </Background>
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
