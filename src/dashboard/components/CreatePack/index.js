@@ -1,6 +1,7 @@
 // react
 import React, { useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 // components
 import Icon from '../Icon'
@@ -20,13 +21,16 @@ const { addPacks } = DASHBOARD_ROUTES
  * CreatePack component
  * @component
  */
-const CreatePack = () => {
+const CreatePack = ({ onSave }) => {
   // hooks
   const [t] = useTranslation('global')
   const inputRef = useRef(null)
   const [showError, setShowError] = useState(false)
+  const [showFile, setShowFile] = useState(null)
   const [value, setValue] = useState('')
+  const [file, setFile] = useState('')
   const [redirect, setRedirect] = useState(false)
+  const [newPackId, setNewPackId] = useState(null)
 
   // ? handle functions
   /**
@@ -39,14 +43,30 @@ const CreatePack = () => {
     setValue(event.target.value)
   }
 
-  const handleForm = e => {
+  /**
+   * handle input file value
+   * @param {undefined} event
+   * @returns {Object} setAffirmation()
+   */
+  const handleInputFileValue = event => {
+    event.preventDefault()
+    setShowFile(URL.createObjectURL(event.target.files[0]))
+    setFile(event.target.value)
+  }
+
+  const handleForm = async e => {
     e.preventDefault()
+    console.log('file', file)
     if (value.length === 0) {
       setShowError(true)
       setRedirect(false)
     } else {
+      const packId = await onSave(value, value, 1) // Todo: use mutation, save img, get imageId and use here.
       setShowError(false)
-      setRedirect(true)
+      if (packId !== null) {
+        setNewPackId(packId)
+        setRedirect(true)
+      }
     }
     // return showError && value !== '' && <Redirect to={addPacks} />
   }
@@ -69,11 +89,11 @@ const CreatePack = () => {
    */
   const renderModalBody = () => (
     <form className={styles.CreatePackBody} action="post" encType="multipart/form-data" >
-      <div className={styles.CreactePackBodyBtnImg}>
-        <input accept="image/*" id="iconButtonFile" type="file" />
-        <label htmlFor="iconButtonFile">
+      <div className={styles.CreactePackBodyBtnImg} style={{ backgroundImage: `url(${showFile})` }}>
+        <input accept="image/*" id="iconButtonFile" type="file" onChange={handleInputFileValue} />
+        <label htmlFor="iconButtonFile" className={styles.CreatePackBtnImgLabel}>
           <Icon name="image-outline" color={grayColor3} size="l" />
-          <span>{t('dashboard.CreatePack.addImage')}</span>
+          <span>{showFile === null ? t('dashboard.CreatePack.addImage') : t('dashboard.CreatePack.changeImage')}</span>
         </label>
       </div>
       <form className={styles.CreatePackBodyForm}>
@@ -91,7 +111,7 @@ const CreatePack = () => {
             type="submit"
             onClick={e => handleForm(e)}
           >{t('dashboard.CreatePack.create')}</button>
-          {redirect && <Redirect to={addPacks} />}
+          {redirect && <Redirect to={addPacks + '/' + newPackId} />}
         </div>
       </form>
     </form>
@@ -109,6 +129,12 @@ const CreatePack = () => {
       </Modal>
     </div>
   )
+}
+
+// prop-types
+CreatePack.propTypes = {
+  /** onSave */
+  onSave: PropTypes.func.isRequired
 }
 
 export default CreatePack

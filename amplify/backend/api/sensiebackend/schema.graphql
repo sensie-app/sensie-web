@@ -12,15 +12,17 @@ type User @model
   domHand: String
   goal: String
   userOrganizationId: ID
-  organization: Organization 
+  organization: Organization @connection
   affirmations: [Affirmation] @connection(keyName: "byOwner", fields: ["owner"])
   selfAwareness: Float 
   userGroupId: ID
-  group: Group
+  group: Group @connection
+  userType: String
   userTeamId: ID
   team: Team @connection
   sensies: [Sensie] @connection(keyName: "byOwner", fields: ["owner"])
-  picture: Picture @connection
+  packs: [Pack] @connection(keyName: "SortByOwner", fields: ["owner"])
+  picture: S3Object 
 }
 
 type Organization @model 
@@ -41,11 +43,11 @@ type Team @model
   description: String!
   organizationId: ID
   organization: Organization @connection
+  coaches: [User] @connection(keyName: "SortByTeam", fields: ["id"])
   users: [User] @connection(keyName: "SortByTeam", fields: ["id"])
 }
 
-type Group @model 
- {
+type Group @model {
   id: ID!
   name: String!
   description: String!
@@ -81,12 +83,16 @@ type Sensie @model
   affirmation: Affirmation @connection(fields: ["affirmationId"])
 }
 
-type Pack @model {
+type Pack @model
+ @key(name: "SortByOwner", fields: ["packUserId"])
+ @auth(rules: [{ allow: owner, ownerField: "packUserId", operations: [create, delete, update] }]) {
   id: ID!
   name: String!
   description: String! 
   affirmations: [PackAffirmationJoin] @connection(keyName: "byPack", fields: ["id"])
   picture: Picture @connection
+  packUserId: ID
+  user: User @connection
 }
 
 type Topic @model {
@@ -94,11 +100,11 @@ type Topic @model {
   name: String!
   description: String! 
   affirmations: [TopicAffirmationJoin] @connection(keyName: "byTopic", fields: ["id"])
-  picture: Picture @connection
+  picture: String 
 }
 
 type Affirmation @model 
- @key(name: "byTopic", fields: ["topicId", "name"])
+ @key(name: "byTopic", fields: ["topicId", "name"]) 
  @key(name: "byPack", fields: ["packId"]) 
  @key(name: "byOwner", fields: ["userId"]) {
   id: ID!
@@ -109,7 +115,7 @@ type Affirmation @model
   name: String!
   description: String!
   userId: ID!
-  user: User @connection
+  user: User @connection(fields: ["userId"])
 }
 
 type PackAffirmationJoin @model(queries: null)

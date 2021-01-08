@@ -71,12 +71,12 @@ const DashboardRoutes = () => {
           <Layout>
             <Route path={home} component={Home} />
             <Route path={client} component={Client} />
-            <Route path={user} component={User} />
             <Route path={team} component={Team} />
             <Route path={affirmations} component={Affirmations} />
-            <Route path={addPacks} component={AddPacks} />
             <Route path={sageDashboard} component={SageDashboard} />
             <Route path={profile} component={Profile} />
+            <Route path={user} component={User} />
+            <Route path={addPacks + '/:id'} component={AddPacks} />
             <Route path={pack + '/:id'} component={Pack} />
             <Route path={topic + '/:id'} component={Topic} />
             <Redirect from={entrypoint} to={home} />

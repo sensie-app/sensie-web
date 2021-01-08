@@ -57,7 +57,7 @@ const User = ({ user, show }) => {
       {/* body */}
       { show === summary
         ? <div className={styles.UserBodySummary}>
-            <div className={styles.UserBodyContainer} style={{ width: '50%' }}>
+            <div className={styles.UserBodyContainer}>
               <PercentageChart title={t('dashboard.User.awarness')} value={90} />
               <PercentageChart title={t('dashboard.User.resilence')} value={60} />
               <PercentageChart title={t('dashboard.User.trust')} value={45} />
@@ -67,7 +67,7 @@ const User = ({ user, show }) => {
               <BarChart miniature={true} />
             </div>
           </div>
-        : <div className={styles.UserBodyContainer} style={{ width: '60%' }}>
+        : <div className={styles.UserBodyContainer}>
             <IconChart title={t('dashboard.IconChart.engagement')} value={30000} icon={UP} theme={2} />
             <IconChart title={t('dashboard.IconChart.sensies')} value={10000000} valueType="number" icon={DOWN} theme={2} />
             <IconChart title={t('dashboard.IconChart.flow')} value={80} valueType="%" icon={USER} theme={2} />
