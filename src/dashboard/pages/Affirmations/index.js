@@ -16,8 +16,7 @@ import { CreatePacksTags } from '../../constants/globals'
 // utils
 import { gqlquery } from '../../utils/queries'
 // graphql
-import { listTopicsWiyhAffirmationsIdsQuery, listPacksWiyhAffirmationsIdsQuery } from '../../graphql/queries'
-import { listTopics } from '../../../graphql/queries'
+import { listTopicsWiyhAffirmationsIdsQuery, listPacksWiyhAffirmationsIdsByIdQuery } from '../../graphql/queries'
 import { createPackMutation } from '../../graphql/mutations'
 // styles
 import styles from './styles.module.scss'
@@ -30,7 +29,7 @@ import styles from './styles.module.scss'
 const Affirmations = () => {
   // hooks
   const dispatch = useDispatch()
-  const { showReducer: { showPacksOrTopics } } = useSelector(state => state)
+  const { showReducer: { showPacksOrTopics }, userReducer: { user } } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [show, setShow] = useState(showPacksOrTopics)
   const [topics, setTopics] = useState([])
@@ -38,9 +37,8 @@ const Affirmations = () => {
   const [waitQuery, setWaitQuery] = useState(true)
 
   useEffect(async () => {
-    console.log('listTopics', await gqlquery(listTopics))
     const dbTopics = await gqlquery(listTopicsWiyhAffirmationsIdsQuery())
-    const dbPacks = await gqlquery(listPacksWiyhAffirmationsIdsQuery())
+    const dbPacks = await gqlquery(listPacksWiyhAffirmationsIdsByIdQuery(user.id))
     if (!dbTopics.loading && dbTopics.value !== null && !dbPacks.loading && dbPacks.value !== null) {
       setTopics(dbTopics.value.data.listTopics.items)
       setPacks(dbPacks.value.data.listPacks.items)

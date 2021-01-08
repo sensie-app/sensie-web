@@ -36,6 +36,7 @@ const Pack = () => {
 
   useEffect(async () => {
     const { loading, value } = await gqlquery(getPackByIdQuery(id))
+    console.log('value', value)
     if (!loading && value !== null) {
       setDbPack(value.data.getPack)
       setWaitQuery(false)

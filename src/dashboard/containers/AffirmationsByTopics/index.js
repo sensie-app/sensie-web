@@ -4,12 +4,14 @@ import { useTranslation } from 'react-i18next'
 // material-ui
 import Checkbox from '@material-ui/core/Checkbox'
 // components
-import Topic from '../Topic'
-import Title from '../Title'
+import Topic from '../../components/Topic'
+import Title from '../../components/Title'
 // constants
 import TopicsConstants from '../../constants/topics'
 import IMG from '../../constants/images'
 import { COLORS } from '../../constants/theme'
+// redux
+// import { useSelector } from 'react-redux'
 // styles
 import styles from './styles.module.scss'
 
@@ -25,6 +27,7 @@ const { actionColor1 } = COLORS
  */
 const AffirmationsByTopics = () => {
   // hooks
+  // const { userReducer: { user }, topicsReducer: { topics } } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [topic, setTopic] = useState(null)
   const [selectAllCheckbox, setSelectAllCheckbox] = useState(false)
@@ -74,6 +77,24 @@ const AffirmationsByTopics = () => {
     )
   }
 
+  // const renderTopics = () => {
+  //   return topics.map((_topic, index) => (
+  //     <button
+  //       key={index}
+  //       onClick={() => setTopic(_topic)}>
+  //       <Topic
+  //         img={handleImageTopics(_topic)}
+  //         title={_topic}
+  //         topic={_topic}
+  //         withLink={false}
+  //         witCheckbox={false}
+  //         size="100px"
+  //         iconSize='25px'
+  //       />
+  //     </button>)
+  //   )
+  // }
+
   return (
     <div className={styles.AffirmationsByTopicsContainer}>
       {/* title */}
@@ -85,6 +106,7 @@ const AffirmationsByTopics = () => {
       <div className={styles.AffirmationsByTopicsHeaderContainer}>
         <div className={styles.AffirmationsByTopicsBoxesContainer}>
           {renderImagesBox()}
+          {/* {renderTopics()} */}
         </div>
         <div className={styles.AffirmationsByTopicsActionContainer}>
           <Checkbox checked={selectAllCheckbox} onChange={() => setSelectAllCheckbox(!selectAllCheckbox)} color={actionColor1} className={styles.AffirmationsByTopicsCheckbox} />

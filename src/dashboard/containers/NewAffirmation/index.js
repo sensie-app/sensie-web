@@ -33,7 +33,6 @@ const { fontColor1 } = COLORS
  * @param {boolean} withAddBtn (default: false)
  */
 const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBtn = false }) => {
-  console.log('selectedTopics', selectedTopics)
   // hooks
   const dispatch = useDispatch()
   const { affirmationsReducer: { lastAffirmations } } = useSelector(state => state)
@@ -92,7 +91,6 @@ const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBt
    * @returns {undefined} setMenuAction
    */
   const handleClickStateMenu = value => {
-    console.log('value', value)
     setMenuAction(value)
   }
 

@@ -11,7 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
-import AffirmationsByTopics from '../../components/AffirmationsByTopics'
+// import AffirmationsByTopics from '../../components/AffirmationsByTopics'
 // containers
 import NewAffirmation from '../NewAffirmation'
 // constants
@@ -235,7 +235,7 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
       </div>
       {/* affirmations by topics */}
       {withAffirmationsByTopics && <div className={styles.CreateAffirmationsAffirmationsByTopicsContainer}>
-        <AffirmationsByTopics />
+        {/* <AffirmationsByTopics /> */}
       </div>}
     </div>
   )
