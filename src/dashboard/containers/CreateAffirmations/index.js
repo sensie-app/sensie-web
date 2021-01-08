@@ -11,7 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
-import AffirmationsByTopics from '../../components/AffirmationsByTopics'
+// import AffirmationsByTopics from '../../components/AffirmationsByTopics'
 // containers
 import NewAffirmation from '../NewAffirmation'
 // constants
@@ -29,12 +29,18 @@ const { fontColor1, actionColor1 } = COLORS
  * @param {boolean} initShowForm (default: true)
  * @param {boolean} withAffirmationsByTopics (default: true)
  * @param {boolean} addToPack (default: false)
+ * @param {undefiend} onSave (default: ()=>{}) return string
+ * @param {string} defaultTopic (default: '0')
+ * @param {string} defaultPack (default: '0')
  */
-const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = true, addToPack = false }) => {
+const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = true, addToPack = false, onSave = () => {}, defaultTopic = '0', defaultPack = '0' }) => {
   // hooks
   const inputRef = useRef(null)
   const dispatch = useDispatch()
-  const { affirmationsReducer: { newAffirmation, lastAffirmations } } = useSelector(state => state)
+  const {
+    affirmationsReducer: { newAffirmation, lastAffirmations },
+    userReducer: { user }
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [selectAllCheckbox, setSelectAllCheckbox] = useState(false)
   const [title, setTitle] = useState(newAffirmation.title)
@@ -44,7 +50,13 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
   const [showErrorTopics, setShowErrorTopics] = useState(false)
   const [showNewForm, setShowNewForm] = useState(initShowForm)
 
+  useEffect(() => {
+    console.log('1', 1)
+    defaultTopic !== '0' && defaultTopic.length !== 0 ? setTopics(defaultTopic) : setTopics(newAffirmation.topics)
+  }, [defaultTopic])
   useEffect(() => dispatch(setNewAffirmationAction({ title, topics })), [title, topics])
+  console.log('defaultTopic', defaultTopic)
+  console.log('topics', topics)
 
   // ? handle functions
   /**
@@ -69,10 +81,17 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
   const handleInputValue = event => setTitle(event.target.value)
 
   /**
+   * handle array topics
+   * @param {array} items
+   * @returns {array} array of ids
+   */
+  const handleArrTopicsId = items => items.map(item => item.id)
+
+  /**
    * handle click btn done
    * @return {}
    */
-  const handleClickBtnDone = () => {
+  const handleClickBtnDone = async () => {
     setShowErrorTitle(title === '')
     setShowErrorTopics(topics.length === 0)
     if (title !== '' && topics.length > 0) {
@@ -84,7 +103,10 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
       setTitle('')
       setTopics([])
       setShowNewForm(false)
-      // TODO: use Mutation
+
+      console.log('handleArrTopicsId(topics)', handleArrTopicsId(topics))
+      const affId = await onSave(title, 'description', defaultPack, defaultTopic[0].id, user.id)
+      console.log('affId', affId)
     }
   }
 
@@ -213,7 +235,7 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
       </div>
       {/* affirmations by topics */}
       {withAffirmationsByTopics && <div className={styles.CreateAffirmationsAffirmationsByTopicsContainer}>
-        <AffirmationsByTopics />
+        {/* <AffirmationsByTopics /> */}
       </div>}
     </div>
   )
@@ -226,7 +248,13 @@ CreateAffirmations.propTypes = {
   /** withAffirmationsByTopics */
   withAffirmationsByTopics: PropTypes.bool,
   /** addToPack */
-  addToPack: PropTypes.bool
+  addToPack: PropTypes.bool,
+  /** onSave */
+  onSave: PropTypes.func,
+  /** defaultTopic */
+  defaultTopic: PropTypes.string,
+  /** defaultPack */
+  defaultPack: PropTypes.string
 }
 
 export default CreateAffirmations

@@ -17,6 +17,8 @@ import TopicsConstants from '../../constants/topics'
 import { gqlquery } from '../../utils/queries'
 // graphql queries
 import { getTopicByIdQuery } from '../../graphql/queries'
+// import { createAffirmationMutation } from '../../graphql/mutations'
+import { createAffirmation } from '../../../graphql/mutations'
 // styles
 import styles from './styles.module.scss'
 
@@ -47,6 +49,7 @@ const Topic = () => {
   const [t] = useTranslation('global')
   const { id } = useParams()
   const [dbTopic, setDbTopic] = useState([])
+  const [defaultTopic, setDefaultTopic] = useState({})
   const [waitQuery, setWaitQuery] = useState(true)
 
   useEffect(async () => {
@@ -54,6 +57,12 @@ const Topic = () => {
     console.log('value', value)
     if (!loading && value !== null) {
       setDbTopic(value.data.getTopic)
+      const defTopic = [{
+        name: value.data.getTopic.name,
+        description: value.data.getTopic.description,
+        id: value.data.getTopic.id
+      }]
+      setDefaultTopic(defTopic)
       setWaitQuery(false)
     } else {
       setWaitQuery(true)
@@ -91,6 +100,28 @@ const Topic = () => {
    * @returns {Array}
    */
   const handleArrTopics = topics => topics.map(item => item.topic)
+
+  /**
+   * handleSaveAffirmation
+   * @param {string} name
+   * @param {string} description
+   * @param {string} packId
+   * @param {string} topicId
+   * @param {string} userId
+   * @returns {string} new affirmation id
+   */
+  const handleSaveAffirmation = async (name, description, packId, topicId, userId) => {
+    const input = {
+      name,
+      description,
+      packId,
+      topicId,
+      userId
+    }
+    const newAffirmation = await gqlquery(createAffirmation, { input })
+    console.log('newAffirmation', newAffirmation)
+    return !newAffirmation.loading && newAffirmation.value !== null ? newAffirmation.value.data.createAffirmation.id : null
+  }
 
   // ? render functions
   /**
@@ -137,7 +168,13 @@ const Topic = () => {
         </div>
         {/* body */}
         <div className={styles.TopicBodyContainer}>
-          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} addToPack={true} />
+          <CreateAffirmations
+            defaultTopic={defaultTopic}
+            initShowForm={false}
+            withAffirmationsByTopics={false}
+            addToPack={true}
+            onSave={handleSaveAffirmation}
+          />
           {renderDbAffirmations()}
         </div>
       </div>

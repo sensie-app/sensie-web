@@ -6,9 +6,6 @@ export const getUsersByIdQuery = id => `
       firstName
       gender
       lastName
-      picture {
-        name
-      }
       userOrganizationId
       userGroupId
       userTeamId
@@ -107,9 +104,9 @@ export const getTopicByIdQuery = id => `
   }
 `
 
-export const listPacksWiyhAffirmationsIdsQuery = () => `
+export const listPacksWiyhAffirmationsIdsByIdQuery = id => `
   query MyQuery {
-    listPacks {
+    listPacks(filter: {packUserId: {eq: "${id}"}}) {
       items {
         name
         id
@@ -147,6 +144,18 @@ export const getPackByIdQuery = id => `
             }
           }
         }
+      }
+    }
+  }
+`
+
+export const listAffirmationsByTopicIdQuery = (topicId, userId) => `
+  query MyQuery {
+    listAffirmations(filter: {topicId: {eq: "${topicId}"}, userId: {eq: "${userId}"}}) {
+      items {
+        description
+        id
+        name
       }
     }
   }

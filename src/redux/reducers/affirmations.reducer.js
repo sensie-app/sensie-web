@@ -4,11 +4,15 @@ import AFFIRMATIONS from '../constants/affirmations.constants'
 
 const INITIAL_STATE = {
   newAffirmation: {
-    title: '',
+    id: '',
+    name: '',
+    desription: '',
     topics: []
   },
   editAffirmation: {
-    title: '',
+    id: '',
+    name: '',
+    desription: '',
     topics: []
   },
   lastAffirmations: []

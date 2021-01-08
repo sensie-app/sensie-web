@@ -51,31 +51,31 @@ const Topics = ({ data }) => {
       <Grid container spacing={1}>
         {/* affirmations */}
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={null} title={t(`dashboard.Packs.${spirit}`)} topic={spirit} img={spiritImg} />
+          <Topic withLink={false} route={null} title={t(`dashboard.Packs.${spirit}`)} topic={spirit} img={spiritImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={null} title={t(`dashboard.Packs.${health}`)} topic={health} img={healthImg} />
+          <Topic withLink={false} route={null} title={t(`dashboard.Packs.${health}`)} topic={health} img={healthImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={null} title={t(`dashboard.Packs.${finance}`)} topic={finance} img={financeImg} />
+          <Topic withLink={false} route={null} title={t(`dashboard.Packs.${finance}`)} topic={finance} img={financeImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={null} title={t(`dashboard.Packs.${fun}`)} topic={fun} img={funImg} />
+          <Topic withLink={false} route={null} title={t(`dashboard.Packs.${fun}`)} topic={fun} img={funImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={null} title={t(`dashboard.Packs.${love}`)} topic={love} img={loveImg} />
+          <Topic withLink={false} route={null} title={t(`dashboard.Packs.${love}`)} topic={love} img={loveImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={null} title={t(`dashboard.Packs.${family}`)} topic={family} img={familyImg} />
+          <Topic withLink={false} route={null} title={t(`dashboard.Packs.${family}`)} topic={family} img={familyImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={null} title={t(`dashboard.Packs.${parenting}`)} topic={parenting} img={parentingImg} />
+          <Topic withLink={false} route={null} title={t(`dashboard.Packs.${parenting}`)} topic={parenting} img={parentingImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={null} title={t(`dashboard.Packs.${personal}`)} topic={personal} img={personalImg} />
+          <Topic withLink={false} route={null} title={t(`dashboard.Packs.${personal}`)} topic={personal} img={personalImg} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} xl={3}>
-          <Topic route={null} title={t(`dashboard.Packs.${perfomance}`)} topic={perfomance} img={performanceImg} />
+          <Topic withLink={false} route={null} title={t(`dashboard.Packs.${perfomance}`)} topic={perfomance} img={performanceImg} />
         </Grid>
         {/* // bd topics */}
         {renderTopics()}

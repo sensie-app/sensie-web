@@ -153,6 +153,7 @@
     "CreatePack": {
       "createNewPack": "Create new pack",
       "addImage": "Add a image",
+      "changeImage": "Change image",
       "packName": "Pack name",
       "newPack": "New pack",
       "create": "Create",

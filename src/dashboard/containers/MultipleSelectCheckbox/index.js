@@ -23,7 +23,6 @@ import { testData } from './data'
 
 // const
 const { grayColor4, grayColor6, fontColor1, actionColor1 } = COLORS
-const ITEM_HEIGHT = 70
 
 // * containers
 /**
@@ -51,7 +50,6 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
   const MenuProps = {
     PaperProps: {
       style: {
-        maxHeight: ITEM_HEIGHT * data.length,
         width: 250,
         backgroundColor: grayColor6,
         color: fontColor1
