@@ -10,6 +10,7 @@ const LANDING_ROUTES = {
   howitworks: landing + '/home/#howitworks',
   scienceanchor: landing + '/home/#science',
   science: landing + '/science',
+  blog: landing + '/blog',
   aboutsensie: landing + '/aboutsensie',
   abs: landing + '/aboutsensie/#abs',
   scc: landing + '/science/#scc'

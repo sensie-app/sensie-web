@@ -297,7 +297,7 @@ const Home = () => {
                       <Grid>
                         <Lead lead="1. Sensie offers a topic to consider - think and feel about" />
                         <Lead lead="2. You then whip the phone 3x " />
-                        <Lead lead="3. Sensie measures the recoil of the hand to assess if their is tension " />
+                        <Lead lead="3. Sensie measures the recoil of the hand to assess if there is tension " />
                       </Grid>
                     </Box>
 
