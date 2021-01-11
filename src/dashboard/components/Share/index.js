@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 // component
 import Icon from '../Icon'
 import Modal from '../Modal'
+import ShareWith from '../ShareWith'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
@@ -30,30 +31,15 @@ const Share = () => {
     <button className={styles.ShareButton}>
       <div>
         <Icon name="share-outline" color={fontColor1} size="md" />
-        <span>{t('dashboard.Share.share')}</span>
+        <span>{t('dashboard.Share.shareWith')}</span>
       </div>
     </button>
-  )
-
-  /**
-   * render modal body
-   * @returns {undefined} ul (html)
-   */
-  const renderModalBody = () => (
-    <ul className={styles.ShareModalBodyContent}>
-      <li>
-        <button>{t('dashboard.Share.allClients')}</button>
-      </li>
-      <li>
-        <button>{t('dashboard.Share.selectedClients')}</button>
-      </li>
-    </ul>
   )
 
   return (
     <Modal initialState={false} title={t('dashboard.Share.shareTo') + ':'}>
       {renderModalBtn()}
-      {renderModalBody()}
+      <ShareWith />
     </Modal>
   )
 }

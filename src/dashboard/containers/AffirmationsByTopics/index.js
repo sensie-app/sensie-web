@@ -1,8 +1,11 @@
 // react
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 // material-ui
 import Checkbox from '@material-ui/core/Checkbox'
+// contaniners
+import NewAffirmation from '../../containers/NewAffirmation'
 // components
 import Topic from '../../components/Topic'
 import Title from '../../components/Title'
@@ -11,7 +14,9 @@ import TopicsConstants from '../../constants/topics'
 import IMG from '../../constants/images'
 import { COLORS } from '../../constants/theme'
 // redux
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+// utils
+import { handleArrTopics } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 
@@ -24,13 +29,24 @@ const { actionColor1 } = COLORS
 /**
  * AffirmationsByTopics component
  * @component
+ * @param {undefined} onClick
  */
-const AffirmationsByTopics = () => {
+const AffirmationsByTopics = ({ onClick }) => {
   // hooks
-  // const { userReducer: { user }, topicsReducer: { topics } } = useSelector(state => state)
+  const { userReducer: { user }, topicsReducer: { topics } } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [topic, setTopic] = useState(null)
+  const [affirmations, setAffirmations] = useState([])
   const [selectAllCheckbox, setSelectAllCheckbox] = useState(false)
+
+  useEffect(async () => {
+    if (topic && user) {
+      const listaffirmations = await onClick(topic.id, user.id)
+      if (!listaffirmations.loading && listaffirmations.value !== null) setAffirmations(listaffirmations.value.data.listAffirmations.items)
+    }
+  }, [topic])
+
+  console.log('affirmations', affirmations)
 
   // ? handle functions
   /**
@@ -77,36 +93,58 @@ const AffirmationsByTopics = () => {
     )
   }
 
-  // const renderTopics = () => {
-  //   return topics.map((_topic, index) => (
-  //     <button
-  //       key={index}
-  //       onClick={() => setTopic(_topic)}>
-  //       <Topic
-  //         img={handleImageTopics(_topic)}
-  //         title={_topic}
-  //         topic={_topic}
-  //         withLink={false}
-  //         witCheckbox={false}
-  //         size="100px"
-  //         iconSize='25px'
-  //       />
-  //     </button>)
-  //   )
-  // }
+  /**
+   * render topics
+   * @returns {undefined} Topic component
+   */
+  const renderTopics = () => {
+    return topics.map((_topic, index) => {
+      return (
+        <button
+          key={index}
+          onClick={() => setTopic(_topic)}>
+          <Topic
+            img={handleImageTopics(_topic)}
+            title={_topic}
+            topic={_topic}
+            withLink={false}
+            witCheckbox={false}
+            size="100px"
+            iconSize='25px'
+          />
+        </button>
+      )
+    })
+  }
+
+  /**
+   * render list affirmations
+   * @returns {undefined} Affirmations component
+   */
+  const renderListAffirmations = () => {
+    return affirmations.length > 0 && affirmations.map(affirmation => {
+      return <NewAffirmation
+        key={affirmation.id}
+        title={affirmation.name}
+        selectedTopics={handleArrTopics(affirmation.topics.items)}
+        withRemoveBtn={false}
+        withAddBtn={true}
+      />
+    })
+  }
 
   return (
     <div className={styles.AffirmationsByTopicsContainer}>
       {/* title */}
       <div className={styles.AffirmationsByTopicsTitleContainer}>
         <Title text={t('dashboard.AffirmationsByTopics.title')} />
-        <span className={styles.AffirmationsByTopicsTitleTopic}>{topic !== null && `- ${topic}`}</span>
+        <span className={styles.AffirmationsByTopicsTitleTopic}>{topic !== null && `- ${topic.name}`}</span>
       </div>
       {/* header images */}
       <div className={styles.AffirmationsByTopicsHeaderContainer}>
         <div className={styles.AffirmationsByTopicsBoxesContainer}>
           {renderImagesBox()}
-          {/* {renderTopics()} */}
+          {renderTopics()}
         </div>
         <div className={styles.AffirmationsByTopicsActionContainer}>
           <Checkbox checked={selectAllCheckbox} onChange={() => setSelectAllCheckbox(!selectAllCheckbox)} color={actionColor1} className={styles.AffirmationsByTopicsCheckbox} />
@@ -122,10 +160,16 @@ const AffirmationsByTopics = () => {
       </div>
       {/* affirmations list */}
       <div className={styles.AffirmationsByTopicsListContainer}>
-
+        {renderListAffirmations()}
       </div>
     </div>
   )
+}
+
+// prop-types
+AffirmationsByTopics.propTypes = {
+  /** onClick */
+  onClick: PropTypes.func
 }
 
 export default AffirmationsByTopics

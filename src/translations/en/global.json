@@ -39,7 +39,14 @@
     },
     "Header": {
       "back": "Back",
-      "invitePeople": "Invite People" 
+      "invitePeople": "Invite People",
+      "invitePeopleTo": "Invite people to"
+    },
+    "InvitePeople": {
+      "copyInviteLink": "Copy invite link",
+      "send": "Send",
+      "linkWasCopied": "Link was copied!",
+      "enterAnEmailAddress": "Enter an email address"
     },
     "MenuListComposition": {
       "today": "Today",
@@ -109,10 +116,16 @@
       "topics": "Topics"
     },
     "Share": {
-      "share": "Share",
+      "shareWith": "Share with",
       "shareTo": "Share to",
       "allClients": "All clients",
       "selectedClients": "Selected clients"
+    },
+    "ShareWith": {
+      "selectAllClients": "Select all clients",
+      "selectAllTeams": "Select all teams",
+      "publicAvailable": "Public available",
+      "share": "Share"
     },
     "Affirmation": {
       "selectAOption": "Select a option",

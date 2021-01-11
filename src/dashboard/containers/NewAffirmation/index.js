@@ -7,7 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 // component
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
-import Toast from '../../components/Toast'
+// import Toast from '../../components/Toast'
 import MenuListComposition from '../../components/MenuListComposition'
 // containers
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
@@ -44,14 +44,14 @@ const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBt
   const [showChips, setShowChips] = useState(true)
   const [disabledTopics, setDisabledTopics] = useState(true)
   const [menuAction, setMenuAction] = useState({})
-  const [showErrorToast, setShowErrorToast] = useState(false)
+  // const [showErrorToast, setShowErrorToast] = useState(false)
 
   useEffect(() => {
     if (menuAction.value === 'edit') {
       if (itemTitle === '' || selectTopics.length === 0) {
-        setShowErrorToast(true)
+        // setShowErrorToast(true)
       } else {
-        setShowErrorToast(false)
+        // setShowErrorToast(false)
         dispatch(setLastAffirmationsAction(
           lastAffirmations.map(item => item.title === title
             ? { title: itemTitle, topics: selectTopics }
@@ -196,7 +196,7 @@ const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBt
       <div className={styles.NewAffirmationSBottom}>
         {showChips && renderChipsItems()}
       </div>
-      {showErrorToast && <Toast type="error">{t('dashboard.CreateAffirmations.errorToast')}</Toast>}
+      {/* {showErrorToast && <Toast type="error">{t('dashboard.CreateAffirmations.errorToast')}</Toast>} */}
     </div>
   )
 }
