@@ -15,23 +15,17 @@ import DownloadImg from '../components/DownloadImg'
 import CarouselComponent from '../components/carouselComponent/CarouselComponent'
 import Phrases from '../components/Phrases'
 import Trazado from '../components/Trazado'
-import CustomCard from '../components/CustomCard'
 import Epigraph from '../components/Epigraph'
 import Lead from '../components/Lead'
 import LearnMore from '../components/LearnMore'
 import Whip from '../components/Whip'
 import WisdomCard from '../components/WisdomCard'
-import HowItWorks from '../components/HowItWorks'
-import BackgroundVideo from '../components/BackgroundVideo'
+import WebAndMobileTitle from '../components/WebAndMobileTitle'
 import Hand from '../components/Hand'
-import Users from '../components/Users'
 import VerticalCarousel from '../components/verticalCarousel/VerticalCarousel'
+// import CustomCard from '../components/CustomCard'
 
-// CSS
-import '../assets/css/GradientBar.css'
-import '../styles/index.scss'
-
-// Img
+// Img and video
 import MindfullBeginner from '../assets/img/MindfullBeginner.svg'
 import Lock from '../assets/img/lock.svg'
 import Lock2 from '../assets/img/lock2.svg'
@@ -41,14 +35,14 @@ import AmericanPsychiatric from '../assets/img/americanpsychiatricpng.png'
 import Wired from '../assets/img/wiredpng.png'
 import Transtech from '../assets/img/transtechpng.png'
 import BerkeleyWell from '../assets/img/berkeleywellpng.png'
-import backgroundScience from '../assets/img/backgroundScience.png'
-import backgroundSelfAwareness from '../assets/img/backgroundSelfAwareness.png'
+import backgroundScience from '../assets/img/backgroundScience1.png'
+import backgroundSelfAwareness from '../assets/img/backgroundSelfAwareness1.png'
 import SquareHandG from '../assets/video/SquareHandG.mp4'
+import videoWebAndMobile from '../assets/video/sensievideo2.mp4'
 
 // Icons
 import Measure from '../assets/img/Measure.svg'
 import Blockages from '../assets/img/Blockages.svg'
-import Awareness from '../assets/img/Awareness.svg'
 import EcologyHuman from '../assets/img/EcologyHuman.svg'
 import AppleStore from '../assets/img/app-store.svg'
 import PlayStore from '../assets/img/google-play.svg'
@@ -61,9 +55,8 @@ const useStyles = makeStyles((theme) => ({
   background: {
     backgroundColor: '#000000'
   },
-  particles: {
-    position: 'absolute',
-    opacity: '0.3'
+  bgImg: {
+    width: '100vw'
   }
 }))
 
@@ -72,24 +65,44 @@ const Home = () => {
 
   const [showWhip, setShowWhip] = useState(true)
   const [showDashboard, setShowDashboard] = useState(true)
+  const [playWhip, setPlayWhip] = useState(true)
+  const [playDashboard, setPlayDashboard] = useState(true)
 
   useEffect(() => {
     window.onscroll = function () {
-      const scrollWhip = window.scrollY
-      const scrollDashboard = window.scrollY
-      if (scrollWhip > 1500) {
-        setTimeout(() => {
-          setShowWhip(false)
-        }, 2500)
+      const whipVideo = document.getElementById('videowhip')
+      const dashboardVideo = document.getElementById('videosensie')
+      const scrollTop = window.scrollY
+      const docHeight = document.body.offsetHeight
+      const winHeight = window.innerHeight
+      const scrollPercent = scrollTop / (docHeight - winHeight)
+      const scrollPercentRounded = Math.round(scrollPercent * 100)
+      if (playWhip) {
+        function playWhip () {
+          setPlayWhip(false)
+          whipVideo.play()
+        }
+        if (scrollPercentRounded > 38 && playWhip && whipVideo) {
+          playWhip()
+          setTimeout(() => {
+            setShowWhip(false)
+          }, 2500)
+        }
       }
-      if (scrollDashboard > 2800) {
-        setTimeout(() => {
-          setShowDashboard(false)
-        }, 4000)
+      if (playDashboard) {
+        function playDashboard () {
+          setPlayDashboard(false)
+          dashboardVideo.play()
+        }
+        if (scrollPercentRounded > 73 && playDashboard && dashboardVideo) {
+          playDashboard()
+          setTimeout(() => {
+            setShowDashboard(false)
+          }, 3500)
+        }
       }
     }
-  }, [])
-
+  }, [playDashboard, playWhip])
   return (
     <div id="hm" style={{ backgroundColor: '#071215' }}>
       {/* BLOQUE 1 Your Smarthphone Just Got Smarter */}
@@ -109,36 +122,36 @@ const Home = () => {
         </Grid>
         <Grid item xs={10} md={6} data-aos="zoom-out-up">
           <Box mt={6}>
-            <Title title="Your Smarthphone Just Got Smarter" />
+            <Title title="Your Smartphone Just Got Smarter" />
           </Box>
           <Box mr={1}>
             <Subtitle subtitle="Sensie is everyone's million dollar coach - available whenever, wherever." />
           </Box>
           <Box mt={3}>
-            <BulletPoint IconItem={Measure} title={'Measure Self Awareness'} />
+            <BulletPoint IconItem={Measure} title={'Measure self-awareness'} />
           </Box>
           <Box mt={2}>
             <BulletPoint
               IconItem={Blockages}
-              title={'Identify and clear performance blockages'}
-            />
-          </Box>
-          <Box mt={2}>
-            <BulletPoint
-              IconItem={Awareness}
-              title={'Gain deep personal insights'}
+              title={'Identify and clear inner conflict'}
             />
           </Box>
           <Box mt={2}>
             <BulletPoint
               IconItem={EcologyHuman}
-              title={'Feel amazing on demand'}
+              title={'Gain deep personal insights'}
             />
           </Box>
           <Box mt={3}>
             <Grid container direction="row">
-              <DownloadImg ImgStore={AppleStore} />
-              <DownloadImg ImgStore={PlayStore} />
+              <DownloadImg
+                ImgStore={AppleStore}
+                link="https://apps.apple.com/us/app/sensie/id1092166597"
+              />
+              <DownloadImg
+                ImgStore={PlayStore}
+                link="https://play.google.com/store/apps/details?id=com.sensie"
+              />
             </Grid>
           </Box>
         </Grid>
@@ -148,7 +161,7 @@ const Home = () => {
       {/* BLOQUE 2 Carousel & Sponsor */}
 
       <Grid direction="column">
-        <Box mt={2} mb={18}>
+        <Box mb={18}>
           <Grid container>
             <Grid item xs={1} sm={3}></Grid>
             <Grid item xs={10} sm={6} data-aos="zoom-out-up">
@@ -169,26 +182,43 @@ const Home = () => {
               data-aos="zoom-out-up"
             >
               <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={MiamiHerald} width="136px" height="40px" />
+                <Sponsor
+                  SponsorImg={MiamiHerald}
+                  width="176px"
+                  height="60px"
+                  link="https://www.miamiherald.com/news/business/biz-monday/article232516282.html"
+                />
               </Box>
               <Box mt={8} textAlign="center">
                 <Sponsor
                   SponsorImg={AmericanPsychiatric}
-                  width="132px"
-                  height="28px"
+                  width="172px"
+                  height="40px"
+                  link="https://www.youtube.com/watch?v=GUgC5q2VloI&ab_channel=CodyRallMDwithTechforpsych"
                 />
               </Box>
               <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={Wired} width="146px" height="20px" />
+                <Sponsor
+                  SponsorImg={Wired}
+                  width="186px"
+                  height="32px"
+                  link="https://www.wired.co.uk/article/consciousness-hacking-silicon-valley-enlightenment-brain"
+                />
               </Box>
               <Box mt={8} textAlign="center">
-                <Sponsor SponsorImg={Transtech} width="135px" height="20px" />
+                <Sponsor
+                  SponsorImg={Transtech}
+                  width="175px"
+                  height="32px"
+                  link="http://transtech200.com/"
+                />
               </Box>
               <Box mt={8}>
                 <Sponsor
                   SponsorImg={BerkeleyWell}
-                  width="125px"
-                  height="54px"
+                  width="165px"
+                  height="84px"
+                  link="https://www.berkeleywellbeing.com/the-top-50-wellness-products-2016.html"
                 />
               </Box>
             </Grid>
@@ -215,7 +245,7 @@ const Home = () => {
                 <WisdomCard
                   ImageW={MindfullBeginner}
                   level="Level 1"
-                  text="Mindfull Beginner"
+                  text="Mindful Beginner"
                   width="100px"
                   height="120px"
                 />
@@ -236,7 +266,7 @@ const Home = () => {
                 <WisdomCard
                   ImageW={MetatronStae}
                   level="Level 7"
-                  text="Metatron Stae"
+                  text="Metatron State"
                   width="120px"
                   height="120px"
                 />
@@ -258,14 +288,16 @@ const Home = () => {
                 </Grid>
                 <Box mt={1}>
                   <Grid data-aos="zoom-out-up">
-                    <Epigraph epigraph="Sensie use sensor technology existing in the smartphone." />
+                    <Epigraph epigraph="Sensie uses smartphone sensors to track movement and measure muscular tension associated with thought and spoken word." />
                   </Grid>
                 </Box>
                 {!showWhip ? (
                   <div data-aos="zoom-in">
-                    <Box mt={8}>
+                    <Box mt={6}>
                       <Grid>
-                        <Lead lead="Sensie uses existing sensors in your phone to measure de movement in the gesture and detect stress." />
+                        <Lead lead="1. Sensie offers a topic to consider - think and feel about" />
+                        <Lead lead="2. You then whip the phone 3x " />
+                        <Lead lead="3. Sensie measures the recoil of the hand to assess if their is tension " />
                       </Grid>
                     </Box>
 
@@ -276,8 +308,14 @@ const Home = () => {
                     </Box>
                     <Box my={4}>
                       <Grid container direction="row">
-                        <DownloadImg ImgStore={AppleStore} />
-                        <DownloadImg ImgStore={PlayStore} />
+                        <DownloadImg
+                          ImgStore={AppleStore}
+                          link="https://apps.apple.com/us/app/sensie/id1092166597"
+                        />
+                        <DownloadImg
+                          ImgStore={PlayStore}
+                          link="https://play.google.com/store/apps/details?id=com.sensie"
+                        />
                       </Grid>
                     </Box>
                   </div>
@@ -293,18 +331,20 @@ const Home = () => {
                 )}
               </Box>
             </Grid>
-            <Grid xs={12} sm={6} style={{ textAlign: 'right' }}>
-              <video
-                width="auto"
-                height="auto"
-                autoPlay
-                loop
-                muted
-                src={SquareHandG}
-              >
-                <source src={SquareHandG} type="video/mp4" />
-              </video>
-            </Grid>
+            <Hidden smDown>
+              <Grid xs={12} sm={6} style={{ textAlign: 'right' }}>
+                <video
+                  id="videowhip"
+                  width="auto"
+                  height="auto"
+                  loop
+                  muted
+                  src={SquareHandG}
+                >
+                  <source src={SquareHandG} type="video/mp4" />
+                </video>
+              </Grid>
+            </Hidden>
           </Grid>
           <Grid item xs={1}></Grid>
         </Grid>
@@ -312,8 +352,12 @@ const Home = () => {
       {/* BLOQUE 5 The Science */}
       <div id="science"></div>
       <Parallax strength={300}>
-        <Background className="backgroundImg">
-          <img src={backgroundScience} />
+        <Background>
+          <img
+            src={backgroundScience}
+            alt="background science"
+            className={classes.bgImg}
+          />
         </Background>
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
@@ -327,7 +371,7 @@ const Home = () => {
                 </Box>
                 <Box>
                   <Grid data-aos="zoom-out-up">
-                    <Subtitle subtitle="Muscle tension is a relax reaction to stress." />
+                    <Subtitle subtitle="Muscle tension is a reflex reaction to stress." />
                   </Grid>
                 </Box>
                 <Box>
@@ -349,59 +393,68 @@ const Home = () => {
       </Parallax>
 
       {/* BLOQUE 6 Web and mobile solution */}
-      <Grid container direction="column">
-        <Box my={14}>
-          <Box mx={28}>
-            <Grid item xs={1}></Grid>
+      <div style={{ mixBlendMode: 'lighten' }}>
+        <Grid container direction="column">
+          <Box my={14}>
             <Grid item xs={12}>
-              <HowItWorks
+              <WebAndMobileTitle
                 textWithoutColor="At"
                 textWithColor="Sensie"
                 textWithoutColor2="we provide the best tools to help elevate human flourishing"
               />
             </Grid>
-            <Grid item xs={1}></Grid>
-          </Box>
-          <Grid item xs={12}>
-            {showDashboard ? null : (
-              <Box mt={18}>
-                <Grid item xs={12} data-aos="zoom-out">
-                  <Title
-                    title="Web and Mobile Solution"
-                    titleDashboard={true}
-                  />
-                </Grid>
-                <Grid item xs={6}></Grid>
-                <Grid item xs={6} style={{ position: 'absolute' }}>
-                  <Box data-aos="fade-right" ml={10} mt={36}>
-                    <VerticalCarousel />
-                  </Box>
-                </Grid>
-              </Box>
-            )}
-            <Grid
-              container
-              xs={12}
-              direction="row"
-              style={{ alignItems: 'center' }}
-            >
-              <Hidden mdUp>
-                <VerticalCarousel />
-              </Hidden>
-              <Hidden smDown>
-                <Box data-aos-delay="3000">
-                  <BackgroundVideo />
+            <Grid item xs={12}>
+              {showDashboard ? null : (
+                <Box>
+                  <Hidden smDown>
+                    <Grid item xs={6}></Grid>
+                    <Grid
+                      item
+                      xs={6}
+                      style={{ position: 'absolute', zIndex: '1000' }}
+                    >
+                      <Box data-aos="fade-right" ml={6} mt="50%">
+                        <VerticalCarousel />
+                      </Box>
+                    </Grid>
+                  </Hidden>
                 </Box>
-              </Hidden>
+              )}
+              <Grid
+                container
+                xs={12}
+                direction="row"
+                style={{ justifyContent: 'space-evenly' }}
+              >
+                <Hidden mdUp>
+                  <VerticalCarousel />
+                </Hidden>
+                <Hidden smDown>
+                  <Box data-aos-delay="3000">
+                    <video
+                      id="videosensie"
+                      width="100%"
+                      height="100%"
+                      muted
+                      src={videoWebAndMobile}
+                    >
+                      <source src={videoWebAndMobile} type="video/mp4" />
+                    </video>
+                  </Box>
+                </Hidden>
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-      </Grid>
-
+          </Box>
+        </Grid>
+      </div>
       {/* BLOQUE 7 Citation */}
       <Parallax strength={300}>
-        <Background className="backgroundSelfAwareness">
-          <img src={backgroundSelfAwareness} />
+        <Background>
+          <img
+            src={backgroundSelfAwareness}
+            alt="self awareness"
+            className={classes.bgImg}
+          />
         </Background>
         <Grid container direction="column">
           <Box my={34}>
@@ -416,7 +469,7 @@ const Home = () => {
       </Parallax>
 
       {/* BLOQUE 8 Membership */}
-      <div id="membership"></div>
+      {/* <div id="membership"></div>
       <Grid container direction="column">
         <Box my={8}>
           <Grid item xs={12} data-aos="zoom-out-up">
@@ -435,8 +488,8 @@ const Home = () => {
                 <Grid item xs={12} md={4}>
                   <Box p={2} data-aos="zoom-out-up" textAlign="-webkit-center">
                     <CustomCard
-                      title="FREEMIUM"
-                      price="$0"
+                      title="BASIC"
+                      price="Free"
                       detail1="Coach Dashboard"
                       detail2="Client Dashboard"
                       detail3="Basic affirmations authoring"
@@ -449,7 +502,7 @@ const Home = () => {
                     {' '}
                     <CustomCard
                       title="GROUP"
-                      price="$200"
+                      price="$10 usd/month"
                       groupCard={true}
                       detail1="Coach Dashboard"
                       detail2="Client Dashboard"
@@ -463,7 +516,7 @@ const Home = () => {
                     {' '}
                     <CustomCard
                       title="ENTERPRISE"
-                      price="$300"
+                      price="$20 usd/month"
                       detail1="Coach Dashboard"
                       detail2="Client Dashboard"
                       detail3="Individual Client Dashboard"
@@ -476,7 +529,7 @@ const Home = () => {
             </Box>
           </Grid>
         </Box>
-      </Grid>
+      </Grid> */}
     </div>
   )
 }

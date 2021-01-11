@@ -5,8 +5,7 @@ import {
   Grid,
   Box,
   Button,
-  makeStyles,
-  Hidden
+  makeStyles
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { HashLink as Link } from 'react-router-hash-link'
@@ -16,9 +15,9 @@ import APP_ROUTES from '../../constants/routes'
 
 // Components
 import LogoSensie from './Logo'
-import CustomizedMenus from './Menu'
+// import CustomizedMenus from './Menu'
 
-const { home, membership, howitworks, scienceanchor, abs, hm } = LANDING_ROUTES
+const { home, /* membership, */ howitworks, scienceanchor, abs, hm } = LANDING_ROUTES
 
 const useStyle = makeStyles((theme) => ({
   offset: {
@@ -56,24 +55,23 @@ const Navbar = () => {
       <AppBar position="fixed" className={classes.navbarStyle}>
         <Toolbar className={classes.toolbarStyle}>
           <Grid container alignItems="center">
-            <Hidden mdUp>
+            {/* <Hidden mdUp>
               <Grid xs={1}>
                 <CustomizedMenus />
               </Grid>
-            </Hidden>
-            <Grid item xs={4} sm={2}>
+            </Hidden> */}
+            <Grid item xs={12} sm={2}>
               <Box display="flex" justifyContent="flex-start">
                 <Link to={hm}>
                   <LogoSensie />
                 </Link>
               </Box>
             </Grid>
-            <Hidden smDown>
               <Grid
                 item
                 container
-                xs={8}
-                sm={8}
+              xs={12}
+              sm={8}
                 direction="row"
                 className={classes.textTab}
               >
@@ -85,9 +83,9 @@ const Navbar = () => {
                   <Box mx={1}>SCIENCE</Box>
                 </Link>
 
-                <Link to={membership}>
+                {/* <Link to={membership}>
                   <Box mx={1}>MEMBERSHIP</Box>
-                </Link>
+                </Link> */}
 
                 <NavLink to={home}>
                   <Box mx={1}>BLOG</Box>
@@ -97,9 +95,7 @@ const Navbar = () => {
                   <Box mx={1}>ABOUT</Box>
                 </Link>
               </Grid>
-            </Hidden>
-            <Hidden smDown>
-              <Grid item xs={3} sm={2}>
+              <Grid item xs={12} sm={2}>
                 <Box display="flex" justifyContent="flex-end">
                   <Box>
                     <a href={APP_ROUTES.dashboard + '/'}>
@@ -125,7 +121,6 @@ const Navbar = () => {
                   </Box>
                 </Box>
               </Grid>
-            </Hidden>
           </Grid>
         </Toolbar>
       </AppBar>

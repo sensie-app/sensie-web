@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { Box, makeStyles } from '@material-ui/core'
+import { Box, makeStyles, Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
-    fontSize: 20,
+    fontSize: 16,
     height: 200
   },
   titleStyle: {
@@ -16,7 +16,8 @@ const useStyles = makeStyles({
   },
   textStyle: {
     fontWeight: 200,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    textAlign: 'center'
   }
 
 })
@@ -24,15 +25,25 @@ const useStyles = makeStyles({
 const Users = ({ title, subtitle, text }) => {
   const classes = useStyles()
   return (
-    <Box className={classes.root}>
-      <Box className={classes.titleStyle} color="primary.main">
-        {title}
-      </Box>
-      <Box mt={1.5}>
-        <Box className={classes.subtitleStyle}>{subtitle}</Box>
-      </Box>
-      <Box mt={0.5} className={classes.textStyle}>{text}</Box>
-    </Box>
+    <Grid container direction='column'>
+        <Box className={classes.root}>
+          <Grid item xs={12}>
+            <Box className={classes.titleStyle} color="primary.main">
+              {title}
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box mt={1.5}>
+              <Box className={classes.subtitleStyle}>{subtitle}</Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box mt={0.5} className={classes.textStyle}>
+              {text}
+            </Box>
+          </Grid>
+        </Box>
+    </Grid>
   )
 }
 

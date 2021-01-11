@@ -44,16 +44,16 @@ const Footer = () => {
   return (
     <div>
       <Grid container className={classes.blockOne}>
-        <Grid item xs={4}></Grid>
+        <Grid item xs={2} sm={4}></Grid>
         <Grid
           item
           container
-          xs={4}
+          xs={8} sm={4}
           direction="column"
           className={classes.textTab}
         >
           <Box my={1} mt={6}>
-            SUSCRIBE TO NEWLESTTER
+            SUSCRIBE TO NEWSLETTER
           </Box>
 
           <Box mt={2}>
@@ -72,7 +72,7 @@ const Footer = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={4}></Grid>
+        <Grid item xs={2} sm={4}></Grid>
       </Grid>
       <Grid container className={classes.blockTwo}>
         <Grid item xs={1}></Grid>
@@ -85,13 +85,13 @@ const Footer = () => {
           alignItems="center"
           className={classes.footerText}
         >
-          <Grid item xs={4}>
+          <Grid item xs={4} sm={4}>
             Copyright Sensie. All rights reserved.
           </Grid>
-          <Grid item xs={4} style={{ textAlign: '-webkit-center' }}>
+          <Grid item xs={3} sm={4} style={{ textAlign: '-webkit-center' }}>
             Sensie technology is pantented
           </Grid>
-          <Grid item xs={4} container justify="flex-end">
+          <Grid item xs={5} sm={4} container justify="flex-end">
             <Box>
               <a
                 href="https://www.instagram.com/sensieapp/"

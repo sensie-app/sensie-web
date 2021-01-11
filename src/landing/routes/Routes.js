@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/core'
 import '../styles/index.scss'
 import { NotFound404 } from '../components/Globals'
+import AOS from 'aos'
 
 // Files
 import theme from '../themeConfig'
@@ -18,6 +19,10 @@ import LANDING_ROUTES from '../constants/routes'
 const { home, science, aboutsensie, entrypoint } = LANDING_ROUTES
 
 function App () {
+  useEffect(() => {
+    AOS.init()
+    AOS.refresh()
+  }, [])
   return (
     <ThemeProvider theme={theme}>
         <div className='global'>

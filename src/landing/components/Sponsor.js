@@ -9,14 +9,16 @@ const useStyle = makeStyles({
   }
 })
 
-const Sponsor = ({ SponsorImg, width, height }) => {
+const Sponsor = ({ SponsorImg, width, height, link }) => {
   const classes = useStyle()
   return (
-    <img
-      src={SponsorImg}
-      className={classes.root}
-      style={{ width: width, height: height }}
-    />
+      <a href={link} target="_blank" rel="noopener noreferrer">
+        <img
+        src={SponsorImg}
+        className={classes.root}
+        style={{ width: width, height: height }}
+        />
+      </a>
   )
 }
 

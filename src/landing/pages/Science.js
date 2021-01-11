@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Box, Typography } from '@material-ui/core'
+import { Grid, Box, Typography, makeStyles } from '@material-ui/core'
 import Title from '../components/Title/Title'
 import { Parallax, Background } from 'react-parallax'
 import Epigraph from '../components/Epigraph'
@@ -12,13 +12,20 @@ import LANDING_ROUTES from '../constants/routes'
 
 const { scienceanchor } = LANDING_ROUTES
 
+const useStyles = makeStyles({
+  bgImg: {
+    width: '100vw'
+  }
+})
+
 const Science = () => {
+  const classes = useStyles()
   return (
     <div id="scc" style={{ backgroundColor: '#071215' }}>
       {/* BLOQUE 1 */}
       <Parallax strength={400}>
         <Background className="backgroundImg">
-          <img src={backgroundScienceMan1} />
+          <img className={classes.bgImg} src={backgroundScienceMan1} />
         </Background>
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
@@ -39,7 +46,7 @@ const Science = () => {
                 </Box>
                 <Box>
                   <Grid>
-                    <Subtitle subtitle="Muscle tension is a relax reaction to stress." />
+                    <Subtitle subtitle="Muscle tension is a reflex reaction to stress." />
                   </Grid>
                 </Box>
                 <Box mt={5}>
@@ -49,7 +56,7 @@ const Science = () => {
                 </Box>
                 <Box mt={2} mr={18}>
                   <Grid>
-                    <Epigraph epigraph="The body containing nerve tissue make them excellent sensory receptors to sense muscle tension." />
+                    <Epigraph epigraph="Muscle fiber and tendons act as sensory receptors to help you gauge how much tension is in the body." />
                   </Grid>
                 </Box>
               </Box>
@@ -79,7 +86,7 @@ const Science = () => {
                 </Box>
                 <Box mt={2}>
                   <Grid data-aos="zoom-out-up">
-                    <Epigraph epigraph="The brain is the linking part that receives those signals from the body to regulate and coordinate movement." />
+                    <Epigraph epigraph="The brain is the linking part that receives signals from the body to regulate and coordinate movement, emotion and how we show up in the world." />
                   </Grid>
                 </Box>
               </Box>
