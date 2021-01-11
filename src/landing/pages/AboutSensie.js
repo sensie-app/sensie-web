@@ -14,7 +14,8 @@ import HinnerkBoriss from '../assets/img/HinnerkBoriss.png'
 import KeithTribble from '../assets/img/KeithTribble.png'
 import SatyenRaja from '../assets/img/SatyenRaja.png'
 import AnneJensen from '../assets/img/AnneJensen.png'
-import AnnmarieChereso from '../assets/img/AnnmarieChereso.png'
+import AnnmarieChereso from '../assets/img/AnnmarieChereso.jpg'
+import SylviaBenito from '../assets/img/SylviaBenito.png'
 import JeremyTabke from '../assets/img/JeremyTabke.png'
 import GescheHaas from '../assets/img/GescheHaas.png'
 import EvaSelhub from '../assets/img/EvaSelhub.png'
@@ -190,7 +191,7 @@ const AboutSensie = () => {
             xs={10}
             sm={12}
             container
-            justify="space-evenly"
+            justify="center"
             alignItems="center"
           >
             <Grid item xs={12}>
@@ -262,6 +263,14 @@ const AboutSensie = () => {
                 urlLinkedin="https://www.linkedin.com/in/luisgallardo/"
               />
             </Box>
+            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
+              <Member
+                avatar={SylviaBenito}
+                name="Sylvia Benito"
+                role="-"
+                urlLinkedin="https://www.linkedin.com/in/sylvia-benito-cfa-3191975/"
+              />
+            </Box>
           </Grid>
           <Grid item xs={1}></Grid>
           <Grid item xs={1}></Grid>
@@ -270,7 +279,7 @@ const AboutSensie = () => {
             xs={10}
             sm={12}
             container
-            justify="space-evenly"
+            justify="center"
             alignItems="center"
           >
             <Grid item xs={12}>
