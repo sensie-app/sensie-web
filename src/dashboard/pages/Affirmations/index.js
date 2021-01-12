@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setShowPacksOrTopicsAction } from '../../../redux/actions/show.actions'
+import { setPacksAction } from '../../../redux/actions/packs.actions'
 // components
 import Title from '../../components/Title'
 import Share from '../../components/Share'
@@ -29,23 +30,30 @@ import styles from './styles.module.scss'
 const Affirmations = () => {
   // hooks
   const dispatch = useDispatch()
-  const { showReducer: { showPacksOrTopics }, userReducer: { user } } = useSelector(state => state)
+  const {
+    showReducer: { showPacksOrTopics },
+    userReducer: { user },
+    packsReducer
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [show, setShow] = useState(showPacksOrTopics)
   const [topics, setTopics] = useState([])
-  const [packs, setPacks] = useState([])
+  const [packs, setPacks] = useState(packsReducer.packs)
   const [waitQuery, setWaitQuery] = useState(true)
 
   useEffect(async () => {
     const dbTopics = await gqlquery(listTopicsWiyhAffirmationsIdsQuery())
     const dbPacks = await gqlquery(listPacksWiyhAffirmationsIdsByIdQuery(user.id))
-    if (!dbTopics.loading && dbTopics.value !== null && !dbPacks.loading && dbPacks.value !== null) {
+    if (!dbTopics.loading && dbTopics.value !== null) {
       setTopics(dbTopics.value.data.listTopics.items)
-      setPacks(dbPacks.value.data.listPacks.items)
       setWaitQuery(false)
-    } else {
-      setWaitQuery(true)
-    }
+    } else { setWaitQuery(true) }
+    if (!dbPacks.loading && dbPacks.value !== null) {
+      const _packs = dbPacks.value.data.listPacks.items
+      setPacks(_packs)
+      dispatch(setPacksAction(_packs))
+      setWaitQuery(false)
+    } else { setWaitQuery(true) }
   }, [])
 
   // ? handle functions

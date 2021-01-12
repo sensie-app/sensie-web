@@ -2,12 +2,11 @@
 import React, { useState, Fragment, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-// material-ui
-import Checkbox from '@material-ui/core/Checkbox'
 // component
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
-import Toast from '../../components/Toast'
+import ItemCheckbox from '../../components/ItemCheckbox'
+// import Toast from '../../components/Toast'
 import MenuListComposition from '../../components/MenuListComposition'
 // containers
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
@@ -31,27 +30,28 @@ const { fontColor1 } = COLORS
  * @param {array} selectedTopics
  * @param {boolean} withRemoveBtn (default: true)
  * @param {boolean} withAddBtn (default: false)
+ * @param {boolean} checkAll (default: false)
  */
-const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBtn = false }) => {
+const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBtn = false, checkAll = false }) => {
   // hooks
   const dispatch = useDispatch()
   const { affirmationsReducer: { lastAffirmations } } = useSelector(state => state)
   const [t] = useTranslation('global')
   const inputRef = useRef(null)
-  const [check, setCheck] = useState(false)
   const [selectTopics, setSelectTopics] = useState(selectedTopics)
   const [itemTitle, setItemTitle] = useState(title)
   const [showChips, setShowChips] = useState(true)
   const [disabledTopics, setDisabledTopics] = useState(true)
   const [menuAction, setMenuAction] = useState({})
-  const [showErrorToast, setShowErrorToast] = useState(false)
+  // const [showErrorToast, setShowErrorToast] = useState(false)
+  console.log('checkAll', checkAll)
 
   useEffect(() => {
     if (menuAction.value === 'edit') {
       if (itemTitle === '' || selectTopics.length === 0) {
-        setShowErrorToast(true)
+        // setShowErrorToast(true)
       } else {
-        setShowErrorToast(false)
+        // setShowErrorToast(false)
         dispatch(setLastAffirmationsAction(
           lastAffirmations.map(item => item.title === title
             ? { title: itemTitle, topics: selectTopics }
@@ -145,18 +145,19 @@ const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBt
     <div className={styles.NewAffirmationContainer}>
       <div className={styles.NewAffirmationSTop}>
         <div className={styles.NewAffirmationS1}>
-          <Checkbox checked={check} className={styles.NewAffirmationCheckbox} onChange={() => setCheck(!check)} />
-          {!disabledTopics
-            ? <div className={styles.NewAffirmationEditTitleContainer}>
-                <input
-                  ref={inputRef}
-                  value={title}
-                  placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
-                  onChange={handleInputValue}
-                />
-                <button onClick={() => handleClickBtnDone()}>Done</button>
-              </div>
-            : <h4>{itemTitle}</h4>}
+          <ItemCheckbox check={checkAll} defaultValue={false} onClick={() => console.log('click!')}>
+            {!disabledTopics
+              ? <div className={styles.NewAffirmationEditTitleContainer}>
+                  <input
+                    ref={inputRef}
+                    value={title}
+                    placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
+                    onChange={handleInputValue}
+                  />
+                  <button onClick={() => handleClickBtnDone()}>Done</button>
+                </div>
+              : <h4>{itemTitle}</h4>}
+          </ItemCheckbox>
         </div>
 
         <div className={styles.NewAffirmationS2}>
@@ -196,7 +197,7 @@ const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBt
       <div className={styles.NewAffirmationSBottom}>
         {showChips && renderChipsItems()}
       </div>
-      {showErrorToast && <Toast type="error">{t('dashboard.CreateAffirmations.errorToast')}</Toast>}
+      {/* {showErrorToast && <Toast type="error">{t('dashboard.CreateAffirmations.errorToast')}</Toast>} */}
     </div>
   )
 }
@@ -210,7 +211,9 @@ NewAffirmation.propTypes = {
   /** withRemoveBtn */
   withRemoveBtn: PropTypes.bool,
   /** withAddBtn */
-  withAddBtn: PropTypes.bool
+  withAddBtn: PropTypes.bool,
+  /** checkAll */
+  checkAll: PropTypes.bool
 }
 
 export default NewAffirmation

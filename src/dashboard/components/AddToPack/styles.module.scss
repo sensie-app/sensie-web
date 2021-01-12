@@ -1,0 +1,56 @@
+@import '../../styles/index.scss';
+
+.AddToPackContainer {
+  width: 100%;
+}
+
+.AddToPackBodyContainer {
+  width: 100%;
+  padding: 20px 0px;
+  padding-right: 10px;
+  min-height: 300px;
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @include flex(column, flex-start, center, nowrap);
+  .AddToPackItemContainer {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: $grayColor6;
+    @include border(solid, 1px, 5px, transparent);
+    @include flex(row, space-between, center, nowrap);
+    .AddToPackItemTitle {
+      color: $fontColor1;
+      padding-left: 10px;
+    }
+    .AddToPackRadio {
+      span {
+        color: $actionColor1 !important;
+      }
+    }
+    &:hover {
+      cursor: pointer;
+      @include border(solid, 1px, 5px, $actionColor1);
+    }
+  }  
+}
+
+.AddToPackFooterContainer {
+  width: 100%;
+  padding: 20px 0px;
+  @include flex(row, flex-end, center, nowrap);
+  button {
+    padding: 5px 10px;
+    width: 40%;
+    background-color: $grayColor6;
+    color: $grayColor1;
+    @include border(solid, 1px, 5px, $actionColor1);
+    opacity: 0.9;
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+}
+

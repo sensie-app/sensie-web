@@ -39,7 +39,14 @@
     },
     "Header": {
       "back": "Back",
-      "invitePeople": "Invite People" 
+      "invitePeople": "Invite People",
+      "invitePeopleTo": "Invite people to"
+    },
+    "InvitePeople": {
+      "copyInviteLink": "Copy invite link",
+      "send": "Send",
+      "linkWasCopied": "Link was copied!",
+      "enterAnEmailAddress": "Enter an email address"
     },
     "MenuListComposition": {
       "today": "Today",
@@ -109,10 +116,16 @@
       "topics": "Topics"
     },
     "Share": {
-      "share": "Share",
+      "shareWith": "Share with",
       "shareTo": "Share to",
       "allClients": "All clients",
       "selectedClients": "Selected clients"
+    },
+    "ShareWith": {
+      "selectAllClients": "Select all clients",
+      "selectAllTeams": "Select all teams",
+      "publicAvailable": "Public available",
+      "share": "Share"
     },
     "Affirmation": {
       "selectAOption": "Select a option",
@@ -167,11 +180,14 @@
       "removeToPack": "Remove to pack",
       "addToPack": "Add to pack",
       "delete": "Delete",
-      "selectAll": "Select all"
+      "selectAll": "Select all",
+      "add": "Add",
+      "affirmationsTo": "affirmations to:"
     },
     "AffirmationsByTopics": {
       "title": "Recommended affirmations by topics",
-      "addToPack": "Add to pack"
+      "addToPack": "Add to pack",
+      "selectAll": "Select all"
     },
     "SageDashboard": {
       "title": "Enjoyers Activity",
@@ -193,6 +209,9 @@
       "remove": "Remove",
       "add": "Add"
     },
+    "AddToPack": {
+      "add": "Add"
+    },
     "Profile": {
       "profile": "Profile",
       "fristLastName": "First and last name",
@@ -207,6 +226,10 @@
     "WrongOrientation": {
       "message": "Please rotate your device",
       "description": "We support landscape mode only"
+    },
+    "WrongSize": {
+      "message": "Use a higher resolution device",
+      "description": "The size of this device is not supported"
     }
   }
 }

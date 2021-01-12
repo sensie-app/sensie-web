@@ -16,6 +16,8 @@ import Icon from '../../components/Icon'
 import { COLORS } from '../../constants/theme'
 // redux
 import { useSelector } from 'react-redux'
+// utils
+import { handleLargeName } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // test data
@@ -73,13 +75,6 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
    * @param {boolean} boolean setOpen
    */
   const handleOpen = (value = !open) => setOpen(value)
-
-  /**
-   * handle large name
-   * @param {string} name
-   * @param {number} large
-   */
-  const handleLargeName = (name, large) => name.length > large ? name.substr(0, large) + '...' : name
 
   // ? render functions
   /**

@@ -24,6 +24,7 @@ import MenuListNotifications from '../../components/MenuListNotifications'
 import ImageAvatar from '../../components/ImageAvatar'
 import SvgIcon from '../../components/SvgIcon'
 import WrongOrientation from '../../components/WrongOrientation'
+import WrongSize from '../../components/WrongSize'
 // import { ChangeLngBtn } from '../Globals' // btn to change languge
 import AlertDialog from '../../components/AlertDialog'
 // redux
@@ -161,10 +162,15 @@ const Layout = ({ children }) => {
 
   return (
     <Fragment>
-      {/* Orientation */}
-      <MediaQuery maxDeviceWidth={767}>
+      {/* wrong orientation */}
+      <MediaQuery maxDeviceWidth={767} orientation="portrait">
         <WrongOrientation />
       </MediaQuery>
+      {/* wrong resolution */}
+      <MediaQuery maxDeviceWidth={767} orientation="landscape">
+        <WrongSize />
+      </MediaQuery>
+      {/* ok resolution & orientation */}
       <MediaQuery minDeviceWidth={768}>
         <div className={styles.LayoutContainer}>
           <CssBaseline />
