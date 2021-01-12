@@ -5,14 +5,16 @@ import PropTypes from 'prop-types'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setNewAffirmationAction, setLastAffirmationsAction } from '../../../redux/actions/affirmations.actions'
-// material-ui
-import Checkbox from '@material-ui/core/Checkbox'
+import { setCheckboxAllAffirmationsAction } from '../../../redux/actions/checkbox.actions'
 // components
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
-import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
+import Modal from '../../components/Modal'
+import AddToPack from '../../components/AddToPack'
+import ItemCheckbox from '../../components/ItemCheckbox'
 // import AffirmationsByTopics from '../../components/AffirmationsByTopics'
 // containers
+import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
 import NewAffirmation from '../NewAffirmation'
 // constants
 import { COLORS } from '../../constants/theme'
@@ -20,7 +22,7 @@ import { COLORS } from '../../constants/theme'
 import styles from './styles.module.scss'
 
 // const
-const { fontColor1, actionColor1 } = COLORS
+const { fontColor1 } = COLORS
 
 // * container
 /**
@@ -39,10 +41,11 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
   const dispatch = useDispatch()
   const {
     affirmationsReducer: { newAffirmation, lastAffirmations },
-    userReducer: { user }
+    userReducer: { user },
+    packsReducer: { packs },
+    checkboxReducer: { all: { affirmations } }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const [selectAllCheckbox, setSelectAllCheckbox] = useState(false)
   const [title, setTitle] = useState(newAffirmation.title)
   const [topics, setTopics] = useState(newAffirmation.topics)
   const [listAffirmations, setListAffirmations] = useState([])
@@ -50,13 +53,12 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
   const [showErrorTopics, setShowErrorTopics] = useState(false)
   const [showNewForm, setShowNewForm] = useState(initShowForm)
 
-  useEffect(() => {
-    console.log('1', 1)
-    defaultTopic !== '0' && defaultTopic.length !== 0 ? setTopics(defaultTopic) : setTopics(newAffirmation.topics)
-  }, [defaultTopic])
   useEffect(() => dispatch(setNewAffirmationAction({ title, topics })), [title, topics])
-  console.log('defaultTopic', defaultTopic)
-  console.log('topics', topics)
+  useEffect(() => {
+    defaultTopic !== '0' && defaultTopic.length !== 0
+      ? setTopics(defaultTopic)
+      : setTopics(newAffirmation.topics)
+  }, [defaultTopic])
 
   // ? handle functions
   /**
@@ -89,7 +91,7 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
 
   /**
    * handle click btn done
-   * @return {}
+   * @returns {undefined}
    */
   const handleClickBtnDone = async () => {
     setShowErrorTitle(title === '')
@@ -109,6 +111,17 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
       console.log('affId', affId)
     }
   }
+
+  /**
+   * handleTitleModal
+   * @returns {string}
+   */
+  const handleTitleModal = () => {
+    const count = '' // todo finish this
+    return `${t('dashboard.CreateAffirmations.add')} ${count} ${t('dashboard.CreateAffirmations.affirmationsTo')}`
+  }
+
+  const handleOnClickSelectAll = value => dispatch(setCheckboxAllAffirmationsAction(value))
 
   // ? render functions
   /**
@@ -192,7 +205,7 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
    * @returns {undefined} NewAffirmation (component)
    */
   const renderLastAffirmations = () => {
-    return lastAffirmations.map((item, index) => <NewAffirmation key={index} title={item.title} selectedTopics={item.topics} />)
+    return lastAffirmations.map((item, index) => <NewAffirmation checkAll={affirmations} key={index} title={item.title} selectedTopics={item.topics} />)
   }
 
   return (
@@ -200,23 +213,25 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
       {/* header */}
       <div className={styles.CreateAffirmationsHeaderContainer}>
         <div>
-          <Checkbox checked={selectAllCheckbox} onChange={() => setSelectAllCheckbox(!selectAllCheckbox)} color={actionColor1} className={styles.CreateAffirmationsCheckbox} />
-          {selectAllCheckbox
-            ? <div className={styles.CreateAffirmationsHeaderActions}>
-                <button>
-                  <span>{t('dashboard.CreateAffirmations.delete')}</span>
-                </button>
-                {!addToPack
-                  ? <button>
-                      <span>{t('dashboard.CreateAffirmations.removeToPack')}</span>
-                    </button>
-                  : <button>
-                      <span>{t('dashboard.CreateAffirmations.addToPack')}</span>
-                    </button>
-                }
-              </div>
-            : <h5>{t('dashboard.CreateAffirmations.selectAll')}</h5>
-          }
+          <ItemCheckbox check={false} defaultValue={false} onClick={value => handleOnClickSelectAll(!value)}>
+            {affirmations
+              ? <div className={styles.CreateAffirmationsHeaderActions}>
+                  <button>
+                    <span>{t('dashboard.CreateAffirmations.delete')}</span>
+                  </button>
+                  {!addToPack
+                    ? <button>
+                        <span>{t('dashboard.CreateAffirmations.removeToPack')}</span>
+                      </button>
+                    : <Modal title={handleTitleModal()}>
+                        <span>{t('dashboard.CreateAffirmations.addToPack')}</span>
+                        <AddToPack packs={packs} />
+                      </Modal>
+                  }
+                </div>
+              : <h5>{t('dashboard.CreateAffirmations.selectAll')}</h5>
+            }
+          </ItemCheckbox>
         </div>
 
         <button className={styles.CreateAffirmationsAddBtn} disabled={showNewForm} onClick={() => setShowNewForm(true)} style={{ opacity: !showNewForm ? 1 : 0.5 }}>

@@ -8,6 +8,8 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import Icon from '../../components/Icon'
 import MenuListComposition from '../../components/MenuListComposition'
 import Title from '../../components/Title'
+import Modal from '../../components/Modal'
+import InvitePeople from '../../components/InvitePeople'
 // constants
 import { COLORS } from '../../constants/theme'
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -70,20 +72,15 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
    */
   const handleDates = () => {
     switch (filter.name) {
-      case 'today':
-        filter.value = [TODAY, TODAY]
+      case 'today': filter.value = [TODAY, TODAY]
         break
-      case 'lastDay':
-        filter.value = [moment().subtract(1, 'd').format(), TODAY]
+      case 'lastDay': filter.value = [moment().subtract(1, 'd').format(), TODAY]
         break
-      case 'lastWeek':
-        filter.value = [moment().subtract(7, 'd').format(), TODAY]
+      case 'lastWeek': filter.value = [moment().subtract(7, 'd').format(), TODAY]
         break
-      case 'lastMonth':
-        filter.value = [moment().subtract(1, 'M').format(), TODAY]
+      case 'lastMonth': filter.value = [moment().subtract(1, 'M').format(), TODAY]
         break
-      case 'lastYear':
-        filter.value = [moment().subtract(1, 'y').format(), TODAY]
+      case 'lastYear': filter.value = [moment().subtract(1, 'y').format(), TODAY]
         break
     }
     return filter
@@ -124,10 +121,16 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
         </div>}
 
         {/* invite people options */}
-        {withPeople && !withBack && !withTitle && <div className={styles.HeaderPeople}>
-          <div className={styles.HeaderLeftIcon}><Icon name="person-add-outline" size="md" color={fontColor1}/></div>
-          <span>{t('dashboard.Header.invitePeople')}</span>
-        </div>}
+        {withPeople && !withBack && !withTitle &&
+          <Modal title={t('dashboard.Header.invitePeopleTo')}>
+            {/* btn */}
+            <div className={styles.HeaderPeople}>
+              <div className={styles.HeaderLeftIcon}><Icon name="person-add-outline" size="md" color={fontColor1}/></div>
+              <span>{t('dashboard.Header.invitePeople')}</span>
+            </div>
+            {/* body */}
+            <InvitePeople />
+          </Modal>}
       </div>
 
       {/* date */}

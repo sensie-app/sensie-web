@@ -9,6 +9,8 @@ import SvgIcon from '../SvgIcon'
 // constants
 import IMG from '../../constants/images'
 import { COLORS } from '../../constants/theme'
+// utils
+import { handleLargeName } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 
@@ -65,12 +67,12 @@ const Topic = ({
           ? <Link to={route}>
               <div style={{ height: '75%' }}>
                 <SvgIcon icon={topic} size={iconSize}/>
-                <span>{title}</span>
+                <span>{handleLargeName(topic.name, 6)}</span>
               </div>
             </Link>
           : <div style={{ height: '100%' }}>
               <SvgIcon icon={topic} size={iconSize}/>
-              <span>{title}</span>
+              <span>{handleLargeName(topic.name, 6)}</span>
             </div>
         }
       </div>

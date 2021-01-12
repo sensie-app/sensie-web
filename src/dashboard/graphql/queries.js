@@ -54,8 +54,9 @@ export const listTopicsQuery = () => `
     listTopics {
       items {
         id
-        description
         name
+        picture
+        description     
       }
     }
   }
@@ -68,6 +69,7 @@ export const listTopicsWiyhAffirmationsIdsQuery = () => `
         description
         id
         name
+        picture
         affirmations {
           items {
             id
@@ -156,6 +158,15 @@ export const listAffirmationsByTopicIdQuery = (topicId, userId) => `
         description
         id
         name
+        topics {
+          items {
+            topic {
+              name
+              picture
+              id
+            }
+          }
+        }
       }
     }
   }

@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import Header from '../../containers/Header'
 import CreateAffirmations from '../../containers/CreateAffirmations'
 import NewAffirmation from '../../containers/NewAffirmation'
+import AffirmationsByTopics from '../../containers/AffirmationsByTopics'
 // components
 import Share from '../../components/Share'
 // constants
@@ -14,7 +15,9 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 // utils
 import { gqlquery } from '../../utils/queries'
 // graphql queries
-import { getPackByIdQuery } from '../../graphql/queries'
+import { getPackByIdQuery, listAffirmationsByTopicIdQuery } from '../../graphql/queries'
+// utils
+import { handleArrTopics } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 
@@ -36,7 +39,6 @@ const Pack = () => {
 
   useEffect(async () => {
     const { loading, value } = await gqlquery(getPackByIdQuery(id))
-    console.log('value', value)
     if (!loading && value !== null) {
       setDbPack(value.data.getPack)
       setWaitQuery(false)
@@ -53,10 +55,11 @@ const Pack = () => {
   const handleCountAffirmations = () => !waitQuery && dbPack.affirmations.items.length
 
   /**
-   * handleArrTopics
-   * @returns {Array}
+   * handleListAffirmationsByTopic
+   * @param {strinf} topicId
+   * @param {string} userId
    */
-  const handleArrTopics = topics => topics.map(item => item.topic)
+  const handleListAffirmationsByTopic = async (topicId, userId) => await gqlquery(listAffirmationsByTopicIdQuery(topicId, userId))
 
   // ? render functions
   /**
@@ -99,6 +102,7 @@ const Pack = () => {
         <div className={styles.PackBodyContainer}>
           <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} />
           {renderDbAffirmations()}
+          <AffirmationsByTopics onClick={handleListAffirmationsByTopic} />
         </div>
       </div>
     </Fragment>
