@@ -17,7 +17,7 @@ const useStyle = makeStyles({
   },
   titleDashboard: {
     color: 'white',
-    fontSize: '50px',
+    fontSize: '45px',
     fontWeight: 'bold',
     textAlign: 'center',
     position: 'absolute',

@@ -526,7 +526,7 @@ const Home = () => {
                       title="Web and Mobile Solution"
                       titleDashboard
                     ></Title>
-                    <Box mt={28}>
+                    <Box mt={35}>
                       <img
                         src={ComputerIphoneDashboard}
                         style={{ width: '100%' }}
