@@ -10,12 +10,12 @@ import Title from '../../components/Title'
 import Share from '../../components/Share'
 import Packs from '../../components/Packs'
 import Topics from '../../components/Topics'
-import CircularProgress from '../../components/CircularProgress'
+import Loading from '../../components/Loading'
 import CreatePack from '../../components/CreatePack'
 // constants
 import { CreatePacksTags } from '../../constants/globals'
 // utils
-import { gqlquery } from '../../utils/queries'
+import { gqlquery, gqlquery2 } from '../../utils/queries'
 // graphql
 import { listTopicsWiyhAffirmationsIdsQuery, listPacksWiyhAffirmationsIdsByIdQuery } from '../../graphql/queries'
 import { createPackMutation } from '../../graphql/mutations'
@@ -42,21 +42,35 @@ const Affirmations = () => {
   const [waitQuery, setWaitQuery] = useState(true)
 
   useEffect(async () => {
-    const dbTopics = await gqlquery(listTopicsWiyhAffirmationsIdsQuery())
+    await handlePacksQuery()
+    await handleTopicsQuery()
+  }, [])
+
+  // ? handle functions
+  /**
+   * handlePacksQuery
+   */
+  const handlePacksQuery = async () => {
     const dbPacks = await gqlquery(listPacksWiyhAffirmationsIdsByIdQuery(user.id))
-    if (!dbTopics.loading && dbTopics.value !== null) {
-      setTopics(dbTopics.value.data.listTopics.items)
-      setWaitQuery(false)
-    } else { setWaitQuery(true) }
     if (!dbPacks.loading && dbPacks.value !== null) {
       const _packs = dbPacks.value.data.listPacks.items
       setPacks(_packs)
       dispatch(setPacksAction(_packs))
       setWaitQuery(false)
     } else { setWaitQuery(true) }
-  }, [])
+  }
 
-  // ? handle functions
+  /**
+   * handleTopicsQuery
+   */
+  const handleTopicsQuery = async () => {
+    const dbTopics = await gqlquery(listTopicsWiyhAffirmationsIdsQuery())
+    if (!dbTopics.loading && dbTopics.value !== null) {
+      setTopics(dbTopics.value.data.listTopics.items)
+      setWaitQuery(false)
+    } else { setWaitQuery(true) }
+  }
+
   /**
    * handle show
    * @param {string} section
@@ -68,14 +82,14 @@ const Affirmations = () => {
   }
 
   /**
-   * handleSavePack
+   * handleCreatePackMutation
    * @param {string} name
    * @param {string} description
    * @param {string} imgId
    * @returns {string} new pack id
    */
-  const handleSavePack = async (name, description, imgId) => {
-    const newPack = await gqlquery(createPackMutation(name, description, imgId))
+  const handleCreatePackMutation = async (name, description, imgId) => {
+    const newPack = await gqlquery2(createPackMutation(name, description, imgId, user.id))
     return !newPack.loading && newPack.value !== null ? newPack.value.data.createPack.id : null
   }
 
@@ -96,14 +110,12 @@ const Affirmations = () => {
           </div>
         </div>
         {waitQuery
-          ? <div className={styles.AffirmationsLoadingContainer}>
-              <CircularProgress />
-            </div>
+          ? <Loading />
           : <div>
               { show === CreatePacksTags.packs
                 ? <Fragment>
                     <Packs data={!waitQuery && packs}/>
-                    <CreatePack onSave={handleSavePack} />
+                    <CreatePack onSave={handleCreatePackMutation} />
                   </Fragment>
                 : <Topics data={!waitQuery && topics} />
               }

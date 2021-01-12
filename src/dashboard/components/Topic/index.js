@@ -67,12 +67,12 @@ const Topic = ({
           ? <Link to={route}>
               <div style={{ height: '75%' }}>
                 <SvgIcon icon={topic} size={iconSize}/>
-                <span>{handleLargeName(topic.name, 6)}</span>
+                <span>{handleLargeName(topic.name, 18)}</span>
               </div>
             </Link>
           : <div style={{ height: '100%' }}>
               <SvgIcon icon={topic} size={iconSize}/>
-              <span>{handleLargeName(topic.name, 6)}</span>
+              <span>{handleLargeName(topic.name, 18)}</span>
             </div>
         }
       </div>

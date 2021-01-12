@@ -1,6 +1,7 @@
 // react
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 // material-ui
 import Grid from '@material-ui/core/Grid'
 // redux
@@ -14,10 +15,13 @@ import Pagination from '../../components/Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
 import DASHBOARD_ROUTES from '../../constants/routes'
+// utils
+import { handleDefaultPictureUser } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // test
 import { data } from './data'
+const _data = data
 
 // const
 const { fontColor1 } = COLORS
@@ -27,8 +31,9 @@ const { user } = DASHBOARD_ROUTES
 /**
  * ClientSnapshot component
  * @component
+ * @param {array} data
  */
-const ClientSnapshot = () => {
+const ClientSnapshot = ({ data = _data }) => {
   // hooks
   const dispatch = useDispatch()
   const { paginationReducer: { pagination: { pagClientSnapshot } } } = useSelector(state => state)
@@ -48,19 +53,20 @@ const ClientSnapshot = () => {
    * @return  {undefined} component (html)
    */
   const renderClientSnapshotBarChart = () => {
-    return data.map((client, index) => {
+    return data.map(client => {
+      const { id, firstName, lastName, gender, picture } = client
       return (
-        <Grid key={index} item xs={12} sm={6} md={3} xl={3}>
+        <Grid key={id} item xs={12} sm={6} md={3} xl={3}>
           <div className={styles.ClientSnapshotBarChartContainer}>
             {/* header */}
             <div className={styles.ClientSnapshotBarChartHeader}>
-              <Link to={user}>
+              <Link to={user + '/' + id}>
                 <div>
-                  <ImageAvatar url={client.url} alt={client.name} size="medium" />
-                  <h4>{client.name}</h4>
+                  <ImageAvatar url={picture || handleDefaultPictureUser(gender)} alt={lastName} size="medium" />
+                  <h4>{firstName} {lastName}</h4>
                 </div>
               </Link>
-              <Link to={user}>
+              <Link to={user + '/' + id}>
                   <Icon name="expand-outline" color={fontColor1} size="md" animation="pulse" />
               </Link>
             </div>
@@ -84,6 +90,12 @@ const ClientSnapshot = () => {
       </div>
     </section>
   )
+}
+
+// prop-types
+ClientSnapshot.propTypes = {
+  /** data */
+  data: PropTypes.array.isRequired
 }
 
 export default ClientSnapshot

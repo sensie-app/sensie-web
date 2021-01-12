@@ -22,6 +22,7 @@ import styles from './styles.module.scss'
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
 const { spiritImg, healthImg, financeImg, funImg, loveImg, familyImg, parentingImg, personalImg, performanceImg, noImg } = IMG
+const showOldTopics = false
 
 // * component
 /**
@@ -42,16 +43,19 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
   const [topic, setTopic] = useState(null)
   const [affirmations, setAffirmations] = useState([])
 
-  useEffect(async () => {
+  useEffect(async () => await handleOnClickProps(), [topic])
+
+  // ? handle functions
+  /**
+   * handleOnClickProps
+   */
+  const handleOnClickProps = async () => {
     if (topic && user) {
       const listaffirmations = await onClick(topic.id, user.id)
       if (!listaffirmations.loading && listaffirmations.value !== null) setAffirmations(listaffirmations.value.data.listAffirmations.items)
     }
-  }, [topic])
+  }
 
-  console.log('affirmations', affirmations)
-
-  // ? handle functions
   /**
    * handle image topics
    * @param {string} topic
@@ -108,15 +112,17 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
         <button
           key={index}
           onClick={() => setTopic(_topic)}>
-          <Topic
-            img={handleImageTopics(_topic)}
-            title={_topic}
-            topic={_topic}
-            withLink={false}
-            witCheckbox={false}
-            size="100px"
-            iconSize='25px'
-          />
+          <a href="#listTopics">
+            <Topic
+              img={handleImageTopics(_topic)}
+              title={_topic}
+              topic={_topic}
+              withLink={false}
+              witCheckbox={false}
+              size="100px"
+              iconSize='25px'
+            />
+          </a>
         </button>
       )
     })
@@ -149,12 +155,12 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
       {/* header images */}
       <div className={styles.AffirmationsByTopicsHeaderContainer}>
         <div className={styles.AffirmationsByTopicsBoxesContainer}>
-          {renderImagesBox()}
+          {showOldTopics && renderImagesBox()}
           {renderTopics()}
         </div>
         <div className={styles.AffirmationsByTopicsActionContainer}>
           <ItemCheckbox check={checkAll} defaultValue={false} onClick={value => handleOnClickSelectAll(!value)}>
-            {AffirmationsByTopics
+            {affirmationsByTopics
               ? <div className={styles.CreateAffirmationsHeaderActions}>
                   <button>
                     <span>{t('dashboard.AffirmationsByTopics.addToPack')}</span>
@@ -166,7 +172,7 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
         </div>
       </div>
       {/* affirmations list */}
-      <div className={styles.AffirmationsByTopicsListContainer}>
+      <div id="listTopics" className={styles.AffirmationsByTopicsListContainer}>
         {renderListAffirmations()}
       </div>
     </div>

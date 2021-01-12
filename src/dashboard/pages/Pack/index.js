@@ -13,11 +13,13 @@ import Share from '../../components/Share'
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // utils
-import { gqlquery } from '../../utils/queries'
+import { gqlquery, gqlquery2 } from '../../utils/queries'
+import { handleArrTopics } from '../../utils/functions'
 // graphql queries
 import { getPackByIdQuery, listAffirmationsByTopicIdQuery } from '../../graphql/queries'
-// utils
-import { handleArrTopics } from '../../utils/functions'
+import { createAffirmationMutation, joinAffirmationWithPack, joinAffirmationWithTopic } from '../../graphql/mutations'
+// redux
+import { useSelector } from 'react-redux'
 // styles
 import styles from './styles.module.scss'
 
@@ -33,33 +35,73 @@ const { affirmations } = DASHBOARD_ROUTES
 const Pack = () => {
   // hooks
   const [t] = useTranslation('global')
+  const { userReducer: { user } } = useSelector(state => state)
   const { id } = useParams()
-  const [dbPack, setDbPack] = useState(null)
+  const [pack, setPack] = useState(null)
+  const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
 
-  useEffect(async () => {
-    const { loading, value } = await gqlquery(getPackByIdQuery(id))
+  useEffect(async () => await handlePackQuery(), [])
+  useEffect(async () => await handlePackQuery(), [newAff])
+
+  // ? handle functions
+  /**
+   * handlePackQuery
+   */
+  const handlePackQuery = async () => {
+    const dbPack = await gqlquery(getPackByIdQuery(id))
+    const { loading, value } = dbPack
     if (!loading && value !== null) {
-      setDbPack(value.data.getPack)
+      setPack(value.data.getPack)
       setWaitQuery(false)
     } else {
       setWaitQuery(true)
     }
-  }, [])
+  }
 
-  // ? handle functions
+  /**
+   * handleCreateAffirmationMutation
+   * @param {string} name
+   * @param {string} description
+   * @param {array.string} topicsId
+   * @param {string} packId
+   * @returns {string} new pack id
+   */
+  const handleCreateAffirmationMutation = async (name, description, topicsId, packId) => {
+    let successJoinPack
+    const newAffirmationTopicJoin = []
+    // save affirmation
+    const newAffirmation = await gqlquery2(createAffirmationMutation(name, description, user.id))
+    const successAffirmation = !newAffirmation.loading && newAffirmation.value !== null
+
+    if (successAffirmation) {
+      const newAffirmationId = newAffirmation.value.data.createAffirmation.id
+      // join to pack
+      const newAffirmationPackJoin = await gqlquery2(joinAffirmationWithPack(newAffirmationId, packId))
+      successJoinPack = !newAffirmationPackJoin.loading && newAffirmationPackJoin.value !== null
+
+      // join to topics
+      topicsId.map(async topicId => {
+        const joinTopic = await gqlquery2(joinAffirmationWithTopic(newAffirmationId, topicId))
+        newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
+      })
+    }
+    setNewAff(successAffirmation && successJoinPack ? !newAff : newAff)
+    return successAffirmation && successJoinPack ? newAffirmation.value.data.createAffirmation.id : null
+  }
+
   /**
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => !waitQuery && dbPack.affirmations.items.length
+  const handleCountAffirmations = () => !waitQuery && pack.affirmations.items.length
 
   /**
-   * handleListAffirmationsByTopic
+   * handleAffirmationsByTopicsQuery
    * @param {strinf} topicId
    * @param {string} userId
    */
-  const handleListAffirmationsByTopic = async (topicId, userId) => await gqlquery(listAffirmationsByTopicIdQuery(topicId, userId))
+  const handleAffirmationsByTopicsQuery = async (topicId, userId) => await gqlquery(listAffirmationsByTopicIdQuery(topicId, userId))
 
   // ? render functions
   /**
@@ -67,7 +109,7 @@ const Pack = () => {
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return !waitQuery && dbPack.affirmations.items.map(item => {
+    return !waitQuery && pack.affirmations.items.map(item => {
       const { id, name, topics } = item.affirmation
       return <NewAffirmation
         key={id}
@@ -88,7 +130,7 @@ const Pack = () => {
           <div className={styles.PackHeaderImgContainer}>
             <div className={styles.PackHeaderImg} style={{ backgroundImage: `url(${noImg})` }} />
             <div className={styles.PackHeaderTextContainer}>
-              {!waitQuery && <span>{dbPack.name}</span>}
+              {!waitQuery && <span>{pack.name}</span>}
               <div>
                 <span>{handleCountAffirmations()} {t('dashboard.Pack.affirmations')}</span>
               </div>
@@ -100,9 +142,9 @@ const Pack = () => {
         </div>
         {/* body */}
         <div className={styles.PackBodyContainer}>
-          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} />
+          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} onSave={handleCreateAffirmationMutation}/>
           {renderDbAffirmations()}
-          <AffirmationsByTopics onClick={handleListAffirmationsByTopic} />
+          <AffirmationsByTopics onClick={handleAffirmationsByTopicsQuery} />
         </div>
       </div>
     </Fragment>

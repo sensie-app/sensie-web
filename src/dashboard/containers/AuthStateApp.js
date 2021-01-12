@@ -14,7 +14,7 @@ import awsconfig from '../../aws-exports'
 // utils
 import { gqlquery } from '../utils/queries'
 // graphql queries
-import { getUsersByIdQuery } from '../graphql/queries'
+import { getUserByIdQuery } from '../graphql/queries'
 // import { getUser } from '../../graphql/queries'
 
 // amplify config
@@ -42,7 +42,7 @@ const AuthStateApp = ({ children }) => {
   useEffect(async () => {
     if (user !== null && authState === 'signedin') {
       const { username } = user
-      const dbUser = await gqlquery(getUsersByIdQuery(username))
+      const dbUser = await gqlquery(getUserByIdQuery(username))
       dispatch(setUserDataAction(dbUser.value.data.getUser))
       dispatch(setUserIdAction(username))
     }
