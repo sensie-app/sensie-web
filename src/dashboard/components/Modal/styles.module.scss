@@ -19,6 +19,7 @@
 
 .ModalComponentHeader {
   width: 100%;
+  padding: 10px 0px;
   @include flex(row, space-between, center, nowrap);
   span {
     color: $fontColor1;

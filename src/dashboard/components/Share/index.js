@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 // component
 import Icon from '../Icon'
 import Modal from '../Modal'
-import ShareWith from '../ShareWith'
+// containers
+import ShareWith from '../../containers/ShareWith'
 // constants
 import { COLORS } from '../../constants/theme'
 // styles

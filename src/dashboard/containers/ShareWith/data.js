@@ -1,4 +1,4 @@
-export const users = [
+export const _users = [
   'user 1',
   'user 2',
   'user 3',
@@ -8,7 +8,7 @@ export const users = [
   'user 7'
 ]
 
-export const teams = [
+export const _teams = [
   'team 1',
   'team 2',
   'team 3',

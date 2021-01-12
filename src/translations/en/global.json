@@ -180,11 +180,14 @@
       "removeToPack": "Remove to pack",
       "addToPack": "Add to pack",
       "delete": "Delete",
-      "selectAll": "Select all"
+      "selectAll": "Select all",
+      "add": "Add",
+      "affirmationsTo": "affirmations to:"
     },
     "AffirmationsByTopics": {
       "title": "Recommended affirmations by topics",
-      "addToPack": "Add to pack"
+      "addToPack": "Add to pack",
+      "selectAll": "Select all"
     },
     "SageDashboard": {
       "title": "Enjoyers Activity",
@@ -204,6 +207,9 @@
     },
     "NewAffirmation": {
       "remove": "Remove",
+      "add": "Add"
+    },
+    "AddToPack": {
       "add": "Add"
     },
     "Profile": {

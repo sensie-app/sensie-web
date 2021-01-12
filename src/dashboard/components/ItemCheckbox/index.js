@@ -11,11 +11,11 @@ import styles from './styles.module.scss'
  * ItemCheckbox component
  * @component
  * @param {boolean} defaultValue
- * @param {string} title
+ * @param {undefined} children
  * @param {boolean} onClick
  * @param {boolean} check
  */
-const ItemCheckbox = ({ defaultValue = false, title, onClick, check }) => {
+const ItemCheckbox = ({ defaultValue = false, children, onClick, check }) => {
   // hooks
   const [_check, setCheck] = useState(defaultValue)
 
@@ -27,7 +27,7 @@ const ItemCheckbox = ({ defaultValue = false, title, onClick, check }) => {
         onChange={() => setCheck(!_check)}
         onClick={() => onClick(_check)}
         />
-      <span className={styles.ItemCheckboxTitle}>{title}</span>
+      <div className={styles.ItemCheckboxTitle}>{children}</div>
     </div>
   )
 }
@@ -35,7 +35,7 @@ const ItemCheckbox = ({ defaultValue = false, title, onClick, check }) => {
 // prop-types
 ItemCheckbox.propTypes = {
   /** title */
-  title: PropTypes.string.isRequired,
+  children: PropTypes.element,
   /** defaultValue */
   defaultValue: PropTypes.bool.isRequired,
   /** check */

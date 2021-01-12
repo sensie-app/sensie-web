@@ -2,19 +2,18 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-// material-ui
-import Checkbox from '@material-ui/core/Checkbox'
 // contaniners
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
 import Topic from '../../components/Topic'
 import Title from '../../components/Title'
+import ItemCheckbox from '../../components/ItemCheckbox'
 // constants
 import TopicsConstants from '../../constants/topics'
 import IMG from '../../constants/images'
-import { COLORS } from '../../constants/theme'
 // redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setCheckboxAllAffirmationsByTopicsAction } from '../../../redux/actions/checkbox.actions'
 // utils
 import { handleArrTopics } from '../../utils/functions'
 // styles
@@ -23,21 +22,25 @@ import styles from './styles.module.scss'
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
 const { spiritImg, healthImg, financeImg, funImg, loveImg, familyImg, parentingImg, personalImg, performanceImg, noImg } = IMG
-const { actionColor1 } = COLORS
 
 // * component
 /**
  * AffirmationsByTopics component
  * @component
  * @param {undefined} onClick
+ * @param {boolean} checkAll
  */
-const AffirmationsByTopics = ({ onClick }) => {
+const AffirmationsByTopics = ({ onClick, checkAll }) => {
   // hooks
-  const { userReducer: { user }, topicsReducer: { topics } } = useSelector(state => state)
+  const dispatch = useDispatch()
+  const {
+    userReducer: { user },
+    topicsReducer: { topics },
+    checkboxReducer: { all: { affirmationsByTopics } }
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [topic, setTopic] = useState(null)
   const [affirmations, setAffirmations] = useState([])
-  const [selectAllCheckbox, setSelectAllCheckbox] = useState(false)
 
   useEffect(async () => {
     if (topic && user) {
@@ -68,6 +71,8 @@ const AffirmationsByTopics = ({ onClick }) => {
       default: return noImg
     }
   }
+
+  const handleOnClickSelectAll = value => dispatch(setCheckboxAllAffirmationsByTopicsAction(value))
 
   // ? render functions
   /**
@@ -124,6 +129,7 @@ const AffirmationsByTopics = ({ onClick }) => {
   const renderListAffirmations = () => {
     return affirmations.length > 0 && affirmations.map(affirmation => {
       return <NewAffirmation
+        checkAll={affirmationsByTopics}
         key={affirmation.id}
         title={affirmation.name}
         selectedTopics={handleArrTopics(affirmation.topics.items)}
@@ -147,15 +153,16 @@ const AffirmationsByTopics = ({ onClick }) => {
           {renderTopics()}
         </div>
         <div className={styles.AffirmationsByTopicsActionContainer}>
-          <Checkbox checked={selectAllCheckbox} onChange={() => setSelectAllCheckbox(!selectAllCheckbox)} color={actionColor1} className={styles.AffirmationsByTopicsCheckbox} />
-          {selectAllCheckbox
-            ? <div className={styles.CreateAffirmationsHeaderActions}>
-                <button>
-                  <span>{t('dashboard.AffirmationsByTopics.addToPack')}</span>
-                </button>
-              </div>
-            : <h5>Select all</h5>
-          }
+          <ItemCheckbox check={checkAll} defaultValue={false} onClick={value => handleOnClickSelectAll(!value)}>
+            {AffirmationsByTopics
+              ? <div className={styles.CreateAffirmationsHeaderActions}>
+                  <button>
+                    <span>{t('dashboard.AffirmationsByTopics.addToPack')}</span>
+                  </button>
+                </div>
+              : <h5>{t('dashboard.AffirmationsByTopics.selectAll')}</h5>
+            }
+          </ItemCheckbox>
         </div>
       </div>
       {/* affirmations list */}
@@ -169,7 +176,9 @@ const AffirmationsByTopics = ({ onClick }) => {
 // prop-types
 AffirmationsByTopics.propTypes = {
   /** onClick */
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  /** checkALl */
+  checkAll: PropTypes.bool
 }
 
 export default AffirmationsByTopics
