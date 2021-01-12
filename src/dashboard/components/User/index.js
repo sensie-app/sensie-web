@@ -12,6 +12,8 @@ import IconChart from '../IconChart'
 import { IconChartTypes } from '../../constants/charts'
 import { UserListBtns } from '../../constants/globals'
 import DASHBOARD_ROUTES from '../../constants/routes'
+// utils
+import { handleDefaultPictureUser } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // prop-types
@@ -38,19 +40,18 @@ const User = ({ user, show }) => {
    * @return  {undefined} name + lastname (html)
    */
   const renderName = () => {
-    const _user = user.name.split(' ')
     return <div className={styles.UserAvatarContainerRenderName}>
-      <span>{_user[0]}</span>
-      <span>{_user[1]}</span>
+      <span>{user.firstName}</span>
+      <span>{user.lastName}</span>
     </div>
   }
 
   return (
     <div className={styles.UserContainer}>
       {/* avatar */}
-      <Link to={DASHBOARD_ROUTES.user}>
+      <Link to={DASHBOARD_ROUTES.user + '/' + user.id}>
         <div className={styles.UserAvatarContainer}>
-          <ImageAvatar url={user.url} alt="test" />
+          <ImageAvatar url={user.picture || handleDefaultPictureUser(user.gender)} alt={user.lastName} />
           {renderName()}
         </div>
       </Link>

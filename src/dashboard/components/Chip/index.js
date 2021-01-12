@@ -22,10 +22,6 @@ const { fontColor1 } = COLORS
  * @param {boolean} disabled (default: false)
  */
 const Chip = ({ label, withClose = true, onClose = () => {}, disabled = false }) => {
-  // hooks
-  // const [t] = useTranslation('global')
-  console.log('label', label)
-
   // ? handle functions
   /**
    * handle large name

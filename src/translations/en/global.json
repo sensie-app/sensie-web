@@ -230,6 +230,10 @@
     "WrongSize": {
       "message": "Use a higher resolution device",
       "description": "The size of this device is not supported"
+    },
+    "UserStatistics": {
+      "lastSensie": "Last sensie",
+      "noSensies": "User without sensies"
     }
   }
 }

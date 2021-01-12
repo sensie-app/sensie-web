@@ -1,0 +1,9 @@
+@import '../../styles/index.scss';
+
+.LoadingContainer {
+  width: 100%;
+  min-height: 300px;
+  height: auto;
+  padding: 50px;
+  @include flex(column, center, center, nowrap);
+}

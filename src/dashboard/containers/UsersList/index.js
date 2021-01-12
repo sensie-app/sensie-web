@@ -18,6 +18,7 @@ import { setPaginationUserListAction } from '../../../redux/actions/pagination.a
 import styles from './styles.module.scss'
 // test data
 import { data } from '../ClientSnapshot/data'
+const _data = data
 
 // const
 const { fontColor1 } = COLORS
@@ -27,13 +28,13 @@ const { summary, details } = UserListBtns
 /**
  * UserList container
  * @component
- * @param {Array:User} users (default: null)
+ * @param {Array:User} data (default: null)
  */
-const UsersList = ({ users = null }) => {
+const UsersList = ({ data = _data }) => {
   // hooks
   const [t] = useTranslation('global')
   const dispatch = useDispatch()
-  const [usersList] = useState(users === null ? data : users)
+  const [usersList] = useState(data)
   const {
     showReducer: { userList },
     paginationReducer: { pagination: { pagUsersList } }
@@ -96,7 +97,7 @@ const UsersList = ({ users = null }) => {
 // prop-types
 UsersList.propTypes = {
   /** users */
-  users: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired
 }
 
 export default UsersList

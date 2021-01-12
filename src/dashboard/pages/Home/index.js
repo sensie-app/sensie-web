@@ -9,6 +9,7 @@ import ClientSnapshot from '../../containers/ClientSnapshot'
 // components
 import ClientFlow from '../../components/ClientFlow'
 import TrackAffirmations from '../../components/TrackAffirmations'
+import Loading from '../../components/Loading'
 import { HelmetSEO } from '../../components/Globals'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -17,7 +18,7 @@ import styles from './styles.module.scss'
 // hooks
 // import useGraphQlApi from '../../hooks/useGraphQlApi'
 // graphql
-import { getOrganizationByIdQuery } from '../../graphql/queries'
+import { listUsersByOrganizationId } from '../../graphql/queries'
 // utils
 import { gqlquery } from '../../utils/queries'
 // redux
@@ -38,51 +39,41 @@ const Home = () => {
     filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const [dbOrganization, setDbOrganization] = useState(null)
+  const [users, setUsers] = useState([])
+  const [waitQuery, setWaitQuery] = useState(true)
 
-  useEffect(async () => {
-    const response = await gqlquery(
-      getOrganizationByIdQuery(
-        user && user.data.userOrganizationId,
-        globalDateFilter && globalDateFilter.value
-      )
-    )
-    setDbOrganization(response)
-  }, [globalDateFilter])
+  useEffect(async () => await handleUsersQuery(), [users, globalDateFilter])
 
   // ? handle functions
+  /**
+   * handleUsersQuery
+   */
+  const handleUsersQuery = async () => {
+    if (user && globalDateFilter) {
+      const dbUsers = await gqlquery(listUsersByOrganizationId(user.data.userOrganizationId, globalDateFilter.value))
+      if (!dbUsers.loading && dbUsers.value !== null) {
+        setUsers(dbUsers.value.data.listUsers.items)
+        setWaitQuery(false)
+      } else { setWaitQuery(true) }
+    }
+  }
+
   /**
    * handle total clients
    * @returns {number} total
    */
-  const handleTotalClients = () => {
-    if (dbOrganization !== null) {
-      const { loading, value: { data } } = dbOrganization
-      return !loading && data !== null && data.getOrganization !== null
-        ? data.getOrganization.users.items.length
-        : 0
-    } else {
-      return 0
-    }
-  }
+  const handleTotalClients = () => !waitQuery && users.length
 
   /**
    * handle total sensies
    * @returns {number} total
    */
   const handleTotalSensies = () => {
-    if (dbOrganization !== null) {
-      const { loading, value: { data } } = dbOrganization
-      let count = 0
-      count = !loading && data !== null && data.getOrganization !== null && data.getOrganization.users.items.length !== 0
-        ? data.getOrganization.users.items.map(item => count + item.sensies.items.length)
-        : 0
-      return count === 0
-        ? count
-        : count.reduce((total, value) => total + value)
-    } else {
-      return 0
-    }
+    let count = 0
+    count = !waitQuery && handleTotalClients() > 0
+      ? users.map(user => count + user.sensies.items.length)
+      : 0
+    return count === 0 ? count : count.reduce((total, value) => total + value)
   }
 
   // ? const
@@ -102,7 +93,6 @@ const Home = () => {
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG1Container}>
             <ClientFlow client={handleTotalClients()} sensies={handleTotalSensies()} />
-            {/* <ClientFlow client={1} sensies={1} /> */}
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>
@@ -119,7 +109,10 @@ const Home = () => {
           <div className={styles.HomeG3Container}>
             <div className={styles.HomeG3ContainerTitle}>
               <h3>{t('dashboard.Home.ClientSnapshot')}</h3>
-              <ClientSnapshot />
+              {waitQuery
+                ? <Loading />
+                : <ClientSnapshot data={users} />
+              }
             </div>
           </div>
         </Grid>
