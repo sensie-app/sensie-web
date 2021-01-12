@@ -9,14 +9,15 @@ import AOS from 'aos'
 import theme from '../themeConfig'
 
 // Components
-import Home from '../pages/Home'
 import Navbar from '../components/Navbar'
+import Home from '../pages/Home'
 import Science from '../pages/Science'
+import Blog from '../pages/Blog'
 import AboutSensie from '../pages/AboutSensie'
 import Footer from '../components/Footer'
 import LANDING_ROUTES from '../constants/routes'
 
-const { home, science, aboutsensie, entrypoint } = LANDING_ROUTES
+const { home, science, blog, aboutsensie, entrypoint } = LANDING_ROUTES
 
 function App () {
   useEffect(() => {
@@ -29,8 +30,9 @@ function App () {
       <BrowserRouter>
         <Navbar />
           <Switch>
-          <Route path={science} component={Science} />
           <Route path={aboutsensie} component={AboutSensie} />
+          <Route path={blog} component={Blog} />
+          <Route path={science} component={Science} />
           <Route path={home} component={Home} />
           <Redirect from={entrypoint} to={home} />
           <Route component={NotFound404} />
