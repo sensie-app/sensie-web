@@ -4,17 +4,27 @@ import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
-import { IconButton } from '@material-ui/core'
+import { IconButton, Box, Button, Grid } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import { NavLink, Link } from 'react-router-dom'
+import LogoSensie from './Logo'
+
+import APP_ROUTES from '../../constants/routes'
+import LANDING_ROUTES from '../constants/routes'
+
+const {
+  /* membership, */ howitworks,
+  blog,
+  scienceanchor,
+  abs,
+  hm
+} = LANDING_ROUTES
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: 250
+    width: 250,
+    color: '#FFFFFF',
+    backgroundColor: '#071215'
   },
   fullList: {
     width: 'auto'
@@ -56,27 +66,82 @@ export default function TemporaryDrawer () {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['How it works', 'Science', 'Membership', 'Blog', 'About sensie'].map(
-          (text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? (<InboxIcon color="primary"/>) : (<MailIcon color="primary" />)}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          )
-        )}
+        <Grid
+          item
+          container
+          xs={12}
+          sm={8}
+          direction="column"
+          className={classes.textTab}
+        >
+          <Link to={hm}>
+            <Box mt={2} ml={3}>
+              <LogoSensie />
+            </Box>
+          </Link>
+          <Divider />
+
+          <Link to={howitworks}>
+            <Box mt={3} ml={3}>
+              HOW IT WORKS
+            </Box>
+          </Link>
+
+          <Link to={scienceanchor}>
+            <Box mt={3} mx={3}>
+              SCIENCE
+            </Box>
+          </Link>
+
+          {/* <Link to={membership}>
+                  <Box mx={1}>MEMBERSHIP</Box>
+                </Link> */}
+
+          <NavLink to={blog}>
+            <Box mt={3} mx={3}>
+              BLOG
+            </Box>
+          </NavLink>
+
+          <Link to={abs}>
+            <Box mt={3} mx={3}>
+              ABOUT
+            </Box>
+          </Link>
+        </Grid>
       </List>
       <Divider />
       <List>
-        {['Login', 'Register'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? (<InboxIcon color="primary"/>) : (<MailIcon color="primary" />)}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <Grid container style={{ textAlign: 'center' }}>
+          <Grid item xs={12}>
+            <Box mx={2}>
+              <a href={APP_ROUTES.dashboard + '/'}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  fullWidth
+                  className={classes.btnStyle}
+                >
+                  LOGIN
+                </Button>
+              </a>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box mt={2} mx={2}>
+              <Button
+                variant="outlined"
+                color="primary"
+                size="large"
+                fullWidth
+                className={classes.btnStyle}
+              >
+                SIGN UP
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
       </List>
     </div>
   )

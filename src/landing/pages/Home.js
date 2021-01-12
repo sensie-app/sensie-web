@@ -29,6 +29,8 @@ import VerticalCarousel from '../components/verticalCarousel/VerticalCarousel'
 import MindfullBeginner from '../assets/img/MindfullBeginner.svg'
 import Lock from '../assets/img/lock.svg'
 import Lock2 from '../assets/img/lock2.svg'
+import ComputerIphoneDashboard from '../assets/img/computerIphoneDashboard.png'
+import WhipImg from '../assets/img/whip.png'
 import MetatronStae from '../assets/img/MetatronStae.svg'
 import MiamiHerald from '../assets/img/miamiheraldpng.png'
 import AmericanPsychiatric from '../assets/img/americanpsychiatricpng.png'
@@ -110,7 +112,7 @@ const Home = () => {
         <Grid item xs={12}>
           <Box mt={12}></Box>
         </Grid>
-        <Grid item xs={1} md={5}>
+        <Grid item xs={1} sm={1} md={5}>
           <Hidden smDown>
             <Box mt={-16}>
               <Trazado />
@@ -120,7 +122,7 @@ const Home = () => {
             <Hand />
           </Hidden>
         </Grid>
-        <Grid item xs={10} md={6} data-aos="zoom-out-up">
+        <Grid item xs={11} sm={10} md={6} data-aos="zoom-out-up">
           <Box mt={6}>
             <Title title="Your Smartphone Just Got Smarter" />
           </Box>
@@ -155,7 +157,7 @@ const Home = () => {
             </Grid>
           </Box>
         </Grid>
-        <Grid item xs={1} md={1}></Grid>
+        <Grid item xs={0} sm={1} md={1}></Grid>
       </Grid>
 
       {/* BLOQUE 2 Carousel & Sponsor */}
@@ -163,11 +165,11 @@ const Home = () => {
       <Grid direction="column">
         <Box mb={18}>
           <Grid container>
-            <Grid item xs={1} sm={3}></Grid>
-            <Grid item xs={10} sm={6} data-aos="zoom-out-up">
+            <Grid item xs={0} sm={3}></Grid>
+            <Grid item xs={12} sm={6} data-aos="zoom-out-up">
               <CarouselComponent />
             </Grid>
-            <Grid item xs={1} sm={3}></Grid>
+            <Grid item xs={0} sm={3}></Grid>
           </Grid>
           <Grid container justify-content="space-evenly">
             <Grid item xs={1} sm={2}></Grid>
@@ -281,6 +283,8 @@ const Home = () => {
         <Grid container className={classes.background}>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
+            <Hidden smDown>
+
             <Grid item xs={12} sm={6}>
               <Box my={18}>
                 <Grid data-aos="zoom-out-up">
@@ -311,11 +315,11 @@ const Home = () => {
                         <DownloadImg
                           ImgStore={AppleStore}
                           link="https://apps.apple.com/us/app/sensie/id1092166597"
-                        />
+                          />
                         <DownloadImg
                           ImgStore={PlayStore}
                           link="https://play.google.com/store/apps/details?id=com.sensie"
-                        />
+                          />
                       </Grid>
                     </Box>
                   </div>
@@ -325,12 +329,61 @@ const Home = () => {
                       <Whip
                         textWithoutColor="Whip 3x"
                         textWithColor="to detect stress"
-                      />
+                        />
                     </Box>
                   </Grid>
                 )}
               </Box>
             </Grid>
+                </Hidden>
+            <Hidden mdUp>
+              <Grid item xs={12}>
+                <Box mt={8}>
+                <Grid data-aos="zoom-out-up">
+                  <Title title="How it works" />
+                </Grid>
+              </Box>
+                <Box mt={1}>
+                  <Grid data-aos="zoom-out-up">
+                    <Epigraph epigraph="Sensie uses smartphone sensors to track movement and measure muscular tension associated with thought and spoken word." />
+                  </Grid>
+                </Box>
+                <Box mt={14} mb={4}>
+                  <Whip
+                    textWithoutColor="Whip 3x"
+                    textWithColor="to detect stress"
+                  />
+                </Box>
+                <Box>
+                  <img src={WhipImg} style={{ width: '100%' }}/>
+                </Box>
+                <Box mt={6}>
+                  <Grid>
+                    <Lead lead="1. Sensie offers a topic to consider - think and feel about" />
+                    <Lead lead="2. You then whip the phone 3x " />
+                    <Lead lead="3. Sensie measures the recoil of the hand to assess if there is tension " />
+                  </Grid>
+                </Box>
+
+                <Box mt={2}>
+                  <Grid>
+                    <Epigraph epigraph="After detection, Sensie helps release stress through automated personalized coaching procedures." />
+                  </Grid>
+                </Box>
+                <Box mt={4}>
+                  <Grid container direction="row">
+                    <DownloadImg
+                      ImgStore={AppleStore}
+                      link="https://apps.apple.com/us/app/sensie/id1092166597"
+                    />
+                    <DownloadImg
+                      ImgStore={PlayStore}
+                      link="https://play.google.com/store/apps/details?id=com.sensie"
+                    />
+                  </Grid>
+                </Box>
+              </Grid>
+            </Hidden>
             <Hidden smDown>
               <Grid xs={12} sm={6} style={{ textAlign: 'right' }}>
                 <video
@@ -345,25 +398,65 @@ const Home = () => {
                 </video>
               </Grid>
             </Hidden>
+            <Hidden mdUp>
+              <Grid xs={12} sm={6} style={{ textAlign: 'right' }}>
+                <img src="" />
+              </Grid>
+            </Hidden>
           </Grid>
           <Grid item xs={1}></Grid>
         </Grid>
       </div>
       {/* BLOQUE 5 The Science */}
       <div id="science"></div>
-      <Parallax strength={300}>
-        <Background>
-          <img
-            src={backgroundScience}
-            alt="background science"
-            className={classes.bgImg}
-          />
-        </Background>
+      <Hidden smDown>
+        <Parallax strength={300}>
+          <Background>
+            <img
+              src={backgroundScience}
+              alt="background science"
+              className={classes.bgImg}
+            />
+          </Background>
+          <Grid id="thescience" container>
+            <Grid item xs={1}></Grid>
+            <Grid item container xs={10}>
+              <Grid item xs={12} sm={7}>
+                <Box my={34}>
+                  <Box>
+                    <Grid data-aos="zoom-out-up">
+                      <Title title="The Science" />
+                    </Grid>
+                  </Box>
+                  <Box>
+                    <Grid data-aos="zoom-out-up">
+                      <Subtitle subtitle="Muscle tension is a reflex reaction to stress." />
+                    </Grid>
+                  </Box>
+                  <Box>
+                    <Grid data-aos="zoom-out-up">
+                      <Epigraph epigraph="We store stress and emotions in our bodies." />
+                    </Grid>
+                  </Box>
+                  <Box mt={6}>
+                    <Grid data-aos="zoom-out-up">
+                      <LearnMore />
+                    </Grid>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid xs={12} sm={5}></Grid>
+            </Grid>
+            <Grid item xs={1}></Grid>
+          </Grid>
+        </Parallax>
+      </Hidden>
+      <Hidden mdUp>
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
-            <Grid item xs={12} sm={7}>
-              <Box my={34}>
+            <Grid item xs={12} >
+              <Box mt={100} mb={10}>
                 <Box>
                   <Grid data-aos="zoom-out-up">
                     <Title title="The Science" />
@@ -386,15 +479,14 @@ const Home = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid xs={12} sm={5}></Grid>
           </Grid>
           <Grid item xs={1}></Grid>
         </Grid>
-      </Parallax>
+      </Hidden>
 
       {/* BLOQUE 6 Web and mobile solution */}
       <div style={{ mixBlendMode: 'lighten' }}>
-        <Grid container direction="column">
+        <Grid direction="column">
           <Box my={14}>
             <Grid item xs={12}>
               <WebAndMobileTitle
@@ -427,7 +519,21 @@ const Home = () => {
                 style={{ justifyContent: 'space-evenly' }}
               >
                 <Hidden mdUp>
-                  <VerticalCarousel />
+                  <Grid item xs={1}></Grid>
+                  <Grid item xs={10}>
+                    <VerticalCarousel />
+                    <Title
+                      title="Web and Mobile Solution"
+                      titleDashboard
+                    ></Title>
+                    <Box mt={28}>
+                      <img
+                        src={ComputerIphoneDashboard}
+                        style={{ width: '100%' }}
+                      />
+                    </Box>
+                  </Grid>
+                  <Grid item xs={1}></Grid>
                 </Hidden>
                 <Hidden smDown>
                   <Box data-aos-delay="3000">
@@ -448,25 +554,39 @@ const Home = () => {
         </Grid>
       </div>
       {/* BLOQUE 7 Citation */}
-      <Parallax strength={300}>
-        <Background>
-          <img
-            src={backgroundSelfAwareness}
-            alt="self awareness"
-            className={classes.bgImg}
-          />
-        </Background>
+      <Hidden smDown>
+        <Parallax strength={300}>
+          <Background>
+            <img
+              src={backgroundSelfAwareness}
+              alt="self awareness"
+              className={classes.bgImg}
+            />
+          </Background>
+          <Grid container direction="column">
+            <Box my={34}>
+              <Grid item xs={12} data-aos="zoom-out-up">
+                <Phrases
+                  textWithoutColor="The world's 1st self-awareness assesment"
+                  textWithColor="and coach is here for you and your team."
+                />
+              </Grid>
+            </Box>
+          </Grid>
+        </Parallax>
+      </Hidden>
+      <Hidden mdUp>
         <Grid container direction="column">
-          <Box my={34}>
+          <Box mb={16}>
             <Grid item xs={12} data-aos="zoom-out-up">
               <Phrases
-                textWithoutColor="The world 1st self-awareness assesment"
+                textWithoutColor="The world's 1st self-awareness assesment"
                 textWithColor="and coach is here for you and your team."
               />
             </Grid>
           </Box>
         </Grid>
-      </Parallax>
+      </Hidden>
 
       {/* BLOQUE 8 Membership */}
       {/* <div id="membership"></div>

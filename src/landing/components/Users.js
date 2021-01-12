@@ -18,14 +18,17 @@ const useStyles = makeStyles({
     fontWeight: 200,
     color: '#FFFFFF',
     textAlign: 'center'
+  },
+  indicatorStyle: {
+    height: '40px'
   }
-
 })
 
 const Users = ({ title, subtitle, text }) => {
   const classes = useStyles()
   return (
-    <Grid container direction='column'>
+    <Grid container direction="column">
+      <Grid item xs={12}>
         <Box className={classes.root}>
           <Grid item xs={12}>
             <Box className={classes.titleStyle} color="primary.main">
@@ -43,6 +46,8 @@ const Users = ({ title, subtitle, text }) => {
             </Box>
           </Grid>
         </Box>
+        <div className={classes.indicatorStyle}></div>
+      </Grid>
     </Grid>
   )
 }

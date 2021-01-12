@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     margin: 0
   },
   indicatorStyle: {
-    height: '220px'
+    height: '140px'
   },
   avatarStyle: {
     textAlign: '-webkit-right'

@@ -18,7 +18,7 @@ const BulletPoint = ({ IconItem, title = false }) => {
   const classes = useStyles()
   return (
     <Grid container direction="column">
-      <Grid item container xs={12}>
+      <Grid container xs={12}>
           <Box>
             <img src={IconItem} className={classes.icon} />
           </Box>
