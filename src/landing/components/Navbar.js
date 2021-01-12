@@ -5,6 +5,7 @@ import {
   Grid,
   Box,
   Button,
+  Hidden,
   makeStyles
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
@@ -15,7 +16,7 @@ import APP_ROUTES from '../../constants/routes'
 
 // Components
 import LogoSensie from './Logo'
-// import CustomizedMenus from './Menu'
+import CustomizedMenus from './Menu'
 
 const { /* membership, */ howitworks, blog, scienceanchor, abs, hm } = LANDING_ROUTES
 
@@ -55,18 +56,20 @@ const Navbar = () => {
       <AppBar position="fixed" className={classes.navbarStyle}>
         <Toolbar className={classes.toolbarStyle}>
           <Grid container alignItems="center">
-            {/* <Hidden mdUp>
+            <Hidden mdUp>
               <Grid xs={1}>
                 <CustomizedMenus />
               </Grid>
-            </Hidden> */}
-            <Grid item xs={12} sm={2}>
-              <Box display="flex" justifyContent="flex-start">
+            </Hidden>
+            <Grid item xs={11} sm={2}>
+              <Box ml={2}>
                 <Link to={hm}>
                   <LogoSensie />
                 </Link>
               </Box>
             </Grid>
+            <Hidden smDown>
+
               <Grid
                 item
                 container
@@ -121,6 +124,7 @@ const Navbar = () => {
                   </Box>
                 </Box>
               </Grid>
+            </Hidden>
           </Grid>
         </Toolbar>
       </AppBar>

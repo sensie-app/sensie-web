@@ -21,15 +21,15 @@ const WebAndMobileTitle = ({
   const classes = useStyles()
   return (
     <Grid container>
-      <Grid item xs={1}></Grid>
-      <Grid item xs={10}>
+      <Grid item xs={0} sm={1}></Grid>
+      <Grid item xs={12} sm={10}>
       <Box mx={4} mt={1} mb={10} className={classes.boxStyle} alignSelf="center">
         {textWithoutColor}
         <span style={{ color: '#15E7BC' }}> {textWithColor} </span>{' '}
         {textWithoutColor2}{' '}
       </Box>
       </Grid>
-      <Grid item xs={1}></Grid>
+      <Grid item xs={0} sm={1}></Grid>
     </Grid>
   )
 }

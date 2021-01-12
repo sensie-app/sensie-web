@@ -69,8 +69,8 @@ const AboutSensie = () => {
             </Grid>
             <Grid item xs={1}></Grid>
           </Box>
-          <Grid item xs={1}></Grid>
-          <Grid item xs={5}>
+          <Grid item xs={0} sm={1}></Grid>
+          <Grid item xs={12} sm={5}>
             <Box mt={6} data-aos="zoom-out-up">
               <Features text={'We move slowly and fix things.'} />
             </Box>
@@ -127,7 +127,7 @@ const AboutSensie = () => {
               />
             </Box>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={12} sm={5}>
             <Box mt={6} data-aos="zoom-out-up">
               <Features
                 text={
@@ -163,7 +163,7 @@ const AboutSensie = () => {
               />
             </Box>
           </Grid>
-          <Grid item xs={1}></Grid>
+          <Grid item xs={0} sm={1}></Grid>
           <Grid item xs={1} sm={3}></Grid>
           <Grid item xs={10} sm={6}>
             <Box
