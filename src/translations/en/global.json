@@ -226,6 +226,10 @@
     "WrongOrientation": {
       "message": "Please rotate your device",
       "description": "We support landscape mode only"
+    },
+    "WrongSize": {
+      "message": "Use a higher resolution device",
+      "description": "The size of this device is not supported"
     }
   }
 }
