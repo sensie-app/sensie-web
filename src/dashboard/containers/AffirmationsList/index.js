@@ -36,7 +36,6 @@ const { fontColor1, grayColor5 } = COLORS
  * @param {array} data
  */
 const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 }) => {
-  console.log('data', data)
   // ? hooks
   const dispatch = useDispatch()
   const {

@@ -112,13 +112,16 @@ const Home = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG2Container}>
-            <TrackAffirmations
-              data={affirmations}
-              title={t('dashboard.Home.mindAuthorAndTrackAffirmations')}
-              btn={btn}
-              limit={3}
-              fixHeight={true}
-            />
+          {waitQuery
+            ? <Loading />
+            : <TrackAffirmations
+                data={affirmations}
+                title={t('dashboard.Home.mindAuthorAndTrackAffirmations')}
+                btn={btn}
+                limit={3}
+                fixHeight={true}
+              />
+            }
           </div>
         </Grid>
         <Grid item xs={12}>

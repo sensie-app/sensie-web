@@ -2,6 +2,7 @@
 
 .MenuListCompositionContainer {
   @include flex(row, center, center, nowrap);
+  z-index: $zIndexLevel999;
   button {
     width: 100%;
     @include flex(row, space-between, center, nowrap);

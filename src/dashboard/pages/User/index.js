@@ -15,7 +15,7 @@ import TrackAffirmations from '../../components/TrackAffirmations'
 // redux
 import { useSelector } from 'react-redux'
 // queries
-import { getUserWithSensiesByIdQuery } from '../../graphql/queries'
+import { getUserWithSensiesByIdQuery, listAffirmationsByUserIdAndTopicId } from '../../graphql/queries'
 // utils
 import { gqlquery } from '../../utils/queries'
 // styles
@@ -33,10 +33,14 @@ const User = () => {
   const [t] = useTranslation('global')
   const [user, setUser] = useState({})
   const [withSensies, setWithSensies] = useState(false)
+  const [affirmations, setAffirmations] = useState([])
   const [waitQuery, setWaitQuery] = useState(true)
   console.log('waitQuery', waitQuery)
 
-  useEffect(async () => await handleUserQuery(), [id, globalDateFilter])
+  useEffect(async () => {
+    await handleUserQuery()
+    await handleAffirmationsQuery()
+  }, [id, globalDateFilter])
   console.log('user', user)
 
   // ? handle functions
@@ -52,6 +56,19 @@ const User = () => {
         setUser(_user)
         setWaitQuery(false)
         setWithSensies(_user.sensies.items.length > 0)
+      } else { setWaitQuery(true) }
+    }
+  }
+
+  /**
+   * handleUsersQuery
+   */
+  const handleAffirmationsQuery = async () => {
+    if (user && globalDateFilter) {
+      const dbAffirmations = await gqlquery(listAffirmationsByUserIdAndTopicId(user.id, 10))
+      if (!dbAffirmations.loading && dbAffirmations.value !== null) {
+        setAffirmations(dbAffirmations.value.data.listAffirmations.items)
+        setWaitQuery(false)
       } else { setWaitQuery(true) }
     }
   }
@@ -78,6 +95,7 @@ const User = () => {
           <div className={styles.UserG3Container}>
             {!waitQuery && withSensies &&
               <TrackAffirmations
+                data={affirmations}
                 theme={2}
                 title={t('dashboard.User.trackAffirmations')}
                 chipsUp={true}

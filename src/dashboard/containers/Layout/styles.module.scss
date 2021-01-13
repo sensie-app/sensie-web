@@ -8,6 +8,7 @@ $drawerWidthIcon: 55px;
   @include flex(row, center, center, wrap);
   background-color: $grayColor7;
   margin-left: $drawerWidthIcon;
+  z-index: $zIndexLevel1K;
 }
 
 .LayoutLinkTo {
