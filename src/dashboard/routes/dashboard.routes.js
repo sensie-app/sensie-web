@@ -75,7 +75,7 @@ const DashboardRoutes = () => {
             <Route path={affirmations} component={Affirmations} />
             <Route path={sageDashboard} component={SageDashboard} />
             <Route path={profile} component={Profile} />
-            <Route path={user} component={User} />
+            <Route path={user + '/:id'} component={User} />
             <Route path={addPacks + '/:id'} component={AddPacks} />
             <Route path={pack + '/:id'} component={Pack} />
             <Route path={topic + '/:id'} component={Topic} />

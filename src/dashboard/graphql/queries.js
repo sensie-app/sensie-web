@@ -1,5 +1,5 @@
 
-export const getUsersByIdQuery = id => `
+export const getUserByIdQuery = id => `
   query MyQuery {
     getUser(id: "${id}") {
       email
@@ -13,17 +13,55 @@ export const getUsersByIdQuery = id => `
   }
 `
 
+export const getUserWithSensiesByIdQuery = (id, dates) => `
+  query MyQuery {
+    getUser(id: "${id}") {
+      email
+      firstName
+      gender
+      lastName
+      userOrganizationId
+      userGroupId
+      userTeamId
+      sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        items {
+          id
+          timestamp
+          affirmation {
+            id
+            name
+            description
+            topics {
+              items {
+                topic {
+                  id
+                  name
+                  picture
+                  description
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 export const getOrganizationByIdQuery = (id, dates) => `
   query MyQuery {
     getOrganization(id: "${id}") {
       users {
         items {
+          id
+          email
+          firstName
+          lastName
           sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
             items {
               id
             }
           }
-          id
         }
       }
     }
@@ -42,6 +80,25 @@ export const getUsersAllQuery = (id = '8e5a85d1-3f68-4fca-8db9-9f0e18e91082', da
                 id
               }
             }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const listUsersByOrganizationId = (id, dates) => `
+  query MyQuery {
+    listUsers(filter: {userOrganizationId: {eq: "${id}"}}) {
+      items {
+        id
+        email
+        firstName
+        lastName
+        gender
+        sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          items {
+            id
           }
         }
       }

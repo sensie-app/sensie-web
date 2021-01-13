@@ -1,3 +1,5 @@
+import IMG from '../constants/images'
+
 /**
    * handle large name
    * @param {string} name
@@ -10,3 +12,9 @@ export const handleLargeName = (name, large) => name && name.length > large ? na
    * @returns {Array}
    */
 export const handleArrTopics = topics => topics.map(item => item.topic)
+
+/**
+   * handleDefaultPicture
+   * @returns {string} img
+   */
+export const handleDefaultPictureUser = gender => gender === 'Male' ? IMG.avatarMale : IMG.avatarFemale

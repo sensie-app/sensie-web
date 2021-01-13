@@ -1,5 +1,5 @@
 // react
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // material-ui
 import Grid from '@material-ui/core/Grid'
@@ -10,8 +10,15 @@ import Affirmation from '../../containers/Affirmation'
 // components
 import { HelmetSEO } from '../../components/Globals'
 import TrackAffirmations from '../../components/TrackAffirmations'
+import Loading from '../../components/Loading'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
+// graphql
+import { listUsersByOrganizationId } from '../../graphql/queries'
+// redux
+import { useSelector } from 'react-redux'
+// utils
+import { gqlquery } from '../../utils/queries'
 // styles
 import styles from './styles.module.scss'
 
@@ -25,7 +32,29 @@ const { affirmations } = DASHBOARD_ROUTES
  */
 const Client = () => {
   // hooks
+  const {
+    userReducer: { user },
+    filtersReducer: { globalDateFilter }
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
+  const [users, setUsers] = useState([])
+  const [waitQuery, setWaitQuery] = useState(true)
+
+  useEffect(async () => await handleUsersQuery(), [users, globalDateFilter])
+
+  // ? handle functions
+  /**
+   * handleUsersQuery
+   */
+  const handleUsersQuery = async () => {
+    if (user && globalDateFilter) {
+      const dbUsers = await gqlquery(listUsersByOrganizationId(user.data.userOrganizationId, globalDateFilter.value))
+      if (!dbUsers.loading && dbUsers.value !== null) {
+        setUsers(dbUsers.value.data.listUsers.items)
+        setWaitQuery(false)
+      } else { setWaitQuery(true) }
+    }
+  }
 
   // ? const
   const btn = {
@@ -58,7 +87,10 @@ const Client = () => {
             <Affirmation />
           </div>
           <div className={styles.ClientG1Container}>
-            <UsersList />
+            {waitQuery
+              ? <Loading />
+              : <UsersList data={users} />
+            }
           </div>
         </Grid>
       </Grid>

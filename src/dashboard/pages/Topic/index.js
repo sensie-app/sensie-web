@@ -13,12 +13,13 @@ import SvgIcon from '../../components/SvgIcon'
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 import TopicsConstants from '../../constants/topics'
+// redux
+import { useSelector } from 'react-redux'
 // utils
-import { gqlquery } from '../../utils/queries'
+import { gqlquery, gqlquery2 } from '../../utils/queries'
 // graphql queries
 import { getTopicByIdQuery } from '../../graphql/queries'
-// import { createAffirmationMutation } from '../../graphql/mutations'
-import { createAffirmation } from '../../../graphql/mutations'
+import { createAffirmationMutation, joinAffirmationWithTopic } from '../../graphql/mutations'
 // styles
 import styles from './styles.module.scss'
 
@@ -48,15 +49,24 @@ const Topic = () => {
   // hooks
   const [t] = useTranslation('global')
   const { id } = useParams()
-  const [dbTopic, setDbTopic] = useState([])
+  const { userReducer: { user } } = useSelector(state => state)
+  const [topic, setTopic] = useState([])
   const [defaultTopic, setDefaultTopic] = useState({})
+  const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
 
-  useEffect(async () => {
-    const { loading, value } = await gqlquery(getTopicByIdQuery(id))
-    console.log('value', value)
+  useEffect(async () => await handleTopicQuery(), [])
+  useEffect(async () => await handleTopicQuery(), [newAff])
+
+  // ? handle functions
+  /**
+   * handleTopicQuery
+   */
+  const handleTopicQuery = async () => {
+    const dbTopic = await gqlquery(getTopicByIdQuery(id))
+    const { loading, value } = dbTopic
     if (!loading && value !== null) {
-      setDbTopic(value.data.getTopic)
+      setTopic(value.data.getTopic)
       const defTopic = [{
         name: value.data.getTopic.name,
         description: value.data.getTopic.description,
@@ -67,9 +77,34 @@ const Topic = () => {
     } else {
       setWaitQuery(true)
     }
-  }, [])
+  }
 
-  // ? handle functions
+  /**
+   * handleCreateAffirmationMutation
+   * @param {string} name
+   * @param {string} description
+   * @param {array.string} topicsId
+   * @param {string} packId
+   * @returns {string} new pack id
+   */
+  const handleCreateAffirmationMutation = async (name, description, topicsId, packId = null) => {
+    const newAffirmationTopicJoin = []
+    // save affirmation
+    const newAffirmation = await gqlquery2(createAffirmationMutation(name, description, user.id))
+    const successAffirmation = !newAffirmation.loading && newAffirmation.value !== null
+
+    if (successAffirmation) {
+      const newAffirmationId = newAffirmation.value.data.createAffirmation.id
+      // join to topics
+      topicsId.map(async topicId => {
+        const joinTopic = await gqlquery2(joinAffirmationWithTopic(newAffirmationId, topicId))
+        newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
+      })
+      setNewAff(!newAff)
+    }
+    return successAffirmation ? newAffirmation.value.data.createAffirmation.id : null
+  }
+
   /**
    * handle img
    * @returns {string} img
@@ -93,7 +128,7 @@ const Topic = () => {
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => !waitQuery && dbTopic.affirmations.items.length
+  const handleCountAffirmations = () => !waitQuery && topic.affirmations.items.length
 
   /**
    * handleArrTopics
@@ -101,35 +136,13 @@ const Topic = () => {
    */
   const handleArrTopics = topics => topics.map(item => item.topic)
 
-  /**
-   * handleSaveAffirmation
-   * @param {string} name
-   * @param {string} description
-   * @param {string} packId
-   * @param {string} topicId
-   * @param {string} userId
-   * @returns {string} new affirmation id
-   */
-  const handleSaveAffirmation = async (name, description, packId, topicId, userId) => {
-    const input = {
-      name,
-      description,
-      packId,
-      topicId,
-      userId
-    }
-    const newAffirmation = await gqlquery(createAffirmation, { input })
-    console.log('newAffirmation', newAffirmation)
-    return !newAffirmation.loading && newAffirmation.value !== null ? newAffirmation.value.data.createAffirmation.id : null
-  }
-
   // ? render functions
   /**
    * renderDbAffirmations
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return !waitQuery && dbTopic.affirmations.items.map(item => {
+    return !waitQuery && topic.affirmations.items.map(item => {
       const { id, name, topics } = item.affirmation
       return <NewAffirmation
         key={id}
@@ -152,10 +165,10 @@ const Topic = () => {
             <div className={styles.TopicHeaderTextContainer}>
               <div className={styles.TopicHeaderTextTitle}>
                 <SvgIcon icon={id} size="30px" />
-                {!waitQuery && <span>{dbTopic.name}</span>}
+                {!waitQuery && <span>{topic.name}</span>}
               </div>
               {/* <div className={styles.TopicHeaderTextDescription}>
-                <h6>{dbTopic.description}</h6>
+                <h6>{topic.description}</h6>
               </div> */}
               <div className={styles.TopicHeaderTextAffirmations}>
                 <span>{handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
@@ -173,7 +186,7 @@ const Topic = () => {
             initShowForm={false}
             withAffirmationsByTopics={false}
             addToPack={true}
-            onSave={handleSaveAffirmation}
+            onSave={handleCreateAffirmationMutation}
           />
           {renderDbAffirmations()}
         </div>

@@ -23,6 +23,7 @@ import styles from './styles.module.scss'
 
 // const
 const { fontColor1 } = COLORS
+const showReduxAffirmation = false
 
 // * container
 /**
@@ -34,6 +35,7 @@ const { fontColor1 } = COLORS
  * @param {undefiend} onSave (default: ()=>{}) return string
  * @param {string} defaultTopic (default: '0')
  * @param {string} defaultPack (default: '0')
+ * @param {undefined} onSave (default: () => {})
  */
 const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = true, addToPack = false, onSave = () => {}, defaultTopic = '0', defaultPack = '0' }) => {
   // hooks
@@ -41,7 +43,6 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
   const dispatch = useDispatch()
   const {
     affirmationsReducer: { newAffirmation, lastAffirmations },
-    userReducer: { user },
     packsReducer: { packs },
     checkboxReducer: { all: { affirmations } }
   } = useSelector(state => state)
@@ -106,8 +107,7 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
       setTopics([])
       setShowNewForm(false)
 
-      console.log('handleArrTopicsId(topics)', handleArrTopicsId(topics))
-      const affId = await onSave(title, 'description', defaultPack, defaultTopic[0].id, user.id)
+      const affId = await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
       console.log('affId', affId)
     }
   }
@@ -245,7 +245,7 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
         {showNewForm && renderFormItem()}
         {/* list affirmations */}
         <div className={styles.CreateAffirmationsList}>
-          {renderLastAffirmations()}
+          {showReduxAffirmation && renderLastAffirmations()}
         </div>
       </div>
       {/* affirmations by topics */}

@@ -50,8 +50,3 @@
     color: $fontColor1 !important;
   }
 }
-
-.AffirmationsLoadingContainer {
-  @include flex(column, center, center, nowrap);
-  height: 50vh;
-}
