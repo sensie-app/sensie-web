@@ -23,7 +23,7 @@ const { sensieCircles } = iconsConstants
  * @component
  */
 const SageDashboard = () => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
 
   return (

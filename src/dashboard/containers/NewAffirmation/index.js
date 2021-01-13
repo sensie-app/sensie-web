@@ -26,14 +26,18 @@ const { fontColor1 } = COLORS
 /**
  * NewAffirmation component
  * @component
+ * @param {object} data
  * @param {string} title
+ * @param {string} packId (default: null)
  * @param {array} selectedTopics
  * @param {boolean} withRemoveBtn (default: true)
  * @param {boolean} withAddBtn (default: false)
  * @param {boolean} checkAll (default: false)
+ * @param {undefined} onAddToPack (default: ()=>{})
  */
-const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBtn = false, checkAll = false }) => {
-  // hooks
+const NewAffirmation = ({ data, title, packId = null, selectedTopics, withRemoveBtn = true, withAddBtn = false, checkAll = false, onAddToPack = () => {} }) => {
+  console.log('* data', data)
+  // ? hooks
   const dispatch = useDispatch()
   const { affirmationsReducer: { lastAffirmations } } = useSelector(state => state)
   const [t] = useTranslation('global')
@@ -43,8 +47,6 @@ const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBt
   const [showChips, setShowChips] = useState(true)
   const [disabledTopics, setDisabledTopics] = useState(true)
   const [menuAction, setMenuAction] = useState({})
-  // const [showErrorToast, setShowErrorToast] = useState(false)
-  console.log('checkAll', checkAll)
 
   useEffect(() => {
     if (menuAction.value === 'edit') {
@@ -204,8 +206,12 @@ const NewAffirmation = ({ title, selectedTopics, withRemoveBtn = true, withAddBt
 
 // prop-types
 NewAffirmation.propTypes = {
+  /** data */
+  data: PropTypes.object.isRequired,
   /** title */
   title: PropTypes.string.isRequired,
+  /** packId */
+  packId: PropTypes.string,
   /** selectedTopics */
   selectedTopics: PropTypes.array.isRequired,
   /** withRemoveBtn */
@@ -213,7 +219,9 @@ NewAffirmation.propTypes = {
   /** withAddBtn */
   withAddBtn: PropTypes.bool,
   /** checkAll */
-  checkAll: PropTypes.bool
+  checkAll: PropTypes.bool,
+  /** onAddToPack */
+  onAddToPack: PropTypes.func
 }
 
 export default NewAffirmation

@@ -17,7 +17,7 @@ import { _users, _teams } from './data'
  * @component
  */
 const ShareWith = () => {
-  // hooks
+  // ? hooks
   const dispatch = useDispatch()
   const { checkboxReducer: { all: { clients, teams } } } = useSelector(state => state)
   const [t] = useTranslation('global')

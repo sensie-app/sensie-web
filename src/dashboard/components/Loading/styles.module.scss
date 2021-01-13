@@ -2,8 +2,8 @@
 
 .LoadingContainer {
   width: 100%;
-  min-height: 300px;
-  height: auto;
+  // min-height: 300px;
+  height: 100%;
   padding: 50px;
   @include flex(column, center, center, nowrap);
 }

@@ -12,7 +12,6 @@ import Client from '../pages/Client'
 import Team from '../pages/Team'
 import User from '../pages/User'
 import Affirmations from '../pages/Affirmations'
-import AddPacks from '../pages/AddPacks'
 import Pack from '../pages/Pack'
 import Topic from '../pages/Topic'
 import SageDashboard from '../pages/SageDashboard'
@@ -22,7 +21,7 @@ import { NotFound404 } from '../components/Globals'
 // containers
 import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
-// hooks
+// ? hooks
 import useGraphQlApi from '../hooks/useGraphQlApi'
 // graphql queries
 import { listTopicsQuery } from '../graphql/queries'
@@ -42,7 +41,6 @@ const {
   team,
   user,
   affirmations,
-  addPacks,
   pack,
   topic,
   sageDashboard,
@@ -55,7 +53,7 @@ const {
  * @component
  */
 const DashboardRoutes = () => {
-  // hooks
+  // ? hooks
   const dbTopics = useGraphQlApi(listTopicsQuery())
   const dispatch = useDispatch()
 
@@ -76,7 +74,6 @@ const DashboardRoutes = () => {
             <Route path={sageDashboard} component={SageDashboard} />
             <Route path={profile} component={Profile} />
             <Route path={user + '/:id'} component={User} />
-            <Route path={addPacks + '/:id'} component={AddPacks} />
             <Route path={pack + '/:id'} component={Pack} />
             <Route path={topic + '/:id'} component={Topic} />
             <Redirect from={entrypoint} to={home} />

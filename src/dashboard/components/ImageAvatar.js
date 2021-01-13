@@ -14,7 +14,7 @@ import Avatar from '@material-ui/core/Avatar'
  * @param {string} size (small | medium | large | xlarge) (default: 'medium')
  */
 const ImageAvatar = ({ url, alt, size = 'medium' }) => {
-  // hooks
+  // ? hooks
   const classes = useStyles()
 
   // ? handle functions

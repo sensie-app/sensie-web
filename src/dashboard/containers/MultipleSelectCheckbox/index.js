@@ -37,7 +37,7 @@ const { grayColor4, grayColor6, fontColor1, actionColor1 } = COLORS
  * @param {boolean} disabled (default: false)
  */
 const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = false }) => {
-  // hooks
+  // ? hooks
   const { topicsReducer: { topics } } = useSelector(state => state)
   const [items, setItems] = useState(defValue)
   const [open, setOpen] = useState(false)

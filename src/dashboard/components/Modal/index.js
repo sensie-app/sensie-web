@@ -25,7 +25,7 @@ const { grayColor3 } = COLORS
  * @param {string} width (default: '25%')
  */
 const ModalComponent = ({ children, initialState = false, title = '', width = '25%' }) => {
-  // hooks
+  // ? hooks
   const [open, setOpen] = useState(initialState)
 
   // ? handle functions

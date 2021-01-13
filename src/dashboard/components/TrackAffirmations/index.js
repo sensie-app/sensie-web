@@ -18,8 +18,9 @@ import styles from './styles.module.scss'
  * @param {BtnTrackAffirmation} btn
  * @param {boolean} fixHeight (default: false)
  * @param {number} theme (default: 1)
+ * @param {array} data
  */
-const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = false, theme = 1 }) => {
+const TrackAffirmations = ({ data, chipsUp = false, limit, title, btn, fixHeight = false, theme = 1 }) => {
   return (
     <section className={`${styles.TrackAffirmationsContainer} ${fixHeight && styles.TrackAffirmationsContainerHeight}`}>
       <div className={styles.TrackAffirmationsBodyContainer}>
@@ -27,7 +28,7 @@ const TrackAffirmations = ({ chipsUp = false, limit, title, btn, fixHeight = fal
         {theme !== 2 && <TitleAndButton title={title} btnTitle={btn.title} route={btn.route} />}
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
-          <AffirmationsList chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
+          <AffirmationsList data={data} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
         </div>
       </div>
     </section>
@@ -50,7 +51,9 @@ TrackAffirmations.propTypes = {
   /** fixed height (true, false) */
   fixHeight: PropTypes.bool,
   /** theme (1,2) */
-  theme: PropTypes.number
+  theme: PropTypes.number,
+  /** data */
+  data: PropTypes.array.isRequired
 }
 
 export default TrackAffirmations

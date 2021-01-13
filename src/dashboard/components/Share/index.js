@@ -20,7 +20,7 @@ const { fontColor1 } = COLORS
  * @component
  */
 const Share = () => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
 
   // ? render functions

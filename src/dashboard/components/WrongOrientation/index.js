@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
  * @component
  */
 const WrongOrientation = () => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
 
   return (

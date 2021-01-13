@@ -18,7 +18,7 @@ const TestMode = true
 const TheIntellectualizer = ({ level }) => {
   // const
   const MaxLevel = 2
-  // hooks
+  // ? hooks
   const [symbolLevel, setSymbolLevel] = useState(level)
 
   // ? handle functions

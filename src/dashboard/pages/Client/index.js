@@ -14,7 +14,7 @@ import Loading from '../../components/Loading'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
 // graphql
-import { listUsersByOrganizationId } from '../../graphql/queries'
+import { listUsersByOrganizationId, listAffirmationsByUserIdAndTopicId } from '../../graphql/queries'
 // redux
 import { useSelector } from 'react-redux'
 // utils
@@ -22,25 +22,26 @@ import { gqlquery } from '../../utils/queries'
 // styles
 import styles from './styles.module.scss'
 
-// const
-const { affirmations } = DASHBOARD_ROUTES
-
 // * page
 /**
  * Client page component
  * @component
  */
 const Client = () => {
-  // hooks
+  // ? hooks
   const {
     userReducer: { user },
     filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [users, setUsers] = useState([])
+  const [affirmations, setAffirmations] = useState([])
   const [waitQuery, setWaitQuery] = useState(true)
 
-  useEffect(async () => await handleUsersQuery(), [users, globalDateFilter])
+  useEffect(async () => {
+    await handleUsersQuery()
+    await handleAffirmationsQuery()
+  }, [users, globalDateFilter])
 
   // ? handle functions
   /**
@@ -56,10 +57,23 @@ const Client = () => {
     }
   }
 
+  /**
+   * handleUsersQuery
+   */
+  const handleAffirmationsQuery = async () => {
+    if (user && globalDateFilter) {
+      const dbAffirmations = await gqlquery(listAffirmationsByUserIdAndTopicId(user.id, 10))
+      if (!dbAffirmations.loading && dbAffirmations.value !== null) {
+        setAffirmations(dbAffirmations.value.data.listAffirmations.items)
+        setWaitQuery(false)
+      } else { setWaitQuery(true) }
+    }
+  }
+
   // ? const
   const btn = {
     title: t('dashboard.Client.author'),
-    route: affirmations
+    route: DASHBOARD_ROUTES.affirmations
   }
 
   return (
@@ -74,6 +88,7 @@ const Client = () => {
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.ClientG1Container}>
             <TrackAffirmations
+              data={affirmations}
               chipsUp={true}
               title={t('dashboard.Client.affirmations')}
               btn={btn}

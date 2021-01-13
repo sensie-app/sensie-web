@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {undefined} onClose (default: () => {}))
  */
 const Toast = ({ type = 'success', children, onClose = () => {} }) => {
-  // hooks
+  // ? hooks
   const classes = useStyles()
 
   return (

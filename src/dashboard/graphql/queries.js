@@ -228,3 +228,25 @@ export const listAffirmationsByTopicIdQuery = (topicId, userId) => `
     }
   }
 `
+
+// todo: add topics filter
+export const listAffirmationsByUserIdAndTopicId = (userId, limit) => `
+  query MyQuery {
+    listAffirmations(filter: {userId: {eq: "${userId}"}}, limit: ${limit}) {
+      items {
+        description
+        id
+        name
+        topics {
+          items {
+            topic {
+              id
+              name
+              description
+            }
+          }
+        }
+      }
+    }
+  }
+`

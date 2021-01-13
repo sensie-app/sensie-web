@@ -32,7 +32,7 @@ const showOldTopics = false
  * @param {boolean} checkAll
  */
 const AffirmationsByTopics = ({ onClick, checkAll }) => {
-  // hooks
+  // ? hooks
   const dispatch = useDispatch()
   const {
     userReducer: { user },

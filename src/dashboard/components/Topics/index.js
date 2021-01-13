@@ -28,7 +28,7 @@ const showOldTopics = false
  * @param {array} data
  */
 const Topics = ({ data }) => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
 
   // ? render functions

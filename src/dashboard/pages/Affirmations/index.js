@@ -28,7 +28,7 @@ import styles from './styles.module.scss'
  * @component
  */
 const Affirmations = () => {
-  // hooks
+  // ? hooks
   const dispatch = useDispatch()
   const {
     showReducer: { showPacksOrTopics },

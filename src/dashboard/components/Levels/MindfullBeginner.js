@@ -18,7 +18,7 @@ const TestMode = true
 const MindfullBeginner = ({ level }) => {
   // const
   const MaxLevel = 1
-  // hooks
+  // ? hooks
   const [symbolLevel, setSymbolLevel] = useState(level)
 
   // ? handle functions

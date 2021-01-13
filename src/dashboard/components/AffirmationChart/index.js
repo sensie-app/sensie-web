@@ -1,5 +1,5 @@
 // react
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 // constants
 import { COLORS } from '../../constants/theme'
@@ -18,7 +18,10 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
  * @param {boolean} isActive (default: false)
  */
 const AffirmationChart = ({ data, onClickValue = () => {}, isActive = false }) => {
-  const { value, title } = data
+  // ? hooks
+  const [value, setValue] = useState(0)
+  useEffect(() => setValue(Math.floor(Math.random() * Math.floor(100))), []) // todo: change to real value
+
   // ? handle functions
   /**
    * handle value
@@ -49,7 +52,7 @@ const AffirmationChart = ({ data, onClickValue = () => {}, isActive = false }) =
   return (
     <section className={styles.AffirmationChartContainer}>
       <button onClick={() => onClickValue(data)} className={isActive ? styles.AffirmationChartBtnActive : undefined}>
-        <span className={styles.AffirmationChartText}>{title}</span>
+        <span className={styles.AffirmationChartText}>{data.name}</span>
         <div className={styles.AffirmationChartChartContainer}>
           <div
             className={styles.AffirmationChartChart}

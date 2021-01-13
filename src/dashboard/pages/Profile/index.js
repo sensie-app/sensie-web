@@ -22,7 +22,7 @@ const { avatarMale, avatarFemale } = IMG
  * @component
  */
 const Profile = () => {
-  // hooks
+  // ? hooks
   const { userReducer: { user: { data } } } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [name, setName] = useState(data.firstName + ' ' + data.lastName)

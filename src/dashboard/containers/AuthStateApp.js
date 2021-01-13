@@ -9,7 +9,7 @@ import Amplify from 'aws-amplify'
 import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react'
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components'
 import awsconfig from '../../aws-exports'
-// hooks
+// ? hooks
 // import useGraphQlApi from '../hooks/useGraphQlApi'
 // utils
 import { gqlquery } from '../utils/queries'
@@ -27,7 +27,7 @@ Amplify.configure(awsconfig)
  * @param {undefined} children
  */
 const AuthStateApp = ({ children }) => {
-  // hooks
+  // ? hooks
   const dispatch = useDispatch()
   const [authState, setAuthState] = useState()
   const [user, setUser] = useState(null)

@@ -18,7 +18,7 @@ const TestMode = true
 const OnThePath = ({ level }) => {
   // const
   const MaxLevel = 5
-  // hooks
+  // ? hooks
   const [symbolLevel, setSymbolLevel] = useState(level)
 
   // ? handle functions

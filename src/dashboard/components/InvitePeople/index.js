@@ -19,7 +19,7 @@ const { fontColor1 } = COLORS
  * @component
  */
 const InvitePeople = () => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
   const [showError, setShowError] = useState(false)
   const [valueInput, setValueInput] = useState('')

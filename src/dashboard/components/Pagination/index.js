@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {number} defaultPage
  */
 const PaginationMUI = ({ count, onChange, defaultPage }) => {
-  // hooks
+  // ? hooks
   const classes = useStyles()
 
   return (

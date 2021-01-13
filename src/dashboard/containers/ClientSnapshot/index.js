@@ -34,7 +34,7 @@ const { user } = DASHBOARD_ROUTES
  * @param {array} data
  */
 const ClientSnapshot = ({ data = _data }) => {
-  // hooks
+  // ? hooks
   const dispatch = useDispatch()
   const { paginationReducer: { pagination: { pagClientSnapshot } } } = useSelector(state => state)
 

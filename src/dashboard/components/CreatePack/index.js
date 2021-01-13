@@ -14,7 +14,7 @@ import styles from './styles.module.scss'
 
 // const
 const { grayColor3 } = COLORS
-const { addPacks } = DASHBOARD_ROUTES
+const { pack } = DASHBOARD_ROUTES
 
 // * component
 /**
@@ -22,7 +22,7 @@ const { addPacks } = DASHBOARD_ROUTES
  * @component
  */
 const CreatePack = ({ onSave }) => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
   const inputRef = useRef(null)
   const [showError, setShowError] = useState(false)
@@ -111,7 +111,7 @@ const CreatePack = ({ onSave }) => {
             type="submit"
             onClick={e => handleForm(e)}
           >{t('dashboard.CreatePack.create')}</button>
-          {redirect && <Redirect to={addPacks + '/' + newPackId} />}
+          {redirect && <Redirect to={pack + '/' + newPackId} />}
         </div>
       </form>
     </form>
