@@ -60,33 +60,52 @@ const ShareWith = () => {
   }
 
   return (
-    <div className={styles.ShareWithContainer}>
-      {/* clients */}
-      <div className={styles.ShareWithListContainer}>
-        {/* header */}
-        <div className={styles.ShareWithHeaderContainer}>
-          <ItemCheckbox defaultValue={false} onClick={value => handleOnClickSelectAll(!value, 'clients')}>
-            <span className={styles.ShareWithItemCheckboxTitle}>{t('dashboard.ShareWith.selectAllClients')}</span>
-          </ItemCheckbox>
+    <div>
+      <div className={styles.ShareWithContainer}>
+        {/* clients */}
+        <div className={styles.ShareWithListContainer}>
+          {/* header */}
+          <div className={styles.ShareWithHeaderContainer}>
+            <ItemCheckbox
+              defaultValue={false}
+              onClick={(value) => handleOnClickSelectAll(!value, 'clients')}
+            >
+              <span className={styles.ShareWithItemCheckboxTitle}>
+                {t('dashboard.ShareWith.selectAllClients')}
+              </span>
+            </ItemCheckbox>
+          </div>
+          {renderListClients()}
         </div>
-        {renderListClients()}
-      </div>
-      {/* _teams */}
-      <div className={styles.ShareWithListContainer}>
-        {/* header */}
-        <div className={styles.ShareWithHeaderContainer}>
-          <ItemCheckbox defaultValue={false} onClick={value => handleOnClickSelectAll(!value, 'teams')} >
-            <span className={styles.ShareWithItemCheckboxTitle}>{t('dashboard.ShareWith.selectAllTeams')}</span>
-          </ItemCheckbox>
+        {/* _teams */}
+        <div className={styles.ShareWithListContainer}>
+          {/* header */}
+          <div className={styles.ShareWithHeaderContainer}>
+            <ItemCheckbox
+              defaultValue={false}
+              onClick={(value) => handleOnClickSelectAll(!value, 'teams')}
+            >
+              <span className={styles.ShareWithItemCheckboxTitle}>
+                {t('dashboard.ShareWith.selectAllTeams')}
+              </span>
+            </ItemCheckbox>
+          </div>
+          {renderListTeams()}
         </div>
-        {renderListTeams()}
       </div>
-      {/* footer */}
-      <div className={styles.ShareWithFooterContainer}>
-        <ItemCheckbox defaultValue={false} onClick={value => console.log(!value)}>
-          <span className={styles.ShareWithItemCheckboxTitle}>{t('dashboard.ShareWith.publicAvailable')}</span>
-        </ItemCheckbox>
-        <button>{t('dashboard.ShareWith.share')}</button>
+        {/* footer */}
+      <div className={styles.ShareWithPublicAvailable}>
+        <div className={styles.ShareWithFooterContainer}>
+          <ItemCheckbox
+            defaultValue={false}
+            onClick={(value) => console.log(!value)}
+          >
+            <span className={styles.ShareWithItemCheckboxTitle}>
+              {t('dashboard.ShareWith.publicAvailable')}
+            </span>
+          </ItemCheckbox>
+          <button>{t('dashboard.ShareWith.share')}</button>
+        </div>
       </div>
     </div>
   )
