@@ -20,7 +20,7 @@ import FlowerOfLife from '../Levels/FlowerOfLifePro'
  * @param {number} level
  */
 const Symbol = ({ level }) => {
-  // hooks
+  // ? hooks
   // const [showLevel, setShowLevel] = useState(0)
 
   // // ? render functions

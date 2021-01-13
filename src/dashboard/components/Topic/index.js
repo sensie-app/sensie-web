@@ -43,7 +43,7 @@ const Topic = ({
   iconSize = '50px',
   count = 0
 }) => {
-  // hooks
+  // ? hooks
   const [check, setCheck] = useState(false)
   const [image] = useState(img === null ? noImg : img)
 

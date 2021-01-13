@@ -22,7 +22,7 @@ const { fontColor1, grayColor3 } = COLORS
  * @component
  */
 const Affirmation = () => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
   const dispatch = useDispatch()
   const {

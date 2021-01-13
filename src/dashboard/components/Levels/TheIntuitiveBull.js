@@ -18,7 +18,7 @@ const TestMode = true
 const TheIntuitiveBull = ({ level }) => {
   // const
   const MaxLevel = 3
-  // hooks
+  // ? hooks
   const [symbolLevel, setSymbolLevel] = useState(level)
 
   // ? handle functions

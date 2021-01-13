@@ -16,7 +16,7 @@ import styles from './styles.module.scss'
  * @param {arary} packs
  */
 const AddToPack = ({ packs }) => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
   const [value, setValue] = useState(null)
 

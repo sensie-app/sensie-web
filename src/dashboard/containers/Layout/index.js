@@ -51,7 +51,7 @@ const drawerWidth = 210
  * @param {undefined} children
  */
 const Layout = ({ children }) => {
-  // hooks
+  // ? hooks
   const { userReducer: { user: { data } } } = useSelector(state => state)
   const [open, setOpen] = useState(false)
   const classes = useStyles()

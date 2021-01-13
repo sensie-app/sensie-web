@@ -36,9 +36,10 @@ const showReduxAffirmation = false
  * @param {string} defaultTopic (default: '0')
  * @param {string} defaultPack (default: '0')
  * @param {undefined} onSave (default: () => {})
+ * @param {boolean} loading (default: false)
  */
-const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = true, addToPack = false, onSave = () => {}, defaultTopic = '0', defaultPack = '0' }) => {
-  // hooks
+const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = true, addToPack = false, onSave = () => {}, defaultTopic = '0', defaultPack = '0', loading = false }) => {
+  // ? hooks
   const inputRef = useRef(null)
   const dispatch = useDispatch()
   const {
@@ -233,7 +234,6 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
             }
           </ItemCheckbox>
         </div>
-
         <button className={styles.CreateAffirmationsAddBtn} disabled={showNewForm} onClick={() => setShowNewForm(true)} style={{ opacity: !showNewForm ? 1 : 0.5 }}>
           <Icon name="plus-outline" color={fontColor1} size="md" />
           {t('dashboard.CreateAffirmations.addNew')}
@@ -269,7 +269,9 @@ CreateAffirmations.propTypes = {
   /** defaultTopic */
   defaultTopic: PropTypes.string,
   /** defaultPack */
-  defaultPack: PropTypes.string
+  defaultPack: PropTypes.string,
+  /** loading */
+  loading: PropTypes.bool
 }
 
 export default CreateAffirmations

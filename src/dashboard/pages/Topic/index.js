@@ -8,6 +8,7 @@ import CreateAffirmations from '../../containers/CreateAffirmations'
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
 import Share from '../../components/Share'
+import Loading from '../../components/Loading'
 import SvgIcon from '../../components/SvgIcon'
 // constants
 import IMG from '../../constants/images'
@@ -46,7 +47,7 @@ const { spirit, health, family, finance, fun, parenting, perfomance, personal, l
  * @component
  */
 const Topic = () => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
   const { id } = useParams()
   const { userReducer: { user } } = useSelector(state => state)
@@ -88,6 +89,7 @@ const Topic = () => {
    * @returns {string} new pack id
    */
   const handleCreateAffirmationMutation = async (name, description, topicsId, packId = null) => {
+    setWaitQuery(true)
     const newAffirmationTopicJoin = []
     // save affirmation
     const newAffirmation = await gqlquery2(createAffirmationMutation(name, description, user.id))
@@ -102,6 +104,7 @@ const Topic = () => {
       })
       setNewAff(!newAff)
     }
+    setWaitQuery(false)
     return successAffirmation ? newAffirmation.value.data.createAffirmation.id : null
   }
 
@@ -188,7 +191,10 @@ const Topic = () => {
             addToPack={true}
             onSave={handleCreateAffirmationMutation}
           />
-          {renderDbAffirmations()}
+          {waitQuery
+            ? <Loading />
+            : renderDbAffirmations()
+          }
         </div>
       </div>
     </Fragment>

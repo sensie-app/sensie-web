@@ -1,3 +1,7 @@
+// ! ------------
+// ! DON'T USE!!!
+// ! ------------
+
 // react
 import React, { Fragment, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -29,7 +33,7 @@ const { affirmations } = DASHBOARD_ROUTES
  * @component
  */
 const AddPacks = () => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
   const { id } = useParams()
   const [dbPack, setDbPack] = useState(null)

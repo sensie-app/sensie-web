@@ -34,7 +34,7 @@ const AlertDialog = ({
   disagreeOnClick = () => {},
   withLogout = false
 }) => {
-  // hooks
+  // ? hooks
   const [open, setOpen] = React.useState(false)
 
   // ? handle functions

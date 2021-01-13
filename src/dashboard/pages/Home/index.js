@@ -15,10 +15,8 @@ import { HelmetSEO } from '../../components/Globals'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
-// hooks
-// import useGraphQlApi from '../../hooks/useGraphQlApi'
 // graphql
-import { listUsersByOrganizationId } from '../../graphql/queries'
+import { listUsersByOrganizationId, listAffirmationsByUserIdAndTopicId } from '../../graphql/queries'
 // utils
 import { gqlquery } from '../../utils/queries'
 // redux
@@ -33,16 +31,20 @@ const { client } = DASHBOARD_ROUTES
  * @component
  */
 const Home = () => {
-  // hooks
+  // ? hooks
   const {
     userReducer: { user },
     filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [users, setUsers] = useState([])
+  const [affirmations, setAffirmations] = useState([])
   const [waitQuery, setWaitQuery] = useState(true)
 
-  useEffect(async () => await handleUsersQuery(), [users, globalDateFilter])
+  useEffect(async () => {
+    await handleUsersQuery()
+    await handleAffirmationsQuery()
+  }, [users, globalDateFilter])
 
   // ? handle functions
   /**
@@ -53,6 +55,19 @@ const Home = () => {
       const dbUsers = await gqlquery(listUsersByOrganizationId(user.data.userOrganizationId, globalDateFilter.value))
       if (!dbUsers.loading && dbUsers.value !== null) {
         setUsers(dbUsers.value.data.listUsers.items)
+        setWaitQuery(false)
+      } else { setWaitQuery(true) }
+    }
+  }
+
+  /**
+   * handleUsersQuery
+   */
+  const handleAffirmationsQuery = async () => {
+    if (user && globalDateFilter) {
+      const dbAffirmations = await gqlquery(listAffirmationsByUserIdAndTopicId(user.id, 10))
+      if (!dbAffirmations.loading && dbAffirmations.value !== null) {
+        setAffirmations(dbAffirmations.value.data.listAffirmations.items)
         setWaitQuery(false)
       } else { setWaitQuery(true) }
     }
@@ -98,6 +113,7 @@ const Home = () => {
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG2Container}>
             <TrackAffirmations
+              data={affirmations}
               title={t('dashboard.Home.mindAuthorAndTrackAffirmations')}
               btn={btn}
               limit={3}

@@ -18,7 +18,7 @@ const TestMode = true
 const MetatronState = ({ level }) => {
   // const
   const MaxLevel = 7
-  // hooks
+  // ? hooks
   const [symbolLevel, setSymbolLevel] = useState(level)
 
   // ? handle functions

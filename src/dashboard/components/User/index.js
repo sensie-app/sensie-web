@@ -31,7 +31,7 @@ const { summary } = UserListBtns
  * @param {string} show
  */
 const User = ({ user, show }) => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
 
   // ? render functions

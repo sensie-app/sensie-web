@@ -30,7 +30,7 @@ import styles from './styles.module.scss'
  * @param {undefined} children
  */
 const MenuListNotifications = ({ data, onClickValue, children }) => {
-  // hooks
+  // ? hooks
   const [open, setOpen] = useState(false)
   const anchorRef = useRef(null)
   const prevOpen = useRef(open)

@@ -20,7 +20,7 @@ import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
 // test data
-import { data } from './data'
+// import { data } from './data'
 
 // const
 const { fontColor1, grayColor5 } = COLORS
@@ -33,9 +33,11 @@ const { fontColor1, grayColor5 } = COLORS
  * @param {number} limit
  * @param {string} title (default: ')
  * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
+ * @param {array} data
  */
-const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1 }) => {
-  // hooks
+const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 }) => {
+  console.log('data', data)
+  // ? hooks
   const dispatch = useDispatch()
   const {
     filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } },
@@ -206,7 +208,9 @@ AffirmationsList.propTypes = {
   /** title if theme = 2 */
   title: PropTypes.string,
   /** theme (1, 2) */
-  theme: PropTypes.number
+  theme: PropTypes.number,
+  /** data */
+  data: PropTypes.array.isRequired
 
 }
 

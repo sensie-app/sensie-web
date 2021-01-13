@@ -27,7 +27,7 @@ import styles from './styles.module.scss'
  * @component
  */
 const User = () => {
-  // hooks
+  // ? hooks
   const { id } = useParams()
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
   const [t] = useTranslation('global')

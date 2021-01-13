@@ -32,7 +32,7 @@ const Icon = ({
   width = null,
   animation = null
 }) => {
-  // hooks
+  // ? hooks
   const [customIcon, setCustomIcon] = useState([])
 
   useEffect(() => {

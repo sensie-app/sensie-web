@@ -18,7 +18,7 @@ const TestMode = true
 const TheDoubter = ({ level }) => {
   // const
   const MaxLevel = 4
-  // hooks
+  // ? hooks
   const [symbolLevel, setSymbolLevel] = useState(level)
 
   // ? handle functions

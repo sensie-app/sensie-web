@@ -18,7 +18,7 @@ const TestMode = true
 const TheConnectedBeing = ({ level }) => {
   // const
   const MaxLevel = 6
-  // hooks
+  // ? hooks
   const [symbolLevel, setSymbolLevel] = useState(level)
 
   // ? handle functions

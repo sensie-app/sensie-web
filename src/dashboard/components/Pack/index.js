@@ -25,7 +25,7 @@ const { actionColor1 } = COLORS
  * @param {number} totalAffirmations
  */
 const Pack = ({ route, img = noImg, title, totalAffirmations }) => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
   const [check, setCheck] = useState(false)
 

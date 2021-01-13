@@ -25,7 +25,7 @@ const { actionColor1 } = COLORS
  * @param {number} sensies
  */
 const ClientFlow = ({ client, sensies }) => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
 
   return (

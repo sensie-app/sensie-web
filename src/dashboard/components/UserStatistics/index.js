@@ -26,7 +26,7 @@ const { ACTIVITY, UP, DOWN } = IconChartTypes
  * @param {boolean} withSensies
  */
 const UserStatistics = ({ data, withSensies }) => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
 
   // ? handle functions

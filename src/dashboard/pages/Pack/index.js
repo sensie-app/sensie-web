@@ -8,6 +8,7 @@ import CreateAffirmations from '../../containers/CreateAffirmations'
 import NewAffirmation from '../../containers/NewAffirmation'
 import AffirmationsByTopics from '../../containers/AffirmationsByTopics'
 // components
+import Loading from '../../components/Loading'
 import Share from '../../components/Share'
 // constants
 import IMG from '../../constants/images'
@@ -33,7 +34,7 @@ const { affirmations } = DASHBOARD_ROUTES
  * @component
  */
 const Pack = () => {
-  // hooks
+  // ? hooks
   const [t] = useTranslation('global')
   const { userReducer: { user } } = useSelector(state => state)
   const { id } = useParams()
@@ -68,6 +69,7 @@ const Pack = () => {
    * @returns {string} new pack id
    */
   const handleCreateAffirmationMutation = async (name, description, topicsId, packId) => {
+    setWaitQuery(true)
     let successJoinPack
     const newAffirmationTopicJoin = []
     // save affirmation
@@ -87,7 +89,19 @@ const Pack = () => {
       })
     }
     setNewAff(successAffirmation && successJoinPack ? !newAff : newAff)
+    setWaitQuery(false)
     return successAffirmation && successJoinPack ? newAffirmation.value.data.createAffirmation.id : null
+  }
+
+  /**
+   * handleAddToPack
+   * @param {string} affirmationId
+   * @param {string} packId
+   */
+  const handleAddToPack = async (affirmationId, packId) => {
+    // join to pack
+    const joinPack = await gqlquery2(joinAffirmationWithPack(affirmationId, packId))
+    return !joinPack.loading && joinPack.value !== null
   }
 
   /**
@@ -113,10 +127,12 @@ const Pack = () => {
       const { id, name, topics } = item.affirmation
       return <NewAffirmation
         key={id}
+        data={item}
         title={name}
         selectedTopics={handleArrTopics(topics.items)}
-        withRemoveBtn={false}
+        withRemoveBtn={true}
         withAddBtn={false}
+        onAddToPack={handleAddToPack}
       />
     })
   }
@@ -142,8 +158,11 @@ const Pack = () => {
         </div>
         {/* body */}
         <div className={styles.PackBodyContainer}>
-          <CreateAffirmations initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} onSave={handleCreateAffirmationMutation}/>
-          {renderDbAffirmations()}
+          <CreateAffirmations loading={waitQuery} initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} onSave={handleCreateAffirmationMutation}/>
+          {waitQuery
+            ? <Loading />
+            : renderDbAffirmations()
+          }
           <AffirmationsByTopics onClick={handleAffirmationsByTopicsQuery} />
         </div>
       </div>
