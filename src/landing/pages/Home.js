@@ -124,7 +124,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={11} sm={10} md={6} data-aos="zoom-out-up">
           <Box mt={6}>
-            <Title title="Your Smartphone Just Got Smarter" />
+            <Title title="Uncover and manage hidden stress" />
           </Box>
           <Box mr={1}>
             <Subtitle subtitle="Sensie is everyone's million dollar coach - available whenever, wherever." />
@@ -284,65 +284,64 @@ const Home = () => {
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
             <Hidden smDown>
-
-            <Grid item xs={12} sm={6}>
-              <Box my={18}>
-                <Grid data-aos="zoom-out-up">
-                  <Title title="How it works" />
-                </Grid>
-                <Box mt={1}>
+              <Grid item xs={12} sm={6}>
+                <Box my={18}>
                   <Grid data-aos="zoom-out-up">
-                    <Epigraph epigraph="Sensie uses smartphone sensors to track movement and measure muscular tension associated with thought and spoken word." />
+                    <Title title="How it works" />
                   </Grid>
-                </Box>
-                {!showWhip ? (
-                  <div data-aos="zoom-in">
-                    <Box mt={6}>
-                      <Grid>
-                        <Lead lead="1. Sensie offers a topic to consider - think and feel about" />
-                        <Lead lead="2. You then whip the phone 3x " />
-                        <Lead lead="3. Sensie measures the recoil of the hand to assess if there is tension " />
-                      </Grid>
-                    </Box>
+                  <Box mt={1}>
+                    <Grid data-aos="zoom-out-up">
+                      <Epigraph epigraph="Sensie uses smartphone sensors to track movement and measure muscular tension associated with thought and spoken word." />
+                    </Grid>
+                  </Box>
+                  {!showWhip ? (
+                    <div data-aos="zoom-in">
+                      <Box mt={6}>
+                        <Grid>
+                          <Lead lead="1. Sensie offers a topic to consider - think and feel about" />
+                          <Lead lead="2. You then whip the phone 3x " />
+                          <Lead lead="3. Sensie measures the recoil of the hand to assess if there is tension " />
+                        </Grid>
+                      </Box>
 
-                    <Box mt={2}>
-                      <Grid>
-                        <Epigraph epigraph="After detection, Sensie helps release stress through automated personalized coaching procedures." />
-                      </Grid>
-                    </Box>
-                    <Box my={4}>
-                      <Grid container direction="row">
-                        <DownloadImg
-                          ImgStore={AppleStore}
-                          link="https://apps.apple.com/us/app/sensie/id1092166597"
+                      <Box mt={2}>
+                        <Grid>
+                          <Epigraph epigraph="After detection, Sensie helps release stress through automated personalized coaching procedures." />
+                        </Grid>
+                      </Box>
+                      <Box my={4}>
+                        <Grid container direction="row">
+                          <DownloadImg
+                            ImgStore={AppleStore}
+                            link="https://apps.apple.com/us/app/sensie/id1092166597"
                           />
-                        <DownloadImg
-                          ImgStore={PlayStore}
-                          link="https://play.google.com/store/apps/details?id=com.sensie"
+                          <DownloadImg
+                            ImgStore={PlayStore}
+                            link="https://play.google.com/store/apps/details?id=com.sensie"
                           />
-                      </Grid>
-                    </Box>
-                  </div>
-                ) : (
-                  <Grid data-aos="zoom-out-up">
-                    <Box mt={14} mb={4}>
-                      <Whip
-                        textWithoutColor="Whip 3x"
-                        textWithColor="to detect stress"
+                        </Grid>
+                      </Box>
+                    </div>
+                  ) : (
+                    <Grid data-aos="zoom-out-up">
+                      <Box mt={14} mb={4}>
+                        <Whip
+                          textWithoutColor="Whip 3x"
+                          textWithColor="to detect stress"
                         />
-                    </Box>
-                  </Grid>
-                )}
-              </Box>
-            </Grid>
-                </Hidden>
+                      </Box>
+                    </Grid>
+                  )}
+                </Box>
+              </Grid>
+            </Hidden>
             <Hidden mdUp>
               <Grid item xs={12}>
                 <Box mt={8}>
-                <Grid data-aos="zoom-out-up">
-                  <Title title="How it works" />
-                </Grid>
-              </Box>
+                  <Grid data-aos="zoom-out-up">
+                    <Title title="How it works" />
+                  </Grid>
+                </Box>
                 <Box mt={1}>
                   <Grid data-aos="zoom-out-up">
                     <Epigraph epigraph="Sensie uses smartphone sensors to track movement and measure muscular tension associated with thought and spoken word." />
@@ -355,7 +354,7 @@ const Home = () => {
                   />
                 </Box>
                 <Box>
-                  <img src={WhipImg} style={{ width: '100%' }}/>
+                  <img src={WhipImg} style={{ width: '100%' }} />
                 </Box>
                 <Box mt={6}>
                   <Grid>
@@ -455,7 +454,7 @@ const Home = () => {
         <Grid id="thescience" container>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <Box mt={100} mb={10}>
                 <Box>
                   <Grid data-aos="zoom-out-up">
