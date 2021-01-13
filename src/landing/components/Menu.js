@@ -65,7 +65,6 @@ export default function TemporaryDrawer () {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
         <Grid
           item
           container
@@ -109,7 +108,6 @@ export default function TemporaryDrawer () {
             </Box>
           </Link>
         </Grid>
-      </List>
       <Divider />
       <List>
         <Grid container style={{ textAlign: 'center' }}>
