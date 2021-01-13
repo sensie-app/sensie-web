@@ -1,6 +1,8 @@
 // react
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useTranslation } from 'react-i18next'
+
 // material-ui
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
@@ -11,6 +13,7 @@ import Icon from '../Icon'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+import ItemCheckbox from '../ItemCheckbox'
 
 // const
 const { grayColor3 } = COLORS
@@ -25,6 +28,7 @@ const { grayColor3 } = COLORS
  * @param {string} width (default: '25%')
  */
 const ModalComponent = ({ children, initialState = false, title = '', width = '25%' }) => {
+  const [t] = useTranslation('global')
   // ? hooks
   const [open, setOpen] = useState(initialState)
 
@@ -51,7 +55,10 @@ const ModalComponent = ({ children, initialState = false, title = '', width = '2
         }}
       >
         <Fade in={open}>
-          <div className={styles.ModalComponentBodyContainer} style={{ width: width }}>
+          <div
+            className={styles.ModalComponentBodyContainer}
+            style={{ width: width }}
+          >
             <div className={styles.ModalComponentHeader}>
               <span>{title}</span>
               <button onClick={() => handleClose()}>
@@ -59,6 +66,20 @@ const ModalComponent = ({ children, initialState = false, title = '', width = '2
               </button>
             </div>
             {children[1]}
+            {/* Footer */}
+            <div className={styles.ShareWithContainer}>
+              <div className={styles.ShareWithFooterContainer}>
+                <ItemCheckbox
+                defaultValue={false}
+                onClick={(value) => console.log(!value)}
+                >
+                  <span className={styles.ShareWithItemCheckboxTitle}>
+                    {t('dashboard.ShareWith.publicAvailable')}
+                  </span>
+                </ItemCheckbox>
+                <button>{t('dashboard.ShareWith.share')}</button>
+              </div>
+            </div>
           </div>
         </Fade>
       </Modal>
