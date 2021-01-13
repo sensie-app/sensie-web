@@ -81,6 +81,13 @@ const ShareWith = () => {
         </div>
         {renderListTeams()}
       </div>
+      {/* footer */}
+      <div className={styles.ShareWithFooterContainer}>
+        <ItemCheckbox defaultValue={false} onClick={value => console.log(!value)}>
+          <span className={styles.ShareWithItemCheckboxTitle}>{t('dashboard.ShareWith.publicAvailable')}</span>
+        </ItemCheckbox>
+        <button>{t('dashboard.ShareWith.share')}</button>
+      </div>
     </div>
   )
 }

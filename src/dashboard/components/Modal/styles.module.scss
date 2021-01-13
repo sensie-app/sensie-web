@@ -1,75 +1,36 @@
 @import '../../styles/index.scss';
+
 .ModalComponentContainer {
-    button {
-        background-color: transparent;
-        border-style: none;
-    }
+  button {
+    background-color: transparent;
+    border-style: none;
+  }
 }
 
 .ModalContainer {
-    @include flex(row, center, center, nowrap);
+  @include flex(row, center, center, nowrap);  
 }
 
 .ModalComponentBodyContainer {
-    width: 30vw;
-    background-color: $grayColor8;
-    padding: 20px;
+  width: 30vw;
+  background-color: $grayColor8;
+  padding: 20px;
 }
 
 .ModalComponentHeader {
-    width: 100%;
-    padding: 10px 0px;
-    @include flex(row, space-between, center, nowrap);
-    span {
-        color: $fontColor1;
-    }
-    button {
-        border-style: none;
-        background-color: transparent;
-        opacity: 0.9;
-        &:hover {
-            opacity: 1;
-            cursor: pointer;
-        }
-    }
-}
-
-.ShareWithContainer {
-    width: 100%;
-    overflow-x: hidden;
-    @include flex(column, flex-start, flex-start, nowrap);
-    .ShareWithListContainer {
-        width: 100%;
-        @include flex(column, flex-start, flex-start, nowrap);
-        .ShareWithHeaderContainer {
-            width: 100%;
-            .ShareWithCheckbox {
-                color: $actionColor1;
-            }
-            span {
-                color: $fontColor1;
-            }
-            @include border(solid, 0px 0px 1px 0px, 0px, $fontColor1);
-        }
-    }
-    .ShareWithFooterContainer {
-        width: 100%;
-        @include flex(row, space-between, center, nowrap);
-        button {
-            background-color: $grayColor6;
-            color: $actionColor1;
-            @include border(solid, 1px, 5px, $actionColor1);
-            padding: 5px 10px;
-            opacity: 0.9;
-            margin: 0px 5px;
-            &:hover {
-                opacity: 1;
-                cursor: pointer;
-            }
-        }
-    }
-}
-
-.ShareWithItemCheckboxTitle {
+  width: 100%;
+  padding: 10px 0px;
+  @include flex(row, space-between, center, nowrap);
+  span {
     color: $fontColor1;
+  }
+  button {
+    border-style: none;
+    background-color: transparent;
+    opacity: 0.9;
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }  
 }

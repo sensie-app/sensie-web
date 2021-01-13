@@ -41,6 +41,7 @@ const Share = () => {
     <Modal initialState={false} title={t('dashboard.Share.shareTo') + ':'}>
       {renderModalBtn()}
       <ShareWith />
+      <div style={{ position: 'fixed' }}>asdasd</div>
     </Modal>
   )
 }
