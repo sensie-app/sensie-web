@@ -34,7 +34,14 @@ const Title = ({ title, titleDashboard, titleMembership }) => {
   } else if (titleMembership) {
     return <p className={classes.titleMembership}>{title}</p>
   } else {
-    return <p className={classes.mainTitle}>{title}</p>
+    const first = title.substring(0, 18)
+    const second = title.substring(18, 32)
+    return (
+      <p className={classes.mainTitle}>
+        <span style={{ display: 'inline' }}>{first} </span>
+        <span style= {{ display: 'inline-block' }}>{second}</span>
+      </p>
+    )
   }
 }
 
