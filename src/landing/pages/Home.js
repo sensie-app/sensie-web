@@ -127,7 +127,8 @@ const Home = () => {
             <Title title="Uncover and manage hidden stress" />
           </Box>
           <Box mr={1}>
-            <Subtitle subtitle="Sensie is everyone's million dollar coach - available whenever, wherever." />
+            <Subtitle subtitle="Sensie is everyone's million dollar coach," />
+            <Subtitle subtitle="available whenever, wherever." />
           </Box>
           <Box mt={3}>
             <BulletPoint IconItem={Measure} title={'Measure self-awareness'} />
