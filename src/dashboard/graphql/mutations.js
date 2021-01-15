@@ -1,6 +1,6 @@
-export const createPackMutation = (name, description, packPictureId, packUserId) => `
+export const createPackMutation = (name, description, packUserId) => `
   mutation MyMutation {
-    createPack(input: {description: "${description}", name: "${name}", packPictureId: "${packPictureId}", packUserId: "${packUserId}"}) {
+    createPack(input: {description: "${description}", name: "${name}", packUserId: "${packUserId}"}) {
       id
     }
   }
@@ -16,7 +16,7 @@ export const createAffirmationMutation = (name, description, userId) => {
   `
 }
 
-export const joinAffirmationWithPack = (affirmationId, packId) => `
+export const joinAffirmationWithPackMutation = (affirmationId, packId) => `
   mutation MyMutation {
     createPackAffirmationJoin(input: {affirmationId: "${affirmationId}", packId: "${packId}"}) {
       id
@@ -24,9 +24,25 @@ export const joinAffirmationWithPack = (affirmationId, packId) => `
   }
 `
 
-export const joinAffirmationWithTopic = (affirmationId, topicId) => `
+export const joinAffirmationWithTopicMutation = (affirmationId, topicId) => `
   mutation MyMutation {
     createTopicAffirmationJoin(input: {affirmationId: "${affirmationId}", topicId: "${topicId}"}) {
+      id
+    }
+  }
+`
+
+export const removeJoinAffirmationPackMutation = id => `
+  mutation MyMutation {
+    deletePackAffirmationJoin(input: {id: "${id}"}) {
+      id
+    }
+  }
+`
+
+export const deleteAffirmationMutation = id => `
+  mutation MyMutation {
+    deleteAffirmation(input: {id: "${id}"}) {
       id
     }
   }

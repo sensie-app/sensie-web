@@ -19,8 +19,18 @@ import styles from './styles.module.scss'
  * @param {boolean} fixHeight (default: false)
  * @param {number} theme (default: 1)
  * @param {array} data
+ * @param {undefined} getSensies (default: () => {})
  */
-const TrackAffirmations = ({ data, chipsUp = false, limit, title, btn, fixHeight = false, theme = 1 }) => {
+const TrackAffirmations = ({
+  data,
+  chipsUp = false,
+  limit,
+  title,
+  btn,
+  fixHeight = false,
+  theme = 1,
+  getSensies = () => {}
+}) => {
   return (
     <section className={`${styles.TrackAffirmationsContainer} ${fixHeight && styles.TrackAffirmationsContainerHeight}`}>
       <div className={styles.TrackAffirmationsBodyContainer}>
@@ -28,7 +38,7 @@ const TrackAffirmations = ({ data, chipsUp = false, limit, title, btn, fixHeight
         {theme !== 2 && <TitleAndButton title={title} btnTitle={btn.title} route={btn.route} />}
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
-          <AffirmationsList data={data} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
+          <AffirmationsList data={data} getSensies={getSensies} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
         </div>
       </div>
     </section>
@@ -53,7 +63,9 @@ TrackAffirmations.propTypes = {
   /** theme (1,2) */
   theme: PropTypes.number,
   /** data */
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  /** getSensies */
+  getSensies: PropTypes.func
 }
 
 export default TrackAffirmations

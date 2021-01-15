@@ -1,25 +1,30 @@
 // react
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
+import { Redirect, useParams } from 'react-router-dom'
 // material-ui
 import Grid from '@material-ui/core/Grid'
 // containers
 import Header from '../../containers/Header'
+import UserStatistics from '../../containers/UserStatistics'
 // components
 import { HelmetSEO } from '../../components/Globals'
-import UserStatistics from '../../components/UserStatistics'
 import Symbol from '../../components/Symbol'
 import Loading from '../../components/Loading'
 import TrackAffirmations from '../../components/TrackAffirmations'
+// const
+import DASHBOARD_ROUTES from '../../constants/routes'
 // redux
 import { useSelector } from 'react-redux'
 // queries
-import { getUserWithSensiesByIdQuery, listAffirmationsByUserIdAndTopicId } from '../../graphql/queries'
+import { listUsersWithSensiesByUserId } from '../../graphql/queries'
 // utils
 import { gqlquery } from '../../utils/queries'
 // styles
 import styles from './styles.module.scss'
+
+// const
+const { home } = DASHBOARD_ROUTES
 
 // * page
 /**
@@ -32,16 +37,16 @@ const User = () => {
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [user, setUser] = useState({})
-  const [withSensies, setWithSensies] = useState(false)
-  const [affirmations, setAffirmations] = useState([])
+  const [redirect, setRedirect] = useState(false)
+  // const [affirmations, setAffirmations] = useState([])
   const [waitQuery, setWaitQuery] = useState(true)
-  console.log('waitQuery', waitQuery)
+  console.log('user', user)
 
+  useEffect(() => user === undefined ? setRedirect(true) : setRedirect(false), [globalDateFilter])
   useEffect(async () => {
     await handleUserQuery()
-    await handleAffirmationsQuery()
+    // await handleAffirmationsQuery()
   }, [id, globalDateFilter])
-  console.log('user', user)
 
   // ? handle functions
   /**
@@ -49,13 +54,11 @@ const User = () => {
    */
   const handleUserQuery = async () => {
     if (user && globalDateFilter) {
-      const dbUser = await gqlquery(getUserWithSensiesByIdQuery(id, globalDateFilter.value))
-      console.log('dbUser', dbUser)
+      const dbUser = await gqlquery(listUsersWithSensiesByUserId(id, globalDateFilter.value))
       if (!dbUser.loading && dbUser.value !== null) {
-        const _user = dbUser.value.data.getUser
+        const _user = dbUser.value.data.listUsers.items[0]
         setUser(_user)
         setWaitQuery(false)
-        setWithSensies(_user.sensies.items.length > 0)
       } else { setWaitQuery(true) }
     }
   }
@@ -63,18 +66,25 @@ const User = () => {
   /**
    * handleUsersQuery
    */
-  const handleAffirmationsQuery = async () => {
-    if (user && globalDateFilter) {
-      const dbAffirmations = await gqlquery(listAffirmationsByUserIdAndTopicId(user.id, 10))
-      if (!dbAffirmations.loading && dbAffirmations.value !== null) {
-        setAffirmations(dbAffirmations.value.data.listAffirmations.items)
-        setWaitQuery(false)
-      } else { setWaitQuery(true) }
-    }
-  }
+  // const handleAffirmationsQuery = async () => {
+  //   if (user && globalDateFilter) {
+  //     const dbAffirmations = await gqlquery(listAffirmationsByUserIdAndTopicId(user.id, 10))
+  //     if (!dbAffirmations.loading && dbAffirmations.value !== null) {
+  //       setAffirmations(dbAffirmations.value.data.listAffirmations.items)
+  //       setWaitQuery(false)
+  //     } else { setWaitQuery(true) }
+  //   }
+  // }
+
+  /**
+   * handleSensies
+   * @return {boolean}
+   */
+  const handleSensies = () => user.sensies.items.length > 0
 
   return (
     <section className={styles.UserContainer}>
+      {redirect && <Redirect to={home} />}
       {/* seo */}
       <HelmetSEO title={t('seo.User.title')} subtitle={t('seo.User.subtitle')} />
       {/* header */}
@@ -83,19 +93,19 @@ const User = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.UserG1Container}>
-            {waitQuery ? <Loading /> : <UserStatistics data={user} withSensies={withSensies} />}
+            {waitQuery ? <Loading /> : <UserStatistics data={user} />}
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.UserG2Container}>
-            {!waitQuery && withSensies && <Symbol level={0} />}
+            {!waitQuery && handleSensies && <Symbol level={0} />}
           </div>
         </Grid>
         <Grid item xs={12}>
           <div className={styles.UserG3Container}>
-            {!waitQuery && withSensies &&
+            {!waitQuery && !handleSensies &&
               <TrackAffirmations
-                data={affirmations}
+                // data={}
                 theme={2}
                 title={t('dashboard.User.trackAffirmations')}
                 chipsUp={true}

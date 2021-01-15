@@ -1,6 +1,7 @@
 // react
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { setPaginationAffirmationAction } from '../../../redux/actions/pagination.actions'
@@ -10,6 +11,8 @@ import SpiderChart from '../../components/SpiderChart'
 import PaginationMUI from '../../components/Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
+// utils
+import { handleFlow } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 
@@ -20,15 +23,38 @@ const { fontColor1, grayColor3 } = COLORS
 /**
  * Affirmation container
  * @component
+ * @param {undefined} getData
  */
-const Affirmation = () => {
+const Affirmation = ({ getData }) => {
   // ? hooks
   const [t] = useTranslation('global')
   const dispatch = useDispatch()
   const {
-    filtersReducer: { affirmations: { affirmation } },
+    filtersReducer: { affirmations: { affirmation }, globalDateFilter },
     paginationReducer: { pagination: { pagAffirmation } }
   } = useSelector(state => state)
+  const [affirmationData, setAffirmationData] = useState([])
+
+  useEffect(async () => {
+    if (affirmation) {
+      const response = await getData(affirmation.id, globalDateFilter.value)
+      setAffirmationData(response)
+    }
+  }, [affirmation, globalDateFilter])
+
+  // ? handle functions
+  /**
+   * handleData
+   * @returns {array} [{user, value}]
+   */
+  const handleData = () => {
+    return affirmationData.map(item => {
+      return {
+        user: item.user.firstName + ' ' + item.user.lastName,
+        value: handleFlow(item.user.sensies.items)
+      }
+    })
+  }
 
   /**
    * handle paginaion change
@@ -44,17 +70,22 @@ const Affirmation = () => {
       <div className={styles.AffirmationSpiderHeaderContainer}>
         <div className={styles.AffirmationSpiderHeaderTitleContainer}>
           <Title text={`${t('dashboard.Affirmation.affirmation')}:`} color={fontColor1} margin="0px 10px 0px 0px" />
-          <Title text={affirmation !== null ? `"${affirmation.title}"` : t('dashboard.Affirmation.selectAOption')} color={grayColor3} />
+          <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Affirmation.selectAOption')} color={grayColor3} />
         </div>
       </div>
       <div style={{ height: '400px', width: '100%' }}>
-        <SpiderChart />
+        <SpiderChart data={handleData()} />
       </div>
       <div className={styles.AffirmationPagination}>
         <PaginationMUI count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmation} />
       </div>
     </div>
   )
+}
+
+// PropTypes
+Affirmation.propTypes = {
+  getData: PropTypes.func.isRequired
 }
 
 export default Affirmation

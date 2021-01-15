@@ -30,12 +30,13 @@ const showOldTopics = false
  * @component
  * @param {undefined} onClick
  * @param {boolean} checkAll
+ * @param {string} packId
+ * @param {undefined} onAddToPack (default: ()=>{})
  */
-const AffirmationsByTopics = ({ onClick, checkAll }) => {
+const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {} }) => {
   // ? hooks
   const dispatch = useDispatch()
   const {
-    userReducer: { user },
     topicsReducer: { topics },
     checkboxReducer: { all: { affirmationsByTopics } }
   } = useSelector(state => state)
@@ -50,9 +51,11 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
    * handleOnClickProps
    */
   const handleOnClickProps = async () => {
-    if (topic && user) {
-      const listaffirmations = await onClick(topic.id, user.id)
-      if (!listaffirmations.loading && listaffirmations.value !== null) setAffirmations(listaffirmations.value.data.listAffirmations.items)
+    if (topic) {
+      console.log('topic', topic)
+      const listaffirmations = await onClick(topic.id)
+      console.log('listaffirmations', listaffirmations)
+      if (!listaffirmations.loading && listaffirmations.value !== null) setAffirmations(listaffirmations.value.data.getTopic.affirmations.items)
     }
   }
 
@@ -133,14 +136,18 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
    * @returns {undefined} Affirmations component
    */
   const renderListAffirmations = () => {
-    return affirmations.length > 0 && affirmations.map(affirmation => {
+    console.log('affirmations', affirmations)
+    return affirmations.length > 0 && affirmations.map(item => {
       return <NewAffirmation
+        packId={packId}
+        data={item.affirmation}
         checkAll={affirmationsByTopics}
-        key={affirmation.id}
-        title={affirmation.name}
-        selectedTopics={handleArrTopics(affirmation.topics.items)}
+        key={item.affirmation.id}
+        title={item.affirmation.name}
+        selectedTopics={handleArrTopics(item.affirmation.topics.items)}
         withRemoveBtn={false}
         withAddBtn={true}
+        onAddToPack={onAddToPack}
       />
     })
   }
@@ -184,7 +191,11 @@ AffirmationsByTopics.propTypes = {
   /** onClick */
   onClick: PropTypes.func,
   /** checkALl */
-  checkAll: PropTypes.bool
+  checkAll: PropTypes.bool,
+  /** packId */
+  packId: PropTypes.string,
+  /** onAddToPack */
+  onAddToPack: PropTypes.func
 }
 
 export default AffirmationsByTopics

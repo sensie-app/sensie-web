@@ -150,7 +150,11 @@
       "affirmations": "affirmations"
     },
     "Pack": {
-      "affirmations": "affirmations"
+      "affirmations": "affirmations",
+      "addPack": "pack added successfully",
+      "addPackError": "error adding pack",
+      "removePack": "pack removed successfully",
+      "removePackError": "error pack"
     },
     "Packs": {
       "spirit": "Spirit",
@@ -210,7 +214,8 @@
       "add": "Add"
     },
     "AddToPack": {
-      "add": "Add"
+      "add": "Add",
+      "error": "Select a pack"
     },
     "Profile": {
       "profile": "Profile",

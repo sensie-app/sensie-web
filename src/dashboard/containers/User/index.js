@@ -4,16 +4,18 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 // components
-import ImageAvatar from '../ImageAvatar'
-import PercentageChart from '../PercentageChart'
-import BarChart from '../BarChart'
-import IconChart from '../IconChart'
+import ImageAvatar from '../../components/ImageAvatar'
+import PercentageChart from '../../components/PercentageChart'
+import BarChart from '../../components/BarChart'
+import IconChart from '../../components/IconChart'
 // constants
 import { IconChartTypes } from '../../constants/charts'
 import { UserListBtns } from '../../constants/globals'
 import DASHBOARD_ROUTES from '../../constants/routes'
+// redux
+import { useSelector } from 'react-redux'
 // utils
-import { handleDefaultPictureUser } from '../../utils/functions'
+import { handleDefaultPictureUser, handleFlow, handleEngagement } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // prop-types
@@ -33,6 +35,14 @@ const { summary } = UserListBtns
 const User = ({ user, show }) => {
   // ? hooks
   const [t] = useTranslation('global')
+  const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
+
+  // ? handle functions
+  /**
+   * handleTotalSensies
+   * @returns {number} total sensies
+   */
+  const handleTotalSensies = () => user.sensies.items.length
 
   // ? render functions
   /**
@@ -69,9 +79,9 @@ const User = ({ user, show }) => {
             </div>
           </div>
         : <div className={styles.UserBodyContainer}>
-            <IconChart title={t('dashboard.IconChart.engagement')} value={30000} icon={UP} theme={2} />
-            <IconChart title={t('dashboard.IconChart.sensies')} value={10000000} valueType="number" icon={DOWN} theme={2} />
-            <IconChart title={t('dashboard.IconChart.flow')} value={80} valueType="%" icon={USER} theme={2} />
+            <IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} />
+            <IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={DOWN} theme={2} />
+            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(user.sensies.items)} valueType="%" icon={USER} theme={2} />
           </div>
       }
     </div>
