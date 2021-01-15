@@ -17,6 +17,8 @@ import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagi
 // constants
 import { MenuFilterStateAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
+// utils
+import { handleFlow } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // test data
@@ -34,8 +36,9 @@ const { fontColor1, grayColor5 } = COLORS
  * @param {string} title (default: ')
  * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
  * @param {array} data
+ * @param {undefined} getSensies (default: () => {})
  */
-const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 }) => {
+const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1, getSensies = () => {} }) => {
   // ? hooks
   const dispatch = useDispatch()
   const {
@@ -100,7 +103,9 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 
    * @param {number} value
    * @returns {undefined} redux action
    */
-  const handlePaginationChange = (event, value) => dispatch(setPaginationAffirmationsListAction(value))
+  const handlePaginationChange = (event, value) => {
+    dispatch(setPaginationAffirmationsListAction(value))
+  }
 
   // ? render functions
   /**
@@ -140,14 +145,28 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 
   }
 
   /**
+   * renderAffirmationChart
+   * @param {object} data
+   * @param {number} flow
+   */
+  const renderAffirmationChart = (data, flow) => <AffirmationChart key={data.id} data={data} value={flow} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === data} />
+
+  /**
    * render affirmations
    * @return {undefined} AffirmationChart[] (html)
    */
   const renderAffirmationsAffirmationChart = () => {
     const _data = limit ? data.slice(0, limit) : data
-    return _data.map((_affirmation, index) => (
-      <AffirmationChart key={index} data={_affirmation} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === _affirmation} />
-    ))
+    return _data.map(item => {
+      const flow = handleFlow(item.sensies.items)
+      switch (stateFilter.value) {
+        case 'flowing': return flow >= 50 && renderAffirmationChart(item, flow)
+        case 'blocked': return flow < 50 && renderAffirmationChart(item, flow)
+        case 'all': return renderAffirmationChart(item, flow)
+        case 'incomplete': return flow === 0 && renderAffirmationChart(item, flow)
+        default: return renderAffirmationChart(item, flow)
+      }
+    })
   }
 
   return (
@@ -187,7 +206,7 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 
         <div className={styles.AffirmationsListAffirmationChartContainer}>
           {renderAffirmationsAffirmationChart()}
           {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
-            <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />
+            <Pagination count={data.length} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />
           </div>}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>
@@ -209,8 +228,9 @@ AffirmationsList.propTypes = {
   /** theme (1, 2) */
   theme: PropTypes.number,
   /** data */
-  data: PropTypes.array.isRequired
-
+  data: PropTypes.array.isRequired,
+  /** getSensies */
+  getSensies: PropTypes.func
 }
 
 export default AffirmationsList

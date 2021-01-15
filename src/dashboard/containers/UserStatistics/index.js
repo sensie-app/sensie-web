@@ -3,14 +3,16 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // components
-import ImageAvatar from '../ImageAvatar'
-import PieChart from '../PieChart'
-import IconChart from '../IconChart'
-import Separator from '../Separator'
+import ImageAvatar from '../../components/ImageAvatar'
+import PieChart from '../../components/PieChart'
+import IconChart from '../../components/IconChart'
+import Separator from '../../components/Separator'
 // constants
 import { IconChartTypes } from '../../constants/charts'
+// redux
+import { useSelector } from 'react-redux'
 // utils
-import { handleDefaultPictureUser } from '../../utils/functions'
+import { handleDefaultPictureUser, handleFlow, handleEngagement } from '../../utils/functions'
 // styles
 import styles from './syles.module.scss'
 
@@ -23,11 +25,11 @@ const { ACTIVITY, UP, DOWN } = IconChartTypes
  * UserStatistics component
  * @component
  * @param {object} data
- * @param {boolean} withSensies
  */
-const UserStatistics = ({ data, withSensies }) => {
+const UserStatistics = ({ data }) => {
   // ? hooks
   const [t] = useTranslation('global')
+  const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
 
   // ? handle functions
   /**
@@ -36,7 +38,11 @@ const UserStatistics = ({ data, withSensies }) => {
    */
   const handleSensiesCount = () => data.sensies.items.length
 
-  const handleLastSensieTimestamp = () => moment(data.sensies.items[0].timestamp).format('DD.MM.yyyy | hh.mm')
+  /**
+   * handleLastSensieTimestamp
+   * @returns {string}
+   */
+  const handleLastSensieTimestamp = () => moment(data.sensies.items[0].createdAt).format('DD.MM.yyyy | hh.mm')
 
   return (
     <div className={styles.UserStatisticsContainer}>
@@ -48,8 +54,8 @@ const UserStatistics = ({ data, withSensies }) => {
         </div>
         {/* body */}
         <div className={styles.UserStatisticsHeaderBody}>
-          <h1>{data.fistName} {data.lastName}</h1>
-          {withSensies
+          <h1>{data.firstName} {data.lastName}</h1>
+          {handleSensiesCount() > 0
             ? <div>
               <span className={styles.UserStatisticsHeaderBodySubtitle}>{t('dashboard.UserStatistics.lastSensie')}</span>
               <span className={styles.UserStatisticsHeaderBodyDate}>{handleLastSensieTimestamp()}</span>
@@ -61,7 +67,7 @@ const UserStatistics = ({ data, withSensies }) => {
         </div>
       </div>
       {/* body */}
-      {withSensies && <div className={styles.UserStatisticsBodyContainer}>
+      {handleSensiesCount() > 0 && <div className={styles.UserStatisticsBodyContainer}>
         <div className={styles.UserStatisticsBorder} />
         {/* pie charts */}
         <div className={styles.UserStatisticsBodyCharts1Container}>
@@ -78,7 +84,7 @@ const UserStatistics = ({ data, withSensies }) => {
         {/* icon charts */}
         <div className={styles.UserStatisticsBodyCharts2Container}>
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.engagement')} value={30000} icon={UP} theme={2} />
+            <IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleSensiesCount())} icon={UP} theme={2} />
           </div>
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
@@ -86,7 +92,7 @@ const UserStatistics = ({ data, withSensies }) => {
           </div>
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.flow')} value={30000} icon={ACTIVITY} theme={2} />
+            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(data.sensies.items)} valueType="%" icon={ACTIVITY} theme={2} />
           </div>
         </div>
       </div>}
@@ -97,9 +103,7 @@ const UserStatistics = ({ data, withSensies }) => {
 // prop-types
 UserStatistics.propTypes = {
   /** data */
-  data: PropTypes.object.isRequired,
-  /** withSensies */
-  withSensies: PropTypes.bool.isRequired
+  data: PropTypes.object.isRequired
 }
 
 export default UserStatistics

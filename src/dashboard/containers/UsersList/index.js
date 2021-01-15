@@ -2,8 +2,9 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
+// constants
+import User from '../../containers/User'
 // components
-import User from '../../components/User'
 import Icon from '../../components/Icon'
 import Title from '../../components/Title'
 import Pagination from '../../components/Pagination'

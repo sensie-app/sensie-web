@@ -39,7 +39,7 @@
 .AddToPackFooterContainer {
   width: 100%;
   padding: 20px 0px;
-  @include flex(row, flex-end, center, nowrap);
+  @include flex(column, flex-end, flex-end, nowrap);
   button {
     padding: 5px 10px;
     width: 40%;
@@ -52,5 +52,10 @@
       cursor: pointer;
     }
   }
+  .AddToPackError {
+    color: $actionColor4;
+    font-size: 13px;
+  }
 }
+
 

@@ -1,5 +1,5 @@
 // react
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 // constants
 import { COLORS } from '../../constants/theme'
@@ -16,12 +16,9 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
  * @param {AffirmationChart} data
  * @param {undefined} onClickValue
  * @param {boolean} isActive (default: false)
+ * @param {number} value
  */
-const AffirmationChart = ({ data, onClickValue = () => {}, isActive = false }) => {
-  // ? hooks
-  const [value, setValue] = useState(0)
-  useEffect(() => setValue(Math.floor(Math.random() * Math.floor(100))), []) // todo: change to real value
-
+const AffirmationChart = ({ data, value, onClickValue = () => {}, isActive = false }) => {
   // ? handle functions
   /**
    * handle value
@@ -75,7 +72,9 @@ AffirmationChart.propTypes = {
   /** onClickValue */
   onClickValue: PropTypes.func,
   /** isActive */
-  isActive: PropTypes.bool
+  isActive: PropTypes.bool,
+  /** value */
+  value: PropTypes.number.isRequired
 }
 
 export default AffirmationChart

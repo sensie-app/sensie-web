@@ -88,8 +88,8 @@ const Affirmations = () => {
    * @param {string} imgId
    * @returns {string} new pack id
    */
-  const handleCreatePackMutation = async (name, description, imgId) => {
-    const newPack = await gqlquery2(createPackMutation(name, description, imgId, user.id))
+  const handleCreatePackMutation = async (name, description) => {
+    const newPack = await gqlquery2(createPackMutation(name, description, user.id))
     return !newPack.loading && newPack.value !== null ? newPack.value.data.createPack.id : null
   }
 
