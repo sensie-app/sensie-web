@@ -10,14 +10,15 @@ import CreateAffirmations from '../../containers/CreateAffirmations'
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
 import Share from '../../components/Share'
-import Loading from '../../components/Loading'
+// import Loading from '../../components/Loading'
 import SvgIcon from '../../components/SvgIcon'
 // constants
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 import TopicsConstants from '../../constants/topics'
 // redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // utils
 import { gqlquery, gqlquery2 } from '../../utils/queries'
 // graphql queries
@@ -57,21 +58,44 @@ const Topic = () => {
   // ? hooks
   const [t] = useTranslation('global')
   const { id } = useParams()
+  const dispatch = useDispatch()
   const {
     userReducer: { user },
+    topicsReducer,
     checkboxReducer
   } = useSelector(state => state)
-  const [topic, setTopic] = useState([])
+  const [topic, setTopic] = useState(null)
   const [defaultTopic, setDefaultTopic] = useState({})
   const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
   const [checkedAffirmations, setCheckedAffirmations] = useState([])
   const [showOptions, setShowOptions] = useState(false)
 
-  useEffect(async () => await handleTopicQuery(), [])
-  useEffect(async () => await handleTopicQuery(), [newAff])
+  // useEffect(async () => await handleTopicQuery(), [])
+  // useEffect(() => handleTopicId(), [])
+  // useEffect(async () => await handleTopicQuery(), [newAff])
+
+  useEffect(() => handleTopicId(), [])
+  useEffect(() => handleTopicId(), [topicsReducer])
+  useEffect(() => dispatch(getAllTopicsAction()), [newAff])
 
   // ? handle functions
+  /**
+   * handlePackId
+   * @returns {array}
+   * */
+  const handleTopicId = () => {
+    const tp = topicsReducer.topics.filter(topic => topic.id === id)[0]
+    console.log('tp', tp)
+    const defTopic = [{
+      name: tp.name,
+      description: tp.description,
+      id: tp.id
+    }]
+    setDefaultTopic(defTopic)
+    setTopic(tp || [])
+  }
+
   /**
    * handleTopicQuery
    */
@@ -91,6 +115,7 @@ const Topic = () => {
       setWaitQuery(true)
     }
   }
+  console.log('handleTopicQuery', handleTopicQuery)
 
   /**
    * handleCreateAffirmationMutation
@@ -215,7 +240,7 @@ const Topic = () => {
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return !waitQuery && topic.affirmations.items.map(item => {
+    return topic.affirmations.items.map(item => {
       const { id, name, topics } = item.affirmation
       return <NewAffirmation
         checkAll={checkboxReducer.all.affirmations}
@@ -267,10 +292,7 @@ const Topic = () => {
             onSave={handleCreateAffirmationMutation}
             onAddToPack={handleAddManyToPack}
           />
-          {waitQuery
-            ? <Loading />
-            : renderDbAffirmations()
-          }
+            {topic !== null && renderDbAffirmations()}
         </div>
       </div>
       <ToastContainer

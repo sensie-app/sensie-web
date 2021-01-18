@@ -13,24 +13,22 @@ import Loading from '../../components/Loading'
 import { HelmetSEO } from '../../components/Globals'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
-import { TODAY } from '../../constants/globals'
 // styles
 import styles from './styles.module.scss'
 // graphql
 import {
-  listUsersByOrganizationId,
-  listAffirmationsByUserIdAndTopicId,
-  listSensiesByAffirmationId,
-  listUsersByOrganizationIdClientSnapshot
+  listSensiesByAffirmationId
 } from '../../graphql/queries'
 // utils
 import { gqlquery } from '../../utils/queries'
 // redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
+import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
+// import usersReducer from '../../../redux/reducers/users.reducer'
 
 // const
 const { client } = DASHBOARD_ROUTES
-const moment = require('moment')
 
 // * page
 /**
@@ -39,75 +37,39 @@ const moment = require('moment')
  */
 const Home = () => {
   // ? hooks
+  const dispatch = useDispatch()
   const {
+    usersReducer,
+    affirmationsReducer,
     userReducer: { user },
     filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const [users, setUsers] = useState([])
-  const [users2, setUsers2] = useState([])
-  const [affirmations, setAffirmations] = useState([])
-  const [waitQuery, setWaitQuery] = useState(true)
   const [totalUsers, setTotalUsers] = useState(0)
   const [totalSensies, setTotalSensies] = useState(0)
   const [totalFlow, setTotalFlow] = useState(0)
 
+  useEffect(() => {
+    dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
+    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
+  }, [])
+
   useEffect(async () => {
-    await handleUsersQuery()
-    await handleAffirmationsQuery()
-    await handleUsersQueryListSnapshot()
+    dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
+    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [globalDateFilter])
 
   useEffect(() => {
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
-  }, [users])
+  }, [usersReducer.users, globalDateFilter])
 
   // ? handle functions
   /**
-   * handleUsersQuery
-   */
-  const handleUsersQuery = async () => {
-    if (user && globalDateFilter) {
-      const dbUsers = await gqlquery(listUsersByOrganizationId(user.data.userOrganizationId, globalDateFilter.value))
-      if (!dbUsers.loading && dbUsers.value !== null) {
-        setUsers(dbUsers.value.data.listUsers.items)
-        setWaitQuery(false)
-      } else { setWaitQuery(true) }
-    }
-  }
-
-  /**
-   * handleUsersQueryListSnapshot
-   */
-  const handleUsersQueryListSnapshot = async () => {
-    const rangeDates = [moment(TODAY).subtract(7, 'd').format(), moment(TODAY).format()]
-    if (user && globalDateFilter) {
-      const dbUsers = await gqlquery(listUsersByOrganizationIdClientSnapshot(user.data.userOrganizationId, globalDateFilter.value, rangeDates))
-      if (!dbUsers.loading && dbUsers.value !== null) {
-        setUsers2(dbUsers.value.data.listUsers.items)
-        setWaitQuery(false)
-      } else { setWaitQuery(true) }
-    }
-  }
-
-  /**
-   * handleAffirmationsQuery
-   */
-  const handleAffirmationsQuery = async () => {
-    if (user && globalDateFilter) {
-      const dbAffirmations = await gqlquery(listAffirmationsByUserIdAndTopicId(user.id, globalDateFilter.value, 10))
-      if (!dbAffirmations.loading && dbAffirmations.value !== null) {
-        setAffirmations(dbAffirmations.value.data.listAffirmations.items)
-        setWaitQuery(false)
-      } else { setWaitQuery(true) }
-    }
-  }
-
-  /**
    * handleSensiesByAffirmationIdQuery
    */
+  // TODO: check query
   const handleSensiesByAffirmationIdQuery = async affirmationId => {
     const dbSensiesByAffirmationId = await gqlquery(listSensiesByAffirmationId(affirmationId))
     if (!dbSensiesByAffirmationId.loading && dbSensiesByAffirmationId.value !== null) {
@@ -121,7 +83,7 @@ const Home = () => {
    * handle total clients
    * @returns {number} total
    */
-  const handleTotalClients = () => !waitQuery && users.length > 0 ? users.length : 0
+  const handleTotalClients = () => !usersReducer.loading && usersReducer.users.length > 0 ? usersReducer.users.length : 0
 
   /**
    * handle total sensies
@@ -129,8 +91,8 @@ const Home = () => {
    */
   const handleTotalSensies = () => {
     let count = 0
-    count = !waitQuery && handleTotalClients() > 0
-      ? users.map(user => count + user.sensies.items.length)
+    count = !usersReducer.loading && handleTotalClients() > 0
+      ? usersReducer.users.map(user => count + user.sensies.items.length)
       : 0
     return count === 0 ? count : count.reduce((total, value) => total + value)
   }
@@ -140,15 +102,15 @@ const Home = () => {
    * @returns {number} flow
    */
   const handleTotalFlow = () => {
-    if (!waitQuery && handleTotalClients() > 0) {
+    if (!usersReducer.loading && handleTotalClients() > 0) {
       let flow = 0
-      flow = users.map(user => {
+      flow = usersReducer.users.map(user => {
         const totalSensies = user.sensies.items.length
         const sensies = user.sensies.items.filter(value => value.result === '1')
         const flow = totalSensies > 0 ? sensies.length / totalSensies : 0
         return flow * 100
       })
-      return flow === 0 ? flow : flow.reduce((total, value) => total + value) / users.length
+      return flow === 0 ? flow : flow.reduce((total, value) => total + value) / usersReducer.users.length
     } else {
       return 0
     }
@@ -175,10 +137,9 @@ const Home = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <div className={styles.HomeG2Container}>
-          {waitQuery
+          {affirmationsReducer.loading
             ? <Loading />
             : <TrackAffirmations
-                data={affirmations}
                 getSensies={handleSensiesByAffirmationIdQuery}
                 title={t('dashboard.Home.mindAuthorAndTrackAffirmations')}
                 btn={btn}
@@ -192,9 +153,9 @@ const Home = () => {
           <div className={styles.HomeG3Container}>
             <div className={styles.HomeG3ContainerTitle}>
               <h3>{t('dashboard.Home.ClientSnapshot')}</h3>
-              {waitQuery
+              {usersReducer.loading
                 ? <Loading />
-                : <ClientSnapshot data={users2} />
+                : <ClientSnapshot />
               }
             </div>
           </div>

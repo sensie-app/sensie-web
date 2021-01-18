@@ -1,7 +1,6 @@
 // react
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-import PropTypes from 'prop-types'
 // constants
 import User from '../../containers/User'
 // components
@@ -17,9 +16,6 @@ import { setUserListInfo } from '../../../redux/actions/show.actions'
 import { setPaginationUserListAction } from '../../../redux/actions/pagination.actions'
 // styles
 import styles from './styles.module.scss'
-// test data
-import { data } from '../ClientSnapshot/data'
-const _data = data
 
 // const
 const { fontColor1 } = COLORS
@@ -29,14 +25,13 @@ const { summary, details } = UserListBtns
 /**
  * UserList container
  * @component
- * @param {Array:User} data (default: null)
  */
-const UsersList = ({ data = _data }) => {
+const UsersList = () => {
   // ? hooks
   const [t] = useTranslation('global')
   const dispatch = useDispatch()
-  const [usersList] = useState(data)
   const {
+    usersReducer,
     showReducer: { userList },
     paginationReducer: { pagination: { pagUsersList } }
   } = useSelector(state => state)
@@ -66,7 +61,7 @@ const UsersList = ({ data = _data }) => {
 
   // ? render functions
   const renderUsers = () => {
-    return usersList.map((user, index) => {
+    return !usersReducer.loading && usersReducer.users.map((user, index) => {
       return <User user={user} key={index} show={userList.showInfo} />
     })
   }
@@ -93,12 +88,6 @@ const UsersList = ({ data = _data }) => {
       </div>
     </section>
   )
-}
-
-// prop-types
-UsersList.propTypes = {
-  /** users */
-  data: PropTypes.array.isRequired
 }
 
 export default UsersList

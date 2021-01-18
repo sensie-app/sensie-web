@@ -1,20 +1,11 @@
+// amplify
+import { API, graphqlOperation } from 'aws-amplify'
+// queries
+import { getUserByIdQuery } from '../../dashboard/graphql/queries'
+// constants
 import USER from '../constants/user.constants'
 
-const { LAST_AUTH_USER, USER_ACCESS_TOKEN, USER_DATA, USER_ID } = USER
-
-export const setLastAuthUserAction = data => {
-  return {
-    type: LAST_AUTH_USER,
-    payload: data
-  }
-}
-
-export const setUserAccessTokenAction = data => {
-  return {
-    type: USER_ACCESS_TOKEN,
-    payload: data
-  }
-}
+const { USER_DATA, USER_ID, LOADING, ERROR } = USER
 
 export const setUserDataAction = data => {
   return {
@@ -27,5 +18,25 @@ export const setUserIdAction = data => {
   return {
     type: USER_ID,
     payload: data
+  }
+}
+
+export const getUserByIdAction = (id) => async (dispatch) => {
+  console.log('id', id)
+  dispatch({
+    type: LOADING
+  })
+
+  try {
+    const response = await API.graphql(graphqlOperation(getUserByIdQuery(id)))
+    dispatch({
+      type: USER_DATA,
+      payload: response.data.getUser
+    })
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: 'Error in get user'
+    })
   }
 }

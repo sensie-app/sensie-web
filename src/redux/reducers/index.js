@@ -8,6 +8,7 @@ import checkboxReducer from './checkbox.reducer'
 import userReducer from './user.reducer'
 import topicsReducer from './topics.reducer'
 import packsReducer from './packs.reducer'
+import usersReducer from './users.reducer'
 import affirmationsReducer from './affirmations.reducer'
 
 const reducers = combineReducers({
@@ -18,7 +19,8 @@ const reducers = combineReducers({
   userReducer,
   topicsReducer,
   affirmationsReducer,
-  packsReducer
+  packsReducer,
+  usersReducer
 })
 
 export default reducers

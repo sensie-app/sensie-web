@@ -52,10 +52,8 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
    */
   const handleOnClickProps = async () => {
     if (topic) {
-      console.log('topic', topic)
-      const listaffirmations = await onClick(topic.id)
-      console.log('listaffirmations', listaffirmations)
-      if (!listaffirmations.loading && listaffirmations.value !== null) setAffirmations(listaffirmations.value.data.getTopic.affirmations.items)
+      const listaffirmations = topics.filter(item => item.id === topic.id)[0]
+      setAffirmations(listaffirmations.affirmations.items)
     }
   }
 
@@ -136,7 +134,6 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
    * @returns {undefined} Affirmations component
    */
   const renderListAffirmations = () => {
-    console.log('affirmations', affirmations)
     return affirmations.length > 0 && affirmations.map(item => {
       return <NewAffirmation
         packId={packId}

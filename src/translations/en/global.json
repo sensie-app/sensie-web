@@ -151,10 +151,10 @@
     },
     "Pack": {
       "affirmations": "affirmations",
-      "addPack": "pack added successfully",
-      "addPackError": "error adding pack",
-      "removePack": "pack removed successfully",
-      "removePackError": "error pack"
+      "addPack": "Added successfully",
+      "addPackError": "Error adding affirmation",
+      "removePack": "Removed successfully",
+      "removePackError": "Error affirmation"
     },
     "Packs": {
       "spirit": "Spirit",

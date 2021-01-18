@@ -3,13 +3,13 @@ import USER from '../constants/user.constants'
 const INITIAL_STATE = {
   user: {
     id: null,
-    last_auth: null,
+    loading: false,
     data: {},
-    access_token: null
+    error: null
   }
 }
 
-const { USER_ID, LAST_AUTH_USER, USER_ACCESS_TOKEN, USER_DATA } = USER
+const { USER_ID, USER_DATA, LOADING, ERROR } = USER
 
 const userReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
@@ -18,39 +18,42 @@ const userReducer = (state = INITIAL_STATE, { payload, type }) => {
         ...state,
         user: {
           id: payload,
-          last_auth: state.user.last_auth,
           data: state.user.data,
-          access_token: state.user.access_token
+          loading: false,
+          error: null
         }
       }
-    case LAST_AUTH_USER:
-      return {
-        ...state,
-        user: {
-          id: state.user.id,
-          last_auth: payload,
-          data: state.user.data,
-          access_token: state.user.access_token
-        }
-      }
-    case USER_ACCESS_TOKEN:
-      return {
-        ...state,
-        user: {
-          id: state.user.id,
-          last_auth: state.user.last_auth,
-          data: state.user.data,
-          access_token: payload
-        }
-      }
+
     case USER_DATA:
       return {
         ...state,
         user: {
           id: state.user.id,
-          last_auth: state.user.last_auth,
           data: payload,
-          access_token: state.user.access_token
+          loading: false,
+          error: null
+        }
+      }
+
+    case LOADING:
+      return {
+        ...state,
+        user: {
+          id: state.user.id,
+          data: state.user.data,
+          loading: true,
+          error: null
+        }
+      }
+
+    case ERROR:
+      return {
+        ...state,
+        user: {
+          id: state.user.id,
+          data: state.user.data,
+          loading: false,
+          error: payload
         }
       }
 

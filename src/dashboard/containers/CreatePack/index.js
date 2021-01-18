@@ -1,16 +1,19 @@
 // react
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 // components
-import Icon from '../Icon'
-import Modal from '../Modal'
+import Icon from '../../components/Icon'
+import Modal from '../../components/Modal'
 // constants
 import { COLORS } from '../../constants/theme'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+import { createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
 
 // const
 const { grayColor3 } = COLORS
@@ -23,6 +26,11 @@ const { pack } = DASHBOARD_ROUTES
  */
 const CreatePack = ({ onSave }) => {
   // ? hooks
+  const dispatch = useDispatch()
+  const {
+    userReducer: { user },
+    packsReducer
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
   const inputRef = useRef(null)
   const [showError, setShowError] = useState(false)
@@ -31,6 +39,14 @@ const CreatePack = ({ onSave }) => {
   const [file, setFile] = useState('')
   const [redirect, setRedirect] = useState(false)
   const [newPackId, setNewPackId] = useState(null)
+
+  useEffect(() => {
+    if (!packsReducer.loading && packsReducer.newpack !== null) {
+      setNewPackId(packsReducer.newpack.id)
+      setRedirect(true)
+      dispatch(cleanNewPackAction())
+    }
+  }, [packsReducer])
 
   // ? handle functions
   /**
@@ -61,14 +77,9 @@ const CreatePack = ({ onSave }) => {
       setShowError(true)
       setRedirect(false)
     } else {
-      const packId = await onSave(value, value, 1) // Todo: use mutation, save img, get imageId and use here.
+      dispatch(createPacksAction(value, value, user.id))
       setShowError(false)
-      if (packId !== null) {
-        setNewPackId(packId)
-        setRedirect(true)
-      }
     }
-    // return showError && value !== '' && <Redirect to={addPacks} />
   }
 
   // ? render functions

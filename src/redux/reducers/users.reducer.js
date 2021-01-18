@@ -1,25 +1,19 @@
-import TOPICS from '../constants/topics.constants'
+import USERS from '../constants/users.constants'
 
 const INITIAL_STATE = {
-  topics: [],
+  users: [],
   loading: false,
   error: null
 }
 
-const { TOPICS_LIST, GET_ALL_TOPICS, LOADING, ERROR } = TOPICS
+const { GET_ALL_USERS, LOADING, ERROR } = USERS
 
-const topicsReducer = (state = INITIAL_STATE, { payload, type }) => {
+const usersReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
-    case TOPICS_LIST:
+    case GET_ALL_USERS:
       return {
         ...state,
-        topics: payload
-      }
-
-    case GET_ALL_TOPICS:
-      return {
-        ...state,
-        topics: payload,
+        users: payload,
         loading: false,
         error: null
       }
@@ -41,4 +35,4 @@ const topicsReducer = (state = INITIAL_STATE, { payload, type }) => {
   }
 }
 
-export default topicsReducer
+export default usersReducer
