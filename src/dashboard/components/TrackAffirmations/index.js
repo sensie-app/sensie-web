@@ -30,7 +30,7 @@ const TrackAffirmations = ({
   getSensies = () => {}
 }) => {
   return (
-    <section className={`${styles.TrackAffirmationsContainer} ${fixHeight && styles.TrackAffirmationsContainerHeight}`}>
+    <section className={`${styles.TrackAffirmationsContainer} ${fixHeight ? styles.TrackAffirmationsContainerHeight : undefined}`}>
       <div className={styles.TrackAffirmationsBodyContainer}>
         {/* header */}
         {theme !== 2 && <TitleAndButton title={title} btnTitle={btn.title} route={btn.route} />}

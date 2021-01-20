@@ -76,7 +76,7 @@ const Affirmation = () => {
 
 // PropTypes
 Affirmation.propTypes = {
-  getData: PropTypes.func.isRequired
+  getData: PropTypes.func
 }
 
 export default Affirmation

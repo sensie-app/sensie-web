@@ -75,8 +75,8 @@ const UsersList = () => {
         </div>
         <div className={styles.UsersListHeaderAction}>
           <div>
-            <button className={handleActive('summary') && styles.UsersListHeaderActionActiveBtn} onClick={() => handleClick(summary)}>{t(`dashboard.UserList.${summary}`)}</button>
-            <button className={handleActive('details') && styles.UsersListHeaderActionActiveBtn} onClick={() => handleClick(details)}>{t(`dashboard.UserList.${details}`)}</button>
+            <button className={handleActive('summary') ? styles.UsersListHeaderActionActiveBtn : undefined} onClick={() => handleClick(summary)}>{t(`dashboard.UserList.${summary}`)}</button>
+            <button className={handleActive('details') ? styles.UsersListHeaderActionActiveBtn : undefined} onClick={() => handleClick(details)}>{t(`dashboard.UserList.${details}`)}</button>
           </div>
           <Icon name="search-outline" color={fontColor1} size="md" />
         </div>

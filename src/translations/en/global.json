@@ -144,7 +144,10 @@
       "family": "Family",
       "parenting": "Parenting",
       "personal": "Personal",
-      "performance": "Performance"
+      "performance": "Performance"      
+    },
+    "AffirmationsList": {
+      "noData": "No affirmations"
     },
     "Topic": {
       "affirmations": "affirmations"

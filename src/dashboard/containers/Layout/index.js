@@ -264,7 +264,7 @@ const Layout = ({ children }) => {
 // prop-types
 Layout.propTypes = {
   /** children */
-  children: PropTypes.element
+  children: PropTypes.array
 }
 
 // styles material-ui

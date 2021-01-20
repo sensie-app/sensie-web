@@ -72,7 +72,7 @@ IconChart.propTypes = {
   /** title */
   title: PropTypes.string.isRequired,
   /** value */
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   /** value type */
   valueType: PropTypes.string,
   /** icon (UP, DOWN, USER, ACTIVITY) */

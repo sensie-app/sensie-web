@@ -24,7 +24,7 @@ import styles from './styles.module.scss'
 import { testData } from './data'
 
 // const
-const { grayColor4, grayColor6, fontColor1, actionColor1 } = COLORS
+const { grayColor4, grayColor6, fontColor1 } = COLORS
 
 // * containers
 /**
@@ -84,7 +84,7 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
   const renderItems = () => {
     return data.length > 0 && data.map((value, index) => (
       <MenuItem key={index} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
-        <Checkbox checked={items.indexOf(value) > -1} color={actionColor1} className={styles.MultipleSelectCheckboxMenuItemCheckbox} />
+        <Checkbox checked={items.indexOf(value) > -1} className={styles.MultipleSelectCheckboxMenuItemCheckbox} />
         <ListItemText primary={handleLargeName(value.name, 10)} />
         <div>
           <Popover text={value.description}>

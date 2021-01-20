@@ -145,7 +145,7 @@ const CreatePack = ({ onSave }) => {
 // prop-types
 CreatePack.propTypes = {
   /** onSave */
-  onSave: PropTypes.func.isRequired
+  onSave: PropTypes.func
 }
 
 export default CreatePack

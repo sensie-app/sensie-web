@@ -61,6 +61,12 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
   const handleClickStateMenu = value => dispatch(setAffirmationsStateFilterAction(value))
 
   /**
+   * handleTotalAffirmations
+   * @returns {number} total
+   */
+  const handleTotalAffirmations = () => affirmationsReducer.affirmations.length
+
+  /**
    * handle click topic menu
    * @param {DataAffirmation} value
    * @returns {undefined} selectValue = value
@@ -204,7 +210,10 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
           {renderChipsItems()}
         </div>}
         <div className={styles.AffirmationsListAffirmationChartContainer}>
-          {renderAffirmationsAffirmationChart()}
+          {handleTotalAffirmations() > 0
+            ? renderAffirmationsAffirmationChart()
+            : <span>{t('dashboard.AffirmationsList.noData')}</span>
+          }
           {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
             <Pagination count={affirmationsReducer.loading ? 0 : affirmationsReducer.affirmations.length} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />
           </div>}

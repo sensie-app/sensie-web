@@ -7,13 +7,11 @@ import { useTranslation } from 'react-i18next'
 import Checkbox from '@material-ui/core/Checkbox'
 // constants
 import IMG from '../../constants/images'
-import { COLORS } from '../../constants/theme'
 // sytyles
 import styles from './styles.module.scss'
 
 // const
 const { noImg } = IMG
-const { actionColor1 } = COLORS
 
 // * component
 /**
@@ -41,7 +39,7 @@ const Pack = ({ route, img = noImg, title, totalAffirmations }) => {
       <Link to={route}>
         <div className={styles.PackImgContainer} style={{ backgroundImage: `url(${img})` }} />
       </Link>
-      <Checkbox checked={check} onChange={handleCheck} color={actionColor1} className={styles.PackCheckbox} />
+      <Checkbox checked={check} onChange={handleCheck} className={styles.PackCheckbox} />
       <div className={styles.PackBodyContainer}>
         <span>{title}</span>
         <div>
