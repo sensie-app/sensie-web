@@ -120,8 +120,7 @@ const CreateAffirmations = ({
       setTopics([])
       setShowNewForm(false)
 
-      const affId = await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
-      console.log('affId', affId)
+      await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
     }
   }
 

@@ -17,6 +17,10 @@
   .UserBodyContainer {    
     @include flex(row, flex-end, center, nowrap);
     width: 50%;
+    div {
+      max-width: 100px;
+      width: 100px;
+    }
   }
 
   .UserChartContainer {

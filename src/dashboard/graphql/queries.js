@@ -179,7 +179,23 @@ export const listTopicsQuery = () => `
         id
         name
         picture
-        description     
+        description    
+        affirmations {
+          items {
+            affirmation {
+              name
+              id
+              topics {
+                items {
+                  topic {
+                    id
+                    name
+                  }
+                }
+              }
+            }
+          }
+        } 
       }
     }
   }
@@ -236,9 +252,22 @@ export const listPacksWiyhAffirmationsIdsByIdQuery = id => `
         name
         id
         description
-        affirmations {
+        affirmations(sortDirection: ASC) {
           items {
-            affirmationId
+            affirmation {
+              description
+              id
+              name
+              topics {
+                items {
+                  topic {
+                    description
+                    id
+                    name
+                  }
+                }
+              }
+            }
           }
         }
       }

@@ -35,13 +35,13 @@ const { fontColor1, grayColor5 } = COLORS
  * @param {number} limit
  * @param {string} title (default: ')
  * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
- * @param {array} data
  * @param {undefined} getSensies (default: () => {})
  */
-const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1, getSensies = () => {} }) => {
+const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSensies = () => {} }) => {
   // ? hooks
   const dispatch = useDispatch()
   const {
+    affirmationsReducer,
     filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } },
     paginationReducer: { pagination: { pagAffirmationsList } }
   } = useSelector(state => state)
@@ -59,6 +59,12 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1,
    * @returns {undefined} setAffirmationsStateFilterAction (dispatch REDUX)
    */
   const handleClickStateMenu = value => dispatch(setAffirmationsStateFilterAction(value))
+
+  /**
+   * handleTotalAffirmations
+   * @returns {number} total
+   */
+  const handleTotalAffirmations = () => affirmationsReducer.affirmations.length
 
   /**
    * handle click topic menu
@@ -156,8 +162,8 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1,
    * @return {undefined} AffirmationChart[] (html)
    */
   const renderAffirmationsAffirmationChart = () => {
-    const _data = limit ? data.slice(0, limit) : data
-    return _data.map(item => {
+    const _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
+    return !affirmationsReducer.loading && _data.map(item => {
       const flow = handleFlow(item.sensies.items)
       switch (stateFilter.value) {
         case 'flowing': return flow >= 50 && renderAffirmationChart(item, flow)
@@ -204,9 +210,12 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1,
           {renderChipsItems()}
         </div>}
         <div className={styles.AffirmationsListAffirmationChartContainer}>
-          {renderAffirmationsAffirmationChart()}
+          {handleTotalAffirmations() > 0
+            ? renderAffirmationsAffirmationChart()
+            : <span>{t('dashboard.AffirmationsList.noData')}</span>
+          }
           {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
-            <Pagination count={data.length} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />
+            <Pagination count={affirmationsReducer.loading ? 0 : affirmationsReducer.affirmations.length} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />
           </div>}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>
@@ -227,8 +236,6 @@ AffirmationsList.propTypes = {
   title: PropTypes.string,
   /** theme (1, 2) */
   theme: PropTypes.number,
-  /** data */
-  data: PropTypes.array.isRequired,
   /** getSensies */
   getSensies: PropTypes.func
 }

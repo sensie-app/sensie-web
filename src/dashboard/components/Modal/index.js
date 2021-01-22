@@ -69,9 +69,9 @@ const ModalComponent = ({ children, initialState = false, title = '', width = '2
 // prop-types
 ModalComponent.propTypes = {
   /** children */
-  children: PropTypes.element.isRequired,
+  children: PropTypes.array.isRequired,
   /** handleOpen */
-  initialState: PropTypes.bool.isRequired,
+  initialState: PropTypes.bool,
   /** title */
   title: PropTypes.string,
   /** width */

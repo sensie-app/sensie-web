@@ -10,7 +10,7 @@ import CreateAffirmations from '../../containers/CreateAffirmations'
 import NewAffirmation from '../../containers/NewAffirmation'
 import AffirmationsByTopics from '../../containers/AffirmationsByTopics'
 // components
-import Loading from '../../components/Loading'
+// import Loading from '../../components/Loading'
 import Share from '../../components/Share'
 // constants
 import IMG from '../../constants/images'
@@ -19,7 +19,7 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 import { gqlquery, gqlquery2 } from '../../utils/queries'
 import { handleArrTopics } from '../../utils/functions'
 // graphql queries
-import { getPackByIdQuery, getTopicByIdQuery } from '../../graphql/queries'
+import { getTopicByIdQuery } from '../../graphql/queries'
 import {
   createAffirmationMutation,
   joinAffirmationWithPackMutation,
@@ -28,7 +28,9 @@ import {
   deleteAffirmationMutation
 } from '../../graphql/mutations'
 // redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { listPacksAction } from '../../../redux/actions/packs.actions'
+// import { createAffirmationAction } from '../../../redux/actions/affirmations.actions'
 // styles
 import styles from './styles.module.scss'
 
@@ -44,30 +46,31 @@ const { affirmations } = DASHBOARD_ROUTES
 const Pack = () => {
   // ? hooks
   const [t] = useTranslation('global')
+  const dispatch = useDispatch()
   const {
     userReducer: { user },
-    checkboxReducer
+    checkboxReducer,
+    packsReducer
     // paginationReducer: { pagination }
   } = useSelector(state => state)
   const { id } = useParams()
   const [pack, setPack] = useState(null)
   const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
+  console.log('object', setWaitQuery)
 
-  useEffect(async () => await handlePackQuery(), [])
-  useEffect(async () => await handlePackQuery(), [newAff])
+  useEffect(() => handlePackId(), [])
+  useEffect(() => handlePackId(), [packsReducer])
+  useEffect(() => dispatch(listPacksAction(user.id)), [newAff])
 
   // ? handle functions
   /**
-   * handlePackQuery
-   */
-  const handlePackQuery = async () => {
-    const dbPack = await gqlquery(getPackByIdQuery(id))
-    const { loading, value } = dbPack
-    if (!loading && value !== null) {
-      setPack(value.data.getPack)
-      setWaitQuery(false)
-    } else { setWaitQuery(true) }
+   * handlePackId
+   * @returns {array}
+   * */
+  const handlePackId = () => {
+    const pk = packsReducer.packs.filter(pack => pack.id === id)[0]
+    setPack(pk || [])
   }
 
   /**
@@ -79,6 +82,9 @@ const Pack = () => {
    * @returns {string} new pack id
    */
   const handleCreateAffirmationMutation = async (name, description, topicsId, packId) => {
+    // TODO: working in this query in redux action.
+    // dispatch(createAffirmationAction(name, description, topicsId, packId, user.id))
+
     setWaitQuery(true)
     let successJoinPack
     const newAffirmationTopicJoin = []
@@ -169,7 +175,7 @@ const Pack = () => {
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return !waitQuery && pack.affirmations.items.map(item => {
+    return pack.affirmations.items.map(item => {
       if (item !== null) {
         const { name, topics } = item.affirmation
         return <NewAffirmation
@@ -213,10 +219,7 @@ const Pack = () => {
         {/* body */}
         <div className={styles.PackBodyContainer}>
           <CreateAffirmations loading={waitQuery} initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} onSave={handleCreateAffirmationMutation}/>
-          {waitQuery
-            ? <Loading />
-            : renderDbAffirmations()
-          }
+          {pack !== null && renderDbAffirmations()}
           <AffirmationsByTopics onClick={handleAffirmationsByTopicsQuery} packId={id} onAddToPack={handleAddToPack}/>
         </div>
       </div>

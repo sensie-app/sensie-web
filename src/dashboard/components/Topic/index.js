@@ -8,7 +8,6 @@ import Checkbox from '@material-ui/core/Checkbox'
 import SvgIcon from '../SvgIcon'
 // constants
 import IMG from '../../constants/images'
-import { COLORS } from '../../constants/theme'
 // utils
 import { handleLargeName } from '../../utils/functions'
 // styles
@@ -16,7 +15,6 @@ import styles from './styles.module.scss'
 
 // const
 const { noImg } = IMG
-const { actionColor1 } = COLORS
 
 // * component
 /**
@@ -59,7 +57,7 @@ const Topic = ({
       <div className={styles.TopicBodyContainer}>
         {witCheckbox &&
           <div className={styles.TopicHeaderContainer}>
-            <Checkbox checked={check} onChange={handleCheck} color={actionColor1} className={styles.TopicCheckbox} />
+            <Checkbox checked={check} onChange={handleCheck} className={styles.TopicCheckbox} />
             {count !== 0 && <h6>{count} Affirmations</h6>}
           </div>
         }

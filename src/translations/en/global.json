@@ -144,17 +144,20 @@
       "family": "Family",
       "parenting": "Parenting",
       "personal": "Personal",
-      "performance": "Performance"
+      "performance": "Performance"      
+    },
+    "AffirmationsList": {
+      "noData": "No affirmations"
     },
     "Topic": {
       "affirmations": "affirmations"
     },
     "Pack": {
       "affirmations": "affirmations",
-      "addPack": "pack added successfully",
-      "addPackError": "error adding pack",
-      "removePack": "pack removed successfully",
-      "removePackError": "error pack"
+      "addPack": "Added successfully",
+      "addPackError": "Error adding affirmation",
+      "removePack": "Removed successfully",
+      "removePackError": "Error affirmation"
     },
     "Packs": {
       "spirit": "Spirit",

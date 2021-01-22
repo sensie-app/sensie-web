@@ -1,7 +1,6 @@
 // react
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
 // material-ui
 import Grid from '@material-ui/core/Grid'
 // redux
@@ -19,9 +18,6 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 import { handleDefaultPictureUser } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
-// test
-import { data } from './data'
-const _data = data
 
 // const
 const { fontColor1 } = COLORS
@@ -31,12 +27,14 @@ const { user } = DASHBOARD_ROUTES
 /**
  * ClientSnapshot component
  * @component
- * @param {array} data
  */
-const ClientSnapshot = ({ data = _data }) => {
+const ClientSnapshot = () => {
   // ? hooks
   const dispatch = useDispatch()
-  const { paginationReducer: { pagination: { pagClientSnapshot } } } = useSelector(state => state)
+  const {
+    usersReducer,
+    paginationReducer: { pagination: { pagClientSnapshot } }
+  } = useSelector(state => state)
 
   // ? handle functions
   /**
@@ -53,7 +51,7 @@ const ClientSnapshot = ({ data = _data }) => {
    * @return  {undefined} component (html)
    */
   const renderClientSnapshotBarChart = () => {
-    return data.map(client => {
+    return !usersReducer.loading && usersReducer.users.map(client => {
       const { id, firstName, lastName, gender, picture } = client
       return (
         <Grid key={id} item xs={12} sm={6} md={3} xl={3}>
@@ -90,12 +88,6 @@ const ClientSnapshot = ({ data = _data }) => {
       </div>
     </section>
   )
-}
-
-// prop-types
-ClientSnapshot.propTypes = {
-  /** data */
-  data: PropTypes.array.isRequired
 }
 
 export default ClientSnapshot

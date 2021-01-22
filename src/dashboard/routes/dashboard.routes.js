@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 // redux
 import { useDispatch } from 'react-redux'
-import { setTopicsAction } from '../../redux/actions/topics.action'
+import { getAllTopicsAction } from '../../redux/actions/topics.action'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
 // pages
@@ -21,10 +21,6 @@ import { NotFound404 } from '../components/Globals'
 // containers
 import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
-// ? hooks
-import useGraphQlApi from '../hooks/useGraphQlApi'
-// graphql queries
-import { listTopicsQuery } from '../graphql/queries'
 // amplify
 import '@aws-amplify/ui/dist/style.css'
 // styles
@@ -54,13 +50,11 @@ const {
  */
 const DashboardRoutes = () => {
   // ? hooks
-  const dbTopics = useGraphQlApi(listTopicsQuery())
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const { loading, value } = dbTopics
-    value !== null && !loading && dispatch(setTopicsAction(value.listTopics.items))
-  }, [dbTopics])
+    dispatch(getAllTopicsAction())
+  }, [])
 
   return (
     <AuthStateApp>

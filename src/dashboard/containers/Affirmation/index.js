@@ -1,5 +1,5 @@
 // react
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // redux
@@ -12,7 +12,7 @@ import PaginationMUI from '../../components/Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
 // utils
-import { handleFlow } from '../../utils/functions'
+// import { handleFlow } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 
@@ -23,38 +23,29 @@ const { fontColor1, grayColor3 } = COLORS
 /**
  * Affirmation container
  * @component
- * @param {undefined} getData
  */
-const Affirmation = ({ getData }) => {
+const Affirmation = () => {
   // ? hooks
   const [t] = useTranslation('global')
   const dispatch = useDispatch()
   const {
-    filtersReducer: { affirmations: { affirmation }, globalDateFilter },
+    filtersReducer: { affirmations: { affirmation } },
     paginationReducer: { pagination: { pagAffirmation } }
   } = useSelector(state => state)
-  const [affirmationData, setAffirmationData] = useState([])
-
-  useEffect(async () => {
-    if (affirmation) {
-      const response = await getData(affirmation.id, globalDateFilter.value)
-      setAffirmationData(response)
-    }
-  }, [affirmation, globalDateFilter])
 
   // ? handle functions
   /**
    * handleData
    * @returns {array} [{user, value}]
    */
-  const handleData = () => {
-    return affirmationData.map(item => {
-      return {
-        user: item.user.firstName + ' ' + item.user.lastName,
-        value: handleFlow(item.user.sensies.items)
-      }
-    })
-  }
+  // const handleData = () => {
+  //   return affirmationData.map(item => {
+  //     return {
+  //       user: item.user.firstName + ' ' + item.user.lastName,
+  //       value: handleFlow(item.user.sensies.items)
+  //     }
+  //   })
+  // }
 
   /**
    * handle paginaion change
@@ -74,7 +65,7 @@ const Affirmation = ({ getData }) => {
         </div>
       </div>
       <div style={{ height: '400px', width: '100%' }}>
-        <SpiderChart data={handleData()} />
+        <SpiderChart />
       </div>
       <div className={styles.AffirmationPagination}>
         <PaginationMUI count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmation} />
@@ -85,7 +76,7 @@ const Affirmation = ({ getData }) => {
 
 // PropTypes
 Affirmation.propTypes = {
-  getData: PropTypes.func.isRequired
+  getData: PropTypes.func
 }
 
 export default Affirmation

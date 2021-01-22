@@ -41,7 +41,7 @@ PaginationMUI.propTypes = {
   /** onChange */
   onChange: PropTypes.func,
   /** defaultPage */
-  defaultPage: PropTypes.string
+  defaultPage: PropTypes.number
 }
 
 export default PaginationMUI

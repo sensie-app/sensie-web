@@ -22,7 +22,7 @@ import styles from './styles.module.scss'
 import { UserPropTypes } from '../../prop-types'
 
 // const
-const { USER, UP, DOWN } = IconChartTypes
+const { USER, UP } = IconChartTypes
 const { summary } = UserListBtns
 
 // * component
@@ -79,9 +79,9 @@ const User = ({ user, show }) => {
             </div>
           </div>
         : <div className={styles.UserBodyContainer}>
-            <IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} />
-            <IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={DOWN} theme={2} />
-            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(user.sensies.items)} valueType="%" icon={USER} theme={2} />
+            <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div>
+            <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
+            <div><IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(user.sensies.items)} valueType="%" icon={USER} theme={2} /></div>
           </div>
       }
     </div>

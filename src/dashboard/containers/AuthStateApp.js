@@ -3,19 +3,12 @@ import React, { useEffect, useState } from 'react'
 import Proptypes from 'prop-types'
 // redux
 import { useDispatch } from 'react-redux'
-import { setUserDataAction, setUserIdAction } from '../../redux/actions/user.actions'
+import { setUserIdAction, getUserByIdAction } from '../../redux/actions/user.actions'
 // amplify
 import Amplify from 'aws-amplify'
 import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react'
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components'
 import awsconfig from '../../aws-exports'
-// ? hooks
-// import useGraphQlApi from '../hooks/useGraphQlApi'
-// utils
-import { gqlquery } from '../utils/queries'
-// graphql queries
-import { getUserByIdQuery } from '../graphql/queries'
-// import { getUser } from '../../graphql/queries'
 
 // amplify config
 Amplify.configure(awsconfig)
@@ -42,9 +35,8 @@ const AuthStateApp = ({ children }) => {
   useEffect(async () => {
     if (user !== null && authState === 'signedin') {
       const { username } = user
-      const dbUser = await gqlquery(getUserByIdQuery(username))
-      dispatch(setUserDataAction(dbUser.value.data.getUser))
       dispatch(setUserIdAction(username))
+      dispatch(getUserByIdAction(username))
     }
   }, [user])
 
