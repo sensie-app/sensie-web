@@ -66,6 +66,8 @@ const Footer = () => {
             <Box mt={2} mb={6}>
               <Button
                 color="primary"
+                type="submit"
+                form="mc-embedded-subscribe-form"
                 variant="outlined"
                 className={classes.btnSuscribe}
               >
