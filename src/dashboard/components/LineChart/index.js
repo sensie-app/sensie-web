@@ -36,7 +36,7 @@ const LineChart = ({ data }) => {
           enablePointLabel={false}
           enableGridX={false}
           enableGridY={true}
-          colors={[actionColor1, actionColor3, actionColor2]}
+          colors={[actionColor1, actionColor2]}
           xScale={{
             type: 'linear'
           }}

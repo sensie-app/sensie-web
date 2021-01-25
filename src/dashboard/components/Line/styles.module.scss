@@ -1,0 +1,8 @@
+@import '../../styles/index.scss';
+
+.LineContainer {
+  color: $grayColor4;
+  @include border(solid, 1px 0 0 0, 0, $grayColor4);
+  margin: 10px 0px;
+  width: 100%;
+}

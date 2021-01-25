@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // components
 import AffirmationsList from '../../containers/AffirmationsList'
+import Line from '../../components/Line'
 // components
 import TitleAndButton from '../../components/TitleAndButton'
 // styles
@@ -34,6 +35,8 @@ const TrackAffirmations = ({
       <div className={styles.TrackAffirmationsBodyContainer}>
         {/* header */}
         {theme !== 2 && <TitleAndButton title={title} btnTitle={btn.title} route={btn.route} />}
+        {/* line */}
+        <Line />
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
           <AffirmationsList getSensies={getSensies} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
