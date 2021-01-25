@@ -47,8 +47,8 @@
   .AffirmationsByTopicsBoxesContainer {
     width: 100%;
     padding: 10px 0px;
-    @include flex(row, flex-start, center, wrap);
-    button {
+    // @include flex(row, flex-start, center, nowrap);
+    .affirmationsByTopicsButton {
       background-color: transparent;
       border-style: none;
       &:hover {
@@ -62,3 +62,13 @@
   width: 100%;
 }
 
+.affirmationsByTopicsCaruselContainer {
+  @include flex(row, flex-start, center, nowrap);
+}
+
+.affirmationsByTopicsCaruselBtn {
+  border-style: none;
+  background-color: transparent;
+  color: red;
+  padding: 5px 15px;
+}

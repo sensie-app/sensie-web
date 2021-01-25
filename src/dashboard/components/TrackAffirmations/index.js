@@ -36,9 +36,9 @@ const TrackAffirmations = ({
         {/* header */}
         {theme !== 2 && <TitleAndButton title={title} btnTitle={btn.title} route={btn.route} />}
         {/* line */}
-        <Line />
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
+          <Line />
           <AffirmationsList getSensies={getSensies} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
         </div>
       </div>
