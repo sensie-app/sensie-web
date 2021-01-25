@@ -140,6 +140,9 @@ const Topic = () => {
         newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
       })
       setNewAff(!newAff)
+      toast.success(t('dashboard.Pack.createAffirmation'))
+    } else {
+      toast.error(t('dashboard.Pack.createAffirmationError'))
     }
     setWaitQuery(false)
     return successAffirmation ? newAffirmation.value.data.createAffirmation.id : null

@@ -15,7 +15,7 @@
 
 .MultipleSelectCheckboxMenuItem {
   .MultipleSelectCheckboxMenuItemCheckbox {
-    color: $actionColor1;
+    color: $actionColor1 !important;
   }
   div {
     padding-right: 10px;

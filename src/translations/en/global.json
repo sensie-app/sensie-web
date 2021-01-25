@@ -157,7 +157,9 @@
       "addPack": "Added successfully",
       "addPackError": "Error adding affirmation",
       "removePack": "Removed successfully",
-      "removePackError": "Error affirmation"
+      "removePackError": "Error affirmation",
+      "createAffirmation": "Created successfully",
+      "createAffirmationError": "Error creating affirmation"
     },
     "Packs": {
       "spirit": "Spirit",

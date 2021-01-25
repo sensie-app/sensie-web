@@ -102,6 +102,10 @@ const Pack = () => {
         const joinTopic = await gqlquery2(joinAffirmationWithTopicMutation(newAffirmationId, topicId))
         newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
       })
+
+      toast.success(t('dashboard.Pack.createAffirmation'))
+    } else {
+      toast.error(t('dashboard.Pack.createAffirmationError'))
     }
     setNewAff(successAffirmation && successJoinPack ? !newAff : newAff)
     setWaitQuery(false)
@@ -118,6 +122,7 @@ const Pack = () => {
     if (!joinPack.loading && joinPack.value !== null) {
       setNewAff(!joinPack.loading && joinPack.value !== null ? !newAff : newAff)
       toast.success(t('dashboard.Pack.addPack'))
+      console.log('true', true)
     } else {
       toast.error(t('dashboard.Pack.addPackError'))
     }
@@ -174,7 +179,7 @@ const Pack = () => {
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return pack.length > 0 && pack.affirmations.items.map(item => {
+    return pack && pack.affirmations.items.map(item => {
       if (item !== null) {
         const { name, topics } = item.affirmation
         return <NewAffirmation
