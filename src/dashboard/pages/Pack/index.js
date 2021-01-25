@@ -57,7 +57,6 @@ const Pack = () => {
   const [pack, setPack] = useState(null)
   const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
-  console.log('object', setWaitQuery)
 
   useEffect(() => handlePackId(), [])
   useEffect(() => handlePackId(), [packsReducer])
@@ -175,7 +174,7 @@ const Pack = () => {
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return pack.affirmations.items.map(item => {
+    return pack.length > 0 && pack.affirmations.items.map(item => {
       if (item !== null) {
         const { name, topics } = item.affirmation
         return <NewAffirmation

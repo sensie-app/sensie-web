@@ -1,4 +1,81 @@
+// 2 colors green-red (60%)
 export const data1 = [
+  {
+    id: 'high',
+    data: [
+      { x: 0, y: null },
+      { x: 1, y: null },
+      { x: 2, y: null },
+      { x: 3, y: null },
+      { x: 4, y: 60 },
+      { x: 5, y: 75 },
+      { x: 6, y: 80 },
+      { x: 7, y: 100 },
+      { x: 8, y: 90 },
+      { x: 9, y: 65 },
+      { x: 10, y: 60 },
+      { x: 11, y: null },
+      { x: 12, y: null },
+      { x: 13, y: null },
+      { x: 14, y: null },
+      { x: 15, y: null },
+      { x: 16, y: null },
+      { x: 17, y: 60 },
+      { x: 18, y: 70 },
+      { x: 19, y: 80 },
+      { x: 20, y: 100 },
+      { x: 21, y: 90 },
+      { x: 22, y: 75 },
+      { x: 23, y: 60 },
+      { x: 24, y: null },
+      { x: 25, y: null },
+      { x: 26, y: null },
+      { x: 27, y: null },
+      { x: 28, y: null },
+      { x: 29, y: null },
+      { x: 30, y: null }
+    ]
+  },
+  {
+    id: 'low',
+    data: [
+      { x: 0, y: 10 },
+      { x: 1, y: 20 },
+      { x: 2, y: 25 },
+      { x: 3, y: 40 },
+      { x: 4, y: 60 },
+      { x: 5, y: null },
+      { x: 6, y: null },
+      { x: 7, y: null },
+      { x: 8, y: null },
+      { x: 9, y: null },
+      { x: 10, y: 60 },
+      { x: 11, y: 50 },
+      { x: 12, y: 30 },
+      { x: 13, y: 10 },
+      { x: 14, y: 22 },
+      { x: 15, y: 35 },
+      { x: 16, y: 45 },
+      { x: 17, y: 60 },
+      { x: 18, y: null },
+      { x: 19, y: null },
+      { x: 20, y: null },
+      { x: 21, y: null },
+      { x: 22, y: null },
+      { x: 23, y: 60 },
+      { x: 24, y: 50 },
+      { x: 25, y: 45 },
+      { x: 26, y: 30 },
+      { x: 27, y: 15 },
+      { x: 28, y: 20 },
+      { x: 29, y: 25 },
+      { x: 30, y: 30 }
+    ]
+  }
+]
+
+// 3 colors green-blue-red (75% 50%)
+export const data2 = [
   {
     id: 'high',
     data: [
@@ -109,7 +186,8 @@ export const data1 = [
   }
 ]
 
-export const data2 = [
+// 1 color
+export const data3 = [
   {
     id: 'value',
     data: [

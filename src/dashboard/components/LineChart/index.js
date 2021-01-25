@@ -36,7 +36,7 @@ const LineChart = ({ data }) => {
           enablePointLabel={false}
           enableGridX={false}
           enableGridY={true}
-          colors={[actionColor1, actionColor3, actionColor2]}
+          colors={[actionColor1, actionColor2]}
           xScale={{
             type: 'linear'
           }}
@@ -54,6 +54,7 @@ const LineChart = ({ data }) => {
           theme={chartTheme}
           axisLeft={{
             format: value => value % 25 === 0 && value + '%',
+            tickValues: [0, 25, 50, 75, 100],
             tickSize: 0,
             tickPadding: 10,
             tickRotation: 0,

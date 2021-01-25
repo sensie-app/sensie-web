@@ -7,6 +7,10 @@
   @include backgroundImg(cover);
 }
 
+.TopicContainerActive {
+  border: solid 2px $actionColor1;
+}
+
 .TopicBodyContainer {
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;

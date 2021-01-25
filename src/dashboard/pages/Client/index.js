@@ -42,7 +42,7 @@ const Client = () => {
       {/* seo */}
       <HelmetSEO title={t('seo.Client.title')} subtitle={t('seo.Client.subtitle')} />
       {/* header */}
-      <Header withBack={true} withPeople={false} />
+      <Header withBack={false} withPeople={true} />
       {/* body */}
       <Grid container spacing={1}>
         {/* affirmations */}

@@ -29,6 +29,7 @@ const { noImg } = IMG
  * @param {string} size (default: 250px)
  * @param {string} iconSize (default: 50px)
  * @param {number} count (default: 0)
+ * @param {boolean} active
  */
 const Topic = ({
   route,
@@ -39,7 +40,8 @@ const Topic = ({
   witCheckbox = true,
   size = '250px',
   iconSize = '50px',
-  count = 0
+  count = 0,
+  active
 }) => {
   // ? hooks
   const [check, setCheck] = useState(false)
@@ -53,7 +55,7 @@ const Topic = ({
   const handleCheck = () => setCheck(!check)
 
   return (
-    <div className={styles.TopicContainer} style={{ backgroundImage: `url(${image})`, width: size, height: size }}>
+    <div className={`${styles.TopicContainer} ${active ? styles.TopicContainerActive : undefined}`} style={{ backgroundImage: `url(${image})`, width: size, height: size }}>
       <div className={styles.TopicBodyContainer}>
         {witCheckbox &&
           <div className={styles.TopicHeaderContainer}>
@@ -97,7 +99,9 @@ Topic.propTypes = {
   /** iconSize */
   iconSize: PropTypes.string,
   /** count */
-  count: PropTypes.number
+  count: PropTypes.number,
+  /** active */
+  active: PropTypes.bool
 }
 
 export default Topic
