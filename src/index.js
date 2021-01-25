@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import App from './routes/App'
 import reportWebVitals from './reportWebVitals'
 // amplify
-import Amplify from 'aws-amplify'
+import Amplify, { Analytics } from 'aws-amplify'
 import awsExports from './aws-exports'
 // styles
 import './styles/global.scss'
@@ -17,6 +17,21 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 
 Amplify.configure(awsExports)
+
+Analytics.autoTrack('session', {
+    enable: true,
+    provider: 'AWSPinpoint'
+});
+
+Analytics.autoTrack('pageView', {
+    enable: true,
+    eventName: 'pageView',
+    type: 'SPA',
+    provider: 'AWSPinpoint',
+    getUrl: () => {
+        return window.location.origin + window.location.pathname;
+    }
+});
 
 ReactDOM.render(
   <React.StrictMode>
