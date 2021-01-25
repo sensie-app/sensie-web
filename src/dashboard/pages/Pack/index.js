@@ -57,7 +57,6 @@ const Pack = () => {
   const [pack, setPack] = useState(null)
   const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
-  const [active, setActive] = useState(null)
 
   useEffect(() => handlePackId(), [])
   useEffect(() => handlePackId(), [packsReducer])
@@ -196,7 +195,7 @@ const Pack = () => {
       }
     })
   }
-  console.log('active1', active)
+
   return (
     <Fragment>
       <Header withBack={true} withPeople={false} withDate={false} backTo={affirmations} />
@@ -220,7 +219,7 @@ const Pack = () => {
         <div className={styles.PackBodyContainer}>
           <CreateAffirmations loading={waitQuery} initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} onSave={handleCreateAffirmationMutation}/>
           {pack !== null && renderDbAffirmations()}
-          <AffirmationsByTopics onClick={handleAffirmationsByTopicsQuery} active={active} packId={id} onAddToPack={handleAddToPack}/>
+          <AffirmationsByTopics onClick={handleAffirmationsByTopicsQuery} packId={id} onAddToPack={handleAddToPack}/>
         </div>
       </div>
       <ToastContainer
