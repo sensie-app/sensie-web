@@ -19,19 +19,19 @@ import store from './redux/store'
 Amplify.configure(awsExports)
 
 Analytics.autoTrack('session', {
-    enable: true,
-    provider: 'AWSPinpoint'
-});
+  enable: true,
+  provider: 'AWSPinpoint'
+})
 
 Analytics.autoTrack('pageView', {
-    enable: true,
-    eventName: 'pageView',
-    type: 'SPA',
-    provider: 'AWSPinpoint',
-    getUrl: () => {
-        return window.location.origin + window.location.pathname;
-    }
-});
+  enable: true,
+  eventName: 'pageView',
+  type: 'SPA',
+  provider: 'AWSPinpoint',
+  getUrl: () => {
+    return window.location.origin + window.location.pathname
+  }
+})
 
 ReactDOM.render(
   <React.StrictMode>
