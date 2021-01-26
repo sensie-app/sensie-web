@@ -58,20 +58,20 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3)
+    width: '5vh',
+    height: '5vh'
   },
   medium: {
-    width: theme.spacing(6),
-    height: theme.spacing(6)
+    width: '7.5vh',
+    height: '7.5vh'
   },
   large: {
-    width: theme.spacing(10),
-    height: theme.spacing(10)
+    width: '15vh',
+    height: '15vh'
   },
   xlarge: {
-    width: theme.spacing(18),
-    height: theme.spacing(18)
+    width: '20vh',
+    height: '20vh'
   }
 }))
 

@@ -1,17 +1,24 @@
 @import '../../styles/index.scss';
 
-.CreatePackContainer {
-  margin: 10px;
+.CreatePackContainer {  
+  width: 100%;
+  height: 40vh;
+  max-height: 40vh;
+  padding: 10px;
 }
 
 .CreatePackBtn {  
-  width: 250px;
-  height: 250px;
+  padding: 10px;
+  width: 100% !important;
   color: $grayColor3;
+  height: 40vh;
   font-size: 20px;
   font-weight: bold;
   @include flex(column, center, center, nowrap);
   @include border(solid, 1.5px, 5px, $grayColor3);
+  button {
+    width: 100%;
+  }
 }
 
 .CreatePackBody {

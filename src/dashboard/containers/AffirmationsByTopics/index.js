@@ -132,7 +132,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
                 topic={_topic}
                 withLink={false}
                 witCheckbox={false}
-                size="100px"
+                min={true}
                 iconSize='25px'
                 active={active === _topic.id}
               />

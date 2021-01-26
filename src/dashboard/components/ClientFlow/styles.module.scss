@@ -3,7 +3,8 @@
 .ClientFlowContainer {
   @include G50Container(); 
   @include heightGrid();
-  box-sizing: border-box;
+  padding: 10px;
+  // box-sizing: border-box;
 }
 
 .ClientFlowBodyContainer {
@@ -21,6 +22,7 @@
 
 .ClientFlowHeaderChartsS1Container {
   width: 50%;
+  height: 80%;
   @include flex(row, space-around, center, nowrap);
 }
 

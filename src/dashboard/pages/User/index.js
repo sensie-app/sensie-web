@@ -40,7 +40,6 @@ const User = () => {
   const [redirect, setRedirect] = useState(false)
   // const [affirmations, setAffirmations] = useState([])
   const [waitQuery, setWaitQuery] = useState(true)
-  console.log('user', user)
 
   useEffect(() => user === undefined ? setRedirect(true) : setRedirect(false), [globalDateFilter])
   useEffect(async () => {

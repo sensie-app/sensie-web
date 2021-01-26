@@ -122,7 +122,6 @@ const Pack = () => {
     if (!joinPack.loading && joinPack.value !== null) {
       setNewAff(!joinPack.loading && joinPack.value !== null ? !newAff : newAff)
       toast.success(t('dashboard.Pack.addPack'))
-      console.log('true', true)
     } else {
       toast.error(t('dashboard.Pack.addPackError'))
     }

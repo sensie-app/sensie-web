@@ -59,12 +59,14 @@ const User = ({ user, show }) => {
   return (
     <div className={styles.UserContainer}>
       {/* avatar */}
-      <Link to={DASHBOARD_ROUTES.user + '/' + user.id}>
-        <div className={styles.UserAvatarContainer}>
-          <ImageAvatar url={user.picture || handleDefaultPictureUser(user.gender)} alt={user.lastName} />
-          {renderName()}
-        </div>
-      </Link>
+      <div className={styles.UserAvatarContainer}>
+        <Link to={DASHBOARD_ROUTES.user + '/' + user.id}>
+          <div>
+            <ImageAvatar url={user.picture || handleDefaultPictureUser(user.gender)} alt={user.lastName} />
+            {renderName()}
+          </div>
+        </Link>
+      </div>
       {/* body */}
       { show === summary
         ? <div className={styles.UserBodySummary}>

@@ -134,6 +134,7 @@ const CreatePack = ({ onSave }) => {
         title={t('dashboard.CreatePack.newPack')}
         width='38%'
         initialState={false}
+        width2='100%'
       >
         {renderModalBtn()}
         {renderModalBody()}

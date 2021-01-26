@@ -2,14 +2,20 @@
 @mixin G50Container {
   background-color: $grayColor6;
   border-radius: 5px;
-  padding: 10px 15px;
+  padding: 20px;
   width: 100%;
-  @include flex(row, flex-start, center, wrap);
+  height: 100%;
+  @include flex(column, flex-start, center, nowrap);
 }
 
 @mixin heightGrid {
-  max-height: 450px;
-  height: 450px;
+  max-height: 75vh;
+  height: 75vh;
+}
+
+@mixin heightGridMin {
+  min-height: 75vh;
+  height: 100%;
 }
 
 // Home Grid 50%
@@ -21,7 +27,7 @@
 
 // Home Grid 50%
 @mixin G50HeaderContainer { 
-  height: 15%;
+  // height: 15%;
   width: 100%;
   @include flex(row, space-between, center, nowrap);
 }
@@ -29,9 +35,9 @@
 // Home Grid 50%
 @mixin G50HeaderTitleContainer {
   h3 {
-    color: $fontColor1;
+    color: red;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 3rem !important;
   }
 }
 

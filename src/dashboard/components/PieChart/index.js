@@ -15,7 +15,7 @@ import { data1 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3, grayColor4 } = COLORS
-const margin = 5
+// const margin = 0
 
 // * component
 /**
@@ -64,7 +64,7 @@ const PieChart = ({ data = data1, title = '' }) => {
       <div className={styles.PieChartDataContainer}>
         <ResponsivePie
             data={handleDataColor(data)}
-            margin={{ top: margin, right: margin, bottom: margin, left: margin }}
+            // margin={{ top: margin, right: margin, bottom: margin, left: margin }}
             innerRadius={0.85}
             colors={value => value.data.color }
             borderWidth={1}

@@ -14,7 +14,7 @@
       margin-right: $step1;
     }
     span {
-      font-size: 14px;
+      font-size: 1rem;
       color: $fontColor1;
     }
   }    
@@ -35,7 +35,7 @@
     @include flex(row, flex-end, center, wrap);
     .HeaderCalendarIcon,
     span {      
-      font-size: 14px;
+      font-size: 1rem;
       color: $fontColor1;
     };
   }

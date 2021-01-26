@@ -83,7 +83,7 @@ const NewAffirmation = ({
       ? setDisabledTopics(false)
       : menuAction.value === 'delete'
         ? await onDelete(data.id)
-        : console.log(':D')
+        : console.log('🗑')
   }, [menuAction])
 
   // ? handle functions

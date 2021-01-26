@@ -4,13 +4,14 @@
   width: 100%;
   @include flex(column, space-between, center, nowrap);
   border-radius: 5px;
+  padding: 20px;
 }
 
 .SageDashboardSectionContainer {
   margin: 10px;
   background-color: $grayColor6;
   border-radius: 5px;
-  padding: 20px;
+  padding: 20px 40px;
   width: 100%;
 
   .SageDashboardSectionInfoContainer {

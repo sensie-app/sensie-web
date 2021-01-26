@@ -64,7 +64,7 @@ const Affirmation = () => {
           <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Affirmation.selectAOption')} color={grayColor3} />
         </div>
       </div>
-      <div style={{ height: '400px', width: '100%' }}>
+      <div style={{ height: '80%', width: '100%' }}>
         <SpiderChart />
       </div>
       <div className={styles.AffirmationPagination}>

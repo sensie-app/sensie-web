@@ -16,3 +16,11 @@ a:hover {
 a:active {
     color: #15E7BC;
 }
+
+.MuiGrid-grid-xs-12 {
+    -webkit-flex: 1 0 auto !important;
+}
+
+.MuiGrid-item {
+    width: 100% !important;
+}
