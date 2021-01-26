@@ -10,6 +10,7 @@ import ClientSnapshot from '../../containers/ClientSnapshot'
 import ClientFlow from '../../components/ClientFlow'
 import TrackAffirmations from '../../components/TrackAffirmations'
 import Loading from '../../components/Loading'
+import Line from '../../components/Line'
 import { HelmetSEO } from '../../components/Globals'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -153,6 +154,7 @@ const Home = () => {
           <div className={styles.HomeG3Container}>
             <div className={styles.HomeG3ContainerTitle}>
               <h3>{t('dashboard.Home.ClientSnapshot')}</h3>
+              <Line />
               {usersReducer.loading
                 ? <Loading />
                 : <ClientSnapshot />
