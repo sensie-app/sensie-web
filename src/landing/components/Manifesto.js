@@ -15,6 +15,9 @@ const useStyle = makeStyles({
     alignSelf: 'center',
     fontSize: '20px',
     fontStyle: 'italic'
+  },
+  title: {
+    fontSize: '20px'
   }
 })
 

@@ -2,7 +2,7 @@
 
 .NewAffirmationContainer {
   width: 100%;
-  @include flex(column, space-between, flex-start, wrap);
+  @include flex(column, space-between, flex-start, nowrap);
   background-color: $grayColor5;
   border-radius: 5px;
   padding: 10px;
@@ -10,10 +10,10 @@
 }
 
 .NewAffirmationSTop {
-  @include flex(row, space-between, center, wrap);
+  @include flex(row, space-between, center, nowrap);
   width: 100%;
   .NewAffirmationS1 {
-    @include flex(row, flex-start, center, wrap);
+    @include flex(row, flex-start, center, nowrap);
     width: 60%;
     h4 {
       font-size: 16px;
@@ -52,7 +52,7 @@
   }
   
   .NewAffirmationS2 {
-    @include flex(row, space-between, center, wrap);
+    @include flex(row, space-between, center, nowrap);
 
     .NewAffirmationS2RemoveBtn {
       color: $actionColor2;
@@ -94,7 +94,7 @@
     }
     
     .NewAffirmationS2Icons {
-      @include flex(row, space-between, center, wrap);
+      @include flex(row, space-between, center, nowrap);
       padding: 0px 10px;
       .NewAffirmationMenuActions {
         div ul {
@@ -123,7 +123,7 @@
 
 .NewAffirmationSBottom {
   width: 100%;
-  @include flex(row, flex-start, center, wrap);
+  @include flex(row, flex-start, center, nowrap);
 }
 
 .NewAffirmationCountCheckbox {

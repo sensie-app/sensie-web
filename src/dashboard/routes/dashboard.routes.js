@@ -1,6 +1,7 @@
 // react
 import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { ThemeProvider } from '@material-ui/core'
 // redux
 import { useDispatch } from 'react-redux'
 import { getAllTopicsAction } from '../../redux/actions/topics.action'
@@ -28,6 +29,8 @@ import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
+// theme
+import theme from '../styles/themeConfig'
 
 // const
 const {
@@ -58,23 +61,25 @@ const DashboardRoutes = () => {
 
   return (
     <AuthStateApp>
-      <BrowserRouter>
-        <Switch>
-          <Layout>
-            <Route path={home} component={Home} />
-            <Route path={client} component={Client} />
-            <Route path={team} component={Team} />
-            <Route path={affirmations} component={Affirmations} />
-            <Route path={sageDashboard} component={SageDashboard} />
-            <Route path={profile} component={Profile} />
-            <Route path={user + '/:id'} component={User} />
-            <Route path={pack + '/:id'} component={Pack} />
-            <Route path={topic + '/:id'} component={Topic} />
-            <Redirect from={entrypoint} to={home} />
-          </Layout>
-          <Route component={NotFound404} />
-        </Switch>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Switch>
+            <Layout>
+              <Route path={home} component={Home} />
+              <Route path={client} component={Client} />
+              <Route path={team} component={Team} />
+              <Route path={affirmations} component={Affirmations} />
+              <Route path={sageDashboard} component={SageDashboard} />
+              <Route path={profile} component={Profile} />
+              <Route path={user + '/:id'} component={User} />
+              <Route path={pack + '/:id'} component={Pack} />
+              <Route path={topic + '/:id'} component={Topic} />
+              <Redirect from={entrypoint} to={home} />
+            </Layout>
+            <Route component={NotFound404} />
+          </Switch>
+        </BrowserRouter>
+      </ThemeProvider>
     </AuthStateApp>
   )
 }

@@ -22,7 +22,7 @@
 @mixin G50BodyContainer {
   width: 100%;
   height: 100%;
-  @include flex(column, flex-start, flex-start, wrap);
+  @include flex(column, flex-start, flex-start, nowrap);
 }
 
 // Home Grid 50%

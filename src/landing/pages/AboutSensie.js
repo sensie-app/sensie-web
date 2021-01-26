@@ -196,7 +196,7 @@ const AboutSensie = () => {
           >
             <Grid item xs={12}>
               <Box mt={14} className={classes.title} data-aos="zoom-out-up">
-                <span>Advisory Board</span>
+                <span className={classes.title}>Advisory Board</span>
               </Box>
             </Grid>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">

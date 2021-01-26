@@ -58,12 +58,12 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   small: {
-    width: '5vh',
-    height: '5vh'
+    width: '3.5vh',
+    height: '3.5vh'
   },
   medium: {
-    width: '7.5vh',
-    height: '7.5vh'
+    width: '5vh',
+    height: '5vh'
   },
   large: {
     width: '15vh',
