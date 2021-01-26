@@ -4,17 +4,20 @@ import { Box, makeStyles, Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
-    fontSize: 16,
+    fontSize: '16px',
     height: 200
   },
   titleStyle: {
+    fontSize: '16px',
     fontWeight: 500
   },
   subtitleStyle: {
+    fontSize: '16px',
     fontWeight: 500,
     color: '#FFFFFF'
   },
   textStyle: {
+    fontSize: '16px',
     fontWeight: 200,
     color: '#FFFFFF',
     textAlign: 'center'
