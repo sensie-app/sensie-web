@@ -84,7 +84,7 @@ const UsersList = () => {
       {/* body */}
       {renderUsers()}
       <div className={styles.UserListPagination}>
-        <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagUsersList} />
+        {usersReducer.users.length !== 0 && <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagUsersList} />}
       </div>
     </section>
   )

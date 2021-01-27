@@ -84,7 +84,7 @@ const ClientSnapshot = () => {
         {renderClientSnapshotBarChart()}
       </Grid>
       <div className={styles.ClientSnapshotFooter}>
-        <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagClientSnapshot} />
+        {usersReducer.users.length !== 0 && <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagClientSnapshot} />}
       </div>
     </section>
   )
