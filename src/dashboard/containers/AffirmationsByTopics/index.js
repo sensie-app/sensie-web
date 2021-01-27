@@ -2,15 +2,19 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'
+import 'pure-react-carousel/dist/react-carousel.es.css'
 // contaniners
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
+import Icon from '../../components/Icon'
 import Topic from '../../components/Topic'
 import Title from '../../components/Title'
 import ItemCheckbox from '../../components/ItemCheckbox'
 // constants
 import TopicsConstants from '../../constants/topics'
 import IMG from '../../constants/images'
+import { COLORS } from '../../constants/theme'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { setCheckboxAllAffirmationsByTopicsAction } from '../../../redux/actions/checkbox.actions'
@@ -23,6 +27,7 @@ import styles from './styles.module.scss'
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
 const { spiritImg, healthImg, financeImg, funImg, loveImg, familyImg, parentingImg, personalImg, performanceImg, noImg } = IMG
 const showOldTopics = false
+const { fontColor1 } = COLORS
 
 // * component
 /**
@@ -30,18 +35,20 @@ const showOldTopics = false
  * @component
  * @param {undefined} onClick
  * @param {boolean} checkAll
+ * @param {string} packId
+ * @param {undefined} onAddToPack (default: ()=>{})
  */
-const AffirmationsByTopics = ({ onClick, checkAll }) => {
+const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {} }) => {
   // ? hooks
   const dispatch = useDispatch()
   const {
-    userReducer: { user },
     topicsReducer: { topics },
     checkboxReducer: { all: { affirmationsByTopics } }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [topic, setTopic] = useState(null)
   const [affirmations, setAffirmations] = useState([])
+  const [active, setActive] = useState(null)
 
   useEffect(async () => await handleOnClickProps(), [topic])
 
@@ -50,9 +57,9 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
    * handleOnClickProps
    */
   const handleOnClickProps = async () => {
-    if (topic && user) {
-      const listaffirmations = await onClick(topic.id, user.id)
-      if (!listaffirmations.loading && listaffirmations.value !== null) setAffirmations(listaffirmations.value.data.listAffirmations.items)
+    if (topic) {
+      const listaffirmations = topics.filter(item => item.id === topic.id)[0]
+      setAffirmations(listaffirmations.affirmations.items)
     }
   }
 
@@ -78,6 +85,11 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
 
   const handleOnClickSelectAll = value => dispatch(setCheckboxAllAffirmationsByTopicsAction(value))
 
+  const handleOnClickBtn = (_topic) => {
+    setTopic(_topic)
+    setActive(_topic.id)
+  }
+
   // ? render functions
   /**
    * render image box
@@ -88,7 +100,7 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
     return arrTopics.map((_topic, index) => (
       <button
         key={index}
-        onClick={() => setTopic(_topic)}>
+        onClick={() => handleOnClickBtn(_topic)}>
         <Topic
           img={handleImageTopics(_topic)}
           title={_topic}
@@ -109,21 +121,24 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
   const renderTopics = () => {
     return topics.map((_topic, index) => {
       return (
-        <button
-          key={index}
-          onClick={() => setTopic(_topic)}>
-          <a href="#listTopics">
-            <Topic
-              img={handleImageTopics(_topic)}
-              title={_topic}
-              topic={_topic}
-              withLink={false}
-              witCheckbox={false}
-              size="100px"
-              iconSize='25px'
-            />
-          </a>
-        </button>
+        <Slide key={index} index={index}>
+          <button
+            className={styles.affirmationsByTopicsButton}
+            onClick={() => handleOnClickBtn(_topic)}>
+            {/* <a href="#listTopics"> */}
+              <Topic
+                img={handleImageTopics(_topic)}
+                title={_topic}
+                topic={_topic}
+                withLink={false}
+                witCheckbox={false}
+                min={true}
+                iconSize='25px'
+                active={active === _topic.id}
+              />
+            {/* </a> */}
+          </button>
+        </Slide>
       )
     })
   }
@@ -133,14 +148,17 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
    * @returns {undefined} Affirmations component
    */
   const renderListAffirmations = () => {
-    return affirmations.length > 0 && affirmations.map(affirmation => {
+    return affirmations.length > 0 && affirmations.map(item => {
       return <NewAffirmation
+        packId={packId}
+        data={item.affirmation}
         checkAll={affirmationsByTopics}
-        key={affirmation.id}
-        title={affirmation.name}
-        selectedTopics={handleArrTopics(affirmation.topics.items)}
+        key={item.affirmation.id}
+        title={item.affirmation.name}
+        selectedTopics={handleArrTopics(item.affirmation.topics.items)}
         withRemoveBtn={false}
         withAddBtn={true}
+        onAddToPack={onAddToPack}
       />
     })
   }
@@ -156,7 +174,21 @@ const AffirmationsByTopics = ({ onClick, checkAll }) => {
       <div className={styles.AffirmationsByTopicsHeaderContainer}>
         <div className={styles.AffirmationsByTopicsBoxesContainer}>
           {showOldTopics && renderImagesBox()}
-          {renderTopics()}
+          {/* <div className={styles.affirmationsByTopicsCaruselContainer}> */}
+            <CarouselProvider
+              visibleSlides={10}
+              totalSlides={topics.length}
+              step={2}
+              naturalSlideWidth={25}
+              naturalSlideHeight={30}
+              // hasMasterSpinner
+              infinite
+            >
+              <Slider>{renderTopics()}</Slider>
+              <ButtonBack className={styles.affirmationsByTopicsCaruselBtn}><Icon name="arrow-ios-back-outline" color={fontColor1} size="md" /></ButtonBack>
+              <ButtonNext className={styles.affirmationsByTopicsCaruselBtn}><Icon name="arrow-ios-forward-outline" color={fontColor1} size="md" /></ButtonNext>
+            </CarouselProvider>
+          {/* </div> */}
         </div>
         <div className={styles.AffirmationsByTopicsActionContainer}>
           <ItemCheckbox check={checkAll} defaultValue={false} onClick={value => handleOnClickSelectAll(!value)}>
@@ -184,7 +216,11 @@ AffirmationsByTopics.propTypes = {
   /** onClick */
   onClick: PropTypes.func,
   /** checkALl */
-  checkAll: PropTypes.bool
+  checkAll: PropTypes.bool,
+  /** packId */
+  packId: PropTypes.string,
+  /** onAddToPack */
+  onAddToPack: PropTypes.func
 }
 
 export default AffirmationsByTopics

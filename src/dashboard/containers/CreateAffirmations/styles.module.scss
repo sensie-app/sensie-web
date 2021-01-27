@@ -16,7 +16,7 @@
     background-color: $grayColor8;
     color: $fontColor1;
     padding: 5px 10px;
-    font-size: 16px;
+    font-size: 1rem;
     @include border(solid, 1px, 5px, $grayColor8);
     margin-left: 10px;
     &:hover {
@@ -53,7 +53,7 @@
           color: $fontColor1;
           background-color: $grayColor7;
           padding: 7.5px 10px;
-          font-size: 16px;
+          font-size: 1.25rem;
         }
       }
       .CreateAffirmationsFormD1Btns{
@@ -69,7 +69,7 @@
           padding: 6px 15px;
           background-color: transparent;
           margin: 2px 20px;
-          font-size: 16px;
+          font-size: 1.25rem;
           opacity: 0.8;
           &:hover {
             cursor: pointer;
@@ -142,7 +142,7 @@
 
 .errorMessage {
   color: $actionColor4;
-  font-size: 13px;
+  font-size: 0.9rem;
   margin-top: 2.5px;
   width: 100%;
 }
@@ -155,7 +155,7 @@
     color: $grayColor3;
     padding: 5px 15px;
     margin-left: 10px;
-    font-size: 13px;
+    font-size: 1rem;
     opacity: 0.8;
     &:hover {
       opacity: 1;

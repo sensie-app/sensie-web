@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // components
 import AffirmationsList from '../../containers/AffirmationsList'
+import Line from '../../components/Line'
 // components
 import TitleAndButton from '../../components/TitleAndButton'
 // styles
@@ -18,17 +19,27 @@ import styles from './styles.module.scss'
  * @param {BtnTrackAffirmation} btn
  * @param {boolean} fixHeight (default: false)
  * @param {number} theme (default: 1)
- * @param {array} data
+ * @param {undefined} getSensies (default: () => {})
  */
-const TrackAffirmations = ({ data, chipsUp = false, limit, title, btn, fixHeight = false, theme = 1 }) => {
+const TrackAffirmations = ({
+  chipsUp = false,
+  limit,
+  title,
+  btn,
+  fixHeight = false,
+  theme = 1,
+  getSensies = () => {}
+}) => {
   return (
-    <section className={`${styles.TrackAffirmationsContainer} ${fixHeight && styles.TrackAffirmationsContainerHeight}`}>
+    <section className={`${styles.TrackAffirmationsContainer} ${fixHeight ? styles.TrackAffirmationsContainerHeight : styles.TrackAffirmationsContainerHeightMin}`}>
       <div className={styles.TrackAffirmationsBodyContainer}>
         {/* header */}
         {theme !== 2 && <TitleAndButton title={title} btnTitle={btn.title} route={btn.route} />}
+        {/* line */}
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
-          <AffirmationsList data={data} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
+          <Line />
+          <AffirmationsList getSensies={getSensies} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
         </div>
       </div>
     </section>
@@ -52,8 +63,8 @@ TrackAffirmations.propTypes = {
   fixHeight: PropTypes.bool,
   /** theme (1,2) */
   theme: PropTypes.number,
-  /** data */
-  data: PropTypes.array.isRequired
+  /** getSensies */
+  getSensies: PropTypes.func
 }
 
 export default TrackAffirmations

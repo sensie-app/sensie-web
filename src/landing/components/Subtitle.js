@@ -12,7 +12,7 @@ const Subtitle = ({ subtitle }) => {
   const classes = useStyle()
   return (
     <Typography className={classes.subtitle} color="primary">
-      <Box>{ subtitle }</Box>
+      <Box className={classes.subtitle}>{ subtitle }</Box>
     </Typography>
   )
 }

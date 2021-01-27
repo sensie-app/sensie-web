@@ -21,7 +21,7 @@
 .MenuListCompositionItem {
   @include border();
   @include flex(column, center, center, nowrap);
-  @include font($fontColor1, 16px);
+  @include font($fontColor1, 1rem);
   width: 100%;
   background-color: transparent;  
   &:hover {

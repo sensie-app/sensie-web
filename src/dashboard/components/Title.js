@@ -22,7 +22,7 @@ const Title = ({
   color: color,
   margin: margin,
   padding: padding,
-  fontSize: '18px',
+  fontSize: '1.5rem',
   fontWeight: 'bold'
 }}>{text}</span>
 

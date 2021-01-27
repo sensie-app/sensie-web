@@ -14,18 +14,33 @@ import styles from './styles.module.scss'
  * AddToPack component
  * @component
  * @param {arary} packs
+ * @param {undefined} onAddToPack
+ * @param {undefined} closeModal
  */
-const AddToPack = ({ packs }) => {
+const AddToPack = ({ packs, onAddToPack, closeModal }) => {
   // ? hooks
   const [t] = useTranslation('global')
-  const [value, setValue] = useState(null)
+  const [packId, setPackId] = useState(null)
+  const [showError, setShowError] = useState(false)
 
   // ? handle functions
   /**
    * handleChnage
    * @returns {string} value (state)
    */
-  const handleChange = (event) => setValue(event.target.value)
+  const handleChange = (event) => setPackId(event.target.value)
+
+  /**
+   * handleClick
+   */
+  const handleClick = () => {
+    if (packId === null) {
+      setShowError(true)
+    } else {
+      onAddToPack(packId)
+      setShowError(false)
+    }
+  }
 
   // ? render functions
   /**
@@ -43,13 +58,14 @@ const AddToPack = ({ packs }) => {
 
   return (
     <div className={styles.AddToPackContainer}>
-      <RadioGroup aria-label="packs" name="packs" value={value} onChange={handleChange}>
+      <RadioGroup aria-label="packs" name="packs" value={packId} onChange={handleChange}>
         <div className={styles.AddToPackBodyContainer}>
           {renderPacksItems()}
         </div>
       </RadioGroup>
       <div className={styles.AddToPackFooterContainer}>
-        <button>{t('dashboard.AddToPack.add')}</button>
+        <button onClick={() => handleClick()}>{t('dashboard.AddToPack.add')}</button>
+        {showError && <span className={styles.AddToPackError}>{t('dashboard.AddToPack.error')}</span>}
       </div>
     </div>
   )
@@ -57,7 +73,12 @@ const AddToPack = ({ packs }) => {
 
 // prop-types
 AddToPack.propTypes = {
-  packs: PropTypes.array.isRequired
+  /** packs */
+  packs: PropTypes.array.isRequired,
+  /** onAddToPack */
+  onAddToPack: PropTypes.func.isRequired,
+  /** closeModal */
+  closeModal: PropTypes.func
 }
 
 export default AddToPack

@@ -34,9 +34,23 @@ const { fontColor1 } = COLORS
  * @param {boolean} withAddBtn (default: false)
  * @param {boolean} checkAll (default: false)
  * @param {undefined} onAddToPack (default: ()=>{})
+ * @param {undefined} onRemovePack (default: ()=>{})
+ * @param {undefined} onDelete (default: ()=>{})
+ * @param {boolean} onDelete (default: ()=>false)
  */
-const NewAffirmation = ({ data, title, packId = null, selectedTopics, withRemoveBtn = true, withAddBtn = false, checkAll = false, onAddToPack = () => {} }) => {
-  console.log('* data', data)
+const NewAffirmation = ({
+  data,
+  title,
+  packId = null,
+  selectedTopics,
+  withRemoveBtn = true,
+  withAddBtn = false,
+  checkAll = false,
+  isChecked = () => false,
+  onAddToPack = () => {},
+  onRemovePack = () => {},
+  onDelete = () => {}
+}) => {
   // ? hooks
   const dispatch = useDispatch()
   const { affirmationsReducer: { lastAffirmations } } = useSelector(state => state)
@@ -64,12 +78,12 @@ const NewAffirmation = ({ data, title, packId = null, selectedTopics, withRemove
     }
   }, [selectTopics, itemTitle])
 
-  useEffect(() => {
+  useEffect(async () => {
     menuAction.value === 'edit'
       ? setDisabledTopics(false)
-      : menuAction.value === 'delete' && dispatch(setLastAffirmationsAction(
-        lastAffirmations.filter(item => item.title !== title)
-      ))
+      : menuAction.value === 'delete'
+        ? await onDelete(data.id)
+        : console.log('🗑')
   }, [menuAction])
 
   // ? handle functions
@@ -112,6 +126,7 @@ const NewAffirmation = ({ data, title, packId = null, selectedTopics, withRemove
     setMenuAction({})
     setDisabledTopics(true)
     // TODO: use Mutation
+    // * edit
   }
 
   // ? render functions
@@ -147,7 +162,7 @@ const NewAffirmation = ({ data, title, packId = null, selectedTopics, withRemove
     <div className={styles.NewAffirmationContainer}>
       <div className={styles.NewAffirmationSTop}>
         <div className={styles.NewAffirmationS1}>
-          <ItemCheckbox check={checkAll} defaultValue={false} onClick={() => console.log('click!')}>
+          <ItemCheckbox check={checkAll} defaultValue={false} onClick={value => isChecked(!value)}>
             {!disabledTopics
               ? <div className={styles.NewAffirmationEditTitleContainer}>
                   <input
@@ -163,16 +178,15 @@ const NewAffirmation = ({ data, title, packId = null, selectedTopics, withRemove
         </div>
 
         <div className={styles.NewAffirmationS2}>
-          {withRemoveBtn && !withAddBtn && <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => {}}>
+          {withRemoveBtn && !withAddBtn && <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => onRemovePack(data.id)}>
                 <span>{t('dashboard.NewAffirmation.remove')}</span>
              </button>
           }
-          {withAddBtn && !withRemoveBtn && <button className={styles.NewAffirmationS2AddBtn} onClick={() => {}}>
+          {withAddBtn && !withRemoveBtn && <button className={styles.NewAffirmationS2AddBtn} onClick={() => onAddToPack(data.id, packId)}>
                 <span>{t('dashboard.NewAffirmation.add')}</span>
               </button>
           }
           <div className={styles.NewAffirmationS2TopicsBtn}>
-            {/* // TODO: adaptar componente a esta sección (redux) */}
             <MultipleSelectCheckbox
               onClickValue={value => handleClickTopicMenu(value)}
               defValue={selectedTopics}
@@ -221,7 +235,13 @@ NewAffirmation.propTypes = {
   /** checkAll */
   checkAll: PropTypes.bool,
   /** onAddToPack */
-  onAddToPack: PropTypes.func
+  onAddToPack: PropTypes.func,
+  /** onRemovePack */
+  onRemovePack: PropTypes.func,
+  /** onDelete */
+  onDelete: PropTypes.func,
+  /** onDelete */
+  isChecked: PropTypes.func
 }
 
 export default NewAffirmation

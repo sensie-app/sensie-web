@@ -17,6 +17,8 @@ import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagi
 // constants
 import { MenuFilterStateAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
+// utils
+import { handleFlow } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // test data
@@ -33,12 +35,13 @@ const { fontColor1, grayColor5 } = COLORS
  * @param {number} limit
  * @param {string} title (default: ')
  * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
- * @param {array} data
+ * @param {undefined} getSensies (default: () => {})
  */
-const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 }) => {
+const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSensies = () => {} }) => {
   // ? hooks
   const dispatch = useDispatch()
   const {
+    affirmationsReducer,
     filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } },
     paginationReducer: { pagination: { pagAffirmationsList } }
   } = useSelector(state => state)
@@ -56,6 +59,12 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 
    * @returns {undefined} setAffirmationsStateFilterAction (dispatch REDUX)
    */
   const handleClickStateMenu = value => dispatch(setAffirmationsStateFilterAction(value))
+
+  /**
+   * handleTotalAffirmations
+   * @returns {number} total
+   */
+  const handleTotalAffirmations = () => affirmationsReducer.affirmations.length
 
   /**
    * handle click topic menu
@@ -100,7 +109,9 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 
    * @param {number} value
    * @returns {undefined} redux action
    */
-  const handlePaginationChange = (event, value) => dispatch(setPaginationAffirmationsListAction(value))
+  const handlePaginationChange = (event, value) => {
+    dispatch(setPaginationAffirmationsListAction(value))
+  }
 
   // ? render functions
   /**
@@ -140,14 +151,28 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 
   }
 
   /**
+   * renderAffirmationChart
+   * @param {object} data
+   * @param {number} flow
+   */
+  const renderAffirmationChart = (data, flow) => <AffirmationChart key={data.id} data={data} value={flow} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === data} />
+
+  /**
    * render affirmations
    * @return {undefined} AffirmationChart[] (html)
    */
   const renderAffirmationsAffirmationChart = () => {
-    const _data = limit ? data.slice(0, limit) : data
-    return _data.map((_affirmation, index) => (
-      <AffirmationChart key={index} data={_affirmation} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === _affirmation} />
-    ))
+    const _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
+    return !affirmationsReducer.loading && _data.map(item => {
+      const flow = handleFlow(item.sensies.items)
+      switch (stateFilter.value) {
+        case 'flowing': return flow >= 50 && renderAffirmationChart(item, flow)
+        case 'blocked': return flow < 50 && renderAffirmationChart(item, flow)
+        case 'all': return renderAffirmationChart(item, flow)
+        case 'incomplete': return flow === 0 && renderAffirmationChart(item, flow)
+        default: return renderAffirmationChart(item, flow)
+      }
+    })
   }
 
   return (
@@ -185,9 +210,12 @@ const AffirmationsList = ({ data, chipsUp = false, limit, title = '', theme = 1 
           {renderChipsItems()}
         </div>}
         <div className={styles.AffirmationsListAffirmationChartContainer}>
-          {renderAffirmationsAffirmationChart()}
+          {handleTotalAffirmations() > 0
+            ? renderAffirmationsAffirmationChart()
+            : <span>{t('dashboard.AffirmationsList.noData')}</span>
+          }
           {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
-            <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />
+            {handleTotalAffirmations() > 0 && <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />}
           </div>}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>
@@ -208,9 +236,8 @@ AffirmationsList.propTypes = {
   title: PropTypes.string,
   /** theme (1, 2) */
   theme: PropTypes.number,
-  /** data */
-  data: PropTypes.array.isRequired
-
+  /** getSensies */
+  getSensies: PropTypes.func
 }
 
 export default AffirmationsList

@@ -2,25 +2,34 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 // containers
 import Header from '../../containers/Header'
 import CreateAffirmations from '../../containers/CreateAffirmations'
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
 import Share from '../../components/Share'
-import Loading from '../../components/Loading'
+// import Loading from '../../components/Loading'
 import SvgIcon from '../../components/SvgIcon'
 // constants
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 import TopicsConstants from '../../constants/topics'
+import { SIZE } from '../../constants/theme'
 // redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // utils
 import { gqlquery, gqlquery2 } from '../../utils/queries'
 // graphql queries
 import { getTopicByIdQuery } from '../../graphql/queries'
-import { createAffirmationMutation, joinAffirmationWithTopic } from '../../graphql/mutations'
+import {
+  createAffirmationMutation,
+  joinAffirmationWithTopicMutation,
+  joinAffirmationWithPackMutation,
+  removeJoinAffirmationPackMutation
+} from '../../graphql/mutations'
 // styles
 import styles from './styles.module.scss'
 
@@ -50,16 +59,43 @@ const Topic = () => {
   // ? hooks
   const [t] = useTranslation('global')
   const { id } = useParams()
-  const { userReducer: { user } } = useSelector(state => state)
-  const [topic, setTopic] = useState([])
+  const dispatch = useDispatch()
+  const {
+    userReducer: { user },
+    topicsReducer,
+    checkboxReducer
+  } = useSelector(state => state)
+  const [topic, setTopic] = useState(null)
   const [defaultTopic, setDefaultTopic] = useState({})
   const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
+  const [checkedAffirmations, setCheckedAffirmations] = useState([])
+  const [showOptions, setShowOptions] = useState(false)
 
-  useEffect(async () => await handleTopicQuery(), [])
-  useEffect(async () => await handleTopicQuery(), [newAff])
+  // useEffect(async () => await handleTopicQuery(), [])
+  // useEffect(() => handleTopicId(), [])
+  // useEffect(async () => await handleTopicQuery(), [newAff])
+
+  useEffect(() => handleTopicId(), [])
+  useEffect(() => handleTopicId(), [topicsReducer])
+  useEffect(() => dispatch(getAllTopicsAction()), [newAff])
 
   // ? handle functions
+  /**
+   * handlePackId
+   * @returns {array}
+   * */
+  const handleTopicId = () => {
+    const tp = topicsReducer.topics.filter(topic => topic.id === id)[0]
+    const defTopic = [{
+      name: tp.name,
+      description: tp.description,
+      id: tp.id
+    }]
+    setDefaultTopic(defTopic)
+    setTopic(tp || [])
+  }
+
   /**
    * handleTopicQuery
    */
@@ -79,6 +115,7 @@ const Topic = () => {
       setWaitQuery(true)
     }
   }
+  console.log('handleTopicQuery', handleTopicQuery)
 
   /**
    * handleCreateAffirmationMutation
@@ -99,13 +136,56 @@ const Topic = () => {
       const newAffirmationId = newAffirmation.value.data.createAffirmation.id
       // join to topics
       topicsId.map(async topicId => {
-        const joinTopic = await gqlquery2(joinAffirmationWithTopic(newAffirmationId, topicId))
+        const joinTopic = await gqlquery2(joinAffirmationWithTopicMutation(newAffirmationId, topicId))
         newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
       })
       setNewAff(!newAff)
+      toast.success(t('dashboard.Pack.createAffirmation'))
+    } else {
+      toast.error(t('dashboard.Pack.createAffirmationError'))
     }
     setWaitQuery(false)
     return successAffirmation ? newAffirmation.value.data.createAffirmation.id : null
+  }
+
+  /**
+   * handleAddToPack
+   * @param {string} affirmationId
+   * @param {string} packId
+   */
+  const handleAddToPack = async (affirmationId, packId) => {
+    const joinPack = await gqlquery2(joinAffirmationWithPackMutation(affirmationId, packId))
+    setNewAff(!joinPack.loading && joinPack.value !== null ? !newAff : newAff)
+    return !joinPack.loading && joinPack.value !== null
+  }
+
+  /**
+   * handleAddManyToPack
+   * @param {string} affirmationId
+   * @param {string} packId
+   */
+  const handleAddManyToPack = (packId) => {
+    if (checkedAffirmations.length > 0) {
+      checkedAffirmations.map(async item => {
+        const joinPack = await gqlquery2(joinAffirmationWithPackMutation(item, packId))
+        return !joinPack.loading && joinPack.value !== null
+      })
+      setNewAff(!newAff)
+      toast.success(t('dashboard.Pack.addPack'))
+    } else {
+      toast.error(t('dashboard.Pack.addPackError'))
+    }
+  }
+
+  /**
+   * handleRemoveToPack
+   * @param {string} affirmationId
+   * @param {string} packId
+   */
+  const handleRemoveToPack = async (id) => {
+    const remove = await gqlquery2(removeJoinAffirmationPackMutation(id))
+    setNewAff(!remove.loading && remove.value !== null ? !newAff : newAff)
+    return !remove.loading && remove.value !== null
   }
 
   /**
@@ -139,20 +219,42 @@ const Topic = () => {
    */
   const handleArrTopics = topics => topics.map(item => item.topic)
 
+  /**
+   * handleIsChecked
+   * @param {boolean} value
+   * @param {string} affirmationId
+   */
+  const handleIsChecked = (value, affirmationId) => {
+    const affirmations = checkedAffirmations
+    let newArr = []
+    if (value) {
+      affirmations.push(affirmationId)
+      newArr = affirmations
+    } else {
+      newArr = affirmations.filter(item => item !== affirmationId)
+    }
+    setShowOptions(newArr.length > 0)
+    setCheckedAffirmations(newArr)
+  }
+
   // ? render functions
   /**
    * renderDbAffirmations
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return !waitQuery && topic.affirmations.items.map(item => {
+    return topic.affirmations.items.map(item => {
       const { id, name, topics } = item.affirmation
       return <NewAffirmation
+        checkAll={checkboxReducer.all.affirmations}
+        isChecked={value => handleIsChecked(value, id)}
         key={id}
         title={name}
         selectedTopics={handleArrTopics(topics.items)}
         withRemoveBtn={false}
         withAddBtn={false}
+        onAddToPack={handleAddToPack}
+        onRemovePack={handleRemoveToPack}
       />
     })
   }
@@ -167,7 +269,7 @@ const Topic = () => {
             <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${handleImg()})` }} />
             <div className={styles.TopicHeaderTextContainer}>
               <div className={styles.TopicHeaderTextTitle}>
-                <SvgIcon icon={id} size="30px" />
+                <SvgIcon icon={id} size={SIZE.xxl} />
                 {!waitQuery && <span>{topic.name}</span>}
               </div>
               {/* <div className={styles.TopicHeaderTextDescription}>
@@ -187,16 +289,26 @@ const Topic = () => {
           <CreateAffirmations
             defaultTopic={defaultTopic}
             initShowForm={false}
+            showOptions={showOptions}
             withAffirmationsByTopics={false}
             addToPack={true}
             onSave={handleCreateAffirmationMutation}
+            onAddToPack={handleAddManyToPack}
           />
-          {waitQuery
-            ? <Loading />
-            : renderDbAffirmations()
-          }
+            {topic !== null && renderDbAffirmations()}
         </div>
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </Fragment>
   )
 }

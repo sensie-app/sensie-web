@@ -139,7 +139,7 @@ const Layout = ({ children }) => {
     return <div className={styles.LayoutLinkToListItem}>
       <div className={styles.LayoutAvatarImgContainer}>
         <button className={styles.LayoutAvatarBtnImg} onClick={() => handleDrawerOpen()}>
-          <ImageAvatar url={user.gender === 'Male' ? avatarMale : avatarFemale} alt={user.name} size="medium" />
+          <ImageAvatar url={user.gender === 'Male' ? avatarMale : avatarFemale} alt={user.name} size="small" />
         </button>
       </div>
       <div className={styles.LayoutAvatarTextContainer}>
@@ -166,12 +166,18 @@ const Layout = ({ children }) => {
       <MediaQuery maxDeviceWidth={767} orientation="portrait">
         <WrongOrientation />
       </MediaQuery>
+
+      <MediaQuery minDeviceWidth={767} orientation="portrait">
+        <WrongOrientation />
+      </MediaQuery>
+
       {/* wrong resolution */}
       <MediaQuery maxDeviceWidth={767} orientation="landscape">
         <WrongSize />
       </MediaQuery>
+
       {/* ok resolution & orientation */}
-      <MediaQuery minDeviceWidth={768}>
+      <MediaQuery minDeviceWidth={768} orientation="landscape">
         <div className={styles.LayoutContainer}>
           <CssBaseline />
           <AppBar
@@ -264,7 +270,7 @@ const Layout = ({ children }) => {
 // prop-types
 Layout.propTypes = {
   /** children */
-  children: PropTypes.element
+  children: PropTypes.array
 }
 
 // styles material-ui

@@ -18,7 +18,7 @@ const BoxModel2 = ({ data, value, text }) => {
   return (
     <div className={styles.BoxModel2Container}>
       <div className={styles.BoxModel2IconContainer}>
-        <PieChart />
+        <PieChart sage={true}/>
       </div>
       <div className={styles.BoxModel2InfoContainer}>
         <div className={styles.BoxModelInfoValue}>

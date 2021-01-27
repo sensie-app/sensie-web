@@ -24,7 +24,7 @@ const { grayColor3 } = COLORS
  * @param {string} title (default: '')
  * @param {string} width (default: '25%')
  */
-const ModalComponent = ({ children, initialState = false, title = '', width = '25%' }) => {
+const ModalComponent = ({ children, initialState = false, title = '', width = '25%', width2 = null }) => {
   // ? hooks
   const [open, setOpen] = useState(initialState)
 
@@ -35,7 +35,7 @@ const ModalComponent = ({ children, initialState = false, title = '', width = '2
 
   return (
     <div className={styles.ModalComponentContainer}>
-      <button type="button" onClick={handleOpen}>
+      <button type="button" onClick={handleOpen} style={{ width: width2 !== null ? width2 : undefined }}>
         {children[0]}
       </button>
       <Modal
@@ -55,7 +55,7 @@ const ModalComponent = ({ children, initialState = false, title = '', width = '2
             <div className={styles.ModalComponentHeader}>
               <span>{title}</span>
               <button onClick={() => handleClose()}>
-                <Icon name="close-outline" color={grayColor3} size="sm" />
+                <Icon name="close-outline" color={grayColor3} size="md" />
               </button>
             </div>
             {children[1]}
@@ -69,13 +69,15 @@ const ModalComponent = ({ children, initialState = false, title = '', width = '2
 // prop-types
 ModalComponent.propTypes = {
   /** children */
-  children: PropTypes.element.isRequired,
+  children: PropTypes.array.isRequired,
   /** handleOpen */
-  initialState: PropTypes.bool.isRequired,
+  initialState: PropTypes.bool,
   /** title */
   title: PropTypes.string,
   /** width */
-  width: PropTypes.string
+  width: PropTypes.string,
+  /** width2 */
+  width2: PropTypes.string
 }
 
 export default ModalComponent

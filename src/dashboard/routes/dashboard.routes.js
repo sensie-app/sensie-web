@@ -1,9 +1,10 @@
 // react
 import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+// import { ThemeProvider } from '@material-ui/core/styles'
 // redux
 import { useDispatch } from 'react-redux'
-import { setTopicsAction } from '../../redux/actions/topics.action'
+import { getAllTopicsAction } from '../../redux/actions/topics.action'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
 // pages
@@ -21,10 +22,6 @@ import { NotFound404 } from '../components/Globals'
 // containers
 import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
-// ? hooks
-import useGraphQlApi from '../hooks/useGraphQlApi'
-// graphql queries
-import { listTopicsQuery } from '../graphql/queries'
 // amplify
 import '@aws-amplify/ui/dist/style.css'
 // styles
@@ -32,6 +29,8 @@ import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
+// theme
+// import theme from '../styles/theme'
 
 // const
 const {
@@ -54,33 +53,33 @@ const {
  */
 const DashboardRoutes = () => {
   // ? hooks
-  const dbTopics = useGraphQlApi(listTopicsQuery())
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const { loading, value } = dbTopics
-    value !== null && !loading && dispatch(setTopicsAction(value.listTopics.items))
-  }, [dbTopics])
+    dispatch(getAllTopicsAction())
+  }, [])
 
   return (
     <AuthStateApp>
-      <BrowserRouter>
-        <Switch>
-          <Layout>
-            <Route path={home} component={Home} />
-            <Route path={client} component={Client} />
-            <Route path={team} component={Team} />
-            <Route path={affirmations} component={Affirmations} />
-            <Route path={sageDashboard} component={SageDashboard} />
-            <Route path={profile} component={Profile} />
-            <Route path={user + '/:id'} component={User} />
-            <Route path={pack + '/:id'} component={Pack} />
-            <Route path={topic + '/:id'} component={Topic} />
-            <Redirect from={entrypoint} to={home} />
-          </Layout>
-          <Route component={NotFound404} />
-        </Switch>
-      </BrowserRouter>
+      {/* <ThemeProvider theme={theme}> */}
+        <BrowserRouter>
+          <Switch>
+            <Layout>
+              <Route path={home} component={Home} />
+              <Route path={client} component={Client} />
+              <Route path={team} component={Team} />
+              <Route path={affirmations} component={Affirmations} />
+              <Route path={sageDashboard} component={SageDashboard} />
+              <Route path={profile} component={Profile} />
+              <Route path={user + '/:id'} component={User} />
+              <Route path={pack + '/:id'} component={Pack} />
+              <Route path={topic + '/:id'} component={Topic} />
+              <Redirect from={entrypoint} to={home} />
+            </Layout>
+            <Route component={NotFound404} />
+          </Switch>
+        </BrowserRouter>
+      {/* </ThemeProvider> */}
     </AuthStateApp>
   )
 }

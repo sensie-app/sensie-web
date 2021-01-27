@@ -38,8 +38,8 @@ const Title = ({ title, titleDashboard, titleMembership }) => {
     const second = title.substring(18, 32)
     return (
       <p className={classes.mainTitle}>
-        <span style={{ display: 'inline' }}>{first} </span>
-        <span style= {{ display: 'inline-block' }}>{second}</span>
+        <span className={classes.mainTitle} style={{ display: 'inline' }}>{first} </span>
+        <span className={classes.mainTitle} style= {{ display: 'inline-block' }}>{second}</span>
       </p>
     )
   }

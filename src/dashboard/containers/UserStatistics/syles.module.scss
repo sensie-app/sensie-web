@@ -1,0 +1,93 @@
+@import '../../styles/index.scss';
+
+$size: 100px;
+
+.UserStatisticsContainer {
+  @include G50Container();  
+  @include heightGrid();
+  padding: 0;
+  @include flex(column, flex-start, center, nowrap);
+}
+
+.UserStatisticsHeaderContainer {
+  @include flex(row, flex-start, center, wrap);
+  width: 100%;
+  height: 35%;
+  margin-bottom: 10px;
+  
+  .UserStatisticsHeaderAvatar {
+    @include flex(column, center, center, nowrap);
+    width: 30%;
+    height: 100%;
+  }
+
+  .UserStatisticsHeaderBody {
+    @include flex(column, center, flex-start, nowrap);
+    width: 70%;
+    height: 100%;
+    padding-left: 20px;
+    h1 {
+      padding: 0px;
+      margin: 0px;
+      padding-bottom: 5px;
+      color: $fontColor1;
+      font-weight: bold;
+      font-size: 2.5rem;
+    }
+    
+    div {
+      @include flex(column, center, flex-start, wrap);
+      font-size: 2rem;
+      .UserStatisticsHeaderBodySubtitle {
+        color: $actionColor1;
+        font-size: 1.25rem;
+        font-weight: bold;
+      }      
+      .UserStatisticsHeaderBodyDate {
+        color: $fontColor1;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+.UserStatisticsBorder {
+  width: 100%;
+  @include border(solid, 0px 0px 1px 0px, 0px, $grayColor5);
+}
+
+.UserStatisticsBodyContainer {
+  @include flex(column, space-around, center, nowrap);
+  width: 90%;
+  height: 65%;
+
+  .UserStatisticsBodyCharts1Container {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px 0px;
+    @include flex(row, space-between, center, wrap);
+  }
+  .UserStatisticsBodyCharts2Container {
+    background-color: $grayColor5;
+    border-radius: 5px;
+    width: 100%;
+    padding: 5px 0px;
+    @include flex(row, space-between, center, wrap);  
+  }
+}
+
+.UserStatisticsBodyChartsContainer{
+  background-color: $grayColor5;  
+  border-radius: 5px;
+  @include flex(row, center, center, nowrap);
+  padding: 0px 10px;
+  width: 30%;
+  height: 100%;
+  max-height: 100%;
+}
+
+
+
+
+
+

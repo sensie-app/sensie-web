@@ -17,7 +17,7 @@ const Whip = ({ textWithoutColor, textWithColor, textWithoutColor2 }) => {
       <Box className={classes.boxStyle}>
         {' '}
         {textWithoutColor}{' '}
-        <span style={{ color: '#15E7BC' }}> {textWithColor} </span>{' '}
+        <span className={classes.boxStyle} style={{ color: '#15E7BC' }}> {textWithColor} </span>{' '}
         {textWithoutColor2}{' '}
       </Box>{' '}
     </Grid>

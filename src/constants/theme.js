@@ -18,10 +18,10 @@ export const COLORS = {
 }
 
 export const SIZE = {
-  xs: 10,
-  sm: 15,
-  md: 18,
-  l: 25,
-  xl: 30,
-  xxl: 60
+  xs: '0.5rem',
+  sm: '1rem',
+  md: '2rem',
+  l: '2.5rem',
+  xl: '3rem',
+  xxl: '3.5rem'
 }

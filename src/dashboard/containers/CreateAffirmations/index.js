@@ -37,8 +37,20 @@ const showReduxAffirmation = false
  * @param {string} defaultPack (default: '0')
  * @param {undefined} onSave (default: () => {})
  * @param {boolean} loading (default: false)
+ * @param {boolean} showOptions (default: false)
+ * @param {undefined} onAddToPack (default: () => {})
  */
-const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = true, addToPack = false, onSave = () => {}, defaultTopic = '0', defaultPack = '0', loading = false }) => {
+const CreateAffirmations = ({
+  initShowForm = true,
+  withAffirmationsByTopics = true,
+  addToPack = false,
+  onSave = () => {},
+  defaultTopic = '0',
+  defaultPack = '0',
+  loading = false,
+  showOptions = false,
+  onAddToPack = () => {}
+}) => {
   // ? hooks
   const inputRef = useRef(null)
   const dispatch = useDispatch()
@@ -108,8 +120,7 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
       setTopics([])
       setShowNewForm(false)
 
-      const affId = await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
-      console.log('affId', affId)
+      await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
     }
   }
 
@@ -215,18 +226,19 @@ const CreateAffirmations = ({ initShowForm = true, withAffirmationsByTopics = tr
       <div className={styles.CreateAffirmationsHeaderContainer}>
         <div>
           <ItemCheckbox check={false} defaultValue={false} onClick={value => handleOnClickSelectAll(!value)}>
-            {affirmations
+            {showOptions || affirmations
               ? <div className={styles.CreateAffirmationsHeaderActions}>
                   <button>
                     <span>{t('dashboard.CreateAffirmations.delete')}</span>
                   </button>
-                  {!addToPack
-                    ? <button>
+                      {/* <button>
                         <span>{t('dashboard.CreateAffirmations.removeToPack')}</span>
-                      </button>
+                      </button> */}
+                  {!addToPack
+                    ? <span />
                     : <Modal title={handleTitleModal()}>
                         <span>{t('dashboard.CreateAffirmations.addToPack')}</span>
-                        <AddToPack packs={packs} />
+                        <AddToPack packs={packs} onAddToPack={onAddToPack} />
                       </Modal>
                   }
                 </div>
@@ -266,12 +278,16 @@ CreateAffirmations.propTypes = {
   addToPack: PropTypes.bool,
   /** onSave */
   onSave: PropTypes.func,
+  /** onAddToPack */
+  onAddToPack: PropTypes.func,
   /** defaultTopic */
   defaultTopic: PropTypes.string,
   /** defaultPack */
   defaultPack: PropTypes.string,
   /** loading */
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  /** showOptions */
+  showOptions: PropTypes.bool
 }
 
 export default CreateAffirmations

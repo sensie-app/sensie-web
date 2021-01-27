@@ -13,6 +13,27 @@ export const getUserByIdQuery = id => `
   }
 `
 
+export const listUsersQuery = () => `
+  query MyQuery {
+    listUsers {
+      items {
+        sensies {
+          items {
+            createdAt
+            id
+            result
+          }
+        }
+        lastName
+        picture
+        firstName
+        email
+        id
+      }
+    }
+  }
+`
+
 export const getUserWithSensiesByIdQuery = (id, dates) => `
   query MyQuery {
     getUser(id: "${id}") {
@@ -48,18 +69,43 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
   }
 `
 
-export const getOrganizationByIdQuery = (id, dates) => `
+export const listUsersWithSensiesByUserId = (userId, dates) => `
   query MyQuery {
-    getOrganization(id: "${id}") {
-      users {
-        items {
-          id
-          email
-          firstName
-          lastName
-          sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
-            items {
-              id
+    listUsers(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, id: {eq: "${userId}"}}) {
+      items {
+        sensies(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          items {
+            id
+            result
+            createdAt
+          }
+        }
+        firstName
+        gender
+        lastName
+        id
+        picture
+      }
+    }
+  }
+`
+
+export const listUsersWithSensiesByUserIdQuery = (id, dates) => `
+  query MyQuery {
+    listUsers(filter: {id: {eq: "${id}"}, createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+      items {
+        email
+        firstName
+        gender
+        lastName
+        id
+        affirmations(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          items {
+            sensies(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+              items {
+                id
+                result
+              }
             }
           }
         }
@@ -89,16 +135,36 @@ export const getUsersAllQuery = (id = '8e5a85d1-3f68-4fca-8db9-9f0e18e91082', da
 
 export const listUsersByOrganizationId = (id, dates) => `
   query MyQuery {
-    listUsers(filter: {userOrganizationId: {eq: "${id}"}}) {
+    listUsers(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userOrganizationId: {eq: "${id}"}}) {
       items {
         id
-        email
         firstName
         lastName
         gender
         sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
             id
+            result
+          }
+        }
+      }
+    }
+  }
+`
+
+export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
+  query MyQuery {
+    listUsers(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userOrganizationId: {eq: "${id}"}}) {
+      items {
+        id
+        firstName
+        lastName
+        gender
+        sensies(sortDirection: ASC, filter: {createdAt: {between: ["${dates2[0]}", "${dates2[1]}"]}}) {
+          items {
+            id
+            result
+            createdAt
           }
         }
       }
@@ -113,7 +179,23 @@ export const listTopicsQuery = () => `
         id
         name
         picture
-        description     
+        description    
+        affirmations {
+          items {
+            affirmation {
+              name
+              id
+              topics {
+                items {
+                  topic {
+                    id
+                    name
+                  }
+                }
+              }
+            }
+          }
+        } 
       }
     }
   }
@@ -170,9 +252,22 @@ export const listPacksWiyhAffirmationsIdsByIdQuery = id => `
         name
         id
         description
-        affirmations {
+        affirmations(sortDirection: ASC) {
           items {
-            affirmationId
+            affirmation {
+              description
+              id
+              name
+              topics {
+                items {
+                  topic {
+                    description
+                    id
+                    name
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -186,7 +281,7 @@ export const getPackByIdQuery = id => `
       description
       id
       name
-      affirmations {
+      affirmations(sortDirection: ASC) {
         items {
           affirmation {
             description
@@ -208,9 +303,9 @@ export const getPackByIdQuery = id => `
   }
 `
 
-export const listAffirmationsByTopicIdQuery = (topicId, userId) => `
+export const listAffirmationsByTopicIdQuery = (topicId) => `
   query MyQuery {
-    listAffirmations(filter: {topicId: {eq: "${topicId}"}, userId: {eq: "${userId}"}}) {
+    listAffirmations(filter: {topicId: {contains: "${topicId}"}}) {
       items {
         description
         id
@@ -230,22 +325,60 @@ export const listAffirmationsByTopicIdQuery = (topicId, userId) => `
 `
 
 // todo: add topics filter
-export const listAffirmationsByUserIdAndTopicId = (userId, limit) => `
+export const listAffirmationsByUserIdAndTopicId = (userId, dates, limit) => `
   query MyQuery {
-    listAffirmations(filter: {userId: {eq: "${userId}"}}, limit: ${limit}) {
+    listAffirmations(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userId: {eq: "${userId}"}}, limit: ${limit}) {
       items {
         description
         id
         name
+        sensies(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          items {
+            id
+            result
+          }
+        }
         topics {
           items {
+            id
             topic {
               id
               name
               description
+              picture
             }
           }
         }
+      }
+    }
+  }
+`
+
+export const listAffirmationsByIdUserIdTopicId = (affirmationId, dates) => `
+  query MyQuery {
+    listAffirmations(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, id: {eq: "${affirmationId}"}}) {
+      items {
+        user {
+          firstName
+          lastName
+          id
+          sensies(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+            items {
+              id
+              result
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const listSensiesByAffirmationId = id => `
+  query MyQuery {
+    listSensies(filter: {affirmationId: {eq: "A19"}}) {
+      items {
+        result
       }
     }
   }

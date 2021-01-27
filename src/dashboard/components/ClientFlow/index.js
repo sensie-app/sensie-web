@@ -23,8 +23,9 @@ const { actionColor1 } = COLORS
  * @component
  * @param {number} client
  * @param {number} sensies
+ * @param {number} flow
  */
-const ClientFlow = ({ client, sensies }) => {
+const ClientFlow = ({ client, sensies, flow }) => {
   // ? hooks
   const [t] = useTranslation('global')
 
@@ -37,9 +38,9 @@ const ClientFlow = ({ client, sensies }) => {
             <Title text={t('dashboard.ClientFlowOverview.title')} />
           </div>
           <div className={styles.ClientFlowHeaderChartsS1Container}>
-            <IconChart title={t('dashboard.IconChart.clients')} value={client} icon={USER} forcedColor={actionColor1} />
-            <IconChart title={t('dashboard.IconChart.sensies')} value={sensies} valueType="number" icon={UP} />
-            <IconChart title={t('dashboard.IconChart.flow')} value={80} valueType="%" icon={ACTIVITY} />
+            <IconChart title={t('dashboard.IconChart.clients')} value={client.toString()} icon={USER} forcedColor={actionColor1} />
+            <IconChart title={t('dashboard.IconChart.sensies')} value={sensies.toString()} valueType="number" icon={UP} />
+            <IconChart title={t('dashboard.IconChart.flow')} value={flow.toFixed(0).toString()} valueType="%" icon={ACTIVITY} />
           </div>
         </div>
         <div className={styles.ClientFlowBodyChartContainer}>
@@ -64,7 +65,9 @@ ClientFlow.propTypes = {
   /** client */
   client: PropTypes.number.isRequired,
   /** sensies */
-  sensies: PropTypes.number.isRequired
+  sensies: PropTypes.number.isRequired,
+  /** flow */
+  flow: PropTypes.number.isRequired
 }
 
 export default ClientFlow

@@ -15,7 +15,11 @@ const INITIAL_STATE = {
     desription: '',
     topics: []
   },
-  lastAffirmations: []
+  lastAffirmations: [],
+  affirmations: [],
+  createAffirmation: null,
+  loading: false,
+  error: null
 }
 
 const {
@@ -24,11 +28,44 @@ const {
   EDIT_AFFIRMATION,
   CLEAN_NEW_AFFIRMATION,
   CLEAN_EDIT_AFFIRMATION,
-  CLEAN_LAST_AFFIRMATIONS
+  CLEAN_LAST_AFFIRMATIONS,
+  GET_ALL_AFFIRMATIONS,
+  CREATE_AFFIRMATION,
+  LOADING,
+  ERROR
 } = AFFIRMATIONS
 
 const affirmationsReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
+    case GET_ALL_AFFIRMATIONS:
+      return {
+        ...state,
+        affirmations: payload,
+        loading: false,
+        error: null
+      }
+
+    case CREATE_AFFIRMATION:
+      return {
+        ...state,
+        createAffirmation: payload,
+        loading: false,
+        error: null
+      }
+
+    case LOADING:
+      return {
+        ...state,
+        loading: true
+      }
+
+    case ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload
+      }
+
     case NEW_AFFIRMATION:
       return {
         ...state,

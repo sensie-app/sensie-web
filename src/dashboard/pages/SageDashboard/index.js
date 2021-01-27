@@ -32,28 +32,28 @@ const SageDashboard = () => {
         <Header withTitle={true} title={t('dashboard.SageDashboard.title')} withBack={false} withPeople={false} withDate={true} />
         <div className={styles.SageDashboardSectionInfoContainer}>
           <Grid container spacing={1}>
-            <Grid item xs={6} sm={6} md={3} xl={3}>
+            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
               <BoxModel1 evaIcon="person-outline" value={2000} text={t('dashboard.SageDashboard.enjoyers')}/>
             </Grid>
-            <Grid item xs={6} sm={6} md={3} xl={3}>
+            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
               <BoxModel1 evaIcon="person-add-outline" value={1500} text={t('dashboard.SageDashboard.newEnjoyers')}/>
             </Grid>
-            <Grid item xs={6} sm={6} md={3} xl={3}>
+            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
               <BoxModel1 evaIcon="person-done-outline" value={3500} text={t('dashboard.SageDashboard.activeEnjoyers')}/>
             </Grid>
-            <Grid item xs={6} sm={6} md={3} xl={3}>
+            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
               <BoxModel2 text={t('dashboard.SageDashboard.flow')}/>
             </Grid>
-            <Grid item xs={6} sm={6} md={3} xl={3}>
+            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
               <BoxModel1 customIcon={sensieCircles} value={160} text={t('dashboard.SageDashboard.sensies')}/>
             </Grid>
-            <Grid item xs={6} sm={6} md={3} xl={3}>
+            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
               <BoxModel1 customIcon={sensieCircles} value={160} text={t('dashboard.SageDashboard.sensiesActiveEnjoyers')}/>
             </Grid>
-            <Grid item xs={6} sm={6} md={3} xl={3}>
+            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
               <BoxModel2 text={t('dashboard.SageDashboard.vDissScore')}/>
             </Grid>
-            <Grid item xs={6} sm={6} md={3} xl={3}>
+            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
               <BoxModel1 evaIcon="smartphone-outline" value={4} text={t('dashboard.SageDashboard.virality')}/>
             </Grid>
           </Grid>
