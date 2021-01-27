@@ -1,6 +1,6 @@
 @import '../../styles/index.scss';
 
-$size: 15vh;
+$size: 11vh;
 
 .PieChartContainer {
   @include flex(column, center, center, nowrap);

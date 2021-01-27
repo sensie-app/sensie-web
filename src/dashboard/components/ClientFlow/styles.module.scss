@@ -3,7 +3,7 @@
 .ClientFlowContainer {
   @include G50Container(); 
   @include heightGrid();
-  padding: 10px;
+  padding: 20px;
   // box-sizing: border-box;
 }
 
@@ -44,7 +44,7 @@
   height: 40%;
   max-height: 40%;
   width: 100%;
-  padding: 0px 25px;
+  // padding: 0px 25px;
   margin-left: 20px;
   @include flex(row, space-between, center, nowrap);
 }

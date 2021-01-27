@@ -1,3 +1,5 @@
+$blockH: 60vh;
+
 // Home Grid 50%
 @mixin G50Container {
   background-color: $grayColor6;
@@ -9,12 +11,12 @@
 }
 
 @mixin heightGrid {
-  max-height: 75vh;
-  height: 75vh;
+  max-height: $blockH;
+  height: $blockH;
 }
 
 @mixin heightGridMin {
-  min-height: 75vh;
+  min-height: $blockH;
   height: 100%;
 }
 
