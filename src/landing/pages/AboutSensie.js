@@ -58,7 +58,7 @@ const AboutSensie = () => {
             </Grid>
             <Grid item xs={1}></Grid>
             <Grid xs={10} data-aos="zoom-out-up">
-              <Box mt={4} mx={4}>
+              <Box mt={4}>
                 <Manifesto
                   title="MANIFESTO"
                   text="Our manifesto is how we share our culture with the world. It’s evolving, ever-expanding and is intended to uplift, empower, and shift us into ways of being that help us and the world simultaneously thrive. Like attracts like, our values and manifesto are designed to attract likeminded teammates, partners and customers to help us fulfill our mission and vision. Internally, our manifesto and values are used as guiding principles to help us move in a rhythm that supports our teammates, customers, partners and investors."
