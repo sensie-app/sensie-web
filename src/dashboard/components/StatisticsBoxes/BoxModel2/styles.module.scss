@@ -9,14 +9,14 @@
   border-radius: 5px;
 
   .BoxModel2IconContainer {
-    width: 40%;
+    width: 60%;
     height: 100%;
     padding: 20px;
     @include flex(column, center, center, nowrap);
   }
   
   .BoxModel2InfoContainer {
-    width: 60%;
+    width: 40%;
     height: 100%;
     @include flex(column, center, flex-start, nowrap);
 

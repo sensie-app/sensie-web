@@ -41,12 +41,16 @@ const CreatePack = ({ onSave }) => {
   const [newPackId, setNewPackId] = useState(null)
 
   useEffect(() => {
+    console.log('packsReducer', packsReducer)
     if (!packsReducer.loading && packsReducer.newpack !== null) {
       setNewPackId(packsReducer.newpack.id)
       setRedirect(true)
       dispatch(cleanNewPackAction())
     }
   }, [packsReducer])
+
+  console.log('newPackId', newPackId)
+  console.log('redirect', redirect)
 
   // ? handle functions
   /**

@@ -52,7 +52,7 @@ const Manifesto = ({ title, text, feel, feel2 }) => {
           <Box mt={3}>
             <Typography className={classes.feel}>
               {feel}<br/>{feel2}
-              <span style={{ color: '#15E7BC' }}>feel</span>.
+              <span className={classes.title} style={{ color: '#15E7BC' }}>feel</span>.
             </Typography>
           </Box>
         </Grid>

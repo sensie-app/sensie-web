@@ -90,12 +90,12 @@ const User = () => {
       <Header withBack={true} withPeople={false} />
       {/* body */}
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={6} xl={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <div className={styles.UserG1Container}>
             {waitQuery ? <Loading /> : <UserStatistics data={user} />}
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} xl={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <div className={styles.UserG2Container}>
             {!waitQuery && handleSensies && <Symbol level={0} />}
           </div>

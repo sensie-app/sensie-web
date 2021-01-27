@@ -131,12 +131,12 @@ const Home = () => {
       <Header />
       {/* body */}
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.HomeG1Container}>
             <ClientFlow client={totalUsers} sensies={totalSensies} flow={totalFlow}/>
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.HomeG2Container}>
           {affirmationsReducer.loading
             ? <Loading />

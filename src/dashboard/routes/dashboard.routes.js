@@ -1,7 +1,7 @@
 // react
 import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import { ThemeProvider } from '@material-ui/core'
+// import { ThemeProvider } from '@material-ui/core/styles'
 // redux
 import { useDispatch } from 'react-redux'
 import { getAllTopicsAction } from '../../redux/actions/topics.action'
@@ -30,7 +30,7 @@ import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
 // theme
-import theme from '../styles/themeConfig'
+// import theme from '../styles/theme'
 
 // const
 const {
@@ -61,7 +61,7 @@ const DashboardRoutes = () => {
 
   return (
     <AuthStateApp>
-      <ThemeProvider theme={theme}>
+      {/* <ThemeProvider theme={theme}> */}
         <BrowserRouter>
           <Switch>
             <Layout>
@@ -79,7 +79,7 @@ const DashboardRoutes = () => {
             <Route component={NotFound404} />
           </Switch>
         </BrowserRouter>
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
     </AuthStateApp>
   )
 }

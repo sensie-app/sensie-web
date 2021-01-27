@@ -178,7 +178,7 @@ const Pack = () => {
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return pack && pack.affirmations.items.map(item => {
+    return pack.affirmations.items.map(item => {
       if (item !== null) {
         const { name, topics } = item.affirmation
         return <NewAffirmation

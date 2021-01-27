@@ -24,7 +24,7 @@ const { actionColor1, actionColor2, actionColor3, grayColor4 } = COLORS
  * @param {PieChartData} data
  * @param {string} title (default: '')
  */
-const PieChart = ({ data = data1, title = '' }) => {
+const PieChart = ({ data = data1, title = '', sage = false }) => {
   // ? handle functions
   /**
    * handle data color
@@ -85,7 +85,8 @@ const PieChart = ({ data = data1, title = '' }) => {
 // prop-types
 PieChart.propTypes = {
   data: PieChartDataPropTypes,
-  title: PropTypes.string
+  title: PropTypes.string,
+  sage: PropTypes.bool
 }
 
 export default PieChart
