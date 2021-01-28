@@ -9,19 +9,20 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     '& > *': {
       margin: theme.spacing(1)
-    }
+    },
+    textAlign: '-webkit-center'
   },
   large: {
     width: theme.spacing(25),
     height: theme.spacing(25)
   },
   nameStyle: {
-    fontSize: 20,
+    fontSize: '1.7rem',
     fontWeight: 'bold',
     color: 'white'
   },
   roleStyle: {
-    fontSize: 16,
+    fontSize: '1.4rem',
     color: 'white'
   },
   iconStyle: {

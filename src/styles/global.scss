@@ -1,27 +1,26 @@
 @import-normalize;
 @import './variables.scss';
 @import './fonts.scss';
-
 * {
     margin: 0px 0px;
     padding: 0px 0px;
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, 'Biotif', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;    
+    -moz-osx-font-smoothing: grayscale;
     font-size: 2vh;
 }
 
 @media only screen and (max-width: 1366px) {
     * {
         font-size: 1.85vh;
-    }    
+    }
 }
 
 @media only screen and (max-width: 1100px) {
     * {
         font-size: 1.75vh;
-    }    
+    }
 }
 
 ::selection {

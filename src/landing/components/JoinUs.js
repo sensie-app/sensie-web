@@ -5,12 +5,12 @@ import { makeStyles, Grid, Box, Typography } from '@material-ui/core'
 const useStyle = makeStyles({
   title: {
     fontWeight: 'bold',
-    fontSize: '30px'
+    fontSize: '2.6rem'
   },
   text: {
     color: 'white',
     alignSelf: 'center',
-    fontSize: '30px'
+    fontSize: '2.6rem'
   }
 })
 

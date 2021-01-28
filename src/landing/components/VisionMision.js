@@ -4,10 +4,10 @@ import { Grid, Box, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles({
   title: {
-    fontSize: 24
+    fontSize: '2rem'
   },
   text: {
-    fontSize: 22,
+    fontSize: '1.9rem',
     fontStyle: 'italic',
     color: 'white'
   }

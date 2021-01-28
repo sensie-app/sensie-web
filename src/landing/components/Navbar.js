@@ -26,26 +26,26 @@ const useStyle = makeStyles((theme) => ({
     offset2: theme.spacing(2)
   },
   btnStyle: {
-    borderRadius: 10,
+    borderRadius: '0.8rem',
     margin: theme.spacing(1),
-    fontSize: '13px',
+    fontSize: '1rem',
     fontWeight: 'bold',
-    width: '96px',
-    height: '39px'
+    width: '8.2rem',
+    height: '3.5rem'
   },
   textTab: {
-    fontSize: '13px',
+    fontSize: '1rem',
     fontStyle: 'normal',
     color: 'white',
     justifyContent: 'center'
   },
   navbarStyle: {
     backgroundColor: 'rgba(7, 18, 21, 0.8)',
-    minHeight: '90px',
+    minHeight: '8rem',
     backdropFilter: 'blur(10px)'
   },
   toolbarStyle: {
-    minHeight: '90px'
+    minHeight: '8rem'
   }
 }))
 

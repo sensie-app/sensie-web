@@ -5,7 +5,7 @@ import { makeStyles, Box, Grid } from '@material-ui/core'
 const useStyles = makeStyles({
   boxStyle: {
     fontWeight: 'bold',
-    fontSize: '30px',
+    fontSize: '2.6rem',
     color: 'white'
   }
 })

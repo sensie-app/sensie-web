@@ -8,16 +8,16 @@ const useStyle = makeStyles({
   text: {
     color: 'white',
     alignSelf: 'center',
-    fontSize: '20px'
+    fontSize: '1.7rem'
   },
   feel: {
     color: 'white',
     alignSelf: 'center',
-    fontSize: '20px',
+    fontSize: '1.7rem',
     fontStyle: 'italic'
   },
   title: {
-    fontSize: '20px'
+    fontSize: '1.7rem'
   }
 })
 
@@ -36,7 +36,7 @@ const Manifesto = ({ title, text, feel, feel2 }) => {
       </Grid>{' '}
       <Grid item container xs={12}>
         <Grid item xs={12}>
-          <Box mt={2} style={{ textAlign: 'justify' }}>
+          <Box mt={2} style={{ textAlign: 'left' }}>
             <Typography className={classes.text}>{text}</Typography>
           </Box>
         </Grid>

@@ -5,13 +5,13 @@ import { Box, makeStyles } from '@material-ui/core'
 const useStyles = makeStyles({
   boxStyle: {
     fontWeight: 'bold',
-    fontSize: '36px',
+    fontSize: '3.1rem',
     color: 'white',
     textAlign: '-webkit-center'
   },
   wisdomStyle: {
     fontWeight: 'bold',
-    fontSize: '36px',
+    fontSize: '3.1rem',
     textAlign: '-webkit-center'
   }
 })

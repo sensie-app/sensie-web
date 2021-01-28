@@ -6,18 +6,18 @@ import './Title.scss'
 const useStyle = makeStyles({
   mainTitle: {
     color: 'white',
-    fontSize: '50px',
+    fontSize: '4.3rem',
     fontWeight: 'bold'
   },
   titleMembership: {
     color: 'white',
-    fontSize: '50px',
+    fontSize: '4.3rem',
     fontWeight: 'bold',
     textAlign: '-webkit-center'
   },
   titleDashboard: {
     color: 'white',
-    fontSize: '45px',
+    fontSize: '4rem',
     fontWeight: 'bold',
     textAlign: 'center',
     position: 'absolute',
