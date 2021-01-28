@@ -32,7 +32,7 @@ const Science = () => {
             <Grid item xs={1}></Grid>
             <Grid item container xs={10}>
               <Grid item xs={12} sm={7} data-aos="zoom-out-up">
-                <Box mt={22} mb={50}>
+                <Box mt={'12rem'} mb={50}>
                   <Box>
                     <Grid>
                       <Link to={scienceanchor}>
@@ -113,7 +113,7 @@ const Science = () => {
       <Hidden smDown>
         <Parallax strength={400}>
           <Background className="backgroundImg">
-            <img src={backgroundScienceMan2} />
+            <img className={classes.bgImg} src={backgroundScienceMan2} />
           </Background>
           <Grid id="thescience" container>
             <Grid item xs={1}></Grid>

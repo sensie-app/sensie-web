@@ -10,18 +10,18 @@ import {
 const useStyles = makeStyles({
   root: {
     backgroundColor: '#151E1F',
-    borderRadius: 10
+    borderRadius: '0.9rem'
   },
   textStyle: {
-    fontSize: '13px',
+    fontSize: '1.2rem',
     color: '#FFFFFF',
     fontWeight: 'bold'
   },
   btnSend: {
-    borderRadius: 10,
-    fontSize: '13px',
+    borderRadius: '0.8rem',
+    fontSize: '1.2rem',
     fontWeight: 'bold',
-    width: 175
+    width: '16rem'
   }
 })
 

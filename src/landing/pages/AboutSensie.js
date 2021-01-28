@@ -37,7 +37,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: '2.8rem',
     textAlign: '-webkit-center',
     color: 'white'
   }
@@ -52,7 +52,7 @@ const AboutSensie = () => {
         <Grid item container xs={10}>
           <Box className={classes.members}>
             <Grid item xs={12} data-aos="zoom-out-up">
-              <Box mt={16} mb={4}>
+              <Box mt={'12rem'} mb={4}>
                 <Title title="About"></Title>
               </Box>
             </Grid>
@@ -349,7 +349,7 @@ const AboutSensie = () => {
         <Grid item xs={1}></Grid>
         <Grid item container xs={10} data-aos="zoom-out-up">
           <Grid xs={12} sm={5}>
-            <Box mt={12}>
+            <Box my={12}>
               <JoinUs
                 title="Join us"
                 text="We’re building tools to benefit the lives of billions and to create the conditions to help end suffering... and we need your help."

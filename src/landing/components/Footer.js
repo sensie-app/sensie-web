@@ -13,29 +13,27 @@ import FacebookIcon from '@material-ui/icons/Facebook'
 import Email from './Email'
 
 const useStyles = makeStyles({
-  footerStyle: {
-    height: '186px'
-  },
   footerText: {
-    fontSize: '10px',
+    fontSize: '0.7rem',
     color: 'white',
     fontWeight: 'lighter'
   },
   blockOne: {
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    minHeight: '20rem'
   },
   blockTwo: {
-    minHeight: '55px',
+    minHeight: '5rem',
     backgroundColor: '#0A181C'
   },
   textTab: {
-    fontSize: '13px',
+    fontSize: '1rem',
     color: 'white',
     fontWeight: 'bold'
   },
   btnSuscribe: {
-    borderRadius: 10,
-    fontSize: '13px',
+    borderRadius: '0.8rem',
+    fontSize: '1rem',
     fontWeight: 'bold'
   }
 })
@@ -54,7 +52,7 @@ const Footer = () => {
           direction="column"
           className={classes.textTab}
         >
-          <Box my={1} mt={6}>
+          <Box my={1} mt={'5rem'}>
             SUSCRIBE TO NEWSLETTER
           </Box>
 

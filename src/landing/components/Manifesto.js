@@ -8,16 +8,16 @@ const useStyle = makeStyles({
   text: {
     color: 'white',
     alignSelf: 'center',
-    fontSize: '20px'
+    fontSize: '1.7rem'
   },
   feel: {
     color: 'white',
     alignSelf: 'center',
-    fontSize: '20px',
+    fontSize: '1.7rem',
     fontStyle: 'italic'
   },
   title: {
-    fontSize: '20px'
+    fontSize: '1.7rem'
   }
 })
 

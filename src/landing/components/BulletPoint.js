@@ -4,13 +4,13 @@ import { Grid, makeStyles, Box, Typography, Hidden } from '@material-ui/core'
 
 const useStyles = makeStyles({
   icon: {
-    width: '35px',
-    height: '35px'
+    width: '3rem',
+    height: '3rem'
   },
   text: {
     color: 'white',
     alignSelf: 'center',
-    fontSize: '20px'
+    fontSize: '1.7rem'
   }
 })
 

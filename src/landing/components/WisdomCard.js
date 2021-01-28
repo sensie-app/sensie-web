@@ -5,16 +5,16 @@ import { Box, Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
-    width: 160
+    width: '15rem'
   },
   level: {
-    fontSize: 11,
+    fontSize: '1rem',
     fontWeight: '400',
     textTransform: 'uppercase',
     textAlign: '-webkit-center'
   },
   text: {
-    fontSize: 14,
+    fontSize: '1.2rem',
     fontWeight: 'bold',
     color: 'white',
     textAlign: '-webkit-center'

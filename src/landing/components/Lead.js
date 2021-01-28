@@ -5,7 +5,7 @@ import { makeStyles, Box } from '@material-ui/core'
 const useStyles = makeStyles({
   leadStyle: {
     color: 'white',
-    fontSize: '20px'
+    fontSize: '1.7rem'
   }
 })
 

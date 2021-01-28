@@ -4,12 +4,12 @@ import { makeStyles, Grid, Box, Typography } from '@material-ui/core'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 const useStyle = makeStyles({
   icon: {
-    fontSize: '7px'
+    fontSize: '0.7rem'
   },
   text: {
     color: 'white',
     alignSelf: '-webkit-left',
-    fontSize: '20px',
+    fontSize: '1.7rem',
     fontWeight: 'lighter'
   }
 })
