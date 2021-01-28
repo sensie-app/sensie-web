@@ -38,7 +38,9 @@ const FormFooter = () => {
     >
       <Box my={5}>
         <Box mt={1}>
-          <Typography>First and last name</Typography>
+          <Typography style={{ fontSize: '1.3rem' }}>
+            First and last name
+          </Typography>
           <TextField
             fullWidth
             className={classes.root}
@@ -47,7 +49,7 @@ const FormFooter = () => {
           />
         </Box>
         <Box mt={1}>
-          <Typography>Email</Typography>
+          <Typography style={{ fontSize: '1.3rem' }}>Email</Typography>
           <TextField
             fullWidth
             className={classes.root}
@@ -56,7 +58,7 @@ const FormFooter = () => {
           />
         </Box>
         <Box mt={1}>
-          <Typography>Message</Typography>
+          <Typography style={{ fontSize: '1.3rem' }}>Message</Typography>
           <TextField
             fullWidth
             multiline

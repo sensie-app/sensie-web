@@ -14,7 +14,7 @@ import Email from './Email'
 
 const useStyles = makeStyles({
   footerText: {
-    fontSize: '0.7rem',
+    fontSize: '1rem',
     color: 'white',
     fontWeight: 'lighter'
   },
@@ -27,13 +27,12 @@ const useStyles = makeStyles({
     backgroundColor: '#0A181C'
   },
   textTab: {
-    fontSize: '1rem',
     color: 'white',
     fontWeight: 'bold'
   },
   btnSuscribe: {
     borderRadius: '0.8rem',
-    fontSize: '1rem',
+    fontSize: '1.2rem',
     fontWeight: 'bold'
   }
 })
@@ -52,12 +51,12 @@ const Footer = () => {
           direction="column"
           className={classes.textTab}
         >
-          <Box my={1} mt={'5rem'}>
+          <Box my={1} mt={'5rem'} style={{ fontSize: '1.3rem' }}>
             SUSCRIBE TO NEWSLETTER
           </Box>
 
           <Box mt={2}>
-            <Typography>Email</Typography>
+            <Typography style={{ fontSize: '1.3rem' }}>Email</Typography>
             <Box mt={1}>
               <Email />
             </Box>

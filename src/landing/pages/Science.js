@@ -36,7 +36,7 @@ const Science = () => {
                   <Box>
                     <Grid>
                       <Link to={scienceanchor}>
-                        <Typography>&lt; Back</Typography>
+                        <Typography style={{ fontSize: '1.3rem' }}>&lt; Back</Typography>
                       </Link>
                     </Grid>
                   </Box>
