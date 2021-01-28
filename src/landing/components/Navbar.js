@@ -4,21 +4,21 @@ import {
   Toolbar,
   Grid,
   Box,
-  Button,
+  // Button,
   Hidden,
   makeStyles
 } from '@material-ui/core'
-import { NavLink } from 'react-router-dom'
+// import { NavLink } from 'react-router-dom'
 import { HashLink as Link } from 'react-router-hash-link'
 
 import LANDING_ROUTES from '../constants/routes'
-import APP_ROUTES from '../../constants/routes'
+// import APP_ROUTES from '../../constants/routes'
 
 // Components
 import LogoSensie from './Logo'
 import CustomizedMenus from './Menu'
 
-const { /* membership, */ howitworks, blog, scienceanchor, abs, hm } = LANDING_ROUTES
+const { /* membership, */ howitworks, /* blog , */ scienceanchor, abs, hm } = LANDING_ROUTES
 
 const useStyle = makeStyles((theme) => ({
   offset: {
@@ -90,15 +90,15 @@ const Navbar = () => {
                   <Box mx={1}>MEMBERSHIP</Box>
                 </Link> */}
 
-                <NavLink to={blog}>
+                {/* <NavLink to={blog}>
                   <Box mx={1}>BLOG</Box>
-                </NavLink>
+                </NavLink> */}
 
                 <Link to={abs}>
                   <Box mx={1}>ABOUT</Box>
                 </Link>
               </Grid>
-              <Grid item xs={12} sm={2}>
+              {/* <Grid item xs={12} sm={2}>
                 <Box display="flex" justifyContent="flex-end">
                   <Box>
                     <a href={APP_ROUTES.dashboard + '/'}>
@@ -123,7 +123,7 @@ const Navbar = () => {
                     </Button>
                   </Box>
                 </Box>
-              </Grid>
+              </Grid> */}
             </Hidden>
           </Grid>
         </Toolbar>

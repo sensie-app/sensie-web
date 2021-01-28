@@ -2,19 +2,19 @@ import React from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
+// import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
-import { IconButton, Box, Button, Grid } from '@material-ui/core'
+import { IconButton, Box, /* Button, */ Grid } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import { NavLink, Link } from 'react-router-dom'
+import { /* NavLink, */ Link } from 'react-router-dom'
 import LogoSensie from './Logo'
 
-import APP_ROUTES from '../../constants/routes'
+// import APP_ROUTES from '../../constants/routes'
 import LANDING_ROUTES from '../constants/routes'
 
 const {
   /* membership, */ howitworks,
-  blog,
+  /* blog, */
   scienceanchor,
   abs,
   hm
@@ -96,20 +96,20 @@ export default function TemporaryDrawer () {
                   <Box mx={1}>MEMBERSHIP</Box>
                 </Link> */}
 
-          <NavLink to={blog}>
+          {/* <NavLink to={blog}>
             <Box mt={3} mx={3}>
               BLOG
             </Box>
-          </NavLink>
+          </NavLink> */}
 
           <Link to={abs}>
-            <Box mt={3} mx={3}>
+            <Box mt={3} mx={3} mb={3}>
               ABOUT
             </Box>
           </Link>
         </Grid>
       <Divider />
-      <List>
+      {/* <List>
         <Grid container style={{ textAlign: 'center' }}>
           <Grid item xs={12}>
             <Box mx={2}>
@@ -140,7 +140,7 @@ export default function TemporaryDrawer () {
             </Box>
           </Grid>
         </Grid>
-      </List>
+      </List> */}
     </div>
   )
 
