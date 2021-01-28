@@ -36,7 +36,7 @@ const Manifesto = ({ title, text, feel, feel2 }) => {
       </Grid>{' '}
       <Grid item container xs={12}>
         <Grid item xs={12}>
-          <Box mt={2} style={{ textAlign: 'justify' }}>
+          <Box mt={2} style={{ textAlign: 'left' }}>
             <Typography className={classes.text}>{text}</Typography>
           </Box>
         </Grid>
