@@ -44,9 +44,11 @@ const FlowerOfLife = ({ level }) => {
    */
   const handleColorComplete = () => symbolLevel === MaxLevel ? fontColor1 : handleColor()
 
+  const size = window.screen.width * 0.3
+
   return (
     <div>
-      <svg width="414" height="414" viewBox="0 0 414 414" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="206.564" cy="207" r="80" stroke={handleColorComplete()} strokeWidth="3"/>
           <circle cx="137.282" cy="247" r="80" transform="rotate(60 137.282 247)" stroke={handleColor(5)} strokeWidth="3"/>
           <circle cx="137.282" cy="167" r="80" transform="rotate(-60 137.282 167)" stroke={handleColor(6)} strokeWidth="3"/>

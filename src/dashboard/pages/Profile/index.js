@@ -34,7 +34,7 @@ const Profile = () => {
         <Title text={t('dashboard.Profile.profile')} />
       </div>
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={4} xl={4}>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <div className={styles.ProfileGridContainer}>
             <div>
               <label>{t('dashboard.Profile.fristLastName')}</label>
@@ -46,7 +46,7 @@ const Profile = () => {
             </div>
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={4} xl={4}>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <div className={styles.ProfileGridContainer}>
             <div>
               <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.email')}</label>
@@ -58,7 +58,7 @@ const Profile = () => {
             </div>
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={4} xl={4}>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <div className={styles.ProfileGridAvatarContainer}>
             <div className={styles.ProfileAvatarContainer}>
               <ImageAvatar url={data.gender === 'Male' ? avatarMale : avatarFemale} alt={data.name} size="xlarge" />

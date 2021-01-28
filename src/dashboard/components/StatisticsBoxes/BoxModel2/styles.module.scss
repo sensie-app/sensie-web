@@ -3,27 +3,27 @@
 .BoxModel2Container {
   background-color: $grayColor5;
   width: 100%;
-  height: 125px;
+  height: 20vh;
   @include flex(row, space-between, center, nowrap);
   padding: 10px;
   border-radius: 5px;
 
   .BoxModel2IconContainer {
-    width: 40%;
+    width: 60%;
     height: 100%;
     padding: 20px;
     @include flex(column, center, center, nowrap);
   }
   
   .BoxModel2InfoContainer {
-    width: 60%;
+    width: 40%;
     height: 100%;
     @include flex(column, center, flex-start, nowrap);
 
     .BoxModelInfoValue {
       span {
         width: 100%;
-        font-size: 30px;
+        font-size: 2.5rem;
         font-weight: bold;
         color: $grayColor3;
       }
@@ -32,6 +32,7 @@
     .BoxModel2InfoText {
       span {
         width: 100%;
+        font-size: 1.5rem;
         color: $grayColor3;
       }
     }

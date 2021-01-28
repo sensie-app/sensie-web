@@ -5,7 +5,7 @@ const { grayColor3, grayColor5, grayColor6, grayColor8, actionColor1, fontColor1
 
 const theme = {
   textColor: grayColor3,
-  fontSize: 11,
+  fontSize: '0.75rem',
   axis: {
     domain: {
       line: {
@@ -71,7 +71,7 @@ const theme = {
   },
   annotations: {
     text: {
-      fontSize: 13,
+      fontSize: '1rem',
       outlineWidth: 2,
       outlineColor: fontColor1
     },

@@ -7,7 +7,8 @@
 .UserG1Container,
 .UserG2Container,
 .UserG3Container {    
-  width: 100%;  
+  @include G50Container();
   color: $fontColor1;
+  font-size: 1rem;
   box-sizing: border-box;
 }

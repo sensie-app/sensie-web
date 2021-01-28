@@ -3,6 +3,6 @@
 .LineContainer {
   color: $grayColor4;
   @include border(solid, 1px 0 0 0, 0, $grayColor5);
-  margin: 5px 0px;
+  margin-top: 10px;
   width: 100%;
 }

@@ -11,8 +11,6 @@ import Share from '../../components/Share'
 import Packs from '../../components/Packs'
 import Topics from '../../components/Topics'
 import Loading from '../../components/Loading'
-// containers
-import CreatePack from '../../containers/CreatePack'
 // constants
 import { CreatePacksTags } from '../../constants/globals'
 // styles
@@ -70,7 +68,6 @@ const Affirmations = () => {
             { show === CreatePacksTags.packs
               ? <Fragment>
                   {packsReducer.loading ? <Loading /> : <Packs data={packsReducer.packs}/>}
-                  <CreatePack />
                 </Fragment>
               : <Topics data={topicsReducer.topics} />
             }

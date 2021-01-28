@@ -16,6 +16,7 @@ import SvgIcon from '../../components/SvgIcon'
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 import TopicsConstants from '../../constants/topics'
+import { SIZE } from '../../constants/theme'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
@@ -86,7 +87,6 @@ const Topic = () => {
    * */
   const handleTopicId = () => {
     const tp = topicsReducer.topics.filter(topic => topic.id === id)[0]
-    console.log('tp', tp)
     const defTopic = [{
       name: tp.name,
       description: tp.description,
@@ -140,6 +140,9 @@ const Topic = () => {
         newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
       })
       setNewAff(!newAff)
+      toast.success(t('dashboard.Pack.createAffirmation'))
+    } else {
+      toast.error(t('dashboard.Pack.createAffirmationError'))
     }
     setWaitQuery(false)
     return successAffirmation ? newAffirmation.value.data.createAffirmation.id : null
@@ -266,7 +269,7 @@ const Topic = () => {
             <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${handleImg()})` }} />
             <div className={styles.TopicHeaderTextContainer}>
               <div className={styles.TopicHeaderTextTitle}>
-                <SvgIcon icon={id} size="30px" />
+                <SvgIcon icon={id} size={SIZE.xxl} />
                 {!waitQuery && <span>{topic.name}</span>}
               </div>
               {/* <div className={styles.TopicHeaderTextDescription}>

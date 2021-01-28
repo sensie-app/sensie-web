@@ -9,6 +9,7 @@ import { COLORS } from '../../constants/theme'
 // const
 const { actionColor1, grayColor3, fontColor1 } = COLORS
 const TestMode = true
+const size = window.screen.width * 0.3
 
 // * component
 /**
@@ -53,7 +54,7 @@ const FlowerOfLife = ({ level }) => {
 
   return (
     <div>
-      <svg width="414" height="414" viewBox="0 0 414 414" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="207" cy="207" r="207" fill="url(#paint0_radial)" fillOpacity="0.2"/>
         <g opacity="0.6">
           <circle cx="75.5" cy="357.5" r="1.5" fill="white"/>

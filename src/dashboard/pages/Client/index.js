@@ -46,7 +46,7 @@ const Client = () => {
       {/* body */}
       <Grid container spacing={1}>
         {/* affirmations */}
-        <Grid item xs={12} sm={12} md={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.ClientG1Container}>
             {affirmationsReducer.loading
               ? <Loading />
@@ -60,7 +60,7 @@ const Client = () => {
           </div>
         </Grid>
         {/* spider-chart + user-list */}
-        <Grid item xs={12} sm={12} md={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.ClientG1Container}>
             <Affirmation />
           </div>

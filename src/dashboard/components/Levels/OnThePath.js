@@ -42,7 +42,6 @@ const OnThePath = ({ level }) => {
     * @returns {string} return color (white, hendleColor())
     */
   const handleColorComplete = () => symbolLevel === MaxLevel ? fontColor1 : handleColor()
-  console.log('handleColorComplete', handleColorComplete)
 
   return (
     <div>

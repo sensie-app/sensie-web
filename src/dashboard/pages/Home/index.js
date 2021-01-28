@@ -10,6 +10,7 @@ import ClientSnapshot from '../../containers/ClientSnapshot'
 import ClientFlow from '../../components/ClientFlow'
 import TrackAffirmations from '../../components/TrackAffirmations'
 import Loading from '../../components/Loading'
+import Line from '../../components/Line'
 import { HelmetSEO } from '../../components/Globals'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -130,12 +131,12 @@ const Home = () => {
       <Header />
       {/* body */}
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.HomeG1Container}>
             <ClientFlow client={totalUsers} sensies={totalSensies} flow={totalFlow}/>
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.HomeG2Container}>
           {affirmationsReducer.loading
             ? <Loading />
@@ -153,6 +154,7 @@ const Home = () => {
           <div className={styles.HomeG3Container}>
             <div className={styles.HomeG3ContainerTitle}>
               <h3>{t('dashboard.Home.ClientSnapshot')}</h3>
+              <Line />
               {usersReducer.loading
                 ? <Loading />
                 : <ClientSnapshot />

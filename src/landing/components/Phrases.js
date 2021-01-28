@@ -10,6 +10,9 @@ const useStyles = makeStyles({
     textAlign: '-webkit-center'
   },
   wisdomStyle: {
+    fontWeight: 'bold',
+    fontSize: '36px',
+    textAlign: '-webkit-center'
   }
 })
 

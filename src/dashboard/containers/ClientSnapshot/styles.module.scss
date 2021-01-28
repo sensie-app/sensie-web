@@ -2,6 +2,7 @@
 
 .ClientSnapshotContainer {
   width: 100%;
+  margin-top: 10px;
 }
 
 .ClientSnapshotBarChartContainer {
@@ -15,7 +16,7 @@
       @include flex(row, flex-start, center, nowrap);
       h4 {
         margin-left: 10px;
-        font-size: 16px;
+        font-size: 1rem;
       }
       &:hover {
         h4 {

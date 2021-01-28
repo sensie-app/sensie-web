@@ -25,7 +25,7 @@ const WebAndMobileTitle = ({
       <Grid item xs={12} sm={10}>
       <Box mx={4} mt={1} mb={10} className={classes.boxStyle} alignSelf="center">
         {textWithoutColor}
-        <span style={{ color: '#15E7BC' }}> {textWithColor} </span>{' '}
+        <span className={classes.boxStyle} style={{ color: '#15E7BC' }}> {textWithColor} </span>{' '}
         {textWithoutColor2}{' '}
       </Box>
       </Grid>

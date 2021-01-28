@@ -95,7 +95,7 @@ const Footer = () => {
               Copyright Sensie. All rights reserved.
             </Grid>
             <Grid item xs={3} sm={4} style={{ textAlign: '-webkit-center' }}>
-              Sensie technology is pantented
+              Sensie technology is patented
             </Grid>
             <Grid item xs={5} sm={4} container justify="flex-end">
               <Box>
@@ -133,7 +133,7 @@ const Footer = () => {
                 <Box mt={2}>Copyright Sensie. All rights reserved.</Box>
               </Grid>
               <Grid item xs={6} style={{ textAlign: 'center' }}>
-                <Box mt={2}>Sensie technology is pantented</Box>
+                <Box mt={2}>Sensie technology is patented</Box>
               </Grid>
               <Grid
                 item

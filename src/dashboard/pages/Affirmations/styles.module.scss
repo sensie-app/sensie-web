@@ -31,7 +31,7 @@
       opacity: 0.9;
       span {
         color: $grayColor3;
-        font-size: 16px;
+        font-size: 1.25rem;
       }
       &:hover {
         cursor: pointer;
@@ -49,4 +49,8 @@
   span {
     color: $fontColor1 !important;
   }
+}
+
+.AffirmationsPacks {
+  width: 100%;
 }

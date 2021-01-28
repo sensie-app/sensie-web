@@ -23,7 +23,7 @@
 .MenuListNotificationsItem {
   @include border(solid, 1px, 5px, transparent);
   @include flex(column, center, center, nowrap);
-  @include font($fontColor1, 16px);
+  @include font($fontColor1, 1rem);
   width: 100%;
   background-color: $grayColor5;
   padding: 5px 10px;

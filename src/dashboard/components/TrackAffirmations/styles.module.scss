@@ -8,6 +8,10 @@
   @include heightGrid();
 }
 
+.TrackAffirmationsContainerHeightMin {
+  @include heightGridMin();
+}
+
 .TrackAffirmationsBodyContainer {  
   @include G50BodyContainer();
 }
@@ -25,7 +29,7 @@
     @include border(solid, 2px, 5px, $grayColor4);
     background-color: $grayColor5;
     padding: 10px 15px;
-    font-size: 15px;
+    font-size: 1rem;
     color: $fontColor1;
     &:hover {
       @include border(solid, 2px, 5px, $actionColor3);

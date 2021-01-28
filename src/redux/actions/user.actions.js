@@ -22,7 +22,6 @@ export const setUserIdAction = data => {
 }
 
 export const getUserByIdAction = (id) => async (dispatch) => {
-  console.log('id', id)
   dispatch({
     type: LOADING
   })

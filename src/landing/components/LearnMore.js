@@ -7,7 +7,7 @@ const { scc } = LANDING_ROUTES
 const LearnMore = () => {
   return (
     <div>
-      <Link to={scc}>Learn more &gt;</Link>
+      <Link style={{ fontSize: '16px' }} to={scc}>Learn more &gt;</Link>
     </div>
   )
 }

@@ -24,7 +24,6 @@ const InvitePeople = () => {
   const [showError, setShowError] = useState(false)
   const [valueInput, setValueInput] = useState('')
 
-  console.log('valueInput', valueInput)
   // ? handle functions
   /**
    * handle click cpoy link

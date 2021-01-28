@@ -215,7 +215,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
             : <span>{t('dashboard.AffirmationsList.noData')}</span>
           }
           {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
-            <Pagination count={affirmationsReducer.loading ? 0 : affirmationsReducer.affirmations.length} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />
+            {handleTotalAffirmations() > 0 && <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />}
           </div>}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>

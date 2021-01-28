@@ -56,10 +56,10 @@ $drawerWidthIcon: 55px;
 }
 
 .LayoutLinkToText, .LayoutAvatarText {
+  @include flex(column, center, flex-start, nowrap);
   padding: 0px 14px;
   color: $fontColor1;
-  font-size: 16px;
-  @include flex(row, flex-start, center, wrap);
+  font-size: 1rem;
   word-break: break-all;    
 }
 
@@ -84,7 +84,7 @@ $drawerWidthIcon: 55px;
 .LayoutLinkToSubText, .LayoutAvatarSubText {
   color:$fontColor2;
   margin-right: $step1;
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .LayoutLinkToSelected {

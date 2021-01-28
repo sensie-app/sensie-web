@@ -3,8 +3,9 @@
 .AffirmationContainer {
   background-color: $grayColor6;
   border-radius: 5px;
-  // padding: 10px 15px;
   width: 100%;
+  @include G50Container(); 
+  @include heightGrid();
   @include flex(row, flex-start, center, wrap);
 }
 
