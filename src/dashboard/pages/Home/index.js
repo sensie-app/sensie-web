@@ -55,11 +55,6 @@ const Home = () => {
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [])
 
-  useEffect(async () => {
-    dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
-    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
-  }, [globalDateFilter])
-
   useEffect(() => {
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())

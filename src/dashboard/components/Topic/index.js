@@ -57,7 +57,7 @@ const Topic = ({
   return (
     <>
       <div className={styles.PackContainer}>
-        <Link to={route}>
+        {/* <Link to={route}> */}
           <div className={`${!min ? styles.PackImgContainer : styles.PackImgContainerMin}`} style={{ backgroundImage: `url(${image})` }}>
             <div className={`${styles.PackBodyContainer} ${styles.TopicBodyContainer}`}>
               {witCheckbox &&
@@ -80,7 +80,7 @@ const Topic = ({
                 }
             </div>
           </div>
-        </Link>
+        {/* </Link> */}
       </div>
     </>
   )

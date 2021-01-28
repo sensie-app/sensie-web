@@ -90,9 +90,9 @@ const BarChart = ({ data, miniature = false }) => {
         motionStiffness={90}
         motionDamping={15}
       />
-      {/* <div className={styles.BarChartAxisBottom}>
+      {!miniature && <div className={styles.BarChartAxisBottom}>
         <div />
-      </div> */}
+      </div>}
     </div>
   )
 }

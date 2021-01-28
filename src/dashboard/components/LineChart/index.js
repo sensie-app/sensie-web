@@ -14,7 +14,7 @@ import chartTheme from '../../constants/chartTheme'
 import { data1 } from './data'
 
 // const
-const { actionColor1, actionColor2, actionColor3 } = COLORS
+const { actionColor1, actionColor2 } = COLORS
 
 // * component
 /**
@@ -64,16 +64,16 @@ const LineChart = ({ data }) => {
           }}
           defs={[
             linearGradientDef('gradientHigh', [
-              { offset: 0, color: actionColor1, opacity: 1 },
-              { offset: 100, color: 'inherit', opacity: 0.5 }
+              { offset: 0, color: '#fff', opacity: 0.75 },
+              { offset: 100, color: 'inherit', opacity: 0.1 }
             ]),
-            linearGradientDef('gradientMedium', [
-              { offset: 0, color: actionColor3, opacity: 1 },
-              { offset: 100, color: 'inherit', opacity: 0.5 }
-            ]),
+            // linearGradientDef('gradientMedium', [
+            //   { offset: 0, color: actionColor3, opacity: 1 },
+            //   { offset: 100, color: 'inherit', opacity: 0.5 }
+            // ]),
             linearGradientDef('gradientLow', [
-              { offset: 0, color: actionColor2, opacity: 1 },
-              { offset: 100, color: 'inherit', opacity: 0.5 }
+              { offset: 0, color: actionColor2, opacity: 0.75 },
+              { offset: 100, color: 'inherit', opacity: 0 }
             ])
           ]}
         fill={[

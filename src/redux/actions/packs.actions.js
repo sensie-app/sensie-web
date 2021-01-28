@@ -20,13 +20,16 @@ export const listPacksAction = id => async dispatch => {
     type: LOADING
   })
 
+  console.log('id', id)
   try {
     const response = await API.graphql(graphqlOperation(listPacksWiyhAffirmationsIdsByIdQuery(id)))
+    console.log('response', response)
     dispatch({
       type: GET_ALL_PACKS,
       payload: response.data.listPacks.items
     })
   } catch (error) {
+    console.log('error', error)
     dispatch({
       type: ERROR,
       payload: 'Error in list packs'

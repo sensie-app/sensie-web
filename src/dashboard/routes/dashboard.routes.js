@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 // import { ThemeProvider } from '@material-ui/core/styles'
 // redux
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getAllTopicsAction } from '../../redux/actions/topics.action'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
@@ -29,6 +29,8 @@ import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
+import { listUsersByOrganizationIdAction } from '../../redux/actions/users.actions'
+import { listAffirmationsByCoachId } from '../../redux/actions/affirmations.actions'
 // theme
 // import theme from '../styles/theme'
 
@@ -38,7 +40,7 @@ const {
   home,
   client,
   team,
-  user,
+  // user,
   affirmations,
   pack,
   topic,
@@ -54,10 +56,20 @@ const {
 const DashboardRoutes = () => {
   // ? hooks
   const dispatch = useDispatch()
+  const {
+    filtersReducer: { globalDateFilter },
+    userReducer: { user }
+  } = useSelector(state => state)
 
   useEffect(() => {
     dispatch(getAllTopicsAction())
   }, [])
+
+  useEffect(async () => {
+    console.log('1', 1)
+    dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
+    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
+  }, [globalDateFilter])
 
   return (
     <AuthStateApp>
