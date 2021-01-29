@@ -122,7 +122,7 @@ const AboutSensie = () => {
             <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
-                  'Goals create desire, desire creates desire and gets us nowhere Intention creates ways of being, ways of being create focused action, focused action creates effort and output in the direction of our intention.'
+                  'Goals create desire, desire creates desire and gets us nowhere. Intention creates ways of being, ways of being create focused action, focused action creates effort and output in the direction of our intention.'
                 }
               />
             </Box>

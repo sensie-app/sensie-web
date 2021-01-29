@@ -33,7 +33,7 @@ const CarouselComponent = () => {
         <div>
           <Citation
             avatar={JTGtorfy}
-            text="Sensie gives you feedback to alert you if stress is present in your muscles, but it is the felt experience that is the most impactful change in awareness."
+            text="Sensie provides feedback to alert you if stress is present in your muscles, but it is the felt experience that really created an impactful change in my awareness."
             name="J.T. Gyorfy"
             role="Tech Beach Co-Founder"
           />
