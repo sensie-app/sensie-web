@@ -13,7 +13,8 @@ const LANDING_ROUTES = {
   blog: landing + '/blog',
   aboutsensie: landing + '/aboutsensie',
   abs: landing + '/aboutsensie/#abs',
-  scc: landing + '/science/#scc'
+  scc: landing + '/science/#scc',
+  contact: landing + '/contact'
 }
 
 export default LANDING_ROUTES

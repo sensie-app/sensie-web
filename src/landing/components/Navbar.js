@@ -18,7 +18,7 @@ import APP_ROUTES from '../../constants/routes'
 import LogoSensie from './Logo'
 import CustomizedMenus from './Menu'
 
-const { /* membership, */ howitworks, blog, scienceanchor, abs, hm } = LANDING_ROUTES
+const { /* membership, */ howitworks, blog, scienceanchor, abs, contact, hm } = LANDING_ROUTES
 
 const useStyle = makeStyles((theme) => ({
   offset: {
@@ -96,6 +96,9 @@ const Navbar = () => {
 
                 <Link to={abs}>
                   <Box mx={1}>ABOUT</Box>
+                </Link>
+                <Link to={contact}>
+                  <Box mx={1}>CONTACT</Box>
                 </Link>
               </Grid>
               <Grid item xs={12} sm={2}>
