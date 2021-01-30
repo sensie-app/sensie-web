@@ -14,10 +14,11 @@ import Home from '../pages/Home'
 import Science from '../pages/Science'
 import Blog from '../pages/Blog'
 import AboutSensie from '../pages/AboutSensie'
+import Contact from '../pages/Contact'
 import Footer from '../components/Footer'
 import LANDING_ROUTES from '../constants/routes'
 
-const { home, science, blog, aboutsensie, entrypoint } = LANDING_ROUTES
+const { home, science, blog, aboutsensie, contact, entrypoint } = LANDING_ROUTES
 
 function App () {
   useEffect(() => {
@@ -30,6 +31,7 @@ function App () {
       <BrowserRouter>
         <Navbar />
           <Switch>
+          <Route path={contact} component={Contact} />
           <Route path={aboutsensie} component={AboutSensie} />
           <Route path={blog} component={Blog} />
           <Route path={science} component={Science} />
