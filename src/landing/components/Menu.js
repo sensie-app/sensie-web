@@ -13,10 +13,12 @@ import APP_ROUTES from '../../constants/routes'
 import LANDING_ROUTES from '../constants/routes'
 
 const {
-  /* membership, */ howitworks,
+  howitworks,
+  /* membership, */
   blog,
   scienceanchor,
   abs,
+  contact,
   hm
 } = LANDING_ROUTES
 
@@ -105,6 +107,11 @@ export default function TemporaryDrawer () {
           <Link to={abs}>
             <Box mt={3} mx={3}>
               ABOUT
+            </Box>
+          </Link>
+          <Link to={contact}>
+            <Box mt={3} mx={3} mb={3}>
+              CONTACT
             </Box>
           </Link>
         </Grid>
