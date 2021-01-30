@@ -105,7 +105,7 @@ export default function TemporaryDrawer () {
           </NavLink> */}
 
           <Link to={abs}>
-            <Box mt={3} mx={3} mb={3}>
+            <Box mt={3} mx={3}>
               ABOUT
             </Box>
           </Link>
