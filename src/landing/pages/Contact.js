@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles, Grid, Box, Typography } from '@material-ui/core'
-import FormFooter from '../components/FormFooter'
+import ContactForm from '../components/ContactForm'
 
 const useStyles = makeStyles({
   background: {
@@ -40,7 +40,7 @@ const Contact = () => {
                 <Typography className={classes.text}>Shoot us a note:</Typography>
             </Grid>
             <Grid xs={12} data-aos="zoom-out-up">
-                <FormFooter />
+                <ContactForm />
             </Grid>
           </Box>
         </Grid>
