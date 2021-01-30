@@ -15,7 +15,7 @@ import LANDING_ROUTES from '../constants/routes'
 const {
   howitworks,
   /* membership, */
-  blog,
+  /* blog, */
   scienceanchor,
   abs,
   contact,
