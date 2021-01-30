@@ -24,7 +24,7 @@ import WilliamSoftky from '../assets/img/WilliamSoftky.jpg'
 import RobertHanna from '../assets/img/RobertHanna.jpg'
 import LuisGallardo from '../assets/img/LuisGallardo.jpg'
 import JoinUs from '../components/JoinUs'
-import FormFooter from '../components/FormFooter'
+import ContactForm from '../components/ContactForm'
 import Member from '../components/Member'
 import VisionMision from '../components/VisionMision'
 
@@ -359,7 +359,7 @@ const AboutSensie = () => {
           <Grid xs={0} sm={1}></Grid>
           <Grid xs={12} sm={6}>
             <Box my={15}>
-              <FormFooter />
+              <ContactForm />
             </Box>
           </Grid>
         </Grid>
