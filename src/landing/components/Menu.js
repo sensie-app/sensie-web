@@ -98,12 +98,13 @@ export default function TemporaryDrawer () {
           {/* <Link to={membership}>
                   <Box mx={1}>MEMBERSHIP</Box>
                 </Link> */}
-
+          {process.env.REACT_APP_FEAT_BLOG_ENABLED === 'true' && (
           <NavLink to={blog}>
             <Box mt={3} mx={3}>
               BLOG
             </Box>
           </NavLink>
+          )}
 
           <Link to={abs}>
             <Box mt={3} mx={3}>
@@ -118,6 +119,7 @@ export default function TemporaryDrawer () {
         </Grid>
       <Divider />
       <List>
+        {process.env.REACT_APP_FEAT_DASHBOARD_ENABLED === 'true' && (
         <Grid container style={{ textAlign: 'center' }}>
           <Grid item xs={12}>
             <Box mx={2}>
@@ -148,6 +150,7 @@ export default function TemporaryDrawer () {
             </Box>
           </Grid>
         </Grid>
+        )}
       </List>
     </div>
   )

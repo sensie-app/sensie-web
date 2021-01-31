@@ -90,10 +90,11 @@ const Navbar = () => {
                   <Box mx={1}>MEMBERSHIP</Box>
                 </Link> */}
 
+                {process.env.REACT_APP_FEAT_BLOG_ENABLED === 'true' && (
                 <NavLink to={blog}>
                   <Box mx={1}>BLOG</Box>
                 </NavLink>
-
+                )}
                 <Link to={abs}>
                   <Box mx={1}>ABOUT</Box>
                 </Link>
@@ -101,6 +102,7 @@ const Navbar = () => {
                   <Box mx={1}>CONTACT</Box>
                 </Link>
               </Grid>
+              {process.env.REACT_APP_FEAT_DASHBOARD_ENABLED === 'true' && (
               <Grid item xs={12} sm={2}>
                 <Box display="flex" justifyContent="flex-end">
                   <Box>
@@ -127,6 +129,7 @@ const Navbar = () => {
                   </Box>
                 </Box>
               </Grid>
+              )}
             </Hidden>
           </Grid>
         </Toolbar>
