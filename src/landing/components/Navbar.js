@@ -101,6 +101,7 @@ const Navbar = () => {
                   <Box mx={1}>CONTACT</Box>
                 </Link>
               </Grid>
+              {process.env.REACT_APP_FEAT_DASHBOARD_ENABLED === 'true' && (
               <Grid item xs={12} sm={2}>
                 <Box display="flex" justifyContent="flex-end">
                   <Box>
@@ -127,6 +128,7 @@ const Navbar = () => {
                   </Box>
                 </Box>
               </Grid>
+              )}
             </Hidden>
           </Grid>
         </Toolbar>
