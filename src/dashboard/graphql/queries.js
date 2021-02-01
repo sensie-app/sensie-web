@@ -225,6 +225,7 @@ export const getTopicByIdQuery = id => `
       name
       id
       description
+      picture
       affirmations {
         items {
           affirmation {

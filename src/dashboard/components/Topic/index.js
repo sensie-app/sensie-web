@@ -1,5 +1,5 @@
 // react
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 // material-ui
@@ -12,7 +12,7 @@ import IMG from '../../constants/images'
 import { handleLargeName } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
-
+import { Storage } from 'aws-amplify'
 // const
 const { noImg } = IMG
 
@@ -33,7 +33,7 @@ const { noImg } = IMG
  */
 const Topic = ({
   route,
-  img = null,
+  img = noImg,
   title,
   topic,
   withLink = true,
@@ -45,7 +45,15 @@ const Topic = ({
 }) => {
   // ? hooks
   const [check, setCheck] = useState(false)
-  const [image] = useState(img === null ? noImg : img)
+  const [uri, setUri] = useState('')
+
+  const getImage = async function (k) {
+    return (k ? await Storage.get(k) : noImg)
+  }
+
+  useEffect(() => {
+    getImage(img).then(d => setUri(d))
+  }, [])
 
   // ? handle functions
   /**
@@ -58,14 +66,14 @@ const Topic = ({
     <>
       <div className={styles.PackContainer}>
         {/* <Link to={route}> */}
-          <div className={`${!min ? styles.PackImgContainer : styles.PackImgContainerMin}`} style={{ backgroundImage: `url(${image})` }}>
+          <div className={`${!min ? styles.PackImgContainer : styles.PackImgContainerMin}`} style={{ backgroundImage: `url(${uri})` }}>
             <div className={`${styles.PackBodyContainer} ${styles.TopicBodyContainer}`}>
               {witCheckbox &&
                   <div className={styles.TopicHeaderContainer}>
                     <Checkbox checked={check} onChange={handleCheck} className={styles.TopicCheckbox} />
                     {count !== 0 && <h6>{count} Affirmations</h6>}
                   </div>
-                }
+              }
                 {withLink
                   ? <Link to={route}>
                       <div className={styles.TopicIconContainer}>

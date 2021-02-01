@@ -30,7 +30,7 @@ const Pack = ({ route, img = noImg, title, totalAffirmations }) => {
   const [uri, setUri] = useState('')
 
   const getImage = async function (k) {
-    return await Storage.get(k)
+    return (k ? await Storage.get(k) : noImg)
   }
   useEffect(() => {
     getImage(img).then(d => setUri(d))
