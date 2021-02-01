@@ -1,8 +1,9 @@
 // react
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
+import { Storage } from 'aws-amplify'
 // material-ui
 import Checkbox from '@material-ui/core/Checkbox'
 // constants
@@ -26,6 +27,14 @@ const Pack = ({ route, img = noImg, title, totalAffirmations }) => {
   // ? hooks
   const [t] = useTranslation('global')
   const [check, setCheck] = useState(false)
+  const [uri, setUri] = useState('')
+
+  const getImage = async function (k) {
+    return await Storage.get(k)
+  }
+  useEffect(() => {
+    getImage(img).then(d => setUri(d))
+  }, [])
 
   // ? handle functions
   /**
@@ -37,7 +46,7 @@ const Pack = ({ route, img = noImg, title, totalAffirmations }) => {
   return (
     <div className={styles.PackContainer}>
       <Link to={route}>
-        <div className={styles.PackImgContainer} style={{ backgroundImage: `url(${img})` }} />
+        <div className={styles.PackImgContainer} style={{ backgroundImage: `url(${uri})` }} />
       </Link>
       <Checkbox checked={check} onChange={handleCheck} className={styles.PackCheckbox} />
       <div className={styles.PackBodyContainer}>
