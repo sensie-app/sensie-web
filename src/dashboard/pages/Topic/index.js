@@ -72,6 +72,7 @@ const Topic = () => {
   const [checkedAffirmations, setCheckedAffirmations] = useState([])
   const [showOptions, setShowOptions] = useState(false)
 
+  console.log(waitQuery)
   // useEffect(async () => await handleTopicQuery(), [])
   // useEffect(() => handleTopicId(), [])
   // useEffect(async () => await handleTopicQuery(), [newAff])
@@ -211,7 +212,7 @@ const Topic = () => {
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => !waitQuery && topic.affirmations.items.length
+  const handleCountAffirmations = () => topic.affirmations.items.length
 
   /**
    * handleArrTopics
@@ -270,13 +271,13 @@ const Topic = () => {
             <div className={styles.TopicHeaderTextContainer}>
               <div className={styles.TopicHeaderTextTitle}>
                 <SvgIcon icon={id} size={SIZE.xxl} />
-                {!waitQuery && <span>{topic.name}</span>}
+                {topic !== null && <span>{topic.name}</span>}
               </div>
               {/* <div className={styles.TopicHeaderTextDescription}>
                 <h6>{topic.description}</h6>
               </div> */}
               <div className={styles.TopicHeaderTextAffirmations}>
-                <span>{handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
+                <span>{topic !== null && handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
               </div>
             </div>
           </div>
