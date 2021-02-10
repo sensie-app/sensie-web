@@ -77,7 +77,9 @@ const Topic = ({
                 {withLink
                   ? <Link to={route}>
                       <div className={styles.TopicIconContainer}>
-                        <SvgIcon icon={topic} size={iconSize}/>
+                        {process.env.REACT_APP_FEAT_TOPIC_SHOW_ICON_ENABLED === 'true'
+                          ? <SvgIcon icon={topic} size={iconSize}/>
+                          : null}
                         <span>{handleLargeName(topic.name, 18)}</span>
                       </div>
                     </Link>
