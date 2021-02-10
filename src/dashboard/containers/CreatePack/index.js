@@ -15,6 +15,9 @@ import styles from './styles.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
 
+import { Storage } from 'aws-amplify'
+import { v4 as uuidv4 } from 'uuid'
+
 // const
 const { grayColor3 } = COLORS
 const { pack } = DASHBOARD_ROUTES
@@ -71,7 +74,7 @@ const CreatePack = ({ onSave }) => {
   const handleInputFileValue = event => {
     event.preventDefault()
     setShowFile(URL.createObjectURL(event.target.files[0]))
-    setFile(event.target.value)
+    setFile(event.target.files[0])
   }
 
   const handleForm = async e => {
@@ -81,8 +84,15 @@ const CreatePack = ({ onSave }) => {
       setShowError(true)
       setRedirect(false)
     } else {
-      dispatch(createPacksAction(value, value, user.id))
-      setShowError(false)
+      const packId = uuidv4()
+      Storage.put('packs/' + packId + '.png', file, {
+        contentType: file.type
+      })
+        .then(res => {
+          console.log(res)
+          dispatch(createPacksAction(value, value, user.id, res.key))
+          setShowError(false)
+        })
     }
   }
 
