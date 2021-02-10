@@ -11,7 +11,7 @@ import { PieChartDataPropTypes } from '../../prop-types'
 // theme
 import chartTheme from '../../constants/chartTheme'
 // test
-import { data1 } from './data'
+// import { data1 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3, grayColor4 } = COLORS
@@ -24,13 +24,14 @@ const { actionColor1, actionColor2, actionColor3, grayColor4 } = COLORS
  * @param {PieChartData} data
  * @param {string} title (default: '')
  */
-const PieChart = ({ data = data1, title = '', sage = false }) => {
+const PieChart = ({ data = 0, title = '', sage = false }) => {
   // ? handle functions
   /**
    * handle data color
    * @param {PieChartData} data
    * @return  {undefined} data
    */
+  console.log(data)
   const handleDataColor = (data) => {
     const dataWithColor = data.map(_data => {
       if (_data.id === 'empty') {

@@ -1,6 +1,6 @@
 const moment = require('moment')
 
-export const TODAY = moment().format()
+export const TODAY = moment().utc().format()
 
 export const UserListBtns = {
   summary: 'summary',

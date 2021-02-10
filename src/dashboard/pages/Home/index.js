@@ -159,7 +159,7 @@ const Home = () => {
                 getSensies={handleSensiesByAffirmationIdQuery}
                 title={t('dashboard.Home.mindAuthorAndTrackAffirmations')}
                 btn={btn}
-                limit={3}
+                limit={5}
                 fixHeight={true}
               />
             }

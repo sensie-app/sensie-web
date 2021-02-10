@@ -252,7 +252,7 @@ export const getTopicByIdQuery = id => `
 
 export const listPacksWiyhAffirmationsIdsByIdQuery = id => `
   query MyQuery {
-    listPacks(filter: {packUserId: {eq: "${id}"}}) {
+    listPacks(limit: 10000, filter: {packUserId: {eq: "${id}"}}) {
       items {
         name
         id
@@ -311,7 +311,7 @@ export const getPackByIdQuery = id => `
 
 export const listAffirmationsByTopicIdQuery = (topicId) => `
   query MyQuery {
-    listAffirmations(filter: {topicId: {contains: "${topicId}"}}) {
+    listAffirmations(limit: 10000, filter: {topicId: {contains: "${topicId}"}}) {
       items {
         description
         id
@@ -334,7 +334,7 @@ export const listAffirmationsByTopicIdQuery = (topicId) => `
 // todo: add topics filter
 export const listAffirmationsByUserIdAndTopicId = (userId, dates, limit) => `
   query MyQuery {
-    listAffirmations(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userId: {eq: "${userId}"}}, limit: ${limit}) {
+    listAffirmations(limit: 10000, filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userId: {eq: "${userId}"}}) {
       items {
         description
         id
@@ -364,7 +364,7 @@ export const listAffirmationsByUserIdAndTopicId = (userId, dates, limit) => `
 
 export const listAffirmationsByIdUserIdTopicId = (affirmationId, dates) => `
   query MyQuery {
-    listAffirmations(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, id: {eq: "${affirmationId}"}}) {
+    listAffirmations(limit: 10000, filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, id: {eq: "${affirmationId}"}}) {
       items {
         user {
           firstName
@@ -384,7 +384,7 @@ export const listAffirmationsByIdUserIdTopicId = (affirmationId, dates) => `
 
 export const listSensiesByAffirmationId = id => `
   query MyQuery {
-    listSensies(filter: {affirmationId: {eq: "A19"}}) {
+    listSensies(limit: 10000, filter: {affirmationId: {eq: "A19"}}) {
       items {
         result
       }
