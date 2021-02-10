@@ -25,7 +25,7 @@ const { actionColor1 } = COLORS
  * @param {number} sensies
  * @param {number} flow
  */
-const ClientFlow = ({ client, sensies, flow }) => {
+const ClientFlow = ({ client, sensies, flow, awareness, resilience, trust }) => {
   // ? hooks
   const [t] = useTranslation('global')
 
@@ -50,9 +50,9 @@ const ClientFlow = ({ client, sensies, flow }) => {
           </div>
           {/* 3 charts */}
           <div className={styles.ClientFlowChartS3Container}>
-            <PieChart title={t('dashboard.PieChart.awarness')} />
-            <PieChart title={t('dashboard.PieChart.resilence')} />
-            <PieChart title={t('dashboard.PieChart.trust')} />
+            <PieChart data={awareness} title={t('dashboard.PieChart.awarness')} />
+            <PieChart data={resilience} title={t('dashboard.PieChart.resilence')} />
+            <PieChart data={trust} title={t('dashboard.PieChart.trust')} />
           </div>
         </div>
       </div>
@@ -67,7 +67,13 @@ ClientFlow.propTypes = {
   /** sensies */
   sensies: PropTypes.number.isRequired,
   /** flow */
-  flow: PropTypes.number.isRequired
+  flow: PropTypes.number.isRequired,
+  /** awareness */
+  awareness: PropTypes.number.isRequired,
+  /** resilience */
+  resilience: PropTypes.number.isRequired,
+  /** trust */
+  trust: PropTypes.number.isRequired
 }
 
 export default ClientFlow

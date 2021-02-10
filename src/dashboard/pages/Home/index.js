@@ -50,6 +50,10 @@ const Home = () => {
   const [totalSensies, setTotalSensies] = useState(0)
   const [totalFlow, setTotalFlow] = useState(0)
 
+  const [awarenessScore, setAwarenessScore] = useState(0)
+  const [resilienceScore, setResilienceScore] = useState(0)
+  const [trustScore, setTrustScore] = useState(0)
+
   useEffect(() => {
     dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
@@ -59,6 +63,10 @@ const Home = () => {
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
+
+    setAwarenessScore(handleAwarenessScore())
+    setResilienceScore(handleResilienceScore())
+    setTrustScore(handleTrustScore())
   }, [usersReducer.users, globalDateFilter])
 
   // ? handle functions
@@ -81,6 +89,17 @@ const Home = () => {
    */
   const handleTotalClients = () => !usersReducer.loading && usersReducer.users.length > 0 ? usersReducer.users.length : 0
 
+  const handleAwarenessScore = () => Math.ceil(Math.random() * 99)
+
+  const handleResilienceScore = () => Math.ceil(Math.random() * 99)
+
+  const handleTrustScore = () => {
+    if (!usersReducer.loading && handleTotalClients() > 0) {
+      return Math.ceil(Math.random() * 99)
+    } else {
+      return 0
+    }
+  }
   /**
    * handle total sensies
    * @returns {number} total
@@ -128,7 +147,8 @@ const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.HomeG1Container}>
-            <ClientFlow client={totalUsers} sensies={totalSensies} flow={totalFlow}/>
+            <ClientFlow client={totalUsers} sensies={totalSensies}
+                        flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} />
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>

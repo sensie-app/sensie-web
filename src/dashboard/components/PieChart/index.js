@@ -58,12 +58,14 @@ const PieChart = ({ data = data1, title = '', sage = false }) => {
     return <span>{value[0].value}%</span>
   }
 
+  const formatPieChartData = (val) => [{ id: 'value', value: val }, { id: 'empty', value: 100 - val }]
+
   return (
     <div className={styles.PieChartContainer}>
       <h4>{title}</h4>
       <div className={styles.PieChartDataContainer}>
         <ResponsivePie
-            data={handleDataColor(data)}
+            data={handleDataColor(formatPieChartData(data))}
             // margin={{ top: margin, right: margin, bottom: margin, left: margin }}
             innerRadius={0.85}
             colors={value => value.data.color }
@@ -75,7 +77,7 @@ const PieChart = ({ data = data1, title = '', sage = false }) => {
             theme={chartTheme}
         />
         <div className={styles.PieChartCenterText}>
-          {renderCenterValue(data)}
+          {renderCenterValue(formatPieChartData(data))}
         </div>
       </div>
     </div>
