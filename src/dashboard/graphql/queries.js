@@ -58,6 +58,7 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
                   id
                   name
                   picture
+                  icon
                   description
                 }
               }
@@ -179,6 +180,7 @@ export const listTopicsQuery = () => `
         id
         name
         picture
+        icon
         description    
         affirmations {
           items {
@@ -209,6 +211,7 @@ export const listTopicsWiyhAffirmationsIdsQuery = () => `
         id
         name
         picture
+        icon
         affirmations {
           items {
             id
@@ -226,6 +229,7 @@ export const getTopicByIdQuery = id => `
       id
       description
       picture
+      icon
       affirmations {
         items {
           affirmation {
@@ -317,6 +321,7 @@ export const listAffirmationsByTopicIdQuery = (topicId) => `
             topic {
               name
               picture
+              icon
               id
             }
           }
@@ -348,6 +353,7 @@ export const listAffirmationsByUserIdAndTopicId = (userId, dates, limit) => `
               name
               description
               picture
+              icon
             }
           }
         }

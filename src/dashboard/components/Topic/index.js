@@ -36,6 +36,7 @@ const Topic = ({
   img = noImg,
   title,
   topic,
+  icon = '',
   withLink = true,
   witCheckbox = true,
   min = false,
@@ -46,6 +47,7 @@ const Topic = ({
   // ? hooks
   const [check, setCheck] = useState(false)
   const [uri, setUri] = useState('')
+  const [iconUri, setIconUri] = useState('')
 
   const getImage = async function (k) {
     return (k ? await Storage.get(k) : noImg)
@@ -53,6 +55,7 @@ const Topic = ({
 
   useEffect(() => {
     getImage(img).then(d => setUri(d))
+    getImage(icon).then(d => setIconUri(d))
   }, [])
 
   // ? handle functions
@@ -77,9 +80,7 @@ const Topic = ({
                 {withLink
                   ? <Link to={route}>
                       <div className={styles.TopicIconContainer}>
-                        {process.env.REACT_APP_FEAT_TOPIC_SHOW_ICON_ENABLED === 'true'
-                          ? <SvgIcon icon={topic} size={iconSize}/>
-                          : null}
+                          <SvgIcon icon={iconUri} size={iconSize}/>
                         <span>{handleLargeName(topic.name, 18)}</span>
                       </div>
                     </Link>
@@ -102,6 +103,8 @@ Topic.propTypes = {
   route: PropTypes.string.isRequired,
   /** img */
   img: PropTypes.string,
+  /** icon */
+  icon: PropTypes.string,
   /** title */
   title: PropTypes.string.isRequired,
   /** topic */

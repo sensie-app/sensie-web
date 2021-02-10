@@ -33,6 +33,8 @@ import {
 // styles
 import styles from './styles.module.scss'
 
+import { Storage } from 'aws-amplify'
+
 // const
 const {
   noImg,
@@ -80,6 +82,20 @@ const Topic = () => {
   useEffect(() => handleTopicId(), [])
   useEffect(() => handleTopicId(), [topicsReducer])
   useEffect(() => dispatch(getAllTopicsAction()), [newAff])
+
+  const [uri, setUri] = useState('')
+  // const [iconUri, setIconUri] = useState('')
+
+  const getImage = async function (k) {
+    return (k ? await Storage.get(k) : noImg)
+  }
+
+  useEffect(() => {
+    if (topic !== null) {
+      getImage(topic.picture).then(d => setUri(d))
+      // getImage(topic.icon).then(d => setIconUri(d))
+    }
+  }, [topic])
 
   // ? handle functions
   /**
@@ -207,6 +223,7 @@ const Topic = () => {
       default: return noImg
     }
   }
+  console.log(handleImg)
 
   /**
    * handleCountAffirmations
@@ -267,7 +284,7 @@ const Topic = () => {
         {/* header */}
         <div className={styles.TopicHeaderContainer}>
           <div className={styles.TopicHeaderImgContainer}>
-            <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${handleImg()})` }} />
+            <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${uri})` }} />
             <div className={styles.TopicHeaderTextContainer}>
               <div className={styles.TopicHeaderTextTitle}>
                 <SvgIcon icon={id} size={SIZE.xxl} />
