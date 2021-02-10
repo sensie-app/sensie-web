@@ -163,7 +163,7 @@ const Pack = () => {
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => !waitQuery && pack.affirmations.items.length
+  const handleCountAffirmations = () => pack.affirmations.items.length
 
   /**
    * handleAffirmationsByTopicsQuery
@@ -209,9 +209,9 @@ const Pack = () => {
           <div className={styles.PackHeaderImgContainer}>
             <div className={styles.PackHeaderImg} style={{ backgroundImage: `url(${noImg})` }} />
             <div className={styles.PackHeaderTextContainer}>
-              {!waitQuery && <span>{pack.name}</span>}
+              {pack !== null && <span>{pack.name}</span>}
               <div>
-                <span>{handleCountAffirmations()} {t('dashboard.Pack.affirmations')}</span>
+                <span>{pack !== null && handleCountAffirmations()} {t('dashboard.Pack.affirmations')}</span>
               </div>
             </div>
           </div>

@@ -202,20 +202,22 @@ const Layout = ({ children }) => {
                 <img src={logo} alt="Sensie logo" width="91" />
                 <div>
                   {/* <ChangeLngBtn /> */}
-                  <div className={styles.LayoutAppBarLeftIconsNotifications}>
-                    <MenuListNotifications
-                      data={notificationsTest}
-                      onClickValue={value => console.log(value)}
-                      theme={2}
-                      withName={false}
-                      defaultValue={null}>
-                      <IconButton aria-label="show notifications" color="inherit">
-                        <Badge badgeContent={17} color="primary">
-                          <Icon name="bell-outline" size="md" color={fontColor1} />
-                        </Badge>
-                      </IconButton>
-                    </MenuListNotifications>
-                  </div>
+                  {process.env.REACT_APP_FEAT_NOTIFICATIONS_ENABLED === 'true'
+                    ? <div className={styles.LayoutAppBarLeftIconsNotifications}>
+                      <MenuListNotifications
+                        data={notificationsTest}
+                        onClickValue={value => console.log(value)}
+                        theme={2}
+                        withName={false}
+                        defaultValue={null}>
+                        <IconButton aria-label="show notifications" color="inherit">
+                          <Badge badgeContent={17} color="primary">
+                            <Icon name="bell-outline" size="md" color={fontColor1} />
+                          </Badge>
+                        </IconButton>
+                      </MenuListNotifications>
+                    </div>
+                    : null}
                   <IconButton aria-label="show 17 new notifications" aria-controls="logout-menu" color="inherit" onClick={() => {}}>
                     <AlertDialog title={t('dashboard.Layout.signOut')} withLogout={true} description={t('dashboard.Layout.signOut?')} disagreeText={t('dashboard.Layout.close')}>
                       <Icon name="log-out-outline" size="md" color={fontColor1} />
