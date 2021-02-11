@@ -106,6 +106,7 @@ export const listUsersWithSensiesByUserIdQuery = (id, dates) => `
               items {
                 id
                 result
+                createdAt
               }
             }
           }
@@ -146,6 +147,7 @@ export const listUsersByOrganizationId = (id, dates) => `
           items {
             id
             result
+            createdAt
           }
         }
       }

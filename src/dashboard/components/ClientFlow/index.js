@@ -25,7 +25,7 @@ const { actionColor1 } = COLORS
  * @param {number} sensies
  * @param {number} flow
  */
-const ClientFlow = ({ client, sensies, flow, awareness, resilience, trust }) => {
+const ClientFlow = ({ graph, client, sensies, flow, awareness, resilience, trust }) => {
   // ? hooks
   const [t] = useTranslation('global')
 
@@ -46,7 +46,7 @@ const ClientFlow = ({ client, sensies, flow, awareness, resilience, trust }) => 
         <div className={styles.ClientFlowBodyChartContainer}>
           {/* big chart */}
           <div className={styles.ClientFlowChartS2Container}>
-            <LineChart />
+            <LineChart data={graph} />
           </div>
           {/* 3 charts */}
           <div className={styles.ClientFlowChartS3Container}>
@@ -73,7 +73,9 @@ ClientFlow.propTypes = {
   /** resilience */
   resilience: PropTypes.number.isRequired,
   /** trust */
-  trust: PropTypes.number.isRequired
+  trust: PropTypes.number.isRequired,
+
+  graph: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default ClientFlow

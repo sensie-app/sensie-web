@@ -54,6 +54,8 @@ const Home = () => {
   const [resilienceScore, setResilienceScore] = useState(0)
   const [trustScore, setTrustScore] = useState(0)
 
+  const [graphData, setGraphData] = useState(0)
+
   useEffect(() => {
     dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
@@ -63,6 +65,7 @@ const Home = () => {
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
+    setGraphData(handleGraphData())
 
     setAwarenessScore(handleAwarenessScore())
     setResilienceScore(handleResilienceScore())
@@ -131,6 +134,28 @@ const Home = () => {
     }
   }
 
+  const handleGraphData = () => {
+    const data = [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 30, y: 30 }] }]
+    if (!usersReducer.loading && handleTotalClients() > 0) {
+      const userSensies = usersReducer.users.map(user => user.sensies.items)
+      console.log(userSensies)
+      // const acc = {}
+      const flowsByDate = userSensies.reduce((acc, sensieList) => {
+        console.log(sensieList, Array.isArray(sensieList))
+        if (!sensieList || !Array.isArray(sensieList)) return acc
+        sensieList.forEach(e => {
+          console.log(acc)
+          console.log(e)
+          acc[e.createdAt] = (acc[e.createdAt] ? (acc[e.createdAt] + parseInt(e.result)) : parseInt(e.result))
+        })
+        console.log(acc)
+        return acc
+      }, {})
+      console.log(flowsByDate)
+    }
+    return data
+  }
+
   // ? const
   const btn = {
     title: t('dashboard.Home.viewMore'),
@@ -147,7 +172,7 @@ const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.HomeG1Container}>
-            <ClientFlow client={totalUsers} sensies={totalSensies}
+            <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
                         flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} />
           </div>
         </Grid>

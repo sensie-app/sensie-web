@@ -11,7 +11,7 @@ import { LineChartDataPropTypes } from '../../prop-types'
 // theme
 import chartTheme from '../../constants/chartTheme'
 // data
-import { data1 } from './data'
+// import { data1 } from './data'
 
 // const
 const { actionColor1, actionColor2 } = COLORS
@@ -30,7 +30,7 @@ const LineChart = ({ data }) => {
   return (
     <div className={styles.LineChartContainer}>
        <ResponsiveLine
-          data={data1}
+          data={data}
           margin={{ top: margin, right: margin, bottom: margin + 10, left: margin * 2 }}
           enablePoints={false}
           enablePointLabel={false}
