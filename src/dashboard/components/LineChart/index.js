@@ -26,6 +26,7 @@ const LineChart = ({ data }) => {
   // const
   /** @type {number} */
   const margin = 20
+  console.log(data)
 
   return (
     <div className={styles.LineChartContainer}>
@@ -72,8 +73,10 @@ const LineChart = ({ data }) => {
             //   { offset: 100, color: 'inherit', opacity: 0.5 }
             // ]),
             linearGradientDef('gradientLow', [
-              { offset: 0, color: actionColor2, opacity: 0.75 },
-              { offset: 100, color: 'inherit', opacity: 0 }
+              { offset: 0, color: actionColor1, opacity: 0.95 },
+              { offset: 40, color: actionColor1, opacity: 0.25 },
+              { offset: 60, color: actionColor2, opacity: 0.25 },
+              { offset: 100, color: actionColor2, opacity: 0.45 }
             ])
           ]}
         fill={[

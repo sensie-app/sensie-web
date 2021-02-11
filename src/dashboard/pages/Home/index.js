@@ -65,11 +65,11 @@ const Home = () => {
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
-    setGraphData(handleGraphData())
 
     setAwarenessScore(handleAwarenessScore())
     setResilienceScore(handleResilienceScore())
     setTrustScore(handleTrustScore())
+    setGraphData(handleGraphData())
   }, [usersReducer.users, globalDateFilter])
 
   // ? handle functions
@@ -135,25 +135,36 @@ const Home = () => {
   }
 
   const handleGraphData = () => {
-    const data = [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 30, y: 30 }] }]
     if (!usersReducer.loading && handleTotalClients() > 0) {
       const userSensies = usersReducer.users.map(user => user.sensies.items)
-      console.log(userSensies)
+      // console.log(userSensies)
       // const acc = {}
       const flowsByDate = userSensies.reduce((acc, sensieList) => {
-        console.log(sensieList, Array.isArray(sensieList))
+        // console.log(sensieList, Array.isArray(sensieList))
         if (!sensieList || !Array.isArray(sensieList)) return acc
         sensieList.forEach(e => {
-          console.log(acc)
-          console.log(e)
+          // console.log(acc)
+          // console.log(e)
           acc[e.createdAt] = (acc[e.createdAt] ? (acc[e.createdAt] + parseInt(e.result)) : parseInt(e.result))
         })
         console.log(acc)
         return acc
       }, {})
+      console.log(555555555)
       console.log(flowsByDate)
+      // let totalDates = Object.keys(flowsByDate).length
+      // const data = [{ id: 'low', data: [{ x: 0, y: 0 }] }]
+      const d = []
+      let i = 0
+      for (const k in flowsByDate) {
+        d.push({ x: i++, y: flowsByDate[k] * Math.random() * 100 })
+        console.log(k)
+      }
+      const data = [{ id: 'low', data: d }]
+      return data
+    } else {
+      return [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 1, y: 100 }] }]
     }
-    return data
   }
 
   // ? const
@@ -184,7 +195,7 @@ const Home = () => {
                 getSensies={handleSensiesByAffirmationIdQuery}
                 title={t('dashboard.Home.mindAuthorAndTrackAffirmations')}
                 btn={btn}
-                limit={5}
+                limit={4}
                 fixHeight={true}
               />
             }
