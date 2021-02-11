@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import User from '../../containers/User'
 // components
 // import Icon from '../../components/Icon'
-import Title from '../../components/Title'
+// import Title from '../../components/Title'
 import Pagination from '../../components/Pagination'
 // constants
 // import { COLORS } from '../../constants/theme'
@@ -70,9 +70,9 @@ const UsersList = () => {
     <section className={styles.UserListContainer}>
       {/* header */}
       <div className={styles.UsersListHeaderContainer}>
-        <div className={styles.UsersListHeaderTitle}>
+        {/* <div className={styles.UsersListHeaderTitle}>
           <Title text={t('dashboard.UserList.clients')} />
-        </div>
+        </div> */}
         <div className={styles.UsersListHeaderAction}>
           <div>
             <button className={handleActive('summary') ? styles.UsersListHeaderActionActiveBtn : undefined} onClick={() => handleClick(summary)}>{t(`dashboard.UserList.${summary}`)}</button>

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setPaginationAffirmationAction } from '../../../redux/actions/pagination.actions'
 // components
 import Title from '../../components/Title'
-import SpiderChart from '../../components/SpiderChart'
+// import SpiderChart from '../../components/SpiderChart'
 import PaginationMUI from '../../components/Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
@@ -15,6 +15,7 @@ import { COLORS } from '../../constants/theme'
 // import { handleFlow } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
+import UsersList from '../../containers/UsersList'
 
 // const
 const { fontColor1, grayColor3 } = COLORS
@@ -65,7 +66,8 @@ const Affirmation = () => {
         </div>
       </div>
       <div style={{ height: '80%', width: '100%' }}>
-        <SpiderChart />
+        {/* <SpiderChart /> */}
+        <UsersList />
       </div>
       <div className={styles.AffirmationPagination} style={{ height: '10%' }}>
         <PaginationMUI count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmation} />

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import Grid from '@material-ui/core/Grid'
 // containers
 import Header from '../../containers/Header'
-import UsersList from '../../containers/UsersList'
+// import UsersList from '../../containers/UsersList'
 import Affirmation from '../../containers/Affirmation'
 // components
 import { HelmetSEO } from '../../components/Globals'
@@ -60,16 +60,19 @@ const Client = () => {
           </div>
         </Grid>
         {/* spider-chart + user-list */}
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={16} xl={6}>
           <div className={styles.ClientG1Container}>
-            <Affirmation />
+            {usersReducer.loading
+              ? <Loading />
+              : <Affirmation />
+            }
           </div>
-          <div className={styles.ClientG1Container}>
+          {/* <div className={styles.ClientG1Container}>
             {usersReducer.loading
               ? <Loading />
               : <UsersList />
             }
-          </div>
+          </div> */}
         </Grid>
       </Grid>
     </section>
