@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 // components
 import ImageAvatar from '../../components/ImageAvatar'
 import PercentageChart from '../../components/PercentageChart'
-import BarChart from '../../components/BarChart'
+// import BarChart from '../../components/BarChart'
 import IconChart from '../../components/IconChart'
 // constants
 import { IconChartTypes } from '../../constants/charts'
@@ -76,9 +76,9 @@ const User = ({ user, show }) => {
               <PercentageChart title={t('dashboard.User.trust')} value={45} />
             </div>
             {/* chart */}
-            <div className={styles.UserChartContainer}>
+            {/* <div className={styles.UserChartContainer}>
               <BarChart miniature={true} />
-            </div>
+            </div> */}
           </div>
         : <div className={styles.UserBodyContainer}>
             <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div>

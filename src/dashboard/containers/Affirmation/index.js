@@ -3,12 +3,12 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // redux
-import { useSelector, useDispatch } from 'react-redux'
-import { setPaginationAffirmationAction } from '../../../redux/actions/pagination.actions'
+import { useSelector /*, useDispatch */ } from 'react-redux'
+// import { setPaginationAffirmationAction } from '../../../redux/actions/pagination.actions'
 // components
 import Title from '../../components/Title'
 // import SpiderChart from '../../components/SpiderChart'
-import PaginationMUI from '../../components/Pagination'
+// import PaginationMUI from '../../components/Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
 // utils
@@ -28,11 +28,12 @@ const { fontColor1, grayColor3 } = COLORS
 const Affirmation = () => {
   // ? hooks
   const [t] = useTranslation('global')
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const {
     filtersReducer: { affirmations: { affirmation } },
     paginationReducer: { pagination: { pagAffirmation } }
   } = useSelector(state => state)
+  console.log(pagAffirmation)
 
   // ? handle functions
   /**
@@ -54,7 +55,7 @@ const Affirmation = () => {
    * @param {number} value
    * @returns {undefined} redux action
    */
-  const handlePaginationChange = (event, value) => dispatch(setPaginationAffirmationAction(value))
+  // const handlePaginationChange = (event, value) => dispatch(setPaginationAffirmationAction(value))
 
   return (
     <div className={styles.AffirmationContainer}>
@@ -65,13 +66,13 @@ const Affirmation = () => {
           <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Affirmation.selectAOption')} color={grayColor3} />
         </div>
       </div>
-      <div style={{ height: '80%', width: '100%' }}>
+      <div style={{ height: '100%', width: '100%' }}>
         {/* <SpiderChart /> */}
         <UsersList />
       </div>
-      <div className={styles.AffirmationPagination} style={{ height: '10%' }}>
+      {/* <div className={styles.AffirmationPagination} style={{ height: '10%' }}>
         <PaginationMUI count={10} onChange={() => handlePaginationChange()} defaultPage={pagAffirmation} />
-      </div>
+      </div> */}
     </div>
   )
 }
