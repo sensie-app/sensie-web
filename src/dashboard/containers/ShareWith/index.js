@@ -9,7 +9,7 @@ import { setCheckboxAllClientsAction, setCheckboxAllTeamsAction } from '../../..
 // styles
 import styles from './styles.module.scss'
 // fake data
-import { _users, _teams } from './data'
+// import { _users, _teams } from './data'
 
 // * component
 /**
@@ -19,7 +19,10 @@ import { _users, _teams } from './data'
 const ShareWith = () => {
   // ? hooks
   const dispatch = useDispatch()
-  const { checkboxReducer: { all: { clients, teams } } } = useSelector(state => state)
+  const {
+    checkboxReducer: { all: { clients /*, teams */ } },
+    usersReducer
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
 
   // ? handle functions
@@ -34,30 +37,48 @@ const ShareWith = () => {
     tag === 'teams' && dispatch(setCheckboxAllTeamsAction(value))
   }
 
+  const checked = {}
+
+  const handleShare = () => {
+    console.log(checked)
+    for (const k in checked) {
+      if (k) console.log('Sub this user to this pack!')
+    }
+  }
+
+  const handleChange = (e) => {
+    const id = e.target.value
+    checked[id] = !checked[id]
+    console.log(e)
+  }
+
   // ? render functions
   /**
    * renderListClients
    * @returns {undefined} ItemCheckbox component
    */
   const renderListClients = () => {
-    return _users.map((user, index) => (
-      <ItemCheckbox key={index} check={clients} defaultValue={false} onClick={value => console.log(value)}>
-        <span className={styles.ShareWithItemCheckboxTitle}>{user}</span>
+    return usersReducer.users.map((user, index) => {
+      console.log(user)
+      console.log(user.id)
+      return (
+      <ItemCheckbox value={user.id} key={index} check={clients} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)}>
+        <span className={styles.ShareWithItemCheckboxTitle}>{user.firstName} {user.lastName}</span>
       </ItemCheckbox>)
-    )
+    })
   }
 
   /**
    * renderListTeams
    * @returns {undefined} ItemCheckbox component
    */
-  const renderListTeams = () => {
-    return _teams.map((team, index) => (
-      <ItemCheckbox key={index} check={teams} defaultValue={false} onClick={value => console.log(value)}>
-        <span className={styles.ShareWithItemCheckboxTitle}>{team}</span>
-      </ItemCheckbox>)
-    )
-  }
+  // const renderListTeams = () => {
+  //   return _teams.map((team, index) => (
+  //     <ItemCheckbox key={index} check={teams} defaultValue={false} onClick={value => console.log(value)}>
+  //       <span className={styles.ShareWithItemCheckboxTitle}>{team}</span>
+  //     </ItemCheckbox>)
+  //   )
+  // }
 
   return (
     <div>
@@ -75,11 +96,10 @@ const ShareWith = () => {
               </span>
             </ItemCheckbox>
           </div>
-          {renderListClients()}
+          {usersReducer.users.length > 0 && renderListClients()}
         </div>
-        {/* _teams */}
+        {/* _teams
         <div className={styles.ShareWithListContainer}>
-          {/* header */}
           <div className={styles.ShareWithHeaderContainer}>
             <ItemCheckbox
               defaultValue={false}
@@ -91,7 +111,7 @@ const ShareWith = () => {
             </ItemCheckbox>
           </div>
           {renderListTeams()}
-        </div>
+        </div> */}
       </div>
         {/* footer */}
       <div className={styles.ShareWithPublicAvailable}>
@@ -104,7 +124,7 @@ const ShareWith = () => {
               {t('dashboard.ShareWith.publicAvailable')}
             </span>
           </ItemCheckbox>
-          <button>{t('dashboard.ShareWith.share')}</button>
+          <button onClick={handleShare}>{t('dashboard.ShareWith.share')}</button>
         </div>
       </div>
     </div>
