@@ -252,6 +252,67 @@ export const getTopicByIdQuery = id => `
   }
 `
 
+export const getPacksFromUser = id => `
+  query getPacksFromUser {
+    getUser(id: "${id}") {
+      subscribedPacks {
+        items {
+          pack {
+            name
+            id
+            description
+            picture
+            affirmations(sortDirection: ASC) {
+              items {
+                affirmation {
+                  description
+                  id
+                  name
+                  topics {
+                    items {
+                      topic {
+                        description
+                        id
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      packs {
+        items {
+          name
+          id
+          description
+          picture
+          affirmations(sortDirection: ASC) {
+            items {
+              affirmation {
+                description
+                id
+                name
+                topics {
+                  items {
+                    topic {
+                      description
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 export const listPacksWiyhAffirmationsIdsByIdQuery = id => `
   query MyQuery {
     listPacks(limit: 10000, filter: {packUserId: {eq: "${id}"}}) {

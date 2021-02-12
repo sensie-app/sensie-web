@@ -11,6 +11,9 @@ import styles from './styles.module.scss'
 // fake data
 // import { _users, _teams } from './data'
 
+import { API, graphqlOperation } from 'aws-amplify'
+import { createPackSubscriptionMutation } from '../../graphql/mutations'
+
 // * component
 /**
  * ShareWith component
@@ -37,12 +40,24 @@ const ShareWith = () => {
     tag === 'teams' && dispatch(setCheckboxAllTeamsAction(value))
   }
 
+  const subPack = async (userId, packId) => {
+    try {
+      const response = await API.graphql(graphqlOperation(createPackSubscriptionMutation(userId, packId)))
+      console.log('response', response)
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
   const checked = {}
 
   const handleShare = () => {
     console.log(checked)
     for (const k in checked) {
-      if (k) console.log('Sub this user to this pack!')
+      if (k) {
+        console.log('Sub this user to this pack!')
+        subPack(k, '9c4f2ce3-087d-41be-a747-3345b561f608')
+      }
     }
   }
 

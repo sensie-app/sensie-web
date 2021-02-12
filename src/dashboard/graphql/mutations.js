@@ -6,6 +6,14 @@ export const createPackMutation = (name, description, packUserId, imgKey) => `
   }
 `
 
+export const createPackSubscriptionMutation = (userId, packId) => `
+  mutation CreatePackSub {
+    createPackSubscription(input: {userId: "${userId}", packId: "${packId}"}) {
+      id
+    }
+  }
+`
+
 export const createAffirmationMutation = (name, description, userId) => {
   return `
     mutation MyMutation {
