@@ -13,7 +13,7 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 import styles from './styles.module.scss'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
+import { listPacksAction, createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
 
 import { Storage } from 'aws-amplify'
 import { v4 as uuidv4 } from 'uuid'
@@ -46,6 +46,7 @@ const CreatePack = ({ onSave }) => {
   useEffect(() => {
     console.log('packsReducer', packsReducer)
     if (!packsReducer.loading && packsReducer.newpack !== null) {
+      console.log('updating')
       setNewPackId(packsReducer.newpack.id)
       setRedirect(true)
       dispatch(cleanNewPackAction())
@@ -80,6 +81,7 @@ const CreatePack = ({ onSave }) => {
   const handleForm = async e => {
     e.preventDefault()
     console.log('file', file)
+    console.log(redirect)
     if (value.length === 0) {
       setShowError(true)
       setRedirect(false)
@@ -90,10 +92,13 @@ const CreatePack = ({ onSave }) => {
       })
         .then(res => {
           console.log(res)
+          packsReducer.newpack = true
           dispatch(createPacksAction(value, value, user.id, res.key))
           setShowError(false)
+          dispatch(listPacksAction(user.id))
         })
     }
+    return false
   }
 
   // ? render functions

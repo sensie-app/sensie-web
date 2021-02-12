@@ -39,7 +39,7 @@ import styles from './styles.module.scss'
 import { notificationsTest } from './testData'
 
 // constants
-const { home, client, affirmations, sageDashboard, profile } = DASHBOARD_ROUTES
+const { home, client, affirmations, /* sageDashboard, */ profile } = DASHBOARD_ROUTES
 const { grayColor8, fontColor1 } = COLORS
 const { logo, avatarFemale, avatarMale } = IMG
 const drawerWidth = 210
@@ -82,16 +82,16 @@ const Layout = ({ children }) => {
       title: <span>{t('dashboard.Layout.affirmations').toUpperCase()}</span>,
       icon: 'list-outline',
       link: affirmations
-    },
-    {
-      title: <Fragment>
-        <span>{t('dashboard.Layout.sage').toUpperCase()}</span>
-        <span>{t('dashboard.Layout.dashboard').toUpperCase()}</span>
-      </Fragment>,
-      icon: null,
-      icon2: 'sageDashboard',
-      link: sageDashboard
     }
+    // {
+    //  title: <Fragment>
+    //    <span>{t('dashboard.Layout.sage').toUpperCase()}</span>
+    //    <span>{t('dashboard.Layout.dashboard').toUpperCase()}</span>
+    //  </Fragment>,
+    //  icon: null,
+    //  icon2: 'sageDashboard',
+    //  link: sageDashboard
+    // }
   ]
 
   // ? handle functions

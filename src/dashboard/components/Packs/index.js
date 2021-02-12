@@ -21,6 +21,8 @@ const { pack } = DASHBOARD_ROUTES
  * @param {array} data
  */
 const Packs = ({ data }) => {
+  console.log('RENDERING PACKS')
+
   // ? render functions
   /**
    * renderPacks

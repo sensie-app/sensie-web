@@ -74,13 +74,13 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
     switch (filter.name) {
       case 'today': filter.value = [moment().subtract(1, 'd').utc().format(), TODAY]
         break
-      case 'lastDay': filter.value = [moment().subtract(1, 'd').format(), TODAY]
+      case 'lastDay': filter.value = [moment().subtract(1, 'd').utc().format(), TODAY]
         break
-      case 'lastWeek': filter.value = [moment().subtract(7, 'd').format(), TODAY]
+      case 'lastWeek': filter.value = [moment().subtract(7, 'd').utc().format(), TODAY]
         break
-      case 'lastMonth': filter.value = [moment().subtract(1, 'M').format(), TODAY]
+      case 'lastMonth': filter.value = [moment().subtract(1, 'M').utc().format(), TODAY]
         break
-      case 'lastYear': filter.value = [moment().subtract(1, 'y').format(), TODAY]
+      case 'lastYear': filter.value = [moment().subtract(1, 'y').utc().format(), TODAY]
         break
     }
     return filter
