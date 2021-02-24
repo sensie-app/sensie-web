@@ -177,6 +177,7 @@
       "addImage": "Add a image",
       "changeImage": "Change image",
       "packName": "Pack name",
+      "authorName": "Author",
       "newPack": "New pack",
       "create": "Create",
       "error": "Enter a name for the pack"

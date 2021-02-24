@@ -39,6 +39,7 @@ const CreatePack = ({ onSave }) => {
   const [showError, setShowError] = useState(false)
   const [showFile, setShowFile] = useState(null)
   const [value, setValue] = useState('')
+  const [author, setAuthor] = useState('')
   const [file, setFile] = useState('')
   const [redirect, setRedirect] = useState(false)
   const [newPackId, setNewPackId] = useState(null)
@@ -67,6 +68,11 @@ const CreatePack = ({ onSave }) => {
     setValue(event.target.value)
   }
 
+  const handleAuthorValue = event => {
+    event.preventDefault()
+    setAuthor(event.target.value)
+  }
+
   /**
    * handle input file value
    * @param {undefined} event
@@ -82,6 +88,10 @@ const CreatePack = ({ onSave }) => {
     e.preventDefault()
     console.log('file', file)
     console.log(redirect)
+    if (author.length === 0) {
+      setShowError(true)
+      setRedirect(false)
+    }
     if (value.length === 0) {
       setShowError(true)
       setRedirect(false)
@@ -93,7 +103,7 @@ const CreatePack = ({ onSave }) => {
         .then(res => {
           console.log(res)
           packsReducer.newpack = true
-          dispatch(createPacksAction(value, value, user.id, res.key))
+          dispatch(createPacksAction(value, value, author, user.id, res.key))
           setShowError(false)
           dispatch(listPacksAction(user.id))
         })
@@ -132,6 +142,15 @@ const CreatePack = ({ onSave }) => {
           <input
             ref={inputRef}
             onChange={handleInputValue}
+            className={showError ? styles.inputBorderError : styles.inputBorder}
+          />
+          {showError && <span>{t('dashboard.CreatePack.error')}</span>}
+        </div>
+        <div className={styles.CreatePackBodyFormInput}>
+          <label>{t('dashboard.CreatePack.authorName')}</label>
+          <input
+            ref={inputRef}
+            onChange={handleAuthorValue}
             className={showError ? styles.inputBorderError : styles.inputBorder}
           />
           {showError && <span>{t('dashboard.CreatePack.error')}</span>}

@@ -226,6 +226,7 @@ const Pack = () => {
             <div className={styles.PackHeaderImg} style={{ backgroundImage: `url(${uri})` }} />
             <div className={styles.PackHeaderTextContainer}>
               {pack !== null && <span>{pack.name}</span>}
+              {pack !== null && <span style={{ fontSize: '14px' }}>By {pack.author}</span>}
               <div>
                 <span>{pack !== null && handleCountAffirmations()} {t('dashboard.Pack.affirmations')}</span>
               </div>
