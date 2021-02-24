@@ -1,6 +1,6 @@
-export const createPackMutation = (name, description, packUserId, imgKey) => `
+export const createPackMutation = (name, description, author, packUserId, imgKey) => `
   mutation MyMutation {
-    createPack(input: {description: "${description}", name: "${name}", packUserId: "${packUserId}", picture: "${imgKey}"}) {
+    createPack(input: {description: "${description}", name: "${name}", author: "${author}", packUserId: "${packUserId}", picture: "${imgKey}"}) {
       id
     }
   }

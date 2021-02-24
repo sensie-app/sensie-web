@@ -259,6 +259,7 @@ export const listPacksWiyhAffirmationsIdsByIdQuery = id => `
         name
         id
         description
+        author
         picture
         affirmations(sortDirection: ASC) {
           items {
@@ -289,6 +290,7 @@ export const getPackByIdQuery = id => `
       description
       id
       name
+      author
       affirmations(sortDirection: ASC) {
         items {
           affirmation {

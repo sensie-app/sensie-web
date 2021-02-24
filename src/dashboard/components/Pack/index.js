@@ -23,7 +23,7 @@ const { noImg } = IMG
  * @param {string} title
  * @param {number} totalAffirmations
  */
-const Pack = ({ route, img = noImg, title, totalAffirmations }) => {
+const Pack = ({ route, img = noImg, title, author, totalAffirmations }) => {
   // ? hooks
   const [t] = useTranslation('global')
   const [check, setCheck] = useState(false)
@@ -51,6 +51,7 @@ const Pack = ({ route, img = noImg, title, totalAffirmations }) => {
       <Checkbox checked={check} onChange={handleCheck} className={styles.PackCheckbox} />
       <div className={styles.PackBodyContainer}>
         <span>{title}</span>
+        <span style={{ fontSize: '16px' }}>By: {author}</span>
         <div>
           <span>{totalAffirmations} {t('dashboard.Pack.affirmations')}</span>
         </div>
@@ -65,6 +66,8 @@ Pack.propTypes = {
   route: PropTypes.string.isRequired,
   /** img */
   img: PropTypes.string,
+  /** author */
+  author: PropTypes.string,
   /** title */
   title: PropTypes.string.isRequired,
   /** totalAffirmations */
