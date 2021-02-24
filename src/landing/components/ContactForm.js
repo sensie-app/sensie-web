@@ -22,6 +22,7 @@ const useStyles = makeStyles({
     fontSize: '1.2rem',
     fontWeight: 'bold',
     width: '16rem'
+
   }
 })
 
@@ -59,6 +60,7 @@ const FormFooter = () => {
         </Box>
         <Box mt={1}>
           <Typography style={{ fontSize: '1.3rem' }}>Message</Typography>
+
           <TextField
             fullWidth
             multiline

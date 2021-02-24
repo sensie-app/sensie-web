@@ -20,6 +20,7 @@ import CustomizedMenus from './Menu'
 
 const { /* membership, */ howitworks, blog, scienceanchor, abs, contact, hm } = LANDING_ROUTES
 
+
 const useStyle = makeStyles((theme) => ({
   offset: {
     theme: theme.mixins.toolbar,
