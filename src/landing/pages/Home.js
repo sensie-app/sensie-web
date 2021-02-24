@@ -50,10 +50,6 @@ import AppleStore from '../assets/img/app-store.svg'
 import PlayStore from '../assets/img/google-play.svg'
 
 const useStyles = makeStyles((theme) => ({
-  list: {
-    padding: '20px'
-  },
-
   background: {
     backgroundColor: '#000000'
   },
@@ -110,7 +106,7 @@ const Home = () => {
       {/* BLOQUE 1 Your Smarthphone Just Got Smarter */}
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Box mt={12}></Box>
+          <Box mt={'8rem'}></Box>
         </Grid>
         <Grid item xs={1} sm={1} md={5}>
           <Hidden smDown>
@@ -187,40 +183,40 @@ const Home = () => {
               <Box mt={8} textAlign="center">
                 <Sponsor
                   SponsorImg={MiamiHerald}
-                  width="176px"
-                  height="60px"
+                  width="15rem"
+                  height="5rem"
                   link="https://www.miamiherald.com/news/business/biz-monday/article232516282.html"
                 />
               </Box>
               <Box mt={8} textAlign="center">
                 <Sponsor
                   SponsorImg={AmericanPsychiatric}
-                  width="172px"
-                  height="40px"
+                  width="15rem"
+                  height="3.7rem"
                   link="https://www.youtube.com/watch?v=GUgC5q2VloI&ab_channel=CodyRallMDwithTechforpsych"
                 />
               </Box>
               <Box mt={8} textAlign="center">
                 <Sponsor
                   SponsorImg={Wired}
-                  width="186px"
-                  height="32px"
+                  width="16rem"
+                  height="2.8rem"
                   link="https://www.wired.co.uk/article/consciousness-hacking-silicon-valley-enlightenment-brain"
                 />
               </Box>
               <Box mt={8} textAlign="center">
                 <Sponsor
                   SponsorImg={Transtech}
-                  width="175px"
-                  height="32px"
+                  width="15rem"
+                  height="2.8rem"
                   link="http://transtech200.com/"
                 />
               </Box>
               <Box mt={8}>
                 <Sponsor
                   SponsorImg={BerkeleyWell}
-                  width="165px"
-                  height="84px"
+                  width="13rem"
+                  height="7.2rem"
                   link="https://www.berkeleywellbeing.com/the-top-50-wellness-products-2016.html"
                 />
               </Box>
@@ -242,15 +238,15 @@ const Home = () => {
         </Box>
         <Box>
           <Grid item container>
-            <Grid item xs={5} md={2}></Grid>
-            <Grid item container xs={2} sm={12} md={8} justify="space-evenly">
+            <Grid item xs={5} md={1}></Grid>
+            <Grid item container xs={2} sm={12} md={10} justify="space-evenly">
               <Box mt={4} data-aos="fade-right">
                 <WisdomCard
                   ImageW={MindfullBeginner}
                   level="Level 1"
                   text="Mindful Beginner"
-                  width="100px"
-                  height="120px"
+                  width="9.5rem"
+                  height="10.3rem"
                 />
               </Box>
               <Box mt={4} data-aos="fade-right" data-aos-delay="200">
@@ -258,29 +254,29 @@ const Home = () => {
                   ImageW={Lock}
                   level="Level 2"
                   text="The Intellectualizer"
-                  width="120px"
-                  height="120px"
+                  width="10.3rem"
+                  height="10.3rem"
                 />
               </Box>
               <Box mt={4} data-aos="fade-right" data-aos-delay="400">
-                <WisdomCard ImageW={Lock2} width="120px" height="120px" />
+                <WisdomCard ImageW={Lock2} width="10.3rem" height="10.3rem" />
               </Box>
               <Box mt={4} data-aos="fade-right" data-aos-delay="600">
                 <WisdomCard
                   ImageW={MetatronStae}
                   level="Level 7"
                   text="Metatron State"
-                  width="120px"
-                  height="120px"
+                  width="10.3rem"
+                  height="10.3rem"
                 />
               </Box>
             </Grid>
-            <Grid item xs={5} md={2}></Grid>
+            <Grid item xs={5} md={1}></Grid>
           </Grid>
         </Box>
       </Grid>
       {/* BLOQUE 4 How it works */}
-      <div style={{ height: 720, mixBlendMode: 'lighten' }} id="howitworks">
+      <div style={{ height: '61rem', mixBlendMode: 'lighten' }} id="howitworks">
         <Grid container className={classes.background}>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>

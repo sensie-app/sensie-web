@@ -4,7 +4,7 @@ import { Typography, makeStyles, Box } from '@material-ui/core'
 
 const useStyle = makeStyles((theme) => ({
   subtitle: {
-    fontSize: '30px'
+    fontSize: '2.6rem'
   }
 }))
 

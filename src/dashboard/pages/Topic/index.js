@@ -33,6 +33,8 @@ import {
 // styles
 import styles from './styles.module.scss'
 
+import { Storage } from 'aws-amplify'
+
 // const
 const {
   noImg,
@@ -72,6 +74,7 @@ const Topic = () => {
   const [checkedAffirmations, setCheckedAffirmations] = useState([])
   const [showOptions, setShowOptions] = useState(false)
 
+  console.log(waitQuery)
   // useEffect(async () => await handleTopicQuery(), [])
   // useEffect(() => handleTopicId(), [])
   // useEffect(async () => await handleTopicQuery(), [newAff])
@@ -79,6 +82,20 @@ const Topic = () => {
   useEffect(() => handleTopicId(), [])
   useEffect(() => handleTopicId(), [topicsReducer])
   useEffect(() => dispatch(getAllTopicsAction()), [newAff])
+
+  const [uri, setUri] = useState('')
+  // const [iconUri, setIconUri] = useState('')
+
+  const getImage = async function (k) {
+    return (k ? await Storage.get(k) : noImg)
+  }
+
+  useEffect(() => {
+    if (topic !== null) {
+      getImage(topic.picture).then(d => setUri(d))
+      // getImage(topic.icon).then(d => setIconUri(d))
+    }
+  }, [topic])
 
   // ? handle functions
   /**
@@ -206,12 +223,13 @@ const Topic = () => {
       default: return noImg
     }
   }
+  console.log(handleImg)
 
   /**
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => !waitQuery && topic.affirmations.items.length
+  const handleCountAffirmations = () => topic.affirmations.items.length
 
   /**
    * handleArrTopics
@@ -266,17 +284,17 @@ const Topic = () => {
         {/* header */}
         <div className={styles.TopicHeaderContainer}>
           <div className={styles.TopicHeaderImgContainer}>
-            <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${handleImg()})` }} />
+            <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${uri})` }} />
             <div className={styles.TopicHeaderTextContainer}>
               <div className={styles.TopicHeaderTextTitle}>
                 <SvgIcon icon={id} size={SIZE.xxl} />
-                {!waitQuery && <span>{topic.name}</span>}
+                {topic !== null && <span>{topic.name}</span>}
               </div>
               {/* <div className={styles.TopicHeaderTextDescription}>
                 <h6>{topic.description}</h6>
               </div> */}
               <div className={styles.TopicHeaderTextAffirmations}>
-                <span>{handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
+                <span>{topic !== null && handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
               </div>
             </div>
           </div>

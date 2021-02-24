@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next'
 // constants
 import User from '../../containers/User'
 // components
-import Icon from '../../components/Icon'
+// import Icon from '../../components/Icon'
 import Title from '../../components/Title'
 import Pagination from '../../components/Pagination'
 // constants
-import { COLORS } from '../../constants/theme'
+// import { COLORS } from '../../constants/theme'
 import { UserListBtns } from '../../constants/globals'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,7 +18,7 @@ import { setPaginationUserListAction } from '../../../redux/actions/pagination.a
 import styles from './styles.module.scss'
 
 // const
-const { fontColor1 } = COLORS
+// const { fontColor1 } = COLORS
 const { summary, details } = UserListBtns
 
 // * container
@@ -78,7 +78,7 @@ const UsersList = () => {
             <button className={handleActive('summary') ? styles.UsersListHeaderActionActiveBtn : undefined} onClick={() => handleClick(summary)}>{t(`dashboard.UserList.${summary}`)}</button>
             <button className={handleActive('details') ? styles.UsersListHeaderActionActiveBtn : undefined} onClick={() => handleClick(details)}>{t(`dashboard.UserList.${details}`)}</button>
           </div>
-          <Icon name="search-outline" color={fontColor1} size="md" />
+          {/* <Icon name="search-outline" color={fontColor1} size="md" /> */}
         </div>
       </div>
       {/* body */}

@@ -34,6 +34,7 @@ const Affirmations = () => {
   const [show, setShow] = useState(showPacksOrTopics)
 
   useEffect(async () => {
+    console.log(packsReducer)
     dispatch(listPacksAction(user.id))
   }, [])
 

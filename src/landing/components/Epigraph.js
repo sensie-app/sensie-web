@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core'
 const useStyles = makeStyles({
   epigraphStyle: {
     color: 'white',
-    fontSize: '20px',
+    fontSize: '1.7rem',
     fontWeight: 'lighter'
   }
 })

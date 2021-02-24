@@ -13,7 +13,7 @@ const Blog = () => {
   const classes = useStyles()
   return (
         <Grid container className={classes.background}>
-          <Box mt={10}>
+          <Box mt={'6rem'}>
             <Title title='BLOG INCOMING' titleDashboard />
           </Box>
         </Grid>

@@ -23,8 +23,8 @@ import Icon from '../../components/Icon'
 import MenuListNotifications from '../../components/MenuListNotifications'
 import ImageAvatar from '../../components/ImageAvatar'
 import SvgIcon from '../../components/SvgIcon'
-import WrongOrientation from '../../components/WrongOrientation'
-import WrongSize from '../../components/WrongSize'
+// import WrongOrientation from '../../components/WrongOrientation'
+// import WrongSize from '../../components/WrongSize'
 // import { ChangeLngBtn } from '../Globals' // btn to change languge
 import AlertDialog from '../../components/AlertDialog'
 // redux
@@ -39,7 +39,7 @@ import styles from './styles.module.scss'
 import { notificationsTest } from './testData'
 
 // constants
-const { home, client, affirmations, sageDashboard, profile } = DASHBOARD_ROUTES
+const { home, client, affirmations, /* sageDashboard, */ profile } = DASHBOARD_ROUTES
 const { grayColor8, fontColor1 } = COLORS
 const { logo, avatarFemale, avatarMale } = IMG
 const drawerWidth = 210
@@ -82,16 +82,16 @@ const Layout = ({ children }) => {
       title: <span>{t('dashboard.Layout.affirmations').toUpperCase()}</span>,
       icon: 'list-outline',
       link: affirmations
-    },
-    {
-      title: <Fragment>
-        <span>{t('dashboard.Layout.sage').toUpperCase()}</span>
-        <span>{t('dashboard.Layout.dashboard').toUpperCase()}</span>
-      </Fragment>,
-      icon: null,
-      icon2: 'sageDashboard',
-      link: sageDashboard
     }
+    // {
+    //  title: <Fragment>
+    //    <span>{t('dashboard.Layout.sage').toUpperCase()}</span>
+    //    <span>{t('dashboard.Layout.dashboard').toUpperCase()}</span>
+    //  </Fragment>,
+    //  icon: null,
+    //  icon2: 'sageDashboard',
+    //  link: sageDashboard
+    // }
   ]
 
   // ? handle functions
@@ -162,7 +162,7 @@ const Layout = ({ children }) => {
 
   return (
     <Fragment>
-      {/* wrong orientation */}
+      {/* wrong orientation
       <MediaQuery maxDeviceWidth={767} orientation="portrait">
         <WrongOrientation />
       </MediaQuery>
@@ -171,11 +171,11 @@ const Layout = ({ children }) => {
         <WrongOrientation />
       </MediaQuery>
 
-      {/* wrong resolution */}
+      wrong resolution
       <MediaQuery maxDeviceWidth={767} orientation="landscape">
         <WrongSize />
       </MediaQuery>
-
+      */}
       {/* ok resolution & orientation */}
       <MediaQuery minDeviceWidth={768} orientation="landscape">
         <div className={styles.LayoutContainer}>
@@ -202,20 +202,22 @@ const Layout = ({ children }) => {
                 <img src={logo} alt="Sensie logo" width="91" />
                 <div>
                   {/* <ChangeLngBtn /> */}
-                  <div className={styles.LayoutAppBarLeftIconsNotifications}>
-                    <MenuListNotifications
-                      data={notificationsTest}
-                      onClickValue={value => console.log(value)}
-                      theme={2}
-                      withName={false}
-                      defaultValue={null}>
-                      <IconButton aria-label="show notifications" color="inherit">
-                        <Badge badgeContent={17} color="primary">
-                          <Icon name="bell-outline" size="md" color={fontColor1} />
-                        </Badge>
-                      </IconButton>
-                    </MenuListNotifications>
-                  </div>
+                  {process.env.REACT_APP_FEAT_NOTIFICATIONS_ENABLED === 'true'
+                    ? <div className={styles.LayoutAppBarLeftIconsNotifications}>
+                      <MenuListNotifications
+                        data={notificationsTest}
+                        onClickValue={value => console.log(value)}
+                        theme={2}
+                        withName={false}
+                        defaultValue={null}>
+                        <IconButton aria-label="show notifications" color="inherit">
+                          <Badge badgeContent={17} color="primary">
+                            <Icon name="bell-outline" size="md" color={fontColor1} />
+                          </Badge>
+                        </IconButton>
+                      </MenuListNotifications>
+                    </div>
+                    : null}
                   <IconButton aria-label="show 17 new notifications" aria-controls="logout-menu" color="inherit" onClick={() => {}}>
                     <AlertDialog title={t('dashboard.Layout.signOut')} withLogout={true} description={t('dashboard.Layout.signOut?')} disagreeText={t('dashboard.Layout.close')}>
                       <Icon name="log-out-outline" size="md" color={fontColor1} />

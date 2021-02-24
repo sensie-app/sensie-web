@@ -34,6 +34,8 @@ import { listPacksAction } from '../../../redux/actions/packs.actions'
 // styles
 import styles from './styles.module.scss'
 
+import { Storage } from 'aws-amplify'
+
 // const
 const { noImg } = IMG
 const { affirmations } = DASHBOARD_ROUTES
@@ -61,6 +63,20 @@ const Pack = () => {
   useEffect(() => handlePackId(), [])
   useEffect(() => handlePackId(), [packsReducer])
   useEffect(() => dispatch(listPacksAction(user.id)), [newAff])
+
+  const [uri, setUri] = useState('')
+  // const [iconUri, setIconUri] = useState('')
+
+  const getImage = async function (k) {
+    return (k ? await Storage.get(k) : noImg)
+  }
+
+  useEffect(() => {
+    if (pack !== null) {
+      getImage(pack.picture).then(d => setUri(d))
+      // getImage(pack.icon).then(d => setIconUri(d))
+    }
+  }, [pack])
 
   // ? handle functions
   /**
@@ -163,7 +179,7 @@ const Pack = () => {
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => !waitQuery && pack.affirmations.items.length
+  const handleCountAffirmations = () => pack.affirmations.items.length
 
   /**
    * handleAffirmationsByTopicsQuery
@@ -207,11 +223,12 @@ const Pack = () => {
         {/* header */}
         <div className={styles.PackHeaderContainer}>
           <div className={styles.PackHeaderImgContainer}>
-            <div className={styles.PackHeaderImg} style={{ backgroundImage: `url(${noImg})` }} />
+            <div className={styles.PackHeaderImg} style={{ backgroundImage: `url(${uri})` }} />
             <div className={styles.PackHeaderTextContainer}>
-              {!waitQuery && <span>{pack.name}</span>}
+              {pack !== null && <span>{pack.name}</span>}
+              {pack !== null && <span style={{ fontSize: '14px' }}>By {pack.author}</span>}
               <div>
-                <span>{handleCountAffirmations()} {t('dashboard.Pack.affirmations')}</span>
+                <span>{pack !== null && handleCountAffirmations()} {t('dashboard.Pack.affirmations')}</span>
               </div>
             </div>
           </div>

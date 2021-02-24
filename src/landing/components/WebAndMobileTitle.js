@@ -5,7 +5,7 @@ import { Box, makeStyles, Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
   boxStyle: {
-    fontSize: 50,
+    fontSize: '4.3rem',
     color: 'white',
     textAlign: '-webkit-center',
     fontWeight: 'bold'

@@ -71,12 +71,12 @@ const AuthStateApp = ({ children }) => {
               placeholder: 'custom Phone placeholder',
               required: false
             },
-            {
-              type: 'name',
-              label: 'first name',
-              placeholder: 'custom Phone placeholder',
-              required: false
-            },
+            // {
+            //   type: 'name',
+            //   label: 'first name',
+            //   placeholder: 'custom Phone placeholder',
+            //   required: false
+            // },
             {
               type: 'username',
               label: 'user name',

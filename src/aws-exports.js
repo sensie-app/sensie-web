@@ -19,7 +19,9 @@ const awsmobile = {
     "aws_appsync_region": "us-west-2",
     "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
     "aws_user_files_s3_bucket": "sensiecontent185139-staging",
-    "aws_user_files_s3_bucket_region": "us-west-2"
+    "aws_user_files_s3_bucket_region": "us-west-2",
+    "aws_mobile_analytics_app_id": "f47e894428eb451383e3942335dbd1c8",
+    "aws_mobile_analytics_app_region": "us-west-2"
 };
 
 

@@ -2,21 +2,23 @@ import React from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-// import List from '@material-ui/core/List'
+import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
-import { IconButton, Box, /* Button, */ Grid } from '@material-ui/core'
+import { IconButton, Box, Button, Grid } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-// import { NavLink } from 'react-router-dom'
+
+import { NavLink } from 'react-router-dom'
+
 import { HashLink as Link } from 'react-router-hash-link'
 import LogoSensie from './Logo'
 
-// import APP_ROUTES from '../../constants/routes'
+import APP_ROUTES from '../../constants/routes'
 import LANDING_ROUTES from '../constants/routes'
 
 const {
   howitworks,
   /* membership, */
-  /* blog, */
+  blog,
   scienceanchor,
   abs,
   contact,
@@ -98,12 +100,13 @@ export default function TemporaryDrawer () {
           {/* <Link to={membership}>
                   <Box mx={1}>MEMBERSHIP</Box>
                 </Link> */}
-
-          {/* <NavLink to={blog}>
+          {process.env.REACT_APP_FEAT_BLOG_ENABLED === 'true' && (
+          <NavLink to={blog}>
             <Box mt={3} mx={3}>
               BLOG
             </Box>
-          </NavLink> */}
+          </NavLink>
+          )}
 
           <Link to={abs}>
             <Box mt={3} mx={3}>
@@ -117,7 +120,8 @@ export default function TemporaryDrawer () {
           </Link>
         </Grid>
       <Divider />
-      {/* <List>
+      <List>
+        {process.env.REACT_APP_FEAT_DASHBOARD_ENABLED === 'true' && (
         <Grid container style={{ textAlign: 'center' }}>
           <Grid item xs={12}>
             <Box mx={2}>
@@ -148,7 +152,8 @@ export default function TemporaryDrawer () {
             </Box>
           </Grid>
         </Grid>
-      </List> */}
+        )}
+      </List>
     </div>
   )
 

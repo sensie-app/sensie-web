@@ -11,7 +11,7 @@ import { PieChartDataPropTypes } from '../../prop-types'
 // theme
 import chartTheme from '../../constants/chartTheme'
 // test
-import { data1 } from './data'
+// import { data1 } from './data'
 
 // const
 const { actionColor1, actionColor2, actionColor3, grayColor4 } = COLORS
@@ -24,13 +24,14 @@ const { actionColor1, actionColor2, actionColor3, grayColor4 } = COLORS
  * @param {PieChartData} data
  * @param {string} title (default: '')
  */
-const PieChart = ({ data = data1, title = '', sage = false }) => {
+const PieChart = ({ data = 0, title = '', sage = false }) => {
   // ? handle functions
   /**
    * handle data color
    * @param {PieChartData} data
    * @return  {undefined} data
    */
+  console.log(data)
   const handleDataColor = (data) => {
     const dataWithColor = data.map(_data => {
       if (_data.id === 'empty') {
@@ -58,12 +59,14 @@ const PieChart = ({ data = data1, title = '', sage = false }) => {
     return <span>{value[0].value}%</span>
   }
 
+  const formatPieChartData = (val) => [{ id: 'value', value: val }, { id: 'empty', value: 100 - val }]
+
   return (
     <div className={styles.PieChartContainer}>
       <h4>{title}</h4>
       <div className={styles.PieChartDataContainer}>
         <ResponsivePie
-            data={handleDataColor(data)}
+            data={handleDataColor(formatPieChartData(data))}
             // margin={{ top: margin, right: margin, bottom: margin, left: margin }}
             innerRadius={0.85}
             colors={value => value.data.color }
@@ -75,7 +78,7 @@ const PieChart = ({ data = data1, title = '', sage = false }) => {
             theme={chartTheme}
         />
         <div className={styles.PieChartCenterText}>
-          {renderCenterValue(data)}
+          {renderCenterValue(formatPieChartData(data))}
         </div>
       </div>
     </div>

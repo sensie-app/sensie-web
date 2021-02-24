@@ -1,7 +1,8 @@
 @import '../../styles/index.scss';
 
 .TrackAffirmationsHeaderContainer { 
-  @include G50HeaderContainer();  
+  @include G50HeaderContainer(); 
+  padding-top: 12px; 
 }
 
 .TrackAffirmationsHeaderTitleContainer {

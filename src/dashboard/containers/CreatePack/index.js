@@ -13,7 +13,10 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 import styles from './styles.module.scss'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
+import { listPacksAction, createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
+
+import { Storage } from 'aws-amplify'
+import { v4 as uuidv4 } from 'uuid'
 
 // const
 const { grayColor3 } = COLORS
@@ -36,6 +39,7 @@ const CreatePack = ({ onSave }) => {
   const [showError, setShowError] = useState(false)
   const [showFile, setShowFile] = useState(null)
   const [value, setValue] = useState('')
+  const [author, setAuthor] = useState('')
   const [file, setFile] = useState('')
   const [redirect, setRedirect] = useState(false)
   const [newPackId, setNewPackId] = useState(null)
@@ -43,6 +47,7 @@ const CreatePack = ({ onSave }) => {
   useEffect(() => {
     console.log('packsReducer', packsReducer)
     if (!packsReducer.loading && packsReducer.newpack !== null) {
+      console.log('updating')
       setNewPackId(packsReducer.newpack.id)
       setRedirect(true)
       dispatch(cleanNewPackAction())
@@ -63,6 +68,11 @@ const CreatePack = ({ onSave }) => {
     setValue(event.target.value)
   }
 
+  const handleAuthorValue = event => {
+    event.preventDefault()
+    setAuthor(event.target.value)
+  }
+
   /**
    * handle input file value
    * @param {undefined} event
@@ -71,19 +81,34 @@ const CreatePack = ({ onSave }) => {
   const handleInputFileValue = event => {
     event.preventDefault()
     setShowFile(URL.createObjectURL(event.target.files[0]))
-    setFile(event.target.value)
+    setFile(event.target.files[0])
   }
 
   const handleForm = async e => {
     e.preventDefault()
     console.log('file', file)
+    console.log(redirect)
+    if (author.length === 0) {
+      setShowError(true)
+      setRedirect(false)
+    }
     if (value.length === 0) {
       setShowError(true)
       setRedirect(false)
     } else {
-      dispatch(createPacksAction(value, value, user.id))
-      setShowError(false)
+      const packId = uuidv4()
+      Storage.put('packs/' + packId + '.png', file, {
+        contentType: file.type
+      })
+        .then(res => {
+          console.log(res)
+          packsReducer.newpack = true
+          dispatch(createPacksAction(value, value, author, user.id, res.key))
+          setShowError(false)
+          dispatch(listPacksAction(user.id))
+        })
     }
+    return false
   }
 
   // ? render functions
@@ -117,6 +142,15 @@ const CreatePack = ({ onSave }) => {
           <input
             ref={inputRef}
             onChange={handleInputValue}
+            className={showError ? styles.inputBorderError : styles.inputBorder}
+          />
+          {showError && <span>{t('dashboard.CreatePack.error')}</span>}
+        </div>
+        <div className={styles.CreatePackBodyFormInput}>
+          <label>{t('dashboard.CreatePack.authorName')}</label>
+          <input
+            ref={inputRef}
+            onChange={handleAuthorValue}
             className={showError ? styles.inputBorderError : styles.inputBorder}
           />
           {showError && <span>{t('dashboard.CreatePack.error')}</span>}

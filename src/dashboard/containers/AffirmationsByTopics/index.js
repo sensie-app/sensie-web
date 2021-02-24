@@ -127,7 +127,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
             onClick={() => handleOnClickBtn(_topic)}>
             {/* <a href="#listTopics"> */}
               <Topic
-                img={handleImageTopics(_topic)}
+                img={_topic.picture}
                 title={_topic}
                 topic={_topic}
                 withLink={false}

@@ -20,13 +20,16 @@ export const listPacksAction = id => async dispatch => {
     type: LOADING
   })
 
+  console.log('id', id)
   try {
     const response = await API.graphql(graphqlOperation(listPacksWiyhAffirmationsIdsByIdQuery(id)))
+    console.log('response', response)
     dispatch({
       type: GET_ALL_PACKS,
       payload: response.data.listPacks.items
     })
   } catch (error) {
+    console.log('error', error)
     dispatch({
       type: ERROR,
       payload: 'Error in list packs'
@@ -34,13 +37,13 @@ export const listPacksAction = id => async dispatch => {
   }
 }
 
-export const createPacksAction = (name, description, userId) => async dispatch => {
+export const createPacksAction = (name, description, author, userId, imgKey) => async dispatch => {
   dispatch({
     type: LOADING
   })
 
   try {
-    const response = await API.graphql(graphqlOperation(createPackMutation(name, description, userId)))
+    const response = await API.graphql(graphqlOperation(createPackMutation(name, description, author, userId, imgKey)))
     dispatch({
       type: CREATE_PACK,
       payload: response.data.createPack

@@ -11,10 +11,10 @@ import { LineChartDataPropTypes } from '../../prop-types'
 // theme
 import chartTheme from '../../constants/chartTheme'
 // data
-import { data1 } from './data'
+// import { data1 } from './data'
 
 // const
-const { actionColor1, actionColor2, actionColor3 } = COLORS
+const { actionColor1, actionColor2 } = COLORS
 
 // * component
 /**
@@ -26,11 +26,12 @@ const LineChart = ({ data }) => {
   // const
   /** @type {number} */
   const margin = 20
+  console.log(data)
 
   return (
     <div className={styles.LineChartContainer}>
        <ResponsiveLine
-          data={data1}
+          data={data}
           margin={{ top: margin, right: margin, bottom: margin + 10, left: margin * 2 }}
           enablePoints={false}
           enablePointLabel={false}
@@ -64,16 +65,18 @@ const LineChart = ({ data }) => {
           }}
           defs={[
             linearGradientDef('gradientHigh', [
-              { offset: 0, color: actionColor1, opacity: 1 },
-              { offset: 100, color: 'inherit', opacity: 0.5 }
+              { offset: 0, color: '#fff', opacity: 0.75 },
+              { offset: 100, color: 'inherit', opacity: 0.1 }
             ]),
-            linearGradientDef('gradientMedium', [
-              { offset: 0, color: actionColor3, opacity: 1 },
-              { offset: 100, color: 'inherit', opacity: 0.5 }
-            ]),
+            // linearGradientDef('gradientMedium', [
+            //   { offset: 0, color: actionColor3, opacity: 1 },
+            //   { offset: 100, color: 'inherit', opacity: 0.5 }
+            // ]),
             linearGradientDef('gradientLow', [
-              { offset: 0, color: actionColor2, opacity: 1 },
-              { offset: 100, color: 'inherit', opacity: 0.5 }
+              { offset: 0, color: actionColor1, opacity: 0.95 },
+              { offset: 40, color: actionColor1, opacity: 0.25 },
+              { offset: 60, color: actionColor2, opacity: 0.25 },
+              { offset: 100, color: actionColor2, opacity: 0.45 }
             ])
           ]}
         fill={[

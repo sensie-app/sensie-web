@@ -11,11 +11,11 @@ $size: 150px;
 
 .BarChartAxisBottom {
   position: absolute;
+  width: 75%;
   @include flex(column, center, center, nowrap);
-  right:20px * 4;
+  right: 1.5vw;
   bottom: 35px;
-  left: 20px * 4;
-  
+ 
   div {
     background-color: $grayColor4;
     border-radius: 5px;

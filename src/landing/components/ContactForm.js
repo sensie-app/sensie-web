@@ -10,18 +10,19 @@ import {
 const useStyles = makeStyles({
   root: {
     backgroundColor: '#151E1F',
-    borderRadius: 10
+    borderRadius: '0.9rem'
   },
   textStyle: {
-    fontSize: '13px',
+    fontSize: '1.2rem',
     color: '#FFFFFF',
     fontWeight: 'bold'
   },
   btnSend: {
-    borderRadius: 10,
-    fontSize: '13px',
+    borderRadius: '0.8rem',
+    fontSize: '1.2rem',
     fontWeight: 'bold',
-    width: 175
+    width: '16rem'
+
   }
 })
 
@@ -38,7 +39,9 @@ const FormFooter = () => {
     >
       <Box my={5}>
         <Box mt={1}>
-          <Typography>First and last name</Typography>
+          <Typography style={{ fontSize: '1.3rem' }}>
+            First and last name
+          </Typography>
           <TextField
             fullWidth
             className={classes.root}
@@ -47,7 +50,7 @@ const FormFooter = () => {
           />
         </Box>
         <Box mt={1}>
-          <Typography>Email</Typography>
+          <Typography style={{ fontSize: '1.3rem' }}>Email</Typography>
           <TextField
             fullWidth
             className={classes.root}
@@ -56,7 +59,8 @@ const FormFooter = () => {
           />
         </Box>
         <Box mt={1}>
-          <Typography>Message</Typography>
+          <Typography style={{ fontSize: '1.3rem' }}>Message</Typography>
+
           <TextField
             fullWidth
             multiline

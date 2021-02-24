@@ -9,18 +9,21 @@ const useStyles = makeStyles({
     textAlign: '-webkit-center'
   },
   imgStyle: {
-    width: '32px',
-    height: '28px'
+    width: '3rem',
+    height: '2.9rem'
   },
   textStyle: {
     color: 'white',
-    margin: 0
+    margin: 0,
+    fontSize: '1.2rem'
   },
   indicatorStyle: {
-    height: '140px'
+    height: '10rem'
   },
   avatarStyle: {
-    textAlign: '-webkit-right'
+    textAlign: '-webkit-right',
+    width: '3.5rem',
+    height: '3.5rem'
   },
   nameStyle: {
     textAlign: '-webkit-left'
@@ -35,35 +38,34 @@ const Citation = ({ avatar, text, name, role }) => {
   return (
     <Grid container>
       <Grid item container xs={12}>
-
-      <Grid xs={12} item className={classes.quotesStyle}>
-        <Box className={classes.imgStyle}>
-          <img src={Quotes} />
-        </Box>
-      </Grid>
-      <Grid xs={1}></Grid>
-      <Grid xs={10} item className={classes.textStyle}>
-        <Box mt={3}>
-        {text}
-        </Box>
-      </Grid>
-      <Grid xs={1}></Grid>
-      <Grid item xs={6} className={classes.avatarStyle}>
-        <Box mr={3} mt={4}>
-            <Avatar src={avatar}/>
-        </Box>
-      </Grid>
-      <Grid item xs={6} className={classes.nameStyle}>
-        <Box mt={4.5}>
-          <Box>
+        <Grid xs={12} item className={classes.quotesStyle}>
+          <Box className={classes.imgStyle}>
+            <img src={Quotes} />
+          </Box>
+        </Grid>
+        <Grid xs={1}></Grid>
+        <Grid xs={10} item>
+          <Box mt={3} className={classes.textStyle}>
+            {text}
+          </Box>
+        </Grid>
+        <Grid xs={1}></Grid>
+        <Grid item xs={6} className={classes.avatarStyle}>
+          <Box mr={3} mt={4}>
+            <Avatar src={avatar} />
+          </Box>
+        </Grid>
+        <Grid item xs={6} className={classes.nameStyle}>
+          <Box mt={4.5}>
+            <Box>
               <p className={classes.textStyle}>{name}</p>
-          </Box>
-          <Box color="primary.main">
+            </Box>
+            <Box color="primary.main">
               <p className={classes.roleStyle}>{role}</p>
+            </Box>
           </Box>
-        </Box>
-      </Grid>
-      <div className={classes.indicatorStyle}></div>
+        </Grid>
+        <div className={classes.indicatorStyle}></div>
       </Grid>
     </Grid>
   )

@@ -50,20 +50,26 @@ const Home = () => {
   const [totalSensies, setTotalSensies] = useState(0)
   const [totalFlow, setTotalFlow] = useState(0)
 
+  const [awarenessScore, setAwarenessScore] = useState(0)
+  const [resilienceScore, setResilienceScore] = useState(0)
+  const [trustScore, setTrustScore] = useState(0)
+
+  const [graphData, setGraphData] = useState(0)
+
   useEffect(() => {
     dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [])
 
-  useEffect(async () => {
-    dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
-    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
-  }, [globalDateFilter])
-
   useEffect(() => {
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
+
+    setAwarenessScore(handleAwarenessScore())
+    setResilienceScore(handleResilienceScore())
+    setTrustScore(handleTrustScore())
+    setGraphData(handleGraphData())
   }, [usersReducer.users, globalDateFilter])
 
   // ? handle functions
@@ -86,6 +92,17 @@ const Home = () => {
    */
   const handleTotalClients = () => !usersReducer.loading && usersReducer.users.length > 0 ? usersReducer.users.length : 0
 
+  const handleAwarenessScore = () => Math.ceil(Math.random() * 99)
+
+  const handleResilienceScore = () => Math.ceil(Math.random() * 99)
+
+  const handleTrustScore = () => {
+    if (!usersReducer.loading && handleTotalClients() > 0) {
+      return Math.ceil(Math.random() * 99)
+    } else {
+      return 0
+    }
+  }
   /**
    * handle total sensies
    * @returns {number} total
@@ -117,6 +134,39 @@ const Home = () => {
     }
   }
 
+  const handleGraphData = () => {
+    if (!usersReducer.loading && handleTotalClients() > 0) {
+      const userSensies = usersReducer.users.map(user => user.sensies.items)
+      // console.log(userSensies)
+      // const acc = {}
+      const flowsByDate = userSensies.reduce((acc, sensieList) => {
+        // console.log(sensieList, Array.isArray(sensieList))
+        if (!sensieList || !Array.isArray(sensieList)) return acc
+        sensieList.forEach(e => {
+          // console.log(acc)
+          // console.log(e)
+          acc[e.createdAt] = (acc[e.createdAt] ? (acc[e.createdAt] + parseInt(e.result)) : parseInt(e.result))
+        })
+        console.log(acc)
+        return acc
+      }, {})
+      console.log(555555555)
+      console.log(flowsByDate)
+      // let totalDates = Object.keys(flowsByDate).length
+      // const data = [{ id: 'low', data: [{ x: 0, y: 0 }] }]
+      const d = []
+      let i = 0
+      for (const k in flowsByDate) {
+        d.push({ x: i++, y: flowsByDate[k] * Math.random() * 100 })
+        console.log(k)
+      }
+      const data = [{ id: 'low', data: d }]
+      return data
+    } else {
+      return [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 1, y: 100 }] }]
+    }
+  }
+
   // ? const
   const btn = {
     title: t('dashboard.Home.viewMore'),
@@ -133,7 +183,8 @@ const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.HomeG1Container}>
-            <ClientFlow client={totalUsers} sensies={totalSensies} flow={totalFlow}/>
+            <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
+                        flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} />
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
@@ -144,7 +195,7 @@ const Home = () => {
                 getSensies={handleSensiesByAffirmationIdQuery}
                 title={t('dashboard.Home.mindAuthorAndTrackAffirmations')}
                 btn={btn}
-                limit={3}
+                limit={4}
                 fixHeight={true}
               />
             }

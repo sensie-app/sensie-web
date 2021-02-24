@@ -42,7 +42,7 @@ const SageDashboard = () => {
               <BoxModel1 evaIcon="person-done-outline" value={3500} text={t('dashboard.SageDashboard.activeEnjoyers')}/>
             </Grid>
             <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-              <BoxModel2 text={t('dashboard.SageDashboard.flow')}/>
+              <BoxModel2 data={10} text={t('dashboard.SageDashboard.flow')}/>
             </Grid>
             <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
               <BoxModel1 customIcon={sensieCircles} value={160} text={t('dashboard.SageDashboard.sensies')}/>

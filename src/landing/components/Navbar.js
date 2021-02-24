@@ -4,21 +4,22 @@ import {
   Toolbar,
   Grid,
   Box,
-  // Button,
+  Button,
   Hidden,
   makeStyles
 } from '@material-ui/core'
-// import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { HashLink as Link } from 'react-router-hash-link'
 
 import LANDING_ROUTES from '../constants/routes'
-// import APP_ROUTES from '../../constants/routes'
+import APP_ROUTES from '../../constants/routes'
 
 // Components
 import LogoSensie from './Logo'
 import CustomizedMenus from './Menu'
 
-const { /* membership, */ howitworks, /* blog , */ scienceanchor, abs, contact, hm } = LANDING_ROUTES
+const { /* membership, */ howitworks, blog, scienceanchor, abs, contact, hm } = LANDING_ROUTES
+
 
 const useStyle = makeStyles((theme) => ({
   offset: {
@@ -26,26 +27,26 @@ const useStyle = makeStyles((theme) => ({
     offset2: theme.spacing(2)
   },
   btnStyle: {
-    borderRadius: 10,
+    borderRadius: '0.8rem',
     margin: theme.spacing(1),
-    fontSize: '13px',
+    fontSize: '1rem',
     fontWeight: 'bold',
-    width: '96px',
-    height: '39px'
+    width: '8.2rem',
+    height: '3.5rem'
   },
   textTab: {
-    fontSize: '13px',
+    fontSize: '1rem',
     fontStyle: 'normal',
     color: 'white',
     justifyContent: 'center'
   },
   navbarStyle: {
     backgroundColor: 'rgba(7, 18, 21, 0.8)',
-    minHeight: '90px',
+    minHeight: '8rem',
     backdropFilter: 'blur(10px)'
   },
   toolbarStyle: {
-    minHeight: '90px'
+    minHeight: '8rem'
   }
 }))
 
@@ -90,10 +91,11 @@ const Navbar = () => {
                   <Box mx={1}>MEMBERSHIP</Box>
                 </Link> */}
 
-                {/* <NavLink to={blog}>
+                {process.env.REACT_APP_FEAT_BLOG_ENABLED === 'true' && (
+                <NavLink to={blog}>
                   <Box mx={1}>BLOG</Box>
-                </NavLink> */}
-
+                </NavLink>
+                )}
                 <Link to={abs}>
                   <Box mx={1}>ABOUT</Box>
                 </Link>
@@ -101,7 +103,8 @@ const Navbar = () => {
                   <Box mx={1}>CONTACT</Box>
                 </Link>
               </Grid>
-              {/* <Grid item xs={12} sm={2}>
+              {process.env.REACT_APP_FEAT_DASHBOARD_ENABLED === 'true' && (
+              <Grid item xs={12} sm={2}>
                 <Box display="flex" justifyContent="flex-end">
                   <Box>
                     <a href={APP_ROUTES.dashboard + '/'}>
@@ -126,7 +129,8 @@ const Navbar = () => {
                     </Button>
                   </Box>
                 </Box>
-              </Grid> */}
+              </Grid>
+              )}
             </Hidden>
           </Grid>
         </Toolbar>
