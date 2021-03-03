@@ -137,12 +137,13 @@ export const getUsersAllQuery = (id = '8e5a85d1-3f68-4fca-8db9-9f0e18e91082', da
 
 export const listUsersByOrganizationId = (id, dates) => `
   query MyQuery {
-    listUsers(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userOrganizationId: {eq: "${id}"}}) {
+    listUsers(filter: {userOrganizationId: {eq: "${id}"}}) {
       items {
         id
         firstName
         lastName
-        gender
+        gender 
+        picture
         sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
             id

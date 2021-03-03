@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPaginationClientSnapshotAction } from '../../../redux/actions/pagination.actions'
 // components
 import ImageAvatar from '../../components/ImageAvatar'
-import BarChart from '../../components/BarChart'
+// import BarChart from '../../components/BarChart'
 import Icon from '../../components/Icon'
 import Pagination from '../../components/Pagination'
 // constants
@@ -69,9 +69,9 @@ const ClientSnapshot = () => {
               </Link>
             </div>
             {/* body */}
-            <div className={styles.ClientSnapshotChartContainer}>
+            {/* <div className={styles.ClientSnapshotChartContainer}>
               <BarChart />
-            </div>
+            </div> */}
           </div>
         </Grid>
       )
