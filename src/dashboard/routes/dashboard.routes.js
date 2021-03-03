@@ -83,7 +83,7 @@ const DashboardRoutes = () => {
               <Route path={affirmations} component={Affirmations} />
               <Route path={sageDashboard} component={SageDashboard} />
               <Route path={profile} component={Profile} />
-              <Route path={user + '/:id'} component={User} />
+              <Route path={'/dashboard/user' + '/:id'} component={User} />
               <Route path={pack + '/:id'} component={Pack} />
               <Route path={topic + '/:id'} component={Topic} />
               <Redirect from={entrypoint} to={home} />
