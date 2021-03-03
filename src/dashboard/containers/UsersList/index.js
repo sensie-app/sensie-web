@@ -8,18 +8,19 @@ import User from '../../containers/User'
 import Title from '../../components/Title'
 import Pagination from '../../components/Pagination'
 // constants
-// import { COLORS } from '../../constants/theme'
-import { UserListBtns } from '../../constants/globals'
+import { COLORS } from '../../constants/theme'
+// import { UserListBtns } from '../../constants/globals'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
-import { setUserListInfo } from '../../../redux/actions/show.actions'
+// import { setUserListInfo } from '../../../redux/actions/show.actions'
 import { setPaginationUserListAction } from '../../../redux/actions/pagination.actions'
 // styles
 import styles from './styles.module.scss'
 
-// const
+const { grayColor3 } = COLORS
+
 // const { fontColor1 } = COLORS
-const { summary, details } = UserListBtns
+// const { summary, details } = UserListBtns
 
 // * container
 /**
@@ -33,6 +34,7 @@ const UsersList = () => {
   const {
     usersReducer,
     showReducer: { userList },
+    filtersReducer: { affirmations: { affirmation } },
     paginationReducer: { pagination: { pagUsersList } }
   } = useSelector(state => state)
 
@@ -42,14 +44,14 @@ const UsersList = () => {
    * @param {Object} clickBtn
    * @returns {Object} dispatch REDUX
    */
-  const handleClick = clickBtn => dispatch(setUserListInfo(clickBtn))
+  // const handleClick = clickBtn => dispatch(setUserListInfo(clickBtn))
 
   /**
    * handle active
    * @param {string} btn
    * @returns {string} userList.showInfo = btn
    */
-  const handleActive = btn => userList.showInfo === btn
+  // const handleActive = btn => userList.showInfo === btn
 
   /**
    * handle paginaion change
@@ -72,14 +74,16 @@ const UsersList = () => {
       <div className={styles.UsersListHeaderContainer}>
         <div className={styles.UsersListHeaderTitle}>
           <Title text={t('dashboard.UserList.clients')} />
+          <span> - </span>
+          <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Affirmation.selectAOption')} color={grayColor3} />
         </div>
-        <div className={styles.UsersListHeaderAction}>
+        {/* <div className={styles.UsersListHeaderAction}>
           <div>
             <button className={handleActive('summary') ? styles.UsersListHeaderActionActiveBtn : undefined} onClick={() => handleClick(summary)}>{t(`dashboard.UserList.${summary}`)}</button>
             <button className={handleActive('details') ? styles.UsersListHeaderActionActiveBtn : undefined} onClick={() => handleClick(details)}>{t(`dashboard.UserList.${details}`)}</button>
           </div>
-          {/* <Icon name="search-outline" color={fontColor1} size="md" /> */}
-        </div>
+          <Icon name="search-outline" color={fontColor1} size="md" />
+        </div> */}
       </div>
       {/* body */}
       {renderUsers()}

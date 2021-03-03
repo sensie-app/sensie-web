@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next'
 // components
 import ImageAvatar from '../../components/ImageAvatar'
 import PercentageChart from '../../components/PercentageChart'
-import BarChart from '../../components/BarChart'
+// import BarChart from '../../components/BarChart'
 import IconChart from '../../components/IconChart'
 // constants
 import { IconChartTypes } from '../../constants/charts'
-import { UserListBtns } from '../../constants/globals'
+// import { UserListBtns } from '../../constants/globals'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // redux
 import { useSelector } from 'react-redux'
@@ -23,7 +23,7 @@ import { UserPropTypes } from '../../prop-types'
 
 // const
 const { ACTIVITY, UP } = IconChartTypes
-const { summary } = UserListBtns
+// const { summary } = UserListBtns
 
 // * component
 /**
@@ -68,14 +68,21 @@ const User = ({ user, show }) => {
         </Link>
       </div>
       {/* body */}
-      { show === summary
+      <div className={styles.UserBodySummary}>
+        <div className={styles.UserBodyContainer}>
+          <PercentageChart title={t('dashboard.User.awarness')} value={90} />
+          <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div>
+          <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
+          <div><IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(user.sensies.items)} valueType="%" icon={ACTIVITY} theme={2} /></div>
+        </div>
+      </div>
+      {/* { show === summary
         ? <div className={styles.UserBodySummary}>
             <div className={styles.UserBodyContainer}>
               <PercentageChart title={t('dashboard.User.awarness')} value={90} />
               <PercentageChart title={t('dashboard.User.resilence')} value={60} />
               <PercentageChart title={t('dashboard.User.trust')} value={45} />
             </div>
-            {/* chart */}
             <div className={styles.UserChartContainer}>
               <BarChart miniature={true} />
             </div>
@@ -85,7 +92,7 @@ const User = ({ user, show }) => {
             <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
             <div><IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(user.sensies.items)} valueType="%" icon={ACTIVITY} theme={2} /></div>
           </div>
-      }
+      } */}
     </div>
   )
 }

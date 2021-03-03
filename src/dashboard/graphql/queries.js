@@ -142,7 +142,8 @@ export const listUsersByOrganizationId = (id, dates) => `
         id
         firstName
         lastName
-        gender
+        gender 
+        picture
         sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
             id
@@ -242,6 +243,67 @@ export const getTopicByIdQuery = id => `
                 topic {
                   id
                   name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const getPacksFromUser = id => `
+  query getPacksFromUser {
+    getUser(id: "${id}") {
+      subscribedPacks {
+        items {
+          pack {
+            name
+            id
+            description
+            picture
+            affirmations(sortDirection: ASC) {
+              items {
+                affirmation {
+                  description
+                  id
+                  name
+                  topics {
+                    items {
+                      topic {
+                        description
+                        id
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      packs {
+        items {
+          name
+          id
+          description
+          picture
+          affirmations(sortDirection: ASC) {
+            items {
+              affirmation {
+                description
+                id
+                name
+                topics {
+                  items {
+                    topic {
+                      description
+                      id
+                      name
+                    }
+                  }
                 }
               }
             }

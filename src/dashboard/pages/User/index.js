@@ -34,6 +34,7 @@ const { home } = DASHBOARD_ROUTES
 const User = () => {
   // ? hooks
   const { id } = useParams()
+  console.log('User page: ', id)
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [user, setUser] = useState({})
@@ -79,7 +80,7 @@ const User = () => {
    * handleSensies
    * @return {boolean}
    */
-  const handleSensies = () => user.sensies.items.length > 0
+  const handleSensies = () => user.sensies.items.length > -1
 
   return (
     <section className={styles.UserContainer}>
@@ -102,7 +103,7 @@ const User = () => {
         </Grid>
         <Grid item xs={12}>
           <div className={styles.UserG3Container}>
-            {!waitQuery && !handleSensies &&
+            {!waitQuery && handleSensies &&
               <TrackAffirmations
                 // data={}
                 theme={2}

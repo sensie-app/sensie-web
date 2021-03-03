@@ -49,49 +49,49 @@ const AuthStateApp = ({ children }) => {
           formFields={[
             {
               type: 'email',
-              label: 'Custom email Label',
-              placeholder: 'custom email placeholder',
+              label: 'Email',
+              placeholder: 'jondoe@gmail.com',
               required: true
             },
             {
               type: 'password',
-              label: 'Custom Password Label',
-              placeholder: 'custom password placeholder',
+              label: 'Password',
+              placeholder: '',
               required: true
             },
             {
               type: 'phone_number',
-              label: 'Custom Phone Label',
-              placeholder: 'custom Phone placeholder',
+              label: 'Phone #',
+              placeholder: '(415) 348-9900',
+              required: false
+            },
+            {
+              type: 'name',
+              label: 'First Name',
+              placeholder: 'John',
               required: false
             },
             {
               type: 'family_name',
-              label: 'Last name',
-              placeholder: 'custom Phone placeholder',
+              label: 'Last Name',
+              placeholder: 'Doe',
               required: false
             },
             // {
-            //   type: 'name',
-            //   label: 'first name',
+            //   type: 'username',
+            //   label: 'user name',
             //   placeholder: 'custom Phone placeholder',
             //   required: false
             // },
             {
-              type: 'username',
-              label: 'user name',
-              placeholder: 'custom Phone placeholder',
-              required: false
-            },
-            {
               type: 'gender',
-              label: 'gender',
+              label: 'Gender',
               placeholder: 'Male',
               required: false
             },
             {
               type: 'birthdate',
-              label: 'bday',
+              label: 'Birthdate',
               placeholder: '06/17/1990',
               required: false
             }

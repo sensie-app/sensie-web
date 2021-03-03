@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { Storage } from 'aws-amplify'
 // material-ui
-import Checkbox from '@material-ui/core/Checkbox'
+// import Checkbox from '@material-ui/core/Checkbox'
 // constants
 import IMG from '../../constants/images'
 // sytyles
@@ -23,10 +23,10 @@ const { noImg } = IMG
  * @param {string} title
  * @param {number} totalAffirmations
  */
-const Pack = ({ route, img = noImg, title, author, totalAffirmations }) => {
+const Pack = ({ route, img = noImg, title, author, totalAffirmations, type }) => {
   // ? hooks
   const [t] = useTranslation('global')
-  const [check, setCheck] = useState(false)
+  // const [check, setCheck] = useState(false)
   const [uri, setUri] = useState('')
 
   const getImage = async function (k) {
@@ -41,16 +41,19 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations }) => {
    * handle checkbox
    * @returns {boolean} setCheck(!check)
    */
-  const handleCheck = () => setCheck(!check)
+  // const handleCheck = () => setCheck(!check)
+
+  const isSubbed = type === 'subscription'
 
   return (
     <div className={styles.PackContainer}>
       <Link to={route}>
         <div className={styles.PackImgContainer} style={{ backgroundImage: `url(${uri})` }} />
       </Link>
-      <Checkbox checked={check} onChange={handleCheck} className={styles.PackCheckbox} />
+      {/* <Checkbox checked={check} onChange={handleCheck} className={styles.PackCheckbox} /> */}
       <div className={styles.PackBodyContainer}>
         <span>{title}</span>
+        <span>{isSubbed && 'SUB'}</span>
         <span style={{ fontSize: '16px' }}>By: {author}</span>
         <div>
           <span>{totalAffirmations} {t('dashboard.Pack.affirmations')}</span>
@@ -71,7 +74,8 @@ Pack.propTypes = {
   /** title */
   title: PropTypes.string.isRequired,
   /** totalAffirmations */
-  totalAffirmations: PropTypes.number.isRequired
+  totalAffirmations: PropTypes.number.isRequired,
+  type: PropTypes.string
 }
 
 export default Pack

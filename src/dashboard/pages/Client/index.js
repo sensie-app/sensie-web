@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid'
 // containers
 import Header from '../../containers/Header'
 import UsersList from '../../containers/UsersList'
-import Affirmation from '../../containers/Affirmation'
+// import Affirmation from '../../containers/Affirmation'
 // components
 import { HelmetSEO } from '../../components/Globals'
 import TrackAffirmations from '../../components/TrackAffirmations'
@@ -61,9 +61,9 @@ const Client = () => {
         </Grid>
         {/* spider-chart + user-list */}
         <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-          <div className={styles.ClientG1Container}>
+          {/* <div className={styles.ClientG1Container}>
             <Affirmation />
-          </div>
+          </div> */}
           <div className={styles.ClientG1Container}>
             {usersReducer.loading
               ? <Loading />

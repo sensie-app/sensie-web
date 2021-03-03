@@ -15,17 +15,24 @@ import styles from './styles.module.scss'
  * @param {boolean} onClick
  * @param {boolean} check
  */
-const ItemCheckbox = ({ defaultValue = false, children, onClick, check }) => {
+const ItemCheckbox = ({ defaultValue = false, children, onClick, onChange, check, value }) => {
   // ? hooks
   const [_check, setCheck] = useState(defaultValue)
+
+  const ch = (e) => {
+    setCheck(!_check)
+    onChange && onChange(e)
+  }
 
   return (
     <div className={styles.ItemCheckboxContainer}>
       <Checkbox
         checked={check || _check}
         className={styles.ItemCheckboxCheck}
-        onChange={() => setCheck(!_check)}
+        // onChange={() => setCheck(!_check)}
+        onChange={ ch }
         onClick={() => onClick(_check)}
+        value={value}
         />
       <div className={styles.ItemCheckboxTitle}>{children}</div>
     </div>
@@ -41,7 +48,9 @@ ItemCheckbox.propTypes = {
   /** check */
   check: PropTypes.bool,
   /** value */
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+  value: PropTypes.string
 }
 
 export default ItemCheckbox

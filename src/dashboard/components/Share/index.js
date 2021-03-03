@@ -10,6 +10,7 @@ import ShareWith from '../../containers/ShareWith'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+import PropTypes from 'prop-types'
 
 // const
 const { fontColor1 } = COLORS
@@ -19,7 +20,7 @@ const { fontColor1 } = COLORS
  * Share component
  * @component
  */
-const Share = () => {
+const Share = ({ pack }) => {
   // ? hooks
   const [t] = useTranslation('global')
 
@@ -38,12 +39,16 @@ const Share = () => {
   )
 
   return (
-    <Modal initialState={false} title={t('dashboard.Share.shareTo') + ':'}>
+    <Modal initialState={false} title={'Sharing Pack: ' + (pack ? pack.name : '') }>
       {renderModalBtn()}
-      <ShareWith />
+      <ShareWith pack={pack}/>
       <div style={{ position: 'fixed' }}>asdasd</div>
     </Modal>
   )
+}
+
+Share.propTypes = {
+  pack: PropTypes.object
 }
 
 export default Share

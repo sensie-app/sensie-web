@@ -7,7 +7,7 @@ import { setShowPacksOrTopicsAction } from '../../../redux/actions/show.actions'
 import { listPacksAction } from '../../../redux/actions/packs.actions'
 // components
 import Title from '../../components/Title'
-import Share from '../../components/Share'
+// import Share from '../../components/Share'
 import Packs from '../../components/Packs'
 import Topics from '../../components/Topics'
 import Loading from '../../components/Loading'
@@ -62,7 +62,7 @@ const Affirmations = () => {
               <button className={show === CreatePacksTags.packs ? styles.AffirmationsBtnSelected : undefined} onClick={() => handleShow(CreatePacksTags.packs)}><span>{t('dashboard.Affirmations.packs')}</span></button>
               <button className={show === CreatePacksTags.topics ? styles.AffirmationsBtnSelected : undefined} onClick={() => handleShow(CreatePacksTags.topics)}><span>{t('dashboard.Affirmations.topics')}</span></button>
             </div>
-            <Share />
+            {/* <Share /> */}
           </div>
         </div>
           <div>
