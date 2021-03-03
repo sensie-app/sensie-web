@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 // material-ui
-import Checkbox from '@material-ui/core/Checkbox'
+// import Checkbox from '@material-ui/core/Checkbox'
 // component
 import SvgIcon from '../SvgIcon'
 // constants
@@ -45,7 +45,7 @@ const Topic = ({
   active
 }) => {
   // ? hooks
-  const [check, setCheck] = useState(false)
+  // const [check, setCheck] = useState(false)
   const [uri, setUri] = useState('')
   const [iconUri, setIconUri] = useState('')
 
@@ -63,7 +63,7 @@ const Topic = ({
    * handle checkbox
    * @returns {boolean} setCheck(!check)
    */
-  const handleCheck = () => setCheck(!check)
+  // const handleCheck = () => setCheck(!check)
 
   return (
     <>
@@ -73,7 +73,7 @@ const Topic = ({
             <div className={`${styles.PackBodyContainer} ${styles.TopicBodyContainer}`}>
               {witCheckbox &&
                   <div className={styles.TopicHeaderContainer}>
-                    <Checkbox checked={check} onChange={handleCheck} className={styles.TopicCheckbox} />
+                    {/* <Checkbox checked={check} onChange={handleCheck} className={styles.TopicCheckbox} /> */}
                     {count !== 0 && <h6>{count} Affirmations</h6>}
                   </div>
               }

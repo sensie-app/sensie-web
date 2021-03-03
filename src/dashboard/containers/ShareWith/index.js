@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import ItemCheckbox from '../../components/ItemCheckbox'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
+// import { useParams } from 'react-router-dom'
 import { setCheckboxAllClientsAction, setCheckboxAllTeamsAction } from '../../../redux/actions/checkbox.actions'
 // styles
 import styles from './styles.module.scss'
@@ -13,13 +14,15 @@ import styles from './styles.module.scss'
 
 import { API, graphqlOperation } from 'aws-amplify'
 import { createPackSubscriptionMutation } from '../../graphql/mutations'
+import PropTypes from 'prop-types'
 
 // * component
 /**
  * ShareWith component
  * @component
  */
-const ShareWith = () => {
+const ShareWith = ({ pack }) => {
+  console.log(pack)
   // ? hooks
   const dispatch = useDispatch()
   const {
@@ -56,7 +59,7 @@ const ShareWith = () => {
     for (const k in checked) {
       if (k) {
         console.log('Sub this user to this pack!')
-        subPack(k, '9c4f2ce3-087d-41be-a747-3345b561f608')
+        subPack(k, pack.id)
       }
     }
   }
@@ -131,19 +134,24 @@ const ShareWith = () => {
         {/* footer */}
       <div className={styles.ShareWithPublicAvailable}>
         <div className={styles.ShareWithFooterContainer}>
-          <ItemCheckbox
+          {/* <ItemCheckbox
             defaultValue={false}
             onClick={(value) => console.log(!value)}
           >
             <span className={styles.ShareWithItemCheckboxTitle}>
               {t('dashboard.ShareWith.publicAvailable')}
             </span>
-          </ItemCheckbox>
+          </ItemCheckbox> */}
+          <span>{ pack.name }</span>
           <button onClick={handleShare}>{t('dashboard.ShareWith.share')}</button>
         </div>
       </div>
     </div>
   )
+}
+
+ShareWith.propTypes = {
+  pack: PropTypes.object
 }
 
 export default ShareWith

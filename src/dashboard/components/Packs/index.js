@@ -34,7 +34,7 @@ const Packs = ({ data }) => {
       const countAffirmation = item.affirmations.items.length
       return (
         <Grid key={item.id} item xs={12} sm={6} md={3} xl={3}>
-          <Pack author={item.author} img={item.picture} route={pack + '/' + item.id} title={item.name} totalAffirmations={countAffirmation} />
+          <Pack author={item.author} img={item.picture} route={pack + '/' + item.id} title={item.name} totalAffirmations={countAffirmation} type={item.type} />
         </Grid>
       )
     })

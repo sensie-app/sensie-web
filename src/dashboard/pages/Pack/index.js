@@ -233,7 +233,7 @@ const Pack = () => {
             </div>
           </div>
           <div className={styles.PackHeaderShareContainer}>
-            <Share />
+            <Share pack={pack}/>
           </div>
         </div>
         {/* body */}

@@ -9,7 +9,7 @@ import Header from '../../containers/Header'
 import CreateAffirmations from '../../containers/CreateAffirmations'
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
-import Share from '../../components/Share'
+// import Share from '../../components/Share'
 // import Loading from '../../components/Loading'
 import SvgIcon from '../../components/SvgIcon'
 // constants
@@ -298,9 +298,9 @@ const Topic = () => {
               </div>
             </div>
           </div>
-          <div className={styles.TopicHeaderShareContainer}>
+          {/* <div className={styles.TopicHeaderShareContainer}>
             <Share />
-          </div>
+          </div> */}
         </div>
         {/* body */}
         <div className={styles.TopicBodyContainer}>
