@@ -263,6 +263,7 @@ export const getPacksFromUser = id => `
             id
             description
             picture
+            author
             affirmations(sortDirection: ASC) {
               items {
                 affirmation {
@@ -290,6 +291,7 @@ export const getPacksFromUser = id => `
           id
           description
           picture
+          author
           affirmations(sortDirection: ASC) {
             items {
               affirmation {
