@@ -84,7 +84,7 @@ const Topic = () => {
   useEffect(() => dispatch(getAllTopicsAction()), [newAff])
 
   const [uri, setUri] = useState('')
-  // const [iconUri, setIconUri] = useState('')
+  const [iconUri, setIconUri] = useState('')
 
   const getImage = async function (k) {
     return (k ? await Storage.get(k) : noImg)
@@ -93,7 +93,7 @@ const Topic = () => {
   useEffect(() => {
     if (topic !== null) {
       getImage(topic.picture).then(d => setUri(d))
-      // getImage(topic.icon).then(d => setIconUri(d))
+      getImage(topic.icon).then(d => setIconUri(d))
     }
   }, [topic])
 
@@ -287,7 +287,7 @@ const Topic = () => {
             <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${uri})` }} />
             <div className={styles.TopicHeaderTextContainer}>
               <div className={styles.TopicHeaderTextTitle}>
-                <SvgIcon icon={id} size={SIZE.xxl} />
+                <SvgIcon icon={iconUri} size={SIZE.xxl} />
                 {topic !== null && <span>{topic.name}</span>}
               </div>
               {/* <div className={styles.TopicHeaderTextDescription}>
