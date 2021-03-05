@@ -9,6 +9,8 @@ import Icon from '../../components/Icon'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
 // const
 const { fontColor1 } = COLORS
@@ -18,11 +20,15 @@ const { fontColor1 } = COLORS
  * InvitePeople component
  * @component
  */
-const InvitePeople = () => {
+const InvitePeople = ({ link }) => {
   // ? hooks
   const [t] = useTranslation('global')
   const [showError, setShowError] = useState(false)
   const [valueInput, setValueInput] = useState('')
+
+  const {
+    userReducer: { user }
+  } = useSelector(state => state)
 
   // ? handle functions
   /**
@@ -44,9 +50,13 @@ const InvitePeople = () => {
    */
   const handleErrorModal = () => valueInput.length === 0 ? setShowError(true) : setShowError(false)
 
+  const generateLink = () => window.location.origin + '/dashboard?invcode=' + window.btoa(user.id + ';' + user.firstName + ';' + user.lastName)
+
   return (
     <div className={styles.InvitePeopleContainer}>
-      <textarea onChange={handleInputValueChange}/>
+      <textarea onChange={handleInputValueChange}>
+        { generateLink() }
+      </textarea>
       <div className={styles.InvitePeopleFooterContainer}>
         <button className={styles.InvitePeopleLinkContainer} onClick={handleClickCopyLink}>
           <Icon name="link-2-outline" color={fontColor1} size="md" />
@@ -68,6 +78,10 @@ const InvitePeople = () => {
       />
     </div>
   )
+}
+
+InvitePeople.propTypes = {
+  link: PropTypes.string
 }
 
 export default InvitePeople

@@ -9,6 +9,7 @@ export const getUserByIdQuery = id => `
       userOrganizationId
       userGroupId
       userTeamId
+      picture
     }
   }
 `
