@@ -64,7 +64,7 @@ const AuthStateApp = ({ children }) => {
     : <AmplifyAuthenticator initialAuthState={AuthState.SignUp}>
         <AmplifySignUp
           slot="sign-up"
-          headerText={invinfo ? `Joining ${coachFirst} ${coachLast}'s team (${id})` : 'Create Account ' }
+          headerText={invinfo ? `Joining ${coachFirst} ${coachLast}'s team` : 'Create Account ' }
           usernameAlias="email"
           formFields={[
             {
