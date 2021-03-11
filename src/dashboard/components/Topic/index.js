@@ -85,7 +85,7 @@ const Topic = ({
                       </div>
                     </Link>
                   : <div className={styles.TopicIconContainer}>
-                      <SvgIcon icon={topic} size={iconSize}/>
+                      <SvgIcon icon={iconUri} size={iconSize}/>
                       <span>{handleLargeName(topic.name, 18)}</span>
                     </div>
                 }

@@ -9,6 +9,7 @@ export const getUserByIdQuery = id => `
       userOrganizationId
       userGroupId
       userTeamId
+      picture
     }
   }
 `
@@ -263,6 +264,7 @@ export const getPacksFromUser = id => `
             id
             description
             picture
+            author
             affirmations(sortDirection: ASC) {
               items {
                 affirmation {
@@ -290,6 +292,7 @@ export const getPacksFromUser = id => `
           id
           description
           picture
+          author
           affirmations(sortDirection: ASC) {
             items {
               affirmation {

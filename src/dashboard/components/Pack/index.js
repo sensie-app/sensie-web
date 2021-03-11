@@ -42,6 +42,7 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations, type }) =>
    * @returns {boolean} setCheck(!check)
    */
   // const handleCheck = () => setCheck(!check)
+  console.log(author)
 
   const isSubbed = type === 'subscription'
 
@@ -53,8 +54,8 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations, type }) =>
       {/* <Checkbox checked={check} onChange={handleCheck} className={styles.PackCheckbox} /> */}
       <div className={styles.PackBodyContainer}>
         <span>{title}</span>
-        <span>{isSubbed && 'SUB'}</span>
-        <span style={{ fontSize: '16px' }}>By: {author}</span>
+        {isSubbed && <span> SUB </span> }
+        {author && <span style={{ fontSize: '16px' }}>By: {author}</span>}
         <div>
           <span>{totalAffirmations} {t('dashboard.Pack.affirmations')}</span>
         </div>

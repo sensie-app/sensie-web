@@ -9,6 +9,8 @@ import Icon from '../../components/Icon'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
 // const
 const { fontColor1 } = COLORS
@@ -18,18 +20,29 @@ const { fontColor1 } = COLORS
  * InvitePeople component
  * @component
  */
-const InvitePeople = () => {
+const InvitePeople = ({ link }) => {
   // ? hooks
   const [t] = useTranslation('global')
-  const [showError, setShowError] = useState(false)
-  const [valueInput, setValueInput] = useState('')
+  const [showError/*, setShowError */] = useState(false)
+  const [/* valueInput, */setValueInput] = useState('')
+
+  const {
+    userReducer: { user }
+  } = useSelector(state => state)
 
   // ? handle functions
   /**
    * handle click cpoy link
    * @returns {undefined} toast component
    */
-  const handleClickCopyLink = () => toast.dark(t('dashboard.InvitePeople.linkWasCopied'))
+  const handleClickCopyLink = () => {
+    const link = document.getElementById('LINK_COPY')
+    link.disabled = false
+    link.select()
+    document.execCommand('copy')
+    link.disabled = true
+    toast.dark(t('dashboard.InvitePeople.linkWasCopied'))
+  }
 
   /**
    * handle input value
@@ -42,17 +55,21 @@ const InvitePeople = () => {
    * handle error
    * @returns {boolean} showError (state)
    */
-  const handleErrorModal = () => valueInput.length === 0 ? setShowError(true) : setShowError(false)
+  // const handleErrorModal = () => valueInput.length === 0 ? setShowError(true) : setShowError(false)
+
+  const generateLink = () => window.location.origin + '/dashboard?invcode=' + window.btoa(user.id + ';' + user.data.firstName + ';' + user.data.lastName)
 
   return (
     <div className={styles.InvitePeopleContainer}>
-      <textarea onChange={handleInputValueChange}/>
+      <textarea id="LINK_COPY" onChange={handleInputValueChange} disabled>
+        { generateLink() }
+      </textarea>
       <div className={styles.InvitePeopleFooterContainer}>
         <button className={styles.InvitePeopleLinkContainer} onClick={handleClickCopyLink}>
           <Icon name="link-2-outline" color={fontColor1} size="md" />
           <span>{t('dashboard.InvitePeople.copyInviteLink')}</span>
         </button>
-        <button onClick={handleErrorModal}>{t('dashboard.InvitePeople.send')}</button>
+        {/* <button onClick={handleErrorModal}>{t('dashboard.InvitePeople.send')}</button> */}
       </div>
       {showError && <div className={styles.inputError}><span>{t('dashboard.InvitePeople.enterAnEmailAddress')}</span></div>}
       <ToastContainer
@@ -68,6 +85,10 @@ const InvitePeople = () => {
       />
     </div>
   )
+}
+
+InvitePeople.propTypes = {
+  link: PropTypes.string
 }
 
 export default InvitePeople

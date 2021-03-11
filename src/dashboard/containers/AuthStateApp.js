@@ -1,11 +1,13 @@
 // react
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import Proptypes from 'prop-types'
 // redux
 import { useDispatch } from 'react-redux'
 import { setUserIdAction, getUserByIdAction } from '../../redux/actions/user.actions'
+import { updateUserWithCoach } from '../../dashboard/graphql/mutations'
 // amplify
-import Amplify from 'aws-amplify'
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react'
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components'
 import awsconfig from '../../aws-exports'
@@ -24,15 +26,25 @@ const AuthStateApp = ({ children }) => {
   const dispatch = useDispatch()
   const [authState, setAuthState] = useState()
   const [user, setUser] = useState(null)
+  // const [coach, setCoach] = useState(null)
+
+  const updateUserCoach = async (userId, coachId) => {
+    const response = await API.graphql(graphqlOperation(updateUserWithCoach(userId, coachId)))
+    return response
+  }
 
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState)
+      console.log(authData)
+      authData && updateUserCoach(authData.username, id)
       setUser(authData)
     })
   }, [])
 
   useEffect(async () => {
+    // console.log(getCoach('123'))
+    // setCoach('test')
     if (user !== null && authState === 'signedin') {
       const { username } = user
       dispatch(setUserIdAction(username))
@@ -40,11 +52,19 @@ const AuthStateApp = ({ children }) => {
     }
   }, [user])
 
+  const q = new URLSearchParams(useLocation().search)
+
+  console.log(q.get('invcode'))
+
+  const invinfo = window.atob(q.get('invcode')).split(';')
+  const [id, coachFirst, coachLast] = invinfo
+
   return authState === AuthState.SignedIn && user
     ? <div className="App">{children}</div>
-    : <AmplifyAuthenticator>
+    : <AmplifyAuthenticator initialAuthState={AuthState.SignUp}>
         <AmplifySignUp
           slot="sign-up"
+          headerText={invinfo ? `Joining ${coachFirst} ${coachLast}'s team` : 'Create Account ' }
           usernameAlias="email"
           formFields={[
             {
@@ -96,10 +116,14 @@ const AuthStateApp = ({ children }) => {
               required: false
             }
             // {
-            //   type: 'organization_id',
-            //   label: 'organizationId',
-            //   placeholder: 'ORG1',
-            //   required: true
+            //   type: 'userCoachId',
+            //   label: '',
+            //   value: id,
+            //   required: false,
+            //   name: 'CoachID',
+            //   fieldId: 'tester',
+            //   inputProps: { style: { display: 'none' } },
+            //   disabled: true
             // }
 
           ]}
