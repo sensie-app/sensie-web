@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // components
 import IconChart from '../IconChart'
-import PieChart from '../PieChart'
+// import PieChart from '../PieChart'
 import LineChart from '../LineChart'
 import Title from '../Title'
 // constants
@@ -48,12 +48,12 @@ const ClientFlow = ({ graph, client, sensies, flow, awareness, resilience, trust
           <div className={styles.ClientFlowChartS2Container}>
             <LineChart data={graph} />
           </div>
-          {/* 3 charts */}
+          {/* 3 charts
           <div className={styles.ClientFlowChartS3Container}>
             <PieChart data={awareness} title={t('dashboard.PieChart.awarness')} />
             <PieChart data={resilience} title={t('dashboard.PieChart.resilence')} />
             <PieChart data={trust} title={t('dashboard.PieChart.trust')} />
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

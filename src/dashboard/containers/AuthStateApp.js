@@ -56,8 +56,8 @@ const AuthStateApp = ({ children }) => {
 
   console.log(q.get('invcode'))
 
-  const invinfo = window.atob(q.get('invcode')).split(';')
-  const [id, coachFirst, coachLast] = invinfo
+  const invinfo = q.get('invcode')
+  const [id, coachFirst, coachLast] = window.atob(invinfo).split(';')
 
   return authState === AuthState.SignedIn && user
     ? <div className="App">{children}</div>

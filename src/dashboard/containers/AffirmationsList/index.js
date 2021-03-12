@@ -164,7 +164,9 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
   const renderAffirmationsAffirmationChart = () => {
     const _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
     return !affirmationsReducer.loading && _data.map(item => {
+      console.log('items: ', item.sensies.items)
       const flow = handleFlow(item.sensies.items)
+      console.log('flow: ', flow)
       switch (stateFilter.value) {
         case 'flowing': return flow >= 50 && renderAffirmationChart(item, flow)
         case 'blocked': return flow < 50 && renderAffirmationChart(item, flow)

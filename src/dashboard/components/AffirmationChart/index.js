@@ -49,7 +49,7 @@ const AffirmationChart = ({ data, value, onClickValue = () => {}, isActive = fal
   return (
     <section className={styles.AffirmationChartContainer}>
       <button onClick={() => onClickValue(data)} className={isActive ? styles.AffirmationChartBtnActive : undefined}>
-        <span className={styles.AffirmationChartText}>{data.name}</span>
+        <span className={styles.AffirmationChartText}>{data.name} - <i>{data.sensies.items.length} sensies done</i></span>
         <div className={styles.AffirmationChartChartContainer}>
           <div
             className={styles.AffirmationChartChart}

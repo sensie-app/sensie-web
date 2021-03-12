@@ -8,20 +8,20 @@ import Header from '../../containers/Header'
 import ClientSnapshot from '../../containers/ClientSnapshot'
 // components
 import ClientFlow from '../../components/ClientFlow'
-import TrackAffirmations from '../../components/TrackAffirmations'
+// import TrackAffirmations from '../../components/TrackAffirmations'
 import Loading from '../../components/Loading'
 import Line from '../../components/Line'
 import { HelmetSEO } from '../../components/Globals'
 // constants-routes
-import DASHBOARD_ROUTES from '../../constants/routes'
+// import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
 // graphql
-import {
-  listSensiesByAffirmationId
-} from '../../graphql/queries'
+// import {
+//   listSensiesByAffirmationId
+// } from '../../graphql/queries'
 // utils
-import { gqlquery } from '../../utils/queries'
+// import { gqlquery } from '../../utils/queries'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
@@ -29,7 +29,7 @@ import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.a
 // import usersReducer from '../../../redux/reducers/users.reducer'
 
 // const
-const { client } = DASHBOARD_ROUTES
+// const { client } = DASHBOARD_ROUTES
 
 // * page
 /**
@@ -41,7 +41,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const {
     usersReducer,
-    affirmationsReducer,
+    // affirmationsReducer,
     userReducer: { user },
     filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
@@ -57,7 +57,7 @@ const Home = () => {
   const [graphData, setGraphData] = useState(0)
 
   useEffect(() => {
-    dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
+    dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [])
 
@@ -77,14 +77,14 @@ const Home = () => {
    * handleSensiesByAffirmationIdQuery
    */
   // TODO: check query
-  const handleSensiesByAffirmationIdQuery = async affirmationId => {
+  /* const handleSensiesByAffirmationIdQuery = async affirmationId => {
     const dbSensiesByAffirmationId = await gqlquery(listSensiesByAffirmationId(affirmationId))
     if (!dbSensiesByAffirmationId.loading && dbSensiesByAffirmationId.value !== null) {
       return (dbSensiesByAffirmationId.value.data.listSensies.items)
     } else {
       return null
     }
-  }
+  } */
 
   /**
    * handle total clients
@@ -139,13 +139,17 @@ const Home = () => {
       const userSensies = usersReducer.users.map(user => user.sensies.items)
       // console.log(userSensies)
       // const acc = {}
+      const accCount = {}
       const flowsByDate = userSensies.reduce((acc, sensieList) => {
         // console.log(sensieList, Array.isArray(sensieList))
         if (!sensieList || !Array.isArray(sensieList)) return acc
         sensieList.forEach(e => {
           // console.log(acc)
           // console.log(e)
-          acc[e.createdAt] = (acc[e.createdAt] ? (acc[e.createdAt] + parseInt(e.result)) : parseInt(e.result))
+          const date = (new Date(e.timestamp)).toLocaleDateString()
+          console.log(date)
+          acc[date] = (acc[date] ? (acc[date] + parseInt(e.result)) : parseInt(e.result))
+          accCount[date] = (accCount[date] ? (accCount[date] + 1) : 1)
         })
         console.log(acc)
         return acc
@@ -157,7 +161,8 @@ const Home = () => {
       const d = []
       let i = 0
       for (const k in flowsByDate) {
-        d.push({ x: i++, y: flowsByDate[k] * Math.random() * 100 })
+        console.log(flowsByDate[k], accCount[k])
+        d.push({ x: i++, y: flowsByDate[k] / accCount[k] * 100 })
         console.log(k)
       }
       const data = [{ id: 'low', data: d }]
@@ -168,10 +173,10 @@ const Home = () => {
   }
 
   // ? const
-  const btn = {
-    title: t('dashboard.Home.viewMore'),
-    route: client
-  }
+  // const btn = {
+  //   title: t('dashboard.Home.viewMore'),
+  //   route: client
+  // }
 
   return (
     <section className={styles.HomeContainer}>
@@ -181,13 +186,13 @@ const Home = () => {
       <Header />
       {/* body */}
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <div className={styles.HomeG1Container}>
             <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
                         flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} />
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        {/* <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.HomeG2Container}>
           {affirmationsReducer.loading
             ? <Loading />
@@ -200,7 +205,7 @@ const Home = () => {
               />
             }
           </div>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <div className={styles.HomeG3Container}>
             <div className={styles.HomeG3ContainerTitle}>

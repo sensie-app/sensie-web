@@ -73,9 +73,8 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
 
 export const listUsersWithSensiesByUserId = (userId, dates) => `
   query MyQuery {
-    listUsers(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, id: {eq: "${userId}"}}) {
-      items {
-        sensies(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+    getUser(id: "${userId}") {
+        sensies(filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
             id
             result
@@ -87,14 +86,13 @@ export const listUsersWithSensiesByUserId = (userId, dates) => `
         lastName
         id
         picture
-      }
     }
   }
 `
 
 export const listUsersWithSensiesByUserIdQuery = (id, dates) => `
   query MyQuery {
-    listUsers(filter: {id: {eq: "${id}"}, createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+    listUsers(filter: {id: {eq: "${id}"}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
       items {
         email
         firstName
@@ -103,7 +101,7 @@ export const listUsersWithSensiesByUserIdQuery = (id, dates) => `
         id
         affirmations(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
-            sensies(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+            sensies(filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
               items {
                 id
                 result
@@ -136,9 +134,35 @@ export const getUsersAllQuery = (id = '8e5a85d1-3f68-4fca-8db9-9f0e18e91082', da
   }
 `
 
+export const getClientsFromCoach = (id, dates) => `
+  query getClientsFromCoach {
+    getUser(id: "${id}") {
+      clients {
+        items {
+          id
+          firstName
+          lastName
+          gender 
+          picture
+          userCoachId
+          sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+            items {
+              id
+              result
+              createdAt
+              timestamp
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+// listUsers(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userOrganizationId: {eq: "${id}"}}) {
 export const listUsersByOrganizationId = (id, dates) => `
   query MyQuery {
-    listUsers(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userOrganizationId: {eq: "${id}"}}) {
+    listUsers(limit: 10000, filter: {userOrganizationId: {eq: "${id}"}}) {
       items {
         id
         firstName
@@ -159,7 +183,7 @@ export const listUsersByOrganizationId = (id, dates) => `
 
 export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
   query MyQuery {
-    listUsers(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userOrganizationId: {eq: "${id}"}}) {
+    listUsers(filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, userOrganizationId: {eq: "${id}"}}) {
       items {
         id
         firstName
@@ -170,6 +194,7 @@ export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
             id
             result
             createdAt
+            timestamp
           }
         }
       }

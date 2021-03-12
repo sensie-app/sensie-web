@@ -9,7 +9,7 @@ import Header from '../../containers/Header'
 import UserStatistics from '../../containers/UserStatistics'
 // components
 import { HelmetSEO } from '../../components/Globals'
-import Symbol from '../../components/Symbol'
+// import Symbol from '../../components/Symbol'
 import Loading from '../../components/Loading'
 import TrackAffirmations from '../../components/TrackAffirmations'
 // const
@@ -53,10 +53,12 @@ const User = () => {
    * handleUserQuery
    */
   const handleUserQuery = async () => {
+    console.log(user)
     if (user && globalDateFilter) {
       const dbUser = await gqlquery(listUsersWithSensiesByUserId(id, globalDateFilter.value))
+      console.log(dbUser)
       if (!dbUser.loading && dbUser.value !== null) {
-        const _user = dbUser.value.data.listUsers.items[0]
+        const _user = dbUser.value.data.getUser
         setUser(_user)
         setWaitQuery(false)
       } else { setWaitQuery(true) }
@@ -91,16 +93,16 @@ const User = () => {
       <Header withBack={true} withPeople={false} />
       {/* body */}
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <div className={styles.UserG1Container}>
             {waitQuery ? <Loading /> : <UserStatistics data={user} />}
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        {/* <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <div className={styles.UserG2Container}>
             {!waitQuery && handleSensies && <Symbol level={0} />}
           </div>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <div className={styles.UserG3Container}>
             {!waitQuery && handleSensies &&

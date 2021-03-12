@@ -59,7 +59,7 @@ $size: 100px;
 .UserStatisticsBodyContainer {
   @include flex(column, space-around, center, nowrap);
   width: 90%;
-  height: 65%;
+  height: 35%;
 
   .UserStatisticsBodyCharts1Container {
     width: 100%;

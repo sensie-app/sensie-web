@@ -67,7 +67,8 @@ const DashboardRoutes = () => {
 
   useEffect(async () => {
     console.log('1', 1)
-    dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
+    console.log(user)
+    dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [globalDateFilter])
 
