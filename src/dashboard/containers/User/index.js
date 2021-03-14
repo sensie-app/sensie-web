@@ -70,7 +70,7 @@ const User = ({ user, show }) => {
       {/* body */}
       <div className={styles.UserBodySummary}>
         <div className={styles.UserBodyContainer}>
-          <PercentageChart title={t('dashboard.User.awarness')} value={90} />
+          <PercentageChart title={t('dashboard.User.awarness')} value={Math.ceil(Math.random() * 100)} />
           <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div>
           <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
           <div><IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(user.sensies.items)} valueType="%" icon={ACTIVITY} theme={2} /></div>

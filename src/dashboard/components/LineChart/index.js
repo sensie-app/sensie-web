@@ -25,14 +25,14 @@ const { actionColor1, actionColor2 } = COLORS
 const LineChart = ({ data }) => {
   // const
   /** @type {number} */
-  const margin = 20
+  const margin = 25
   console.log(data)
 
   return (
     <div className={styles.LineChartContainer}>
        <ResponsiveLine
           data={data}
-          margin={{ top: margin, right: margin, bottom: margin + 10, left: margin * 2 }}
+          margin={{ top: margin, right: margin, bottom: margin, left: margin * 2 }}
           enablePoints={false}
           enablePointLabel={false}
           enableGridX={false}
@@ -45,7 +45,7 @@ const LineChart = ({ data }) => {
             type: 'linear',
             stacked: false
           }}
-          curve="natural"
+          curve='linear'
           lineWidth={5}
           enableArea={true}
           areaOpacity={0.5}

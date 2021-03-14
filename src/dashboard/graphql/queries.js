@@ -45,7 +45,7 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
       userOrganizationId
       userGroupId
       userTeamId
-      sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+      sensies(limit: 100000, sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
         items {
           id
           timestamp
@@ -74,7 +74,7 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
 export const listUsersWithSensiesByUserId = (userId, dates) => `
   query MyQuery {
     getUser(id: "${userId}") {
-        sensies(filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        sensies(limit: 10000, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
             id
             result
@@ -99,7 +99,7 @@ export const listUsersWithSensiesByUserIdQuery = (id, dates) => `
         gender
         lastName
         id
-        affirmations(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        affirmations(limit: 10000, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
             sensies(filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
               items {
@@ -122,7 +122,7 @@ export const getUsersAllQuery = (id = '8e5a85d1-3f68-4fca-8db9-9f0e18e91082', da
         users(filter: {id: {ne: "${id}"}, dob: {between: ["${dates[0]}", "${dates[1]}"]}}, sortDirection: ASC) {
           items {
             id
-            sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+            sensies(limit: 10000, sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
               items {
                 id
               }
@@ -145,7 +145,7 @@ export const getClientsFromCoach = (id, dates) => `
           gender 
           picture
           userCoachId
-          sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          sensies(limit: 10000, sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
             items {
               id
               result
@@ -169,7 +169,7 @@ export const listUsersByOrganizationId = (id, dates) => `
         lastName
         gender 
         picture
-        sensies(sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        sensies(limit: 10000, sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
             id
             result
@@ -189,7 +189,7 @@ export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
         firstName
         lastName
         gender
-        sensies(sortDirection: ASC, filter: {createdAt: {between: ["${dates2[0]}", "${dates2[1]}"]}}) {
+        sensies(limit: 10000, sortDirection: ASC, filter: {createdAt: {between: ["${dates2[0]}", "${dates2[1]}"]}}) {
           items {
             id
             result
@@ -290,7 +290,7 @@ export const getPacksFromUser = id => `
             description
             picture
             author
-            affirmations(sortDirection: ASC) {
+            affirmations(limit:10000, sortDirection: ASC) {
               items {
                 affirmation {
                   description
@@ -351,7 +351,7 @@ export const listPacksWiyhAffirmationsIdsByIdQuery = id => `
         description
         author
         picture
-        affirmations(sortDirection: ASC) {
+        affirmations(limit: 10000, sortDirection: ASC) {
           items {
             affirmation {
               description
@@ -381,7 +381,7 @@ export const getPackByIdQuery = id => `
       id
       name
       author
-      affirmations(sortDirection: ASC) {
+      affirmations(limit: 10000, sortDirection: ASC) {
         items {
           affirmation {
             description
@@ -426,14 +426,45 @@ export const listAffirmationsByTopicIdQuery = (topicId) => `
 `
 
 // todo: add topics filter
-export const listAffirmationsByUserIdAndTopicId = (userId, dates, limit) => `
+// listAffirmations(limit: 10000, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, userId: {eq: "${userId}"}}) {
+export const listAffirmationsByUserIdAndTopicId = (coachId, dates, limit) => `
   query MyQuery {
-    listAffirmations(limit: 10000, filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}, userId: {eq: "${userId}"}}) {
+    listAffirmations(limit: 10000, filter: {userId: {eq: "${coachId}"}}) {
       items {
         description
         id
         name
-        sensies(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        sensies(limit: 10000, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          items {
+            id
+            result
+          }
+        }
+        topics {
+          items {
+            id
+            topic {
+              id
+              name
+              description
+              picture
+              icon
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const listAffirmationsByUserIdAndTopicIdAndUser = (coachId, dates, limit, userId) => `
+  query MyQuery {
+    listAffirmations(limit: 10000, filter: {userId: {eq: "${coachId}"}}) {
+      items {
+        description
+        id
+        name
+        sensies(limit: 10000, filter: {userId: {eq: "${userId}"}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
             id
             result
@@ -464,7 +495,7 @@ export const listAffirmationsByIdUserIdTopicId = (affirmationId, dates) => `
           firstName
           lastName
           id
-          sensies(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          sensies(limit: 10000, filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
             items {
               id
               result

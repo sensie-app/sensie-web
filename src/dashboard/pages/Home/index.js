@@ -26,6 +26,7 @@ import styles from './styles.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
 import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
+const moment = require('moment')
 // import usersReducer from '../../../redux/reducers/users.reducer'
 
 // const
@@ -54,14 +55,17 @@ const Home = () => {
   const [resilienceScore, setResilienceScore] = useState(0)
   const [trustScore, setTrustScore] = useState(0)
 
-  const [graphData, setGraphData] = useState(0)
+  const [graphData, setGraphData] = useState([])
 
   useEffect(() => {
+    console.log('GETTING INFO')
+    console.log(globalDateFilter.value)
     dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
-  }, [])
+  }, [globalDateFilter])
 
   useEffect(() => {
+    console.log(globalDateFilter)
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
@@ -124,7 +128,7 @@ const Home = () => {
       let flow = 0
       flow = usersReducer.users.map(user => {
         const totalSensies = user.sensies.items.length
-        const sensies = user.sensies.items.filter(value => value.result === '1')
+        const sensies = user.sensies.items.filter(value => value.result === 1)
         const flow = totalSensies > 0 ? sensies.length / totalSensies : 0
         return flow * 100
       })
@@ -135,7 +139,11 @@ const Home = () => {
   }
 
   const handleGraphData = () => {
+    let data = [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 7, y: 100 }] }]
     if (!usersReducer.loading && handleTotalClients() > 0) {
+      const dates = globalDateFilter.value
+      const diff = moment(dates[1]).diff(moment(dates[0]), 'days')
+      console.log('diff: ', diff)
       const userSensies = usersReducer.users.map(user => user.sensies.items)
       // console.log(userSensies)
       // const acc = {}
@@ -146,8 +154,12 @@ const Home = () => {
         sensieList.forEach(e => {
           // console.log(acc)
           // console.log(e)
-          const date = (new Date(e.timestamp)).toLocaleDateString()
-          console.log(date)
+          const d = new Date(e.timestamp)
+          let date = d.toLocaleDateString()
+          if (diff <= 3) { // 3 days
+            date += d.getHours()
+          }
+          // console.log(date)
           acc[date] = (acc[date] ? (acc[date] + parseInt(e.result)) : parseInt(e.result))
           accCount[date] = (accCount[date] ? (accCount[date] + 1) : 1)
         })
@@ -156,6 +168,7 @@ const Home = () => {
       }, {})
       console.log(555555555)
       console.log(flowsByDate)
+      if (Object.keys(flowsByDate).length === 0) return data
       // let totalDates = Object.keys(flowsByDate).length
       // const data = [{ id: 'low', data: [{ x: 0, y: 0 }] }]
       const d = []
@@ -165,11 +178,9 @@ const Home = () => {
         d.push({ x: i++, y: flowsByDate[k] / accCount[k] * 100 })
         console.log(k)
       }
-      const data = [{ id: 'low', data: d }]
-      return data
-    } else {
-      return [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 1, y: 100 }] }]
+      data = [{ id: 'low', data: d }]
     }
+    return data
   }
 
   // ? const

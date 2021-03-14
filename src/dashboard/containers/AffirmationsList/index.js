@@ -1,11 +1,11 @@
 // react
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { /* Fragment, */ useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // components
 import AffirmationChart from '../../components/AffirmationChart'
 import MenuListComposition from '../../components/MenuListComposition'
-import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
+// import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import Title from '../../components/Title'
@@ -71,7 +71,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
    * @param {DataAffirmation} value
    * @returns {undefined} selectValue = value
    */
-  const handleClickTopicMenu = value => setSelectValue(value)
+  // const handleClickTopicMenu = value => setSelectValue(value)
 
   /**
    * handle click close chip
@@ -118,21 +118,21 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
    * render multiple select - checkbox (children)
    * @return {undefined} (html)
    */
-  const renderMultipleSelectCheckboxChildren = () => {
-    return (
-      <Fragment>
-        {
-          selectValue.length === 0
-            ? <Icon custom="topic" color={fontColor1} size="md" />
-            : <span className={styles.AffirmationsListMultipleSelectCheckboxItemCount}>
-                {selectValue.length}
-              </span>
-        }
-        <span>{t('dashboard.MultipleSelectCheckbox.topics')}</span>
-        <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
-      </Fragment>
-    )
-  }
+  // const renderMultipleSelectCheckboxChildren = () => {
+  //   return (
+  //     <Fragment>
+  //       {
+  //         selectValue.length === 0
+  //           ? <Icon custom="topic" color={fontColor1} size="md" />
+  //           : <span className={styles.AffirmationsListMultipleSelectCheckboxItemCount}>
+  //               {selectValue.length}
+  //             </span>
+  //       }
+  //       <span>{t('dashboard.MultipleSelectCheckbox.topics')}</span>
+  //       <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
+  //     </Fragment>
+  //   )
+  // }
 
   /**
    * render Icon
@@ -162,17 +162,23 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
    * @return {undefined} AffirmationChart[] (html)
    */
   const renderAffirmationsAffirmationChart = () => {
-    const _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
+    let _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
+    _data = _data.map(item => {
+      return Object.assign(item, { _flow: handleFlow(item.sensies.items) })
+    })
+    _data.sort((a, b) => {
+      return b._flow - a._flow
+    })
     return !affirmationsReducer.loading && _data.map(item => {
       console.log('items: ', item.sensies.items)
-      const flow = handleFlow(item.sensies.items)
-      console.log('flow: ', flow)
+      // const flow = handleFlow(item.sensies.items)
+      // console.log('flow: ', flow)
       switch (stateFilter.value) {
-        case 'flowing': return flow >= 50 && renderAffirmationChart(item, flow)
-        case 'blocked': return flow < 50 && renderAffirmationChart(item, flow)
-        case 'all': return renderAffirmationChart(item, flow)
-        case 'incomplete': return flow === 0 && renderAffirmationChart(item, flow)
-        default: return renderAffirmationChart(item, flow)
+        case 'flowing': return item._flow >= 50 && renderAffirmationChart(item, item._flow)
+        case 'blocked': return item._flow < 50 && renderAffirmationChart(item, item._flow)
+        case 'all': return renderAffirmationChart(item, item._flow)
+        case 'incomplete': return item._flow === 0 && renderAffirmationChart(item, item._flow)
+        default: return renderAffirmationChart(item, item._flow)
       }
     })
   }
@@ -195,7 +201,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
               </MenuListComposition>
             </div>
           </div>
-          <div className={styles.AffirmationsListFilterBtnMenu}>
+          {/* <div className={styles.AffirmationsListFilterBtnMenu}>
             <div className={styles.AffirmationsListFilterBtnMenuComponent}>
               <MultipleSelectCheckbox
                 onClickValue={value => handleClickTopicMenu(value)}
@@ -204,7 +210,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
                 {renderMultipleSelectCheckboxChildren()}
               </MultipleSelectCheckbox>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={styles.AffirmationsListBodyContainer} style={handleTheme3Styles()}>
