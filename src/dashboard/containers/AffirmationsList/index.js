@@ -13,6 +13,8 @@ import Pagination from '../../components/Pagination'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
+// import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
+// import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
 import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagination.actions'
 // constants
 import { MenuFilterStateAffirmationsListComponent } from '../../constants/menus'

@@ -151,6 +151,7 @@ export const getClientsFromCoach = (id, dates) => `
               result
               createdAt
               timestamp
+              affirmationId
             }
           }
         }

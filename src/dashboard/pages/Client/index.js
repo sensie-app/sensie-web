@@ -1,5 +1,5 @@
 // react
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // material-ui
 import Grid from '@material-ui/core/Grid'
@@ -14,9 +14,11 @@ import Loading from '../../components/Loading'
 // constants-routes
 import DASHBOARD_ROUTES from '../../constants/routes'
 // redux
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // styles
 import styles from './styles.module.scss'
+import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
+import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
 
 // * page
 /**
@@ -27,9 +29,20 @@ const Client = () => {
   // ? hooks
   const {
     usersReducer,
-    affirmationsReducer
+    affirmationsReducer,
+    userReducer: { user },
+    filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    console.log('GETTING INFO')
+    console.log(user)
+    console.log(globalDateFilter)
+    dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
+    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000))
+  }, [user.loading, globalDateFilter])
 
   // ? const
   const btn = {

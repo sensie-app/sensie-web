@@ -37,7 +37,7 @@ const AuthStateApp = ({ children }) => {
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState)
       console.log(authData)
-      authData && updateUserCoach(authData.username, id)
+      invinfo && authData && updateUserCoach(authData.username, id)
       setUser(authData)
     })
   }, [])

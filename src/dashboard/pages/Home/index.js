@@ -59,8 +59,6 @@ const Home = () => {
 
   useEffect(() => {
     console.log('GETTING INFO')
-    console.log(globalDateFilter.value)
-    console.log(user)
     dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [user.loading, globalDateFilter])
@@ -175,10 +173,10 @@ const Home = () => {
       // const data = [{ id: 'low', data: [{ x: 0, y: 0 }] }]
       const d = []
       let i = 0
-      for (const k in flowsByDate) {
+      const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
+      for (const k of orderedDates) {
         console.log(flowsByDate[k], accCount[k])
-        d.push({ x: i++, y: flowsByDate[k] / accCount[k] * 100 })
-        console.log(k)
+        d.push({ _d: k, x: i++, y: flowsByDate[k] / accCount[k] * 100 })
       }
       data = [{ id: 'low', data: d }]
     }

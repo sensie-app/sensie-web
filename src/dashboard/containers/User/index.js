@@ -32,17 +32,27 @@ const { ACTIVITY, UP } = IconChartTypes
  * @param {User} user
  * @param {string} show
  */
-const User = ({ user, show }) => {
+const User = ({ user, show, affirmation }) => {
   // ? hooks
   const [t] = useTranslation('global')
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
+
+  const filterSensies = (sensies) => {
+    if (!affirmation) return sensies
+    return sensies.filter((sensie) => {
+      console.log(sensie)
+      return sensie.affirmationId === affirmation.id
+    })
+  }
 
   // ? handle functions
   /**
    * handleTotalSensies
    * @returns {number} total sensies
    */
-  const handleTotalSensies = () => user.sensies.items.length
+  const handleTotalSensies = () => {
+    return filterSensies(user.sensies.items).length
+  }
 
   // ? render functions
   /**
@@ -73,7 +83,7 @@ const User = ({ user, show }) => {
           <PercentageChart title={t('dashboard.User.awarness')} value={Math.ceil(Math.random() * 100)} />
           <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div>
           <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
-          <div><IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(user.sensies.items)} valueType="%" icon={ACTIVITY} theme={2} /></div>
+          <div><IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(filterSensies(user.sensies.items))} valueType="%" icon={ACTIVITY} theme={2} /></div>
         </div>
       </div>
       {/* { show === summary
@@ -101,7 +111,8 @@ const User = ({ user, show }) => {
 User.propTypes = {
   /** show: { showInfo } */
   show: PropTypes.string,
-  user: UserPropTypes
+  user: UserPropTypes,
+  affirmation: PropTypes.object
 }
 
 export default User

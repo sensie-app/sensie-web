@@ -64,7 +64,7 @@ const UsersList = () => {
   // ? render functions
   const renderUsers = () => {
     return !usersReducer.loading && usersReducer.users.map((user, index) => {
-      return <User user={user} key={index} show={userList.showInfo} />
+      return <User user={user} key={index} show={userList.showInfo} affirmation={affirmation} />
     })
   }
 
