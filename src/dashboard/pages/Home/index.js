@@ -60,12 +60,14 @@ const Home = () => {
   useEffect(() => {
     console.log('GETTING INFO')
     console.log(globalDateFilter.value)
+    console.log(user)
     dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
-  }, [globalDateFilter])
+  }, [user.loading, globalDateFilter])
 
   useEffect(() => {
     console.log(globalDateFilter)
+    console.log(usersReducer)
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
@@ -74,7 +76,7 @@ const Home = () => {
     setResilienceScore(handleResilienceScore())
     setTrustScore(handleTrustScore())
     setGraphData(handleGraphData())
-  }, [usersReducer.users, globalDateFilter])
+  }, [usersReducer.users, globalDateFilter.value])
 
   // ? handle functions
   /**
@@ -199,8 +201,10 @@ const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <div className={styles.HomeG1Container}>
-            <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
-                        flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} />
+            {usersReducer.loading
+              ? <Loading />
+              : <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
+                  flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} /> }
           </div>
         </Grid>
         {/* <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
