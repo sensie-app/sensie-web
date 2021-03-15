@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // components
 import ImageAvatar from '../../components/ImageAvatar'
-import PieChart from '../../components/PieChart'
+// import PieChart from '../../components/PieChart'
 import IconChart from '../../components/IconChart'
 import Separator from '../../components/Separator'
 // constants
@@ -69,7 +69,7 @@ const UserStatistics = ({ data }) => {
       {/* body */}
       {handleSensiesCount() > 0 && <div className={styles.UserStatisticsBodyContainer}>
         <div className={styles.UserStatisticsBorder} />
-        {/* pie charts */}
+        {/* pie charts
         <div className={styles.UserStatisticsBodyCharts1Container}>
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <PieChart title={t('dashboard.PieChart.awarness')} />
@@ -80,7 +80,7 @@ const UserStatistics = ({ data }) => {
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <PieChart title={t('dashboard.PieChart.trust')} />
           </div>
-        </div>
+        </div> */}
         {/* icon charts */}
         <div className={styles.UserStatisticsBodyCharts2Container}>
           <div className={styles.UserStatisticsBodyChartsContainer}>

@@ -9,15 +9,16 @@ import Header from '../../containers/Header'
 import UserStatistics from '../../containers/UserStatistics'
 // components
 import { HelmetSEO } from '../../components/Globals'
-import Symbol from '../../components/Symbol'
+// import Symbol from '../../components/Symbol'
 import Loading from '../../components/Loading'
 import TrackAffirmations from '../../components/TrackAffirmations'
 // const
 import DASHBOARD_ROUTES from '../../constants/routes'
 // redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 // queries
 import { listUsersWithSensiesByUserId } from '../../graphql/queries'
+import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
 // utils
 import { gqlquery } from '../../utils/queries'
 // styles
@@ -35,14 +36,24 @@ const User = () => {
   // ? hooks
   const { id } = useParams()
   console.log('User page: ', id)
-  const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
+  const {
+    filtersReducer: { globalDateFilter },
+    userReducer: { user }
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const [user, setUser] = useState({})
+  const [client, setClient] = useState({})
   const [redirect, setRedirect] = useState(false)
   // const [affirmations, setAffirmations] = useState([])
   const [waitQuery, setWaitQuery] = useState(true)
+  const dispatch = useDispatch()
 
-  useEffect(() => user === undefined ? setRedirect(true) : setRedirect(false), [globalDateFilter])
+  useEffect(() => client === undefined ? setRedirect(true) : setRedirect(false), [globalDateFilter])
+
+  useEffect(() => {
+    console.log('coach, ', user)
+    user && dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
+  }, [globalDateFilter])
+
   useEffect(async () => {
     await handleUserQuery()
     // await handleAffirmationsQuery()
@@ -53,11 +64,13 @@ const User = () => {
    * handleUserQuery
    */
   const handleUserQuery = async () => {
-    if (user && globalDateFilter) {
+    console.log(client)
+    if (client && globalDateFilter) {
       const dbUser = await gqlquery(listUsersWithSensiesByUserId(id, globalDateFilter.value))
+      console.log(dbUser)
       if (!dbUser.loading && dbUser.value !== null) {
-        const _user = dbUser.value.data.listUsers.items[0]
-        setUser(_user)
+        const _client = dbUser.value.data.getUser
+        setClient(_client)
         setWaitQuery(false)
       } else { setWaitQuery(true) }
     }
@@ -80,7 +93,7 @@ const User = () => {
    * handleSensies
    * @return {boolean}
    */
-  const handleSensies = () => user.sensies.items.length > -1
+  const handleSensies = () => client.sensies.items.length > -1
 
   return (
     <section className={styles.UserContainer}>
@@ -91,16 +104,16 @@ const User = () => {
       <Header withBack={true} withPeople={false} />
       {/* body */}
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <div className={styles.UserG1Container}>
-            {waitQuery ? <Loading /> : <UserStatistics data={user} />}
+            {waitQuery ? <Loading /> : <UserStatistics data={client} />}
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        {/* <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <div className={styles.UserG2Container}>
             {!waitQuery && handleSensies && <Symbol level={0} />}
           </div>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <div className={styles.UserG3Container}>
             {!waitQuery && handleSensies &&
