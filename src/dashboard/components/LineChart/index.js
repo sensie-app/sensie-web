@@ -43,7 +43,9 @@ const LineChart = ({ data }) => {
           }}
           yScale={{
             type: 'linear',
-            stacked: false
+            stacked: false,
+            min: 0,
+            max: 100
           }}
           curve='linear'
           lineWidth={5}

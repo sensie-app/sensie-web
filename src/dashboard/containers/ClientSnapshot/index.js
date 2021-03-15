@@ -4,13 +4,13 @@ import React from 'react'
 // material-ui
 import Grid from '@material-ui/core/Grid'
 // redux
-import { useDispatch, useSelector } from 'react-redux'
-import { setPaginationClientSnapshotAction } from '../../../redux/actions/pagination.actions'
+import { /* useDispatch, */ useSelector } from 'react-redux'
+// import { setPaginationClientSnapshotAction } from '../../../redux/actions/pagination.actions'
 // components
 // import ImageAvatar from '../../components/ImageAvatar'
 // import BarChart from '../../components/BarChart'
 // import Icon from '../../components/Icon'
-import Pagination from '../../components/Pagination'
+// import Pagination from '../../components/Pagination'
 // constants
 // import { COLORS } from '../../constants/theme'
 // import DASHBOARD_ROUTES from '../../constants/routes'
@@ -31,10 +31,10 @@ import styles from './styles.module.scss'
  */
 const ClientSnapshot = () => {
   // ? hooks
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const {
-    usersReducer,
-    paginationReducer: { pagination: { pagClientSnapshot } }
+    usersReducer
+    // paginationReducer: { pagination: { pagClientSnapshot } }
   } = useSelector(state => state)
 
   // ? handle functions
@@ -44,7 +44,7 @@ const ClientSnapshot = () => {
    * @param {number} value
    * @returns {undefined} redux action
    */
-  const handlePaginationChange = (event, value) => dispatch(setPaginationClientSnapshotAction(value))
+  // const handlePaginationChange = (event, value) => dispatch(setPaginationClientSnapshotAction(value))
 
   // ? render functions
   /**
@@ -83,9 +83,9 @@ const ClientSnapshot = () => {
       <Grid container spacing={1}>
         {renderClientSnapshotBarChart()}
       </Grid>
-      <div className={styles.ClientSnapshotFooter}>
+      {/* <div className={styles.ClientSnapshotFooter}>
         {usersReducer.users.length !== 0 && <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagClientSnapshot} />}
-      </div>
+      </div> */}
     </section>
   )
 }

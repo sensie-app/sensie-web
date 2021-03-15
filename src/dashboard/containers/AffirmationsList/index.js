@@ -9,13 +9,13 @@ import MenuListComposition from '../../components/MenuListComposition'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import Title from '../../components/Title'
-import Pagination from '../../components/Pagination'
+// import Pagination from '../../components/Pagination'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
 // import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
 // import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
-import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagination.actions'
+// import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagination.actions'
 // constants
 import { MenuFilterStateAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
@@ -44,8 +44,8 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
   const dispatch = useDispatch()
   const {
     affirmationsReducer,
-    filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } },
-    paginationReducer: { pagination: { pagAffirmationsList } }
+    filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } }
+    // paginationReducer: { pagination: { pagAffirmationsList } }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [selectValue, setSelectValue] = useState(topicFilter)
@@ -111,9 +111,9 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
    * @param {number} value
    * @returns {undefined} redux action
    */
-  const handlePaginationChange = (event, value) => {
-    dispatch(setPaginationAffirmationsListAction(value))
-  }
+  // const handlePaginationChange = (event, value) => {
+  //   dispatch(setPaginationAffirmationsListAction(value))
+  // }
 
   // ? render functions
   /**
@@ -224,9 +224,9 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
             ? renderAffirmationsAffirmationChart()
             : <span>{t('dashboard.AffirmationsList.noData')}</span>
           }
-          {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
+          {/* {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
             {handleTotalAffirmations() > 0 && <Pagination count={4} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />}
-          </div>}
+          </div>} */}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>
           {renderChipsItems()}

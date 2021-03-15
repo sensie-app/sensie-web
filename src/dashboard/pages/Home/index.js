@@ -128,7 +128,9 @@ const Home = () => {
       let flow = 0
       flow = usersReducer.users.map(user => {
         const totalSensies = user.sensies.items.length
-        const sensies = user.sensies.items.filter(value => value.result === 1)
+        console.log(totalSensies)
+        const sensies = user.sensies.items.filter(value => parseInt(value.result) === 1)
+        console.log(sensies)
         const flow = totalSensies > 0 ? sensies.length / totalSensies : 0
         return flow * 100
       })
@@ -148,6 +150,7 @@ const Home = () => {
       // console.log(userSensies)
       // const acc = {}
       const accCount = {}
+      const accUserCount = {}
       const flowsByDate = userSensies.reduce((acc, sensieList) => {
         // console.log(sensieList, Array.isArray(sensieList))
         if (!sensieList || !Array.isArray(sensieList)) return acc
@@ -155,13 +158,17 @@ const Home = () => {
           // console.log(acc)
           // console.log(e)
           const d = new Date(e.timestamp)
-          let date = d.toLocaleDateString()
+          let date = d.getMonth()
+          if (diff <= 30) {
+            date = d.toLocaleDateString()
+          }
           if (diff <= 3) { // 3 days
             date += d.getHours()
           }
           // console.log(date)
           acc[date] = (acc[date] ? (acc[date] + parseInt(e.result)) : parseInt(e.result))
           accCount[date] = (accCount[date] ? (accCount[date] + 1) : 1)
+          accUserCount[date] = (accUserCount[date] ? ((accUserCount[date] % usersReducer.users.length + 1)) : 1)
         })
         console.log(acc)
         return acc
@@ -176,7 +183,7 @@ const Home = () => {
       const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
       for (const k of orderedDates) {
         console.log(flowsByDate[k], accCount[k])
-        d.push({ _d: k, x: i++, y: flowsByDate[k] / accCount[k] * 100 })
+        d.push({ _d: k, x: i++, y: flowsByDate[k] / accCount[k] / accUserCount[k] * 100 })
       }
       data = [{ id: 'low', data: d }]
     }
