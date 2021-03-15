@@ -190,7 +190,7 @@ export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
         firstName
         lastName
         gender
-        sensies(limit: 10000, sortDirection: ASC, filter: {createdAt: {between: ["${dates2[0]}", "${dates2[1]}"]}}) {
+        sensies(limit: 10000, sortDirection: ASC, filter: {timestamp: {between: ["${dates2[0]}", "${dates2[1]}"]}}) {
           items {
             id
             result
@@ -439,6 +439,7 @@ export const listAffirmationsByUserIdAndTopicId = (coachId, dates, limit) => `
           items {
             id
             result
+            userId
           }
         }
         topics {
@@ -496,7 +497,7 @@ export const listAffirmationsByIdUserIdTopicId = (affirmationId, dates) => `
           firstName
           lastName
           id
-          sensies(limit: 10000, filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          sensies(limit: 10000, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
             items {
               id
               result

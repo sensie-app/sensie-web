@@ -38,9 +38,11 @@ const User = ({ user, show, affirmation }) => {
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
 
   const filterSensies = (sensies) => {
+    console.log(user.sensies.items)
     if (!affirmation) return sensies
+    console.log(affirmation)
     return sensies.filter((sensie) => {
-      console.log(sensie)
+      console.log(sensie.affirmationId === affirmation.id)
       return sensie.affirmationId === affirmation.id
     })
   }
