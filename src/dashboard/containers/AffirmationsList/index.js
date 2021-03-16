@@ -166,10 +166,16 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
   const renderAffirmationsAffirmationChart = () => {
     let _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
     _data = _data.map(item => {
-      return Object.assign(item, { _flow: handleFlow(item.sensies.items) })
+      console.log('aff: ', item)
+      const users = new Set()
+      item.sensies.items.forEach(e => users.add(e.userId))
+      return Object.assign(item, {
+        _flow: handleFlow(item.sensies.items),
+        _userCount: users.size
+      })
     })
     _data.sort((a, b) => {
-      return b._flow - a._flow
+      return b._userCount - a._userCount
     })
     return !affirmationsReducer.loading && _data.map(item => {
       console.log('items: ', item.sensies.items)

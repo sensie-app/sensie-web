@@ -145,6 +145,7 @@ export const getClientsFromCoach = (id, dates) => `
           gender 
           picture
           userCoachId
+          selfAwareness
           sensies(limit: 10000, sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
             items {
               id
