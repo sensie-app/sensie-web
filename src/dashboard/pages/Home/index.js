@@ -55,7 +55,7 @@ const Home = () => {
   const [resilienceScore, setResilienceScore] = useState(0)
   const [trustScore, setTrustScore] = useState(0)
 
-  const [graphData, setGraphData] = useState([])
+  const [graphData, setGraphData] = useState([{ id: 'low', data: [{ x: new Date(), y: 0 }, { x: new Date(), y: 100 }] }])
 
   useEffect(() => {
     console.log('GETTING INFO')
@@ -141,7 +141,7 @@ const Home = () => {
   }
 
   const handleGraphData = () => {
-    let data = [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 7, y: 100 }] }]
+    let data = [{ id: 'low', data: [{ x: new Date(), y: 0 }, { x: new Date(), y: 100 }] }]
     if (!usersReducer.loading && handleTotalClients() > 0) {
       const dates = globalDateFilter.value
       const diff = moment(dates[1]).diff(moment(dates[0]), 'days')
@@ -158,13 +158,14 @@ const Home = () => {
           // console.log(acc)
           // console.log(e)
           const d = new Date(e.timestamp)
-          let date = d.getMonth()
-          if (diff <= 30) {
-            date = d.toLocaleDateString()
-          }
-          if (diff <= 3) { // 3 days
-            date += d.getHours()
-          }
+          // let date = d.getMonth()
+          const date = d.toLocaleDateString()
+          // if (diff <= 30) {
+          //   date = d.toLocaleDateString()
+          // }
+          // if (diff <= 3) { // 3 days
+          //   date += d.getHours()
+          // }
           // console.log(date)
           acc[date] = (acc[date] ? (acc[date] + parseInt(e.result)) : parseInt(e.result))
           accCount[date] = (accCount[date] ? (accCount[date] + 1) : 1)
@@ -183,7 +184,8 @@ const Home = () => {
       const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
       for (const k of orderedDates) {
         console.log(flowsByDate[k], accCount[k])
-        d.push({ _d: k, x: i++, y: flowsByDate[k] / accCount[k] / accUserCount[k] * 100 })
+        console.log(new Date(k))
+        d.push({ x: new Date(k), _x: i++, y: flowsByDate[k] / accCount[k] / accUserCount[k] * 100 })
       }
       data = [{ id: 'low', data: d }]
     }

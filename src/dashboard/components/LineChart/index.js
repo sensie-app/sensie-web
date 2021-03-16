@@ -39,7 +39,17 @@ const LineChart = ({ data }) => {
           enableGridY={true}
           colors={[actionColor1, actionColor2]}
           xScale={{
-            type: 'linear'
+            type: 'time',
+            format: 'native',
+            precision: 'hour'
+          }}
+          xFormat="time:%Y-%m-%d"
+          axisBottom={{
+            tickValues: 'every 1 day',
+            tickSize: 5,
+            tickPadding: 0,
+            tickRotation: -10,
+            format: '%Y-%m-%d'
           }}
           yScale={{
             type: 'linear',
