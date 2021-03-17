@@ -82,10 +82,10 @@ const User = ({ user, show, affirmation }) => {
       {/* body */}
       <div className={styles.UserBodySummary}>
         <div className={styles.UserBodyContainer}>
+          <div><IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(filterSensies(user.sensies.items))} valueType="%" icon={ACTIVITY} theme={2} /></div>
           <PercentageChart title={t('dashboard.User.awarness')} value={Math.ceil(Math.random() * 100)} />
           <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div>
           <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
-          <div><IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(filterSensies(user.sensies.items))} valueType="%" icon={ACTIVITY} theme={2} /></div>
         </div>
       </div>
       {/* { show === summary

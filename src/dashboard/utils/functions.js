@@ -50,5 +50,5 @@ export const handleBlock = data => {
    */
 export const handleEngagement = (arrDate, totalSensies) => {
   const days = moment(arrDate[1]).diff(moment(arrDate[0]), 'days')
-  return (totalSensies / (days + 1)).toFixed(0)
+  return (totalSensies / (days + 1) * 100).toFixed(0)
 }
