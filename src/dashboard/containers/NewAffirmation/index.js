@@ -115,7 +115,10 @@ const NewAffirmation = ({
    * @param {undefined} event
    * @returns {Object} setItemTitle()
    */
-  const handleInputValue = event => setItemTitle(event.target.value)
+  const handleInputValue = event => {
+    setItemTitle(event.target.value)
+    console.log(event)
+  }
 
   /**
    * handle click btn done
@@ -167,7 +170,7 @@ const NewAffirmation = ({
               ? <div className={styles.NewAffirmationEditTitleContainer}>
                   <input
                     ref={inputRef}
-                    value={title}
+                    value={itemTitle}
                     placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
                     onChange={handleInputValue}
                   />
