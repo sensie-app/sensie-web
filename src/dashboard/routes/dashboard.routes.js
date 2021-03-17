@@ -1,6 +1,6 @@
 // react
 import React, { useEffect } from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 // import { ThemeProvider } from '@material-ui/core/styles'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -38,6 +38,7 @@ import '../doc/types'
 const {
   entrypoint,
   home,
+  dashboard,
   client,
   team,
   // user,
@@ -79,6 +80,8 @@ const DashboardRoutes = () => {
           <Switch>
             <Layout>
               <Route path={home} component={Home} />
+              <Route path={dashboard} component={Home} />
+              <Route path={entrypoint} component={Home} />
               <Route path={client} component={Client} />
               <Route path={team} component={Team} />
               <Route path={affirmations} component={Affirmations} />
@@ -87,7 +90,7 @@ const DashboardRoutes = () => {
               <Route path={'/dashboard/user' + '/:id'} component={User} />
               <Route path={pack + '/:id'} component={Pack} />
               <Route path={topic + '/:id'} component={Topic} />
-              <Redirect from={entrypoint} to={home} />
+              {/* <Redirect from={entrypoint} to={home} /> */}
             </Layout>
             <Route component={NotFound404} />
           </Switch>
