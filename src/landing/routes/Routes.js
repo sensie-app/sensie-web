@@ -33,18 +33,18 @@ function App () {
       <BrowserRouter>
         <Navbar />
           <Switch>
-          <Route path={contact} component={Contact} />
-          <Route path={aboutsensie} component={AboutSensie} />
-          <Route path={blog} component={Blog} />
-          <Route path={science} component={Science} />
-          <Route path={home} component={Home} />
-          <Route path={privacy} component={Privacy} />
-          <Route path={terms} component={Terms} />
-          <Redirect from={entrypoint} to={home} />
-          <Route component={NotFound404} />
-        </Switch>
+            <Route path={contact} component={Contact} />
+            <Route path={aboutsensie} component={AboutSensie} />
+            <Route path={blog} component={Blog} />
+            <Route path={science} component={Science} />
+            <Route path={home} component={Home} />
+            <Route path={privacy} component={Privacy} />
+            <Route path={terms} component={Terms} />
+            <Redirect from={entrypoint} to={home} />
+            <Route component={NotFound404} />
+          </Switch>
+        <Footer />
       </BrowserRouter>
-      <Footer />
         </div>
     </ThemeProvider>
   )

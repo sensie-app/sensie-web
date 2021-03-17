@@ -19,17 +19,20 @@ const useStyles = makeStyles({
     color: '#15E7BC',
     fontStyle: 'italic',
     fontSize: '2rem',
+    marginRight: '1rem',
     marginBottom: '1rem'
   },
   text: {
     color: 'white',
     fontSize: '1.5rem',
     marginLeft: '1rem',
+    marginRight: '1rem',
     marginBottom: '1rem'
   },
   list: {
     color: 'white',
     marginLeft: '1.8rem',
+    marginRight: '1rem',
     fontSize: '1.5rem',
     marginBottom: '1rem'
   }
@@ -37,6 +40,7 @@ const useStyles = makeStyles({
 
 const Privacy = () => {
   const classes = useStyles()
+  console.log('privacy')
   return (
     <div>
       <Grid container className={classes.background}>
