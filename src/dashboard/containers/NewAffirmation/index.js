@@ -42,6 +42,7 @@ const NewAffirmation = ({
   data,
   title,
   packId = null,
+  joinId = null,
   selectedTopics,
   withRemoveBtn = true,
   withAddBtn = false,
@@ -115,7 +116,10 @@ const NewAffirmation = ({
    * @param {undefined} event
    * @returns {Object} setItemTitle()
    */
-  const handleInputValue = event => setItemTitle(event.target.value)
+  const handleInputValue = event => {
+    setItemTitle(event.target.value)
+    console.log(event)
+  }
 
   /**
    * handle click btn done
@@ -167,7 +171,7 @@ const NewAffirmation = ({
               ? <div className={styles.NewAffirmationEditTitleContainer}>
                   <input
                     ref={inputRef}
-                    value={title}
+                    value={itemTitle}
                     placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
                     onChange={handleInputValue}
                   />
@@ -178,7 +182,7 @@ const NewAffirmation = ({
         </div>
 
         <div className={styles.NewAffirmationS2}>
-          {withRemoveBtn && !withAddBtn && <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => onRemovePack(data.id)}>
+          {withRemoveBtn && !withAddBtn && <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => onRemovePack(joinId)}>
                 <span>{t('dashboard.NewAffirmation.remove')}</span>
              </button>
           }
@@ -226,6 +230,8 @@ NewAffirmation.propTypes = {
   title: PropTypes.string.isRequired,
   /** packId */
   packId: PropTypes.string,
+  /** joinId */
+  joinId: PropTypes.string,
   /** selectedTopics */
   selectedTopics: PropTypes.array.isRequired,
   /** withRemoveBtn */

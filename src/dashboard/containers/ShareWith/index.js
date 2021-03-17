@@ -3,10 +3,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 // components
 import ItemCheckbox from '../../components/ItemCheckbox'
+import { toast } from 'react-toastify'
 // redux
-import { useDispatch, useSelector } from 'react-redux'
+import { /* useDispatch, */ useSelector } from 'react-redux'
 // import { useParams } from 'react-router-dom'
-import { setCheckboxAllClientsAction, setCheckboxAllTeamsAction } from '../../../redux/actions/checkbox.actions'
+// import { setCheckboxAllClientsAction, setCheckboxAllTeamsAction } from '../../../redux/actions/checkbox.actions'
 // styles
 import styles from './styles.module.scss'
 // fake data
@@ -24,7 +25,7 @@ import PropTypes from 'prop-types'
 const ShareWith = ({ pack }) => {
   console.log(pack)
   // ? hooks
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const {
     checkboxReducer: { all: { clients /*, teams */ } },
     usersReducer
@@ -38,17 +39,19 @@ const ShareWith = ({ pack }) => {
    * @param {string} tag
    * @returns {boolean} redux state
    */
-  const handleOnClickSelectAll = (value, tag) => {
-    tag === 'clients' && dispatch(setCheckboxAllClientsAction(value))
-    tag === 'teams' && dispatch(setCheckboxAllTeamsAction(value))
-  }
+  // const handleOnClickSelectAll = (value, tag) => {
+  //   tag === 'clients' && dispatch(setCheckboxAllClientsAction(value))
+  //   tag === 'teams' && dispatch(setCheckboxAllTeamsAction(value))
+  // }
 
   const subPack = async (userId, packId) => {
     try {
       const response = await API.graphql(graphqlOperation(createPackSubscriptionMutation(userId, packId)))
       console.log('response', response)
+      toast.success('Shared Pack Succesfully!')
     } catch (error) {
       console.log('error', error)
+      toast.success('Pack Failed to share!')
     }
   }
 
@@ -104,7 +107,7 @@ const ShareWith = ({ pack }) => {
         {/* clients */}
         <div className={styles.ShareWithListContainer}>
           {/* header */}
-          <div className={styles.ShareWithHeaderContainer}>
+          {/* <div className={styles.ShareWithHeaderContainer}>
             <ItemCheckbox
               defaultValue={false}
               onClick={(value) => handleOnClickSelectAll(!value, 'clients')}
@@ -113,7 +116,7 @@ const ShareWith = ({ pack }) => {
                 {t('dashboard.ShareWith.selectAllClients')}
               </span>
             </ItemCheckbox>
-          </div>
+          </div> */}
           {usersReducer.users.length > 0 && renderListClients()}
         </div>
         {/* _teams
