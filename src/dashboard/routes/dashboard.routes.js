@@ -36,7 +36,7 @@ import '../doc/types'
 
 // const
 const {
-  // entrypoint,
+  entrypoint,
   home,
   dashboard,
   client,
@@ -81,7 +81,7 @@ const DashboardRoutes = () => {
             <Layout>
               <Route path={home} component={Home} />
               <Route path={dashboard} component={Home} />
-              {/* <Route path={entrypoint} component={Home} /> */}
+              <Route exact path={entrypoint} component={Home} />
               <Route path={client} component={Client} />
               <Route path={team} component={Team} />
               <Route path={affirmations} component={Affirmations} />
