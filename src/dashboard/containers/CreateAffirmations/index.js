@@ -228,9 +228,9 @@ const CreateAffirmations = ({
           <ItemCheckbox check={false} defaultValue={false} onClick={value => handleOnClickSelectAll(!value)}>
             {showOptions || affirmations
               ? <div className={styles.CreateAffirmationsHeaderActions}>
-                  <button>
+                  {/* <button>
                     <span>{t('dashboard.CreateAffirmations.delete')}</span>
-                  </button>
+                  </button> */}
                       {/* <button>
                         <span>{t('dashboard.CreateAffirmations.removeToPack')}</span>
                       </button> */}
