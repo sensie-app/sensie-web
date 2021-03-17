@@ -321,6 +321,7 @@ export const getPacksFromUser = id => `
           author
           affirmations(sortDirection: ASC) {
             items {
+              id
               affirmation {
                 description
                 id

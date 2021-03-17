@@ -152,7 +152,7 @@ const Pack = () => {
   const handleRemoveToPack = async (id) => {
     const remove = await gqlquery2(removeJoinAffirmationPackMutation(id))
     if (!remove.loading && remove.value !== null) {
-      toast.success(t('dashboard.Pack.addPack'))
+      // toast.success(t('dashboard.Pack.addPack'))
       setNewAff(!remove.loading && remove.value !== null ? !newAff : newAff)
       toast.success(t('dashboard.Pack.removePack'))
     } else {
@@ -199,6 +199,7 @@ const Pack = () => {
         const { name, topics } = item.affirmation
         return <NewAffirmation
           key={item.affirmation.id}
+          joinId={item.id}
           checkAll={checkboxReducer.all.affirmations}
           packId={id}
           data={item.affirmation}
