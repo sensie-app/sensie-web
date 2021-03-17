@@ -81,11 +81,12 @@ $size: 100px;
   background-color: $grayColor5;  
   border-radius: 5px;
   @include flex(row, center, center, nowrap);
-  padding: 0px 10px;
-  width: 30%;
+  padding: 0px 0px;
+  width: 20%;
   height: 100%;
   max-height: 100%;
 }
+
 
 
 

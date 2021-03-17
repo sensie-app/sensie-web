@@ -42,7 +42,7 @@ const UserStatistics = ({ data }) => {
    * handleLastSensieTimestamp
    * @returns {string}
    */
-  const handleLastSensieTimestamp = () => moment(data.sensies.items[0].createdAt).format('DD.MM.yyyy | hh.mm')
+  const handleLastSensieTimestamp = () => moment(data.sensies.items[0].createdAt).format('MM/DD/yyyy | hh:mm')
 
   return (
     <div className={styles.UserStatisticsContainer}>
@@ -83,6 +83,10 @@ const UserStatistics = ({ data }) => {
         </div> */}
         {/* icon charts */}
         <div className={styles.UserStatisticsBodyCharts2Container}>
+          <div className={styles.UserStatisticsBodyChartsContainer}>
+            <IconChart title={t('dashboard.PieChart.awarness')} value={Math.ceil(Math.random() * 100)} icon={UP} theme={2}/>
+          </div>
+          <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleSensiesCount())} icon={UP} theme={2} />
           </div>
