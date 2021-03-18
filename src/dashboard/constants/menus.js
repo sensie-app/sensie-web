@@ -1,16 +1,16 @@
-import { TODAY } from './globals'
+// import { TODAY } from './globals'
 
 export const MenuDateHeaderComponent = [
-  {
-    index: 0,
-    name: 'today',
-    value: TODAY
-  },
-  {
-    index: 1,
-    name: 'lastDay',
-    value: ''
-  },
+  // {
+  //   index: 0,
+  //   name: 'today',
+  //   value: TODAY
+  // },
+  // {
+  //   index: 1,
+  //   name: 'lastDay',
+  //   value: ''
+  // },
   {
     index: 2,
     name: 'lastWeek',
@@ -25,12 +25,12 @@ export const MenuDateHeaderComponent = [
     index: 5,
     name: 'lastYear',
     value: ''
-  },
-  {
-    index: 6,
-    name: 'custom',
-    value: ''
   }
+  // {
+  //   index: 6,
+  //   name: 'custom',
+  //   value: ''
+  // }
 ]
 
 export const MenuFilterStateAffirmationsListComponentDefaultValueState = {
@@ -54,12 +54,12 @@ export const MenuFilterStateAffirmationsListComponent = [
     index: 2,
     name: 'blocked',
     value: 'blocked'
-  },
-  {
-    index: 3,
-    name: 'incomplete',
-    value: 'incomplete'
   }
+  // {
+  //   index: 3,
+  //   name: 'incomplete',
+  //   value: 'incomplete'
+  // }
 ]
 
 export const MenuFilterTopicsAffirmationsListComponent = [
