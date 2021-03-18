@@ -27,12 +27,13 @@ const LineChart = ({ data }) => {
   /** @type {number} */
   const margin = 25
   console.log(data)
+  const days = data[0].data.length
 
   return (
     <div className={styles.LineChartContainer}>
        <ResponsiveLine
           data={data}
-          margin={{ top: margin, right: margin, bottom: margin, left: margin * 2 }}
+          margin={{ top: margin, right: margin, bottom: margin * 2, left: margin * 2 }}
           enablePoints={false}
           enablePointLabel={false}
           enableGridX={false}
@@ -43,13 +44,13 @@ const LineChart = ({ data }) => {
             format: 'native',
             precision: 'hour'
           }}
-          xFormat="time:%Y-%m-%d"
+          xFormat="time:%m/%d/%Y"
           axisBottom={{
-            tickValues: 'every 1 day',
-            tickSize: 5,
+            tickValues: days < 30 ? 'every 1 day' : 'every 1 month',
+            tickSize: 9,
             tickPadding: 0,
-            tickRotation: -10,
-            format: '%Y-%m-%d'
+            tickRotation: -30,
+            format: '%m/%d/%Y'
           }}
           yScale={{
             type: 'linear',

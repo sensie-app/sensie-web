@@ -140,11 +140,22 @@ const Home = () => {
     }
   }
 
+  const generateDateList = (start, n) => {
+    const arr = []
+    for (let i = 0; i < n; i++) {
+      const d = new Date(start.setDate(start.getDate() + 1))
+      arr.push(d)
+    }
+    return arr
+  }
+
   const handleGraphData = () => {
     let data = [{ id: 'low', data: [{ x: new Date(), y: 0 }, { x: new Date(), y: 100 }] }]
     if (!usersReducer.loading && handleTotalClients() > 0) {
       const dates = globalDateFilter.value
-      const diff = moment(dates[1]).diff(moment(dates[0]), 'days')
+      const diff = moment(dates[1]).diff(moment(dates[0]), 'days') + 1
+      // const format = (diff < 30) ? 'MM/DD/yyyy' : 'MM/yyyy'
+      const format = 'MM/DD/yyyy'
       console.log('diff: ', diff)
       const userSensies = usersReducer.users.map(user => user.sensies.items)
       // console.log(userSensies)
@@ -157,9 +168,10 @@ const Home = () => {
         sensieList.forEach(e => {
           // console.log(acc)
           // console.log(e)
+          // const d = new Date(e.timestamp)
           const d = new Date(e.timestamp)
-          // let date = d.getMonth()
-          const date = d.toLocaleDateString()
+          const date = moment(d).format(format)
+          // const date = d.format(format)
           // if (diff <= 30) {
           //   date = d.toLocaleDateString()
           // }
@@ -176,16 +188,18 @@ const Home = () => {
       }, {})
       console.log(555555555)
       console.log(flowsByDate)
-      if (Object.keys(flowsByDate).length === 0) return data
+      // if (Object.keys(flowsByDate).length === 0) return data
       // let totalDates = Object.keys(flowsByDate).length
       // const data = [{ id: 'low', data: [{ x: 0, y: 0 }] }]
       const d = []
       let i = 0
-      const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
-      for (const k of orderedDates) {
-        console.log(flowsByDate[k], accCount[k])
-        console.log(new Date(k))
-        d.push({ x: new Date(k), _x: i++, y: flowsByDate[k] / accCount[k] / accUserCount[k] * 100 })
+      // const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
+      const dateList = generateDateList(new Date(dates[0]), diff)
+      for (const k of dateList) {
+        const key = moment(k).format(format)
+        console.log(key)
+        console.log(flowsByDate[key], accCount[key])
+        d.push({ x: k, _x: i++, y: flowsByDate[key] / accCount[key] / accUserCount[key] * 100 || 0 })
       }
       data = [{ id: 'low', data: d }]
     }
