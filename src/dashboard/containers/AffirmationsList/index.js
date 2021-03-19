@@ -170,7 +170,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, limit, title = ''
       const users = new Set()
       item.sensies.items.forEach(e => users.add(e.userId))
       return Object.assign(item, {
-        _flow: parseInt(handleFlow(item.sensies.items)),
+        _flow: handleFlow(item.sensies.items),
         _userCount: users.size
       })
     })
