@@ -63,3 +63,11 @@ export const deleteAffirmationMutation = id => `
     }
   }
 `
+
+export const updateAffirmationTitle = (affirmationId, title) => `
+  mutation updateUserWithCoach {
+    updateUser(input: {id: "${affirmationId}", title: "${title}"}) {
+      id
+    }
+  }
+`
