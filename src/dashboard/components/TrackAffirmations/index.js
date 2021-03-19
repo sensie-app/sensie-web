@@ -23,6 +23,7 @@ import styles from './styles.module.scss'
  */
 const TrackAffirmations = ({
   chipsUp = false,
+  multiUser = true,
   limit,
   title,
   btn,
@@ -39,7 +40,7 @@ const TrackAffirmations = ({
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
           <Line />
-          <AffirmationsList getSensies={getSensies} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
+          <AffirmationsList getSensies={getSensies} multiUser={multiUser} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
         </div>
       </div>
     </section>
@@ -50,6 +51,8 @@ const TrackAffirmations = ({
 TrackAffirmations.propTypes = {
   /** whether chips are displayed above or below the declaration list */
   chipsUp: PropTypes.bool,
+  /** multiUser */
+  multiUser: PropTypes.bool,
   /** number of affirmations */
   limit: PropTypes.number,
   /** title section */

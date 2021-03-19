@@ -122,6 +122,7 @@ const User = () => {
                 theme={2}
                 title={t('dashboard.User.trackAffirmations')}
                 chipsUp={true}
+                multiUser={false}
               />
             }
           </div>

@@ -54,12 +54,12 @@ export const MenuFilterStateAffirmationsListComponent = [
     index: 2,
     name: 'blocked',
     value: 'blocked'
+  },
+  {
+    index: 3,
+    name: 'incomplete',
+    value: 'incomplete'
   }
-  // {
-  //   index: 3,
-  //   name: 'incomplete',
-  //   value: 'incomplete'
-  // }
 ]
 
 export const MenuFilterTopicsAffirmationsListComponent = [

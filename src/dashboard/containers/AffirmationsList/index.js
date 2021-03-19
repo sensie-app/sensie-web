@@ -39,7 +39,7 @@ const { fontColor1, grayColor5 } = COLORS
  * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
  * @param {undefined} getSensies (default: () => {})
  */
-const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSensies = () => {} }) => {
+const AffirmationsList = ({ chipsUp = false, multiUser = true, limit, title = '', theme = 1, getSensies = () => {} }) => {
   // ? hooks
   const dispatch = useDispatch()
   const {
@@ -157,7 +157,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
    * @param {object} data
    * @param {number} flow
    */
-  const renderAffirmationChart = (data, flow) => <AffirmationChart key={data.id} data={data} value={flow} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === data} />
+  const renderAffirmationChart = (data, flow) => <AffirmationChart key={data.id} data={data} value={flow} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === data} multiUser={multiUser} />
 
   /**
    * render affirmations
@@ -166,21 +166,22 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
   const renderAffirmationsAffirmationChart = () => {
     let _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
     _data = _data.map(item => {
-      console.log('aff: ', item)
+      // console.log('aff: ', item)
       const users = new Set()
       item.sensies.items.forEach(e => users.add(e.userId))
       return Object.assign(item, {
-        _flow: handleFlow(item.sensies.items),
+        _flow: parseInt(handleFlow(item.sensies.items)),
         _userCount: users.size
       })
     })
     _data.sort((a, b) => {
-      return b._userCount - a._userCount
+      return (b._userCount === a._userCount) ? (b.sensies.items.length - a.sensies.items.length) : (b._userCount - a._userCount)
     })
     return !affirmationsReducer.loading && _data.map(item => {
-      console.log('items: ', item.sensies.items)
+      // console.log('items: ', item.sensies.items)
       // const flow = handleFlow(item.sensies.items)
       // console.log('flow: ', flow)
+      // console.log(stateFilter.value, item._flow, typeof item._flow, item._flow === 0)
       switch (stateFilter.value) {
         case 'flowing': return item._flow >= 50 && renderAffirmationChart(item, item._flow)
         case 'blocked': return item._flow < 50 && renderAffirmationChart(item, item._flow)
@@ -246,6 +247,8 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
 AffirmationsList.propTypes = {
   /** whether chips are displayed above or below the declaration list */
   chipsUp: PropTypes.bool,
+  /* whether or not its multi user */
+  multiUser: PropTypes.bool,
   /** number of affirmations */
   limit: PropTypes.number,
   /** title if theme = 2 */

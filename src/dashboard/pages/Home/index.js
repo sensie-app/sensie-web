@@ -64,7 +64,6 @@ const Home = () => {
   }, [user.loading, globalDateFilter])
 
   useEffect(() => {
-    console.log(globalDateFilter)
     console.log(usersReducer)
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
@@ -128,9 +127,7 @@ const Home = () => {
       let flow = 0
       flow = usersReducer.users.map(user => {
         const totalSensies = user.sensies.items.length
-        console.log(totalSensies)
         const sensies = user.sensies.items.filter(value => parseInt(value.result) === 1)
-        console.log(sensies)
         const flow = totalSensies > 0 ? sensies.length / totalSensies : 0
         return flow * 100
       })
@@ -174,7 +171,7 @@ const Home = () => {
         return acc
       }, {})
       console.log(555555555)
-      console.log(flowsByDate)
+      // console.log(flowsByDate)
       if (Object.keys(flowsByDate).length === 0) return data
       // let totalDates = Object.keys(flowsByDate).length
       // const data = [{ id: 'low', data: [{ x: 0, y: 0 }] }]
