@@ -7,11 +7,11 @@ import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import ItemCheckbox from '../../components/ItemCheckbox'
 // import Toast from '../../components/Toast'
-import MenuListComposition from '../../components/MenuListComposition'
+// import MenuListComposition from '../../components/MenuListComposition'
 // containers
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
 // constants
-import { MenuItemNewAffirmationComponent } from '../../constants/menus'
+// import { MenuItemNewAffirmationComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -42,6 +42,7 @@ const NewAffirmation = ({
   data,
   title,
   packId = null,
+  joinId = null,
   selectedTopics,
   withRemoveBtn = true,
   withAddBtn = false,
@@ -106,16 +107,19 @@ const NewAffirmation = ({
    * @param {DataAffirmation} value
    * @returns {undefined} setMenuAction
    */
-  const handleClickStateMenu = value => {
-    setMenuAction(value)
-  }
+  // const handleClickStateMenu = value => {
+  //   setMenuAction(value)
+  // }
 
   /**
    * handle input value
    * @param {undefined} event
    * @returns {Object} setItemTitle()
    */
-  const handleInputValue = event => setItemTitle(event.target.value)
+  const handleInputValue = event => {
+    setItemTitle(event.target.value)
+    console.log(event)
+  }
 
   /**
    * handle click btn done
@@ -167,7 +171,7 @@ const NewAffirmation = ({
               ? <div className={styles.NewAffirmationEditTitleContainer}>
                   <input
                     ref={inputRef}
-                    value={title}
+                    value={itemTitle}
                     placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
                     onChange={handleInputValue}
                   />
@@ -178,7 +182,7 @@ const NewAffirmation = ({
         </div>
 
         <div className={styles.NewAffirmationS2}>
-          {withRemoveBtn && !withAddBtn && <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => onRemovePack(data.id)}>
+          {withRemoveBtn && !withAddBtn && <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => onRemovePack(joinId)}>
                 <span>{t('dashboard.NewAffirmation.remove')}</span>
              </button>
           }
@@ -196,14 +200,14 @@ const NewAffirmation = ({
             </MultipleSelectCheckbox>
           </div>
           <div className={styles.NewAffirmationS2Icons}>
-            <div className={styles.NewAffirmationMenuActions}>
+            {/* <div className={styles.NewAffirmationMenuActions}>
               <MenuListComposition
                 data={MenuItemNewAffirmationComponent}
                 onClickValue={value => handleClickStateMenu(value)}
                 withName={false}>
                 <Icon name="more-horizontal-outline" color={fontColor1} size="md" />
               </MenuListComposition>
-            </div>
+            </div> */}
             <button onClick={() => setShowChips(!showChips)}>
               <Icon name={'arrow-ios-downward-outline'} color={fontColor1} size="md" />
             </button>
@@ -226,6 +230,8 @@ NewAffirmation.propTypes = {
   title: PropTypes.string.isRequired,
   /** packId */
   packId: PropTypes.string,
+  /** joinId */
+  joinId: PropTypes.string,
   /** selectedTopics */
   selectedTopics: PropTypes.array.isRequired,
   /** withRemoveBtn */

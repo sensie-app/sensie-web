@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // components
 import ImageAvatar from '../../components/ImageAvatar'
-import PieChart from '../../components/PieChart'
+// import PieChart from '../../components/PieChart'
 import IconChart from '../../components/IconChart'
 import Separator from '../../components/Separator'
 // constants
@@ -42,7 +42,7 @@ const UserStatistics = ({ data }) => {
    * handleLastSensieTimestamp
    * @returns {string}
    */
-  const handleLastSensieTimestamp = () => moment(data.sensies.items[0].createdAt).format('DD.MM.yyyy | hh.mm')
+  const handleLastSensieTimestamp = () => moment(data.sensies.items[0].createdAt).format('MM/DD/yyyy | hh:mm')
 
   return (
     <div className={styles.UserStatisticsContainer}>
@@ -69,7 +69,7 @@ const UserStatistics = ({ data }) => {
       {/* body */}
       {handleSensiesCount() > 0 && <div className={styles.UserStatisticsBodyContainer}>
         <div className={styles.UserStatisticsBorder} />
-        {/* pie charts */}
+        {/* pie charts
         <div className={styles.UserStatisticsBodyCharts1Container}>
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <PieChart title={t('dashboard.PieChart.awarness')} />
@@ -80,9 +80,13 @@ const UserStatistics = ({ data }) => {
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <PieChart title={t('dashboard.PieChart.trust')} />
           </div>
-        </div>
+        </div> */}
         {/* icon charts */}
         <div className={styles.UserStatisticsBodyCharts2Container}>
+          <div className={styles.UserStatisticsBodyChartsContainer}>
+            <IconChart title={t('dashboard.PieChart.awarness')} value={Math.ceil(Math.random() * 100)} icon={UP} theme={2}/>
+          </div>
+          <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleSensiesCount())} icon={UP} theme={2} />
           </div>

@@ -1,7 +1,8 @@
 // amplify
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
-import { listUsersByOrganizationId } from '../../dashboard/graphql/queries'
+// import { listUsersByOrganizationId } from '../../dashboard/graphql/queries'
+import { getClientsFromCoach } from '../../dashboard/graphql/queries'
 // constants
 import USERS from '../constants/users.constants'
 
@@ -13,10 +14,11 @@ export const listUsersByOrganizationIdAction = (id, dates) => async (dispatch) =
   })
 
   try {
-    const response = await API.graphql(graphqlOperation(listUsersByOrganizationId(id, dates)))
+    // const response = await API.graphql(graphqlOperation(listUsersByOrganizationId(id, dates)))
+    const response = await API.graphql(graphqlOperation(getClientsFromCoach(id, dates)))
     dispatch({
       type: GET_ALL_USERS,
-      payload: response.data.listUsers.items
+      payload: response.data.getUser.clients.items
     })
   } catch (error) {
     dispatch({

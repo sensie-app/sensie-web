@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { setShowPacksOrTopicsAction } from '../../../redux/actions/show.actions'
 import { listPacksAction } from '../../../redux/actions/packs.actions'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // components
 import Title from '../../components/Title'
 // import Share from '../../components/Share'
@@ -36,6 +37,7 @@ const Affirmations = () => {
   useEffect(async () => {
     console.log(packsReducer)
     dispatch(listPacksAction(user.id))
+    dispatch(getAllTopicsAction())
   }, [])
 
   // ? handle functions

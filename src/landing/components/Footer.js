@@ -10,7 +10,13 @@ import {
 import InstagramIcon from '@material-ui/icons/Instagram'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import FacebookIcon from '@material-ui/icons/Facebook'
+import { NavLink } from 'react-router-dom'
+
+import LANDING_ROUTES from '../constants/routes'
+
 import Email from './Email'
+
+const { privacy, terms } = LANDING_ROUTES
 
 const useStyles = makeStyles({
   footerText: {
@@ -88,13 +94,21 @@ const Footer = () => {
         >
           {' '}
           <Hidden xsDown>
-            <Grid item xs={4} sm={4}>
+            <Grid item xs={2} sm={2}>
+              <NavLink to={privacy}>
+                <Box xs={1}>Privacy Policy</Box>
+              </NavLink>
+              <NavLink to={terms}>
+                <Box xs={1}>Terms of Use</Box>
+              </NavLink>
+            </Grid>
+            <Grid item xs={3} sm={4}>
               Copyright Sensie. All rights reserved.
             </Grid>
-            <Grid item xs={3} sm={4} style={{ textAlign: '-webkit-center' }}>
+            <Grid item xs={3} sm={3} style={{ textAlign: '-webkit-center' }}>
               Sensie technology is patented
             </Grid>
-            <Grid item xs={5} sm={4} container justify="flex-end">
+            <Grid item xs={5} sm={3} container justify="flex-end">
               <Box>
                 <a
                   href="https://www.instagram.com/sensieapp/"
@@ -104,7 +118,7 @@ const Footer = () => {
                   <InstagramIcon fontSize="small" />
                 </a>
               </Box>
-              <Box ml={4}>
+              <Box ml={3}>
                 <a
                   href="https://twitter.com/sensie_app"
                   target="_blank"
@@ -113,7 +127,7 @@ const Footer = () => {
                   <TwitterIcon fontSize="small" />
                 </a>
               </Box>
-              <Box ml={4}>
+              <Box ml={3}>
                 <a
                   href="https://www.facebook.com/sensieapp"
                   target="_blank"
@@ -126,16 +140,24 @@ const Footer = () => {
           </Hidden>
           <Hidden smUp>
             <Grid container direction="row">
-              <Grid item xs={6} style={{ textAlign: 'center' }}>
+            <Grid item xs={4} style={{ textAlign: 'center' }}>
+                <NavLink to={privacy}>
+                  <Box mt={2}>Privacy Policy</Box>
+                </NavLink>
+                <NavLink to={terms}>
+                  <Box mt={2}>Terms of Use</Box>
+                </NavLink>
+              </Grid>
+              <Grid item xs={5} style={{ textAlign: 'center' }}>
                 <Box mt={2}>Copyright Sensie. All rights reserved.</Box>
               </Grid>
-              <Grid item xs={6} style={{ textAlign: 'center' }}>
+              <Grid item xs={5} style={{ textAlign: 'center' }}>
                 <Box mt={2}>Sensie technology is patented</Box>
               </Grid>
               <Grid
                 item
                 container
-                xs={12}
+                xs={10}
                 direction="row"
                 style={{ justifyContent: 'space-evenly' }}
               >

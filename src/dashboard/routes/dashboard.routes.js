@@ -29,8 +29,8 @@ import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
-import { listUsersByOrganizationIdAction } from '../../redux/actions/users.actions'
-import { listAffirmationsByCoachId } from '../../redux/actions/affirmations.actions'
+// import { listUsersByOrganizationIdAction } from '../../redux/actions/users.actions'
+// import { listAffirmationsByCoachId } from '../../redux/actions/affirmations.actions'
 // theme
 // import theme from '../styles/theme'
 
@@ -67,8 +67,9 @@ const DashboardRoutes = () => {
 
   useEffect(async () => {
     console.log('1', 1)
-    dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
-    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
+    console.log(user)
+    // dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
+    // dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [globalDateFilter])
 
   return (

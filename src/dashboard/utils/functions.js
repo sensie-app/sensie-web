@@ -26,7 +26,8 @@ export const handleDefaultPictureUser = gender => gender === 'Male' ? IMG.avatar
    */
 export const handleFlow = data => {
   const totalSensies = data.length
-  const sensies = data.filter(value => value.result === '1')
+  if (totalSensies === 0) return 'N/A'
+  const sensies = data.filter(value => value.result === 1)
   const flow = totalSensies > 0 ? sensies.length / totalSensies : 0
   return (flow * 100).toFixed(0)
 }
@@ -37,7 +38,7 @@ export const handleFlow = data => {
    */
 export const handleBlock = data => {
   const totalSensies = data.length
-  const sensies = data.filter(value => value.result === '0')
+  const sensies = data.filter(value => value.result === 0)
   const block = totalSensies > 0 ? sensies.length / totalSensies : 0
   return (block * 100).toFixed(0)
 }
@@ -50,5 +51,5 @@ export const handleBlock = data => {
    */
 export const handleEngagement = (arrDate, totalSensies) => {
   const days = moment(arrDate[1]).diff(moment(arrDate[0]), 'days')
-  return (totalSensies / days).toFixed(0)
+  return (totalSensies / (days + 1) * 100).toFixed(0)
 }

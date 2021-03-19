@@ -1,7 +1,7 @@
 // amplify
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
-import { listAffirmationsByUserIdAndTopicId } from '../../dashboard/graphql/queries'
+import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
 import { createAffirmationMutation, joinAffirmationWithPackMutation, joinAffirmationWithTopicMutation } from '../../dashboard/graphql/mutations'
 // constants
 import AFFIRMATIONS from '../constants/affirmations.constants'
@@ -19,13 +19,13 @@ const {
   ERROR
 } = AFFIRMATIONS
 
-export const listAffirmationsByCoachId = (id, dates, limit) => async dispatch => {
+export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispatch => {
   dispatch({
     type: LOADING
   })
-
+  const action = user ? listAffirmationsByUserIdAndTopicIdAndUser(id, dates, limit, user) : listAffirmationsByUserIdAndTopicId(id, dates, limit)
   try {
-    const response = await API.graphql(graphqlOperation(listAffirmationsByUserIdAndTopicId(id, dates, limit)))
+    const response = await API.graphql(graphqlOperation(action))
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
       payload: response.data.listAffirmations.items

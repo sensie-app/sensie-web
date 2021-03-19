@@ -1,19 +1,21 @@
 // react
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { /* Fragment, */ useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // components
 import AffirmationChart from '../../components/AffirmationChart'
 import MenuListComposition from '../../components/MenuListComposition'
-import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
+// import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import Title from '../../components/Title'
-import Pagination from '../../components/Pagination'
+// import Pagination from '../../components/Pagination'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
-import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagination.actions'
+// import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
+// import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
+// import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagination.actions'
 // constants
 import { MenuFilterStateAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
@@ -37,13 +39,13 @@ const { fontColor1, grayColor5 } = COLORS
  * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
  * @param {undefined} getSensies (default: () => {})
  */
-const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSensies = () => {} }) => {
+const AffirmationsList = ({ chipsUp = false, multiUser = true, limit, title = '', theme = 1, getSensies = () => {} }) => {
   // ? hooks
   const dispatch = useDispatch()
   const {
     affirmationsReducer,
-    filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } },
-    paginationReducer: { pagination: { pagAffirmationsList } }
+    filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } }
+    // paginationReducer: { pagination: { pagAffirmationsList } }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [selectValue, setSelectValue] = useState(topicFilter)
@@ -71,7 +73,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
    * @param {DataAffirmation} value
    * @returns {undefined} selectValue = value
    */
-  const handleClickTopicMenu = value => setSelectValue(value)
+  // const handleClickTopicMenu = value => setSelectValue(value)
 
   /**
    * handle click close chip
@@ -109,30 +111,30 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
    * @param {number} value
    * @returns {undefined} redux action
    */
-  const handlePaginationChange = (event, value) => {
-    dispatch(setPaginationAffirmationsListAction(value))
-  }
+  // const handlePaginationChange = (event, value) => {
+  //   dispatch(setPaginationAffirmationsListAction(value))
+  // }
 
   // ? render functions
   /**
    * render multiple select - checkbox (children)
    * @return {undefined} (html)
    */
-  const renderMultipleSelectCheckboxChildren = () => {
-    return (
-      <Fragment>
-        {
-          selectValue.length === 0
-            ? <Icon custom="topic" color={fontColor1} size="md" />
-            : <span className={styles.AffirmationsListMultipleSelectCheckboxItemCount}>
-                {selectValue.length}
-              </span>
-        }
-        <span>{t('dashboard.MultipleSelectCheckbox.topics')}</span>
-        <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
-      </Fragment>
-    )
-  }
+  // const renderMultipleSelectCheckboxChildren = () => {
+  //   return (
+  //     <Fragment>
+  //       {
+  //         selectValue.length === 0
+  //           ? <Icon custom="topic" color={fontColor1} size="md" />
+  //           : <span className={styles.AffirmationsListMultipleSelectCheckboxItemCount}>
+  //               {selectValue.length}
+  //             </span>
+  //       }
+  //       <span>{t('dashboard.MultipleSelectCheckbox.topics')}</span>
+  //       <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
+  //     </Fragment>
+  //   )
+  // }
 
   /**
    * render Icon
@@ -155,22 +157,37 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
    * @param {object} data
    * @param {number} flow
    */
-  const renderAffirmationChart = (data, flow) => <AffirmationChart key={data.id} data={data} value={flow} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === data} />
+  const renderAffirmationChart = (data, flow) => <AffirmationChart key={data.id} data={data} value={flow} onClickValue={value => handleClickAffirmation(value)} isActive={affirmation === data} multiUser={multiUser} />
 
   /**
    * render affirmations
    * @return {undefined} AffirmationChart[] (html)
    */
   const renderAffirmationsAffirmationChart = () => {
-    const _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
+    let _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
+    _data = _data.map(item => {
+      // console.log('aff: ', item)
+      const users = new Set()
+      item.sensies.items.forEach(e => users.add(e.userId))
+      return Object.assign(item, {
+        _flow: handleFlow(item.sensies.items),
+        _userCount: users.size
+      })
+    })
+    _data.sort((a, b) => {
+      return (b._userCount === a._userCount) ? (b.sensies.items.length - a.sensies.items.length) : (b._userCount - a._userCount)
+    })
     return !affirmationsReducer.loading && _data.map(item => {
-      const flow = handleFlow(item.sensies.items)
+      // console.log('items: ', item.sensies.items)
+      // const flow = handleFlow(item.sensies.items)
+      // console.log('flow: ', flow)
+      // console.log(stateFilter.value, item._flow, typeof item._flow, item._flow === 0)
       switch (stateFilter.value) {
-        case 'flowing': return flow >= 50 && renderAffirmationChart(item, flow)
-        case 'blocked': return flow < 50 && renderAffirmationChart(item, flow)
-        case 'all': return renderAffirmationChart(item, flow)
-        case 'incomplete': return flow === 0 && renderAffirmationChart(item, flow)
-        default: return renderAffirmationChart(item, flow)
+        case 'flowing': return item._flow >= 50 && renderAffirmationChart(item, item._flow)
+        case 'blocked': return item._flow < 50 && renderAffirmationChart(item, item._flow)
+        case 'all': return renderAffirmationChart(item, item._flow)
+        case 'incomplete': return item._flow === 0 && renderAffirmationChart(item, item._flow)
+        default: return renderAffirmationChart(item, item._flow)
       }
     })
   }
@@ -193,7 +210,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
               </MenuListComposition>
             </div>
           </div>
-          <div className={styles.AffirmationsListFilterBtnMenu}>
+          {/* <div className={styles.AffirmationsListFilterBtnMenu}>
             <div className={styles.AffirmationsListFilterBtnMenuComponent}>
               <MultipleSelectCheckbox
                 onClickValue={value => handleClickTopicMenu(value)}
@@ -202,7 +219,7 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
                 {renderMultipleSelectCheckboxChildren()}
               </MultipleSelectCheckbox>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={styles.AffirmationsListBodyContainer} style={handleTheme3Styles()}>
@@ -214,9 +231,9 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
             ? renderAffirmationsAffirmationChart()
             : <span>{t('dashboard.AffirmationsList.noData')}</span>
           }
-          {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
+          {/* {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
             {handleTotalAffirmations() > 0 && <Pagination count={4} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />}
-          </div>}
+          </div>} */}
         </div>
         {!chipsUp && <div className={styles.AffirmationsListChipsContainer}>
           {renderChipsItems()}
@@ -230,6 +247,8 @@ const AffirmationsList = ({ chipsUp = false, limit, title = '', theme = 1, getSe
 AffirmationsList.propTypes = {
   /** whether chips are displayed above or below the declaration list */
   chipsUp: PropTypes.bool,
+  /* whether or not its multi user */
+  multiUser: PropTypes.bool,
   /** number of affirmations */
   limit: PropTypes.number,
   /** title if theme = 2 */

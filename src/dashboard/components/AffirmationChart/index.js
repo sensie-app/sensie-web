@@ -18,7 +18,7 @@ const { actionColor1, actionColor2, actionColor3 } = COLORS
  * @param {boolean} isActive (default: false)
  * @param {number} value
  */
-const AffirmationChart = ({ data, value, onClickValue = () => {}, isActive = false }) => {
+const AffirmationChart = ({ data, multiUser = true, value, onClickValue = () => {}, isActive = false }) => {
   // ? handle functions
   /**
    * handle value
@@ -49,7 +49,7 @@ const AffirmationChart = ({ data, value, onClickValue = () => {}, isActive = fal
   return (
     <section className={styles.AffirmationChartContainer}>
       <button onClick={() => onClickValue(data)} className={isActive ? styles.AffirmationChartBtnActive : undefined}>
-        <span className={styles.AffirmationChartText}>{data.name}</span>
+        <span className={styles.AffirmationChartText}>{data.name} - <i>{multiUser && (data._userCount + ' users') } ({data.sensies.items.length} Sensies)</i></span>
         <div className={styles.AffirmationChartChartContainer}>
           <div
             className={styles.AffirmationChartChart}
@@ -71,6 +71,8 @@ AffirmationChart.propTypes = {
   data: PropTypes.object.isRequired,
   /** onClickValue */
   onClickValue: PropTypes.func,
+  /** multiUser */
+  multiUser: PropTypes.bool,
   /** isActive */
   isActive: PropTypes.bool,
   /** value */

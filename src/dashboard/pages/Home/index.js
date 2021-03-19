@@ -8,28 +8,29 @@ import Header from '../../containers/Header'
 import ClientSnapshot from '../../containers/ClientSnapshot'
 // components
 import ClientFlow from '../../components/ClientFlow'
-import TrackAffirmations from '../../components/TrackAffirmations'
+// import TrackAffirmations from '../../components/TrackAffirmations'
 import Loading from '../../components/Loading'
 import Line from '../../components/Line'
 import { HelmetSEO } from '../../components/Globals'
 // constants-routes
-import DASHBOARD_ROUTES from '../../constants/routes'
+// import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
 // graphql
-import {
-  listSensiesByAffirmationId
-} from '../../graphql/queries'
+// import {
+//   listSensiesByAffirmationId
+// } from '../../graphql/queries'
 // utils
-import { gqlquery } from '../../utils/queries'
+// import { gqlquery } from '../../utils/queries'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
 import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
+const moment = require('moment')
 // import usersReducer from '../../../redux/reducers/users.reducer'
 
 // const
-const { client } = DASHBOARD_ROUTES
+// const { client } = DASHBOARD_ROUTES
 
 // * page
 /**
@@ -41,7 +42,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const {
     usersReducer,
-    affirmationsReducer,
+    // affirmationsReducer,
     userReducer: { user },
     filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
@@ -54,14 +55,16 @@ const Home = () => {
   const [resilienceScore, setResilienceScore] = useState(0)
   const [trustScore, setTrustScore] = useState(0)
 
-  const [graphData, setGraphData] = useState(0)
+  const [graphData, setGraphData] = useState([])
 
   useEffect(() => {
-    dispatch(listUsersByOrganizationIdAction(user.data.userOrganizationId, globalDateFilter.value))
+    console.log('GETTING INFO')
+    dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
-  }, [])
+  }, [user.loading, globalDateFilter])
 
   useEffect(() => {
+    console.log(usersReducer)
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
@@ -70,21 +73,21 @@ const Home = () => {
     setResilienceScore(handleResilienceScore())
     setTrustScore(handleTrustScore())
     setGraphData(handleGraphData())
-  }, [usersReducer.users, globalDateFilter])
+  }, [usersReducer.users, globalDateFilter.value])
 
   // ? handle functions
   /**
    * handleSensiesByAffirmationIdQuery
    */
   // TODO: check query
-  const handleSensiesByAffirmationIdQuery = async affirmationId => {
+  /* const handleSensiesByAffirmationIdQuery = async affirmationId => {
     const dbSensiesByAffirmationId = await gqlquery(listSensiesByAffirmationId(affirmationId))
     if (!dbSensiesByAffirmationId.loading && dbSensiesByAffirmationId.value !== null) {
       return (dbSensiesByAffirmationId.value.data.listSensies.items)
     } else {
       return null
     }
-  }
+  } */
 
   /**
    * handle total clients
@@ -124,7 +127,7 @@ const Home = () => {
       let flow = 0
       flow = usersReducer.users.map(user => {
         const totalSensies = user.sensies.items.length
-        const sensies = user.sensies.items.filter(value => value.result === '1')
+        const sensies = user.sensies.items.filter(value => parseInt(value.result) === 1)
         const flow = totalSensies > 0 ? sensies.length / totalSensies : 0
         return flow * 100
       })
@@ -135,43 +138,60 @@ const Home = () => {
   }
 
   const handleGraphData = () => {
+    let data = [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 7, y: 100 }] }]
     if (!usersReducer.loading && handleTotalClients() > 0) {
+      const dates = globalDateFilter.value
+      const diff = moment(dates[1]).diff(moment(dates[0]), 'days')
+      console.log('diff: ', diff)
       const userSensies = usersReducer.users.map(user => user.sensies.items)
       // console.log(userSensies)
       // const acc = {}
+      const accCount = {}
+      const accUserCount = {}
       const flowsByDate = userSensies.reduce((acc, sensieList) => {
         // console.log(sensieList, Array.isArray(sensieList))
         if (!sensieList || !Array.isArray(sensieList)) return acc
         sensieList.forEach(e => {
           // console.log(acc)
           // console.log(e)
-          acc[e.createdAt] = (acc[e.createdAt] ? (acc[e.createdAt] + parseInt(e.result)) : parseInt(e.result))
+          const d = new Date(e.timestamp)
+          let date = d.getMonth()
+          if (diff <= 30) {
+            date = d.toLocaleDateString()
+          }
+          if (diff <= 3) { // 3 days
+            date += d.getHours()
+          }
+          // console.log(date)
+          acc[date] = (acc[date] ? (acc[date] + parseInt(e.result)) : parseInt(e.result))
+          accCount[date] = (accCount[date] ? (accCount[date] + 1) : 1)
+          accUserCount[date] = (accUserCount[date] ? ((accUserCount[date] % usersReducer.users.length + 1)) : 1)
         })
         console.log(acc)
         return acc
       }, {})
       console.log(555555555)
-      console.log(flowsByDate)
+      // console.log(flowsByDate)
+      if (Object.keys(flowsByDate).length === 0) return data
       // let totalDates = Object.keys(flowsByDate).length
       // const data = [{ id: 'low', data: [{ x: 0, y: 0 }] }]
       const d = []
       let i = 0
-      for (const k in flowsByDate) {
-        d.push({ x: i++, y: flowsByDate[k] * Math.random() * 100 })
-        console.log(k)
+      const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
+      for (const k of orderedDates) {
+        console.log(flowsByDate[k], accCount[k])
+        d.push({ _d: k, x: i++, y: flowsByDate[k] / accCount[k] / accUserCount[k] * 100 })
       }
-      const data = [{ id: 'low', data: d }]
-      return data
-    } else {
-      return [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 1, y: 100 }] }]
+      data = [{ id: 'low', data: d }]
     }
+    return data
   }
 
   // ? const
-  const btn = {
-    title: t('dashboard.Home.viewMore'),
-    route: client
-  }
+  // const btn = {
+  //   title: t('dashboard.Home.viewMore'),
+  //   route: client
+  // }
 
   return (
     <section className={styles.HomeContainer}>
@@ -181,13 +201,15 @@ const Home = () => {
       <Header />
       {/* body */}
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <div className={styles.HomeG1Container}>
-            <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
-                        flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} />
+            {usersReducer.loading
+              ? <Loading />
+              : <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
+                  flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} /> }
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+        {/* <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <div className={styles.HomeG2Container}>
           {affirmationsReducer.loading
             ? <Loading />
@@ -200,7 +222,7 @@ const Home = () => {
               />
             }
           </div>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <div className={styles.HomeG3Container}>
             <div className={styles.HomeG3ContainerTitle}>

@@ -5,6 +5,7 @@ $size: 100px;
 .UserStatisticsContainer {
   @include G50Container();  
   @include heightGrid();
+  height: 40vh; // override
   padding: 0;
   @include flex(column, flex-start, center, nowrap);
 }
@@ -12,7 +13,7 @@ $size: 100px;
 .UserStatisticsHeaderContainer {
   @include flex(row, flex-start, center, wrap);
   width: 100%;
-  height: 35%;
+  height: 65%;
   margin-bottom: 10px;
   
   .UserStatisticsHeaderAvatar {
@@ -59,7 +60,7 @@ $size: 100px;
 .UserStatisticsBodyContainer {
   @include flex(column, space-around, center, nowrap);
   width: 90%;
-  height: 65%;
+  height: 35%;
 
   .UserStatisticsBodyCharts1Container {
     width: 100%;
@@ -80,11 +81,12 @@ $size: 100px;
   background-color: $grayColor5;  
   border-radius: 5px;
   @include flex(row, center, center, nowrap);
-  padding: 0px 10px;
-  width: 30%;
+  padding: 0px 0px;
+  width: 20%;
   height: 100%;
   max-height: 100%;
 }
+
 
 
 

@@ -1,12 +1,13 @@
 // react
-import React from 'react'
+import React, { useEffect, useState, useReducer } from 'react'
 import { useTranslation } from 'react-i18next'
 // components
 import ItemCheckbox from '../../components/ItemCheckbox'
+import { toast } from 'react-toastify'
 // redux
-import { useDispatch, useSelector } from 'react-redux'
+import { /* useDispatch, */ useSelector } from 'react-redux'
 // import { useParams } from 'react-router-dom'
-import { setCheckboxAllClientsAction, setCheckboxAllTeamsAction } from '../../../redux/actions/checkbox.actions'
+// import { setCheckboxAllClientsAction /*, setCheckboxAllTeamsAction */ } from '../../../redux/actions/checkbox.actions'
 // styles
 import styles from './styles.module.scss'
 // fake data
@@ -24,12 +25,15 @@ import PropTypes from 'prop-types'
 const ShareWith = ({ pack }) => {
   console.log(pack)
   // ? hooks
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const {
-    checkboxReducer: { all: { clients /*, teams */ } },
+    /* checkboxReducer: {  all: { clients, teams } }, */
     usersReducer
   } = useSelector(state => state)
   const [t] = useTranslation('global')
+
+  const [checked, setChecked] = useState({})
+  const [, forceUpdate] = useReducer(x => x + 1, 0)
 
   // ? handle functions
   /**
@@ -38,9 +42,14 @@ const ShareWith = ({ pack }) => {
    * @param {string} tag
    * @returns {boolean} redux state
    */
-  const handleOnClickSelectAll = (value, tag) => {
-    tag === 'clients' && dispatch(setCheckboxAllClientsAction(value))
-    tag === 'teams' && dispatch(setCheckboxAllTeamsAction(value))
+  const handleOnClickSelectAll = (value, tag) => { //   tag === 'clients' && dispatch(setCheckboxAllClientsAction(value))
+    // tag === 'teams' && dispatch(setCheckboxAllTeamsAction(value))
+    // dispatch(setCheckboxAllClientsAction(value))
+    for (const k in checked) {
+      checked[k] = !!value
+    }
+    setChecked(checked)
+    forceUpdate()
   }
 
   const subPack = async (userId, packId) => {
@@ -49,25 +58,34 @@ const ShareWith = ({ pack }) => {
       console.log('response', response)
     } catch (error) {
       console.log('error', error)
+      toast.success(`Pack ${pack.name} failed to share to user ${userId}!`)
     }
   }
 
-  const checked = {}
+  useEffect(() => {
+    usersReducer.users.forEach(user => {
+      checked[user.id] = false
+    })
+    setChecked(checked)
+  }, [])
 
   const handleShare = () => {
     console.log(checked)
+    let i = 0
     for (const k in checked) {
       if (k) {
         console.log('Sub this user to this pack!')
         subPack(k, pack.id)
+        i++
       }
     }
+    toast.success(`Shared Pack to ${i} users Succesfully!`)
   }
 
   const handleChange = (e) => {
     const id = e.target.value
     checked[id] = !checked[id]
-    console.log(e)
+    setChecked(checked)
   }
 
   // ? render functions
@@ -77,10 +95,9 @@ const ShareWith = ({ pack }) => {
    */
   const renderListClients = () => {
     return usersReducer.users.map((user, index) => {
-      console.log(user)
-      console.log(user.id)
+      console.log(checked)
       return (
-      <ItemCheckbox value={user.id} key={index} check={clients} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)}>
+      <ItemCheckbox value={user.id} key={index} check={!!checked[user.id]} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)}>
         <span className={styles.ShareWithItemCheckboxTitle}>{user.firstName} {user.lastName}</span>
       </ItemCheckbox>)
     })

@@ -6,14 +6,14 @@ import User from '../../containers/User'
 // components
 // import Icon from '../../components/Icon'
 import Title from '../../components/Title'
-import Pagination from '../../components/Pagination'
+// import Pagination from '../../components/Pagination'
 // constants
 import { COLORS } from '../../constants/theme'
 // import { UserListBtns } from '../../constants/globals'
 // redux
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector /*, useDispatch */ } from 'react-redux'
 // import { setUserListInfo } from '../../../redux/actions/show.actions'
-import { setPaginationUserListAction } from '../../../redux/actions/pagination.actions'
+// import { setPaginationUserListAction } from '../../../redux/actions/pagination.actions'
 // styles
 import styles from './styles.module.scss'
 
@@ -30,12 +30,12 @@ const { grayColor3 } = COLORS
 const UsersList = () => {
   // ? hooks
   const [t] = useTranslation('global')
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const {
     usersReducer,
     showReducer: { userList },
-    filtersReducer: { affirmations: { affirmation } },
-    paginationReducer: { pagination: { pagUsersList } }
+    filtersReducer: { affirmations: { affirmation } }
+    // paginationReducer: { pagination: { pagUsersList } }
   } = useSelector(state => state)
 
   // ? handle functions
@@ -59,12 +59,12 @@ const UsersList = () => {
    * @param {number} value
    * @returns {undefined} redux action
    */
-  const handlePaginationChange = (event, value) => dispatch(setPaginationUserListAction(value))
+  // const handlePaginationChange = (event, value) => dispatch(setPaginationUserListAction(value))
 
   // ? render functions
   const renderUsers = () => {
     return !usersReducer.loading && usersReducer.users.map((user, index) => {
-      return <User user={user} key={index} show={userList.showInfo} />
+      return <User user={user} key={index} show={userList.showInfo} affirmation={affirmation} />
     })
   }
 
@@ -87,9 +87,9 @@ const UsersList = () => {
       </div>
       {/* body */}
       {renderUsers()}
-      <div className={styles.UserListPagination}>
+      {/* <div className={styles.UserListPagination}>
         {usersReducer.users.length !== 0 && <Pagination count={10} onChange={() => handlePaginationChange()} defaultPage={pagUsersList} />}
-      </div>
+      </div> */}
     </section>
   )
 }
