@@ -26,7 +26,7 @@ export const handleDefaultPictureUser = gender => gender === 'Male' ? IMG.avatar
    */
 export const handleFlow = data => {
   const totalSensies = data.length
-  if (totalSensies === 0) return 'N/A'
+  // if (totalSensies === 0) return 'No Sensies'
   const sensies = data.filter(value => value.result === 1)
   const flow = totalSensies > 0 ? sensies.length / totalSensies : 0
   return (flow * 100).toFixed(0)
