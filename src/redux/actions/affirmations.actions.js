@@ -1,7 +1,8 @@
 // amplify
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
-import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
+// import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
+import { getAffirmationsFromPacks, getAffirmationsFromPacksByUser } from '../../dashboard/graphql/queries'
 import { createAffirmationMutation, joinAffirmationWithPackMutation, joinAffirmationWithTopicMutation } from '../../dashboard/graphql/mutations'
 // constants
 import AFFIRMATIONS from '../constants/affirmations.constants'
@@ -23,12 +24,20 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
   dispatch({
     type: LOADING
   })
-  const action = user ? listAffirmationsByUserIdAndTopicIdAndUser(id, dates, limit, user) : listAffirmationsByUserIdAndTopicId(id, dates, limit)
+  // const action = user ? listAffirmationsByUserIdAndTopicIdAndUser(id, dates, limit, user) : listAffirmationsByUserIdAndTopicId(id, dates, limit)
+  const action = user ? getAffirmationsFromPacksByUser(id, dates, limit, user) : getAffirmationsFromPacks(id, dates, limit)
   try {
     const response = await API.graphql(graphqlOperation(action))
+    console.log(response)
+    const packs = response.data.getUser.packs.items.map(item => item.affirmations.items)
+    const flatPacks = [].concat(...packs)
+    console.log(flatPacks)
+    const affs = flatPacks.map(item => item.affirmation)
+    console.log(affs)
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
-      payload: response.data.listAffirmations.items
+      // payload: response.data.listAffirmations.items
+      payload: affs
     })
   } catch (error) {
     dispatch({
