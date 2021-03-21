@@ -429,6 +429,84 @@ export const listAffirmationsByTopicIdQuery = (topicId) => `
   }
 `
 
+export const getAffirmationsFromPacks = (coachId, dates, limit) => `
+  query GetAffirmationsFromPacks {
+    getUser(id: "${coachId}") {
+      packs {
+        items {
+        affirmations(limit: 10000) {
+          items {
+          affirmation {
+            description
+            id 
+            name
+            sensies(limit: 10000, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+              items {
+                id
+                result
+                userId
+              }
+            }
+            topics {
+              items {
+                id
+                topic {
+                  id
+                  name
+                  description
+                  picture
+                  icon
+                }
+              }
+            }
+          }
+          }
+        }
+        }
+      }
+    }
+  }
+`
+
+export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId) => `
+  query GetAffirmationsFromPacks {
+    getUser(id: "${coachId}") {
+      packs {
+        items {
+        affirmations(limit: 10000) {
+          items {
+          affirmation {
+            description
+            id 
+            name
+            sensies(limit: 10000, filter: {userId: {eq: "${userId}"},timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+              items {
+                id
+                result
+                userId
+              }
+            }
+            topics {
+              items {
+                id
+                topic {
+                  id
+                  name
+                  description
+                  picture
+                  icon
+                }
+              }
+            }
+          }
+          }
+        }
+      }
+      }
+    }
+  }
+`
+
 // todo: add topics filter
 // listAffirmations(limit: 10000, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, userId: {eq: "${userId}"}}) {
 export const listAffirmationsByUserIdAndTopicId = (coachId, dates, limit) => `
