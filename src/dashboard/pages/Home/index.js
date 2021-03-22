@@ -163,7 +163,8 @@ const Home = () => {
             date += d.getHours()
           }
           // console.log(date)
-          acc[date] = (acc[date] ? (acc[date] + parseInt(e.result)) : parseInt(e.result))
+          const result = e.result === 1 ? 1 : 0
+          acc[date] = (acc[date] ? (acc[date] + result) : result)
           accCount[date] = (accCount[date] ? (accCount[date] + 1) : 1)
           accUserCount[date] = (accUserCount[date] ? ((accUserCount[date] % usersReducer.users.length + 1)) : 1)
         })

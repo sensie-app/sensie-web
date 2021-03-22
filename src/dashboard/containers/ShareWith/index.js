@@ -86,6 +86,7 @@ const ShareWith = ({ pack }) => {
     const id = e.target.value
     checked[id] = !checked[id]
     setChecked(checked)
+    forceUpdate()
   }
 
   // ? render functions
