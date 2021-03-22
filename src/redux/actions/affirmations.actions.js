@@ -28,12 +28,9 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
   const action = user ? getAffirmationsFromPacksByUser(id, dates, limit, user) : getAffirmationsFromPacks(id, dates, limit)
   try {
     const response = await API.graphql(graphqlOperation(action))
-    console.log(response)
     const packs = response.data.getUser.packs.items.map(item => item.affirmations.items)
     const flatPacks = [].concat(...packs)
-    console.log(flatPacks)
     const affs = flatPacks.map(item => item.affirmation)
-    console.log(affs)
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
       // payload: response.data.listAffirmations.items
