@@ -146,7 +146,7 @@ export const getClientsFromCoach = (id, dates) => `
           picture
           userCoachId
           selfAwareness
-          sensies(limit: 10000, sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          sensies(limit: 10000, sortDirection: DESC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
             items {
               id
               result
@@ -154,6 +154,7 @@ export const getClientsFromCoach = (id, dates) => `
               timestamp
               affirmationId
             }
+            nextToken
           }
         }
       }
@@ -473,6 +474,7 @@ export const listAffirmationsByUserIdAndTopicIdAndUser = (coachId, dates, limit,
             id
             result
           }
+          nextToken
         }
         topics {
           items {

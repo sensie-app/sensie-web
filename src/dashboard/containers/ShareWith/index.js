@@ -73,7 +73,7 @@ const ShareWith = ({ pack }) => {
     console.log(checked)
     let i = 0
     for (const k in checked) {
-      if (k) {
+      if (checked[k]) {
         console.log('Sub this user to this pack!')
         subPack(k, pack.id)
         i++
