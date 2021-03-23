@@ -120,7 +120,7 @@ const Home = () => {
     const clientIds = usersReducer.users.map(client => client.id)
     console.log(affirmationsReducer.affirmations)
     count = !affirmationsReducer.loading && handleTotalClients() > 0
-      ? affirmationsReducer.affirmations.map(aff => count + aff.sensies.items.filter(s => clientIds.indexOf(s.userId) > 0).length)
+      ? affirmationsReducer.affirmations.map(aff => count + aff.sensies.items.filter(s => clientIds.indexOf(s.userId) > -1).length)
       : 0
     return count === 0 ? count : count.reduce((total, value) => total + value)
   }

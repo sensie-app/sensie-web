@@ -31,19 +31,20 @@ const UserStatistics = ({ data, sensies }) => {
   const [t] = useTranslation('global')
   // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
   console.log('sensies:', sensies.length)
+  console.log('sensies:', sensies)
 
   // ? handle functions
   /**
    * handleSensiesCount
    * @returns {number} total
    */
-  const handleSensiesCount = () => sensies.length > -1
+  const handleSensiesCount = () => sensies.length
 
   /**
    * handleLastSensieTimestamp
    * @returns {string}
    */
-  const handleLastSensieTimestamp = () => moment(sensies[0].createdAt).format('MM/DD/yyyy | hh:mm')
+  const handleLastSensieTimestamp = () => sensies && moment((sensies[0] || {}).createdAt).format('MM/DD/yyyy | hh:mm')
 
   return (
     <div className={styles.UserStatisticsContainer}>

@@ -172,7 +172,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, limit, title = ''
     _data = _data.map(item => {
       // console.log('aff: ', item)
       const users = new Set()
-      const filtered = item.sensies.items.filter(s => clientIds.indexOf(s.userId) > 0)
+      const filtered = item.sensies.items.filter(s => clientIds.indexOf(s.userId) > -1)
       filtered.forEach(e => users.add(e.userId))
       item.sensies.items = filtered
       return Object.assign(item, {
