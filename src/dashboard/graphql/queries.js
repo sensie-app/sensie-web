@@ -4,13 +4,14 @@ export const getSensiesByAffId = (affId, dates, nextToken) => `
       id
       name
       description
-      sensies(limit: 100000, sortDirection: ASC, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+      sensies(limit: 100000, nextToken: ${nextToken ? `"${nextToken}"` : null}, sortDirection: ASC, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
         items {
           id
           result
           createdAt
           timestamp
           userId
+          affirmationId
         }
         nextToken
       }
@@ -24,13 +25,14 @@ export const getSensiesByAffIdAndUser = (affId, dates, userId, nextToken) => `
       id
       name
       description
-      sensies(limit: 100000, sortDirection: ASC, filter: {calibration: {eq: false}, userId: {eq:"${userId}"}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+      sensies(limit: 100000, nextToken: ${nextToken ? `"${nextToken}"` : null}, sortDirection: ASC, filter: {calibration: {eq: false}, userId: {eq:"${userId}"}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
         items {
           id
           result
           createdAt
           timestamp
           userId
+          affirmationId
         }
         nextToken
       }
@@ -511,7 +513,7 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
   }
 `
 
-export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId) => `
+export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId, nextToken) => `
   query GetAffirmationsFromPacks {
     getUser(id: "${coachId}") {
       packs {
