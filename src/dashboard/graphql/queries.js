@@ -172,7 +172,7 @@ export const listUsersByOrganizationId = (id, dates) => `
         lastName
         gender 
         picture
-        sensies(limit: 10000, sortDirection: ASC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        sensies(limit: 10000, sortDirection: DESC, filter: {timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
             id
             result
@@ -192,7 +192,7 @@ export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
         firstName
         lastName
         gender
-        sensies(limit: 10000, sortDirection: ASC, filter: {timestamp: {between: ["${dates2[0]}", "${dates2[1]}"]}}) {
+        sensies(limit: 10000, sortDirection: DESC, filter: {timestamp: {between: ["${dates2[0]}", "${dates2[1]}"]}}) {
           items {
             id
             result
@@ -293,7 +293,7 @@ export const getPacksFromUser = id => `
             description
             picture
             author
-            affirmations(limit:10000, sortDirection: ASC) {
+            affirmations(limit:10000, sortDirection: DESC) {
               items {
                 affirmation {
                   description
@@ -321,7 +321,7 @@ export const getPacksFromUser = id => `
           description
           picture
           author
-          affirmations(sortDirection: ASC) {
+          affirmations(sortDirection: DESC) {
             items {
               id
               affirmation {
@@ -355,7 +355,7 @@ export const listPacksWiyhAffirmationsIdsByIdQuery = id => `
         description
         author
         picture
-        affirmations(limit: 10000, sortDirection: ASC) {
+        affirmations(limit: 10000, sortDirection: DESC) {
           items {
             affirmation {
               description
@@ -445,6 +445,9 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
                 id
                 result
                 userId
+                affirmationId
+                createdAt
+                timestamp
               }
             }
             topics {
@@ -484,6 +487,9 @@ export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId) =>
                 id
                 result
                 userId
+                affirmationId
+                createdAt
+                timestamp
               }
             }
             topics {
@@ -521,6 +527,9 @@ export const listAffirmationsByUserIdAndTopicId = (coachId, dates, limit) => `
             id
             result
             userId
+            affirmationId
+            createdAt
+            timestamp
           }
         }
         topics {

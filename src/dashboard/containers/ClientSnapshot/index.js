@@ -33,7 +33,8 @@ const ClientSnapshot = () => {
   // ? hooks
   // const dispatch = useDispatch()
   const {
-    usersReducer
+    usersReducer,
+    affirmationsReducer
     // paginationReducer: { pagination: { pagClientSnapshot } }
   } = useSelector(state => state)
 
@@ -52,11 +53,13 @@ const ClientSnapshot = () => {
    * @return  {undefined} component (html)
    */
   const renderClientSnapshotBarChart = () => {
+    const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
     return !usersReducer.loading && usersReducer.users.map((client, idx) => {
       const { id } = client
+      const sensies = s.filter(s => s.userId === id)
       return (
         <Grid key={id} item xs={12} sm={6} md={6} xl={6}>
-          <User user={client} key={idx} />
+          <User user={client} sensies={sensies} key={idx} />
           {/* <div className={styles.ClientSnapshotBarChartContainer}>
             <div className={styles.ClientSnapshotBarChartHeader}>
               <Link to={user + '/' + id}>

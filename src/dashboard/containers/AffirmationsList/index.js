@@ -44,6 +44,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, limit, title = ''
   const dispatch = useDispatch()
   const {
     affirmationsReducer,
+    usersReducer,
     filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } }
     // paginationReducer: { pagination: { pagAffirmationsList } }
   } = useSelector(state => state)
@@ -165,10 +166,15 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, limit, title = ''
    */
   const renderAffirmationsAffirmationChart = () => {
     let _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
+    const clientIds = usersReducer.users.map(client => client.id)
+    // const _ids = _data.map(i => i.id)
+    // _data = _data.filter((v, i, s) => { return _ids.indexOf(v.id) === i })
     _data = _data.map(item => {
       // console.log('aff: ', item)
       const users = new Set()
-      item.sensies.items.forEach(e => users.add(e.userId))
+      const filtered = item.sensies.items.filter(s => clientIds.indexOf(s.userId) > 0)
+      filtered.forEach(e => users.add(e.userId))
+      item.sensies.items = filtered
       return Object.assign(item, {
         _flow: handleFlow(item.sensies.items),
         _userCount: users.size

@@ -32,14 +32,16 @@ const { ACTIVITY, UP } = IconChartTypes
  * @param {User} user
  * @param {string} show
  */
-const User = ({ user, show, affirmation }) => {
+const User = ({ user, sensies, show, affirmation }) => {
   // ? hooks
   const [t] = useTranslation('global')
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
+  console.log(sensies)
 
-  const filterSensies = (sensies) => {
-    if (!affirmation) return sensies
-    return sensies.filter((sensie) => {
+  const filterSensies = (data) => {
+    if (!affirmation) return data
+    return data.filter((sensie) => {
+      console.log(sensie)
       return sensie.affirmationId === affirmation.id
     })
   }
@@ -50,7 +52,7 @@ const User = ({ user, show, affirmation }) => {
    * @returns {number} total sensies
    */
   const handleTotalSensies = () => {
-    return filterSensies(user.sensies.items).length
+    return filterSensies(sensies).length
   }
 
   // ? render functions
@@ -64,8 +66,8 @@ const User = ({ user, show, affirmation }) => {
       <span>{user.lastName}</span>
     </div>
   }
-
-  const flow = handleFlow(filterSensies(user.sensies.items))
+  const flow = handleFlow(filterSensies(sensies))
+  console.log('flow: ', filterSensies(sensies))
 
   return (
     <div className={styles.UserContainer}>
@@ -117,6 +119,7 @@ User.propTypes = {
   /** show: { showInfo } */
   show: PropTypes.string,
   user: UserPropTypes,
+  sensies: PropTypes.object,
   affirmation: PropTypes.object
 }
 

@@ -26,23 +26,24 @@ const { ACTIVITY, UP, DOWN } = IconChartTypes
  * @component
  * @param {object} data
  */
-const UserStatistics = ({ data }) => {
+const UserStatistics = ({ data, sensies }) => {
   // ? hooks
   const [t] = useTranslation('global')
   const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
+  console.log('sensies:', sensies.length)
 
   // ? handle functions
   /**
    * handleSensiesCount
    * @returns {number} total
    */
-  const handleSensiesCount = () => data.sensies.items.length
+  const handleSensiesCount = () => sensies.length
 
   /**
    * handleLastSensieTimestamp
    * @returns {string}
    */
-  const handleLastSensieTimestamp = () => moment(data.sensies.items[0].createdAt).format('MM/DD/yyyy | hh:mm')
+  const handleLastSensieTimestamp = () => moment(sensies[0].createdAt).format('MM/DD/yyyy | hh:mm')
 
   return (
     <div className={styles.UserStatisticsContainer}>
@@ -96,7 +97,7 @@ const UserStatistics = ({ data }) => {
           </div>
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(data.sensies.items)} valueType="%" icon={ACTIVITY} theme={2} />
+            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(sensies)} valueType="%" icon={ACTIVITY} theme={2} />
           </div>
         </div>
       </div>}
@@ -107,7 +108,9 @@ const UserStatistics = ({ data }) => {
 // prop-types
 UserStatistics.propTypes = {
   /** data */
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  /** data */
+  sensies: PropTypes.object
 }
 
 export default UserStatistics
