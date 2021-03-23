@@ -223,10 +223,10 @@ const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <div className={styles.HomeG1Container}>
-            {affirmationsReducer.loading
-              ? <Loading />
-              : <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
-                  flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} /> }
+            {!affirmationsReducer.loading && !usersReducer.loading
+              ? <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
+                  flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} />
+              : <Loading />}
           </div>
         </Grid>
         {/* <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
@@ -248,9 +248,9 @@ const Home = () => {
             <div className={styles.HomeG3ContainerTitle}>
               <h3>{t('dashboard.Home.ClientSnapshot')}</h3>
               <Line />
-              {usersReducer.loading
-                ? <Loading />
-                : <ClientSnapshot />
+              {!affirmationsReducer.loading && !usersReducer.loading
+                ? <ClientSnapshot />
+                : <Loading />
               }
             </div>
           </div>

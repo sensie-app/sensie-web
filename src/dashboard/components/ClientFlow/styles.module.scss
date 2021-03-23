@@ -22,6 +22,7 @@
 
 .ClientFlowHeaderChartsS1Container {
   width: 50%;
+  max-width: 390px;
   height: 80%;
   @include flex(row, space-around, center, nowrap);
 }

@@ -13,9 +13,9 @@ import { IconChartTypes } from '../../constants/charts'
 // import { UserListBtns } from '../../constants/globals'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // redux
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 // utils
-import { handleDefaultPictureUser, handleFlow, handleEngagement } from '../../utils/functions'
+import { handleDefaultPictureUser, handleFlow /*, handleEngagement */ } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // prop-types
@@ -35,8 +35,7 @@ const { ACTIVITY, UP } = IconChartTypes
 const User = ({ user, sensies, show, affirmation }) => {
   // ? hooks
   const [t] = useTranslation('global')
-  const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
-  console.log(sensies)
+  // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
 
   const filterSensies = (data) => {
     if (!affirmation) return data
@@ -67,7 +66,6 @@ const User = ({ user, sensies, show, affirmation }) => {
     </div>
   }
   const flow = handleFlow(filterSensies(sensies))
-  console.log('flow: ', filterSensies(sensies))
 
   return (
     <div className={styles.UserContainer}>
@@ -89,7 +87,7 @@ const User = ({ user, sensies, show, affirmation }) => {
               : <IconChart title={t('dashboard.IconChart.flow')} value={flow} valueType="%" icon={ACTIVITY} theme={2} />}
           </div>
           <PercentageChart title={t('dashboard.User.awarness')} value={user.selfAwareness || 0} />
-          <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div>
+          {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
           <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
         </div>
       </div>

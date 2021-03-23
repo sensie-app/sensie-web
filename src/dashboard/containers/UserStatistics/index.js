@@ -10,9 +10,9 @@ import Separator from '../../components/Separator'
 // constants
 import { IconChartTypes } from '../../constants/charts'
 // redux
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 // utils
-import { handleDefaultPictureUser, handleFlow, handleEngagement } from '../../utils/functions'
+import { handleDefaultPictureUser, handleFlow /*, handleEngagement */ } from '../../utils/functions'
 // styles
 import styles from './syles.module.scss'
 
@@ -29,7 +29,7 @@ const { ACTIVITY, UP, DOWN } = IconChartTypes
 const UserStatistics = ({ data, sensies }) => {
   // ? hooks
   const [t] = useTranslation('global')
-  const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
+  // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
   console.log('sensies:', sensies.length)
 
   // ? handle functions
@@ -87,10 +87,10 @@ const UserStatistics = ({ data, sensies }) => {
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.PieChart.awarness')} value={Math.ceil(Math.random() * 100)} icon={UP} theme={2}/>
           </div>
-          <Separator />
+          {/* <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleSensiesCount())} icon={UP} theme={2} />
-          </div>
+          </div> */}
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.IconChart.sensies')} value={handleSensiesCount()} icon={DOWN} theme={2} />
