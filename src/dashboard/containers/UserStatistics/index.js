@@ -85,6 +85,10 @@ const UserStatistics = ({ data, sensies }) => {
         {/* icon charts */}
         <div className={styles.UserStatisticsBodyCharts2Container}>
           <div className={styles.UserStatisticsBodyChartsContainer}>
+            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(sensies)} valueType="%" icon={ACTIVITY} theme={2} />
+          </div>
+          <Separator />
+          <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.PieChart.awarness')} value={Math.ceil(Math.random() * 100)} icon={UP} theme={2}/>
           </div>
           {/* <Separator />
@@ -94,10 +98,6 @@ const UserStatistics = ({ data, sensies }) => {
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.IconChart.sensies')} value={handleSensiesCount()} icon={DOWN} theme={2} />
-          </div>
-          <Separator />
-          <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(sensies)} valueType="%" icon={ACTIVITY} theme={2} />
           </div>
         </div>
       </div>}

@@ -6,7 +6,8 @@ const moment = require('moment')
    * @param {string} name
    * @param {number} large
    */
-export const handleLargeName = (name, large) => name && name.length > large ? name.substr(0, large) + '...' : name
+// export const handleLargeName = (name, large) => name && name.length > large ? name.substr(0, large) + '...' : name
+export const handleLargeName = (name, large) => name
 
 /**
    * handleArrTopics

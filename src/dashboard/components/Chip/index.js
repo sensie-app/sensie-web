@@ -28,16 +28,18 @@ const Chip = ({ label, withClose = true, onClose = () => {}, disabled = false })
    * @param {string} name
    * @param {number} large
    */
-  const handleLargeName = (name, large) => name.substr(0, large) + '...'
+  // const handleLargeName = (name, large) => name.substr(0, large) + '...'
+  const handleLargeName = (name, large) => name
 
   return (
     <div className={styles.ChipContainer}>
       <span>{handleLargeName(label.name, 6)}</span>
-      <button onClick={() => onClose(label)} disabled={disabled}>
-        {withClose && !disabled && <span>
-          <Icon name="close-outline" size="sm" color={fontColor1} />
-        </span>}
-      </button>
+      {withClose && !disabled &&
+        <button onClick={() => onClose(label)} disabled={disabled}>
+          <span>
+            <Icon name="close-outline" size="sm" color={fontColor1} />
+          </span>
+        </button>}
     </div>
   )
 }
