@@ -31,10 +31,12 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
     const packs = response.data.getUser.packs.items.map(item => item.affirmations.items)
     const flatPacks = [].concat(...packs)
     const affs = flatPacks.map(item => item.affirmation)
+    const _ids = affs.map(item => item.id)
+    const affsUnique = affs.filter((v, i, s) => { return _ids.indexOf(v.id) === i })
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
       // payload: response.data.listAffirmations.items
-      payload: affs
+      payload: affsUnique
     })
   } catch (error) {
     dispatch({
