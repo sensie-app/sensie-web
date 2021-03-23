@@ -26,7 +26,22 @@ const Profile = () => {
   const { userReducer: { user: { data } } } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [name, setName] = useState(data.firstName + ' ' + data.lastName)
+  const imageUploader = React.useRef(null)
+  const uploadedImage = React.useRef(null)
   console.log('setName', setName)
+
+  const handleImageUpload = e => {
+    const [file] = e.target.files
+    if (file) {
+      const reader = new FileReader()
+      const { current } = uploadedImage
+      current.file = file
+      reader.onload = (e) => {
+        current.src = e.target.result
+      }
+      reader.readAsDataURL(file)
+    }
+  }
 
   return (
     <div className={styles.ProfileContainer}>
@@ -62,9 +77,18 @@ const Profile = () => {
           <div className={styles.ProfileGridAvatarContainer}>
             <div className={styles.ProfileAvatarContainer}>
               <ImageAvatar url={data.gender === 'Male' ? avatarMale : avatarFemale} alt={data.name} size="xlarge" />
+              <img
+                ref={uploadedImage}
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              />
             </div>
             <div className={styles.ProfileBtnsContainer}>
-              <button>{t('dashboard.Profile.uploadImage')}</button>
+              <button onClick={() => imageUploader.current.click()}>{t('dashboard.Profile.uploadImage')}
+                <input type="file" ref={imageUploader} onChange={handleImageUpload} />
+              </button>
               <button>{t('dashboard.Profile.removeImage')}</button>
             </div>
           </div>

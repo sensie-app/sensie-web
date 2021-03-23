@@ -72,6 +72,10 @@
     &:hover {
       @include border(solid, 1px, 5px, $grayColor3);
     }
+    input {
+      display: none;
+      overflow: hidden;
+    }
   }
 }
 
@@ -91,4 +95,3 @@
     }
   }
 }
-
