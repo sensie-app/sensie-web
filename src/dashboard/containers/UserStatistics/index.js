@@ -37,7 +37,7 @@ const UserStatistics = ({ data, sensies }) => {
    * handleSensiesCount
    * @returns {number} total
    */
-  const handleSensiesCount = () => sensies.length
+  const handleSensiesCount = () => sensies.length > -1
 
   /**
    * handleLastSensieTimestamp
