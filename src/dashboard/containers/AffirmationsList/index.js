@@ -39,7 +39,7 @@ const { fontColor1, grayColor5 } = COLORS
  * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
  * @param {undefined} getSensies (default: () => {})
  */
-const AffirmationsList = ({ chipsUp = false, multiUser = true, limit, title = '', theme = 1, getSensies = () => {} }) => {
+const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, title = '', theme = 1, getSensies = () => {} }) => {
   // ? hooks
   const dispatch = useDispatch()
   const {
@@ -166,6 +166,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, limit, title = ''
    */
   const renderAffirmationsAffirmationChart = () => {
     let _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
+    // const clientIds = multiUser ? usersReducer.users.map(client => client.id) : [user.id]
     const clientIds = usersReducer.users.map(client => client.id)
     // const _ids = _data.map(i => i.id)
     // _data = _data.filter((v, i, s) => { return _ids.indexOf(v.id) === i })
@@ -255,6 +256,8 @@ AffirmationsList.propTypes = {
   chipsUp: PropTypes.bool,
   /* whether or not its multi user */
   multiUser: PropTypes.bool,
+  /* user */
+  user: PropTypes.object,
   /** number of affirmations */
   limit: PropTypes.number,
   /** title if theme = 2 */

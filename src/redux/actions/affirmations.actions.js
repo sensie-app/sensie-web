@@ -2,7 +2,7 @@
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
 // import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
-import { getAffirmationsFromPacks, getAffirmationsFromPacksByUser } from '../../dashboard/graphql/queries'
+import { getAffirmationsFromPacks, getAffirmationsFromPacksByUser, getSensiesByAffId } from '../../dashboard/graphql/queries'
 import { createAffirmationMutation, joinAffirmationWithPackMutation, joinAffirmationWithTopicMutation } from '../../dashboard/graphql/mutations'
 // constants
 import AFFIRMATIONS from '../constants/affirmations.constants'
@@ -33,10 +33,22 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
     const affs = flatPacks.map(item => item.affirmation)
     const _ids = affs.map(item => item.id)
     const affsUnique = affs.filter((v, i, s) => { return _ids.indexOf(v.id) === i })
+    const full = await Promise.all(affsUnique.map(async aff => {
+      let nextToken = null
+      const r = await API.graphql(graphqlOperation(getSensiesByAffId(aff.id, dates, nextToken)))
+      nextToken = r.data.getAffirmation.sensies.nextToken
+      while (nextToken) {
+        const subReq = await API.graphql(graphqlOperation(getSensiesByAffId(aff.id, dates, nextToken)))
+        nextToken = subReq.data.getAffirmation.sensies.nextToken
+        r.data.getAffirmation.sensies.items = r.data.getAffirmation.sensies.items.concat(subReq.data.getAffirmation.sensies.items)
+      }
+      return r.data.getAffirmation
+    }))
+    console.log(full)
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
       // payload: response.data.listAffirmations.items
-      payload: affsUnique
+      payload: full
     })
   } catch (error) {
     dispatch({
