@@ -1,10 +1,30 @@
-export const getSensiesByAffId = (affId, dates) => `
+export const getSensiesByAffId = (affId, dates, nextToken) => `
   query getSensiesByAffId {
     getAffirmation(id:"${affId}") {
       id
       name
       description
       sensies(limit: 100000, sortDirection: ASC, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        items {
+          id
+          result
+          createdAt
+          timestamp
+          userId
+        }
+        nextToken
+      }
+    }
+  }
+`
+
+export const getSensiesByAffIdAndUser = (affId, dates, userId, nextToken) => `
+  query getSensiesByAffId {
+    getAffirmation(id:"${affId}") {
+      id
+      name
+      description
+      sensies(limit: 100000, sortDirection: ASC, filter: {calibration: {eq: false}, userId: {eq:"${userId}"}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
         items {
           id
           result

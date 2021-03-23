@@ -2,7 +2,7 @@
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
 // import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
-import { getAffirmationsFromPacks, getAffirmationsFromPacksByUser, getSensiesByAffId } from '../../dashboard/graphql/queries'
+import { getAffirmationsFromPacks, getAffirmationsFromPacksByUser, /* getSensiesByAffIdAndUser, */ getSensiesByAffId } from '../../dashboard/graphql/queries'
 import { createAffirmationMutation, joinAffirmationWithPackMutation, joinAffirmationWithTopicMutation } from '../../dashboard/graphql/mutations'
 // constants
 import AFFIRMATIONS from '../constants/affirmations.constants'
@@ -35,22 +35,28 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
     const affsUnique = affs.filter((v, i, s) => { return _ids.indexOf(v.id) === i })
     const full = await Promise.all(affsUnique.map(async aff => {
       let nextToken = null
-      const r = await API.graphql(graphqlOperation(getSensiesByAffId(aff.id, dates, nextToken)))
-      nextToken = r.data.getAffirmation.sensies.nextToken
-      while (nextToken) {
-        const subReq = await API.graphql(graphqlOperation(getSensiesByAffId(aff.id, dates, nextToken)))
-        nextToken = subReq.data.getAffirmation.sensies.nextToken
-        r.data.getAffirmation.sensies.items = r.data.getAffirmation.sensies.items.concat(subReq.data.getAffirmation.sensies.items)
+      // const sAction = user ? getSensiesByAffIdAndUser(id, dates, user) : getSensiesByAffId(id, dates)
+      const r = await API.graphql(graphqlOperation(getSensiesByAffId(id, dates, nextToken)))
+      if (r.data.getAffirmation) {
+        nextToken = r.data.getAffirmation.sensies.nextToken
+        console.log(nextToken)
       }
-      return r.data.getAffirmation
+
+      // while (nextToken) {
+      //   const subAction = user ? getSensiesByAffIdAndUser(id, dates, user, nextToken) : getSensiesByAffId(id, dates, nextToken)
+      //   const subReq = await API.graphql(graphqlOperation(subAction))
+      //   nextToken = subReq.data.getAffirmation.sensies.nextToken
+      //   r.data.getAffirmation.sensies.items = r.data.getAffirmation.sensies.items.concat(subReq.data.getAffirmation.sensies.items)
+      // }
+      return r.data.getAffirmation || { sensies: [] }
     }))
-    console.log(full)
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
       // payload: response.data.listAffirmations.items
       payload: full
     })
   } catch (error) {
+    console.log('error', error)
     dispatch({
       type: ERROR,
       payload: 'Error in list affirmations'
