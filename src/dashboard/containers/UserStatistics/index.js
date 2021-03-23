@@ -31,6 +31,7 @@ const UserStatistics = ({ data, sensies }) => {
   const [t] = useTranslation('global')
   // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
   console.log('sensies:', sensies.length)
+  console.log('sensies:', sensies)
 
   // ? handle functions
   /**
@@ -43,7 +44,7 @@ const UserStatistics = ({ data, sensies }) => {
    * handleLastSensieTimestamp
    * @returns {string}
    */
-  const handleLastSensieTimestamp = () => moment(sensies[0].createdAt).format('MM/DD/yyyy | hh:mm')
+  const handleLastSensieTimestamp = () => sensies && moment((sensies[0] || {}).createdAt).format('MM/DD/yyyy | hh:mm')
 
   return (
     <div className={styles.UserStatisticsContainer}>
@@ -85,6 +86,10 @@ const UserStatistics = ({ data, sensies }) => {
         {/* icon charts */}
         <div className={styles.UserStatisticsBodyCharts2Container}>
           <div className={styles.UserStatisticsBodyChartsContainer}>
+            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(sensies)} valueType="%" icon={ACTIVITY} theme={2} />
+          </div>
+          <Separator />
+          <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.PieChart.awarness')} value={Math.ceil(Math.random() * 100)} icon={UP} theme={2}/>
           </div>
           {/* <Separator />
@@ -94,10 +99,6 @@ const UserStatistics = ({ data, sensies }) => {
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.IconChart.sensies')} value={handleSensiesCount()} icon={DOWN} theme={2} />
-          </div>
-          <Separator />
-          <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(sensies)} valueType="%" icon={ACTIVITY} theme={2} />
           </div>
         </div>
       </div>}

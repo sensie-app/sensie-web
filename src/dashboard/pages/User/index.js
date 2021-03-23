@@ -69,7 +69,6 @@ const User = () => {
     console.log(client)
     if (client && globalDateFilter) {
       const dbUser = await gqlquery(listUsersWithSensiesByUserId(id, globalDateFilter.value))
-      console.log(dbUser)
       if (!dbUser.loading && dbUser.value !== null) {
         const _client = dbUser.value.data.getUser
         setClient(_client)

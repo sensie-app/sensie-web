@@ -434,13 +434,13 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
     getUser(id: "${coachId}") {
       packs {
         items {
-        affirmations(limit: 10000) {
+        affirmations(limit: 1000000) {
           items {
           affirmation {
             description
             id 
             name
-            sensies(limit: 10000, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+            sensies(limit: 1000000, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
               items {
                 id
                 result
@@ -449,6 +449,7 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
                 createdAt
                 timestamp
               }
+              nextToken
             }
             topics {
               items {
@@ -476,13 +477,13 @@ export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId) =>
     getUser(id: "${coachId}") {
       packs {
         items {
-        affirmations(limit: 10000) {
+        affirmations(limit: 1000000) {
           items {
           affirmation {
             description
             id 
             name
-            sensies(limit: 10000, filter: {calibration: {eq: false}, userId: {eq: "${userId}"},timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+            sensies(limit: 1000000, filter: {calibration: {eq: false}, userId: {eq: "${userId}"},timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
               items {
                 id
                 result
@@ -491,6 +492,7 @@ export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId) =>
                 createdAt
                 timestamp
               }
+              nextToken
             }
             topics {
               items {
