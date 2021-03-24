@@ -68,7 +68,6 @@ const UsersList = () => {
     return !usersReducer.loading && usersReducer.users.map((client, index) => {
       const { id } = client
       const sensies = s.filter(s => s.userId === id)
-      console.log(sensies)
       return <User user={client} sensies={sensies} key={index} show={userList.showInfo} affirmation={affirmation} />
     })
   }

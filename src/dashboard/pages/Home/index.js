@@ -64,7 +64,6 @@ const Home = () => {
   }, [user.loading, globalDateFilter])
 
   useEffect(() => {
-    console.log(usersReducer)
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
@@ -118,7 +117,6 @@ const Home = () => {
     // return count === 0 ? count : count.reduce((total, value) => total + value)
     let count = 0
     const clientIds = usersReducer.users.map(client => client.id)
-    console.log(affirmationsReducer.affirmations)
     count = !affirmationsReducer.loading && handleTotalClients() > 0
       ? affirmationsReducer.affirmations.map(aff => count + aff.sensies.items.filter(s => clientIds.indexOf(s.userId) > -1).length)
       : 0
@@ -187,10 +185,8 @@ const Home = () => {
           accCount[date] = (accCount[date] ? (accCount[date] + 1) : 1)
           accUserCount[date] = (accUserCount[date] ? ((accUserCount[date])) : 1)
         })
-        console.log(acc)
         return acc
       }, {})
-      console.log(555555555)
       // console.log(flowsByDate)
       if (Object.keys(flowsByDate).length === 0) return data
       // let totalDates = Object.keys(flowsByDate).length
@@ -199,7 +195,6 @@ const Home = () => {
       let i = 0
       const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
       for (const k of orderedDates) {
-        console.log(flowsByDate[k], accCount[k])
         d.push({ _d: k, x: i++, y: flowsByDate[k] / accCount[k] / accUserCount[k] * 100 })
       }
       data = [{ id: 'low', data: d }]
