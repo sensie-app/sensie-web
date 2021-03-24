@@ -301,6 +301,7 @@ export const listTopicsQuery = () => `
               }
             }
           }
+          nextToken
         } 
       }
     }
@@ -634,6 +635,10 @@ export const listAffirmationsByUserIdAndTopicIdAndUser = (coachId, dates, limit,
           items {
             id
             result
+            userId
+            affirmationId
+            createdAt
+            timestamp
           }
           nextToken
         }

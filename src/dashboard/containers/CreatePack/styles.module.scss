@@ -23,7 +23,7 @@
 
 .CreatePackBody {
   @include flex(row, space-between, center, wrap);
-  height: 150px;
+  height: 180px;
   padding: 10px;
 }
 
@@ -62,11 +62,11 @@
   @include flex(column, space-between, center, nowrap);
   .CreatePackBodyFormInput {
     width: 100%;
-    padding: 0px 10px;
+    padding: 5px 10px;
     @include flex(column, space-between, flex-start, nowrap);    
     label {
       color: $fontColor1;
-      margin-bottom: 10px;
+      margin-bottom: 1px;
     }
     input {
       width: 100%;
@@ -81,7 +81,7 @@
   }
   .CreatePackBodyFormBtn {
     width: 100%;
-    padding: 0px 10px;
+    padding: 10px 10px;
     button {
       float: right;
       background-color: $grayColor6;    

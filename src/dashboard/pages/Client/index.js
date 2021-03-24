@@ -39,9 +39,15 @@ const Client = () => {
   useEffect(() => {
     console.log('GETTING INFO')
     console.log(user)
+    console.log(affirmationsReducer)
+    console.log(usersReducer)
     console.log(globalDateFilter)
+    console.log(dispatch)
+    console.log(listUsersByOrganizationIdAction)
+    console.log(listAffirmationsByCoachId)
     dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000))
+    console.log(user)
   }, [user.loading, globalDateFilter])
 
   // ? const

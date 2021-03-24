@@ -248,7 +248,7 @@ const Layout = ({ children }) => {
               </IconButton>
             </div>
             <Divider />
-            <List className={styles.LayoutListContainer}>
+            <List onMouseOver={() => setOpen(true)} onMouseOut={() => setOpen(false)} className={styles.LayoutListContainer}>
               <div>
                 {renderListItems()}
               </div>

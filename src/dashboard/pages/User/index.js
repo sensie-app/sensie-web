@@ -53,13 +53,17 @@ const User = () => {
 
   useEffect(() => {
     console.log('coach, ', user)
-    user && dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
-  }, [globalDateFilter])
+    if (!user.loading) {
+      console.log(user.id)
+      dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
+    }
+  }, [waitQuery, user.loading, globalDateFilter])
 
   useEffect(async () => {
+    console.log(affirmationsReducer.affirmations)
     await handleUserQuery()
     // await handleAffirmationsQuery()
-  }, [id, globalDateFilter, affirmationsReducer.affirmations])
+  }, [globalDateFilter, affirmationsReducer.affirmations])
 
   // ? handle functions
   /**
@@ -69,12 +73,14 @@ const User = () => {
     console.log(client)
     if (client && globalDateFilter) {
       const dbUser = await gqlquery(listUsersWithSensiesByUserId(id, globalDateFilter.value))
+      console.log(dbUser)
       if (!dbUser.loading && dbUser.value !== null) {
         const _client = dbUser.value.data.getUser
         setClient(_client)
         const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
         const _s = s.filter(s => s.userId === _client.id)
         setSensies(_s)
+        console.log('sens: ', _s)
         setWaitQuery(false)
       } else { setWaitQuery(true) }
     }
@@ -97,7 +103,7 @@ const User = () => {
    * handleSensies
    * @return {boolean}
    */
-  const handleSensies = () => sensies.length > -1
+  // const handleSensies = () => sensies && (sensies.length > -1)
 
   return (
     <section className={styles.UserContainer}>
@@ -120,15 +126,16 @@ const User = () => {
         </Grid> */}
         <Grid item xs={12}>
           <div className={styles.UserG3Container}>
-            {!waitQuery && handleSensies() &&
-              <TrackAffirmations
-                // data={}
-                theme={2}
-                title={t('dashboard.User.trackAffirmations')}
-                chipsUp={true}
-                multiUser={false}
-                user={client}
-              />
+            {waitQuery
+              ? <Loading />
+              : <TrackAffirmations
+                  // data={}
+                  theme={2}
+                  title={t('dashboard.User.trackAffirmations')}
+                  chipsUp={true}
+                  multiUser={false}
+                  user={client}
+                />
             }
           </div>
         </Grid>
