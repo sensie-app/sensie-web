@@ -38,7 +38,7 @@ const Affirmations = () => {
     console.log(packsReducer)
     dispatch(listPacksAction(user.id))
     dispatch(getAllTopicsAction())
-  }, [])
+  }, [user.loading])
 
   // ? handle functions
   /**

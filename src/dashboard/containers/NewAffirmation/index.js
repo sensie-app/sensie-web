@@ -159,7 +159,6 @@ const NewAffirmation = ({
    * @return {undefined} Chips[] (html)
    */
   const renderChipsItems = () => {
-    console.log(selectTopics)
     return selectTopics.filter(t => t !== null).map((topic, index) => <Chip key={index} disabled={disabledTopics} label={topic} onClose={value => handleClickCloseChip(value)}/>)
   }
 
