@@ -301,6 +301,7 @@ export const listTopicsQuery = () => `
               }
             }
           }
+          nextToken
         } 
       }
     }
