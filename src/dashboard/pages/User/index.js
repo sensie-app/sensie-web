@@ -53,11 +53,9 @@ const User = () => {
 
   useEffect(() => {
     console.log('coach, ', user)
-    if (!user.loading) {
-      console.log(user.id)
-      dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
-    }
-  }, [waitQuery, user.loading, globalDateFilter])
+    console.log(user.id)
+    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
+  }, [user.loading, globalDateFilter])
 
   useEffect(async () => {
     console.log(affirmationsReducer.affirmations)
