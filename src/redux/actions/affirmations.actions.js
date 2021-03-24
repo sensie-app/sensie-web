@@ -37,16 +37,16 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
       let nextToken = null
       const sAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
       const r = await API.graphql(graphqlOperation(sAction))
-      nextToken = r.data.getAffirmation.sensies.nextToken
+      nextToken = r.data.sensiesByAffirmationAndTimestamp.nextToken
       console.log(nextToken)
       while (nextToken) {
         const subAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
         console.log(subAction)
         const subReq = await API.graphql(graphqlOperation(subAction))
-        nextToken = subReq.data.getAffirmation.sensies.nextToken
-        r.data.getAffirmation.sensies.items = r.data.getAffirmation.sensies.items.concat(subReq.data.getAffirmation.sensies.items)
+        nextToken = subReq.data.sensiesByAffirmationAndTimestamp.nextToken
+        r.data.sensiesByAffirmationAndTimestamp.items = r.data.sensiesByAffirmationAndTimestamp.items.concat(subReq.data.sensiesByAffirmationAndTimestamp.items)
       }
-      return r.data.getAffirmation
+      return Object.assign(aff, { sensies: r.data.sensiesByAffirmationAndTimestamp })
     }))
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
