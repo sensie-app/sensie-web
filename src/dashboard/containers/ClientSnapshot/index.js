@@ -58,7 +58,7 @@ const ClientSnapshot = () => {
       const { id } = client
       const sensies = s.filter(s => s.userId === id)
       return (
-        <Grid key={id} item xs={12} sm={12} md={12} lg={6} xl={6}>
+        <Grid key={id} item xs={12} sm={12} md={12} lg={6} xl={4}>
           <User user={client} sensies={sensies} key={idx} />
           {/* <div className={styles.ClientSnapshotBarChartContainer}>
             <div className={styles.ClientSnapshotBarChartHeader}>
