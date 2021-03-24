@@ -40,7 +40,6 @@ const User = ({ user, sensies, show, affirmation }) => {
   const filterSensies = (data) => {
     if (!affirmation) return data
     return data.filter((sensie) => {
-      console.log(sensie)
       return sensie.affirmationId === affirmation.id
     })
   }

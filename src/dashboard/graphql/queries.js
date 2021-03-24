@@ -1,3 +1,75 @@
+export const getSensiesByAffId = (affId, dates, nextToken) => `
+  query getSensiesByAffId {
+    sensiesByAffirmationAndTimestamp(affirmationId: "${affId}", timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, limit: 100000, nextToken: ${nextToken ? `"${nextToken}"` : null}, sortDirection: ASC, filter: {calibration: {eq: false} }) {
+      items {
+        id
+        result
+        createdAt
+        timestamp
+        userId
+        affirmationId
+      }
+      nextToken
+    }
+  }
+`
+export const getSensiesByAffIdAndUser = (affId, dates, userId, nextToken) => `
+  query getSensiesByAffId {
+    sensiesByAffirmationAndTimestamp(affirmationId: "${affId}", timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, limit: 100000, nextToken: ${nextToken ? `"${nextToken}"` : null}, sortDirection: ASC, filter: {userId: {eq: "${userId}"}, calibration: {eq: false} }) {
+      items {
+        id
+        result
+        createdAt
+        timestamp
+        userId
+        affirmationId
+      }
+      nextToken
+    }
+  }
+`
+
+export const getSensiesByAffId2 = (affId, dates, nextToken) => `
+  query getSensiesByAffId {
+    getAffirmation(id:"${affId}") {
+      id
+      name
+      description
+      sensies(limit: 100000, nextToken: ${nextToken ? `"${nextToken}"` : null}, sortDirection: ASC, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        items {
+          id
+          result
+          createdAt
+          timestamp
+          userId
+          affirmationId
+        }
+        nextToken
+      }
+    }
+  }
+`
+
+export const getSensiesByAffIdAndUser2 = (affId, dates, userId, nextToken) => `
+  query getSensiesByAffId {
+    getAffirmation(id:"${affId}") {
+      id
+      name
+      description
+      sensies(limit: 100000, nextToken: ${nextToken ? `"${nextToken}"` : null}, sortDirection: ASC, filter: {calibration: {eq: false}, userId: {eq:"${userId}"}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        items {
+          id
+          result
+          createdAt
+          timestamp
+          userId
+          affirmationId
+        }
+        nextToken
+      }
+    }
+  }
+`
 
 export const getUserByIdQuery = id => `
   query MyQuery {
@@ -472,7 +544,7 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
   }
 `
 
-export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId) => `
+export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId, nextToken) => `
   query GetAffirmationsFromPacks {
     getUser(id: "${coachId}") {
       packs {
