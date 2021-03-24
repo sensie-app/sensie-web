@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 // import { ThemeProvider } from '@material-ui/core/styles'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllTopicsAction } from '../../redux/actions/topics.action'
+// import { getAllTopicsAction } from '../../redux/actions/topics.action'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
 // pages
@@ -57,14 +57,15 @@ const {
 const DashboardRoutes = () => {
   // ? hooks
   const dispatch = useDispatch()
+  console.log(dispatch)
   const {
     filtersReducer: { globalDateFilter },
     userReducer: { user }
   } = useSelector(state => state)
 
-  useEffect(() => {
-    dispatch(getAllTopicsAction())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getAllTopicsAction())
+  // }, [])
 
   useEffect(async () => {
     console.log('1', 1)
