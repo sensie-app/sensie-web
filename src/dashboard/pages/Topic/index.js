@@ -267,19 +267,19 @@ const Topic = () => {
   const renderDbAffirmations = () => {
     return topic.affirmations
       ? topic.affirmations.items.map(item => {
-        const { id, name, topics } = item.affirmation
-        return <NewAffirmation
-          checkAll={checkboxReducer.all.affirmations}
-          isChecked={value => handleIsChecked(value, id)}
-          key={id}
-          title={name}
-          selectedTopics={handleArrTopics(topics.items)}
-          withRemoveBtn={false}
-          withAddBtn={false}
-          onAddToPack={handleAddToPack}
-          onRemovePack={handleRemoveToPack}
-        />
-      })
+          const { id, name, topics } = item.affirmation
+          return <NewAffirmation
+            checkAll={checkboxReducer.all.affirmations}
+            isChecked={value => handleIsChecked(value, id)}
+            key={id}
+            title={name}
+            selectedTopics={handleArrTopics(topics.items)}
+            withRemoveBtn={false}
+            withAddBtn={false}
+            onAddToPack={handleAddToPack}
+            onRemovePack={handleRemoveToPack}
+          />
+        })
       : <Loading />
   }
 
