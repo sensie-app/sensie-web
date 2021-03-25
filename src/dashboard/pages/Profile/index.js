@@ -25,21 +25,13 @@ const Profile = () => {
   // ? hooks
   const { userReducer: { user: { data } } } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const [name, setName] = useState(data.firstName + ' ' + data.lastName)
+  const [picture, setPicture] = useState()
   const imageUploader = React.useRef(null)
-  const uploadedImage = React.useRef(null)
-  console.log('setName', setName)
+  const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
   const handleImageUpload = e => {
-    const [file] = e.target.files
-    if (file) {
-      const reader = new FileReader()
-      const { current } = uploadedImage
-      current.file = file
-      reader.onload = (e) => {
-        current.src = e.target.result
-      }
-      reader.readAsDataURL(file)
+    if (e.target.files[0]) {
+      setPicture(URL.createObjectURL(e.target.files[0]))
     }
   }
 
@@ -52,8 +44,8 @@ const Profile = () => {
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <div className={styles.ProfileGridContainer}>
             <div>
-              <label>{t('dashboard.Profile.fristLastName')}</label>
-              <input value={name} />
+              <label>{t('dashboard.Profile.firstLastName')}</label>
+              <input value={data.firstName + ' ' + data.lastName} />
             </div>
             <div>
               <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.role')}</label>
@@ -76,20 +68,14 @@ const Profile = () => {
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <div className={styles.ProfileGridAvatarContainer}>
             <div className={styles.ProfileAvatarContainer}>
-              <ImageAvatar url={data.gender === 'Male' ? avatarMale : avatarFemale} alt={data.name} size="xlarge" />
-              <img
-                ref={uploadedImage}
-                style={{
-                  width: '100%',
-                  height: '100%'
-                }}
-              />
+              {/* <img src={picture || defaultAvatar} style={{width: '100%', height: '100%' }} /> */}
+              <ImageAvatar url={picture || defaultAvatar} alt="avatar" size="xlarge" />
             </div>
             <div className={styles.ProfileBtnsContainer}>
               <button onClick={() => imageUploader.current.click()}>{t('dashboard.Profile.uploadImage')}
                 <input type="file" ref={imageUploader} onChange={handleImageUpload} />
               </button>
-              <button>{t('dashboard.Profile.removeImage')}</button>
+              <button onClick={() => setPicture(null)}>{t('dashboard.Profile.removeImage')}</button>
             </div>
           </div>
         </Grid>

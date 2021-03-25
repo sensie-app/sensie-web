@@ -36,7 +36,7 @@ import '../doc/types'
 
 // const
 const {
-  // entrypoint,
+  entrypoint,
   home,
   dashboard,
   client,

@@ -225,7 +225,7 @@
     },
     "Profile": {
       "profile": "Profile",
-      "fristLastName": "First and last name",
+      "firstLastName": "First and last name",
       "role": "Role",
       "email": "Email",
       "useSensie": "How would you like to use Sensie?",
