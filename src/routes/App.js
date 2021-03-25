@@ -20,6 +20,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
+        <Route path={'/apple-app-site-association'} onEnter={window.location.reload} />
         <Route path={dashboard} component={DashboardRoutes} />
         <Route path={landing} component={LandingRoutes} />
         <Route component={NotFound404} />
