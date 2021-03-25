@@ -82,7 +82,7 @@ const User = ({ user, sensies, show, affirmation }) => {
         <div className={styles.UserBodyContainer}>
           <div>
             {flow === 'NO_SENSIES'
-              ? <IconChart title={t('dashboard.IconChart.flow')} value={'No Sensies'} valueType="" icon={null} theme={2} />
+              ? <IconChart title={t('dashboard.IconChart.flow')} value={'Null'} valueType="" icon={null} theme={2} />
               : <IconChart title={t('dashboard.IconChart.flow')} value={flow} valueType="%" icon={ACTIVITY} theme={2} />}
           </div>
           <PercentageChart title={t('dashboard.User.awarness')} value={user.selfAwareness || 0} />
