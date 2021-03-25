@@ -2,7 +2,7 @@
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
 // import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
-import { getAffirmationsFromPacks, getAffirmationsFromPacksByUser } from '../../dashboard/graphql/queries'
+import { getAffirmationsFromPacks, getAffirmationsFromPacksByUser, getSensiesByAffIdAndUser, getSensiesByAffId } from '../../dashboard/graphql/queries'
 import { createAffirmationMutation, joinAffirmationWithPackMutation, joinAffirmationWithTopicMutation } from '../../dashboard/graphql/mutations'
 // constants
 import AFFIRMATIONS from '../constants/affirmations.constants'
@@ -31,12 +31,28 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
     const packs = response.data.getUser.packs.items.map(item => item.affirmations.items)
     const flatPacks = [].concat(...packs)
     const affs = flatPacks.map(item => item.affirmation)
+    const _ids = affs.map(item => item.id)
+    const affsUnique = affs.filter((v, i, s) => { return _ids.indexOf(v.id) === i })
+    const full = await Promise.all(affsUnique.map(async aff => {
+      let nextToken = null
+      const sAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
+      const r = await API.graphql(graphqlOperation(sAction))
+      nextToken = r.data.sensiesByAffirmationAndTimestamp.nextToken
+      while (nextToken) {
+        const subAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
+        const subReq = await API.graphql(graphqlOperation(subAction))
+        nextToken = subReq.data.sensiesByAffirmationAndTimestamp.nextToken
+        r.data.sensiesByAffirmationAndTimestamp.items = r.data.sensiesByAffirmationAndTimestamp.items.concat(subReq.data.sensiesByAffirmationAndTimestamp.items)
+      }
+      return Object.assign(aff, { sensies: r.data.sensiesByAffirmationAndTimestamp })
+    }))
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
       // payload: response.data.listAffirmations.items
-      payload: affs
+      payload: full
     })
   } catch (error) {
+    console.log('error', error)
     dispatch({
       type: ERROR,
       payload: 'Error in list affirmations'

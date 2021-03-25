@@ -42,7 +42,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const {
     usersReducer,
-    // affirmationsReducer,
+    affirmationsReducer,
     userReducer: { user },
     filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
@@ -64,7 +64,6 @@ const Home = () => {
   }, [user.loading, globalDateFilter])
 
   useEffect(() => {
-    console.log(usersReducer)
     setTotalUsers(handleTotalClients())
     setTotalSensies(handleTotalSensies())
     setTotalFlow(handleTotalFlow())
@@ -73,7 +72,7 @@ const Home = () => {
     setResilienceScore(handleResilienceScore())
     setTrustScore(handleTrustScore())
     setGraphData(handleGraphData())
-  }, [usersReducer.users, globalDateFilter.value])
+  }, [usersReducer.users, affirmationsReducer.affirmations, globalDateFilter.value])
 
   // ? handle functions
   /**
@@ -111,9 +110,15 @@ const Home = () => {
    * @returns {number} total
    */
   const handleTotalSensies = () => {
+    // let count = 0
+    // count = !usersReducer.loading && handleTotalClients() > 0
+    //   ? usersReducer.users.map(user => count + user.sensies.items.length)
+    //   : 0
+    // return count === 0 ? count : count.reduce((total, value) => total + value)
     let count = 0
-    count = !usersReducer.loading && handleTotalClients() > 0
-      ? usersReducer.users.map(user => count + user.sensies.items.length)
+    const clientIds = usersReducer.users.map(client => client.id)
+    count = !affirmationsReducer.loading && handleTotalClients() > 0
+      ? affirmationsReducer.affirmations.map(aff => count + aff.sensies.items.filter(s => clientIds.indexOf(s.userId) > -1).length)
       : 0
     return count === 0 ? count : count.reduce((total, value) => total + value)
   }
@@ -122,28 +127,40 @@ const Home = () => {
    * handle total flow
    * @returns {number} flow
    */
+  // const handleTotalFlow = () => {
+  //   if (!usersReducer.loading && handleTotalClients() > 0) {
+  //     let flow = 0
+  //     flow = usersReducer.users.map(user => {
+  //       const totalSensies = user.sensies.items.length
+  //       const sensies = user.sensies.items.filter(value => parseInt(value.result) === 1)
+  //       const flow = totalSensies > 0 ? sensies.length / totalSensies : 0
+  //       return flow * 100
+  //     })
+  //     return flow === 0 ? flow : flow.reduce((total, value) => total + value) / usersReducer.users.length
+  //   } else {
+  //     return 0
+  //   }
+  // }
+
   const handleTotalFlow = () => {
-    if (!usersReducer.loading && handleTotalClients() > 0) {
-      let flow = 0
-      flow = usersReducer.users.map(user => {
-        const totalSensies = user.sensies.items.length
-        const sensies = user.sensies.items.filter(value => parseInt(value.result) === 1)
-        const flow = totalSensies > 0 ? sensies.length / totalSensies : 0
-        return flow * 100
-      })
-      return flow === 0 ? flow : flow.reduce((total, value) => total + value) / usersReducer.users.length
-    } else {
-      return 0
+    if (!affirmationsReducer.loading && handleTotalClients() > 0) {
+      const clientIds = usersReducer.users.map(client => client.id)
+      const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items)).filter(s => clientIds.indexOf(s.userId) > 0)
+      const sensies = s.filter(s => s.result === 1)
+      const flow = sensies.length / s.length * 100
+      return flow
     }
+    return 0
   }
 
   const handleGraphData = () => {
     let data = [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 7, y: 100 }] }]
-    if (!usersReducer.loading && handleTotalClients() > 0) {
+    if (!affirmationsReducer.loading && handleTotalClients() > 0) {
       const dates = globalDateFilter.value
       const diff = moment(dates[1]).diff(moment(dates[0]), 'days')
       console.log('diff: ', diff)
-      const userSensies = usersReducer.users.map(user => user.sensies.items)
+      // const userSensies = usersReducer.users.map(user => user.sensies.items)
+      const userSensies = affirmationsReducer.affirmations.map(affs => affs.sensies.items)
       // console.log(userSensies)
       // const acc = {}
       const accCount = {}
@@ -166,12 +183,10 @@ const Home = () => {
           const result = e.result === 1 ? 1 : 0
           acc[date] = (acc[date] ? (acc[date] + result) : result)
           accCount[date] = (accCount[date] ? (accCount[date] + 1) : 1)
-          accUserCount[date] = (accUserCount[date] ? ((accUserCount[date] % usersReducer.users.length + 1)) : 1)
+          accUserCount[date] = (accUserCount[date] ? ((accUserCount[date])) : 1)
         })
-        console.log(acc)
         return acc
       }, {})
-      console.log(555555555)
       // console.log(flowsByDate)
       if (Object.keys(flowsByDate).length === 0) return data
       // let totalDates = Object.keys(flowsByDate).length
@@ -180,7 +195,6 @@ const Home = () => {
       let i = 0
       const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
       for (const k of orderedDates) {
-        console.log(flowsByDate[k], accCount[k])
         d.push({ _d: k, x: i++, y: flowsByDate[k] / accCount[k] / accUserCount[k] * 100 })
       }
       data = [{ id: 'low', data: d }]
@@ -204,10 +218,10 @@ const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <div className={styles.HomeG1Container}>
-            {usersReducer.loading
-              ? <Loading />
-              : <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
-                  flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} /> }
+            {!affirmationsReducer.loading && !usersReducer.loading
+              ? <ClientFlow graph={graphData} client={totalUsers} sensies={totalSensies}
+                  flow={totalFlow} awareness={awarenessScore} resilience={resilienceScore} trust={trustScore} />
+              : <Loading />}
           </div>
         </Grid>
         {/* <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
@@ -229,9 +243,9 @@ const Home = () => {
             <div className={styles.HomeG3ContainerTitle}>
               <h3>{t('dashboard.Home.ClientSnapshot')}</h3>
               <Line />
-              {usersReducer.loading
-                ? <Loading />
-                : <ClientSnapshot />
+              {!affirmationsReducer.loading && !usersReducer.loading
+                ? <ClientSnapshot />
+                : <Loading />
               }
             </div>
           </div>

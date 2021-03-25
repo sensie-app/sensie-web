@@ -12,7 +12,7 @@
   
   .UserBodySummary {
     @include flex(row, space-between, center, nowrap);
-    width: 75%;
+    width: 70%;
   }
 
   .UserBodyContainer {    
@@ -20,8 +20,8 @@
     width: 100%;
     padding: 0 10px;
     div {
-      max-width: 100px;
-      width: 100px;
+      max-width: 200px;
+      min-width: 100px;
     }
   }
 

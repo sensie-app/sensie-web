@@ -33,6 +33,7 @@ const UsersList = () => {
   // const dispatch = useDispatch()
   const {
     usersReducer,
+    affirmationsReducer,
     showReducer: { userList },
     filtersReducer: { affirmations: { affirmation } }
     // paginationReducer: { pagination: { pagUsersList } }
@@ -63,8 +64,11 @@ const UsersList = () => {
 
   // ? render functions
   const renderUsers = () => {
-    return !usersReducer.loading && usersReducer.users.map((user, index) => {
-      return <User user={user} key={index} show={userList.showInfo} affirmation={affirmation} />
+    const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
+    return !usersReducer.loading && usersReducer.users.map((client, index) => {
+      const { id } = client
+      const sensies = s.filter(s => s.userId === id)
+      return <User user={client} sensies={sensies} key={index} show={userList.showInfo} affirmation={affirmation} />
     })
   }
 

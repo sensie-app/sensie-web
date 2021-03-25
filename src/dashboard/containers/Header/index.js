@@ -102,8 +102,8 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
   const renderDate = () => {
     const { name, value } = filter
     return name !== 'custom' && value.length === 2
-      ? `${moment(value[0]).format('yyyy/MM/DD')} to ${moment(value[1]).format('yyyy/MM/DD')}`
-      : `${moment(value).format('yyyy/MM/DD')}`
+      ? `${moment(value[0]).format('MM/DD/yyyy')} to ${moment(value[1]).format('MM/DD/yyyy')}`
+      : `${moment(value).format('MM/DD/yyyy')}`
   }
 
   return (
