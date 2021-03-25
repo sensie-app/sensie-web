@@ -4,13 +4,13 @@
   @include flex(row, space-between, center, nowrap);
   @include border(none, 0px, 5px, transparent);
   background-color: $grayColor7;
-  padding: 5px 10px;
+  padding: 3px 5px;
   margin-bottom: 5px;
-  margin-right: 10px;
+  margin-right: 5px;
   
   span {
     color: $fontColor1;
-    font-size: 1rem;
+    font-size: 0.75rem;
     // margin-right: 10px;
   }
 
