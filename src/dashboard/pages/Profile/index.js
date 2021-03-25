@@ -42,7 +42,7 @@ const Profile = () => {
             </div>
             <div>
               <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.role')}</label>
-              <input value="Couch" disabled />
+              <input value="Coach" disabled />
             </div>
           </div>
         </Grid>
