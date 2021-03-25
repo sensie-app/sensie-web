@@ -18,7 +18,7 @@ import styles from './syles.module.scss'
 
 // const
 const moment = require('moment')
-const { ACTIVITY, UP, DOWN } = IconChartTypes
+const { ACTIVITY, UP } = IconChartTypes
 
 // * component
 /**
@@ -98,7 +98,7 @@ const UserStatistics = ({ data, sensies }) => {
           </div> */}
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.sensies')} value={handleSensiesCount()} icon={DOWN} theme={2} />
+            <IconChart title={t('dashboard.IconChart.sensies')} value={handleSensiesCount()} icon={UP} theme={2} />
           </div>
         </div>
       </div>}
