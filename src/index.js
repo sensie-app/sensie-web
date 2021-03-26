@@ -15,6 +15,7 @@ import i18next from './translations'
 // redux
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import ReactGA from 'react-ga'
 
 Amplify.configure(awsExports)
 
@@ -32,6 +33,9 @@ Analytics.autoTrack('pageView', {
     return window.location.origin + window.location.pathname
   }
 })
+
+ReactGA.initialize('G-PRY3HQYSH8')
+ReactGA.pageview(window.location.pathname + window.location.search)
 
 ReactDOM.render(
   <React.StrictMode>

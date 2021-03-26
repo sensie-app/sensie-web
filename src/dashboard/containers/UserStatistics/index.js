@@ -12,7 +12,7 @@ import { IconChartTypes } from '../../constants/charts'
 // redux
 // import { useSelector } from 'react-redux'
 // utils
-import { handleDefaultPictureUser, handleFlow /*, handleEngagement */ } from '../../utils/functions'
+import { handleDefaultPictureUser, handleFlow, handleAwareness } from '../../utils/functions'
 // styles
 import styles from './syles.module.scss'
 
@@ -30,8 +30,6 @@ const UserStatistics = ({ data, sensies }) => {
   // ? hooks
   const [t] = useTranslation('global')
   // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
-  console.log('sensies:', sensies.length)
-  console.log('sensies:', sensies)
 
   // ? handle functions
   /**
@@ -45,6 +43,8 @@ const UserStatistics = ({ data, sensies }) => {
    * @returns {string}
    */
   const handleLastSensieTimestamp = () => sensies && moment((sensies[0] || {}).createdAt).format('MM/DD/yyyy | hh:mm')
+
+  const awareness = handleAwareness(data.selfAwarenessScores.items)
 
   return (
     <div className={styles.UserStatisticsContainer}>
@@ -90,7 +90,9 @@ const UserStatistics = ({ data, sensies }) => {
           </div>
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.PieChart.awarness')} value={Math.ceil(Math.random() * 100)} icon={UP} theme={2}/>
+            {awareness === 'NO_AWARENESS'
+              ? <IconChart title={t('dashboard.User.awarness')} value={'Null'} valueType="" icon={null} theme={2} />
+              : <IconChart title={t('dashboard.User.awarness')} value={awareness} valueType="number" icon={UP} theme={2} />}
           </div>
           {/* <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>

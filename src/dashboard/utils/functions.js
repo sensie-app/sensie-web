@@ -54,3 +54,10 @@ export const handleEngagement = (arrDate, totalSensies) => {
   const days = moment(arrDate[1]).diff(moment(arrDate[0]), 'days')
   return (totalSensies / (days + 1) * 100).toFixed(0)
 }
+
+export const handleAwareness = (scores) => {
+  if (scores.length === 0) return 'NO_AWARENESS'
+  const sortedScores = scores.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+  const latest = sortedScores.length > 0 ? sortedScores[0].score : 0
+  return latest
+}
