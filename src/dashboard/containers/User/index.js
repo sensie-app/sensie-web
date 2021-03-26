@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 // components
 import ImageAvatar from '../../components/ImageAvatar'
-import PercentageChart from '../../components/PercentageChart'
+// import PercentageChart from '../../components/PercentageChart'
 // import BarChart from '../../components/BarChart'
 import IconChart from '../../components/IconChart'
 // constants
@@ -15,7 +15,7 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 // redux
 // import { useSelector } from 'react-redux'
 // utils
-import { handleDefaultPictureUser, handleFlow /*, handleEngagement */ } from '../../utils/functions'
+import { handleDefaultPictureUser, handleFlow, handleAwareness } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // prop-types
@@ -44,12 +44,6 @@ const User = ({ user, sensies, show, affirmation }) => {
     })
   }
 
-  const handleAwareness = () => {
-    const sortedScores = user.selfAwarenessScores.items.sort((a, b) => b.timestamp - a.timestamp)
-    const latest = sortedScores.length > 0 ? sortedScores[0].score : 0
-    return latest
-  }
-
   // ? handle functions
   /**
    * handleTotalSensies
@@ -71,6 +65,7 @@ const User = ({ user, sensies, show, affirmation }) => {
     </div>
   }
   const flow = handleFlow(filterSensies(sensies))
+  const awareness = handleAwareness(user.selfAwarenessScores.items)
 
   return (
     <div className={styles.UserContainer}>
@@ -91,7 +86,12 @@ const User = ({ user, sensies, show, affirmation }) => {
               ? <IconChart title={t('dashboard.IconChart.flow')} value={'Null'} valueType="" icon={null} theme={2} />
               : <IconChart title={t('dashboard.IconChart.flow')} value={flow} valueType="%" icon={ACTIVITY} theme={2} />}
           </div>
-          <PercentageChart title={t('dashboard.User.awarness')} value={handleAwareness()} />
+          {/* <PercentageChart title={t('dashboard.User.awarness')} value={handleAwareness()} /> */}
+          <div>
+            {awareness === 'NO_AWARENESS'
+              ? <IconChart title={t('dashboard.User.awarness')} value={'Null'} valueType="" icon={null} theme={2} />
+              : <IconChart title={t('dashboard.User.awarness')} value={awareness} valueType="number" icon={UP} theme={2} />}
+          </div>
           {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
           <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
         </div>
