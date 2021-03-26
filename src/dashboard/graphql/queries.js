@@ -158,6 +158,14 @@ export const listUsersWithSensiesByUserId = (userId, dates) => `
         lastName
         id
         picture
+        selfAwarenessScores {
+          items {
+            id
+            timestamp 
+            selfAssessment
+            score
+          }
+        }
     }
   }
 `
@@ -218,15 +226,13 @@ export const getClientsFromCoach = (id, dates) => `
           picture
           userCoachId
           selfAwareness
-          sensies(limit: 10000, sortDirection: DESC, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+          selfAwarenessScores {
             items {
               id
-              result
-              createdAt
-              timestamp
-              affirmationId
+              timestamp 
+              selfAssessment
+              score
             }
-            nextToken
           }
         }
       }

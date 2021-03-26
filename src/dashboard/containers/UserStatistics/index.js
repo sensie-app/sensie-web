@@ -30,8 +30,12 @@ const UserStatistics = ({ data, sensies }) => {
   // ? hooks
   const [t] = useTranslation('global')
   // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
-  console.log('sensies:', sensies.length)
-  console.log('sensies:', sensies)
+
+  const handleAwareness = () => {
+    const sortedScores = data.selfAwarenessScores.items.sort((a, b) => b.timestamp - a.timestamp)
+    const latest = sortedScores.length > 0 ? sortedScores[0].score : 0
+    return latest
+  }
 
   // ? handle functions
   /**
@@ -90,7 +94,7 @@ const UserStatistics = ({ data, sensies }) => {
           </div>
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.PieChart.awarness')} value={Math.ceil(Math.random() * 100)} icon={UP} theme={2}/>
+            <IconChart title={t('dashboard.PieChart.awarness')} value={handleAwareness()} icon={UP} theme={2}/>
           </div>
           {/* <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>

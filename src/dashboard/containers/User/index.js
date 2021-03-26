@@ -44,6 +44,12 @@ const User = ({ user, sensies, show, affirmation }) => {
     })
   }
 
+  const handleAwareness = () => {
+    const sortedScores = user.selfAwarenessScores.items.sort((a, b) => b.timestamp - a.timestamp)
+    const latest = sortedScores.length > 0 ? sortedScores[0].score : 0
+    return latest
+  }
+
   // ? handle functions
   /**
    * handleTotalSensies
@@ -85,7 +91,7 @@ const User = ({ user, sensies, show, affirmation }) => {
               ? <IconChart title={t('dashboard.IconChart.flow')} value={'Null'} valueType="" icon={null} theme={2} />
               : <IconChart title={t('dashboard.IconChart.flow')} value={flow} valueType="%" icon={ACTIVITY} theme={2} />}
           </div>
-          <PercentageChart title={t('dashboard.User.awarness')} value={user.selfAwareness || 0} />
+          <PercentageChart title={t('dashboard.User.awarness')} value={handleAwareness()} />
           {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
           <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
         </div>
