@@ -49,7 +49,7 @@ const AffirmationChart = ({ data, multiUser = true, value, onClickValue = () => 
   return (
     <section className={styles.AffirmationChartContainer}>
       <button onClick={() => onClickValue(data)} className={isActive ? styles.AffirmationChartBtnActive : undefined}>
-        <span className={styles.AffirmationChartText}>{data.name} - <i>{multiUser && (data._userCount + ' users') } ({data.sensies.items.length} Sensies)</i></span>
+        <span className={styles.AffirmationChartText}>{data.name}</span>
         <div className={styles.AffirmationChartChartContainer}>
           <div
             className={styles.AffirmationChartChart}
@@ -59,6 +59,9 @@ const AffirmationChart = ({ data, multiUser = true, value, onClickValue = () => 
             }}
           />
           <span className={styles.AffirmationChartChartText}>{handleValue0('0%', handleValue())}</span>
+        </div>
+        <div style={{ width: '100%' }}>
+          <span className={styles.AffirmationChartText} style={{ float: 'right' }}><i>{multiUser && (data._userCount + ' users') } ({data.sensies.items.length} Sensies)</i></span>
         </div>
       </button>
     </section>
