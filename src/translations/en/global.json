@@ -51,6 +51,7 @@
     "MenuListComposition": {
       "today": "Today",
       "lastDay": "Last day",
+      "last3Day": "Last 3 days",
       "lastWeek": "Last week",
       "lastMonth": "Last month",
       "lastYear": "Last year",
