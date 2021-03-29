@@ -136,10 +136,11 @@ const Layout = ({ children }) => {
    */
   const renderAvatar = () => {
     const user = data
+    const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
     return <div className={styles.LayoutLinkToListItem}>
       <div className={styles.LayoutAvatarImgContainer}>
         <button className={styles.LayoutAvatarBtnImg} onClick={() => handleDrawerOpen()}>
-          <ImageAvatar url={user.gender === 'Male' ? avatarMale : avatarFemale} alt={user.name} size="small" />
+        <ImageAvatar url={data.picture || defaultAvatar} alt="avatar" size="small" />
         </button>
       </div>
       <div className={styles.LayoutAvatarTextContainer}>
