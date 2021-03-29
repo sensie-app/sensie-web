@@ -297,6 +297,7 @@ export const listTopicsQuery = () => `
             affirmation {
               name
               id
+              createdAt
               topics {
                 items {
                   topic {
@@ -378,6 +379,7 @@ export const getPacksFromUser = id => `
                   description
                   id
                   name
+                  createdAt
                   topics {
                     items {
                       topic {
@@ -407,6 +409,7 @@ export const getPacksFromUser = id => `
                 description
                 id
                 name
+                createdAt
                 topics {
                   items {
                     topic {
@@ -519,6 +522,7 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
             description
             id 
             name
+            createdAt
             sensies(limit: 1000000, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
               items {
                 id
@@ -562,6 +566,7 @@ export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId, ne
             description
             id 
             name
+            createdAt
             sensies(limit: 1000000, filter: {calibration: {eq: false}, userId: {eq: "${userId}"},timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
               items {
                 id
