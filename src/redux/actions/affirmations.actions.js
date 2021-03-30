@@ -28,9 +28,11 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
   const action = user ? getAffirmationsFromPacksByUser(id, dates, limit, user) : getAffirmationsFromPacks(id, dates, limit)
   try {
     const response = await API.graphql(graphqlOperation(action))
-    const packs = response.data.getUser.packs.items.map(item => item.affirmations.items.map(i => Object.assign(i, { _packId: item.id })))
+    const packs = response.data.getUser.packs.items.map(item => {
+      return item.affirmations.items.map(i => Object.assign(i, { _packName: item.name, _packId: item.id }))
+    })
     const flatPacks = [].concat(...packs)
-    const affs = flatPacks.map(item => Object.assign(item.affirmation, { _packId: item._packId }))
+    const affs = flatPacks.map(item => Object.assign(item.affirmation, { _packName: item._packName, _packId: item._packId }))
     const _ids = affs.map(item => item.id)
     const packIds = {}
     const affsUnique = affs.filter((v, i, s) => {
