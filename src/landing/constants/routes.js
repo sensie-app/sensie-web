@@ -14,7 +14,9 @@ const LANDING_ROUTES = {
   aboutsensie: landing + '/aboutsensie',
   abs: landing + '/aboutsensie/#abs',
   scc: landing + '/science/#scc',
-  contact: landing + '/contact'
+  contact: landing + '/contact',
+  privacy: landing + '/privacy',
+  terms: landing + '/terms'
 }
 
 export default LANDING_ROUTES

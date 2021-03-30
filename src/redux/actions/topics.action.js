@@ -21,11 +21,13 @@ export const getAllTopicsAction = () => async dispatch => {
 
   try {
     const response = await API.graphql(graphqlOperation(listTopicsQuery()))
+    console.log(response)
     dispatch({
       type: GET_ALL_TOPICS,
       payload: response.data.listTopics.items
     })
   } catch (error) {
+    console.log('err:', error)
     dispatch({
       type: ERROR,
       payload: 'Error in get topics'

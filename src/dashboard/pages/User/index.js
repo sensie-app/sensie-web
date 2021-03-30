@@ -38,10 +38,12 @@ const User = () => {
   console.log('User page: ', id)
   const {
     filtersReducer: { globalDateFilter },
+    affirmationsReducer,
     userReducer: { user }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [client, setClient] = useState({})
+  const [sensies, setSensies] = useState([])
   const [redirect, setRedirect] = useState(false)
   // const [affirmations, setAffirmations] = useState([])
   const [waitQuery, setWaitQuery] = useState(true)
@@ -51,13 +53,15 @@ const User = () => {
 
   useEffect(() => {
     console.log('coach, ', user)
-    user && dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
-  }, [globalDateFilter])
+    console.log(user.id)
+    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
+  }, [user.loading, globalDateFilter])
 
   useEffect(async () => {
+    console.log(affirmationsReducer.affirmations)
     await handleUserQuery()
     // await handleAffirmationsQuery()
-  }, [id, globalDateFilter])
+  }, [globalDateFilter, affirmationsReducer.affirmations])
 
   // ? handle functions
   /**
@@ -71,6 +75,10 @@ const User = () => {
       if (!dbUser.loading && dbUser.value !== null) {
         const _client = dbUser.value.data.getUser
         setClient(_client)
+        const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
+        const _s = s.filter(s => s.userId === _client.id)
+        setSensies(_s)
+        console.log('sens: ', _s)
         setWaitQuery(false)
       } else { setWaitQuery(true) }
     }
@@ -93,7 +101,7 @@ const User = () => {
    * handleSensies
    * @return {boolean}
    */
-  const handleSensies = () => client.sensies.items.length > -1
+  // const handleSensies = () => sensies && (sensies.length > -1)
 
   return (
     <section className={styles.UserContainer}>
@@ -106,7 +114,7 @@ const User = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <div className={styles.UserG1Container}>
-            {waitQuery ? <Loading /> : <UserStatistics data={client} />}
+            {waitQuery ? <Loading /> : <UserStatistics data={client} sensies={sensies} />}
           </div>
         </Grid>
         {/* <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -116,13 +124,16 @@ const User = () => {
         </Grid> */}
         <Grid item xs={12}>
           <div className={styles.UserG3Container}>
-            {!waitQuery && handleSensies &&
-              <TrackAffirmations
-                // data={}
-                theme={2}
-                title={t('dashboard.User.trackAffirmations')}
-                chipsUp={true}
-              />
+            {waitQuery
+              ? <Loading />
+              : <TrackAffirmations
+                  // data={}
+                  theme={2}
+                  title={t('dashboard.User.trackAffirmations')}
+                  chipsUp={true}
+                  multiUser={false}
+                  user={client}
+                />
             }
           </div>
         </Grid>

@@ -1,7 +1,8 @@
 // amplify
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
-import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
+// import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
+import { getAffirmationsFromPacks, getAffirmationsFromPacksByUser, getSensiesByAffIdAndUser, getSensiesByAffId } from '../../dashboard/graphql/queries'
 import { createAffirmationMutation, joinAffirmationWithPackMutation, joinAffirmationWithTopicMutation } from '../../dashboard/graphql/mutations'
 // constants
 import AFFIRMATIONS from '../constants/affirmations.constants'
@@ -23,14 +24,42 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
   dispatch({
     type: LOADING
   })
-  const action = user ? listAffirmationsByUserIdAndTopicIdAndUser(id, dates, limit, user) : listAffirmationsByUserIdAndTopicId(id, dates, limit)
+  // const action = user ? listAffirmationsByUserIdAndTopicIdAndUser(id, dates, limit, user) : listAffirmationsByUserIdAndTopicId(id, dates, limit)
+  const action = user ? getAffirmationsFromPacksByUser(id, dates, limit, user) : getAffirmationsFromPacks(id, dates, limit)
   try {
     const response = await API.graphql(graphqlOperation(action))
+    const packs = response.data.getUser.packs.items.map(item => {
+      return item.affirmations.items.map(i => Object.assign(i, { _packName: item.name, _packId: item.id }))
+    })
+    const flatPacks = [].concat(...packs)
+    const affs = flatPacks.map(item => Object.assign(item.affirmation, { _packName: item._packName, _packId: item._packId }))
+    const _ids = affs.map(item => item.id)
+    const packIds = {}
+    const affsUnique = affs.filter((v, i, s) => {
+      packIds[v.id] = packIds[v.id] || []
+      packIds[v.id].push(v._packId)
+      return _ids.indexOf(v.id) === i
+    })
+    const full = await Promise.all(affsUnique.map(async aff => {
+      let nextToken = null
+      const sAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
+      const r = await API.graphql(graphqlOperation(sAction))
+      nextToken = r.data.sensiesByAffirmationAndTimestamp.nextToken
+      while (nextToken) {
+        const subAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
+        const subReq = await API.graphql(graphqlOperation(subAction))
+        nextToken = subReq.data.sensiesByAffirmationAndTimestamp.nextToken
+        r.data.sensiesByAffirmationAndTimestamp.items = r.data.sensiesByAffirmationAndTimestamp.items.concat(subReq.data.sensiesByAffirmationAndTimestamp.items)
+      }
+      return Object.assign(aff, { _packs: packIds[aff.id], sensies: r.data.sensiesByAffirmationAndTimestamp })
+    }))
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
-      payload: response.data.listAffirmations.items
+      // payload: response.data.listAffirmations.items
+      payload: full
     })
   } catch (error) {
+    console.log('error', error)
     dispatch({
       type: ERROR,
       payload: 'Error in list affirmations'

@@ -10,15 +10,15 @@ import Separator from '../../components/Separator'
 // constants
 import { IconChartTypes } from '../../constants/charts'
 // redux
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 // utils
-import { handleDefaultPictureUser, handleFlow, handleEngagement } from '../../utils/functions'
+import { handleDefaultPictureUser, handleFlow, handleAwareness } from '../../utils/functions'
 // styles
 import styles from './syles.module.scss'
 
 // const
 const moment = require('moment')
-const { ACTIVITY, UP, DOWN } = IconChartTypes
+const { ACTIVITY, UP } = IconChartTypes
 
 // * component
 /**
@@ -26,23 +26,25 @@ const { ACTIVITY, UP, DOWN } = IconChartTypes
  * @component
  * @param {object} data
  */
-const UserStatistics = ({ data }) => {
+const UserStatistics = ({ data, sensies }) => {
   // ? hooks
   const [t] = useTranslation('global')
-  const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
+  // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
 
   // ? handle functions
   /**
    * handleSensiesCount
    * @returns {number} total
    */
-  const handleSensiesCount = () => data.sensies.items.length
+  const handleSensiesCount = () => sensies.length
 
   /**
    * handleLastSensieTimestamp
    * @returns {string}
    */
-  const handleLastSensieTimestamp = () => moment(data.sensies.items[0].createdAt).format('MM/DD/yyyy | hh:mm')
+  const handleLastSensieTimestamp = () => sensies && moment((sensies[0] || {}).createdAt).format('MM/DD/yyyy | hh:mm')
+
+  const awareness = handleAwareness(data.selfAwarenessScores.items)
 
   return (
     <div className={styles.UserStatisticsContainer}>
@@ -84,19 +86,21 @@ const UserStatistics = ({ data }) => {
         {/* icon charts */}
         <div className={styles.UserStatisticsBodyCharts2Container}>
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.PieChart.awarness')} value={Math.ceil(Math.random() * 100)} icon={UP} theme={2}/>
+            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(sensies)} valueType="%" icon={ACTIVITY} theme={2} />
           </div>
           <Separator />
+          <div className={styles.UserStatisticsBodyChartsContainer}>
+            {awareness === 'NO_AWARENESS'
+              ? <IconChart title={t('dashboard.User.awarness')} value={'Null'} valueType="" icon={null} theme={2} />
+              : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/18'} valueType="" icon={UP} theme={2} />}
+          </div>
+          {/* <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
             <IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleSensiesCount())} icon={UP} theme={2} />
-          </div>
+          </div> */}
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.sensies')} value={handleSensiesCount()} icon={DOWN} theme={2} />
-          </div>
-          <Separator />
-          <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(data.sensies.items)} valueType="%" icon={ACTIVITY} theme={2} />
+            <IconChart title={t('dashboard.IconChart.sensies')} value={handleSensiesCount()} icon={UP} theme={2} />
           </div>
         </div>
       </div>}
@@ -107,7 +111,9 @@ const UserStatistics = ({ data }) => {
 // prop-types
 UserStatistics.propTypes = {
   /** data */
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  /** data */
+  sensies: PropTypes.object
 }
 
 export default UserStatistics

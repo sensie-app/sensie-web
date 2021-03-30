@@ -10,7 +10,7 @@ import CreateAffirmations from '../../containers/CreateAffirmations'
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
 // import Share from '../../components/Share'
-// import Loading from '../../components/Loading'
+import Loading from '../../components/Loading'
 import SvgIcon from '../../components/SvgIcon'
 // constants
 import IMG from '../../constants/images'
@@ -21,9 +21,9 @@ import { SIZE } from '../../constants/theme'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // utils
-import { gqlquery, gqlquery2 } from '../../utils/queries'
+import { /* gqlquery, */ gqlquery2 } from '../../utils/queries'
 // graphql queries
-import { getTopicByIdQuery } from '../../graphql/queries'
+// import { getTopicByIdQuery } from '../../graphql/queries'
 import {
   createAffirmationMutation,
   joinAffirmationWithTopicMutation,
@@ -79,8 +79,12 @@ const Topic = () => {
   // useEffect(() => handleTopicId(), [])
   // useEffect(async () => await handleTopicQuery(), [newAff])
 
-  useEffect(() => handleTopicId(), [])
-  useEffect(() => handleTopicId(), [topicsReducer])
+  // useEffect(() => handleTopicId(), [])
+  useEffect(() => {
+    if (!topicsReducer.loading) {
+      handleTopicId()
+    }
+  }, [topicsReducer])
   useEffect(() => dispatch(getAllTopicsAction()), [newAff])
 
   const [uri, setUri] = useState('')
@@ -103,7 +107,8 @@ const Topic = () => {
    * @returns {array}
    * */
   const handleTopicId = () => {
-    const tp = topicsReducer.topics.filter(topic => topic.id === id)[0]
+    const tp = topicsReducer.topics.filter(topic => topic.id === id)[0] || {}
+    console.log(tp)
     const defTopic = [{
       name: tp.name,
       description: tp.description,
@@ -116,23 +121,22 @@ const Topic = () => {
   /**
    * handleTopicQuery
    */
-  const handleTopicQuery = async () => {
-    const dbTopic = await gqlquery(getTopicByIdQuery(id))
-    const { loading, value } = dbTopic
-    if (!loading && value !== null) {
-      setTopic(value.data.getTopic)
-      const defTopic = [{
-        name: value.data.getTopic.name,
-        description: value.data.getTopic.description,
-        id: value.data.getTopic.id
-      }]
-      setDefaultTopic(defTopic)
-      setWaitQuery(false)
-    } else {
-      setWaitQuery(true)
-    }
-  }
-  console.log('handleTopicQuery', handleTopicQuery)
+  // const handleTopicQuery = async () => {
+  //   const dbTopic = await gqlquery(getTopicByIdQuery(id))
+  //   const { loading, value } = dbTopic
+  //   if (!loading && value !== null) {
+  //     setTopic(value.data.getTopic)
+  //     const defTopic = [{
+  //       name: value.data.getTopic.name,
+  //       description: value.data.getTopic.description,
+  //       id: value.data.getTopic.id
+  //     }]
+  //     setDefaultTopic(defTopic)
+  //     setWaitQuery(false)
+  //   } else {
+  //     setWaitQuery(true)
+  //   }
+  // }
 
   /**
    * handleCreateAffirmationMutation
@@ -229,7 +233,7 @@ const Topic = () => {
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => topic.affirmations.items.length
+  const handleCountAffirmations = () => topic.affirmations ? topic.affirmations.items.length : 0
 
   /**
    * handleArrTopics
@@ -261,61 +265,68 @@ const Topic = () => {
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return topic.affirmations.items.map(item => {
-      const { id, name, topics } = item.affirmation
-      return <NewAffirmation
-        checkAll={checkboxReducer.all.affirmations}
-        isChecked={value => handleIsChecked(value, id)}
-        key={id}
-        title={name}
-        selectedTopics={handleArrTopics(topics.items)}
-        withRemoveBtn={false}
-        withAddBtn={false}
-        onAddToPack={handleAddToPack}
-        onRemovePack={handleRemoveToPack}
-      />
-    })
+    if (topic.affirmations) {
+      const items = topic.affirmations.items.sort((a, b) => b.affirmation.createdAt < a.affirmation.createdAt ? -1 : 1)
+      console.log(items)
+      return items.map(item => {
+        const { id, name, topics } = item.affirmation
+        return <NewAffirmation
+          checkAll={checkboxReducer.all.affirmations}
+          isChecked={value => handleIsChecked(value, id)}
+          key={id}
+          title={name}
+          selectedTopics={handleArrTopics(topics.items)}
+          withRemoveBtn={false}
+          withAddBtn={false}
+          onAddToPack={handleAddToPack}
+          onRemovePack={handleRemoveToPack}
+        />
+      })
+    }
+    return <Loading />
   }
 
   return (
     <Fragment>
       <Header withBack={true} withPeople={false} withDate={false} backTo={affirmations} />
-      <div className={styles.TopicContainer}>
-        {/* header */}
-        <div className={styles.TopicHeaderContainer}>
-          <div className={styles.TopicHeaderImgContainer}>
-            <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${uri})` }} />
-            <div className={styles.TopicHeaderTextContainer}>
-              <div className={styles.TopicHeaderTextTitle}>
-                <SvgIcon icon={iconUri} size={SIZE.xxl} />
-                {topic !== null && <span>{topic.name}</span>}
+      {topic !== null
+        ? <div className={styles.TopicContainer}>
+            {/* header */}
+            <div className={styles.TopicHeaderContainer}>
+              <div className={styles.TopicHeaderImgContainer}>
+                <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${uri})` }} />
+                <div className={styles.TopicHeaderTextContainer}>
+                  <div className={styles.TopicHeaderTextTitle}>
+                    <SvgIcon icon={iconUri} size={SIZE.xxl} />
+                    {topic !== null && <span>{topic.name}</span>}
+                  </div>
+                  {/* <div className={styles.TopicHeaderTextDescription}>
+                    <h6>{topic.description}</h6>
+                  </div> */}
+                  <div className={styles.TopicHeaderTextAffirmations}>
+                    <span>{topic !== null && handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
+                  </div>
+                </div>
               </div>
-              {/* <div className={styles.TopicHeaderTextDescription}>
-                <h6>{topic.description}</h6>
+              {/* <div className={styles.TopicHeaderShareContainer}>
+                <Share />
               </div> */}
-              <div className={styles.TopicHeaderTextAffirmations}>
-                <span>{topic !== null && handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
-              </div>
+            </div>
+            {/* body */}
+            <div className={styles.TopicBodyContainer}>
+              <CreateAffirmations
+                defaultTopic={defaultTopic}
+                initShowForm={false}
+                showOptions={showOptions}
+                withAffirmationsByTopics={false}
+                addToPack={true}
+                onSave={handleCreateAffirmationMutation}
+                onAddToPack={handleAddManyToPack}
+              />
+                {topic !== null && renderDbAffirmations()}
             </div>
           </div>
-          {/* <div className={styles.TopicHeaderShareContainer}>
-            <Share />
-          </div> */}
-        </div>
-        {/* body */}
-        <div className={styles.TopicBodyContainer}>
-          <CreateAffirmations
-            defaultTopic={defaultTopic}
-            initShowForm={false}
-            showOptions={showOptions}
-            withAffirmationsByTopics={false}
-            addToPack={true}
-            onSave={handleCreateAffirmationMutation}
-            onAddToPack={handleAddManyToPack}
-          />
-            {topic !== null && renderDbAffirmations()}
-        </div>
-      </div>
+        : <Loading />}
       <ToastContainer
         position="bottom-center"
         autoClose={2000}

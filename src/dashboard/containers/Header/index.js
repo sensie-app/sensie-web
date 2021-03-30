@@ -74,7 +74,7 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
     switch (filter.name) {
       case 'today': filter.value = [moment().subtract(1, 'd').utc().format(), TODAY]
         break
-      case 'lastDay': filter.value = [moment().subtract(1, 'd').utc().format(), TODAY]
+      case 'last3Day': filter.value = [moment().subtract(3, 'd').utc().format(), TODAY]
         break
       case 'lastWeek': filter.value = [moment().subtract(7, 'd').utc().format(), TODAY]
         break
@@ -102,8 +102,8 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
   const renderDate = () => {
     const { name, value } = filter
     return name !== 'custom' && value.length === 2
-      ? `${moment(value[0]).format('yyyy/MM/DD')} to ${moment(value[1]).format('yyyy/MM/DD')}`
-      : `${moment(value).format('yyyy/MM/DD')}`
+      ? `${moment(value[0]).format('MM/DD/yyyy')} to ${moment(value[1]).format('MM/DD/yyyy')}`
+      : `${moment(value).format('MM/DD/yyyy')}`
   }
 
   return (

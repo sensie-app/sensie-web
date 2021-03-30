@@ -2,7 +2,7 @@
 // react
 import React, { useState, Fragment } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import MediaQuery from 'react-responsive'
+// import MediaQuery from 'react-responsive'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -177,7 +177,7 @@ const Layout = ({ children }) => {
       </MediaQuery>
       */}
       {/* ok resolution & orientation */}
-      <MediaQuery minDeviceWidth={768} orientation="landscape">
+      {/* <MediaQuery minDeviceWidth={768} orientation="landscape"> */}
         <div className={styles.LayoutContainer}>
           <CssBaseline />
           <AppBar
@@ -248,7 +248,7 @@ const Layout = ({ children }) => {
               </IconButton>
             </div>
             <Divider />
-            <List className={styles.LayoutListContainer}>
+            <List onMouseOver={() => setOpen(true)} onMouseOut={() => setOpen(false)} className={styles.LayoutListContainer}>
               <div>
                 {renderListItems()}
               </div>
@@ -264,7 +264,7 @@ const Layout = ({ children }) => {
             </div>
           </main>
         </div>
-      </MediaQuery>
+      {/* </MediaQuery> */}
     </Fragment>
   )
 }

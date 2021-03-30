@@ -5,6 +5,7 @@ const { dashboard } = APP_ROUTES
 const DASHBOARD_ROUTES = {
   entrypoint: dashboard + '/',
   home: dashboard + '/home',
+  dashboard: dashboard + '/dashboard',
   client: dashboard + '/client',
   team: dashboard + '/team',
   user: dashboard + '/user',

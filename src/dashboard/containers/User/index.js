@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 // components
 import ImageAvatar from '../../components/ImageAvatar'
-import PercentageChart from '../../components/PercentageChart'
+// import PercentageChart from '../../components/PercentageChart'
 // import BarChart from '../../components/BarChart'
 import IconChart from '../../components/IconChart'
 // constants
@@ -13,9 +13,9 @@ import { IconChartTypes } from '../../constants/charts'
 // import { UserListBtns } from '../../constants/globals'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // redux
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 // utils
-import { handleDefaultPictureUser, handleFlow, handleEngagement } from '../../utils/functions'
+import { handleDefaultPictureUser, handleFlow, handleAwareness } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // prop-types
@@ -32,17 +32,14 @@ const { ACTIVITY, UP } = IconChartTypes
  * @param {User} user
  * @param {string} show
  */
-const User = ({ user, show, affirmation }) => {
+const User = ({ user, sensies, show, affirmation }) => {
   // ? hooks
   const [t] = useTranslation('global')
-  const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
+  // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
 
-  const filterSensies = (sensies) => {
-    console.log(user.sensies.items)
-    if (!affirmation) return sensies
-    console.log(affirmation)
-    return sensies.filter((sensie) => {
-      console.log(sensie.affirmationId === affirmation.id)
+  const filterSensies = (data) => {
+    if (!affirmation) return data
+    return data.filter((sensie) => {
       return sensie.affirmationId === affirmation.id
     })
   }
@@ -53,7 +50,7 @@ const User = ({ user, show, affirmation }) => {
    * @returns {number} total sensies
    */
   const handleTotalSensies = () => {
-    return filterSensies(user.sensies.items).length
+    return filterSensies(sensies).length
   }
 
   // ? render functions
@@ -67,6 +64,8 @@ const User = ({ user, show, affirmation }) => {
       <span>{user.lastName}</span>
     </div>
   }
+  const flow = handleFlow(filterSensies(sensies))
+  const awareness = handleAwareness(user.selfAwarenessScores.items)
 
   return (
     <div className={styles.UserContainer}>
@@ -82,9 +81,18 @@ const User = ({ user, show, affirmation }) => {
       {/* body */}
       <div className={styles.UserBodySummary}>
         <div className={styles.UserBodyContainer}>
-          <div><IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(filterSensies(user.sensies.items))} valueType="%" icon={ACTIVITY} theme={2} /></div>
-          <PercentageChart title={t('dashboard.User.awarness')} value={user.selfAwareness || 0} />
-          <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div>
+          <div>
+            {flow === 'NO_SENSIES'
+              ? <IconChart title={t('dashboard.IconChart.flow')} value={'Null'} valueType="" icon={null} theme={2} />
+              : <IconChart title={t('dashboard.IconChart.flow')} value={flow} valueType="%" icon={ACTIVITY} theme={2} />}
+          </div>
+          {/* <PercentageChart title={t('dashboard.User.awarness')} value={handleAwareness()} /> */}
+          <div>
+            {awareness === 'NO_AWARENESS'
+              ? <IconChart title={t('dashboard.User.awarness')} value={'Null'} valueType="" icon={null} theme={2} />
+              : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/18'} valueType="" icon={UP} theme={2} />}
+          </div>
+          {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
           <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
         </div>
       </div>
@@ -114,6 +122,7 @@ User.propTypes = {
   /** show: { showInfo } */
   show: PropTypes.string,
   user: UserPropTypes,
+  sensies: PropTypes.object,
   affirmation: PropTypes.object
 }
 

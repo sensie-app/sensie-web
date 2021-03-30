@@ -7,11 +7,11 @@ import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import ItemCheckbox from '../../components/ItemCheckbox'
 // import Toast from '../../components/Toast'
-import MenuListComposition from '../../components/MenuListComposition'
+// import MenuListComposition from '../../components/MenuListComposition'
 // containers
 import MultipleSelectCheckbox from '../MultipleSelectCheckbox'
 // constants
-import { MenuItemNewAffirmationComponent } from '../../constants/menus'
+// import { MenuItemNewAffirmationComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -107,9 +107,9 @@ const NewAffirmation = ({
    * @param {DataAffirmation} value
    * @returns {undefined} setMenuAction
    */
-  const handleClickStateMenu = value => {
-    setMenuAction(value)
-  }
+  // const handleClickStateMenu = value => {
+  //   setMenuAction(value)
+  // }
 
   /**
    * handle input value
@@ -159,7 +159,7 @@ const NewAffirmation = ({
    * @return {undefined} Chips[] (html)
    */
   const renderChipsItems = () => {
-    return selectTopics.map((topic, index) => <Chip key={index} disabled={disabledTopics} label={topic} onClose={value => handleClickCloseChip(value)}/>)
+    return selectTopics.filter(t => t !== null).map((topic, index) => <Chip key={index} disabled={disabledTopics} label={topic} onClose={value => handleClickCloseChip(value)}/>)
   }
 
   return (
@@ -200,14 +200,14 @@ const NewAffirmation = ({
             </MultipleSelectCheckbox>
           </div>
           <div className={styles.NewAffirmationS2Icons}>
-            <div className={styles.NewAffirmationMenuActions}>
+            {/* <div className={styles.NewAffirmationMenuActions}>
               <MenuListComposition
                 data={MenuItemNewAffirmationComponent}
                 onClickValue={value => handleClickStateMenu(value)}
                 withName={false}>
                 <Icon name="more-horizontal-outline" color={fontColor1} size="md" />
               </MenuListComposition>
-            </div>
+            </div> */}
             <button onClick={() => setShowChips(!showChips)}>
               <Icon name={'arrow-ios-downward-outline'} color={fontColor1} size="md" />
             </button>
