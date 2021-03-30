@@ -181,6 +181,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
         _userCount: users.size
       })
     })
+    _data.sort((a, b) => a._packId === b._packId ? 1 : -1)
     _data.sort((a, b) => {
       return (b._userCount === a._userCount) ? (b.sensies.items.length - a.sensies.items.length) : (b._userCount - a._userCount)
     })

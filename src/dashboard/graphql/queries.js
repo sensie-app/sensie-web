@@ -516,6 +516,7 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
     getUser(id: "${coachId}") {
       packs {
         items {
+        id
         affirmations(limit: 1000000) {
           items {
           affirmation {
@@ -560,6 +561,7 @@ export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId, ne
     getUser(id: "${coachId}") {
       packs {
         items {
+        id
         affirmations(limit: 1000000) {
           items {
           affirmation {

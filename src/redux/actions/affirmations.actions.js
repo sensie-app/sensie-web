@@ -28,11 +28,16 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
   const action = user ? getAffirmationsFromPacksByUser(id, dates, limit, user) : getAffirmationsFromPacks(id, dates, limit)
   try {
     const response = await API.graphql(graphqlOperation(action))
-    const packs = response.data.getUser.packs.items.map(item => item.affirmations.items)
+    const packs = response.data.getUser.packs.items.map(item => item.affirmations.items.map(i => Object.assign(i, { _packId: item.id })))
     const flatPacks = [].concat(...packs)
-    const affs = flatPacks.map(item => item.affirmation)
+    const affs = flatPacks.map(item => Object.assign(item.affirmation, { _packId: item._packId }))
     const _ids = affs.map(item => item.id)
-    const affsUnique = affs.filter((v, i, s) => { return _ids.indexOf(v.id) === i })
+    const packIds = {}
+    const affsUnique = affs.filter((v, i, s) => {
+      packIds[v.id] = packIds[v.id] || []
+      packIds[v.id].push(v._packId)
+      return _ids.indexOf(v.id) === i
+    })
     const full = await Promise.all(affsUnique.map(async aff => {
       let nextToken = null
       const sAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
@@ -44,7 +49,7 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
         nextToken = subReq.data.sensiesByAffirmationAndTimestamp.nextToken
         r.data.sensiesByAffirmationAndTimestamp.items = r.data.sensiesByAffirmationAndTimestamp.items.concat(subReq.data.sensiesByAffirmationAndTimestamp.items)
       }
-      return Object.assign(aff, { sensies: r.data.sensiesByAffirmationAndTimestamp })
+      return Object.assign(aff, { _packs: packIds[aff.id], sensies: r.data.sensiesByAffirmationAndTimestamp })
     }))
     dispatch({
       type: GET_ALL_AFFIRMATIONS,
