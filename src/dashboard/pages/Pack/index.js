@@ -194,7 +194,7 @@ const Pack = () => {
    */
   const renderDbAffirmations = () => {
     return pack.affirmations
-      ? pack.affirmations.items.map(item => {
+      ? pack.affirmations.items.sort((a, b) => b.affirmation.createdAt < a.affirmation.createdAt ? -1 : 1).map(item => {
           if (item !== null) {
             const { name, topics } = item.affirmation
             return <NewAffirmation

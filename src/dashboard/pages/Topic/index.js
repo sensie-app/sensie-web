@@ -265,22 +265,25 @@ const Topic = () => {
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    return topic.affirmations
-      ? topic.affirmations.items.map(item => {
-          const { id, name, topics } = item.affirmation
-          return <NewAffirmation
-            checkAll={checkboxReducer.all.affirmations}
-            isChecked={value => handleIsChecked(value, id)}
-            key={id}
-            title={name}
-            selectedTopics={handleArrTopics(topics.items)}
-            withRemoveBtn={false}
-            withAddBtn={false}
-            onAddToPack={handleAddToPack}
-            onRemovePack={handleRemoveToPack}
-          />
-        })
-      : <Loading />
+    if (topic.affirmations) {
+      const items = topic.affirmations.items.sort((a, b) => b.affirmation.createdAt < a.affirmation.createdAt ? -1 : 1)
+      console.log(items)
+      return items.map(item => {
+        const { id, name, topics } = item.affirmation
+        return <NewAffirmation
+          checkAll={checkboxReducer.all.affirmations}
+          isChecked={value => handleIsChecked(value, id)}
+          key={id}
+          title={name}
+          selectedTopics={handleArrTopics(topics.items)}
+          withRemoveBtn={false}
+          withAddBtn={false}
+          onAddToPack={handleAddToPack}
+          onRemovePack={handleRemoveToPack}
+        />
+      })
+    }
+    return <Loading />
   }
 
   return (

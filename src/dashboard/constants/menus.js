@@ -6,11 +6,11 @@ export const MenuDateHeaderComponent = [
   //   name: 'today',
   //   value: TODAY
   // },
-  // {
-  //   index: 1,
-  //   name: 'lastDay',
-  //   value: ''
-  // },
+  {
+    index: 1,
+    name: 'last3Day',
+    value: ''
+  },
   {
     index: 2,
     name: 'lastWeek',
