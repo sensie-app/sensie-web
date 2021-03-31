@@ -27,7 +27,7 @@ const { actionColor1 } = COLORS
  */
 const ClientFlow = ({ graph, client, sensies, flow, awareness, resilience, trust }) => {
   // ? hooks
-  console.log(graph)
+  // console.log(graph)
   const [t] = useTranslation('global')
 
   return (

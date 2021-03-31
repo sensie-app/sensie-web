@@ -72,7 +72,7 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
    */
   const handleDates = () => {
     switch (filter.name) {
-      case 'today': filter.value = [moment().subtract(1, 'd').utc().format(), TODAY]
+      case 'last24': filter.value = [moment().subtract(1, 'd').utc().format(), TODAY]
         break
       case 'last3Day': filter.value = [moment().subtract(3, 'd').utc().format(), TODAY]
         break

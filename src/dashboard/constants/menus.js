@@ -3,9 +3,14 @@
 export const MenuDateHeaderComponent = [
   // {
   //   index: 0,
-  //   name: 'today',
+  //   name: 'lastDay',
   //   value: TODAY
   // },
+  {
+    index: 0,
+    name: 'last24',
+    value: ''
+  },
   {
     index: 1,
     name: 'last3Day',
@@ -20,12 +25,12 @@ export const MenuDateHeaderComponent = [
     index: 4,
     name: 'lastMonth',
     value: ''
-  },
-  {
-    index: 5,
-    name: 'lastYear',
-    value: ''
   }
+  // {
+  //   index: 5,
+  //   name: 'lastYear',
+  //   value: ''
+  // }
   // {
   //   index: 6,
   //   name: 'custom',

@@ -156,8 +156,8 @@ const Home = () => {
 
   const generateDateList = (start, n) => {
     const arr = []
-    for (let i = 0; i <= n + 1; i++) {
-      const d = new Date(start.setDate(start.getDate() + 1))
+    for (let i = 0; i <= n; i++) {
+      const d = new Date(start.setHours(start.getHours() + 1))
       arr.push(d)
     }
     return arr
@@ -165,10 +165,10 @@ const Home = () => {
 
   const handleGraphData = () => {
     const dates = globalDateFilter.value
-    const diff = moment(dates[1]).diff(moment(dates[0]), 'days')
+    const diff = moment(dates[1]).diff(moment(dates[0]), 'hours')
     console.log('diff: ', diff)
     const dateList = generateDateList(new Date(dates[0]), diff)
-    const format = diff <= 30 ? 'MM/DD/YYYY' : 'MM/YYYY'
+    const format = diff <= 100 ? 'MM/DD HH' : 'MM/DD'
     // let data = [{ id: 'low', data: [{ x: new Date(dates[0]), y: 0 }, { x: new Date(dates[1]), y: 0 }] }]
     let data = [{ id: 'low', data: dateList.map(d => { return { x: new Date(d), y: 0 } }) }]
     if (!affirmationsReducer.loading && handleTotalClients() > 0) {
@@ -208,12 +208,9 @@ const Home = () => {
       const d = []
       let i = 0
       // const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
-      console.log(dateList)
-      console.log(accCount)
       for (const k of dateList) {
         const m = moment(k).format(format)
-        console.log(m)
-        d.push({ _d: k, _x: i++, x: new Date(k), y: (flowsByDate[m] / accCount[m] / accUserCount[m] * 100) || 0 })
+        d.push({ _d: k, _x: i++, x: new Date(k), y: Math.ceil(flowsByDate[m] / accCount[m] / accUserCount[m] * 100) || 0 })
       }
       data = [{ id: 'low', data: d }]
     }
