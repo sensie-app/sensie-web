@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // react
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 // import MediaQuery from 'react-responsive'
 import { useTranslation } from 'react-i18next'
@@ -37,6 +37,7 @@ import IMG from '../../constants/images'
 import styles from './styles.module.scss'
 // test data
 import { notificationsTest } from './testData'
+import { Storage } from 'aws-amplify'
 
 // constants
 const { home, client, affirmations, /* sageDashboard, */ profile } = DASHBOARD_ROUTES
@@ -54,6 +55,7 @@ const Layout = ({ children }) => {
   // ? hooks
   const { userReducer: { user: { data } } } = useSelector(state => state)
   const [open, setOpen] = useState(false)
+  const [picture, setPicture] = useState()
   const classes = useStyles()
   const [t] = useTranslation('global')
 
@@ -130,17 +132,26 @@ const Layout = ({ children }) => {
     )
   }
 
+  const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
+
+  const getImage = async function (k) {
+    return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
+  }
+
+  useEffect(() => {
+    getImage(data.picture).then(d => setPicture(d))
+  }, [data])
+
   /**
    * render avatar drawer
    * @returns {undefined} user avatar (html)
    */
   const renderAvatar = () => {
     const user = data
-    const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
     return <div className={styles.LayoutLinkToListItem}>
       <div className={styles.LayoutAvatarImgContainer}>
         <button className={styles.LayoutAvatarBtnImg} onClick={() => handleDrawerOpen()}>
-        <ImageAvatar url={data.picture || defaultAvatar} alt="avatar" size="small" />
+        <ImageAvatar url={picture || defaultAvatar} alt="avatar" size="small" />
         </button>
       </div>
       <div className={styles.LayoutAvatarTextContainer}>
