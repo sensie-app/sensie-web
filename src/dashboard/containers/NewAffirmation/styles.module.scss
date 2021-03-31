@@ -12,8 +12,8 @@
 .NewAffirmationSTop {
   @include flex(row, space-between, center, nowrap);
   width: 100%;
-  word-break: break-all;
   .NewAffirmationS1 {
+    word-break: break-all;
     @include flex(row, flex-start, center, nowrap);
     width: 60%;
     h4 {
