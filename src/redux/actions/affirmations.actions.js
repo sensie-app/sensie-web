@@ -46,6 +46,8 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
       const r = await API.graphql(graphqlOperation(sAction))
       nextToken = r.data.sensiesByAffirmationAndTimestamp.nextToken
       while (nextToken) {
+        console.log('nextToken')
+        console.log(nextToken)
         const subAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
         const subReq = await API.graphql(graphqlOperation(subAction))
         nextToken = subReq.data.sensiesByAffirmationAndTimestamp.nextToken
