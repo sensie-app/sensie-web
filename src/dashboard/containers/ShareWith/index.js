@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next'
 import ItemCheckbox from '../../components/ItemCheckbox'
 import { toast } from 'react-toastify'
 // redux
-import { /* useDispatch, */ useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // import { useParams } from 'react-router-dom'
 // import { setCheckboxAllClientsAction /*, setCheckboxAllTeamsAction */ } from '../../../redux/actions/checkbox.actions'
+import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
 // styles
 import styles from './styles.module.scss'
 // fake data
@@ -25,14 +26,16 @@ import PropTypes from 'prop-types'
 const ShareWith = ({ pack }) => {
   console.log(pack)
   // ? hooks
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const {
     /* checkboxReducer: {  all: { clients, teams } }, */
+    userReducer: { user },
     usersReducer
   } = useSelector(state => state)
   const [t] = useTranslation('global')
 
   const [checked, setChecked] = useState({})
+  const [allChecked, setAllChecked] = useState(false)
   const [, forceUpdate] = useReducer(x => x + 1, 0)
 
   // ? handle functions
@@ -49,6 +52,7 @@ const ShareWith = ({ pack }) => {
       checked[k] = !!value
     }
     setChecked(checked)
+    setAllChecked(value)
     forceUpdate()
   }
 
@@ -64,10 +68,12 @@ const ShareWith = ({ pack }) => {
 
   useEffect(() => {
     usersReducer.users.forEach(user => {
-      checked[user.id] = false
+      const userPacks = user.subscribedPacks.items.map(p => p.packId)
+      const disabled = userPacks.indexOf(pack.id) > -1
+      checked[user.id] = disabled
     })
     setChecked(checked)
-  }, [])
+  }, [usersReducer.users])
 
   const handleShare = () => {
     console.log(checked)
@@ -79,6 +85,7 @@ const ShareWith = ({ pack }) => {
         i++
       }
     }
+    dispatch(listUsersByOrganizationIdAction(user.id, []))
     toast.success(`Shared Pack to ${i} users Succesfully!`)
   }
 
@@ -86,7 +93,7 @@ const ShareWith = ({ pack }) => {
     const id = e.target.value
     checked[id] = !checked[id]
     setChecked(checked)
-    forceUpdate()
+    // forceUpdate()
   }
 
   // ? render functions
@@ -96,10 +103,16 @@ const ShareWith = ({ pack }) => {
    */
   const renderListClients = () => {
     return usersReducer.users.map((user, index) => {
-      console.log(checked)
+      const userPacks = user.subscribedPacks.items.map(p => p.packId)
+      const disabled = userPacks.indexOf(pack.id) > -1
+      // checked[user.id] = disabled || allChecked
+      if (disabled) delete checked[user.id]
       return (
-      <ItemCheckbox value={user.id} key={index} check={!!checked[user.id]} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)}>
-        <span className={styles.ShareWithItemCheckboxTitle}>{user.firstName} {user.lastName}</span>
+      <ItemCheckbox value={user.id} key={index} check={disabled || allChecked} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)} disabled={disabled}>
+        <span
+          className={styles.ShareWithItemCheckboxTitle}>
+          {user.firstName} {user.lastName}
+        </span>
       </ItemCheckbox>)
     })
   }

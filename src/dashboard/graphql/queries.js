@@ -226,6 +226,12 @@ export const getClientsFromCoach = (id, dates) => `
           picture
           userCoachId
           selfAwareness
+          subscribedPacks {
+            items {
+              packId
+              userId 
+            }
+          }
           selfAwarenessScores {
             items {
               id

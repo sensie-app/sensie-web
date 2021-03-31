@@ -26,20 +26,34 @@ const LineChart = ({ data }) => {
   // const
   /** @type {number} */
   const margin = 25
-  console.log(data)
+  const hours = data[0].data.length
+  const precision = hours <= 100 ? 'hour' : (hours <= 1000 ? 'day' : 'month')
+  const tickValues = `every 1 ${precision}`
+  const format = precision === 'hour' ? '%m/%d %H:%M' : '%m/%d'
 
   return (
     <div className={styles.LineChartContainer}>
        <ResponsiveLine
           data={data}
-          margin={{ top: margin, right: margin, bottom: margin, left: margin * 2 }}
+          margin={{ top: margin, right: margin, bottom: margin * 3, left: margin * 2 }}
           enablePoints={false}
           enablePointLabel={false}
           enableGridX={false}
           enableGridY={true}
           colors={[actionColor1, actionColor2]}
           xScale={{
-            type: 'linear'
+            type: 'time',
+            format: 'native',
+            precision: precision
+          }}
+          xFormat={`time:${format}`}
+          axisBottom={{
+            tickValues: tickValues,
+            // tickValues: 'every 1 hour',
+            tickSize: 7,
+            tickPadding: 0,
+            tickRotation: -45,
+            format: `${format}`
           }}
           yScale={{
             type: 'linear',
