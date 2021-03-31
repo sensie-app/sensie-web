@@ -55,7 +55,7 @@ const Home = () => {
   const [resilienceScore, setResilienceScore] = useState(0)
   const [trustScore, setTrustScore] = useState(0)
 
-  const [graphData, setGraphData] = useState([])
+  const [graphData, setGraphData] = useState([{ id: 'low', data: [{ x: new Date(), y: 0 }, { x: new Date(), y: 100 }] }])
 
   useEffect(() => {
     console.log('GETTING INFO')
@@ -154,12 +154,24 @@ const Home = () => {
     return 0
   }
 
+  const generateDateList = (start, n) => {
+    const arr = []
+    for (let i = 0; i <= n + 1; i++) {
+      const d = new Date(start.setDate(start.getDate() + 1))
+      arr.push(d)
+    }
+    return arr
+  }
+
   const handleGraphData = () => {
-    let data = [{ id: 'low', data: [{ x: 0, y: 0 }, { x: 7, y: 100 }] }]
+    const dates = globalDateFilter.value
+    const diff = moment(dates[1]).diff(moment(dates[0]), 'days')
+    console.log('diff: ', diff)
+    const dateList = generateDateList(new Date(dates[0]), diff)
+    const format = diff <= 30 ? 'MM/DD/YYYY' : 'MM/YYYY'
+    // let data = [{ id: 'low', data: [{ x: new Date(dates[0]), y: 0 }, { x: new Date(dates[1]), y: 0 }] }]
+    let data = [{ id: 'low', data: dateList.map(d => { return { x: new Date(d), y: 0 } }) }]
     if (!affirmationsReducer.loading && handleTotalClients() > 0) {
-      const dates = globalDateFilter.value
-      const diff = moment(dates[1]).diff(moment(dates[0]), 'days')
-      console.log('diff: ', diff)
       // const userSensies = usersReducer.users.map(user => user.sensies.items)
       const userSensies = affirmationsReducer.affirmations.map(affs => affs.sensies.items)
       // console.log(userSensies)
@@ -172,14 +184,15 @@ const Home = () => {
         sensieList.forEach(e => {
           // console.log(acc)
           // console.log(e)
-          const d = new Date(e.timestamp)
-          let date = d.getMonth()
-          if (diff <= 30) {
-            date = d.toLocaleDateString()
-          }
-          if (diff <= 3) { // 3 days
-            date += d.getHours()
-          }
+          const d = moment(new Date(e.timestamp))
+          const date = d.format(format)
+          // let date = d.getMonth()
+          // if (diff <= 30) {
+          //   date = d.toLocaleDateString()
+          // }
+          // if (diff <= 3) { // 3 days
+          //   date += d.getHours()
+          // }
           // console.log(date)
           const result = e.result === 1 ? 1 : 0
           acc[date] = (acc[date] ? (acc[date] + result) : result)
@@ -194,9 +207,13 @@ const Home = () => {
       // const data = [{ id: 'low', data: [{ x: 0, y: 0 }] }]
       const d = []
       let i = 0
-      const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
-      for (const k of orderedDates) {
-        d.push({ _d: k, x: i++, y: flowsByDate[k] / accCount[k] / accUserCount[k] * 100 })
+      // const orderedDates = Object.keys(flowsByDate).sort((a, b) => { return new Date(a) - new Date(b) })
+      console.log(dateList)
+      console.log(accCount)
+      for (const k of dateList) {
+        const m = moment(k).format(format)
+        console.log(m)
+        d.push({ _d: k, _x: i++, x: new Date(k), y: (flowsByDate[m] / accCount[m] / accUserCount[m] * 100) || 0 })
       }
       data = [{ id: 'low', data: d }]
     }
