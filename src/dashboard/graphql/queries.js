@@ -74,6 +74,7 @@ export const getSensiesByAffIdAndUser2 = (affId, dates, userId, nextToken) => `
 export const getUserByIdQuery = id => `
   query MyQuery {
     getUser(id: "${id}") {
+      id
       email
       firstName
       gender

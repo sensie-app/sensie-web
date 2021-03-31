@@ -6,6 +6,19 @@ export const updateUserWithCoach = (id, userCoachId) => `
   }
 `
 
+export const updateUserData = (id, picture) => `
+  mutation updateUserWithCoach {
+    updateUser(input: {id: "${id}", picture: "${picture}"}) {
+      id
+      firstName
+      lastName
+      email
+      picture
+      gender
+    }
+  }
+`
+
 export const createPackMutation = (name, description, author, packUserId, imgKey) => `
   mutation MyMutation {
     createPack(input: {description: "${description}", name: "${name}", author: "${author}", packUserId: "${packUserId}", picture: "${imgKey}"}) {

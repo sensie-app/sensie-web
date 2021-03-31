@@ -1,5 +1,5 @@
 // react
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 // material-ui
@@ -15,6 +15,9 @@ import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
+
+import { Storage } from 'aws-amplify'
+// import { v4 as uuidv4 } from 'uuid'
 
 // const
 const { avatarMale, avatarFemale } = IMG
@@ -34,11 +37,31 @@ const Profile = () => {
   const imageUploader = React.useRef(null)
   const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
+  const getImage = async function (k) {
+    console.log('picture: ', k, typeof k)
+    return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
+  }
+
+  useEffect(() => {
+    getImage(data.picture).then(d => setPicture(d))
+  }, [data.picture])
+
   const handleImageUpload = e => {
     if (e.target.files[0]) {
+      Storage.put('profiles/' + data.id + '.png', e.target.files[0], {
+        contentType: e.target.files[0].type
+      })
+        .then(res => {
+          data.picture = res.key
+        })
       setPicture(URL.createObjectURL(e.target.files[0]))
-      data.picture = URL.createObjectURL(e.target.files[0])
+      console.log(data)
     }
+  }
+
+  const handleRemoveImage = e => {
+    data.picture = null
+    setPicture()
   }
 
   const saveUserData = () => {
@@ -55,7 +78,7 @@ const Profile = () => {
           <div className={styles.ProfileGridContainer}>
             <div>
               <label>{t('dashboard.Profile.firstLastName')}</label>
-              <input value={data.firstName + ' ' + data.lastName} />
+              <input value={data.firstName + ' ' + data.lastName} disabled/>
             </div>
             <div>
               <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.role')}</label>
@@ -71,20 +94,20 @@ const Profile = () => {
             </div>
             <div>
               <label>{t('dashboard.Profile.useSensie')}</label>
-              <input />
+              <input disabled />
             </div>
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <div className={styles.ProfileGridAvatarContainer}>
             <div className={styles.ProfileAvatarContainer}>
-              <ImageAvatar url={data.picture || picture || defaultAvatar} alt="avatar" size="xlarge" />
+              <ImageAvatar url={picture || defaultAvatar} alt="avatar" size="xlarge" />
             </div>
             <div className={styles.ProfileBtnsContainer}>
               <button onClick={() => imageUploader.current.click()}>{t('dashboard.Profile.uploadImage')}
                 <input type="file" ref={imageUploader} onChange={handleImageUpload} />
               </button>
-              <button onClick={() => setPicture(null)}>{t('dashboard.Profile.removeImage')}</button>
+              <button onClick={handleRemoveImage}>{t('dashboard.Profile.removeImage')}</button>
             </div>
           </div>
         </Grid>

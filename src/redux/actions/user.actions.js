@@ -2,15 +2,26 @@
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
 import { getUserByIdQuery } from '../../dashboard/graphql/queries'
+import { updateUserData } from '../../dashboard/graphql/mutations'
 // constants
 import USER from '../constants/user.constants'
 
 const { USER_DATA, USER_ID, LOADING, ERROR } = USER
 
-export const setUserDataAction = data => {
-  return {
-    type: USER_DATA,
-    payload: data
+export const setUserDataAction = data => async (dispatch) => {
+  console.log(data)
+  try {
+    const response = await API.graphql(graphqlOperation(updateUserData(data.id, data.picture)))
+    dispatch({
+      type: USER_DATA,
+      payload: response.data.updateUser
+    })
+  } catch (error) {
+    console.log(error)
+    dispatch({
+      type: ERROR,
+      payload: 'Error in update user'
+    })
   }
 }
 
