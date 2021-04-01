@@ -13,14 +13,38 @@
   margin-bottom: 10px;
 }
 
+.ProfileFlexBox {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  flex-grow: 3;
+  .divFlex {
+    display:flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 95%;
+    min-width: 34rem;
+  }
+}
+
 .ProfileGridContainer {
   padding: 10px;
   width: 100%;
   @include flex(column, center, flex-start, nowrap);
   div {
-    width: 100%;
-    @include flex(column, center, flex-start, nowrap);
-    margin-bottom: 20px;
+    // width: 100%;
+    // @include flex(column, center, flex-start, nowrap);
+    // margin-bottom: 20px;
+    // flex-grow: 2;
     label {
       color: $fontColor1;
       font-size: 1.25rem;
@@ -41,6 +65,14 @@
       background-color: $grayColor5;
       color: $grayColor3;
     }
+    textarea {
+      width: 100%;
+      background-color: $grayColor7;
+      @include border(solid, 1px, 5px, transparent);
+      padding: 10px;
+      color: $fontColor1;
+      font-size: 1.25rem;
+    }
   }
 }
 
@@ -51,6 +83,7 @@
   height: 45vh;
   @include flex(column, center, center, nowrap);
   border-radius: 5px;
+  flex-grow: 2;
 }
 
 .ProfileAvatarContainer {

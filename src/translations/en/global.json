@@ -231,6 +231,7 @@
       "role": "Role",
       "email": "Email",
       "useSensie": "How would you like to use Sensie?",
+      "info": "Info",
       "uploadImage": "Upload image",
       "removeImage": "Remove image",
       "cancel": "Cancel",

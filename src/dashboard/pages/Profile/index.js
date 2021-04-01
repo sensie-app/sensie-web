@@ -34,6 +34,7 @@ const Profile = () => {
   const dispatch = useDispatch()
   const [t] = useTranslation('global')
   const [picture, setPicture] = useState()
+  const [info, setInfo] = useState()
   const imageUploader = React.useRef(null)
   const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
@@ -55,13 +56,18 @@ const Profile = () => {
           data.picture = res.key
         })
       setPicture(URL.createObjectURL(e.target.files[0]))
-      console.log(data)
     }
   }
 
   const handleRemoveImage = e => {
     data.picture = null
     setPicture()
+  }
+
+  const handleInfo = e => {
+    setInfo(e.target.value)
+    data.info = e.target.value
+    console.log(info)
   }
 
   const saveUserData = () => {
@@ -74,49 +80,57 @@ const Profile = () => {
         <Title text={t('dashboard.Profile.profile')} />
       </div>
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-          <div className={styles.ProfileGridContainer}>
-            <div>
-              <label>{t('dashboard.Profile.firstLastName')}</label>
-              <input value={data.firstName + ' ' + data.lastName} disabled/>
+        <div className={styles.ProfileGridContainer}>
+          <div className={styles.ProfileFlexBox}>
+            <div className={styles.flex}>
+              <div className={styles.divFlex}>
+                <div>
+                  <div>
+                    <label>{t('dashboard.Profile.firstLastName')}</label>
+                    <input value={data.firstName + ' ' + data.lastName} disabled/>
+                  </div>
+                  <div>
+                    <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.email')}</label>
+                    <input value={data.email} disabled />
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.role')}</label>
+                    <input value="Coach" disabled />
+                  </div>
+                  <div>
+                    <label>{t('dashboard.Profile.useSensie')}</label>
+                    <input disabled />
+                  </div>
+                </div>
+              </div>
+              <div style={{ width: '95%' }}>
+                <label>{t('Info')}</label>
+                <textarea value={data.info} onChange={handleInfo} cols='50' row='10' />
+              </div>
             </div>
-            <div>
-              <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.role')}</label>
-              <input value="Coach" disabled />
+            <div style={{ width: '50%' }}>
+              <div className={styles.ProfileGridAvatarContainer}>
+              <div className={styles.ProfileAvatarContainer}>
+                <ImageAvatar url={picture || defaultAvatar} alt="avatar" size="xlarge" />
+              </div>
+              <div className={styles.ProfileBtnsContainer}>
+                <button onClick={() => imageUploader.current.click()}>{t('dashboard.Profile.uploadImage')}
+                  <input type="file" ref={imageUploader} onChange={handleImageUpload} />
+                </button>
+                <button onClick={handleRemoveImage}>{t('dashboard.Profile.removeImage')}</button>
+              </div>
+              <div className={styles.ProfileFooterContainer}>
+                <Link to={home}>
+                <button>{t('dashboard.Profile.cancel')}</button>
+                </Link>
+                <button onClick={saveUserData}>{t('dashboard.Profile.save')}</button>
+              </div>
             </div>
           </div>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-          <div className={styles.ProfileGridContainer}>
-            <div>
-              <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.email')}</label>
-              <input value={data.email} disabled />
-            </div>
-            <div>
-              <label>{t('dashboard.Profile.useSensie')}</label>
-              <input disabled />
-            </div>
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-          <div className={styles.ProfileGridAvatarContainer}>
-            <div className={styles.ProfileAvatarContainer}>
-              <ImageAvatar url={picture || defaultAvatar} alt="avatar" size="xlarge" />
-            </div>
-            <div className={styles.ProfileBtnsContainer}>
-              <button onClick={() => imageUploader.current.click()}>{t('dashboard.Profile.uploadImage')}
-                <input type="file" ref={imageUploader} onChange={handleImageUpload} />
-              </button>
-              <button onClick={handleRemoveImage}>{t('dashboard.Profile.removeImage')}</button>
-            </div>
-          </div>
-        </Grid>
-        <div className={styles.ProfileFooterContainer}>
-          <Link to={home}>
-           <button>{t('dashboard.Profile.cancel')}</button>
-          </Link>
-          <button onClick={saveUserData}>{t('dashboard.Profile.save')}</button>
         </div>
+      </div>
       </Grid>
     </div>
   )
