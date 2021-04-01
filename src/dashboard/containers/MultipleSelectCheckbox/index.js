@@ -44,7 +44,7 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
   const [data, setData] = useState(topics)
   // const [t] = useTranslation('global')
 
-  useEffect(() => setData(topics.length > 0 ? topics : testData), [])
+  useEffect(() => setData(topics.length > 0 ? topics : testData), [topics])
   useEffect(() => setItems(defValue), [open])
   useEffect(() => onClickValue(items), [items])
 

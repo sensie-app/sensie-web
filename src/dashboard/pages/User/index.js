@@ -23,6 +23,7 @@ import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.a
 import { gqlquery } from '../../utils/queries'
 // styles
 import styles from './styles.module.scss'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 
 // const
 const { home } = DASHBOARD_ROUTES
@@ -52,6 +53,7 @@ const User = () => {
   useEffect(() => client === undefined ? setRedirect(true) : setRedirect(false), [globalDateFilter])
 
   useEffect(() => {
+    dispatch(getAllTopicsAction())
     if (user.id) {
       console.log('coach, ', user)
       dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
@@ -119,19 +121,17 @@ const User = () => {
           </div>
         </Grid> */}
         <Grid item xs={12}>
-          <div className={styles.UserG3Container}>
-            {waitQuery
-              ? <Loading />
-              : <TrackAffirmations
-                  // data={}
-                  theme={2}
-                  title={t('dashboard.User.trackAffirmations')}
-                  chipsUp={true}
-                  multiUser={false}
-                  user={client}
-                />
-            }
-          </div>
+          {waitQuery
+            ? <Loading />
+            : <TrackAffirmations
+                // data={}
+                theme={2}
+                title={t('dashboard.User.trackAffirmations')}
+                chipsUp={true}
+                multiUser={false}
+                user={client}
+              />
+          }
         </Grid>
       </Grid>
     </section>

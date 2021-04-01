@@ -1,5 +1,5 @@
 // react
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 // components
 import AffirmationsList from '../../containers/AffirmationsList'
@@ -36,11 +36,10 @@ const TrackAffirmations = ({
     <section className={`${styles.TrackAffirmationsContainer} ${fixHeight ? styles.TrackAffirmationsContainerHeight : styles.TrackAffirmationsContainerHeightMin}`}>
       <div className={styles.TrackAffirmationsBodyContainer}>
         {/* header */}
-        {theme !== 2 && <TitleAndButton title={title} btnTitle={btn.title} route={btn.route} />}
+        {theme !== 2 && <Fragment><TitleAndButton title={title} btnTitle={btn.title} route={btn.route} /> <Line /></Fragment>}
         {/* line */}
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
-          <Line />
           <AffirmationsList getSensies={getSensies} multiUser={multiUser} user={user} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
         </div>
       </div>
