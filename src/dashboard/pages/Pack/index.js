@@ -29,6 +29,7 @@ import {
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { listPacksAction } from '../../../redux/actions/packs.actions'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // import { createAffirmationAction } from '../../../redux/actions/affirmations.actions'
 // styles
 import styles from './styles.module.scss'
@@ -62,6 +63,11 @@ const Pack = () => {
   useEffect(() => handlePackId(), [])
   useEffect(() => handlePackId(), [packsReducer])
   useEffect(() => dispatch(listPacksAction(user.id)), [user.loading, newAff])
+
+  useEffect(async () => {
+    console.log(packsReducer)
+    dispatch(getAllTopicsAction())
+  }, [user.loading, newAff])
 
   const [uri, setUri] = useState('')
   // const [iconUri, setIconUri] = useState('')

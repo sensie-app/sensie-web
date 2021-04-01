@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.scss'
 import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
 import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 
 // * page
 /**
@@ -45,6 +46,7 @@ const Client = () => {
     console.log(dispatch)
     console.log(listUsersByOrganizationIdAction)
     console.log(listAffirmationsByCoachId)
+    dispatch(getAllTopicsAction())
     dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000))
     console.log(user)

@@ -172,7 +172,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
     if (topicIds.length > 0) {
       _data = _data.filter(item => {
         const topicMatches = item.topics.items.filter(t => {
-          return topicIds.indexOf(t.topic.id) > -1
+          return t.topic ? topicIds.indexOf(t.topic.id) > -1 : false
         })
         return topicMatches.length > 0
       })
