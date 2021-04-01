@@ -20,6 +20,7 @@ import styles from './styles.module.scss'
 import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
 import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
+import { listPacksAction } from '../../../redux/actions/packs.actions'
 
 // * page
 /**
@@ -47,6 +48,7 @@ const Client = () => {
     console.log(listUsersByOrganizationIdAction)
     console.log(listAffirmationsByCoachId)
     dispatch(getAllTopicsAction())
+    dispatch(listPacksAction(user.id))
     dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000))
     console.log(user)

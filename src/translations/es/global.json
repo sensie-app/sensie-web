@@ -68,7 +68,8 @@
       "deleteAffirmation": "Delete affirmation"
     },
     "MultipleSelectCheckbox": {
-      "topics": "Topics"
+      "topics": "Topics",
+      "packs": "Packs"
     },
     "ClientFlowOverview": {
       "title": "Client Flow Overview"

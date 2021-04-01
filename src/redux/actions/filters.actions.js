@@ -1,6 +1,6 @@
 import FILTERS from '../constants/filters.constants'
 
-const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION } = FILTERS
+const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_PACK_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION } = FILTERS
 
 export const setGlobalDateFilterAction = data => {
   return {
@@ -12,6 +12,13 @@ export const setGlobalDateFilterAction = data => {
 export const setAffirmationsStateFilterAction = data => {
   return {
     type: AFFIRMATIONS_STATE_FILTER,
+    payload: data
+  }
+}
+
+export const setAffirmationsPackFilterAction = data => {
+  return {
+    type: AFFIRMATIONS_PACK_FILTER,
     payload: data
   }
 }

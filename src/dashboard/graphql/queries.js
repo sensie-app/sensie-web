@@ -126,6 +126,14 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
             id
             name
             description
+            packs {
+              items {
+                pack {
+                  id
+                  name
+                }
+              }
+            }
             topics {
               items {
                 topic {
@@ -387,6 +395,15 @@ export const getPacksFromUser = id => `
                   id
                   name
                   createdAt
+                  packs {
+                    items {
+                      pack {
+                        description
+                        id
+                        name
+                      }
+                    }
+                  }
                   topics {
                     items {
                       topic {
@@ -417,6 +434,15 @@ export const getPacksFromUser = id => `
                 id
                 name
                 createdAt
+                packs {
+                  items {
+                    pack {
+                      description
+                      id
+                      name
+                    }
+                  }
+                }
                 topics {
                   items {
                     topic {
@@ -450,6 +476,15 @@ export const listPacksWiyhAffirmationsIdsByIdQuery = id => `
               description
               id
               name
+              packs {
+                items {
+                  pack {
+                    description
+                    id
+                    name
+                  }
+                }
+              }
               topics {
                 items {
                   topic {
@@ -543,6 +578,15 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
               }
               nextToken
             }
+            packs {
+              items {
+                pack {
+                  id
+                  name 
+                  description 
+                }
+              }
+            }
             topics {
               items {
                 id
@@ -588,6 +632,15 @@ export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId, ne
                 timestamp
               }
               nextToken
+            }
+            packs {
+              items {
+                id
+                pack {
+                  id
+                  name
+                }
+              }
             }
             topics {
               items {
