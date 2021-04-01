@@ -1,5 +1,5 @@
 // react
-import React, { useEffect, useState, useReducer } from 'react'
+import React, { useState, useReducer } from 'react'
 import { useTranslation } from 'react-i18next'
 // components
 import ItemCheckbox from '../../components/ItemCheckbox'
@@ -66,14 +66,14 @@ const ShareWith = ({ pack }) => {
     }
   }
 
-  useEffect(() => {
-    usersReducer.users.forEach(user => {
-      const userPacks = user.subscribedPacks.items.map(p => p.packId)
-      const disabled = userPacks.indexOf(pack.id) > -1
-      checked[user.id] = disabled
-    })
-    setChecked(checked)
-  }, [usersReducer.users])
+  // useEffect(() => {
+  //   usersReducer.users.forEach(user => {
+  //     const userPacks = user.subscribedPacks.items.map(p => p.packId)
+  //     const disabled = userPacks.indexOf(pack.id) > -1
+  //     checked[user.id] = disabled
+  //   })
+  //   setChecked(checked)
+  // }, [usersReducer.users])
 
   const handleShare = () => {
     console.log(checked)
@@ -93,6 +93,7 @@ const ShareWith = ({ pack }) => {
     const id = e.target.value
     checked[id] = !checked[id]
     setChecked(checked)
+    console.log(checked)
     // forceUpdate()
   }
 
@@ -105,8 +106,9 @@ const ShareWith = ({ pack }) => {
     return usersReducer.users.map((user, index) => {
       const userPacks = user.subscribedPacks.items.map(p => p.packId)
       const disabled = userPacks.indexOf(pack.id) > -1
-      // checked[user.id] = disabled || allChecked
+      checked[user.id] = disabled || allChecked
       if (disabled) delete checked[user.id]
+      console.log(checked)
       return (
       <ItemCheckbox value={user.id} key={index} check={disabled || allChecked} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)} disabled={disabled}>
         <span

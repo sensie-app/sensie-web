@@ -1,5 +1,5 @@
 // react
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // components
@@ -15,6 +15,10 @@ import { IconChartTypes } from '../../constants/charts'
 import { handleDefaultPictureUser, handleFlow, handleAwareness } from '../../utils/functions'
 // styles
 import styles from './syles.module.scss'
+import { Storage } from 'aws-amplify'
+
+import IMG from '../../constants/images'
+const { avatarFemale, avatarMale } = IMG
 
 // const
 const moment = require('moment')
@@ -29,6 +33,7 @@ const { ACTIVITY, UP } = IconChartTypes
 const UserStatistics = ({ data, sensies }) => {
   // ? hooks
   const [t] = useTranslation('global')
+  const [picture, setPicture] = useState()
   // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
 
   // ? handle functions
@@ -46,13 +51,23 @@ const UserStatistics = ({ data, sensies }) => {
 
   const awareness = handleAwareness(data.selfAwarenessScores.items)
 
+  const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
+
+  const getImage = async function (k) {
+    return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
+  }
+
+  useEffect(() => {
+    getImage(data.picture).then(d => setPicture(d))
+  }, [data])
+
   return (
     <div className={styles.UserStatisticsContainer}>
       {/* header */}
       <div className={styles.UserStatisticsHeaderContainer}>
         {/* avatar */}
         <div className={styles.UserStatisticsHeaderAvatar}>
-          <ImageAvatar size="xlarge" url={data.picture || handleDefaultPictureUser(data.gender)} alt={data.lastName} />
+          <ImageAvatar size="xlarge" url={picture || handleDefaultPictureUser(data.gender)} alt={data.lastName} />
         </div>
         {/* body */}
         <div className={styles.UserStatisticsHeaderBody}>

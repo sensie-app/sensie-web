@@ -27,6 +27,7 @@ const TrackAffirmations = ({
   limit,
   title,
   btn,
+  user,
   fixHeight = false,
   theme = 1,
   getSensies = () => {}
@@ -40,7 +41,7 @@ const TrackAffirmations = ({
         {/* body */}
         <div className={styles.TrackAffirmationsOptionsContainer}>
           <Line />
-          <AffirmationsList getSensies={getSensies} multiUser={multiUser} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
+          <AffirmationsList getSensies={getSensies} multiUser={multiUser} user={user} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
         </div>
       </div>
     </section>
@@ -53,6 +54,8 @@ TrackAffirmations.propTypes = {
   chipsUp: PropTypes.bool,
   /** multiUser */
   multiUser: PropTypes.bool,
+  /** user */
+  user: PropTypes.object,
   /** number of affirmations */
   limit: PropTypes.number,
   /** title section */

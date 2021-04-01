@@ -1,5 +1,5 @@
 // react
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
@@ -20,6 +20,10 @@ import { handleDefaultPictureUser, handleFlow, handleAwareness } from '../../uti
 import styles from './styles.module.scss'
 // prop-types
 import { UserPropTypes } from '../../prop-types'
+import { Storage } from 'aws-amplify'
+
+import IMG from '../../constants/images'
+const { avatarFemale, avatarMale } = IMG
 
 // const
 const { ACTIVITY, UP } = IconChartTypes
@@ -36,6 +40,7 @@ const User = ({ user, sensies, show, affirmation }) => {
   // ? hooks
   const [t] = useTranslation('global')
   // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
+  const [picture, setPicture] = useState()
 
   const filterSensies = (data) => {
     if (!affirmation) return data
@@ -67,13 +72,23 @@ const User = ({ user, sensies, show, affirmation }) => {
   const flow = handleFlow(filterSensies(sensies))
   const awareness = handleAwareness(user.selfAwarenessScores.items)
 
+  const defaultAvatar = user.gender === 'Male' ? avatarMale : avatarFemale
+
+  const getImage = async function (k) {
+    return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
+  }
+
+  useEffect(() => {
+    getImage(user.picture).then(d => setPicture(d))
+  }, [])
+
   return (
     <div className={styles.UserContainer}>
       {/* avatar */}
       <div className={styles.UserAvatarContainer}>
         <Link to={DASHBOARD_ROUTES.user + '/' + user.id}>
           <div>
-            <ImageAvatar url={user.picture || handleDefaultPictureUser(user.gender)} alt={user.lastName} />
+            <ImageAvatar url={picture || handleDefaultPictureUser(user.gender)} alt={user.lastName} />
             {renderName()}
           </div>
         </Link>

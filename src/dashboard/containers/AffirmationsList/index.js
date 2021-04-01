@@ -165,7 +165,9 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
    * @return {undefined} AffirmationChart[] (html)
    */
   const renderAffirmationsAffirmationChart = () => {
-    let _data = !affirmationsReducer.loading && limit ? affirmationsReducer.affirmations.slice(0, limit) : affirmationsReducer.affirmations
+    console.log(33333)
+    let _data = affirmationsReducer.affirmations
+    console.log(_data)
     const topicIds = selectValue.map(v => v.id)
     if (topicIds.length > 0) {
       _data = _data.filter(item => {
@@ -175,8 +177,8 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
         return topicMatches.length > 0
       })
     }
-    // const clientIds = multiUser ? usersReducer.users.map(client => client.id) : [user.id]
-    const clientIds = usersReducer.users.map(client => client.id)
+    const clientIds = multiUser ? usersReducer.users.map(client => client.id) : [user.id]
+    // const clientIds = usersReducer.users.map(client => client.id)
     // const _ids = _data.map(i => i.id)
     // _data = _data.filter((v, i, s) => { return _ids.indexOf(v.id) === i })
     _data = _data.map(item => {
@@ -190,6 +192,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
         _userCount: users.size
       })
     })
+    console.log(_data)
     _data.sort((a, b) => a._packId === b._packId ? 1 : -1)
     _data.sort((a, b) => {
       return (b._userCount === a._userCount) ? (b.sensies.items.length - a.sensies.items.length) : (b._userCount - a._userCount)

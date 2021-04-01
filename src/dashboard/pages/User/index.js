@@ -52,13 +52,13 @@ const User = () => {
   useEffect(() => client === undefined ? setRedirect(true) : setRedirect(false), [globalDateFilter])
 
   useEffect(() => {
-    console.log('coach, ', user)
-    console.log(user.id)
-    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
-  }, [user.loading, globalDateFilter])
+    if (user.id) {
+      console.log('coach, ', user)
+      dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
+    }
+  }, [user.id, globalDateFilter])
 
   useEffect(async () => {
-    console.log(affirmationsReducer.affirmations)
     await handleUserQuery()
     // await handleAffirmationsQuery()
   }, [globalDateFilter, affirmationsReducer.affirmations])
@@ -68,20 +68,16 @@ const User = () => {
    * handleUserQuery
    */
   const handleUserQuery = async () => {
-    console.log(client)
-    if (client && globalDateFilter) {
-      const dbUser = await gqlquery(listUsersWithSensiesByUserId(id, globalDateFilter.value))
-      console.log(dbUser)
-      if (!dbUser.loading && dbUser.value !== null) {
-        const _client = dbUser.value.data.getUser
-        setClient(_client)
-        const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
-        const _s = s.filter(s => s.userId === _client.id)
-        setSensies(_s)
-        console.log('sens: ', _s)
-        setWaitQuery(false)
-      } else { setWaitQuery(true) }
-    }
+    const dbUser = await gqlquery(listUsersWithSensiesByUserId(id, globalDateFilter.value))
+    if (!dbUser.loading && dbUser.value !== null) {
+      const _client = dbUser.value.data.getUser
+      setClient(_client)
+      const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
+      const _s = s.filter(s => s.userId === _client.id)
+      console.log('setting sensie')
+      setSensies(_s)
+      setWaitQuery(false)
+    } else { setWaitQuery(true) }
   }
 
   /**
