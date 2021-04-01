@@ -110,7 +110,7 @@ const Profile = () => {
                 <textarea value={data.info} onChange={handleInfo} cols='50' row='10' />
               </div>
             </div>
-            <div style={{ width: '50%' }}>
+            <div style={{ flexGrow: '3' }}>
               <div className={styles.ProfileGridAvatarContainer}>
               <div className={styles.ProfileAvatarContainer}>
                 <ImageAvatar url={picture || defaultAvatar} alt="avatar" size="xlarge" />

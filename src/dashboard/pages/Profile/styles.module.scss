@@ -18,6 +18,8 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: row;
+  width: 100%;
+  flex-grow: 3;
 }
 
 .flex {
@@ -29,7 +31,7 @@
   .divFlex {
     display:flex;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-direction: row;
     width: 95%;
     min-width: 34rem;
