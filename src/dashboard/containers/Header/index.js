@@ -9,7 +9,7 @@ import Icon from '../../components/Icon'
 import MenuListComposition from '../../components/MenuListComposition'
 import Title from '../../components/Title'
 import Modal from '../../components/Modal'
-import InvitePeople from '../../components/InvitePeople'
+// import InvitePeople from '../../components/InvitePeople'
 // constants
 import { COLORS } from '../../constants/theme'
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -129,7 +129,7 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
               <span>{t('dashboard.Header.invitePeople')}</span>
             </div>
             {/* body */}
-            <InvitePeople />
+            {/* <InvitePeople /> */}
           </Modal>}
       </div>
 
