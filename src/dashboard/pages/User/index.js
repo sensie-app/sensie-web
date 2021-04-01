@@ -24,6 +24,7 @@ import { gqlquery } from '../../utils/queries'
 // styles
 import styles from './styles.module.scss'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
+import { listPacksAction } from '../../../redux/actions/packs.actions'
 
 // const
 const { home } = DASHBOARD_ROUTES
@@ -54,10 +55,9 @@ const User = () => {
 
   useEffect(() => {
     dispatch(getAllTopicsAction())
-    if (user.id) {
-      console.log('coach, ', user)
-      dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
-    }
+    dispatch(listPacksAction(user.id))
+    console.log('coach, ', user)
+    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
   }, [user.id, globalDateFilter])
 
   useEffect(async () => {

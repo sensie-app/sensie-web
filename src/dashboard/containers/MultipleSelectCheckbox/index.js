@@ -36,15 +36,24 @@ const { grayColor4, grayColor6, fontColor1 } = COLORS
  * @param {Menutopics} defValue
  * @param {boolean} disabled (default: false)
  */
-const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = false }) => {
+const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = false, isPacks = false }) => {
   // ? hooks
-  const { topicsReducer: { topics } } = useSelector(state => state)
+  const {
+    topicsReducer: { topics },
+    packsReducer: { packs }
+  } = useSelector(state => state)
   const [items, setItems] = useState(defValue)
   const [open, setOpen] = useState(false)
-  const [data, setData] = useState(topics)
+  const [data, setData] = useState(isPacks ? packs : topics)
   // const [t] = useTranslation('global')
 
-  useEffect(() => setData(topics.length > 0 ? topics : testData), [topics])
+  useEffect(() => {
+    if (isPacks) {
+      setData(packs.length > 0 ? packs : testData)
+    } else {
+      setData(topics.length > 0 ? topics : testData)
+    }
+  }, [topics, packs])
   useEffect(() => setItems(defValue), [open])
   useEffect(() => onClickValue(items), [items])
 
@@ -124,7 +133,9 @@ MultipleSelectCheckbox.propTypes = {
   /** default value */
   defValue: PropTypes.array.isRequired,
   /** disabled */
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  /** packs */
+  isPacks: PropTypes.bool
 }
 
 export default MultipleSelectCheckbox

@@ -12,7 +12,7 @@ import Title from '../../components/Title'
 // import Pagination from '../../components/Pagination'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
+import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, setAffirmationsPackFilterAction, setAffirmationAction } from '../../../redux/actions/filters.actions'
 // import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
 // import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
 // import { setPaginationAffirmationsListAction } from '../../../redux/actions/pagination.actions'
@@ -45,15 +45,18 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
   const {
     affirmationsReducer,
     usersReducer,
-    filtersReducer: { affirmations: { topicFilter, stateFilter, affirmation } }
+    filtersReducer: { affirmations: { packFilter, topicFilter, stateFilter, affirmation } }
     // paginationReducer: { pagination: { pagAffirmationsList } }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
   const [selectValue, setSelectValue] = useState(topicFilter)
 
+  const [selectPackValue, setSelectPackValue] = useState(packFilter)
+
   useEffect(() => {
     selectValue !== topicFilter && dispatch(setAffirmationsTopicFilterAction(selectValue))
-  }, [selectValue])
+    selectPackValue !== packFilter && dispatch(setAffirmationsPackFilterAction(selectPackValue))
+  }, [selectValue, selectPackValue])
 
   // ? handle Functions
   /**
@@ -75,6 +78,8 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
    * @returns {undefined} selectValue = value
    */
   const handleClickTopicMenu = value => setSelectValue(value)
+
+  const handleClickPackMenu = value => setSelectPackValue(value)
 
   /**
    * handle click close chip
@@ -137,6 +142,21 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
     )
   }
 
+  const renderMultipleSelectCheckboxPackChildren = () => {
+    return (
+      <Fragment>
+        {
+          selectPackValue.length === 0
+            ? <Icon custom="topic" color={fontColor1} size="md" />
+            : <span className={styles.AffirmationsListMultipleSelectCheckboxItemCount}>
+                {selectPackValue.length}
+              </span>
+        }
+        <span>{t('dashboard.MultipleSelectCheckbox.packs')}</span>
+        <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
+      </Fragment>
+    )
+  }
   /**
    * render Icon
    * @return {undefined} Icon (html)
@@ -169,6 +189,16 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
     let _data = affirmationsReducer.affirmations
     console.log(_data)
     const topicIds = selectValue.map(v => v.id)
+    const packIds = selectPackValue.map(v => v.id)
+    if (packIds.length > 0) {
+      _data = _data.filter(item => {
+        console.log(item)
+        const packMatches = item.packs.items.filter(t => {
+          return t.pack ? packIds.indexOf(t.pack.id) > -1 : false
+        })
+        return packMatches.length > 0
+      })
+    }
     if (topicIds.length > 0) {
       _data = _data.filter(item => {
         const topicMatches = item.topics.items.filter(t => {
@@ -236,6 +266,17 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
                 defValue={topicFilter}
               >
                 {renderMultipleSelectCheckboxChildren()}
+              </MultipleSelectCheckbox>
+            </div>
+          </div>
+          <div className={styles.AffirmationsListFilterBtnMenu}>
+            <div className={styles.AffirmationsListFilterBtnMenuComponent}>
+              <MultipleSelectCheckbox
+                isPacks={true}
+                onClickValue={value => handleClickPackMenu(value)}
+                defValue={packFilter}
+              >
+                {renderMultipleSelectCheckboxPackChildren()}
               </MultipleSelectCheckbox>
             </div>
           </div>

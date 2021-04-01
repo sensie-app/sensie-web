@@ -6,11 +6,12 @@ const INITIAL_STATE = {
   affirmations: {
     stateFilter: MenuFilterStateAffirmationsListComponentDefaultValueState,
     topicFilter: [],
+    packFilter: [],
     affirmation: null
   }
 }
 
-const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION } = FILTERS
+const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_PACK_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION } = FILTERS
 
 const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
@@ -24,8 +25,20 @@ const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
       return {
         ...state,
         affirmations: {
+          packFilter: state.affirmations.packFilter,
           topicFilter: state.affirmations.topicFilter,
           stateFilter: payload,
+          affirmation: state.affirmations.affirmation
+        }
+      }
+
+    case AFFIRMATIONS_PACK_FILTER:
+      return {
+        ...state,
+        affirmations: {
+          packFilter: payload,
+          topicFilter: state.affirmations.topicFilter,
+          stateFilter: state.affirmations.stateFilter,
           affirmation: state.affirmations.affirmation
         }
       }
@@ -34,6 +47,7 @@ const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
       return {
         ...state,
         affirmations: {
+          packFilter: state.affirmations.packFilter,
           topicFilter: payload,
           stateFilter: state.affirmations.stateFilter,
           affirmation: state.affirmations.affirmation
@@ -44,6 +58,7 @@ const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
       return {
         ...state,
         affirmations: {
+          packFilter: state.affirmations.packFilter,
           topicFilter: state.affirmations.topicFilter,
           stateFilter: state.affirmations.stateFilter,
           affirmation: payload
