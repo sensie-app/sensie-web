@@ -11,7 +11,7 @@ const { USER_DATA, USER_ID, LOADING, ERROR } = USER
 export const setUserDataAction = data => async (dispatch) => {
   console.log(data)
   try {
-    const response = await API.graphql(graphqlOperation(updateUserData(data.id, data.picture)))
+    const response = await API.graphql(graphqlOperation(updateUserData(data.id, data.picture, data.infoText)))
     dispatch({
       type: USER_DATA,
       payload: response.data.updateUser
