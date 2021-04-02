@@ -14,7 +14,8 @@
 }
 
 .ProfileGridContainer {
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   width: 100%;
   @include flex(column, center, flex-start, nowrap);
   div {
@@ -40,6 +41,15 @@
     input[disabled] {
       background-color: $grayColor5;
       color: $grayColor3;
+    }
+    textarea {
+      width: 100%;
+      background-color: $grayColor7;
+      @include border(solid, 1px, 5px, transparent);
+      padding: 10px;
+      color: $fontColor1;
+      font-size: 1.25rem;
+      resize: none;
     }
   }
 }
