@@ -83,6 +83,7 @@ export const getUserByIdQuery = id => `
       userGroupId
       userTeamId
       picture
+      infoText
     }
   }
 `

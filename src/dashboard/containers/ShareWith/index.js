@@ -1,5 +1,5 @@
 // react
-import React, { useState, useReducer } from 'react'
+import React, { useState, useReducer, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // components
 import ItemCheckbox from '../../components/ItemCheckbox'
@@ -13,6 +13,8 @@ import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.ac
 import styles from './styles.module.scss'
 // fake data
 // import { _users, _teams } from './data'
+
+import Loading from '../../components/Loading'
 
 import { API, graphqlOperation } from 'aws-amplify'
 import { createPackSubscriptionMutation } from '../../graphql/mutations'
@@ -37,6 +39,8 @@ const ShareWith = ({ pack }) => {
   const [checked, setChecked] = useState({})
   const [allChecked, setAllChecked] = useState(false)
   const [, forceUpdate] = useReducer(x => x + 1, 0)
+
+  useEffect(() => dispatch(listUsersByOrganizationIdAction(user.id, [])), [])
 
   // ? handle functions
   /**
@@ -147,7 +151,7 @@ const ShareWith = ({ pack }) => {
               </span>
             </ItemCheckbox>
           </div>
-          {usersReducer.users.length > 0 && renderListClients()}
+          {usersReducer.loading ? <Loading /> : renderListClients()}
         </div>
         {/* _teams
         <div className={styles.ShareWithListContainer}>
