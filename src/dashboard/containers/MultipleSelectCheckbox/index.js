@@ -10,8 +10,8 @@ import Select from '@material-ui/core/Select'
 import Checkbox from '@material-ui/core/Checkbox'
 import Button from '@material-ui/core/Button'
 // components
-import Popover from '../../components/Popover'
-import Icon from '../../components/Icon'
+// import Popover from '../../components/Popover'
+// import Icon from '../../components/Icon'
 // constants
 import { COLORS } from '../../constants/theme'
 // redux
@@ -24,7 +24,7 @@ import styles from './styles.module.scss'
 import { testData } from './data'
 
 // const
-const { grayColor4, grayColor6, fontColor1 } = COLORS
+const { grayColor6, fontColor1 } = COLORS
 
 // * containers
 /**
@@ -95,11 +95,6 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
       <MenuItem key={index} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
         <Checkbox checked={items.indexOf(value) > -1} className={styles.MultipleSelectCheckboxMenuItemCheckbox} />
         <ListItemText primary={handleLargeName(value.name, 10)} />
-        <div>
-          <Popover text={value.description}>
-            <Icon name="info-outline" color={grayColor4} size="md" />
-          </Popover>
-        </div>
       </MenuItem>
     ))
   }
