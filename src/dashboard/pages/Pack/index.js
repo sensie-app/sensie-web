@@ -59,6 +59,10 @@ const Pack = () => {
   const [pack, setPack] = useState(null)
   const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
+  const [toggle, setToggle] = useState(true)
+  const [title, setTitle] = useState('')
+  const [aToggle, setAToggle] = useState(true)
+  const [author, setAuthor] = useState('')
 
   useEffect(() => handlePackId(), [])
   useEffect(() => handlePackId(), [packsReducer])
@@ -193,6 +197,18 @@ const Pack = () => {
    */
   const handleAffirmationsByTopicsQuery = async (topicId) => await gqlquery(getTopicByIdQuery(topicId))
 
+  const handleTitleChange = e => {
+    setTitle(e.target.value)
+    pack.name = e.target.value
+    console.log(title)
+  }
+
+  const handleAuthorChange = e => {
+    setAuthor(e.target.value)
+    pack.author = e.target.value
+    console.log(author)
+  }
+
   // ? render functions
   /**
    * renderDbAffirmations
@@ -233,8 +249,16 @@ const Pack = () => {
           <div className={styles.PackHeaderImgContainer}>
             <div className={styles.PackHeaderImg} style={{ backgroundImage: `url(${uri})` }} />
             <div className={styles.PackHeaderTextContainer}>
-              {pack !== null && <span>{pack.name}</span>}
-              {pack !== null && pack.author && <span style={{ fontSize: '14px' }}>By {pack.author}</span>}
+              {
+              pack !== null && (toggle
+                ? <span onDoubleClick={() => setToggle(!toggle)}>{pack.name}</span>
+                : <input value={pack.name} onChange={handleTitleChange} onDoubleClick={() => setToggle(!toggle)} />)
+              }
+              {
+              pack !== null && pack.author && (aToggle
+                ? <span style={{ fontSize: '14px' }} onDoubleClick={() => setAToggle(!aToggle)}>By {pack.author}</span>
+                : <input value={pack.author} onChange={handleAuthorChange} onDoubleClick={() => setAToggle(!aToggle)} />)
+              }
               <div>
                 <span>{pack !== null && handleCountAffirmations()} {t('dashboard.Pack.affirmations')}</span>
               </div>

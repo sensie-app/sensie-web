@@ -45,6 +45,15 @@
         color: $grayColor3;
       }
     }
+    input {
+      padding: 5px 10px;
+      background-color: $grayColor7;
+      border-radius: 5px;
+      font-size: 16px;
+      color: $fontColor1;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
   }
 }
 
