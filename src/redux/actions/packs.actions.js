@@ -16,7 +16,7 @@ export const cleanNewPackAction = data => {
   }
 }
 
-export const listPacksAction = id => async dispatch => {
+export const listPacksAction = (id, filterPacks) => async dispatch => {
   dispatch({
     type: LOADING
   })
@@ -28,10 +28,11 @@ export const listPacksAction = id => async dispatch => {
     // const sPacks = response.data.getUser.subscribedPacks.items.filter(i => i.pack !== null)
     // const subbedPacks = sPacks.map(i => Object.assign(i.pack, { type: 'subscription' }))
     const createdPacks = response.data.getUser.packs.items
+    const data = filterPacks ? createdPacks.filter(p => filterPacks.indexOf(p.id) > -1) : createdPacks
     dispatch({
       type: GET_ALL_PACKS,
       // payload: subbedPacks.concat(createdPacks)
-      payload: createdPacks
+      payload: data
     })
   } catch (error) {
     console.log('error', error)

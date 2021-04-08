@@ -15,6 +15,8 @@ import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
 // styles
 import styles from './styles.module.scss'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Storage } from 'aws-amplify'
 // import { v4 as uuidv4 } from 'uuid'
@@ -73,6 +75,7 @@ const Profile = () => {
 
   const saveUserData = () => {
     dispatch(setUserDataAction(data))
+    toast.success(t('Profile Saved'))
   }
 
   return (
@@ -136,6 +139,17 @@ const Profile = () => {
           </Link>
           <button onClick={saveUserData}>{t('dashboard.Profile.save')}</button>
         </div>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={2000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </Grid>
     </div>
   )
