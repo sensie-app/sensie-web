@@ -223,10 +223,14 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
       })
     })
     console.log(_data)
-    _data.sort((a, b) => a._packId === b._packId ? 1 : -1)
     _data.sort((a, b) => {
-      return (b._userCount === a._userCount) ? (b.sensies.items.length - a.sensies.items.length) : (b._userCount - a._userCount)
+      if (a._flow === 'NO_SENSIES') return 1
+      return (parseInt(b._flow) === parseInt(a._flow)) ? (b._userCount - a._userCount) : (parseInt(b._flow) > parseInt(a._flow) ? 1 : -1)
     })
+    // _data.sort((a, b) => {
+    //   return (b._userCount === a._userCount) ? (b.sensies.items.length - a.sensies.items.length) : (b._userCount - a._userCount)
+    // })
+    // _data.sort((a, b) => a._packId === b._packId ? 1 : -1)
     return !affirmationsReducer.loading && _data.map(item => {
       // const flow = handleFlow(item.sensies.items)
       // console.log('flow: ', flow)
