@@ -19,6 +19,7 @@ import { setAffirmationsStateFilterAction, setAffirmationsTopicFilterAction, set
 // constants
 import { MenuFilterStateAffirmationsListComponent } from '../../constants/menus'
 import { COLORS } from '../../constants/theme'
+// import { listPacksAction } from '../../../redux/actions/packs.actions'
 // utils
 import { handleFlow } from '../../utils/functions'
 // styles
@@ -52,6 +53,11 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
   const [selectValue, setSelectValue] = useState(topicFilter)
 
   const [selectPackValue, setSelectPackValue] = useState(packFilter)
+
+  // useEffect(() => {
+  //   const filter = user ? user.subscribedPacks.items.map(p => p.pack.id) : null
+  //   dispatch(listPacksAction(user.id, filter))
+  // }, [user])
 
   useEffect(() => {
     selectValue !== topicFilter && dispatch(setAffirmationsTopicFilterAction(selectValue))
@@ -189,10 +195,19 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
     let _data = affirmationsReducer.affirmations
     console.log(_data)
     const topicIds = selectValue.map(v => v.id)
+    const userPacks = user ? user.subscribedPacks.items.map(p => p.pack.id) : []
     const packIds = selectPackValue.map(v => v.id)
+    console.log(selectPackValue)
+    if (userPacks.length > 0) {
+      _data = _data.filter(item => {
+        const packMatches = item.packs.items.filter(t => {
+          return t.pack ? userPacks.indexOf(t.pack.id) > -1 : false
+        })
+        return packMatches.length > 0
+      })
+    }
     if (packIds.length > 0) {
       _data = _data.filter(item => {
-        console.log(item)
         const packMatches = item.packs.items.filter(t => {
           return t.pack ? packIds.indexOf(t.pack.id) > -1 : false
         })
@@ -231,6 +246,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
     //   return (b._userCount === a._userCount) ? (b.sensies.items.length - a.sensies.items.length) : (b._userCount - a._userCount)
     // })
     // _data.sort((a, b) => a._packId === b._packId ? 1 : -1)
+    if (_data.length < 1) return <span>{t('dashboard.AffirmationsList.noData')}</span>
     return !affirmationsReducer.loading && _data.map(item => {
       // const flow = handleFlow(item.sensies.items)
       // console.log('flow: ', flow)

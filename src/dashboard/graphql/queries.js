@@ -168,6 +168,16 @@ export const listUsersWithSensiesByUserId = (userId, dates) => `
         lastName
         id
         picture
+        subscribedPacks {
+          items {
+            packId
+            pack {
+              name
+              id
+              description
+            }
+          }
+        }
         selfAwarenessScores {
           items {
             id

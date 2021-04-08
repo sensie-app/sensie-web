@@ -55,9 +55,10 @@ const User = () => {
 
   useEffect(() => {
     dispatch(getAllTopicsAction())
-    dispatch(listPacksAction(user.id))
+    console.log(user)
     console.log('coach, ', user)
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
+    dispatch(listPacksAction(user.id))
   }, [user.id, globalDateFilter])
 
   useEffect(async () => {
@@ -79,6 +80,7 @@ const User = () => {
       console.log('setting sensie')
       setSensies(_s)
       setWaitQuery(false)
+      console.log(_client)
     } else { setWaitQuery(true) }
   }
 
