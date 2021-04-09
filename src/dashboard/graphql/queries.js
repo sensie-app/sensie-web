@@ -119,7 +119,7 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
       userOrganizationId
       userGroupId
       userTeamId
-      sensies(limit: 100000, sortDirection: ASC, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+      sensies(limit: 100000, sortDirection: ASC, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, filter: {calibration: {eq: false}}) {
         items {
           id
           timestamp
@@ -156,7 +156,7 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
 export const listUsersWithSensiesByUserId = (userId, dates) => `
   query MyQuery {
     getUser(id: "${userId}") {
-        sensies(limit: 10000, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
+        sensies(limit: 10000, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, filter: {calibration: {eq: false}}) {
           items {
             id
             result
