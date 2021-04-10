@@ -9,7 +9,7 @@ import Icon from '../../components/Icon'
 import MenuListComposition from '../../components/MenuListComposition'
 import Title from '../../components/Title'
 import Modal from '../../components/Modal'
-// import InvitePeople from '../../components/InvitePeople'
+import InvitePeople from '../../components/InvitePeople'
 // constants
 import { COLORS } from '../../constants/theme'
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -122,14 +122,14 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
 
         {/* invite people options */}
         {withPeople && !withBack && !withTitle &&
-          <Modal title={t('dashboard.Header.invitePeopleTo')}>
+          <Modal title={t('dashboard.Header.invitePeople')}>
             {/* btn */}
             <div className={styles.HeaderPeople}>
               <div className={styles.HeaderLeftIcon}><Icon name="person-add-outline" size="md" color={fontColor1}/></div>
               <span>{t('dashboard.Header.invitePeople')}</span>
             </div>
             {/* body */}
-            {/* <InvitePeople /> */}
+            <InvitePeople />
           </Modal>}
       </div>
 
