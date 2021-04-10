@@ -1,5 +1,5 @@
 // react
-import React, { useState } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -24,6 +24,7 @@ const InvitePeople = ({ link }) => {
   // ? hooks
   const [t] = useTranslation('global')
   const [showError/*, setShowError */] = useState(false)
+  const [coachLink, setCoachLink] = useState(null)
   const [/* valueInput, */setValueInput] = useState('')
 
   const {
@@ -57,32 +58,43 @@ const InvitePeople = ({ link }) => {
    */
   // const handleErrorModal = () => valueInput.length === 0 ? setShowError(true) : setShowError(false)
 
-  const generateLink = () => window.location.origin + '/dashboard?invcode=' + window.btoa(user.id + ';' + user.data.firstName + ';' + user.data.lastName)
+  const generateLink = () => {
+    console.log(user)
+    const id = user.data.invites ? user.data.invites.items[0].id : null
+    return id ? window.location.origin + '/coach-invite?id=' + id : null
+  }
+
+  useEffect(() => {
+    console.log(user.loading)
+    setCoachLink(generateLink())
+  }, [user.loading])
 
   return (
     <div className={styles.InvitePeopleContainer}>
-      <textarea id="LINK_COPY" onChange={handleInputValueChange} disabled>
-        { generateLink() }
-      </textarea>
-      <div className={styles.InvitePeopleFooterContainer}>
-        <button className={styles.InvitePeopleLinkContainer} onClick={handleClickCopyLink}>
-          <Icon name="link-2-outline" color={fontColor1} size="md" />
-          <span>{t('dashboard.InvitePeople.copyInviteLink')}</span>
-        </button>
-        {/* <button onClick={handleErrorModal}>{t('dashboard.InvitePeople.send')}</button> */}
-      </div>
-      {showError && <div className={styles.inputError}><span>{t('dashboard.InvitePeople.enterAnEmailAddress')}</span></div>}
-      <ToastContainer
-        position="bottom-center"
-        autoClose={2000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      {coachLink
+        ? <Fragment>
+            <input id="LINK_COPY" onChange={handleInputValueChange} value={coachLink} disabled />
+            <div className={styles.InvitePeopleFooterContainer}>
+              <button className={styles.InvitePeopleLinkContainer} onClick={handleClickCopyLink}>
+                <Icon name="link-2-outline" color={fontColor1} size="md" />
+                <span>{t('dashboard.InvitePeople.copyInviteLink')}</span>
+              </button>
+              {/* <button onClick={handleErrorModal}>{t('dashboard.InvitePeople.send')}</button> */}
+            </div>
+            {showError && <div className={styles.inputError}><span>{t('dashboard.InvitePeople.enterAnEmailAddress')}</span></div>}
+            <ToastContainer
+              position="bottom-center"
+              autoClose={2000}
+              hideProgressBar={true}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </Fragment>
+        : <span style={{ color: 'white', fontSize: '1.5em' }}> You have no invites </span>}
     </div>
   )
 }
