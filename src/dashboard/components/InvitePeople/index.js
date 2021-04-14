@@ -60,8 +60,9 @@ const InvitePeople = ({ link }) => {
 
   const generateLink = () => {
     console.log(user)
-    const id = user.data.invites ? user.data.invites.items[0].id : null
-    return id ? window.location.origin + '/coach-invite?id=' + id : null
+    // const id = user.data.invites.items.length > 0 ? user.data.invites.items[0].id : null
+    // return id ? window.location.origin + '/coach-invite?id=' + id : null
+    return window.location.origin + '/coach-invite?id=' + user.id
   }
 
   useEffect(() => {
