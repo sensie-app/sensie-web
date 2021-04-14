@@ -22,6 +22,8 @@ import styles from './styles.module.scss'
 // } from '../../graphql/queries'
 // utils
 // import { gqlquery } from '../../utils/queries'
+import { API, graphqlOperation } from 'aws-amplify'
+import { createInvite } from '../../graphql/mutations'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
@@ -61,6 +63,7 @@ const Home = () => {
     console.log('GETTING INFO')
     dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
+    API.graphql(graphqlOperation(createInvite(user.id)))
   }, [user.loading, globalDateFilter])
 
   useEffect(() => {
