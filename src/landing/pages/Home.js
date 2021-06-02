@@ -149,7 +149,7 @@ const Home = () => {
               />
               <DownloadImg
                 ImgStore={PlayStore}
-                link="https://play.google.com/store/apps/details?id=com.sensie"
+                link="https://play.google.com/store/apps/details?id=com.joinsensie"
               />
             </Grid>
           </Box>
