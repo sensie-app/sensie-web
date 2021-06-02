@@ -201,26 +201,26 @@ const Pack = () => {
   const renderDbAffirmations = () => {
     return pack.affirmations
       ? pack.affirmations.items.sort((a, b) => b.affirmation.createdAt < a.affirmation.createdAt ? -1 : 1).map(item => {
-        if (item !== null) {
-          const { name, topics } = item.affirmation
-          return <NewAffirmation
-            key={item.affirmation.id}
-            joinId={item.id}
-            checkAll={checkboxReducer.all.affirmations}
-            packId={id}
-            data={item.affirmation}
-            title={name}
-            selectedTopics={handleArrTopics(topics.items)}
-            withRemoveBtn={true}
-            withAddBtn={false}
-            onAddToPack={handleAddToPack}
-            onRemovePack={handleRemoveToPack}
-            onDelete={handleDeleteAffirmation}
+          if (item !== null) {
+            const { name, topics } = item.affirmation
+            return <NewAffirmation
+              key={item.affirmation.id}
+              joinId={item.id}
+              checkAll={checkboxReducer.all.affirmations}
+              packId={id}
+              data={item.affirmation}
+              title={name}
+              selectedTopics={handleArrTopics(topics.items)}
+              withRemoveBtn={true}
+              withAddBtn={false}
+              onAddToPack={handleAddToPack}
+              onRemovePack={handleRemoveToPack}
+              onDelete={handleDeleteAffirmation}
           />
-        } else {
-          return ''
-        }
-      })
+          } else {
+            return ''
+          }
+        })
       : <Loading />
   }
 
