@@ -201,26 +201,26 @@ const Pack = () => {
   const renderDbAffirmations = () => {
     return pack.affirmations
       ? pack.affirmations.items.sort((a, b) => b.affirmation.createdAt < a.affirmation.createdAt ? -1 : 1).map(item => {
-          if (item !== null) {
-            const { name, topics } = item.affirmation
-            return <NewAffirmation
-              key={item.affirmation.id}
-              joinId={item.id}
-              checkAll={checkboxReducer.all.affirmations}
-              packId={id}
-              data={item.affirmation}
-              title={name}
-              selectedTopics={handleArrTopics(topics.items)}
-              withRemoveBtn={true}
-              withAddBtn={false}
-              onAddToPack={handleAddToPack}
-              onRemovePack={handleRemoveToPack}
-              onDelete={handleDeleteAffirmation}
-            />
-          } else {
-            return ''
-          }
-        })
+        if (item !== null) {
+          const { name, topics } = item.affirmation
+          return <NewAffirmation
+            key={item.affirmation.id}
+            joinId={item.id}
+            checkAll={checkboxReducer.all.affirmations}
+            packId={id}
+            data={item.affirmation}
+            title={name}
+            selectedTopics={handleArrTopics(topics.items)}
+            withRemoveBtn={true}
+            withAddBtn={false}
+            onAddToPack={handleAddToPack}
+            onRemovePack={handleRemoveToPack}
+            onDelete={handleDeleteAffirmation}
+          />
+        } else {
+          return ''
+        }
+      })
       : <Loading />
   }
 
@@ -241,14 +241,14 @@ const Pack = () => {
             </div>
           </div>
           <div className={styles.PackHeaderShareContainer}>
-            <Share pack={pack}/>
+            <Share pack={pack} />
           </div>
         </div>
         {/* body */}
         <div className={styles.PackBodyContainer}>
-          <CreateAffirmations loading={waitQuery} initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} onSave={handleCreateAffirmationMutation}/>
+          <CreateAffirmations loading={waitQuery} initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} onSave={handleCreateAffirmationMutation} />
           {pack !== null && renderDbAffirmations()}
-          <AffirmationsByTopics onClick={handleAffirmationsByTopicsQuery} packId={id} onAddToPack={handleAddToPack}/>
+          <AffirmationsByTopics onClick={handleAffirmationsByTopicsQuery} packId={id} onAddToPack={handleAddToPack} />
         </div>
       </div>
       <ToastContainer
