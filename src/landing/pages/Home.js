@@ -145,7 +145,7 @@ const Home = () => {
             <Grid container direction="row">
               <DownloadImg
                 ImgStore={AppleStore}
-                link="https://apps.apple.com/us/app/sensie/id1551177612"
+                link="https://apps.apple.com/us/app/sensie/id1092166597"
               />
               <DownloadImg
                 ImgStore={PlayStore}
@@ -310,11 +310,11 @@ const Home = () => {
                         <Grid container direction="row">
                           <DownloadImg
                             ImgStore={AppleStore}
-                            link="https://apps.apple.com/us/app/sensie/id1092166597"
+                            link="https://apps.apple.com/us/app/sensie/id1551177612"
                           />
                           <DownloadImg
                             ImgStore={PlayStore}
-                            link="https://play.google.com/store/apps/details?id=com.sensie"
+                            link="https://play.google.com/store/apps/details?id=com.joinsensie"
                           />
                         </Grid>
                       </Box>
@@ -370,11 +370,11 @@ const Home = () => {
                   <Grid container direction="row">
                     <DownloadImg
                       ImgStore={AppleStore}
-                      link="https://apps.apple.com/us/app/sensie/id1092166597"
+                      link="https://apps.apple.com/us/app/sensie/id1551177612"
                     />
                     <DownloadImg
                       ImgStore={PlayStore}
-                      link="https://play.google.com/store/apps/details?id=com.sensie"
+                      link="https://play.google.com/store/apps/details?id=com.joinsensie"
                     />
                   </Grid>
                 </Box>
