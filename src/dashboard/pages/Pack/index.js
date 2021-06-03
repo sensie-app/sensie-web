@@ -216,7 +216,7 @@ const Pack = () => {
               onAddToPack={handleAddToPack}
               onRemovePack={handleRemoveToPack}
               onDelete={handleDeleteAffirmation}
-            />
+          />
           } else {
             return ''
           }
@@ -241,14 +241,14 @@ const Pack = () => {
             </div>
           </div>
           <div className={styles.PackHeaderShareContainer}>
-            <Share pack={pack}/>
+            <Share pack={pack} />
           </div>
         </div>
         {/* body */}
         <div className={styles.PackBodyContainer}>
-          <CreateAffirmations loading={waitQuery} initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} onSave={handleCreateAffirmationMutation}/>
+          <CreateAffirmations loading={waitQuery} initShowForm={false} withAffirmationsByTopics={false} defaultPack={id} onSave={handleCreateAffirmationMutation} />
           {pack !== null && renderDbAffirmations()}
-          <AffirmationsByTopics onClick={handleAffirmationsByTopicsQuery} packId={id} onAddToPack={handleAddToPack}/>
+          <AffirmationsByTopics onClick={handleAffirmationsByTopicsQuery} packId={id} onAddToPack={handleAddToPack} />
         </div>
       </div>
       <ToastContainer

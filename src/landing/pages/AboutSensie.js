@@ -352,7 +352,7 @@ const AboutSensie = () => {
             <Box my={12}>
               <JoinUs
                 title="Join us"
-                text="We’re building tools to benefit the lives of billions and to create the conditions to help end suffering... and we need your help."
+                text="We’re building tools to help elevate human performance and explore how amazing this life can be. Join us."
               />
             </Box>
           </Grid>
