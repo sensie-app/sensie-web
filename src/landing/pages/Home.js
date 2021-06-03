@@ -120,7 +120,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={11} sm={10} md={6} data-aos="zoom-out-up">
           <Box mt={6}>
-            <Title title="Trust Your Body" />
+            <Title title="Trust Yourself" />
           </Box>
           <Box mr={1}>
             <Subtitle subtitle="Sensie is everyone's million dollar coach," />
@@ -149,7 +149,7 @@ const Home = () => {
               />
               <DownloadImg
                 ImgStore={PlayStore}
-                link="https://play.google.com/store/apps/details?id=com.sensie"
+                link="https://play.google.com/store/apps/details?id=com.joinsensie"
               />
             </Grid>
           </Box>
