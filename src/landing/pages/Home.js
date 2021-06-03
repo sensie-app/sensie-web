@@ -145,7 +145,7 @@ const Home = () => {
             <Grid container direction="row">
               <DownloadImg
                 ImgStore={AppleStore}
-                link="https://apps.apple.com/us/app/sensie/id1551177612"
+                link="https://apps.apple.com/us/app/sensie/#"
               />
               <DownloadImg
                 ImgStore={PlayStore}
