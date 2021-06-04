@@ -186,7 +186,7 @@ export const listUsersWithSensiesByUserId = (userId, dates) => `
         selfAwarenessScores {
           items {
             id
-            timestamp 
+            timestamp
             selfAssessment
             score
           }
@@ -247,20 +247,20 @@ export const getClientsFromCoach = (id, dates) => `
           id
           firstName
           lastName
-          gender 
+          gender
           picture
           userCoachId
           selfAwareness
           subscribedPacks {
             items {
               packId
-              userId 
+              userId
             }
           }
           selfAwarenessScores {
             items {
               id
-              timestamp 
+              timestamp
               selfAssessment
               score
             }
@@ -279,7 +279,7 @@ export const listUsersByOrganizationId = (id, dates) => `
         id
         firstName
         lastName
-        gender 
+        gender
         picture
         sensies(limit: 10000, sortDirection: DESC, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
@@ -322,8 +322,8 @@ export const listTopicsQuery = () => `
         name
         picture
         icon
-        description    
-        affirmations {
+        description
+        affirmations(limit: 10000) {
           items {
             affirmation {
               name
@@ -340,7 +340,7 @@ export const listTopicsQuery = () => `
             }
           }
           nextToken
-        } 
+        }
       }
     }
   }
@@ -580,7 +580,7 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
           items {
           affirmation {
             description
-            id 
+            id
             name
             createdAt
             sensies(limit: 1000000, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
@@ -598,8 +598,8 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
               items {
                 pack {
                   id
-                  name 
-                  description 
+                  name
+                  description
                 }
               }
             }
@@ -635,7 +635,7 @@ export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId, ne
           items {
           affirmation {
             description
-            id 
+            id
             name
             createdAt
             sensies(limit: 1000000, filter: {calibration: {eq: false}, userId: {eq: "${userId}"},timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
