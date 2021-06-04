@@ -183,7 +183,9 @@
       "authorName": "Author",
       "newPack": "New pack",
       "create": "Create",
-      "error": "Enter a name for the pack"
+      "error": "Enter a name for the pack",
+      "updatePack": "Update pack",
+      "update": "Update"
     },
     "CreateAffirmations": {
       "addNew": "Add new",

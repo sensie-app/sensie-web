@@ -1,0 +1,101 @@
+@import "../../styles/index.scss";
+
+.UpdatePackContainer {
+}
+
+.UpdatePackBtn {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  padding: 5px 10px;
+  background-color: #151E1F;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.CreatePackBody {
+  @include flex(row, space-between, center, wrap);
+  height: 180px;
+  padding: 10px;
+}
+
+.CreactePackBodyBtnImg {
+  width: 30%;
+  @include border(solid, 1px, 5px, $fontColor1);
+  @include backgroundImg(cover);
+  height: 100%;
+  label {
+    padding: 10px;
+    height: 100%;
+    color: $fontColor1;
+    @include flex(column, center, center, nowrap);
+  }
+  input {
+    display: none;
+  }
+  &:hover {
+    cursor: pointer !important;
+    @include border(solid, 1px, 5px, $actionColor1);
+    label {
+      color: $actionColor1;
+    }
+  }
+
+  .CreatePackBtnImgLabel {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5px;
+  }
+}
+
+.CreatePackBodyForm {
+  width: 60%;
+  height: 100%;
+  @include flex(column, space-between, center, nowrap);
+  .CreatePackBodyFormInput {
+    width: 100%;
+    padding: 5px 10px;
+    @include flex(column, space-between, flex-start, nowrap);
+    label {
+      color: $fontColor1;
+      margin-bottom: 1px;
+    }
+    input {
+      width: 100%;
+      background-color: $grayColor6;
+      color: $fontColor1;
+      padding: 5px;
+    }
+    span {
+      font-size: 13px;
+      color: $actionColor4;
+    }
+  }
+  .CreatePackBodyFormBtn {
+    width: 100%;
+    padding: 10px 10px;
+    button {
+      float: right;
+      background-color: $grayColor6;
+      color: $actionColor1;
+      padding: 5px 15px;
+      @include border(solid, 1px, 5px, transparent);
+      &:hover {
+        cursor: pointer;
+        @include border(solid, 1px, 5px, $actionColor1);
+      }
+    }
+  }
+}
+
+#iconButtonFile {
+  display: none;
+}
+
+.inputBorderError {
+  @include border(solid, 1px, 5px, $actionColor4);
+}
+
+.inputBorder {
+  @include border(solid, 1px, 5px, transparent);
+}

@@ -3,11 +3,11 @@ import { API, graphqlOperation } from 'aws-amplify'
 // queries
 // import { listPacksWiyhAffirmationsIdsByIdQuery } from '../../dashboard/graphql/queries'
 import { getPacksFromUser } from '../../dashboard/graphql/queries'
-import { createPackMutation } from '../../dashboard/graphql/mutations'
+import { createPackMutation, updatePackMutation } from '../../dashboard/graphql/mutations'
 // constants
 import PACKS from '../constants/packs.constants'
 
-const { CLEAN_NEWPACK, GET_ALL_PACKS, CREATE_PACK, LOADING, ERROR } = PACKS
+const { CLEAN_NEWPACK, GET_ALL_PACKS, CREATE_PACK, UPDATE_PACK, LOADING, ERROR } = PACKS
 
 export const cleanNewPackAction = data => {
   return {
@@ -58,6 +58,25 @@ export const createPacksAction = (name, description, author, userId, imgKey) => 
     dispatch({
       type: ERROR,
       payload: 'Error in create pack'
+    })
+  }
+}
+
+export const updatePacksAction = (id, name, description, author, imgKey) => async dispatch => {
+  dispatch({
+    type: LOADING
+  })
+
+  try {
+    const response = await API.graphql(graphqlOperation(updatePackMutation(id, name, description, author, imgKey)))
+    dispatch({
+      type: UPDATE_PACK,
+      payload: response.data.updatePack
+    })
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: 'Error in update pack'
     })
   }
 }

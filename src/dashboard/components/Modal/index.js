@@ -24,14 +24,24 @@ const { grayColor3 } = COLORS
  * @param {string} title (default: '')
  * @param {string} width (default: '25%')
  */
-const ModalComponent = ({ children, initialState = false, title = '', width = '25%', width2 = null }) => {
+const ModalComponent = ({ children, initialState = false, title = '', width = '25%', width2 = null, onOpen, onClose }) => {
   // ? hooks
   const [open, setOpen] = useState(initialState)
 
   // ? handle functions
-  const handleOpen = () => setOpen(true)
+  const handleOpen = () => {
+    setOpen(true)
+    if (onOpen) {
+      onOpen()
+    }
+  }
 
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+    if (onClose) {
+      onClose()
+    }
+  }
 
   return (
     <div className={styles.ModalComponentContainer}>
@@ -77,7 +87,11 @@ ModalComponent.propTypes = {
   /** width */
   width: PropTypes.string,
   /** width2 */
-  width2: PropTypes.string
+  width2: PropTypes.string,
+  /** onOpen */
+  onOpen: PropTypes.func,
+  /** onClose */
+  onClose: PropTypes.func
 }
 
 export default ModalComponent
