@@ -29,7 +29,7 @@ const LineChart = ({ data }) => {
   const hours = data[0].data.length
   const precision = hours <= 100 ? 'hour' : (hours <= 1000 ? 'day' : 'month')
   const tickValues = `every 1 ${precision}`
-  const format = precision === 'hour' ? '%m/%d %H:%M' : '%m/%d'
+  const format = precision === 'hour' ? '%m/%d %H:%M' : (precision === 'day' ? '%m/%d' : '%m/%d/%y')
 
   return (
     <div className={styles.LineChartContainer}>
