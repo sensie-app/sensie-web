@@ -99,7 +99,7 @@ const User = ({ user, sensies, show, affirmation }) => {
           <div>
             {flow === 'NO_SENSIES'
               ? <IconChart title={t('dashboard.IconChart.flow')} value={'Null'} valueType="" icon={null} theme={2} />
-              : <IconChart title={t('dashboard.IconChart.flow')} value={flow} valueType="%" icon={ACTIVITY} theme={2} />}
+              : <IconChart title={t('dashboard.IconChart.flow')} value={flow.toString()} valueType="%" icon={ACTIVITY} theme={2} />}
           </div>
           {/* <PercentageChart title={t('dashboard.User.awarness')} value={handleAwareness()} /> */}
           <div>
@@ -108,7 +108,7 @@ const User = ({ user, sensies, show, affirmation }) => {
               : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/18'} valueType="" icon={UP} theme={2} />}
           </div>
           {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
-          <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
+          <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies().toString()} valueType="number" icon={UP} theme={2} /></div>
         </div>
       </div>
       {/* { show === summary
@@ -137,7 +137,7 @@ User.propTypes = {
   /** show: { showInfo } */
   show: PropTypes.string,
   user: UserPropTypes,
-  sensies: PropTypes.object,
+  sensies: PropTypes.array,
   affirmation: PropTypes.object
 }
 
