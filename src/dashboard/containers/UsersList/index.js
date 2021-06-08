@@ -101,12 +101,12 @@ const UsersList = () => {
     return list.sort((a, b) => {
       if (a.totalSensies > b.totalSensies) {
         return -1
-      } else if (a.totalSensies > b.totalSensies) {
+      } else if (a.totalSensies < b.totalSensies) {
         return 1
       } else {
         if (a.flow > b.flow) {
           return -1
-        } else if (a.flow > b.flow) {
+        } else if (a.flow < b.flow) {
           return 1
         } else {
           return 0
