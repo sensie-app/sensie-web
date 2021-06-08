@@ -14,9 +14,10 @@ import IMG from '../../constants/images'
 import styles from './styles.module.scss'
 // redux
 import { useDispatch } from 'react-redux'
-import { updatePacksAction } from '../../../redux/actions/packs.actions'
+import { updatePacksAction, deletePacksAction } from '../../../redux/actions/packs.actions'
 
 import { Storage } from 'aws-amplify'
+import { ClickAwayListener, IconButton, Grow, MenuList, Popper } from '@material-ui/core'
 // import { v4 as uuidv4 } from 'uuid'
 
 // const
@@ -38,6 +39,7 @@ const UpdatePack = ({ img, title, authorName, id }) => {
   // } = useSelector(state => state)
   const [t] = useTranslation('global')
   const inputRef = useRef(null)
+  const anchorRef = useRef(null)
   const [showError, setShowError] = useState(false)
   const [showFile, setShowFile] = useState('')
   const [prevImg, setPrevImg] = useState('')
@@ -46,6 +48,8 @@ const UpdatePack = ({ img, title, authorName, id }) => {
   const [file, setFile] = useState('')
   const [redirect, setRedirect] = useState(false)
   const [packId] = useState(id)
+  const [open, setOpen] = useState(false)
+  const prevOpen = useRef(open)
 
   console.log('packId', packId)
   console.log('redirect', redirect)
@@ -60,6 +64,11 @@ const UpdatePack = ({ img, title, authorName, id }) => {
       setShowFile(d)
     })
   }, [])
+
+  useEffect(() => {
+    prevOpen.current === true && open === false && anchorRef.current.focus()
+    prevOpen.current = open
+  }, [open])
 
   // ? handle functions
   /**
@@ -121,15 +130,29 @@ const UpdatePack = ({ img, title, authorName, id }) => {
     return false
   }
 
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return
+    }
+    setOpen(false)
+  }
+
+  const handleDelete = () => {
+    console.log('delete', packId)
+    dispatch(deletePacksAction(packId))
+  }
+
+  const handleToggle = () => setOpen((prevOpen) => !prevOpen)
+
   // ? render functions
   /**
    * render modal button
    * @returns {undefined} div (html)
    */
   const renderModalBtn = () => (
-    <div className={styles.UpdatePackBtn}>
-      <Icon name="edit-outline" color={grayColor3} size="md" />
-    </div>
+    <>
+      {t('dashboard.CreatePack.edit')}
+    </>
   )
 
   /**
@@ -178,18 +201,66 @@ const UpdatePack = ({ img, title, authorName, id }) => {
   )
 
   return (
-    <div className={styles.UpdatePackContainer}>
-      <Modal
-        title={t('dashboard.CreatePack.updatePack')}
-        width='38%'
-        initialState={false}
-        width2='100%'
-        onClose={handleOnModalClose}
-      >
-        {renderModalBtn()}
-        {renderModalBody()}
-      </Modal>
-    </div>
+    <>
+      <div className={styles.UpdatePackContainer}>
+        <div className={styles.UpdatePackBtn}>
+          <IconButton ref={anchorRef} aria-controls={open ? 'menu-list-grow' : undefined} aria-haspopup="true" onClick={handleToggle}>
+            <Icon name="more-vertical-outline" color={grayColor3} size="sm"></Icon>
+          </IconButton>
+        </div>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <div className={styles.MenuListCompositionMenuContainer}>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList autoFocusItem={open} id="menu-list-grow">
+                    <button className={styles.MenuListCompositionItem}>
+                      <Modal
+                        title={t('dashboard.CreatePack.updatePack')}
+                        width='38%'
+                        initialState={false}
+                        width2='100%'
+                        onClose={handleOnModalClose}
+                        styleBtn={{ color: 'white' }}
+                      >
+                        {renderModalBtn()}
+                        {renderModalBody()}
+                      </Modal>
+                    </button>
+                    <button className={styles.MenuListCompositionItem}>
+                      <Modal
+                        title={t('dashboard.CreatePack.deletePack')}
+                        width='38%'
+                        initialState={false}
+                        width2='100%'
+                        onClose={handleOnModalClose}
+                        styleBtn={{ color: 'white' }}
+                      >
+                        <div>
+                          {t('dashboard.CreatePack.delete')}
+                        </div>
+                        <div className={styles.CreatePackBodyForm}>
+                          <p style={{ color: 'white' }}>{t('dashboard.CreatePack.confirmDelete')}</p>
+                          <div className={styles.CreatePackBodyFormBtn}>
+                            <button
+                              type="button"
+                              onClick={e => handleDelete(e)}
+                            >{t('dashboard.CreatePack.delete')}</button>
+                          </div>
+                        </div>
+                      </Modal>
+                    </button>
+                  </MenuList>
+                </ClickAwayListener>
+              </div>
+            </Grow>
+          )}
+        </Popper>
+      </div>
+    </>
   )
 }
 

@@ -103,3 +103,11 @@ export const updatePackMutation = (id, name, description, author, imgKey) => `
     }
   }
 `
+
+export const deletePackMutation = (id) => `
+  mutation MyMutation {
+    deletePack(input: {id: "${id}"}) {
+      id
+    }
+  }
+`

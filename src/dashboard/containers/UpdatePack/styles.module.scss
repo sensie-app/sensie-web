@@ -1,14 +1,15 @@
 @import "../../styles/index.scss";
 
-.UpdatePackContainer {
+.OptionsBtn {
+  padding: 0;
 }
 
 .UpdatePackBtn {
   position: absolute;
-  right: 1em;
-  top: 1em;
-  padding: 5px 10px;
-  background-color: #151E1F;
+  right: 0;
+  top: 0;
+  padding: 0;
+  background-color: #151e1f;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -98,4 +99,22 @@
 
 .inputBorder {
   @include border(solid, 1px, 5px, transparent);
+}
+
+.MenuListCompositionMenuContainer {
+  background-color: $grayColor6;
+  @include border(solid, 1px, 5px, $grayColor4);
+}
+
+.MenuListCompositionItem {
+  @include border();
+  @include flex(column, center, center, nowrap);
+  @include font($fontColor1, 1rem);
+  width: 100%;
+  background-color: transparent;
+  padding: 5px;
+  &:hover {
+    background-color: $actionColor1;
+    cursor: pointer;
+  }
 }

@@ -3,11 +3,11 @@ import { API, graphqlOperation } from 'aws-amplify'
 // queries
 // import { listPacksWiyhAffirmationsIdsByIdQuery } from '../../dashboard/graphql/queries'
 import { getPacksFromUser } from '../../dashboard/graphql/queries'
-import { createPackMutation, updatePackMutation } from '../../dashboard/graphql/mutations'
+import { createPackMutation, deletePackMutation, updatePackMutation } from '../../dashboard/graphql/mutations'
 // constants
 import PACKS from '../constants/packs.constants'
 
-const { CLEAN_NEWPACK, GET_ALL_PACKS, CREATE_PACK, UPDATE_PACK, LOADING, ERROR } = PACKS
+const { CLEAN_NEWPACK, GET_ALL_PACKS, CREATE_PACK, UPDATE_PACK, DELETE_PACK, LOADING, ERROR } = PACKS
 
 export const cleanNewPackAction = data => {
   return {
@@ -77,6 +77,25 @@ export const updatePacksAction = (id, name, description, author, imgKey) => asyn
     dispatch({
       type: ERROR,
       payload: 'Error in update pack'
+    })
+  }
+}
+
+export const deletePacksAction = (id) => async dispatch => {
+  dispatch({
+    type: LOADING
+  })
+
+  try {
+    const response = await API.graphql(graphqlOperation(deletePackMutation(id)))
+    dispatch({
+      type: DELETE_PACK,
+      payload: response.data.deletePack
+    })
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: 'Error in delete pack'
     })
   }
 }
