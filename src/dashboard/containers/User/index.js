@@ -15,7 +15,7 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 // redux
 // import { useSelector } from 'react-redux'
 // utils
-import { handleDefaultPictureUser, handleFlow, handleAwareness } from '../../utils/functions'
+import { handleDefaultPictureUser } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 // prop-types
@@ -34,29 +34,15 @@ const { ACTIVITY, UP } = IconChartTypes
  * User component
  * @component
  * @param {User} user
- * @param {string} show
+ * @param {number} flow
+ * @param {number} awareness
+ * @param {number} totalSensies
  */
-const User = ({ user, sensies, show, affirmation }) => {
+const User = ({ user, flow, awareness, totalSensies }) => {
   // ? hooks
   const [t] = useTranslation('global')
   // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
   const [picture, setPicture] = useState()
-
-  const filterSensies = (data) => {
-    if (!affirmation) return data
-    return data.filter((sensie) => {
-      return sensie.affirmationId === affirmation.id
-    })
-  }
-
-  // ? handle functions
-  /**
-   * handleTotalSensies
-   * @returns {number} total sensies
-   */
-  const handleTotalSensies = () => {
-    return filterSensies(sensies).length
-  }
 
   // ? render functions
   /**
@@ -69,8 +55,6 @@ const User = ({ user, sensies, show, affirmation }) => {
       <span>{user.lastName}</span>
     </div>
   }
-  const flow = handleFlow(filterSensies(sensies))
-  const awareness = handleAwareness(user.selfAwarenessScores.items)
 
   const defaultAvatar = user.gender === 'Male' ? avatarMale : avatarFemale
 
@@ -108,7 +92,7 @@ const User = ({ user, sensies, show, affirmation }) => {
               : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/18'} valueType="" icon={UP} theme={2} />}
           </div>
           {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
-          <div><IconChart title={t('dashboard.IconChart.sensies')} value={handleTotalSensies()} valueType="number" icon={UP} theme={2} /></div>
+          <div><IconChart title={t('dashboard.IconChart.sensies')} value={totalSensies} valueType="number" icon={UP} theme={2} /></div>
         </div>
       </div>
       {/* { show === summary
@@ -138,7 +122,10 @@ User.propTypes = {
   show: PropTypes.string,
   user: UserPropTypes,
   sensies: PropTypes.object,
-  affirmation: PropTypes.object
+  affirmation: PropTypes.object,
+  flow: PropTypes.number,
+  awareness: PropTypes.number,
+  totalSensies: PropTypes.number
 }
 
 export default User

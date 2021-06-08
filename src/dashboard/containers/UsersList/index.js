@@ -16,6 +16,8 @@ import { useSelector /*, useDispatch */ } from 'react-redux'
 // import { setPaginationUserListAction } from '../../../redux/actions/pagination.actions'
 // styles
 import styles from './styles.module.scss'
+// utils
+import { handleFlow, handleAwareness } from '../../utils/functions'
 
 const { grayColor3 } = COLORS
 
@@ -38,6 +40,25 @@ const UsersList = () => {
     filtersReducer: { affirmations: { affirmation } }
     // paginationReducer: { pagination: { pagUsersList } }
   } = useSelector(state => state)
+
+  const filterSensies = (data) => {
+    if (!affirmation) return data
+    return data.filter((sensie) => {
+      return sensie.affirmationId === affirmation.id
+    })
+  }
+
+  // ? handle functions
+  /**
+   * handleTotalSensies
+   * @returns {number} total sensies
+   */
+  const handleTotalSensies = sensies => {
+    return filterSensies(sensies).length
+  }
+
+  const flow = sensies => handleFlow(filterSensies(sensies))
+  const awareness = user => handleAwareness(user.selfAwarenessScores.items)
 
   // ? handle functions
   /**
@@ -65,10 +86,34 @@ const UsersList = () => {
   // ? render functions
   const renderUsers = () => {
     const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
-    return !usersReducer.loading && usersReducer.users.map((client, index) => {
+    const list = !usersReducer.loading && usersReducer.users.map((client, index) => {
       const { id } = client
       const sensies = s.filter(s => s.userId === id)
-      return <User user={client} sensies={sensies} key={index} show={userList.showInfo} affirmation={affirmation} />
+      return {
+        client: client,
+        flow: flow(sensies),
+        awareness: awareness(client),
+        totalSensies: handleTotalSensies(sensies)
+      }
+      // return <User user={client} sensies={sensies} key={index} show={userList.showInfo} affirmation={affirmation} />
+    })
+    // Re-rank clients ascending according to #sensies and %flow
+    return list.sort((a, b) => {
+      if (a.totalSensies > b.totalSensies) {
+        return -1
+      } else if (a.totalSensies > b.totalSensies) {
+        return 1
+      } else {
+        if (a.flow > b.flow) {
+          return -1
+        } else if (a.flow > b.flow) {
+          return 1
+        } else {
+          return 0
+        }
+      }
+    }).map(c => {
+      return <User user={c.client} flow={c.flow} key={c.client.id} show={userList.showInfo} awareness={c.awareness} totalSensies={c.totalSensies} />
     })
   }
 
