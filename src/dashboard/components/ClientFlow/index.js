@@ -12,6 +12,7 @@ import { IconChartTypes } from '../../constants/charts'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+import { LineChartDataPropTypes } from '../../prop-types'
 
 // const
 const { UP, USER, ACTIVITY } = IconChartTypes
@@ -76,7 +77,7 @@ ClientFlow.propTypes = {
   /** trust */
   trust: PropTypes.number.isRequired,
 
-  graph: PropTypes.arrayOf(PropTypes.object)
+  graph: PropTypes.arrayOf(LineChartDataPropTypes)
 }
 
 export default ClientFlow

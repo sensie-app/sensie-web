@@ -228,6 +228,8 @@
     },
     "Profile": {
       "profile": "Profile",
+      "firstName": "First name",
+      "lastName": "Last name",
       "firstLastName": "First and last name",
       "role": "Role",
       "email": "Email",

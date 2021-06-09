@@ -83,7 +83,7 @@ const User = ({ user, flow, awareness, totalSensies }) => {
           <div>
             {flow === 'NO_SENSIES'
               ? <IconChart title={t('dashboard.IconChart.flow')} value={'Null'} valueType="" icon={null} theme={2} />
-              : <IconChart title={t('dashboard.IconChart.flow')} value={flow} valueType="%" icon={ACTIVITY} theme={2} />}
+              : <IconChart title={t('dashboard.IconChart.flow')} value={flow.toString()} valueType="%" icon={ACTIVITY} theme={2} />}
           </div>
           {/* <PercentageChart title={t('dashboard.User.awarness')} value={handleAwareness()} /> */}
           <div>
