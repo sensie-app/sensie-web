@@ -76,7 +76,7 @@ IconChart.propTypes = {
   /** value type */
   valueType: PropTypes.string,
   /** icon (UP, DOWN, USER, ACTIVITY) */
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   /** theme (1, 2) */
   theme: PropTypes.number,
   /** forcedColor */
