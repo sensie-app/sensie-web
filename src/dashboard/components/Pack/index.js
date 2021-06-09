@@ -10,6 +10,7 @@ import { Storage } from 'aws-amplify'
 import IMG from '../../constants/images'
 // sytyles
 import styles from './styles.module.scss'
+import UpdatePack from '../../containers/UpdatePack'
 
 // const
 const { noImg } = IMG
@@ -23,7 +24,7 @@ const { noImg } = IMG
  * @param {string} title
  * @param {number} totalAffirmations
  */
-const Pack = ({ route, img = noImg, title, author, totalAffirmations, type }) => {
+const Pack = ({ route, img = noImg, title, author, totalAffirmations, type, id }) => {
   // ? hooks
   const [t] = useTranslation('global')
   // const [check, setCheck] = useState(false)
@@ -48,13 +49,14 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations, type }) =>
 
   return (
     <div className={styles.PackContainer}>
+      <UpdatePack authorName={author} title={title} img={img} id={id}/>
       <Link to={route}>
         <div className={styles.PackImgContainer} style={{ backgroundImage: `url(${uri})` }} />
       </Link>
       {/* <Checkbox checked={check} onChange={handleCheck} className={styles.PackCheckbox} /> */}
       <div className={styles.PackBodyContainer}>
         <span>{title}</span>
-        {isSubbed && <span> SUB </span> }
+        {isSubbed && <span> SUB </span>}
         {author && <span style={{ fontSize: '16px' }}>By: {author}</span>}
         <div>
           <span>{totalAffirmations} {t('dashboard.Pack.affirmations')}</span>
@@ -76,7 +78,9 @@ Pack.propTypes = {
   title: PropTypes.string.isRequired,
   /** totalAffirmations */
   totalAffirmations: PropTypes.number.isRequired,
-  type: PropTypes.string
+  type: PropTypes.string,
+  /** id */
+  id: PropTypes.string.isRequired
 }
 
 export default Pack

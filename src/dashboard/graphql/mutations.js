@@ -93,3 +93,21 @@ export const updateAffirmationTitle = (affirmationId, title) => `
     }
   }
 `
+export const updatePackMutation = (id, name, description, author, imgKey) => `
+  mutation MyMutation {
+    updatePack(input: {id: "${id}", description: "${description}", name: "${name}", author: "${author}", picture: "${imgKey}"}) {
+      id
+      name
+      author
+      picture
+    }
+  }
+`
+
+export const deletePackMutation = (id) => `
+  mutation MyMutation {
+    deletePack(input: {id: "${id}"}) {
+      id
+    }
+  }
+`

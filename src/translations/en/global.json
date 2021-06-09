@@ -1,4 +1,4 @@
-{  
+{
   "app": {
     "lng": {
       "ES": "ES",
@@ -111,7 +111,7 @@
       "awarness": "Awareness",
       "resilence": "Resilence",
       "trust": "Trust",
-      "trackAffirmations": "Track affirmations"      
+      "trackAffirmations": "Track affirmations"
     },
     "Affirmations": {
       "affirmations": "Affirmations",
@@ -147,7 +147,7 @@
       "family": "Family",
       "parenting": "Parenting",
       "personal": "Personal",
-      "performance": "Performance"      
+      "performance": "Performance"
     },
     "AffirmationsList": {
       "noData": "No affirmations"
@@ -183,7 +183,14 @@
       "authorName": "Author",
       "newPack": "New pack",
       "create": "Create",
-      "error": "Enter a name for the pack"
+      "error": "Enter a name for the pack",
+      "updatePack": "Update pack",
+      "update": "Update",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deletePack": "Delete pack",
+      "cancel": "Cancel",
+      "confirmDelete": "Are you sure to delete this pack?"
     },
     "CreateAffirmations": {
       "addNew": "Add new",
