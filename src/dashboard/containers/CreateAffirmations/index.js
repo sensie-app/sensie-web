@@ -44,12 +44,12 @@ const CreateAffirmations = ({
   initShowForm = true,
   withAffirmationsByTopics = true,
   addToPack = false,
-  onSave = () => {},
+  onSave = () => { },
   defaultTopic = '0',
   defaultPack = '0',
   loading = false,
   showOptions = false,
-  onAddToPack = () => {}
+  onAddToPack = () => { }
 }) => {
   // ? hooks
   const inputRef = useRef(null)
@@ -64,7 +64,7 @@ const CreateAffirmations = ({
   const [topics, setTopics] = useState(newAffirmation.topics)
   const [listAffirmations, setListAffirmations] = useState([])
   const [showErrorTitle, setShowErrorTitle] = useState(false)
-  const [showErrorTopics, setShowErrorTopics] = useState(false)
+  const [showErrorTopics] = useState(false)
   const [showNewForm, setShowNewForm] = useState(initShowForm)
 
   useEffect(() => dispatch(setNewAffirmationAction({ title, topics })), [title, topics])
@@ -108,9 +108,10 @@ const CreateAffirmations = ({
    * @returns {undefined}
    */
   const handleClickBtnDone = async () => {
+    setTitle(title || '')
     setShowErrorTitle(title === '')
-    setShowErrorTopics(topics.length === 0)
-    if (title !== '' && topics.length > 0) {
+    // setShowErrorTopics(topics.length === 0)
+    if (title !== '' /* && topics.length > 0 */) {
       inputRef.current.value = ''
       const _list = listAffirmations
       _list.push({ title, topics })
@@ -147,8 +148,8 @@ const CreateAffirmations = ({
           newAffirmation.topics.length === 0
             ? <Icon custom="topic" color={fontColor1} size="md" />
             : <span className={styles.CreateAffirmationsCountCheckbox}>
-                {newAffirmation.topics.length}
-              </span>
+              {newAffirmation.topics.length}
+            </span>
         }
         <span>{t('dashboard.MultipleSelectCheckbox.topics')}</span>
         <Icon name="arrow-ios-downward-outline" color={fontColor1} size="md" />
@@ -161,7 +162,7 @@ const CreateAffirmations = ({
    * @return {undefined} Chips[] (html)
    */
   const renderChipsItems = () => {
-    return topics.map((item, index) => <Chip key={index} label={item} onClose={value => handleClickCloseChip(value)}/>)
+    return topics.map((item, index) => <Chip key={index} label={item} onClose={value => handleClickCloseChip(value)} />)
   }
 
   /**
@@ -228,20 +229,20 @@ const CreateAffirmations = ({
           <ItemCheckbox check={false} defaultValue={false} onClick={value => handleOnClickSelectAll(!value)}>
             {showOptions || affirmations
               ? <div className={styles.CreateAffirmationsHeaderActions}>
-                  {/* <button>
+                {/* <button>
                     <span>{t('dashboard.CreateAffirmations.delete')}</span>
                   </button> */}
-                      {/* <button>
+                {/* <button>
                         <span>{t('dashboard.CreateAffirmations.removeToPack')}</span>
                       </button> */}
-                  {!addToPack
-                    ? <span />
-                    : <Modal title={handleTitleModal()}>
-                        <span>{t('dashboard.CreateAffirmations.addToPack')}</span>
-                        <AddToPack packs={packs} onAddToPack={onAddToPack} />
-                      </Modal>
-                  }
-                </div>
+                {!addToPack
+                  ? <span />
+                  : <Modal title={handleTitleModal()}>
+                    <span>{t('dashboard.CreateAffirmations.addToPack')}</span>
+                    <AddToPack packs={packs} onAddToPack={onAddToPack} />
+                  </Modal>
+                }
+              </div>
               : <h5>{t('dashboard.CreateAffirmations.selectAll')}</h5>
             }
           </ItemCheckbox>
