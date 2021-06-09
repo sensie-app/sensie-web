@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'
 import 'pure-react-carousel/dist/react-carousel.es.css'
+import { Element, Link } from 'react-scroll'
 // contaniners
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
@@ -123,8 +124,8 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
     return topics.map((_topic, index) => {
       return (
         <Slide key={index} index={index}>
-          <button
-            className={styles.affirmationsByTopicsButton}
+          <Link className={styles.affirmationsByTopicsButton}
+            to="listTopics" smooth={true} offset={-150}
             onClick={() => handleOnClickBtn(_topic)}>
             {/* <a href="#listTopics"> */}
               <Topic
@@ -139,7 +140,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
                 active={active === _topic.id}
               />
             {/* </a> */}
-          </button>
+          </Link>
         </Slide>
       )
     })
@@ -206,9 +207,9 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
         </div>
       </div>
       {/* affirmations list */}
-      <div id="listTopics" className={styles.AffirmationsByTopicsListContainer}>
+      <Element id="listTopics" name="listTopics" className={styles.AffirmationsByTopicsListContainer}>
         {renderListAffirmations()}
-      </div>
+      </Element>
     </div>
   )
 }
