@@ -37,6 +37,8 @@ const Profile = () => {
   const [t] = useTranslation('global')
   const [picture, setPicture] = useState()
   const [info, setInfo] = useState(data.infoText)
+  const [firstName, setFirstName] = useState(data.firstName)
+  const [lastName, setLastName] = useState(data.lastName)
   const imageUploader = React.useRef(null)
   const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
@@ -48,6 +50,8 @@ const Profile = () => {
   useEffect(() => {
     getImage(data.picture).then(d => setPicture(d))
     setInfo(data.infoText)
+    setFirstName(data.firstName)
+    setLastName(data.lastName)
   }, [data])
 
   const handleImageUpload = e => {
@@ -66,6 +70,16 @@ const Profile = () => {
   const handleInfo = e => {
     setInfo(e.target.value)
     data.infoText = e.target.value
+  }
+
+  const handleFirstName = e => {
+    setFirstName(e.target.value)
+    data.firstName = e.target.value
+  }
+
+  const handleLastName = e => {
+    setLastName(e.target.value)
+    data.lastName = e.target.value
   }
 
   const handleRemoveImage = e => {
@@ -88,8 +102,12 @@ const Profile = () => {
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
             <div className={styles.ProfileGridContainer}>
               <div>
-                <label>{t('dashboard.Profile.firstLastName')}</label>
-                <input value={data.firstName + ' ' + data.lastName} disabled/>
+                <label>{t('dashboard.Profile.firstName')}</label>
+                <input value={firstName} onChange={handleFirstName} />
+              </div>
+              <div>
+                <label>{t('dashboard.Profile.lastName')}</label>
+                <input value={lastName} onChange={handleLastName} />
               </div>
               <div>
                 <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.role')}</label>
@@ -104,8 +122,8 @@ const Profile = () => {
                 <input value={data.email} disabled />
               </div>
               <div>
-                <label>{t('dashboard.Profile.useSensie')}</label>
-                <input disabled />
+                <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.useSensie')}</label>
+                <input defaultValue={''} disabled />
               </div>
             </div>
           </Grid>
@@ -113,7 +131,7 @@ const Profile = () => {
             <div className={styles.ProfileGridContainer}>
               <div>
                 <label className={styles.ProfileLabelDisabled}>{t('Info')}</label>
-                <textarea value={info} onChange={handleInfo} cols='50' rows='5'/>
+                <textarea value={info} onChange={handleInfo} cols='50' rows='5' />
               </div>
             </div>
           </Grid>
@@ -135,7 +153,7 @@ const Profile = () => {
         </Grid>
         <div className={styles.ProfileFooterContainer}>
           <Link to={home}>
-           <button>{t('dashboard.Profile.cancel')}</button>
+            <button>{t('dashboard.Profile.cancel')}</button>
           </Link>
           <button onClick={saveUserData}>{t('dashboard.Profile.save')}</button>
         </div>

@@ -14,9 +14,9 @@ export const updateUserWithCoach = (id, userCoachId) => `
   }
 `
 
-export const updateUserData = (id, picture, infoText) => `
+export const updateUserData = (id, picture, infoText, firstName, lastName) => `
   mutation updateUserWithCoach {
-    updateUser(input: {id: "${id}", picture: "${picture}", infoText: "${infoText}"}) {
+    updateUser(input: {id: "${id}", picture: "${picture}", infoText: "${infoText}", firstName: "${firstName}", lastName: "${lastName}"}) {
       id
       firstName
       lastName
