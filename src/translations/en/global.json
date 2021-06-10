@@ -244,7 +244,8 @@
       "uploadImage": "Upload image",
       "removeImage": "Remove image",
       "cancel": "Cancel",
-      "save": "Save"
+      "save": "Save",
+      "shareData": "Share data with coach"
     },
     "WrongOrientation": {
       "message": "Please rotate your device",

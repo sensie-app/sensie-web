@@ -84,6 +84,7 @@ export const getUserByIdQuery = id => `
       userTeamId
       picture
       infoText
+      shareData
       invites(filter: {used: {ne: true}}) {
         items {
           id

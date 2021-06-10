@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 // material-ui
 import Grid from '@material-ui/core/Grid'
+import Checkbox from '@material-ui/core/Checkbox'
 // components
 import Title from '../../components/Title'
 import ImageAvatar from '../../components/ImageAvatar'
@@ -39,6 +40,7 @@ const Profile = () => {
   const [info, setInfo] = useState(data.infoText)
   const [firstName, setFirstName] = useState(data.firstName)
   const [lastName, setLastName] = useState(data.lastName)
+  const [shareData, setShareData] = useState(true)
   const imageUploader = React.useRef(null)
   const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
@@ -52,6 +54,9 @@ const Profile = () => {
     setInfo(data.infoText)
     setFirstName(data.firstName)
     setLastName(data.lastName)
+    if (data.shareData !== undefined && data.shareData !== null) {
+      setShareData(data.shareData)
+    }
   }, [data])
 
   const handleImageUpload = e => {
@@ -75,6 +80,11 @@ const Profile = () => {
   const handleFirstName = e => {
     setFirstName(e.target.value)
     data.firstName = e.target.value
+  }
+
+  const handleShareData = e => {
+    setShareData(e.target.checked)
+    data.shareData = e.target.checked
   }
 
   const handleLastName = e => {
@@ -124,6 +134,15 @@ const Profile = () => {
               <div>
                 <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.useSensie')}</label>
                 <input defaultValue={''} disabled />
+              </div>
+              <div className={styles.ItemCheckboxContainer}>
+                <label>{t('dashboard.Profile.shareData')}</label>
+                <Checkbox
+                  checked={shareData}
+                  className={styles.ItemCheckboxCheck}
+                  // onChange={() => setCheck(!_check)}
+                  onChange={handleShareData}
+                />
               </div>
             </div>
           </Grid>
