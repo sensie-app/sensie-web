@@ -132,7 +132,7 @@ const AuthStateApp = ({ children }) => {
               {
                 type: 'gender',
                 label: 'Gender',
-                placeholder: 'Male',
+                placeholder: 'Gender',
                 required: false
               },
               {
