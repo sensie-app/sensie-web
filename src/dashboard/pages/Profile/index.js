@@ -135,15 +135,17 @@ const Profile = () => {
                 <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.useSensie')}</label>
                 <input defaultValue={''} disabled />
               </div>
-              <div className={styles.ItemCheckboxContainer}>
-                <label>{t('dashboard.Profile.shareData')}</label>
-                <Checkbox
-                  checked={shareData}
-                  className={styles.ItemCheckboxCheck}
-                  // onChange={() => setCheck(!_check)}
-                  onChange={handleShareData}
-                />
-              </div>
+              {data.userCoachId &&
+                <div className={styles.ItemCheckboxContainer}>
+                  <label>{t('dashboard.Profile.shareData')}</label>
+                  <Checkbox
+                    checked={shareData}
+                    className={styles.ItemCheckboxCheck}
+                    // onChange={() => setCheck(!_check)}
+                    onChange={handleShareData}
+                  />
+                </div>
+              }
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
