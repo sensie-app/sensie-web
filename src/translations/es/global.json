@@ -1,4 +1,4 @@
-{  
+{
   "app": {
     "lng": {
       "ES": "ES",
@@ -30,15 +30,25 @@
       "client": "Client",
       "dashboard": "Dashboard",
       "team": "Team",
-      "couch": "Couch",
+      "couch": "Coach",
       "signOut": "Sign out",
       "signOut?": "Are you sure you want to exit the SENSIE panel?",
       "close": "Close",
-      "affirmations": "Affirmations"
+      "affirmations": "Affirmations",
+      "sage": "Sage"
     },
     "Header": {
       "back": "Back",
-      "invitePeople": "Invite People" 
+      "invitePeople": "Invite People",
+      "invitePeopleTo": "Invite people to"
+    },
+    "InvitePeople": {
+      "copyInviteLink": "Copy invite link",
+      "send": "Send",
+      "linkWasCopied": "Link was copied!",
+      "enterAnEmailAddress": "Enter an email address",
+      "selectPack": "Select up to 2 packs to share automatically",
+      "checkedPacksLimit": "Limit of packs to share reached"
     },
     "MenuListComposition": {
       "today": "Today",
@@ -67,6 +77,11 @@
       "editAffirmation": "Edit affirmation",
       "deleteAffirmation": "Delete affirmation"
     },
+    "MenuListNotifications": {
+      "activity": "Activity",
+      "markAllAsRead": "Mark all as read",
+      "viewAll": "View all"
+    },
     "MultipleSelectCheckbox": {
       "topics": "Topics",
       "packs": "Packs"
@@ -81,7 +96,7 @@
       "engagement": "Engagement"
     },
     "PieChart": {
-      "awarness": "Awarness",
+      "awarness": "Awareness",
       "resilence": "Resilence",
       "trust": "Trust"
     },
@@ -95,10 +110,10 @@
       "affirmations": "Affirmations"
     },
     "User": {
-      "awarness": "Awarness",
+      "awarness": "Awareness",
       "resilence": "Resilence",
       "trust": "Trust",
-      "trackAffirmations": "Track affirmations"      
+      "trackAffirmations": "Track affirmations"
     },
     "Affirmations": {
       "affirmations": "Affirmations",
@@ -106,10 +121,16 @@
       "topics": "Topics"
     },
     "Share": {
-      "share": "Share",
+      "shareWith": "Share with",
       "shareTo": "Share to",
       "allClients": "All clients",
       "selectedClients": "Selected clients"
+    },
+    "ShareWith": {
+      "selectAllClients": "Select all clients",
+      "selectAllTeams": "Select all teams",
+      "publicAvailable": "Public available",
+      "share": "Share"
     },
     "Affirmation": {
       "selectAOption": "Select a option",
@@ -130,11 +151,20 @@
       "personal": "Personal",
       "performance": "Performance"
     },
+    "AffirmationsList": {
+      "noData": "No affirmations"
+    },
     "Topic": {
       "affirmations": "affirmations"
     },
     "Pack": {
-      "affirmations": "affirmations"
+      "affirmations": "affirmations",
+      "addPack": "Added successfully",
+      "addPackError": "Error adding affirmation",
+      "removePack": "Removed successfully",
+      "removePackError": "Error affirmation",
+      "createAffirmation": "Created successfully",
+      "createAffirmationError": "Error creating affirmation"
     },
     "Packs": {
       "spirit": "Spirit",
@@ -150,17 +180,85 @@
     "CreatePack": {
       "createNewPack": "Create new pack",
       "addImage": "Add a image",
+      "changeImage": "Change image",
       "packName": "Pack name",
+      "authorName": "Author",
       "newPack": "New pack",
-      "create": "Create"
+      "create": "Create",
+      "error": "Enter a name for the pack",
+      "updatePack": "Update pack",
+      "update": "Update",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deletePack": "Delete pack",
+      "cancel": "Cancel",
+      "confirmDelete": "Are you sure to delete this pack?"
     },
     "CreateAffirmations": {
       "addNew": "Add new",
       "writeNewAffirmation": "Write a new affirmation",
-      "errorToast": "A title and at least one topic is necessary to create a new affirmation.."
+      "errorTitle": "A title is needed for each affirmation",
+      "errorTopic": "Select at least one topic",
+      "removeToPack": "Remove to pack",
+      "addToPack": "Add to pack",
+      "delete": "Delete",
+      "selectAll": "Select all",
+      "add": "Add",
+      "affirmationsTo": "affirmations to:"
     },
     "AffirmationsByTopics": {
-      "title": "Recommended affirmations by topics"
+      "title": "Recommended affirmations by topics",
+      "addToPack": "Add to pack",
+      "selectAll": "Select all"
+    },
+    "SageDashboard": {
+      "title": "Enjoyers Activity",
+      "title2": "Monthly Run Rate",
+      "enjoyers": "Enjoyers",
+      "newEnjoyers": "New enjoyers",
+      "activeEnjoyers": "Active enjoyers",
+      "virality": "Virality",
+      "flow": "Flow",
+      "vDissScore": "V.Diss Score",
+      "sensies": "Sensies",
+      "sensiesActiveEnjoyers": "Sensies / Active Enjoyers",
+      "lastMonth": "Last month",
+      "medianDailyStreak": "Median Daily Streak",
+      "top10AvgDailyStreak": "Top 10% Avg. Daily Streak",
+      "top40AvgDailyStreak": "Top 40% Avg. Daily Streak"
+    },
+    "NewAffirmation": {
+      "remove": "Remove",
+      "add": "Add"
+    },
+    "AddToPack": {
+      "add": "Add",
+      "error": "Select a pack"
+    },
+    "Profile": {
+      "profile": "Profile",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "firstLastName": "First and last name",
+      "role": "Role",
+      "email": "Email",
+      "useSensie": "How would you like to use Sensie?",
+      "uploadImage": "Upload image",
+      "removeImage": "Remove image",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "WrongOrientation": {
+      "message": "Please rotate your device",
+      "description": "We support landscape mode only"
+    },
+    "WrongSize": {
+      "message": "Use a higher resolution device",
+      "description": "The size of this device is not supported"
+    },
+    "UserStatistics": {
+      "lastSensie": "Last sensie",
+      "noSensies": "User without sensies"
     }
   }
 }
