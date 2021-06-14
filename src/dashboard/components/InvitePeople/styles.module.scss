@@ -23,6 +23,27 @@
     font-size: 1rem;
   }
 
+  .InvitePeopleListTitle {
+    color: #fff;
+    margin-top: 15px;
+  }
+
+  .InvitePeopleDivider {
+    background-color: $grayColor5;
+    width: 100%;
+  }
+
+  .InvitePeopleList {
+      width: 100%;
+
+      .InvitePeopleListItem {
+        color: $grayColor3;
+        background-color: $grayColor5;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+  }
+
   .InvitePeopleFooterContainer {
     width: 100%;
     @include flex(row, space-between, center, nowrap);
