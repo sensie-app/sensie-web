@@ -59,14 +59,12 @@ const InvitePeople = ({ link }) => {
   // const handleErrorModal = () => valueInput.length === 0 ? setShowError(true) : setShowError(false)
 
   const generateLink = () => {
-    console.log(user)
     // const id = user.data.invites.items.length > 0 ? user.data.invites.items[0].id : null
     // return id ? window.location.origin + '/coach-invite?id=' + id : null
     return 'https://joinsensie.app.link/coach-invite?id=' + user.id
   }
 
   useEffect(() => {
-    console.log(user.loading)
     setCoachLink(generateLink())
   }, [user.loading])
 

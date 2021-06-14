@@ -44,7 +44,6 @@ const Client = () => {
     console.log(affirmationsReducer)
     console.log(usersReducer)
     console.log(globalDateFilter)
-    console.log(dispatch)
     console.log(listUsersByOrganizationIdAction)
     console.log(listAffirmationsByCoachId)
     dispatch(getAllTopicsAction())

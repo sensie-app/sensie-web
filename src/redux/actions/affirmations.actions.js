@@ -61,7 +61,6 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
       payload: full
     })
   } catch (error) {
-    console.log('error', error)
     dispatch({
       type: ERROR,
       payload: 'Error in list affirmations'
