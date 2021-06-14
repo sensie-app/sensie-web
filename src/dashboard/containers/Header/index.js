@@ -15,6 +15,7 @@ import { COLORS } from '../../constants/theme'
 import DASHBOARD_ROUTES from '../../constants/routes'
 import { MenuDateHeaderComponent } from '../../constants/menus'
 import { TODAY } from '../../constants/globals'
+// import { API, graphqlOperation } from 'aws-amplify'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setGlobalDateFilterAction } from '../../../redux/actions/filters.actions'
@@ -122,7 +123,10 @@ const Header = ({ withBack = false, withPeople = true, withDate = true, withTitl
 
         {/* invite people options */}
         {withPeople && !withBack && !withTitle &&
-          <Modal title={t('dashboard.Header.invitePeople')}>
+          <Modal title={t('dashboard.Header.invitePeople')}
+            width='50%'
+            width2='100%'
+          >
             {/* btn */}
             <div className={styles.HeaderPeople}>
               <div className={styles.HeaderLeftIcon}><Icon name="person-add-outline" size="md" color={fontColor1}/></div>
