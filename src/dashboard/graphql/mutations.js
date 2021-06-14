@@ -1,6 +1,14 @@
 export const createInvite = id => `
   mutation createInvite {
-    createInvite(input: {id: "${id}", userId: "${id}"}) {
+    createInvite(input: {userId: "${id}"}) {
+      id
+    }
+  }
+`
+
+export const updateInvite = (id, packsId) => `
+  mutation updateInvite {
+    updateInvite(input: {id: "${id}", packsId: ${packsId}}) {
       id
     }
   }

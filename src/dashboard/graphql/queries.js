@@ -779,3 +779,20 @@ export const listSensiesByAffirmationId = id => `
     }
   }
 `
+
+export const listLastUnusedInvitations = id => `
+  query listInvite {
+    getUser(id: "${id}") {
+      invites(filter: {used: {ne: true}}) {
+        items {
+          createdAt
+          expired
+          expires
+          id
+          packsId
+          updatedAt
+        }
+      }
+    }
+  }
+`
