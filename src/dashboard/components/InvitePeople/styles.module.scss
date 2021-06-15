@@ -34,13 +34,15 @@
   }
 
   .InvitePeopleList {
-      width: 100%;
+    width: 100%;
+    max-height: 500px;
+    overflow: auto;
 
-      .InvitePeopleListItem {
-        color: $grayColor3;
-        background-color: $grayColor5;
-        border-radius: 5px;
-        margin-bottom: 10px;
+    .InvitePeopleListItem {
+      color: $grayColor3;
+      background-color: $grayColor5;
+      border-radius: 5px;
+      margin-bottom: 10px;
     }
   }
 
