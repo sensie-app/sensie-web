@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { useParams } from 'react-router-dom'
 // import { setCheckboxAllClientsAction /*, setCheckboxAllTeamsAction */ } from '../../../redux/actions/checkbox.actions'
 import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
-import { updatePackCommunityAction } from '../../../redux/actions/packs.actions'
 // styles
 import styles from './styles.module.scss'
 // fake data
@@ -102,10 +101,6 @@ const ShareWith = ({ pack }) => {
     // forceUpdate()
   }
 
-  const handleCommunityPackChange = e => {
-    dispatch(updatePackCommunityAction(pack.id, e))
-  }
-
   // ? render functions
   /**
    * renderListClients
@@ -176,13 +171,13 @@ const ShareWith = ({ pack }) => {
       {/* footer */}
       <div className={styles.ShareWithPublicAvailable}>
         <div className={styles.ShareWithFooterContainer}>
-          <ItemCheckbox
+          {/* <ItemCheckbox
             defaultValue={pack.isCommunityPack}
             onClick={value => handleCommunityPackChange(!value)}>
             <span className={styles.ShareWithItemCheckboxTitle}>
               {t('dashboard.ShareWith.publicAvailable')}
             </span>
-          </ItemCheckbox>
+          </ItemCheckbox> */}
           <span>{pack.name}</span>
           <button onClick={handleShare}>{t('dashboard.ShareWith.share')}</button>
         </div>
