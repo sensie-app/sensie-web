@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'
 import 'pure-react-carousel/dist/react-carousel.es.css'
-import { Element, Link } from 'react-scroll'
+import { Element } from 'react-scroll'
 // contaniners
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
@@ -23,6 +23,13 @@ import { setCheckboxAllAffirmationsByTopicsAction } from '../../../redux/actions
 import { handleArrTopics } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
+
+import { gqlquery2 } from '../../utils/queries'
+import { createTopicPrivate, updateUserTopicId } from '../../graphql/mutations'
+import { getTopicByIdQuery } from '../../graphql/queries'
+import { setTopicsAction } from '../../../redux/actions/topics.action'
+// import { useParams } from 'react-router-dom'
+// import Grid from "@material-ui/core/Grid";
 
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
@@ -43,6 +50,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   // ? hooks
   const dispatch = useDispatch()
   const {
+    userReducer: { user },
     topicsReducer: { topics },
     checkboxReducer: { all: { affirmationsByTopics } }
   } = useSelector(state => state)
@@ -50,8 +58,58 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   const [topic, setTopic] = useState(null)
   const [affirmations, setAffirmations] = useState([])
   const [active, setActive] = useState(null)
+  const [topicsComplete, saveTopicsComplete] = useState(null)
 
   useEffect(async () => await handleOnClickProps(), [topic])
+
+  useEffect(() => {
+    console.log('======================')
+    console.log(user)
+    console.log('======================')
+    if (user.id !== null) {
+      if (user.data.userTopicId === null) {
+        console.log('No tengo ningun topico ...')
+        handleCreateTopicPrivate().then(v => {
+          const idTopic = v.value.data.createTopic.id
+          handleUpdateUserTopicId(user.id, idTopic).then(h => {
+            user.data.userTopicId = idTopic
+            handleGetTopicById(idTopic).then(t => {
+              const topicP = t.value.data.getTopic
+              const dataTopics = topics
+              dataTopics.push(topicP)
+              dispatch(setTopicsAction(dataTopics))
+              saveTopicsComplete(topics)
+            })
+          })
+        })
+      } else {
+        const idTopic = user.data.userTopicId
+        console.log('Tengo un topico ...' + idTopic)
+        handleGetTopicById(idTopic).then(t => {
+          const topicP = t.value.data.getTopic
+          const dataTopics = topics
+          dataTopics.push(topicP)
+          dispatch(setTopicsAction(dataTopics))
+          saveTopicsComplete(topics)
+        })
+      }
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  const handleCreateTopicPrivate = async () => {
+    const result = await gqlquery2(createTopicPrivate('topics/private.svg', 'Private', 'topics/private.jpg'))
+    return result
+  }
+
+  const handleUpdateUserTopicId = async (id, idTopic) => {
+    const result = await gqlquery2(updateUserTopicId(id, idTopic))
+    return result
+  }
+
+  const handleGetTopicById = async (id) => {
+    return await gqlquery2(getTopicByIdQuery(id))
+  }
 
   // ? handle functions
   /**
@@ -59,7 +117,11 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
    */
   const handleOnClickProps = async () => {
     if (topic) {
-      const listaffirmations = topics.filter(item => item.id === topic.id)[0]
+      let listaffirmations = topics.filter(item => item.id === topic.id)[0]
+      if (typeof listaffirmations === 'undefined') {
+        const r = await gqlquery2(getTopicByIdQuery(topic.id))
+        listaffirmations = r.value.data.getTopic
+      }
       setAffirmations(listaffirmations.affirmations.items)
     }
   }
@@ -87,6 +149,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   const handleOnClickSelectAll = value => dispatch(setCheckboxAllAffirmationsByTopicsAction(value))
 
   const handleOnClickBtn = (_topic) => {
+    setAffirmations([])
     setTopic(_topic)
     setActive(_topic.id)
   }
@@ -121,29 +184,31 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
    * @returns {undefined} Topic component
    */
   const renderTopics = () => {
-    return topics.map((_topic, index) => {
-      return (
-        <Slide key={index} index={index}>
-          <Link className={styles.affirmationsByTopicsButton}
-            to="listTopics" smooth={true} offset={-150}
-            onClick={() => handleOnClickBtn(_topic)}>
-            {/* <a href="#listTopics"> */}
-              <Topic
-                img={_topic.picture}
-                icon={_topic.icon}
-                title={_topic}
-                topic={_topic}
-                withLink={false}
-                witCheckbox={false}
-                min={true}
-                iconSize='25px'
-                active={active === _topic.id}
-              />
-            {/* </a> */}
-          </Link>
-        </Slide>
-      )
-    })
+    if (topicsComplete !== null) {
+      return topicsComplete.map((_topic, index) => {
+        return (
+            <Slide key={index} index={index}>
+              <button
+                  className={styles.affirmationsByTopicsButton}
+                  onClick={() => handleOnClickBtn(_topic)}>
+                <Topic
+                    img={_topic.picture}
+                    icon={_topic.icon}
+                    title={_topic}
+                    topic={_topic}
+                    withLink={false}
+                    witCheckbox={false}
+                    min={true}
+                    iconSize='25px'
+                    active={active === _topic.id}
+                />
+              </button>
+            </Slide>
+        )
+      })
+    } else {
+      return null
+    }
   }
 
   /**
@@ -187,7 +252,9 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
               // hasMasterSpinner
               infinite
             >
-              <Slider>{renderTopics()}</Slider>
+              <Slider>
+                {renderTopics()}
+              </Slider>
               <ButtonBack className={styles.affirmationsByTopicsCaruselBtn}><Icon name="arrow-ios-back-outline" color={fontColor1} size="md" /></ButtonBack>
               <ButtonNext className={styles.affirmationsByTopicsCaruselBtn}><Icon name="arrow-ios-forward-outline" color={fontColor1} size="md" /></ButtonNext>
             </CarouselProvider>

@@ -49,7 +49,6 @@ const { affirmations } = DASHBOARD_ROUTES
  */
 const Pack = () => {
   // ? hooks
-  const [t] = useTranslation('global')
   const dispatch = useDispatch()
   const {
     userReducer: { user },
@@ -57,17 +56,19 @@ const Pack = () => {
     packsReducer
     // paginationReducer: { pagination }
   } = useSelector(state => state)
+  const [t] = useTranslation('global')
   const { id } = useParams()
   const [pack, setPack] = useState(null)
   const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
 
-  useEffect(() => handlePackId(), [])
+  useEffect(() => {
+    handlePackId()
+  }, [])
   useEffect(() => handlePackId(), [packsReducer])
   useEffect(() => dispatch(listPacksAction(user.id)), [user.loading, newAff])
 
   useEffect(async () => {
-    console.log(packsReducer)
     dispatch(getAllTopicsAction())
   }, [user.loading, newAff])
 

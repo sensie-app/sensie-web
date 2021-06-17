@@ -91,6 +91,7 @@ export const getUserByIdQuery = id => `
           id
         }
       }
+      userTopicId
     }
   }
 `
@@ -318,7 +319,7 @@ export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
 
 export const listTopicsQuery = () => `
   query MyQuery {
-    listTopics {
+    listTopics(filter: {isPrivate: {eq: false}}) {
       items {
         id
         name
@@ -350,7 +351,7 @@ export const listTopicsQuery = () => `
 
 export const listTopicsWiyhAffirmationsIdsQuery = () => `
   query MyQuery {
-    listTopics {
+    listTopics(filter: {isPrivate: {eq: false}}) {
       items {
         description
         id
