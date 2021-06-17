@@ -112,3 +112,19 @@ export const deletePackMutation = (id) => `
     }
   }
 `
+
+export const createTopicPrivate = (icon, name, picture) => `
+  mutation MyMutation {
+    createTopic(input: {icon: "${icon}", name: "${name}", picture: "${picture}", isPrivate: true}) {
+      id
+    }
+  }
+`
+
+export const updateUserTopicId = (id, userTopicId) => `
+  mutation MyMutation {
+    updateUser(input: {id: "${id}", userTopicId: "${userTopicId}"}) {
+      id
+    }
+  }
+`

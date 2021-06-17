@@ -23,7 +23,7 @@ import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // utils
 import { /* gqlquery, */ gqlquery2 } from '../../utils/queries'
 // graphql queries
-// import { getTopicByIdQuery } from '../../graphql/queries'
+import { getTopicByIdQuery } from '../../graphql/queries'
 import {
   createAffirmationMutation,
   joinAffirmationWithTopicMutation,
@@ -106,9 +106,10 @@ const Topic = () => {
    * handlePackId
    * @returns {array}
    * */
-  const handleTopicId = () => {
-    const tp = topicsReducer.topics.filter(topic => topic.id === id)[0] || {}
-    console.log(tp)
+  const handleTopicId = async () => {
+    const r = await gqlquery2(getTopicByIdQuery(id))
+    const tp = r.value.data.getTopic
+    // topicsReducer.topics.filter(topic => topic.id === id)[0] || {}
     const defTopic = [{
       name: tp.name,
       description: tp.description,
@@ -265,7 +266,7 @@ const Topic = () => {
    * @returns {undefined} NewAffirmation container
    */
   const renderDbAffirmations = () => {
-    if (topic.affirmations) {
+    if (topic.affirmations && Array.isArray(topic.affirmations.items)) {
       const items = topic.affirmations.items.sort((a, b) => b.affirmation.createdAt < a.affirmation.createdAt ? -1 : 1)
       console.log(items)
       return items.map(item => {
@@ -282,8 +283,11 @@ const Topic = () => {
           onRemovePack={handleRemoveToPack}
         />
       })
+    } else if (typeof topic.affirmations === 'undefined') {
+      return null
+    } else {
+      return <Loading />
     }
-    return <Loading />
   }
 
   return (
