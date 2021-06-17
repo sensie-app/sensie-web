@@ -26,7 +26,7 @@ import PropTypes from 'prop-types'
  * @component
  */
 const ShareWith = ({ pack }) => {
-  console.log(pack)
+  console.log('[PACK]', pack)
   // ? hooks
   const dispatch = useDispatch()
   const {
@@ -114,12 +114,12 @@ const ShareWith = ({ pack }) => {
       if (disabled) delete checked[user.id]
       console.log(checked)
       return (
-      <ItemCheckbox value={user.id} key={index} check={disabled || allChecked} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)} disabled={disabled}>
-        <span
-          className={styles.ShareWithItemCheckboxTitle}>
-          {user.firstName} {user.lastName}
-        </span>
-      </ItemCheckbox>)
+        <ItemCheckbox value={user.id} key={index} check={disabled || allChecked} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)} disabled={disabled}>
+          <span
+            className={styles.ShareWithItemCheckboxTitle}>
+            {user.firstName} {user.lastName}
+          </span>
+        </ItemCheckbox>)
     })
   }
 
@@ -168,18 +168,17 @@ const ShareWith = ({ pack }) => {
           {renderListTeams()}
         </div> */}
       </div>
-        {/* footer */}
+      {/* footer */}
       <div className={styles.ShareWithPublicAvailable}>
         <div className={styles.ShareWithFooterContainer}>
           {/* <ItemCheckbox
-            defaultValue={false}
-            onClick={(value) => console.log(!value)}
-          >
+            defaultValue={pack.isCommunityPack}
+            onClick={value => handleCommunityPackChange(!value)}>
             <span className={styles.ShareWithItemCheckboxTitle}>
               {t('dashboard.ShareWith.publicAvailable')}
             </span>
           </ItemCheckbox> */}
-          <span>{ pack.name }</span>
+          <span>{pack.name}</span>
           <button onClick={handleShare}>{t('dashboard.ShareWith.share')}</button>
         </div>
       </div>

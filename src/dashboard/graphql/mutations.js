@@ -105,6 +105,18 @@ export const updatePackMutation = (id, name, description, author, imgKey) => `
   }
 `
 
+export const updatePackCommunityMutation = (id, isCommunityPack) => `
+  mutation MyMutation {
+    updatePack(input: {id: "${id}", isCommunityPack: ${isCommunityPack} }) {
+      id
+      name
+      author
+      picture
+      isCommunityPack
+    }
+  }
+`
+
 export const deletePackMutation = (id) => `
   mutation MyMutation {
     deletePack(input: {id: "${id}"}) {

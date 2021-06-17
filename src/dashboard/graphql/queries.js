@@ -405,7 +405,7 @@ export const getPacksFromUser = id => `
             id
             description
             picture
-            author
+            author            
             affirmations(limit:10000, sortDirection: DESC) {
               items {
                 affirmation {
@@ -444,6 +444,7 @@ export const getPacksFromUser = id => `
           description
           picture
           author
+          isCommunityPack
           affirmations(sortDirection: DESC) {
             items {
               id
