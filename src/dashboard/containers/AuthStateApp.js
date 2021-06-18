@@ -40,7 +40,6 @@ const AuthStateApp = ({ children }) => {
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState)
-      console.log(authData)
       invinfo && authData && updateUserCoach(authData.username, id)
       setUser(authData)
     })
@@ -66,8 +65,6 @@ const AuthStateApp = ({ children }) => {
   }, [authState])
 
   const q = new URLSearchParams(useLocation().search)
-
-  console.log(q.get('invcode'))
 
   const invinfo = q.get('invcode')
   const [id, coachFirst, coachLast] = window.atob(invinfo).split(';')

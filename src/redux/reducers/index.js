@@ -10,6 +10,7 @@ import topicsReducer from './topics.reducer'
 import packsReducer from './packs.reducer'
 import usersReducer from './users.reducer'
 import affirmationsReducer from './affirmations.reducer'
+import invitationsReducer from './invitations.reducer'
 
 const reducers = combineReducers({
   filtersReducer,
@@ -20,7 +21,8 @@ const reducers = combineReducers({
   topicsReducer,
   affirmationsReducer,
   packsReducer,
-  usersReducer
+  usersReducer,
+  invitationsReducer
 })
 
 export default reducers

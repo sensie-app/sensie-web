@@ -92,7 +92,7 @@ const User = ({ user, flow, awareness, totalSensies }) => {
               : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/18'} valueType="" icon={UP} theme={2} />}
           </div>
           {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
-          <div><IconChart title={t('dashboard.IconChart.sensies')} value={totalSensies} valueType="number" icon={UP} theme={2} /></div>
+          <div><IconChart title={t('dashboard.IconChart.sensies')} value={totalSensies.toString()} valueType="number" icon={UP} theme={2} /></div>
         </div>
       </div>
       {/* { show === summary
@@ -123,8 +123,14 @@ User.propTypes = {
   user: UserPropTypes,
   sensies: PropTypes.object,
   affirmation: PropTypes.object,
-  flow: PropTypes.number,
-  awareness: PropTypes.number,
+  flow: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  awareness: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   totalSensies: PropTypes.number
 }
 

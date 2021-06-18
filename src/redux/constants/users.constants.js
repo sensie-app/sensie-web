@@ -1,7 +1,7 @@
 const USERS = {
   GET_ALL_USERS: 'GET_ALL_USERS',
-  LOADING: 'LOADING',
-  ERROR: 'ERROR'
+  LOADING: '[USERS] LOADING',
+  ERROR: '[USERS] ERROR'
 }
 
 export default USERS
