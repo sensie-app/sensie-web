@@ -21,7 +21,7 @@ export const getAllTopicsAction = () => async dispatch => {
 
   try {
     const response = await API.graphql(graphqlOperation(listTopicsQuery()))
-    console.log(response)
+
     dispatch({
       type: GET_ALL_TOPICS,
       payload: response.data.listTopics.items

@@ -258,7 +258,12 @@
     },
     "UserStatistics": {
       "lastSensie": "Last sensie",
-      "noSensies": "User without sensies"
+      "noSensies": "User without sensies",
+      "removeClientButton": "Remove client",
+      "removeClientCancel": "Cancel",
+      "removeClientAccept": "Remove",
+      "removeClientTitle": "Remove client",
+      "removeClientDescription": "Are you sure you want to remove this client? This action can't be undone."
     }
   }
 }

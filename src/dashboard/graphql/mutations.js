@@ -16,7 +16,7 @@ export const updateInvite = (id, packsId) => `
 
 export const updateUserWithCoach = (id, userCoachId) => `
   mutation updateUserWithCoach {
-    updateUser(input: {id: "${id}", userCoachId: "${userCoachId}"}) {
+    updateUser(input: {id: "${id}", userCoachId: ${userCoachId ? `"${userCoachId}"` : null}}) {
       id
     }
   }
@@ -115,6 +115,14 @@ export const updatePackMutation = (id, name, description, author, imgKey) => `
 export const deletePackMutation = (id) => `
   mutation MyMutation {
     deletePack(input: {id: "${id}"}) {
+      id
+    }
+  }
+`
+
+export const deletePackSubscription = (id) => `
+  mutation deletePackSubscription {
+    deletePackSubscription(input: {id: "${id}"}) {
       id
     }
   }
