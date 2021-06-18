@@ -127,3 +127,10 @@ export const deletePackSubscription = (id) => `
     }
   }
 `
+export const deletePackLike = (id) => `
+  mutation deletePackLike {
+    deletePackLike(input: {id: "${id}"}) {
+      id
+    }
+  }
+`

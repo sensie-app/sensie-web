@@ -273,13 +273,20 @@ export const getClientsFromCoach = (id, dates) => `
   }
 `
 
-export const getClientFromCoach = (clientId, coachId, nextToken = '') => `
+export const getClientFromCoach = (clientId, coachId, subscribedNextToken, likedNextToken) => `
   query getClientFromCoach {
     getUser(id: "${coachId}") {
       clients(filter: {id: {eq: "${clientId}"}}) {
         items {
           id
-          subscribedPacks(nextToken: ${nextToken ? `"${nextToken}"` : null}) {
+          subscribedPacks(limit: 1000, nextToken: ${subscribedNextToken ? `"${subscribedNextToken}"` : null}) {
+            nextToken
+            items {
+              id
+              packId
+            }
+          }
+          likedPacks(limit: 1000, nextToken: ${likedNextToken ? `"${likedNextToken}"` : null}) {
             nextToken
             items {
               id
