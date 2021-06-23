@@ -3,7 +3,7 @@
 $size: 100px;
 
 .UserStatisticsContainer {
-  @include G50Container();  
+  @include G50Container();
   @include heightGrid();
   height: 40vh; // override
   padding: 0;
@@ -15,7 +15,7 @@ $size: 100px;
   width: 100%;
   height: 65%;
   margin-bottom: 10px;
-  
+
   .UserStatisticsHeaderAvatar {
     @include flex(column, center, center, nowrap);
     width: 30%;
@@ -35,7 +35,7 @@ $size: 100px;
       font-weight: bold;
       font-size: 2.5rem;
     }
-    
+
     div {
       @include flex(column, center, flex-start, wrap);
       font-size: 2rem;
@@ -43,7 +43,7 @@ $size: 100px;
         color: $actionColor1;
         font-size: 1.25rem;
         font-weight: bold;
-      }      
+      }
       .UserStatisticsHeaderBodyDate {
         color: $fontColor1;
         font-size: 1.5rem;
@@ -73,12 +73,12 @@ $size: 100px;
     border-radius: 5px;
     width: 100%;
     padding: 5px 0px;
-    @include flex(row, space-between, center, wrap);  
+    @include flex(row, space-between, center, wrap);
   }
 }
 
 .UserStatisticsBodyChartsContainer{
-  background-color: $grayColor5;  
+  background-color: $grayColor5;
   border-radius: 5px;
   @include flex(row, center, center, nowrap);
   padding: 0px 0px;
@@ -88,8 +88,25 @@ $size: 100px;
 }
 
 
+.UserBtnsContainer {
+  width: 100%;
 
+  @include flex(column, center, center, nowrap);
+  button {
+    background-color: transparent;
+    cursor: pointer;
 
-
-
-
+    @include border(solid, 1px, 5px, transparent);
+    color: $actionColor4;
+    font-size: 1.25rem;
+    padding: 5px 20px;
+    margin-bottom: 5px;
+    &:hover {
+      @include border(solid, 1px, 5px, $grayColor3);
+    }
+    input {
+      display: none;
+      overflow: hidden;
+    }
+  }
+}

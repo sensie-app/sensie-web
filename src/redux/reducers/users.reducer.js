@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   error: null
 }
 
-const { GET_ALL_USERS, LOADING, ERROR } = USERS
+const { GET_ALL_USERS, REMOVE_USER_FROM_COACH, LOADING, ERROR } = USERS
 
 const usersReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
@@ -14,6 +14,13 @@ const usersReducer = (state = INITIAL_STATE, { payload, type }) => {
       return {
         ...state,
         users: payload,
+        loading: false,
+        error: null
+      }
+    case REMOVE_USER_FROM_COACH:
+      return {
+        ...state,
+        users: state.users.filter(u => u.id !== payload),
         loading: false,
         error: null
       }

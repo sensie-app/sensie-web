@@ -16,7 +16,7 @@ export const updateInvite = (id, packsId) => `
 
 export const updateUserWithCoach = (id, userCoachId) => `
   mutation updateUserWithCoach {
-    updateUser(input: {id: "${id}", userCoachId: "${userCoachId}"}) {
+    updateUser(input: {id: "${id}", userCoachId: ${userCoachId ? `"${userCoachId}"` : null}}) {
       id
     }
   }
@@ -132,7 +132,6 @@ export const deletePackMutation = (id) => `
     }
   }
 `
-
 export const createTopicPrivate = (icon, name, picture) => `
   mutation MyMutation {
     createTopic(input: {icon: "${icon}", name: "${name}", picture: "${picture}", isPrivate: true}) {
@@ -140,10 +139,23 @@ export const createTopicPrivate = (icon, name, picture) => `
     }
   }
 `
-
 export const updateUserTopicId = (id, userTopicId) => `
   mutation MyMutation {
     updateUser(input: {id: "${id}", userTopicId: "${userTopicId}"}) {
+      id
+    }
+  }
+`
+export const deletePackSubscription = (id) => `
+  mutation deletePackSubscription {
+    deletePackSubscription(input: {id: "${id}"}) {
+      id
+    }
+  }
+`
+export const deletePackLike = (id) => `
+  mutation deletePackLike {
+    deletePackLike(input: {id: "${id}"}) {
       id
     }
   }

@@ -80,7 +80,10 @@ AffirmationChart.propTypes = {
   /** isActive */
   isActive: PropTypes.bool,
   /** value */
-  value: PropTypes.number.isRequired
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]).isRequired
 }
 
 export default AffirmationChart
