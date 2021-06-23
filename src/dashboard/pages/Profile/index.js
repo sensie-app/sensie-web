@@ -37,7 +37,7 @@ const Profile = () => {
   const dispatch = useDispatch()
   const [t] = useTranslation('global')
   const [picture, setPicture] = useState()
-  const [info, setInfo] = useState(data.infoText)
+  const [info, setInfo] = useState(data.infoText || '')
   const [firstName, setFirstName] = useState(data.firstName)
   const [lastName, setLastName] = useState(data.lastName)
   const [shareData, setShareData] = useState(true)
@@ -50,6 +50,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    data.infoText = data.infoText || ''
     getImage(data.picture).then(d => setPicture(d))
     setInfo(data.infoText)
     setFirstName(data.firstName)
