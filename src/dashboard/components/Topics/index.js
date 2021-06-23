@@ -1,5 +1,5 @@
 // react
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -10,10 +10,16 @@ import Topic from '../Topic'
 import TopicsConstants from '../../constants/topics'
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
-// utils
-// import { gqlquery } from '../../utils/queries'
+
 // styles
 import styles from './styles.module.scss'
+
+import { gqlquery2 } from '../../utils/queries'
+import { createTopicPrivate, updateUserTopicId } from '../../graphql/mutations'
+import { getTopicByIdQuery } from '../../graphql/queries'
+// redux
+import { useDispatch } from 'react-redux'
+import { setTopicsAction } from '../../../redux/actions/topics.action'
 
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
@@ -27,9 +33,41 @@ const showOldTopics = false
  * @component
  * @param {array} data
  */
-const Topics = ({ data }) => {
+const Topics = ({ data, user }) => {
   // ? hooks
+  const dispatch = useDispatch()
   const [t] = useTranslation('global')
+  const [topicsComplete, saveTopicsComplete] = useState(null)
+  useEffect(() => {
+    if (user.data.userTopicId === null) {
+      console.log('No tengo ningun topico ...')
+      handleCreateTopicPrivate().then(v => {
+        const idTopic = v.value.data.createTopic.id
+        handleUpdateUserTopicId(user.id, idTopic).then(h => {
+          user.data.userTopicId = idTopic
+          handleGetTopicById(idTopic).then(topic => {
+            const topicP = topic.value.data.getTopic
+            const dataTopics = data
+            dataTopics.push(topicP)
+            dispatch(setTopicsAction(dataTopics))
+            saveTopicsComplete(data)
+          })
+        })
+      })
+    } else {
+      const idTopic = user.data.userTopicId
+      console.log('User:', user)
+      console.log('Tengo un topico ...' + idTopic)
+      handleGetTopicById(idTopic).then(topic => {
+        const topicP = topic.value.data.getTopic
+        const dataTopics = data
+        dataTopics.push(topicP)
+        dispatch(setTopicsAction(dataTopics))
+        saveTopicsComplete(data)
+      })
+    }
+    // eslint-disable-next-line
+  }, []);
 
   // ? render functions
   /**
@@ -37,14 +75,33 @@ const Topics = ({ data }) => {
    * @returns {undefined} Topic componnet
    */
   const renderTopics = () => {
-    return data && data.map(item => {
-      const countAffirmation = item.affirmations.items.length
-      return (
-        <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Topic img={item.picture} icon={item.icon} route={topic + '/' + item.id} title={item.name} topic={item} count={countAffirmation} />
-        </Grid>
-      )
-    })
+    if (topicsComplete !== null) {
+      console.log(topicsComplete)
+      return topicsComplete && topicsComplete.map(item => {
+        const countAffirmation = item.affirmations.items.length
+        return (
+          <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <Topic img={item.picture} icon={item.icon} route={topic + '/' + item.id} title={item.name} topic={item} count={countAffirmation} />
+          </Grid>
+        )
+      })
+    } else {
+      return null
+    }
+  }
+
+  const handleCreateTopicPrivate = async () => {
+    const result = await gqlquery2(createTopicPrivate('topics/private.svg', 'Private', 'topics/private.jpg'))
+    return result
+  }
+
+  const handleUpdateUserTopicId = async (id, idTopic) => {
+    const result = await gqlquery2(updateUserTopicId(id, idTopic))
+    return result
+  }
+
+  const handleGetTopicById = async (id) => {
+    return await gqlquery2(getTopicByIdQuery(id))
   }
 
   return (
@@ -82,7 +139,9 @@ const Topics = ({ data }) => {
           </Grid>
         </Fragment>}
         {/* // bd topics */}
-        {renderTopics()}
+        <Fragment>
+          {renderTopics()}
+        </Fragment>
       </Grid>
     </div>
   )
@@ -91,7 +150,8 @@ const Topics = ({ data }) => {
 // prop types
 Topics.propTypes = {
   /** data */
-  data: PropTypes.array
+  data: PropTypes.array,
+  user: PropTypes.object
 }
 
 export default Topics

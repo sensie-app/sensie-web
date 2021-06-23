@@ -72,7 +72,7 @@ const Affirmations = () => {
               ? <Fragment>
                   {packsReducer.loading ? <Loading /> : <Packs data={packsReducer.packs}/>}
                 </Fragment>
-              : <Topics data={topicsReducer.topics} />
+              : <Topics data={topicsReducer.topics} user={user}/>
             }
           </div>
       </div>

@@ -84,11 +84,14 @@ export const getUserByIdQuery = id => `
       userTeamId
       picture
       infoText
+      shareData
+      userCoachId
       invites(filter: {used: {ne: true}}) {
         items {
           id
         }
       }
+      userTopicId
     }
   }
 `
@@ -344,7 +347,7 @@ export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
 
 export const listTopicsQuery = () => `
   query MyQuery {
-    listTopics {
+    listTopics(filter: {isPrivate: {eq: false}}) {
       items {
         id
         name
@@ -376,7 +379,7 @@ export const listTopicsQuery = () => `
 
 export const listTopicsWiyhAffirmationsIdsQuery = () => `
   query MyQuery {
-    listTopics {
+    listTopics(filter: {isPrivate: {eq: false}}) {
       items {
         description
         id
@@ -431,7 +434,7 @@ export const getPacksFromUser = id => `
             id
             description
             picture
-            author
+            author            
             affirmations(limit:10000, sortDirection: DESC) {
               items {
                 affirmation {
@@ -470,6 +473,7 @@ export const getPacksFromUser = id => `
           description
           picture
           author
+          isCommunityPack
           affirmations(sortDirection: DESC) {
             items {
               id

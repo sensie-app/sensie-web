@@ -22,9 +22,9 @@ export const updateUserWithCoach = (id, userCoachId) => `
   }
 `
 
-export const updateUserData = (id, picture, infoText, firstName, lastName) => `
+export const updateUserData = (id, picture, infoText, firstName, lastName, shareData) => `
   mutation updateUserWithCoach {
-    updateUser(input: {id: "${id}", picture: "${picture}", infoText: "${infoText}", firstName: "${firstName}", lastName: "${lastName}"}) {
+    updateUser(input: {id: "${id}", picture: "${picture}", infoText: "${infoText}", firstName: "${firstName}", lastName: "${lastName}", shareData: ${shareData} }) {
       id
       firstName
       lastName
@@ -32,6 +32,7 @@ export const updateUserData = (id, picture, infoText, firstName, lastName) => `
       picture
       gender
       infoText
+      shareData
     }
   }
 `
@@ -112,6 +113,18 @@ export const updatePackMutation = (id, name, description, author, imgKey) => `
   }
 `
 
+export const updatePackCommunityMutation = (id, isCommunityPack) => `
+  mutation MyMutation {
+    updatePack(input: {id: "${id}", isCommunityPack: ${isCommunityPack} }) {
+      id
+      name
+      author
+      picture
+      isCommunityPack
+    }
+  }
+`
+
 export const deletePackMutation = (id) => `
   mutation MyMutation {
     deletePack(input: {id: "${id}"}) {
@@ -119,7 +132,20 @@ export const deletePackMutation = (id) => `
     }
   }
 `
-
+export const createTopicPrivate = (icon, name, picture) => `
+  mutation MyMutation {
+    createTopic(input: {icon: "${icon}", name: "${name}", picture: "${picture}", isPrivate: true}) {
+      id
+    }
+  }
+`
+export const updateUserTopicId = (id, userTopicId) => `
+  mutation MyMutation {
+    updateUser(input: {id: "${id}", userTopicId: "${userTopicId}"}) {
+      id
+    }
+  }
+`
 export const deletePackSubscription = (id) => `
   mutation deletePackSubscription {
     deletePackSubscription(input: {id: "${id}"}) {

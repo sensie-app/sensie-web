@@ -11,6 +11,7 @@ import AffirmationsByTopics from '../../containers/AffirmationsByTopics'
 // components
 import Loading from '../../components/Loading'
 import Share from '../../components/Share'
+import ItemCheckbox from '../../components/ItemCheckbox'
 // constants
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
@@ -28,8 +29,9 @@ import {
 } from '../../graphql/mutations'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
-import { listPacksAction } from '../../../redux/actions/packs.actions'
+import { listPacksAction, updatePackCommunityAction } from '../../../redux/actions/packs.actions'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
+
 // import { createAffirmationAction } from '../../../redux/actions/affirmations.actions'
 // styles
 import styles from './styles.module.scss'
@@ -47,7 +49,6 @@ const { affirmations } = DASHBOARD_ROUTES
  */
 const Pack = () => {
   // ? hooks
-  const [t] = useTranslation('global')
   const dispatch = useDispatch()
   const {
     userReducer: { user },
@@ -55,17 +56,19 @@ const Pack = () => {
     packsReducer
     // paginationReducer: { pagination }
   } = useSelector(state => state)
+  const [t] = useTranslation('global')
   const { id } = useParams()
   const [pack, setPack] = useState(null)
   const [newAff, setNewAff] = useState(false)
   const [waitQuery, setWaitQuery] = useState(true)
 
-  useEffect(() => handlePackId(), [])
+  useEffect(() => {
+    handlePackId()
+  }, [])
   useEffect(() => handlePackId(), [packsReducer])
   useEffect(() => dispatch(listPacksAction(user.id)), [user.loading, newAff])
 
   useEffect(async () => {
-    console.log(packsReducer)
     dispatch(getAllTopicsAction())
   }, [user.loading, newAff])
 
@@ -193,6 +196,10 @@ const Pack = () => {
    */
   const handleAffirmationsByTopicsQuery = async (topicId) => await gqlquery(getTopicByIdQuery(topicId))
 
+  const handleCommunityPackChange = e => {
+    dispatch(updatePackCommunityAction(pack.id, e))
+  }
+
   // ? render functions
   /**
    * renderDbAffirmations
@@ -204,18 +211,18 @@ const Pack = () => {
           if (item !== null) {
             const { name, topics } = item.affirmation
             return <NewAffirmation
-              key={item.affirmation.id}
-              joinId={item.id}
-              checkAll={checkboxReducer.all.affirmations}
-              packId={id}
-              data={item.affirmation}
-              title={name}
-              selectedTopics={handleArrTopics(topics.items)}
-              withRemoveBtn={true}
-              withAddBtn={false}
-              onAddToPack={handleAddToPack}
-              onRemovePack={handleRemoveToPack}
-              onDelete={handleDeleteAffirmation}
+            key={item.affirmation.id}
+            joinId={item.id}
+            checkAll={checkboxReducer.all.affirmations}
+            packId={id}
+            data={item.affirmation}
+            title={name}
+            selectedTopics={handleArrTopics(topics.items)}
+            withRemoveBtn={true}
+            withAddBtn={false}
+            onAddToPack={handleAddToPack}
+            onRemovePack={handleRemoveToPack}
+            onDelete={handleDeleteAffirmation}
           />
           } else {
             return ''
@@ -241,6 +248,16 @@ const Pack = () => {
             </div>
           </div>
           <div className={styles.PackHeaderShareContainer}>
+            {pack &&
+              <ItemCheckbox
+                checkStyle={{ padding: 0 }}
+                defaultValue={pack.isCommunityPack !== null ? pack.isCommunityPack : false}
+                onClick={value => handleCommunityPackChange(!value)}>
+                <span className={styles.ShareWithItemCheckboxTitle}>
+                  {t('dashboard.ShareWith.publicAvailable')}
+                </span>
+              </ItemCheckbox>
+            }
             <Share pack={pack} />
           </div>
         </div>

@@ -3,7 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify'
 // queries
 // import { listPacksWiyhAffirmationsIdsByIdQuery } from '../../dashboard/graphql/queries'
 import { getPacksFromUser } from '../../dashboard/graphql/queries'
-import { createPackMutation, deletePackMutation, updatePackMutation } from '../../dashboard/graphql/mutations'
+import { createPackMutation, deletePackMutation, updatePackCommunityMutation, updatePackMutation } from '../../dashboard/graphql/mutations'
 // constants
 import PACKS from '../constants/packs.constants'
 
@@ -70,6 +70,17 @@ export const updatePacksAction = (id, name, description, author, imgKey) => asyn
       type: UPDATE_PACK,
       payload: response.data.updatePack
     })
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: 'Error in update pack'
+    })
+  }
+}
+
+export const updatePackCommunityAction = (id, isCommunityPack) => async dispatch => {
+  try {
+    await API.graphql(graphqlOperation(updatePackCommunityMutation(id, isCommunityPack)))
   } catch (error) {
     dispatch({
       type: ERROR,

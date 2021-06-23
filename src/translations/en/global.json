@@ -129,7 +129,7 @@
     "ShareWith": {
       "selectAllClients": "Select all clients",
       "selectAllTeams": "Select all teams",
-      "publicAvailable": "Public available",
+      "publicAvailable": "Community pack",
       "share": "Share"
     },
     "Affirmation": {
@@ -246,7 +246,8 @@
       "uploadImage": "Upload image",
       "removeImage": "Remove image",
       "cancel": "Cancel",
-      "save": "Save"
+      "save": "Save",
+      "shareData": "Share data with my coach"
     },
     "WrongOrientation": {
       "message": "Please rotate your device",
