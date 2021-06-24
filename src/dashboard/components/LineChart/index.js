@@ -55,7 +55,10 @@ const LineChart = ({ data }) => {
             tickSize: 7,
             tickPadding: 0,
             tickRotation: -45,
-            format: `${format}`
+            format: `${format}`,
+            legend: 'Date',
+            legendOffset: 70,
+            legendPosition: 'middle'
           }}
           yScale={{
             type: 'linear',
@@ -77,9 +80,9 @@ const LineChart = ({ data }) => {
             tickSize: 0,
             tickPadding: 10,
             tickRotation: 0,
-            legend: '',
+            legend: 'Flow',
             legendPosition: 'middle',
-            legendOffset: -40
+            legendOffset: -45
           }}
           defs={[
             linearGradientDef('gradientHigh', [
