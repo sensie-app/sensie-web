@@ -85,7 +85,7 @@ const Topic = () => {
       handleTopicId()
     }
   }, [topicsReducer])
-  useEffect(() => dispatch(getAllTopicsAction()), [newAff])
+  useEffect(() => dispatch(getAllTopicsAction(user.data.userTopicId)), [newAff])
 
   const [uri, setUri] = useState('')
   const [iconUri, setIconUri] = useState('')

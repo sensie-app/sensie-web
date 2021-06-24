@@ -1,5 +1,5 @@
 // react
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -16,10 +16,10 @@ import styles from './styles.module.scss'
 
 import { gqlquery2 } from '../../utils/queries'
 import { createTopicPrivate, updateUserTopicId } from '../../graphql/mutations'
-import { getTopicByIdQuery } from '../../graphql/queries'
+
 // redux
 import { useDispatch } from 'react-redux'
-import { setTopicsAction } from '../../../redux/actions/topics.action'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
@@ -37,33 +37,14 @@ const Topics = ({ data, user }) => {
   // ? hooks
   const dispatch = useDispatch()
   const [t] = useTranslation('global')
-  const [topicsComplete, saveTopicsComplete] = useState(null)
+  // const [topicsComplete, saveTopicsComplete] = useState(null)
   useEffect(() => {
     if (user.data.userTopicId === null) {
-      console.log('No tengo ningun topico ...')
       handleCreateTopicPrivate().then(v => {
         const idTopic = v.value.data.createTopic.id
         handleUpdateUserTopicId(user.id, idTopic).then(h => {
-          user.data.userTopicId = idTopic
-          handleGetTopicById(idTopic).then(topic => {
-            const topicP = topic.value.data.getTopic
-            const dataTopics = data
-            dataTopics.push(topicP)
-            dispatch(setTopicsAction(dataTopics))
-            saveTopicsComplete(data)
-          })
+          dispatch(getAllTopicsAction(user.data.userTopicId))
         })
-      })
-    } else {
-      const idTopic = user.data.userTopicId
-      console.log('User:', user)
-      console.log('Tengo un topico ...' + idTopic)
-      handleGetTopicById(idTopic).then(topic => {
-        const topicP = topic.value.data.getTopic
-        const dataTopics = data
-        dataTopics.push(topicP)
-        dispatch(setTopicsAction(dataTopics))
-        saveTopicsComplete(data)
       })
     }
     // eslint-disable-next-line
@@ -75,19 +56,14 @@ const Topics = ({ data, user }) => {
    * @returns {undefined} Topic componnet
    */
   const renderTopics = () => {
-    if (topicsComplete !== null) {
-      console.log(topicsComplete)
-      return topicsComplete && topicsComplete.map(item => {
-        const countAffirmation = item.affirmations.items.length
-        return (
-          <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-            <Topic img={item.picture} icon={item.icon} route={topic + '/' + item.id} title={item.name} topic={item} count={countAffirmation} />
-          </Grid>
-        )
-      })
-    } else {
-      return null
-    }
+    return data && data.map(item => {
+      const countAffirmation = item.affirmations.items.length
+      return (
+        <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+          <Topic img={item.picture} icon={item.icon} route={topic + '/' + item.id} title={item.name} topic={item} count={countAffirmation} />
+        </Grid>
+      )
+    })
   }
 
   const handleCreateTopicPrivate = async () => {
@@ -98,10 +74,6 @@ const Topics = ({ data, user }) => {
   const handleUpdateUserTopicId = async (id, idTopic) => {
     const result = await gqlquery2(updateUserTopicId(id, idTopic))
     return result
-  }
-
-  const handleGetTopicById = async (id) => {
-    return await gqlquery2(getTopicByIdQuery(id))
   }
 
   return (

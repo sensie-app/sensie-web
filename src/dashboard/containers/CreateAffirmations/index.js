@@ -20,6 +20,8 @@ import NewAffirmation from '../NewAffirmation'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+import { getTopicByIdQuery } from '../../graphql/queries'
+import { gqlquery2 } from '../../utils/queries'
 
 // const
 const { fontColor1 } = COLORS
@@ -57,6 +59,7 @@ const CreateAffirmations = ({
   const {
     affirmationsReducer: { newAffirmation, lastAffirmations },
     packsReducer: { packs },
+    userReducer: { user },
     checkboxReducer: { all: { affirmations } }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
@@ -73,6 +76,10 @@ const CreateAffirmations = ({
       ? setTopics(defaultTopic)
       : setTopics(newAffirmation.topics)
   }, [defaultTopic])
+
+  const handleGetTopicById = async (id) => {
+    return await gqlquery2(getTopicByIdQuery(id))
+  }
 
   // ? handle functions
   /**
@@ -110,18 +117,27 @@ const CreateAffirmations = ({
   const handleClickBtnDone = async () => {
     setTitle(title || '')
     setShowErrorTitle(title === '')
-    // setShowErrorTopics(topics.length === 0)
     if (title !== '' /* && topics.length > 0 */) {
       inputRef.current.value = ''
       const _list = listAffirmations
-      _list.push({ title, topics })
-      setListAffirmations(_list)
-      dispatch(setLastAffirmationsAction(_list))
+
+      if (topics.length === 0) {
+        const idTopic = user.data.userTopicId
+        const res = await handleGetTopicById(idTopic)
+        const topics = [res.value.data.getTopic]
+        _list.push({ title, topics })
+        setListAffirmations(_list)
+        dispatch(setLastAffirmationsAction(_list))
+        await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
+      } else {
+        _list.push({ title, topics })
+        setListAffirmations(_list)
+        dispatch(setLastAffirmationsAction(_list))
+        await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
+      }
       setTitle('')
       setTopics([])
       setShowNewForm(false)
-
-      await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
     }
   }
 

@@ -57,7 +57,9 @@ const User = () => {
   }, [globalDateFilter])
 
   useEffect(() => {
-    dispatch(getAllTopicsAction())
+    dispatch(getAllTopicsAction(user.data.userTopicId))
+    console.log(user)
+    console.log('coach, ', user)
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
     dispatch(listPacksAction(user.id))
   }, [user.id, globalDateFilter])

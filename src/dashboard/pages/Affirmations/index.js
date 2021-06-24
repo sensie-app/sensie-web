@@ -37,7 +37,7 @@ const Affirmations = () => {
   useEffect(async () => {
     console.log(packsReducer)
     dispatch(listPacksAction(user.id))
-    dispatch(getAllTopicsAction())
+    dispatch(getAllTopicsAction(user.data.userTopicId))
   }, [user.loading])
 
   // ? handle functions
