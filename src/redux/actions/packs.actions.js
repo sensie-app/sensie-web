@@ -21,13 +21,11 @@ export const listPacksAction = (id, filterPacks) => async dispatch => {
     type: LOADING
   })
 
-  console.log('id', id)
   try {
     const response = await API.graphql(graphqlOperation(getPacksFromUser(id)))
-    console.log('response', response)
     // const sPacks = response.data.getUser.subscribedPacks.items.filter(i => i.pack !== null)
     // const subbedPacks = sPacks.map(i => Object.assign(i.pack, { type: 'subscription' }))
-    const createdPacks = response.data.getUser.packs.items
+    const createdPacks = response.data.getUser?.packs.items || []
     const data = filterPacks ? createdPacks.filter(p => filterPacks.indexOf(p.id) > -1) : createdPacks
     dispatch({
       type: GET_ALL_PACKS,
@@ -35,7 +33,6 @@ export const listPacksAction = (id, filterPacks) => async dispatch => {
       payload: data
     })
   } catch (error) {
-    console.log('error', error)
     dispatch({
       type: ERROR,
       payload: 'Error in list packs'

@@ -37,10 +37,11 @@ const { home } = DASHBOARD_ROUTES
 const User = () => {
   // ? hooks
   const { id } = useParams()
-  console.log('User page: ', id)
+
   const {
     filtersReducer: { globalDateFilter },
     affirmationsReducer,
+    usersReducer,
     userReducer: { user }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
@@ -51,7 +52,9 @@ const User = () => {
   const [waitQuery, setWaitQuery] = useState(true)
   const dispatch = useDispatch()
 
-  useEffect(() => client === undefined ? setRedirect(true) : setRedirect(false), [globalDateFilter])
+  useEffect(() => {
+    client === undefined ? setRedirect(true) : setRedirect(false)
+  }, [globalDateFilter])
 
   useEffect(() => {
     dispatch(getAllTopicsAction(user.data.userTopicId))
@@ -62,9 +65,11 @@ const User = () => {
   }, [user.id, globalDateFilter])
 
   useEffect(async () => {
-    await handleUserQuery()
+    if (user.id) {
+      await handleUserQuery()
+    }
     // await handleAffirmationsQuery()
-  }, [globalDateFilter, affirmationsReducer.affirmations])
+  }, [globalDateFilter, affirmationsReducer.affirmations, usersReducer.users])
 
   // ? handle functions
   /**
@@ -72,15 +77,20 @@ const User = () => {
    */
   const handleUserQuery = async () => {
     const dbUser = await gqlquery(listUsersWithSensiesByUserId(id, globalDateFilter.value))
+
     if (!dbUser.loading && dbUser.value !== null) {
       const _client = dbUser.value.data.getUser
-      setClient(_client)
-      const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
-      const _s = s.filter(s => s.userId === _client.id)
-      console.log('setting sensie')
-      setSensies(_s)
-      setWaitQuery(false)
-      console.log(_client)
+
+      if (user.id === _client?.userCoachId) {
+        setClient(_client)
+        const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
+        const _s = s.filter(s => s.userId === _client.id)
+
+        setSensies(_s)
+        setWaitQuery(false)
+      } else {
+        setRedirect(true)
+      }
     } else { setWaitQuery(true) }
   }
 

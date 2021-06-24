@@ -30,6 +30,8 @@ const AlertDialog = ({
   description = '',
   agreeText = '',
   disagreeText = '',
+  agreeColor = 'primary',
+  disagreeColor = 'primary',
   agreeOnClick = () => {},
   disagreeOnClick = () => {},
   withLogout = false
@@ -86,12 +88,12 @@ const AlertDialog = ({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDisagreeOnClick} color="primary">
+          <Button onClick={handleDisagreeOnClick} color={disagreeColor}>
             {disagreeText}
           </Button>
           {withLogout
             ? <button onClick={handleClose}><AmplifySignOut /></button>
-            : <Button onClick={handleAgreeOnClick} color="primary" autoFocus>{agreeText}</Button>
+            : <Button onClick={handleAgreeOnClick} color={agreeColor} autoFocus>{agreeText}</Button>
           }
         </DialogActions>
       </Dialog>
@@ -102,13 +104,18 @@ const AlertDialog = ({
 // prop-types
 AlertDialog.propTypes = {
   /** children -> open dialog button */
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string
+  ]).isRequired,
   /** Dialog title */
   title: PropTypes.string.isRequired,
   /** Dialog description */
   description: PropTypes.string,
   /** Dialog disagree button title */
   disagreeText: PropTypes.string,
+  agreeColor: PropTypes.oneOf(['inherit', 'primary', 'secondary', 'default']),
+  disagreeColor: PropTypes.oneOf(['inherit', 'primary', 'secondary', 'default']),
   /** Dialog disagree button action */
   disagreeOnClick: PropTypes.func,
   /** Dialog agree button title */

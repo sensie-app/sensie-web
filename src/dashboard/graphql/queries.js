@@ -164,36 +164,37 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
 export const listUsersWithSensiesByUserId = (userId, dates) => `
   query MyQuery {
     getUser(id: "${userId}") {
-        sensies(limit: 10000, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, filter: {calibration: {eq: false}}) {
-          items {
+      sensies(limit: 10000, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, filter: {calibration: {eq: false}}) {
+        items {
+          id
+          result
+          createdAt
+        }
+      }
+      firstName
+      gender
+      lastName
+      id
+      picture
+      subscribedPacks {
+        items {
+          packId
+          pack {
+            name
             id
-            result
-            createdAt
+            description
           }
         }
-        firstName
-        gender
-        lastName
-        id
-        picture
-        subscribedPacks {
-          items {
-            packId
-            pack {
-              name
-              id
-              description
-            }
-          }
+      }
+      selfAwarenessScores {
+        items {
+          id
+          timestamp
+          selfAssessment
+          score
         }
-        selfAwarenessScores {
-          items {
-            id
-            timestamp
-            selfAssessment
-            score
-          }
-        }
+      }
+      userCoachId
     }
   }
 `
@@ -256,6 +257,7 @@ export const getClientsFromCoach = (id, dates) => `
           selfAwareness
           subscribedPacks {
             items {
+              id
               packId
               userId
             }
@@ -266,6 +268,32 @@ export const getClientsFromCoach = (id, dates) => `
               timestamp
               selfAssessment
               score
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const getClientFromCoach = (clientId, coachId, subscribedNextToken, likedNextToken) => `
+  query getClientFromCoach {
+    getUser(id: "${coachId}") {
+      clients(filter: {id: {eq: "${clientId}"}}) {
+        items {
+          id
+          subscribedPacks(limit: 1000, nextToken: ${subscribedNextToken ? `"${subscribedNextToken}"` : null}) {
+            nextToken
+            items {
+              id
+              packId
+            }
+          }
+          likedPacks(limit: 1000, nextToken: ${likedNextToken ? `"${likedNextToken}"` : null}) {
+            nextToken
+            items {
+              id
+              packId
             }
           }
         }
