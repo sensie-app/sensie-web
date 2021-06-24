@@ -1,7 +1,7 @@
 // amplify
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
-import { listTopicsQuery } from '../../dashboard/graphql/queries'
+import { getTopicByIdQuery, listTopicsQuery } from '../../dashboard/graphql/queries'
 // constants
 import TOPICS from '../constants/topics.constants'
 
@@ -14,13 +14,23 @@ export const setTopicsAction = data => {
   }
 }
 
-export const getAllTopicsAction = () => async dispatch => {
+export const getAllTopicsAction = userTopicId => async dispatch => {
   dispatch({
     type: LOADING
   })
 
   try {
+    let r = null
+    if (userTopicId !== null || typeof userTopicId !== 'undefined') {
+      r = await API.graphql(graphqlOperation(getTopicByIdQuery(userTopicId)))
+    }
+
     const response = await API.graphql(graphqlOperation(listTopicsQuery()))
+
+    if (r !== null || typeof r !== 'undefined') {
+      response.data.listTopics.items.push(r.data.getTopic)
+    }
+
     console.log(response)
     dispatch({
       type: GET_ALL_TOPICS,

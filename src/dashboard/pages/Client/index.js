@@ -46,7 +46,7 @@ const Client = () => {
     console.log(globalDateFilter)
     console.log(listUsersByOrganizationIdAction)
     console.log(listAffirmationsByCoachId)
-    dispatch(getAllTopicsAction())
+    dispatch(getAllTopicsAction(user.data.userTopicId))
     dispatch(listPacksAction(user.id))
     dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000))

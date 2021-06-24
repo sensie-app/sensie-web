@@ -69,7 +69,7 @@ const Pack = () => {
   useEffect(() => dispatch(listPacksAction(user.id)), [user.loading, newAff])
 
   useEffect(async () => {
-    dispatch(getAllTopicsAction())
+    dispatch(getAllTopicsAction(user.data.userTopicId))
   }, [user.loading, newAff])
 
   const [uri, setUri] = useState('')

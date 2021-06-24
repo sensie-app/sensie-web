@@ -27,7 +27,7 @@ import styles from './styles.module.scss'
 import { gqlquery2 } from '../../utils/queries'
 import { createTopicPrivate, updateUserTopicId } from '../../graphql/mutations'
 import { getTopicByIdQuery } from '../../graphql/queries'
-import { setTopicsAction } from '../../../redux/actions/topics.action'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // import { useParams } from 'react-router-dom'
 // import Grid from "@material-ui/core/Grid";
 
@@ -58,39 +58,18 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   const [topic, setTopic] = useState(null)
   const [affirmations, setAffirmations] = useState([])
   const [active, setActive] = useState(null)
-  const [topicsComplete, saveTopicsComplete] = useState(null)
 
   useEffect(async () => await handleOnClickProps(), [topic])
 
   useEffect(() => {
-    console.log('======================')
-    console.log(user)
-    console.log('======================')
     if (user.id !== null) {
       if (user.data.userTopicId === null) {
-        console.log('No tengo ningun topico ...')
         handleCreateTopicPrivate().then(v => {
           const idTopic = v.value.data.createTopic.id
           handleUpdateUserTopicId(user.id, idTopic).then(h => {
             user.data.userTopicId = idTopic
-            handleGetTopicById(idTopic).then(t => {
-              const topicP = t.value.data.getTopic
-              const dataTopics = topics
-              dataTopics.push(topicP)
-              dispatch(setTopicsAction(dataTopics))
-              saveTopicsComplete(topics)
-            })
+            dispatch(getAllTopicsAction(user.data.userTopicId))
           })
-        })
-      } else {
-        const idTopic = user.data.userTopicId
-        console.log('Tengo un topico ...' + idTopic)
-        handleGetTopicById(idTopic).then(t => {
-          const topicP = t.value.data.getTopic
-          const dataTopics = topics
-          dataTopics.push(topicP)
-          dispatch(setTopicsAction(dataTopics))
-          saveTopicsComplete(topics)
         })
       }
     }
@@ -105,10 +84,6 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   const handleUpdateUserTopicId = async (id, idTopic) => {
     const result = await gqlquery2(updateUserTopicId(id, idTopic))
     return result
-  }
-
-  const handleGetTopicById = async (id) => {
-    return await gqlquery2(getTopicByIdQuery(id))
   }
 
   // ? handle functions
@@ -184,8 +159,8 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
    * @returns {undefined} Topic component
    */
   const renderTopics = () => {
-    if (topicsComplete !== null) {
-      return topicsComplete.map((_topic, index) => {
+    if (topics !== null) {
+      return topics.map((_topic, index) => {
         return (
             <Slide key={index} index={index}>
               <button
