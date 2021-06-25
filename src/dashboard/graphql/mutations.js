@@ -39,7 +39,7 @@ export const updateUserData = (id, picture, infoText, firstName, lastName, share
 
 export const createPackMutation = (name, description, author, packUserId, imgKey) => `
   mutation MyMutation {
-    createPack(input: {description: "${description}", name: "${name}", author: "${author}", packUserId: "${packUserId}", picture: "${imgKey}"}) {
+    createPack(input: {description: "${description}", name: "${name}", author: "${author}", packUserId: "${packUserId}", picture: "${imgKey}", source: "web"}) {
       id
     }
   }
