@@ -39,18 +39,12 @@ const Client = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log('GETTING INFO')
-    console.log(user)
-    console.log(affirmationsReducer)
-    console.log(usersReducer)
-    console.log(globalDateFilter)
-    console.log(listUsersByOrganizationIdAction)
-    console.log(listAffirmationsByCoachId)
-    dispatch(getAllTopicsAction(user.data.userTopicId))
-    dispatch(listPacksAction(user.id))
-    dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
-    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000))
-    console.log(user)
+    if (user.id) {
+      dispatch(getAllTopicsAction(user.data.userTopicId))
+      dispatch(listPacksAction(user.id))
+      dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
+      dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000))
+    }
   }, [user.loading, globalDateFilter])
 
   // ? const
