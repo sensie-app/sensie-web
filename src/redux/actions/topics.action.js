@@ -27,11 +27,10 @@ export const getAllTopicsAction = userTopicId => async dispatch => {
 
     const response = await API.graphql(graphqlOperation(listTopicsQuery()))
 
-    if (r !== null || typeof r !== 'undefined') {
+    if (r?.data?.getTopic) {
       response.data.listTopics.items.push(r.data.getTopic)
     }
 
-    console.log(response)
     dispatch({
       type: GET_ALL_TOPICS,
       payload: response.data.listTopics.items
