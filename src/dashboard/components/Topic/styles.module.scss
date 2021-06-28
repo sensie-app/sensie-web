@@ -59,6 +59,10 @@
     @include flex(column, center, center, nowrap); 
   }
 
+  .TopicIconContainer image {
+    width: 55px;
+  }
+
   .TopicHeaderContainer {
     width: 100%;
     padding: 0px 10px;
