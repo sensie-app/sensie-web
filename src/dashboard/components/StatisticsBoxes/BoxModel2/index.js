@@ -15,7 +15,6 @@ import styles from './styles.module.scss'
  * @param {string} text
  */
 const BoxModel2 = ({ data, value, text }) => {
-  console.log(data, value, text)
   return (
     <div className={styles.BoxModel2Container}>
       <div className={styles.BoxModel2IconContainer}>

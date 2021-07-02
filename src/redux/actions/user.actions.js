@@ -9,7 +9,6 @@ import USER from '../constants/user.constants'
 const { USER_DATA, USER_ID, LOADING, ERROR } = USER
 
 export const setUserDataAction = data => async (dispatch) => {
-  console.log(data)
   try {
     const response = await API.graphql(graphqlOperation(updateUserData(data.id, data.picture, data.infoText, data.firstName, data.lastName, data.shareData)))
     dispatch({

@@ -46,7 +46,6 @@ const AuthStateApp = ({ children }) => {
   }, [])
 
   useEffect(async () => {
-    // console.log(getCoach('123'))
     // setCoach('test')
     if (user !== null && authState === 'signedin') {
       const { username } = user

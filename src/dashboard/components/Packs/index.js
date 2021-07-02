@@ -21,8 +21,6 @@ const { pack } = DASHBOARD_ROUTES
  * @param {array} data
  */
 const Packs = ({ data }) => {
-  console.log('RENDERING PACKS')
-
   // ? render functions
   /**
    * renderPacks
@@ -31,7 +29,6 @@ const Packs = ({ data }) => {
   // TODO: TERMINAR ESTO! COPIAR EJEMLPO DE COMPONENTS/TOPICS Y COMPONENTS/TOPIC
   const renderPacks = () => {
     return data && data.map(item => {
-      console.log(item.author)
       const countAffirmation = item.affirmations.items.length
       return (
         <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2}>

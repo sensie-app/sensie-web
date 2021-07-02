@@ -51,14 +51,10 @@ const UpdatePack = ({ img, title, authorName, id }) => {
   const [open, setOpen] = useState(false)
   const prevOpen = useRef(open)
 
-  console.log('packId', packId)
-  console.log('redirect', redirect)
-
   const getImage = async function (k) {
     return (k ? await Storage.get(k) : noImg)
   }
   useEffect(() => {
-    console.log('[IMAGE]', img)
     getImage(img).then(d => {
       setPrevImg(d)
       setShowFile(d)
@@ -103,8 +99,7 @@ const UpdatePack = ({ img, title, authorName, id }) => {
 
   const handleForm = async e => {
     e.preventDefault()
-    console.log('file', file)
-    console.log(redirect)
+
     if (author.length === 0) {
       setShowError(true)
       setRedirect(false)
@@ -118,7 +113,6 @@ const UpdatePack = ({ img, title, authorName, id }) => {
           contentType: file.type
         })
           .then(res => {
-            console.log('[IMAGE]', res)
             dispatch(updatePacksAction(packId, value, value, author, res.key))
             setShowError(false)
           })
@@ -138,7 +132,6 @@ const UpdatePack = ({ img, title, authorName, id }) => {
   }
 
   const handleDelete = () => {
-    console.log('delete', packId)
     dispatch(deletePacksAction(packId))
   }
 

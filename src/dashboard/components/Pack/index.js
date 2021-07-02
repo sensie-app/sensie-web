@@ -43,7 +43,6 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations, type, id }
    * @returns {boolean} setCheck(!check)
    */
   // const handleCheck = () => setCheck(!check)
-  console.log(author)
 
   const isSubbed = type === 'subscription'
 

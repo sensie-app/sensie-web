@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 
 const Privacy = () => {
   const classes = useStyles()
-  console.log('privacy')
+
   return (
     <div>
       <Grid container className={classes.background}>

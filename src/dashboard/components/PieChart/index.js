@@ -31,7 +31,6 @@ const PieChart = ({ data = 0, title = '', sage = false }) => {
    * @param {PieChartData} data
    * @return  {undefined} data
    */
-  console.log(data)
   const handleDataColor = (data) => {
     const dataWithColor = data.map(_data => {
       if (_data.id === 'empty') {
