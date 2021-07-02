@@ -76,7 +76,7 @@ const DetailPost = () => {
   }, [])
 
   const getPost = async (id) => {
-    const url = `http://34.218.243.39/ghost/api/v4/content/posts/slug/${id}/?key=4fdd7eafdb6084b6597e2c53d4`
+    const url = `${process.env.REACT_APP_BLOG_URL}posts/slug/${id}/?key=${process.env.REACT_APP_BLOG_URL_CONTENT_KEY}`
     const response = await axios.get(url)
     return response
   }
