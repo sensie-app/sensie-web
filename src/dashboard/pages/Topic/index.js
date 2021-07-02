@@ -70,11 +70,10 @@ const Topic = () => {
   const [topic, setTopic] = useState(null)
   const [defaultTopic, setDefaultTopic] = useState({})
   const [newAff, setNewAff] = useState(false)
-  const [waitQuery, setWaitQuery] = useState(true)
+  // const [waitQuery, setWaitQuery] = useState(true)
   const [checkedAffirmations, setCheckedAffirmations] = useState([])
   const [showOptions, setShowOptions] = useState(false)
 
-  console.log(waitQuery)
   // useEffect(async () => await handleTopicQuery(), [])
   // useEffect(() => handleTopicId(), [])
   // useEffect(async () => await handleTopicQuery(), [newAff])
@@ -148,7 +147,7 @@ const Topic = () => {
    * @returns {string} new pack id
    */
   const handleCreateAffirmationMutation = async (name, description, topicsId, packId = null) => {
-    setWaitQuery(true)
+    // setWaitQuery(true)
     const newAffirmationTopicJoin = []
     // save affirmation
     const newAffirmation = await gqlquery2(createAffirmationMutation(name, description, user.id))
@@ -166,7 +165,7 @@ const Topic = () => {
     } else {
       toast.error(t('dashboard.Pack.createAffirmationError'))
     }
-    setWaitQuery(false)
+    // setWaitQuery(false)
     return successAffirmation ? newAffirmation.value.data.createAffirmation.id : null
   }
 
@@ -228,7 +227,8 @@ const Topic = () => {
       default: return noImg
     }
   }
-  console.log(handleImg)
+
+  console.log(handleImg())
 
   /**
    * handleCountAffirmations
@@ -268,7 +268,7 @@ const Topic = () => {
   const renderDbAffirmations = () => {
     if (topic.affirmations && Array.isArray(topic.affirmations.items)) {
       const items = topic.affirmations.items.sort((a, b) => b.affirmation.createdAt < a.affirmation.createdAt ? -1 : 1)
-      console.log(items)
+
       return items.map(item => {
         const { id, name, topics } = item.affirmation
         return <NewAffirmation

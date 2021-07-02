@@ -89,7 +89,7 @@ const CustomCard = ({
         product
       }
     )
-    console.log('response', response)
+
     const { status } = response.data
     if (status === 'success') {
       // aca hay que llamar una api del backend de sensie para que cree la instancia del nuevo cliente

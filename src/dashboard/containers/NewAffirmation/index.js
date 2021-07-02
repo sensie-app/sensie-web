@@ -118,7 +118,6 @@ const NewAffirmation = ({
    */
   const handleInputValue = event => {
     setItemTitle(event.target.value)
-    console.log(event)
   }
 
   /**

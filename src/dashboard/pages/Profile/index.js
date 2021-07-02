@@ -45,7 +45,6 @@ const Profile = () => {
   const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
   const getImage = async function (k) {
-    console.log('picture: ', k, typeof k)
     return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
   }
 
@@ -69,7 +68,6 @@ const Profile = () => {
           data.picture = res.key
         })
       setPicture(URL.createObjectURL(e.target.files[0]))
-      console.log(data)
     }
   }
 

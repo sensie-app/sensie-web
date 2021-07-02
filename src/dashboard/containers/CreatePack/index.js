@@ -45,17 +45,12 @@ const CreatePack = ({ onSave }) => {
   const [newPackId, setNewPackId] = useState(null)
 
   useEffect(() => {
-    console.log('packsReducer', packsReducer)
     if (!packsReducer.loading && packsReducer.newpack !== null) {
-      console.log('updating')
       setNewPackId(packsReducer.newpack.id)
       setRedirect(true)
       dispatch(cleanNewPackAction())
     }
   }, [packsReducer])
-
-  console.log('newPackId', newPackId)
-  console.log('redirect', redirect)
 
   // ? handle functions
   /**
@@ -86,8 +81,7 @@ const CreatePack = ({ onSave }) => {
 
   const handleForm = async e => {
     e.preventDefault()
-    console.log('file', file)
-    console.log(redirect)
+
     if (author.length === 0) {
       setShowError(true)
       setRedirect(false)
@@ -101,7 +95,6 @@ const CreatePack = ({ onSave }) => {
         contentType: file.type
       })
         .then(res => {
-          console.log(res)
           packsReducer.newpack = true
           dispatch(createPacksAction(value, value, author, user.id, res.key))
           setShowError(false)

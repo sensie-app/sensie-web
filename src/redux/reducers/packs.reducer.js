@@ -12,14 +12,12 @@ const { PACKS_LIST, GET_ALL_PACKS, LOADING, ERROR, CREATE_PACK, UPDATE_PACK, DEL
 const packsReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
     case PACKS_LIST:
-
       return {
         ...state,
         packs: payload
       }
 
     case GET_ALL_PACKS:
-
       return {
         ...state,
         packs: payload,
@@ -36,7 +34,6 @@ const packsReducer = (state = INITIAL_STATE, { payload, type }) => {
       }
 
     case UPDATE_PACK:
-      console.log(['STATE'], state)
       return {
         ...state,
         packs: state.packs.map(p => p.id === payload.id ? { ...p, ...payload } : p),
