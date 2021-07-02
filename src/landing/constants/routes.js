@@ -11,6 +11,7 @@ const LANDING_ROUTES = {
   scienceanchor: landing + '/home/#science',
   science: landing + '/science',
   blog: landing + '/blog',
+  detail: landing + '/detail',
   aboutsensie: landing + '/aboutsensie',
   abs: landing + '/aboutsensie/#abs',
   scc: landing + '/science/#scc',
