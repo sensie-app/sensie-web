@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'
 import 'pure-react-carousel/dist/react-carousel.es.css'
-import { Element } from 'react-scroll'
+import { Element, Link } from 'react-scroll'
 // contaniners
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
@@ -73,8 +73,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
         })
       }
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [])
 
   const handleCreateTopicPrivate = async () => {
     const result = await gqlquery2(createTopicPrivate('topics/private.svg', 'Private', 'topics/private.jpg'))
@@ -93,12 +92,21 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   const handleOnClickProps = async () => {
     if (topic) {
       let listaffirmations = topics.filter(item => item.id === topic.id)[0]
+
       if (typeof listaffirmations === 'undefined') {
         const r = await gqlquery2(getTopicByIdQuery(topic.id))
         listaffirmations = r.value.data.getTopic
       }
-      setAffirmations(listaffirmations.affirmations.items)
+
+      const listUniqueAffirmations = getUniqueListAffirmations(listaffirmations.affirmations.items)
+      setAffirmations(listUniqueAffirmations)
     }
+  }
+
+  const getUniqueListAffirmations = (items) => {
+    return items.filter((item, index, self) => {
+      return self.findIndex(selfVal => selfVal.affirmation.id === item.affirmation.id) === index
+    })
   }
 
   /**
@@ -124,7 +132,6 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   const handleOnClickSelectAll = value => dispatch(setCheckboxAllAffirmationsByTopicsAction(value))
 
   const handleOnClickBtn = (_topic) => {
-    setAffirmations([])
     setTopic(_topic)
     setActive(_topic.id)
   }
@@ -162,23 +169,23 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
     if (topics !== null) {
       return topics.map((_topic, index) => {
         return (
-            <Slide key={index} index={index}>
-              <button
-                  className={styles.affirmationsByTopicsButton}
-                  onClick={() => handleOnClickBtn(_topic)}>
-                <Topic
-                    img={_topic.picture}
-                    icon={_topic.icon}
-                    title={_topic}
-                    topic={_topic}
-                    withLink={false}
-                    witCheckbox={false}
-                    min={true}
-                    iconSize='25px'
-                    active={active === _topic.id}
-                />
-              </button>
-            </Slide>
+          <Slide key={index} index={index}>
+            <Link className={styles.affirmationsByTopicsButton}
+              to="listTopics" smooth={true} offset={-150}
+              onClick={() => handleOnClickBtn(_topic)}>
+              <Topic
+                  img={_topic.picture}
+                  icon={_topic.icon}
+                  title={_topic}
+                  topic={_topic}
+                  withLink={false}
+                  witCheckbox={false}
+                  min={true}
+                  iconSize='25px'
+                  active={active === _topic.id}
+              />
+            </Link>
+          </Slide>
         )
       })
     } else {
