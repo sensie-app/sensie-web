@@ -3,10 +3,21 @@ import axios from 'axios'
 import { useParams, useHistory } from 'react-router-dom'
 import { makeStyles, Grid } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
+
+import Loading from '../components/Loading'
+
 const moment = require('moment')
 const useStyles = makeStyles({
   background: {
-    backgroundColor: '#071215'
+    backgroundColor: '#071215',
+    minHeight: '100vh',
+    width: '100%'
+  },
+  backgroundLoading: {
+    backgroundColor: '#071215',
+    minHeight: '100vh',
+    paddingTop: '20%',
+    width: '100%'
   },
   content: {
     textAlign: '-webkit-left',
@@ -105,24 +116,30 @@ const Blog = () => {
   const [page, setPage] = useState(1)
   const [numpages, setNumPages] = useState(1)
   const [post, savePost] = useState([])
+  const [loading, setLoading] = useState(true)
   const { id } = useParams()
   const history = useHistory()
+
   useEffect(async () => {
     let valueInt = parseInt(id)
+
     if (!Number.isInteger(valueInt)) {
       valueInt = 1
       history.push(`/blog/${valueInt}`)
     }
 
     const response = await getPost(valueInt)
+
     if (response?.data?.posts) {
       if (valueInt !== page) {
         setPage(valueInt)
       }
+
       savePost(response.data.posts)
       setNumPages(response.data.meta.pagination.pages)
     }
-    // eslint-disable-next-line
+
+    setLoading(false)
   }, [page])
 
   const handleChangePaginate = async (event, value) => {
@@ -141,7 +158,7 @@ const Blog = () => {
   }
 
   const handleParseDate = date => {
-    return moment((date || {}).createdAt).format('LL')
+    return moment((date || {})).format('LL')
   }
 
   const renderPost = () => {
@@ -167,8 +184,9 @@ const Blog = () => {
     })
   }
 
-  return (
-    <div className={classes.background} style={{ height: '100%', width: '100%' }}>
+  return (loading
+    ? <div className={classes.backgroundLoading}><Loading /></div>
+    : <div className={classes.background}>
       <div style={{ paddingTop: 125, width: '80%', margin: '0 auto' }}>
         <Grid container spacing={6} className={classes.background}>
           {renderPost()}
