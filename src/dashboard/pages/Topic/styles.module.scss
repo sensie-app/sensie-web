@@ -40,6 +40,14 @@
         font-size: 1.5rem;
         font-weight: bold;
       }
+      svg {
+        width: 80px!important;
+        height: 80px!important;
+      }
+      image, svg {
+        width: 55px;
+        height: 55px;
+      }
     }    
     .TopicHeaderTextAffirmations {
       padding: 5px 10px;
