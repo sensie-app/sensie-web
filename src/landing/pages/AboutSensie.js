@@ -16,7 +16,6 @@ import SatyenRaja from '../assets/img/SatyenRaja.png'
 import AnneJensen from '../assets/img/AnneJensen.png'
 import AnnmarieChereso from '../assets/img/AnnmarieChereso.jpg'
 import SylviaBenito from '../assets/img/SylviaBenito.png'
-import JeremyTabke from '../assets/img/JeremyTabke.png'
 import GescheHaas from '../assets/img/GescheHaas.png'
 import EvaSelhub from '../assets/img/EvaSelhub.png'
 import EnitanMarcelle from '../assets/img/EnitanMarcelle.png'
@@ -325,14 +324,6 @@ const AboutSensie = () => {
                 name="ROBERT HANNAH"
                 role="DATA ANALYST"
                 urlLinkedin="https://www.linkedin.com/in/robert-hannah-55241a188/"
-              />
-            </Box>
-            <Box mt={8} textAlign="center" data-aos="zoom-out-up">
-              <Member
-                avatar={JeremyTabke}
-                name="JEREMY TABKE"
-                role="HEAD OF ENGINEERING"
-                urlLinkedin="https://www.linkedin.com/in/jeremytabke/"
               />
             </Box>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">
