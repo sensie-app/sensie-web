@@ -164,7 +164,8 @@
       "removePack": "Removed successfully",
       "removePackError": "Error affirmation",
       "createAffirmation": "Created successfully",
-      "createAffirmationError": "Error creating affirmation"
+      "createAffirmationError": "Error creating affirmation",
+      "createAffirmationErrorWithPrivate": "It is not possible to combine private topics with other topics"
     },
     "Packs": {
       "spirit": "Spirit",

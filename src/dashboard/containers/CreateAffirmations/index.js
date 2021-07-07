@@ -22,7 +22,8 @@ import { COLORS } from '../../constants/theme'
 import styles from './styles.module.scss'
 import { getTopicByIdQuery } from '../../graphql/queries'
 import { gqlquery2 } from '../../utils/queries'
-
+import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 // const
 const { fontColor1 } = COLORS
 const showReduxAffirmation = false
@@ -130,10 +131,23 @@ const CreateAffirmations = ({
         dispatch(setLastAffirmationsAction(_list))
         await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
       } else {
-        _list.push({ title, topics })
-        setListAffirmations(_list)
-        dispatch(setLastAffirmationsAction(_list))
-        await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
+        const idPrivate = user?.data?.userTopicId
+        const topicPrivate = topics.find(e => e.id === idPrivate)
+        if (typeof topicPrivate !== 'undefined') {
+          if (topics.length === 1) {
+            _list.push({ title, topics })
+            setListAffirmations(_list)
+            dispatch(setLastAffirmationsAction(_list))
+            await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
+          } else {
+            toast.error(t('dashboard.Pack.createAffirmationErrorWithPrivate'))
+          }
+        } else {
+          _list.push({ title, topics })
+          setListAffirmations(_list)
+          dispatch(setLastAffirmationsAction(_list))
+          await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
+        }
       }
       setTitle('')
       setTopics([])
@@ -186,6 +200,7 @@ const CreateAffirmations = ({
    * @return {undefined} form item ("") (html)
    */
   const renderFormItem = () => {
+    const { id } = useParams()
     return (
       <div className={styles.CreateAffirmationsForm}>
         <div className={styles.CreateAffirmationsFormTopContainer}>
@@ -202,12 +217,15 @@ const CreateAffirmations = ({
             <div className={styles.CreateAffirmationsFormD1Btns}>
               <div>
                 <div className={showErrorTopics ? styles.btnTopicsError : styles.btnTopics}>
-                  <MultipleSelectCheckbox
-                    onClickValue={value => handleClickTopicMenu(value)}
-                    defValue={topics}
-                  >
-                    {renderMultipleSelectCheckboxChildren()}
-                  </MultipleSelectCheckbox>
+                  { user?.data?.userTopicId !== id
+                    ? <MultipleSelectCheckbox
+                      onClickValue={value => handleClickTopicMenu(value)}
+                      defValue={topics}
+                    >
+                      {renderMultipleSelectCheckboxChildren()}
+                    </MultipleSelectCheckbox>
+                    : null
+                  }
                 </div>
                 {showErrorTopics && <span className={styles.errorMessage}>{t('dashboard.CreateAffirmations.errorTopic')}</span>}
               </div>
