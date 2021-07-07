@@ -24,8 +24,7 @@ import {
   createAffirmationMutation,
   joinAffirmationWithPackMutation,
   joinAffirmationWithTopicMutation,
-  removeJoinAffirmationPackMutation,
-  deleteAffirmationMutation
+  removeJoinAffirmationPackMutation
 } from '../../graphql/mutations'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -170,20 +169,6 @@ const Pack = () => {
   }
 
   /**
-   * handleDeleteAffirmation
-   * @param {string} affirmationId
-   */
-  const handleDeleteAffirmation = async affirmationId => {
-    const deleteAffirmation = await gqlquery2(deleteAffirmationMutation(affirmationId))
-    if (!deleteAffirmation.loading && deleteAffirmation.value !== null) {
-      setNewAff(!deleteAffirmation.loading && deleteAffirmation.value !== null ? !newAff : newAff)
-      toast.success(t('dashboard.Pack.deleteAffirmation'))
-    } else {
-      toast.error(t('dashboard.Pack.deleteAffirmationError'))
-    }
-  }
-
-  /**
    * handleCountAffirmations
    * @returns {number}
    */
@@ -220,9 +205,9 @@ const Pack = () => {
             selectedTopics={handleArrTopics(topics.items)}
             withRemoveBtn={true}
             withAddBtn={false}
+            withDeleteBtn={false}
             onAddToPack={handleAddToPack}
             onRemovePack={handleRemoveToPack}
-            onDelete={handleDeleteAffirmation}
           />
           } else {
             return ''

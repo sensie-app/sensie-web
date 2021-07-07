@@ -21,7 +21,7 @@ export const getAllTopicsAction = userTopicId => async dispatch => {
 
   try {
     let r = null
-    if (userTopicId !== null || typeof userTopicId !== 'undefined') {
+    if (userTopicId !== null && typeof userTopicId !== 'undefined') {
       r = await API.graphql(graphqlOperation(getTopicByIdQuery(userTopicId)))
     }
 

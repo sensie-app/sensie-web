@@ -20,6 +20,8 @@ import { SIZE } from '../../constants/theme'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
+import { deleteAffirmationAction } from '../../../redux/actions/affirmations.actions'
+
 // utils
 import { /* gqlquery, */ gqlquery2 } from '../../utils/queries'
 // graphql queries
@@ -84,7 +86,12 @@ const Topic = () => {
       handleTopicId()
     }
   }, [topicsReducer])
-  useEffect(() => dispatch(getAllTopicsAction(user.data.userTopicId)), [newAff])
+
+  useEffect(() => {
+    if (!user.loading && user?.data?.id) {
+      dispatch(getAllTopicsAction(user?.data?.userTopicId))
+    }
+  }, [user.loading, newAff])
 
   const [uri, setUri] = useState('')
   const [iconUri, setIconUri] = useState('')
@@ -108,12 +115,14 @@ const Topic = () => {
   const handleTopicId = async () => {
     const r = await gqlquery2(getTopicByIdQuery(id))
     const tp = r.value.data.getTopic
+
     // topicsReducer.topics.filter(topic => topic.id === id)[0] || {}
     const defTopic = [{
+      id: tp.id,
       name: tp.name,
-      description: tp.description,
-      id: tp.id
+      description: tp.description
     }]
+
     setDefaultTopic(defTopic)
     setTopic(tp || [])
   }
@@ -260,6 +269,20 @@ const Topic = () => {
     setCheckedAffirmations(newArr)
   }
 
+  /**
+   * handleDeleteAffirmation
+   */
+  const handleDeleteAffirmation = async affirmation => {
+    const deleted = await dispatch(deleteAffirmationAction(affirmation))
+
+    if (deleted) {
+      setNewAff(!newAff)
+      toast.success(t('dashboard.Affirmation.deleteAffirmation'))
+    } else {
+      toast.error(t('dashboard.Affirmation.deleteAffirmationError'))
+    }
+  }
+
   // ? render functions
   /**
    * renderDbAffirmations
@@ -272,6 +295,7 @@ const Topic = () => {
       return items.map(item => {
         const { id, name, topics } = item.affirmation
         return <NewAffirmation
+          data={item.affirmation}
           checkAll={checkboxReducer.all.affirmations}
           isChecked={value => handleIsChecked(value, id)}
           key={id}
@@ -279,8 +303,10 @@ const Topic = () => {
           selectedTopics={handleArrTopics(topics.items)}
           withRemoveBtn={false}
           withAddBtn={false}
+          withDeleteBtn={true}
           onAddToPack={handleAddToPack}
           onRemovePack={handleRemoveToPack}
+          onDelete={handleDeleteAffirmation}
         />
       })
     } else if (typeof topic.affirmations === 'undefined') {

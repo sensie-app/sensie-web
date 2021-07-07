@@ -208,6 +208,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
         selectedTopics={handleArrTopics(item.affirmation.topics.items)}
         withRemoveBtn={false}
         withAddBtn={true}
+        withDeleteBtn={false}
         onAddToPack={onAddToPack}
       />
     })

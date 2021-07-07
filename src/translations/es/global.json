@@ -134,7 +134,9 @@
     },
     "Affirmation": {
       "selectAOption": "Select a option",
-      "affirmation": "Affirmation"
+      "affirmation": "Affirmation",
+      "deleteAffirmation": "Deleted successfully",
+      "deleteAffirmationError": "An error occurred while trying to delete"
     },
     "UserList": {
       "summary": "Summary",
@@ -229,7 +231,12 @@
     },
     "NewAffirmation": {
       "remove": "Remove",
-      "add": "Add"
+      "add": "Add",
+      "deleteAffButton": "Delete",
+      "deleteAffCancel": "Cancel",
+      "deleteAffAccept": "Delete",
+      "deleteAffTitle": "Delete affirmation",
+      "deleteAffDescription": "Are you sure you want to delete this affirmation? This action can't be undone."
     },
     "AddToPack": {
       "add": "Add",
