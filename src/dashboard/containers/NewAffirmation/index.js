@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 import Icon from '../../components/Icon'
 import Chip from '../../components/Chip'
 import ItemCheckbox from '../../components/ItemCheckbox'
+import AlertDialog from '../../components/AlertDialog'
+
 // import Toast from '../../components/Toast'
 // import MenuListComposition from '../../components/MenuListComposition'
 // containers
@@ -21,6 +23,7 @@ import styles from './styles.module.scss'
 
 // const
 const { fontColor1 } = COLORS
+const ADMINS = process.env.REACT_APP_ADMINS_ACCOUNTS || ''
 
 // * component
 /**
@@ -32,11 +35,11 @@ const { fontColor1 } = COLORS
  * @param {array} selectedTopics
  * @param {boolean} withRemoveBtn (default: true)
  * @param {boolean} withAddBtn (default: false)
+ * @param {boolean} withDeleteBtn (default: false)
  * @param {boolean} checkAll (default: false)
  * @param {undefined} onAddToPack (default: ()=>{})
  * @param {undefined} onRemovePack (default: ()=>{})
  * @param {undefined} onDelete (default: ()=>{})
- * @param {boolean} onDelete (default: ()=>false)
  */
 const NewAffirmation = ({
   data,
@@ -46,6 +49,7 @@ const NewAffirmation = ({
   selectedTopics,
   withRemoveBtn = true,
   withAddBtn = false,
+  withDeleteBtn = false,
   checkAll = false,
   isChecked = () => false,
   onAddToPack = () => {},
@@ -54,7 +58,10 @@ const NewAffirmation = ({
 }) => {
   // ? hooks
   const dispatch = useDispatch()
-  const { affirmationsReducer: { lastAffirmations } } = useSelector(state => state)
+  const {
+    affirmationsReducer: { lastAffirmations },
+    userReducer: { user }
+  } = useSelector(state => state)
   const [t] = useTranslation('global')
   const inputRef = useRef(null)
   const [selectTopics, setSelectTopics] = useState(selectedTopics)
@@ -62,6 +69,7 @@ const NewAffirmation = ({
   const [showChips, setShowChips] = useState(true)
   const [disabledTopics, setDisabledTopics] = useState(true)
   const [menuAction, setMenuAction] = useState({})
+  const [canDelete, setCanDelete] = useState(false)
 
   useEffect(() => {
     if (menuAction.value === 'edit') {
@@ -86,6 +94,15 @@ const NewAffirmation = ({
         ? await onDelete(data.id)
         : console.log('🗑')
   }, [menuAction])
+
+  useEffect(() => {
+    if (!user.loading && user?.data?.id) {
+      const admins = ADMINS.split(',')
+      const isAdmin = admins.findIndex((email) => email.trim() === user.data.email)
+
+      setCanDelete(user.id === data?.user?.id || isAdmin > -1)
+    }
+  }, [user.loading])
 
   // ? handle functions
   /**
@@ -189,6 +206,22 @@ const NewAffirmation = ({
                 <span>{t('dashboard.NewAffirmation.add')}</span>
               </button>
           }
+          {withDeleteBtn && !withRemoveBtn && canDelete &&
+            <div className={styles.NewAffirmationS2DeleteBtn}>
+              <AlertDialog
+                withLogout={false}
+                title={t('dashboard.NewAffirmation.deleteAffTitle')}
+                description={t('dashboard.NewAffirmation.deleteAffDescription')}
+                disagreeText={t('dashboard.NewAffirmation.deleteAffCancel')}
+                agreeText={t('dashboard.NewAffirmation.deleteAffAccept')}
+                agreeColor='secondary'
+                disagreeColor='primary'
+                agreeOnClick={() => onDelete(data)}
+              >
+                {t('dashboard.NewAffirmation.deleteAffButton')}
+              </AlertDialog>
+            </div>
+          }
           <div className={styles.NewAffirmationS2TopicsBtn}>
             <MultipleSelectCheckbox
               onClickValue={value => handleClickTopicMenu(value)}
@@ -237,6 +270,8 @@ NewAffirmation.propTypes = {
   withRemoveBtn: PropTypes.bool,
   /** withAddBtn */
   withAddBtn: PropTypes.bool,
+  /** withDeleteBtn */
+  withDeleteBtn: PropTypes.bool,
   /** checkAll */
   checkAll: PropTypes.bool,
   /** onAddToPack */

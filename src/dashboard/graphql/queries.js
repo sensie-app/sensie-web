@@ -360,6 +360,9 @@ export const listTopicsQuery = () => `
               name
               id
               createdAt
+              user {
+                id
+              }
               topics {
                 items {
                   topic {
@@ -409,12 +412,21 @@ export const getTopicByIdQuery = id => `
           affirmation {
             name
             id
-            topics {
+            user {
+              id
+            }
+            topics(limit: 100) {
               items {
+                idTopicAffJoin: id
                 topic {
                   id
                   name
                 }
+              }
+            }
+            packs(limit: 100) {
+              items {
+                idPackAffJoin: id
               }
             }
           }
@@ -434,7 +446,7 @@ export const getPacksFromUser = id => `
             id
             description
             picture
-            author            
+            author
             affirmations(limit:10000, sortDirection: DESC) {
               items {
                 affirmation {

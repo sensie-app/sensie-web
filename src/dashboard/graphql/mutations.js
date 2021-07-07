@@ -87,6 +87,14 @@ export const removeJoinAffirmationPackMutation = id => `
   }
 `
 
+export const deleteTopicAffirmationJoinMutation = id => `
+  mutation MyMutation {
+    deleteTopicAffirmationJoin(input: {id: "${id}"}) {
+      id
+    }
+  }
+`
+
 export const deleteAffirmationMutation = id => `
   mutation MyMutation {
     deleteAffirmation(input: {id: "${id}"}) {
