@@ -64,7 +64,7 @@ const CreateAffirmations = ({
     checkboxReducer: { all: { affirmations } }
   } = useSelector(state => state)
   const [t] = useTranslation('global')
-  const [title, setTitle] = useState(newAffirmation.title)
+  const [title, setTitle] = useState(newAffirmation?.title || '')
   const [topics, setTopics] = useState(newAffirmation.topics)
   const [listAffirmations, setListAffirmations] = useState([])
   const [showErrorTitle, setShowErrorTitle] = useState(false)
@@ -118,8 +118,9 @@ const CreateAffirmations = ({
   const handleClickBtnDone = async () => {
     setTitle(title || '')
     setShowErrorTitle(title === '')
+
     if (title !== '' /* && topics.length > 0 */) {
-      inputRef.current.value = ''
+      inputRef.current.value = title
       const _list = listAffirmations
 
       if (topics.length === 0) {
@@ -130,6 +131,8 @@ const CreateAffirmations = ({
         setListAffirmations(_list)
         dispatch(setLastAffirmationsAction(_list))
         await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
+
+        resetForm()
       } else {
         const idPrivate = user?.data?.userTopicId
         const topicPrivate = topics.find(e => e.id === idPrivate)
@@ -139,6 +142,8 @@ const CreateAffirmations = ({
             setListAffirmations(_list)
             dispatch(setLastAffirmationsAction(_list))
             await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
+
+            resetForm()
           } else {
             toast.error(t('dashboard.Pack.createAffirmationErrorWithPrivate'))
           }
@@ -147,12 +152,17 @@ const CreateAffirmations = ({
           setListAffirmations(_list)
           dispatch(setLastAffirmationsAction(_list))
           await onSave(title, 'description', handleArrTopicsId(topics), defaultPack)
+
+          resetForm()
         }
       }
-      setTitle('')
-      setTopics([])
-      setShowNewForm(false)
     }
+  }
+
+  const resetForm = () => {
+    setTitle('')
+    setTopics([])
+    setShowNewForm(false)
   }
 
   /**
