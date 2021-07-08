@@ -290,7 +290,7 @@ const Topic = () => {
    */
   const renderDbAffirmations = () => {
     if (topic.affirmations && Array.isArray(topic.affirmations.items)) {
-      const items = topic.affirmations.items.sort((a, b) => b.affirmation.createdAt < a.affirmation.createdAt ? -1 : 1)
+      const items = topic?.affirmations?.items?.sort((a, b) => b?.affirmation?.createdAt < a?.affirmation?.createdAt ? -1 : 1)
 
       return items.map(item => {
         const { id, name, topics } = item.affirmation
