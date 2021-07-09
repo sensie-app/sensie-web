@@ -22,79 +22,27 @@ const useStyles = makeStyles({
   postHeader: {
     marginBottom: '1em'
   },
-  postDate: {
-    fontSize: '16px !important',
-    fontStyle: 'italic',
-    fontWeight: 'lighter',
-    padding: '0',
-    color: '#989898'
-  },
-  byTag: {
-    fontWeight: 'normal',
-    fontStyle: 'italic',
-    fontSize: '16px !important',
-    marginLeft: '5px',
-    marginRight: '5px',
-    padding: '0',
-    color: '#989898'
-  },
-  postAuthor: {
-    fontWeight: '500',
-    fontSize: '16px !important',
-    margin: '0',
-    padding: '0',
-    color: '#989898'
-  },
   contentPost: {
     paddingTop: 125,
     width: '53%',
     margin: '0 auto',
     paddingBottom: 25,
+    color: 'white',
     '& p': {
-      color: 'white',
       textAlign: 'justify',
-      fontSize: '22px',
       marginBottom: '25px',
       marginTop: '25px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Biotif", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important'
     },
-    '& h1': {
-      color: 'white',
-      fontSize: '36px'
+    '& hr': {
+      border: '1px solid #0C1D22'
     },
-    '& h2': {
-      color: 'white',
-      textAlign: 'justify',
-      fontSize: '27px',
-      marginBottom: '25px',
-      marginTop: '25px'
+    '& iframe': {
+      width: '800px',
+      height: '500px'
     },
-    '& blockquote': {
-      color: 'white',
-      textAlign: 'justify',
-      fontSize: '22px',
-      marginBottom: '25px',
-      marginTop: '25px'
-    },
-    '& ul': {
-      color: 'white',
-      fontSize: '22px',
-      marginLeft: 25
-    },
-    '& ol': {
-      color: 'white',
-      fontSize: '22px',
-      marginLeft: 25
-    },
-    '& img': {
-      display: 'block',
-      maxWidth: '100%',
-      height: 'auto'
-    },
-    '& figure': {
-      color: 'white',
-      fontSize: '22px',
-      marginBottom: 15
+    '& a': {
+      color: 'white'
     }
   }
 })
@@ -128,6 +76,9 @@ const DetailPost = () => {
     ? <div className={classes.backgroundLoading}><Loading /></div>
     : <div className={classes.background}>
         <div className={classes.contentPost}>
+
+          <link rel="stylesheet" type="text/css" href="https://blog.joinsensie.com/assets/built/screen.css"/>
+
           <header className={classes.postHeader}>
             <h1>{post.title}</h1>
             <time className={classes.postDate} dateTime="2020-08-12">{handleParseDate(post.published_at)}</time>
