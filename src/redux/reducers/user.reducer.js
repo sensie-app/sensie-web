@@ -29,7 +29,10 @@ const userReducer = (state = INITIAL_STATE, { payload, type }) => {
         ...state,
         user: {
           id: state.user.id,
-          data: payload,
+          data: {
+            ...state.user.data,
+            ...payload
+          },
           loading: false,
           error: null
         }
