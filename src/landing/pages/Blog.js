@@ -5,6 +5,7 @@ import { makeStyles, Grid } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 
 import Loading from '../components/Loading'
+import userSvg from '../assets/img/user.svg'
 
 const moment = require('moment')
 const useStyles = makeStyles({
@@ -19,95 +20,34 @@ const useStyles = makeStyles({
     paddingTop: '20%',
     width: '100%'
   },
-  content: {
-    textAlign: '-webkit-left',
-    width: '90%'
-  },
-  text: {
-    color: 'white',
-    fontSize: '22px',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    textAlign: 'justify',
-    height: '200px'
-  },
-  postItem: {
-    float: 'left',
-    display: 'block',
-    marginRight: '2.84259%',
-    width: '100%',
-    padding: '5vh 5%'
-  },
-  postDate: {
-    fontSize: '16px !important',
-    fontStyle: 'italic',
-    fontWeight: 'lighter',
-    padding: '0',
-    paddingBottom: '15px',
-    color: '#989898'
-  },
-  postTitle: {
-    fontWeight: '500',
-    fontSize: '32px',
-    margin: '0',
-    marginTop: '8px',
-    marginBottom: '10px',
-    color: '#767676'
-  },
-  postContent: {
-    textAlign: 'justify',
-    marginBottom: '5px',
-    position: 'relative',
-    color: '#989898',
-    fontSize: '19px'
-  },
-  postAuthor: {
-    fontWeight: '500',
-    fontSize: '22px',
-    margin: '0',
-    marginTop: '0px',
-    paddingTop: '10px',
-    marginBottom: '0px',
-    color: '#15E7BC'
-  },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  paper: {
-    backgroundColor: 'white',
-    border: '2px solid #15E7BC',
-    boxShadow: '5px #000',
-    padding: '2px 4px 3px',
-    width: '80%',
-    height: '80%'
-  },
-  link: {
-    fontWeight: '500',
-    fontSize: '29px',
-    color: 'white',
-    '&:hover': {
-      color: '#15E7BC',
-      cursor: 'pointer'
+  postCard: {
+    cursor: 'pointer',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Biotif", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important',
+    '& header': {
+      color: '#FFF',
+      '& .post-card-primary-tag': {
+        color: '#15E7BC'
+      }
     }
   },
   piePaginate: {
+    '& li': {
+      marginTop: '0'
+    },
+    '& li > button': {
+      fontSize: '16px !important',
+      lineHeight: '22px !important',
+      '& > svg': {
+        fontSize: '22px !important',
+        lineHeight: '22px !important'
+      }
+    },
     '& > *': {
       marginTop: '25px',
       justifyContent: 'center',
       display: 'flex'
     },
     marginBottom: '25px'
-  },
-  articleExcerpt: {
-    fontSize: '2rem',
-    lineHeight: '1.4em',
-    opacity: '.6',
-    width: '800px',
-    margin: '0 auto',
-    paddingBottom: '25px'
   }
 })
 
@@ -148,7 +88,7 @@ const Blog = () => {
   }
 
   const getPost = async (id) => {
-    const url = `${process.env.REACT_APP_BLOG_URL}posts/?key=${process.env.REACT_APP_BLOG_URL_CONTENT_KEY}&order=published_at%20desc&page=${id}&limit=6&include=authors`
+    const url = `${process.env.REACT_APP_BLOG_URL}posts/?key=${process.env.REACT_APP_BLOG_URL_CONTENT_KEY}&order=published_at%20desc&page=${id}&limit=6&include=authors,tags`
     const response = await axios.get(url)
     return response
   }
@@ -164,20 +104,41 @@ const Blog = () => {
   const renderPost = () => {
     return post && post.map(p => {
       return (
-        <Grid key={p.id} item xs={6}>
-          <article className={classes.postItem}>
-            <header className="post-header">
-              <time className={classes.postDate} dateTime="2020-08-12">{handleParseDate(p.published_at)}</time>
-              <h2 className={classes.postTitle}><span className={classes.link} onClick={() => handleOpenPost(p.slug)}>{p.title}</span></h2>
-            </header>
-            <section className={classes.postContent}>
-              <p>
-                {p.custom_excerpt || p.excerpt }
-              </p>
-            </section>
-            <footer className="post-meta">
-              <h3 className={classes.postAuthor}>{p.primary_author.name}</h3>
-            </footer>
+        <Grid key={p.id} item xs={12} md={4}>
+          <article className={`${classes.postCard} post-card post tag-getting-started`}>
+            {p.feature_image &&
+              <a className="post-card-image-link" onClick={() => handleOpenPost(p.slug)}>
+                <img className="post-card-image" sizes="(max-width: 1000px) 400px, 800px" src={p.feature_image} alt={p.title} loading="lazy" />
+              </a>
+            }
+
+            <div className="post-card-content">
+              <a className="post-card-content-link" onClick={() => handleOpenPost(p.slug)}>
+                <header className="post-card-header">
+                  <div className="post-card-primary-tag">{p?.primary_tag?.name}</div>
+                  <h2 className="post-card-title">{p.title}</h2>
+                </header>
+                <section className="post-card-excerpt">
+                  <p>{p.custom_excerpt || p.excerpt }</p>
+                </section>
+              </a>
+
+              <footer className="post-card-meta">
+                <ul className="author-list">
+                  <li className="author-list-item">
+                    <div className="static-avatar">
+                      <img className="author-profile-image" src={p?.primary_author?.profile_image ? p?.primary_author?.profile_image : userSvg} alt={p?.primary_author?.name} />
+                    </div>
+                  </li>
+                </ul>
+                <div className="post-card-byline-content">
+                  <span>{p?.primary_author?.name}</span>
+                  <span className="post-card-byline-date">
+                    <time dateTime="2020-08-12">{handleParseDate(p.published_at)}</time>
+                  </span>
+                </div>
+              </footer>
+            </div>
           </article>
         </Grid>
       )
@@ -187,6 +148,8 @@ const Blog = () => {
   return (loading
     ? <div className={classes.backgroundLoading}><Loading /></div>
     : <div className={classes.background}>
+      <link rel="stylesheet" type="text/css" href={process.env.REACT_APP_BLOG_CSS_URL}/>
+
       <div style={{ paddingTop: 125, width: '80%', margin: '0 auto' }}>
         <Grid container spacing={6} className={classes.background}>
           {renderPost()}
