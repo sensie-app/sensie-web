@@ -21,6 +21,7 @@ const useStyles = makeStyles({
     width: '100%'
   },
   postCard: {
+    padding: '25px',
     cursor: 'pointer',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Biotif", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important',
     '& header': {
@@ -148,10 +149,8 @@ const Blog = () => {
   return (loading
     ? <div className={classes.backgroundLoading}><Loading /></div>
     : <div className={classes.background}>
-      <link rel="stylesheet" type="text/css" href={process.env.REACT_APP_BLOG_CSS_URL}/>
-
-      <div style={{ paddingTop: 125, width: '80%', margin: '0 auto' }}>
-        <Grid container spacing={6} className={classes.background}>
+      <div style={{ paddingTop: 150, width: '80%', margin: '0 auto' }}>
+        <Grid container spacing={6} className={`${classes.background} blog-container`}>
           {renderPost()}
           <Grid item xs={12}>
             <div className={classes.piePaginate}>
