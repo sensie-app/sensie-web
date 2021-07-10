@@ -10,6 +10,7 @@ const moment = require('moment')
 
 const useStyles = makeStyles({
   background: {
+    paddingTop: '150px',
     backgroundColor: '#071215',
     minHeight: '100vh',
     width: '100%'
@@ -24,9 +25,8 @@ const useStyles = makeStyles({
     marginBottom: '1em'
   },
   contentPost: {
-    paddingTop: 125,
     margin: '0 auto',
-    paddingBottom: 25,
+    paddingBottom: '25px',
     color: 'white',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Biotif", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important',
     '& article': {
@@ -88,10 +88,8 @@ const DetailPost = () => {
 
   return (loading
     ? <div className={classes.backgroundLoading}><Loading /></div>
-    : <Grid container className={classes.background}>
+    : <Grid container className={`${classes.background} blog-container`}>
         <div className={classes.contentPost}>
-          <link rel="stylesheet" type="text/css" href={process.env.REACT_APP_BLOG_CSS_URL}/>
-
           <article className="article post">
             <header className="article-header gh-canvas">
               <section className="article-tag">{post?.primary_tag?.name}</section>
