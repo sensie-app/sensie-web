@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   error: null
 }
 
-const { PACKS_LIST, GET_ALL_PACKS, LOADING, ERROR, CREATE_PACK, CLEAN_NEWPACK } = PACKS
+const { PACKS_LIST, GET_ALL_PACKS, LOADING, ERROR, CREATE_PACK, UPDATE_PACK, DELETE_PACK, CLEAN_NEWPACK } = PACKS
 
 const packsReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
@@ -29,6 +29,22 @@ const packsReducer = (state = INITIAL_STATE, { payload, type }) => {
       return {
         ...state,
         newpack: payload,
+        loading: false,
+        error: null
+      }
+
+    case UPDATE_PACK:
+      return {
+        ...state,
+        packs: state.packs.map(p => p.id === payload.id ? { ...p, ...payload } : p),
+        loading: false,
+        error: null
+      }
+
+    case DELETE_PACK:
+      return {
+        ...state,
+        packs: state.packs.filter(p => p.id !== payload.id),
         loading: false,
         error: null
       }

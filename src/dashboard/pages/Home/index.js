@@ -22,8 +22,7 @@ import styles from './styles.module.scss'
 // } from '../../graphql/queries'
 // utils
 // import { gqlquery } from '../../utils/queries'
-import { API, graphqlOperation } from 'aws-amplify'
-import { createInvite } from '../../graphql/mutations'
+
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
@@ -60,11 +59,11 @@ const Home = () => {
   const [graphData, setGraphData] = useState([{ id: 'low', data: [{ x: new Date(), y: 0 }, { x: new Date(), y: 100 }] }])
 
   useEffect(() => {
-    console.log('GETTING INFO')
-    dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
-    dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
-    API.graphql(graphqlOperation(createInvite(user.id)))
-  }, [user.loading, globalDateFilter])
+    if (user.id) {
+      dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
+      dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
+    }
+  }, [user.id, globalDateFilter.name])
 
   useEffect(() => {
     setTotalUsers(handleTotalClients())
@@ -169,11 +168,12 @@ const Home = () => {
   const handleGraphData = () => {
     const dates = globalDateFilter.value
     const diff = moment(dates[1]).diff(moment(dates[0]), 'hours')
-    console.log('diff: ', diff)
     const dateList = generateDateList(new Date(dates[0]), diff)
-    const format = diff <= 100 ? 'MM/DD HH' : 'MM/DD'
+    const format = diff <= 100 ? 'MM/DD HH' : (diff <= 1000 ? 'MM/DD' : 'MM/DD/YY')
+
     // let data = [{ id: 'low', data: [{ x: new Date(dates[0]), y: 0 }, { x: new Date(dates[1]), y: 0 }] }]
     let data = [{ id: 'low', data: dateList.map(d => { return { x: new Date(d), y: 0 } }) }]
+
     if (!affirmationsReducer.loading && handleTotalClients() > 0) {
       // const userSensies = usersReducer.users.map(user => user.sensies.items)
       const userSensies = affirmationsReducer.affirmations.map(affs => affs.sensies.items)
@@ -217,6 +217,7 @@ const Home = () => {
       }
       data = [{ id: 'low', data: d }]
     }
+
     return data
   }
 

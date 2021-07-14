@@ -51,7 +51,7 @@
       }
     }
   }
-  
+
   .NewAffirmationS2 {
     @include flex(row, space-between, center, nowrap);
 
@@ -62,8 +62,11 @@
       padding: 6px 15px;
       background-color: transparent;
       margin-right: 20px;
-      font-size: 16px; 
-      opacity: 0.8;     
+      font-size: 16px;
+      opacity: 0.8;
+      line-height: 1.43;
+      font-weight: 400;
+
       &:hover {
         cursor: pointer;
         opacity: 1;
@@ -77,14 +80,47 @@
       padding: 6px 15px;
       background-color: transparent;
       margin-right: 20px;
-      font-size: 16px; 
-      opacity: 0.8;     
+      font-size: 16px;
+      opacity: 0.8;
+      line-height: 1.43;
+      font-weight: 400;
+
       &:hover {
         cursor: pointer;
         opacity: 1;
       }
     }
-  
+
+    .NewAffirmationS2DeleteBtn {
+      @include flex(row, space-between, center, nowrap);
+
+      button {
+        color: $actionColor2;
+        background-color: transparent;
+        cursor: pointer;
+        padding: 6px 15px;
+        margin-right: 20px;
+        font-size: 16px;
+        opacity: 0.8;
+        text-transform: initial;
+        line-height: 1.43;
+        font-weight: 400;
+
+        @include border(solid, 1px, 5px, $actionColor2);
+        @include flex(row, center, center, nowrap);
+
+        &:hover {
+          cursor: pointer;
+          opacity: 1;
+        }
+
+        input {
+          display: none;
+          overflow: hidden;
+        }
+      }
+    }
+
     .NewAffirmationS2TopicsBtn {
       // width: 50%;
       button {
@@ -93,7 +129,7 @@
         background-color: $grayColor7;
       }
     }
-    
+
     .NewAffirmationS2Icons {
       @include flex(row, space-between, center, nowrap);
       padding: 0px 10px;

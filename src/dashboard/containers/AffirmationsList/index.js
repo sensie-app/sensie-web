@@ -191,13 +191,11 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
    * @return {undefined} AffirmationChart[] (html)
    */
   const renderAffirmationsAffirmationChart = () => {
-    console.log(33333)
     let _data = affirmationsReducer.affirmations
-    console.log(_data)
     const topicIds = selectValue.map(v => v.id)
-    const userPacks = user ? user.subscribedPacks.items.map(p => p.pack.id) : []
+    const userPacks = user ? user.subscribedPacks.items.map(p => p.pack ? p.pack.id : false) : []
     const packIds = selectPackValue.map(v => v.id)
-    console.log(selectPackValue)
+
     if (userPacks.length > 0) {
       _data = _data.filter(item => {
         const packMatches = item.packs.items.filter(t => {
@@ -237,7 +235,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
         _userCount: users.size
       })
     })
-    console.log(_data)
+
     _data.sort((a, b) => {
       if (a._flow === 'NO_SENSIES') return 1
       return (parseInt(b._flow) === parseInt(a._flow)) ? (b._userCount - a._userCount) : (parseInt(b._flow) > parseInt(a._flow) ? 1 : -1)

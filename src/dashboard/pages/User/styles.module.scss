@@ -6,7 +6,7 @@
 
 .UserG1Container,
 .UserG2Container,
-.UserG3Container {    
+.UserG3Container {
   @include G50Container();
   color: $fontColor1;
   font-size: 1rem;

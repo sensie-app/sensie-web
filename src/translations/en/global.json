@@ -1,4 +1,4 @@
-{  
+{
   "app": {
     "lng": {
       "ES": "ES",
@@ -46,7 +46,9 @@
       "copyInviteLink": "Copy invite link",
       "send": "Send",
       "linkWasCopied": "Link was copied!",
-      "enterAnEmailAddress": "Enter an email address"
+      "enterAnEmailAddress": "Enter an email address",
+      "selectPack": "Select up to 2 packs to share automatically",
+      "checkedPacksLimit": "Limit of packs to share reached"
     },
     "MenuListComposition": {
       "today": "Today",
@@ -111,7 +113,7 @@
       "awarness": "Awareness",
       "resilence": "Resilence",
       "trust": "Trust",
-      "trackAffirmations": "Track affirmations"      
+      "trackAffirmations": "Track affirmations"
     },
     "Affirmations": {
       "affirmations": "Affirmations",
@@ -127,12 +129,14 @@
     "ShareWith": {
       "selectAllClients": "Select all clients",
       "selectAllTeams": "Select all teams",
-      "publicAvailable": "Public available",
+      "publicAvailable": "Community pack",
       "share": "Share"
     },
     "Affirmation": {
       "selectAOption": "Select a option",
-      "affirmation": "Affirmation"
+      "affirmation": "Affirmation",
+      "deleteAffirmation": "Deleted successfully",
+      "deleteAffirmationError": "An error occurred while trying to delete"
     },
     "UserList": {
       "summary": "Summary",
@@ -147,7 +151,7 @@
       "family": "Family",
       "parenting": "Parenting",
       "personal": "Personal",
-      "performance": "Performance"      
+      "performance": "Performance"
     },
     "AffirmationsList": {
       "noData": "No affirmations"
@@ -162,7 +166,8 @@
       "removePack": "Removed successfully",
       "removePackError": "Error affirmation",
       "createAffirmation": "Created successfully",
-      "createAffirmationError": "Error creating affirmation"
+      "createAffirmationError": "Error creating affirmation",
+      "createAffirmationErrorWithPrivate": "It is not possible to combine private topics with other topics"
     },
     "Packs": {
       "spirit": "Spirit",
@@ -183,7 +188,14 @@
       "authorName": "Author",
       "newPack": "New pack",
       "create": "Create",
-      "error": "Enter a name for the pack"
+      "error": "Enter a name for the pack",
+      "updatePack": "Update pack",
+      "update": "Update",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deletePack": "Delete pack",
+      "cancel": "Cancel",
+      "confirmDelete": "Are you sure to delete this pack?"
     },
     "CreateAffirmations": {
       "addNew": "Add new",
@@ -220,7 +232,12 @@
     },
     "NewAffirmation": {
       "remove": "Remove",
-      "add": "Add"
+      "add": "Add",
+      "deleteAffButton": "Delete",
+      "deleteAffCancel": "Cancel",
+      "deleteAffAccept": "Delete",
+      "deleteAffTitle": "Delete affirmation",
+      "deleteAffDescription": "Are you sure you want to delete this affirmation? This action can't be undone."
     },
     "AddToPack": {
       "add": "Add",
@@ -228,6 +245,8 @@
     },
     "Profile": {
       "profile": "Profile",
+      "firstName": "First name",
+      "lastName": "Last name",
       "firstLastName": "First and last name",
       "role": "Role",
       "email": "Email",
@@ -235,7 +254,8 @@
       "uploadImage": "Upload image",
       "removeImage": "Remove image",
       "cancel": "Cancel",
-      "save": "Save"
+      "save": "Save",
+      "shareData": "Share data with my coach"
     },
     "WrongOrientation": {
       "message": "Please rotate your device",
@@ -247,7 +267,12 @@
     },
     "UserStatistics": {
       "lastSensie": "Last sensie",
-      "noSensies": "User without sensies"
+      "noSensies": "User without sensies",
+      "removeClientButton": "Remove client",
+      "removeClientCancel": "Cancel",
+      "removeClientAccept": "Remove",
+      "removeClientTitle": "Remove client",
+      "removeClientDescription": "Are you sure you want to remove this client? This action can't be undone."
     }
   }
 }

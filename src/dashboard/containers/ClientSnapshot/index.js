@@ -19,6 +19,7 @@ import User from '../../containers/User'
 // import { handleDefaultPictureUser } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
+import { handleAwareness, handleFlow } from '../../utils/functions'
 
 // const
 // const { fontColor1 } = COLORS
@@ -47,6 +48,9 @@ const ClientSnapshot = () => {
    */
   // const handlePaginationChange = (event, value) => dispatch(setPaginationClientSnapshotAction(value))
 
+  const flow = sensies => handleFlow(sensies)
+  const awareness = user => handleAwareness(user.selfAwarenessScores.items)
+
   // ? render functions
   /**
    * render client snapshot with bar chart
@@ -54,29 +58,53 @@ const ClientSnapshot = () => {
    */
   const renderClientSnapshotBarChart = () => {
     const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items))
-    return !usersReducer.loading && usersReducer.users.map((client, idx) => {
+    const list = !usersReducer.loading && usersReducer.users.map((client, idx) => {
       const { id } = client
       const sensies = s.filter(s => s.userId === id)
+      return {
+        id,
+        idx,
+        client: client,
+        totalSensies: sensies.length,
+        flow: flow(sensies),
+        awareness: awareness(client)
+      }
+    })
+    return list.sort((a, b) => {
+      if (a.totalSensies > b.totalSensies) {
+        return -1
+      } else if (a.totalSensies < b.totalSensies) {
+        return 1
+      } else {
+        if (a.flow > b.flow) {
+          return -1
+        } else if (a.flow < b.flow) {
+          return 1
+        } else {
+          return 0
+        }
+      }
+    }).map(c => {
       return (
-        <Grid key={id} item xs={12} sm={12} md={12} lg={6} xl={4}>
-          <User user={client} sensies={sensies} key={idx} />
+        <Grid key={c.id} item xs={12} sm={12} md={12} lg={6} xl={4}>
+          <User user={c.client} flow={c.flow} awareness={c.awareness} totalSensies={c.totalSensies} key={c.idx} />
           {/* <div className={styles.ClientSnapshotBarChartContainer}>
-            <div className={styles.ClientSnapshotBarChartHeader}>
-              <Link to={user + '/' + id}>
-                <div>
-                  <ImageAvatar url={picture || handleDefaultPictureUser(gender)} alt={lastName} size="medium" />
-                  <h4>{firstName} {lastName}</h4>
-                </div>
-              </Link>
-              <Link to={user + '/' + id}>
-                  <Icon name="expand-outline" color={fontColor1} size="md" animation="pulse" />
-              </Link>
-            </div>
-            {/* <div className={styles.ClientSnapshotChartContainer}>
-              <BarChart />
-            </div>
-          </div> */}
-        </Grid>
+          <div className={styles.ClientSnapshotBarChartHeader}>
+            <Link to={user + '/' + id}>
+              <div>
+                <ImageAvatar url={picture || handleDefaultPictureUser(gender)} alt={lastName} size="medium" />
+                <h4>{firstName} {lastName}</h4>
+              </div>
+            </Link>
+            <Link to={user + '/' + id}>
+                <Icon name="expand-outline" color={fontColor1} size="md" animation="pulse" />
+            </Link>
+          </div>
+          {/* <div className={styles.ClientSnapshotChartContainer}>
+            <BarChart />
+          </div>
+        </div> */}
+        </Grid >
       )
     })
   }

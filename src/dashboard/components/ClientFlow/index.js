@@ -12,6 +12,7 @@ import { IconChartTypes } from '../../constants/charts'
 import { COLORS } from '../../constants/theme'
 // styles
 import styles from './styles.module.scss'
+import { LineChartDataPropTypes } from '../../prop-types'
 
 // const
 const { UP, USER, ACTIVITY } = IconChartTypes
@@ -27,7 +28,6 @@ const { actionColor1 } = COLORS
  */
 const ClientFlow = ({ graph, client, sensies, flow, awareness, resilience, trust }) => {
   // ? hooks
-  // console.log(graph)
   const [t] = useTranslation('global')
 
   return (
@@ -76,7 +76,7 @@ ClientFlow.propTypes = {
   /** trust */
   trust: PropTypes.number.isRequired,
 
-  graph: PropTypes.arrayOf(PropTypes.object)
+  graph: PropTypes.arrayOf(LineChartDataPropTypes)
 }
 
 export default ClientFlow

@@ -13,7 +13,6 @@ import { NotFound404 } from '../components'
 import APP_ROUTES from '../constants/routes'
 
 // Amplify.configure(awsExports)
-// console.log('test', API, graphqlOperation)
 
 const App = () => {
   const { dashboard, landing } = APP_ROUTES

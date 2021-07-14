@@ -2,8 +2,22 @@
 import { API, graphqlOperation } from 'aws-amplify'
 // queries
 // import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
-import { getAffirmationsFromPacks, getAffirmationsFromPacksByUser, getSensiesByAffIdAndUser, getSensiesByAffId } from '../../dashboard/graphql/queries'
-import { createAffirmationMutation, joinAffirmationWithPackMutation, joinAffirmationWithTopicMutation } from '../../dashboard/graphql/mutations'
+import {
+  getAffirmationsFromPacks,
+  getAffirmationsFromPacksByUser,
+  getSensiesByAffIdAndUser,
+  getSensiesByAffId
+} from '../../dashboard/graphql/queries'
+
+import {
+  createAffirmationMutation,
+  deleteTopicAffirmationJoinMutation,
+  deleteAffirmationMutation,
+  joinAffirmationWithPackMutation,
+  joinAffirmationWithTopicMutation,
+  removeJoinAffirmationPackMutation
+} from '../../dashboard/graphql/mutations'
+
 // constants
 import AFFIRMATIONS from '../constants/affirmations.constants'
 
@@ -16,6 +30,7 @@ const {
   CLEAN_LAST_AFFIRMATIONS,
   GET_ALL_AFFIRMATIONS,
   CREATE_AFFIRMATION,
+  DELETE_AFFIRMATION,
   LOADING,
   ERROR
 } = AFFIRMATIONS
@@ -46,8 +61,6 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
       const r = await API.graphql(graphqlOperation(sAction))
       nextToken = r.data.sensiesByAffirmationAndTimestamp.nextToken
       while (nextToken) {
-        console.log('nextToken')
-        console.log(nextToken)
         const subAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
         const subReq = await API.graphql(graphqlOperation(subAction))
         nextToken = subReq.data.sensiesByAffirmationAndTimestamp.nextToken
@@ -61,7 +74,6 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
       payload: full
     })
   } catch (error) {
-    console.log('error', error)
     dispatch({
       type: ERROR,
       payload: 'Error in list affirmations'
@@ -76,6 +88,7 @@ export const createAffirmationAction = (name, description, topicsId, packId, use
 
   try {
     const newAffirmation = await API.graphql(graphqlOperation(createAffirmationMutation(name, description, userId)))
+
     if (!newAffirmation.loading && newAffirmation.value !== null) {
       const newAffirmationId = newAffirmation.value.data.createAffirmation.id
       // join pack
@@ -138,5 +151,44 @@ export const cleanEditAffirmationAction = () => {
 export const cleanLastAffirmationsAction = () => {
   return {
     type: CLEAN_LAST_AFFIRMATIONS
+  }
+}
+
+export const deleteAffirmationAction = (affirmation) => async dispatch => {
+  dispatch({
+    type: LOADING
+  })
+
+  try {
+    console.log('DELETE', affirmation)
+    const packs = affirmation?.packs?.items || []
+    const topics = affirmation?.topics?.items || []
+
+    const response = await API.graphql(graphqlOperation(deleteAffirmationMutation(affirmation.id)))
+
+    if (response?.data?.deleteAffirmation?.id) {
+      await packs.map(async pack => {
+        return await API.graphql(graphqlOperation(removeJoinAffirmationPackMutation(pack.idPackAffJoin)))
+      })
+
+      await topics.map(async topic => {
+        return await API.graphql(graphqlOperation(deleteTopicAffirmationJoinMutation(topic.idTopicAffJoin)))
+      })
+    }
+
+    console.log('DELTE AFF RESPONSE', response)
+    dispatch({
+      type: DELETE_AFFIRMATION,
+      payload: response.data.deleteAffirmation
+    })
+
+    return true
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: 'Error in delete affirmation'
+    })
+
+    return false
   }
 }

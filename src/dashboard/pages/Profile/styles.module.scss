@@ -1,4 +1,4 @@
-@import '../../styles/index.scss';
+@import "../../styles/index.scss";
 
 .ProfileContainer {
   background-color: $grayColor6;
@@ -30,7 +30,7 @@
     .ProfileLabelDisabled {
       color: $grayColor3;
     }
-    input{
+    input {
       width: 100%;
       background-color: $grayColor7;
       @include border(solid, 1px, 5px, transparent);
@@ -77,7 +77,7 @@
     @include border(solid, 1px, 5px, transparent);
     color: $fontColor1;
     font-size: 1.25rem;
-    padding: 5px 20px;    
+    padding: 5px 20px;
     margin-bottom: 5px;
     &:hover {
       @include border(solid, 1px, 5px, $grayColor3);
@@ -103,5 +103,19 @@
     &:hover {
       @include border(solid, 1px, 5px, $actionColor1);
     }
+  }
+}
+
+.ItemCheckboxContainer {
+  width: 100%;
+  @include flex(row, flex-start, center, nowrap);
+  padding: 5px 0px;
+
+  .ItemCheckboxCheck {
+    color: $actionColor1 !important;
+  }
+
+  .ItemCheckboxTitle {
+    margin-left: 10px;
   }
 }

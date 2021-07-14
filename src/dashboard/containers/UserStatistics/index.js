@@ -18,6 +18,11 @@ import styles from './syles.module.scss'
 import { Storage } from 'aws-amplify'
 
 import IMG from '../../constants/images'
+import { useDispatch, useSelector } from 'react-redux'
+import AlertDialog from '../../components/AlertDialog'
+
+import { removeClientFromCoachAction } from '../../../redux/actions/users.actions'
+import Loading from '../../components/Loading'
 const { avatarFemale, avatarMale } = IMG
 
 // const
@@ -32,8 +37,15 @@ const { ACTIVITY, UP } = IconChartTypes
  */
 const UserStatistics = ({ data, sensies }) => {
   // ? hooks
+  const dispatch = useDispatch()
   const [t] = useTranslation('global')
   const [picture, setPicture] = useState()
+  const {
+    userReducer: { user },
+    usersReducer,
+    packsReducer: { packs }
+  } = useSelector(state => state)
+
   // const { filtersReducer: { globalDateFilter } } = useSelector(state => state)
 
   // ? handle functions
@@ -57,17 +69,36 @@ const UserStatistics = ({ data, sensies }) => {
     return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
   }
 
+  const handleRemoveClient = () => {
+    dispatch(removeClientFromCoachAction(data.id, user.id, packs))
+  }
+
   useEffect(() => {
     getImage(data.picture).then(d => setPicture(d))
   }, [data])
 
-  return (
-    <div className={styles.UserStatisticsContainer}>
+  return (usersReducer.loading
+    ? <Loading />
+    : <div className={styles.UserStatisticsContainer}>
       {/* header */}
       <div className={styles.UserStatisticsHeaderContainer}>
         {/* avatar */}
         <div className={styles.UserStatisticsHeaderAvatar}>
           <ImageAvatar size="xlarge" url={picture || handleDefaultPictureUser(data.gender)} alt={data.lastName} />
+          <div className={styles.UserBtnsContainer}>
+            <AlertDialog
+              withLogout={false}
+              title={t('dashboard.UserStatistics.removeClientTitle')}
+              description={t('dashboard.UserStatistics.removeClientDescription')}
+              disagreeText={t('dashboard.UserStatistics.removeClientCancel')}
+              agreeText={t('dashboard.UserStatistics.removeClientAccept')}
+              agreeColor='secondary'
+              disagreeColor='primary'
+              agreeOnClick={handleRemoveClient}
+            >
+              {t('dashboard.UserStatistics.removeClientButton')}
+            </AlertDialog>
+          </div>
         </div>
         {/* body */}
         <div className={styles.UserStatisticsHeaderBody}>
@@ -101,7 +132,7 @@ const UserStatistics = ({ data, sensies }) => {
         {/* icon charts */}
         <div className={styles.UserStatisticsBodyCharts2Container}>
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(sensies)} valueType="%" icon={ACTIVITY} theme={2} />
+            <IconChart title={t('dashboard.IconChart.flow')} value={handleFlow(sensies).toString()} valueType="%" icon={ACTIVITY} theme={2} />
           </div>
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
@@ -115,7 +146,7 @@ const UserStatistics = ({ data, sensies }) => {
           </div> */}
           <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>
-            <IconChart title={t('dashboard.IconChart.sensies')} value={handleSensiesCount()} icon={UP} theme={2} />
+            <IconChart title={t('dashboard.IconChart.sensies')} value={handleSensiesCount().toString()} icon={UP} theme={2} />
           </div>
         </div>
       </div>}
@@ -128,7 +159,7 @@ UserStatistics.propTypes = {
   /** data */
   data: PropTypes.object.isRequired,
   /** data */
-  sensies: PropTypes.object
+  sensies: PropTypes.array
 }
 
 export default UserStatistics

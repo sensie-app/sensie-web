@@ -26,7 +26,6 @@ import PropTypes from 'prop-types'
  * @component
  */
 const ShareWith = ({ pack }) => {
-  console.log(pack)
   // ? hooks
   const dispatch = useDispatch()
   const {
@@ -62,8 +61,7 @@ const ShareWith = ({ pack }) => {
 
   const subPack = async (userId, packId) => {
     try {
-      const response = await API.graphql(graphqlOperation(createPackSubscriptionMutation(userId, packId)))
-      console.log('response', response)
+      await API.graphql(graphqlOperation(createPackSubscriptionMutation(userId, packId)))
     } catch (error) {
       console.log('error', error)
       toast.success(`Pack ${pack.name} failed to share to user ${userId}!`)
@@ -80,7 +78,6 @@ const ShareWith = ({ pack }) => {
   // }, [usersReducer.users])
 
   const handleShare = () => {
-    console.log(checked)
     let i = 0
     for (const k in checked) {
       if (checked[k]) {
@@ -97,7 +94,6 @@ const ShareWith = ({ pack }) => {
     const id = e.target.value
     checked[id] = !checked[id]
     setChecked(checked)
-    console.log(checked)
     // forceUpdate()
   }
 
@@ -112,14 +108,14 @@ const ShareWith = ({ pack }) => {
       const disabled = userPacks.indexOf(pack.id) > -1
       checked[user.id] = disabled || allChecked
       if (disabled) delete checked[user.id]
-      console.log(checked)
+
       return (
-      <ItemCheckbox value={user.id} key={index} check={disabled || allChecked} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)} disabled={disabled}>
-        <span
-          className={styles.ShareWithItemCheckboxTitle}>
-          {user.firstName} {user.lastName}
-        </span>
-      </ItemCheckbox>)
+        <ItemCheckbox value={user.id} key={index} check={disabled || allChecked} defaultValue={false} onChange={handleChange} onClick={value => console.log(value)} disabled={disabled}>
+          <span
+            className={styles.ShareWithItemCheckboxTitle}>
+            {user.firstName} {user.lastName}
+          </span>
+        </ItemCheckbox>)
     })
   }
 
@@ -168,18 +164,17 @@ const ShareWith = ({ pack }) => {
           {renderListTeams()}
         </div> */}
       </div>
-        {/* footer */}
+      {/* footer */}
       <div className={styles.ShareWithPublicAvailable}>
         <div className={styles.ShareWithFooterContainer}>
           {/* <ItemCheckbox
-            defaultValue={false}
-            onClick={(value) => console.log(!value)}
-          >
+            defaultValue={pack.isCommunityPack}
+            onClick={value => handleCommunityPackChange(!value)}>
             <span className={styles.ShareWithItemCheckboxTitle}>
               {t('dashboard.ShareWith.publicAvailable')}
             </span>
           </ItemCheckbox> */}
-          <span>{ pack.name }</span>
+          <span>{pack.name}</span>
           <button onClick={handleShare}>{t('dashboard.ShareWith.share')}</button>
         </div>
       </div>

@@ -13,6 +13,7 @@ import Navbar from '../components/Navbar'
 import Home from '../pages/Home'
 import Science from '../pages/Science'
 import Blog from '../pages/Blog'
+import DetailPost from '../pages/DetailPost'
 import AboutSensie from '../pages/AboutSensie'
 import Contact from '../pages/Contact'
 import Privacy from '../pages/Privacy'
@@ -20,7 +21,7 @@ import Terms from '../pages/Terms'
 import Footer from '../components/Footer'
 import LANDING_ROUTES from '../constants/routes'
 
-const { home, science, blog, aboutsensie, contact, entrypoint, privacy, terms } = LANDING_ROUTES
+const { home, science, blog, detail, aboutsensie, contact, entrypoint, privacy, terms } = LANDING_ROUTES
 
 function App () {
   useEffect(() => {
@@ -35,7 +36,9 @@ function App () {
           <Switch>
             <Route path={contact} component={Contact} />
             <Route path={aboutsensie} component={AboutSensie} />
-            <Route path={blog} component={Blog} />
+            <Route exact path={blog} component={Blog} />
+            <Route path={blog + '/:id'} component={Blog} />
+            <Route path={detail + '/:id'} component={DetailPost} />
             <Route path={science} component={Science} />
             <Route path={home} component={Home} />
             <Route path={privacy} component={Privacy} />

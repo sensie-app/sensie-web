@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 // import { ThemeProvider } from '@material-ui/core/styles'
 // redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 // import { getAllTopicsAction } from '../../redux/actions/topics.action'
 // constants-routes
 import DASHBOARD_ROUTES from '../constants/routes'
@@ -56,11 +56,9 @@ const {
  */
 const DashboardRoutes = () => {
   // ? hooks
-  const dispatch = useDispatch()
-  console.log(dispatch)
+  // const dispatch = useDispatch()
   const {
-    filtersReducer: { globalDateFilter },
-    userReducer: { user }
+    filtersReducer: { globalDateFilter }
   } = useSelector(state => state)
 
   // useEffect(() => {
@@ -68,8 +66,6 @@ const DashboardRoutes = () => {
   // }, [])
 
   useEffect(async () => {
-    console.log('1', 1)
-    console.log(user)
     // dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
     // dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [globalDateFilter])

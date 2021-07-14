@@ -84,11 +84,14 @@ export const getUserByIdQuery = id => `
       userTeamId
       picture
       infoText
+      shareData
+      userCoachId
       invites(filter: {used: {ne: true}}) {
         items {
           id
         }
       }
+      userTopicId
     }
   }
 `
@@ -161,36 +164,37 @@ export const getUserWithSensiesByIdQuery = (id, dates) => `
 export const listUsersWithSensiesByUserId = (userId, dates) => `
   query MyQuery {
     getUser(id: "${userId}") {
-        sensies(limit: 10000, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, filter: {calibration: {eq: false}}) {
-          items {
+      sensies(limit: 10000, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}, filter: {calibration: {eq: false}}) {
+        items {
+          id
+          result
+          createdAt
+        }
+      }
+      firstName
+      gender
+      lastName
+      id
+      picture
+      subscribedPacks {
+        items {
+          packId
+          pack {
+            name
             id
-            result
-            createdAt
+            description
           }
         }
-        firstName
-        gender
-        lastName
-        id
-        picture
-        subscribedPacks {
-          items {
-            packId
-            pack {
-              name
-              id
-              description
-            }
-          }
+      }
+      selfAwarenessScores {
+        items {
+          id
+          timestamp
+          selfAssessment
+          score
         }
-        selfAwarenessScores {
-          items {
-            id
-            timestamp 
-            selfAssessment
-            score
-          }
-        }
+      }
+      userCoachId
     }
   }
 `
@@ -247,22 +251,42 @@ export const getClientsFromCoach = (id, dates) => `
           id
           firstName
           lastName
-          gender 
+          gender
           picture
           userCoachId
           selfAwareness
           subscribedPacks {
             items {
+              id
               packId
-              userId 
+              userId
             }
           }
           selfAwarenessScores {
             items {
               id
-              timestamp 
+              timestamp
               selfAssessment
               score
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const getClientFromCoach = (clientId, coachId, subscribedNextToken) => `
+  query getClientFromCoach {
+    getUser(id: "${coachId}") {
+      clients(filter: {id: {eq: "${clientId}"}}) {
+        items {
+          id
+          subscribedPacks(limit: 1000, nextToken: ${subscribedNextToken ? `"${subscribedNextToken}"` : null}) {
+            nextToken
+            items {
+              id
+              packId
             }
           }
         }
@@ -279,7 +303,7 @@ export const listUsersByOrganizationId = (id, dates) => `
         id
         firstName
         lastName
-        gender 
+        gender
         picture
         sensies(limit: 10000, sortDirection: DESC, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
           items {
@@ -316,19 +340,22 @@ export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
 
 export const listTopicsQuery = () => `
   query MyQuery {
-    listTopics {
+    listTopics(filter: {isPrivate: {eq: false}}) {
       items {
         id
         name
         picture
         icon
-        description    
-        affirmations {
+        description
+        affirmations(limit: 10000) {
           items {
             affirmation {
               name
               id
               createdAt
+              user {
+                id
+              }
               topics {
                 items {
                   topic {
@@ -340,7 +367,7 @@ export const listTopicsQuery = () => `
             }
           }
           nextToken
-        } 
+        }
       }
     }
   }
@@ -348,7 +375,7 @@ export const listTopicsQuery = () => `
 
 export const listTopicsWiyhAffirmationsIdsQuery = () => `
   query MyQuery {
-    listTopics {
+    listTopics(filter: {isPrivate: {eq: false}}) {
       items {
         description
         id
@@ -378,12 +405,21 @@ export const getTopicByIdQuery = id => `
           affirmation {
             name
             id
-            topics {
+            user {
+              id
+            }
+            topics(limit: 100) {
               items {
+                idTopicAffJoin: id
                 topic {
                   id
                   name
                 }
+              }
+            }
+            packs(limit: 100) {
+              items {
+                idPackAffJoin: id
               }
             }
           }
@@ -442,6 +478,7 @@ export const getPacksFromUser = id => `
           description
           picture
           author
+          isCommunityPack
           affirmations(sortDirection: DESC) {
             items {
               id
@@ -580,7 +617,7 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
           items {
           affirmation {
             description
-            id 
+            id
             name
             createdAt
             sensies(limit: 1000000, filter: {calibration: {eq: false}, timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
@@ -598,8 +635,8 @@ export const getAffirmationsFromPacks = (coachId, dates, limit) => `
               items {
                 pack {
                   id
-                  name 
-                  description 
+                  name
+                  description
                 }
               }
             }
@@ -635,7 +672,7 @@ export const getAffirmationsFromPacksByUser = (coachId, dates, limit, userId, ne
           items {
           affirmation {
             description
-            id 
+            id
             name
             createdAt
             sensies(limit: 1000000, filter: {calibration: {eq: false}, userId: {eq: "${userId}"},timestamp: {between: ["${dates[0]}", "${dates[1]}"]}}) {
@@ -775,6 +812,23 @@ export const listSensiesByAffirmationId = id => `
     listSensies(limit: 10000, filter: {calibration: {eq: false}, affirmationId: {eq: "A19"}}) {
       items {
         result
+      }
+    }
+  }
+`
+
+export const listLastUnusedInvitations = id => `
+  query listInvite {
+    getUser(id: "${id}") {
+      invites(filter: {used: {ne: true}}) {
+        items {
+          createdAt
+          expired
+          expires
+          id
+          packsId
+          updatedAt
+        }
       }
     }
   }

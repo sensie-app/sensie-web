@@ -1,5 +1,5 @@
 // react
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
@@ -10,10 +10,16 @@ import Topic from '../Topic'
 import TopicsConstants from '../../constants/topics'
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
-// utils
-// import { gqlquery } from '../../utils/queries'
+
 // styles
 import styles from './styles.module.scss'
+
+import { gqlquery2 } from '../../utils/queries'
+import { createTopicPrivate, updateUserTopicId } from '../../graphql/mutations'
+
+// redux
+import { useDispatch } from 'react-redux'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
@@ -27,9 +33,22 @@ const showOldTopics = false
  * @component
  * @param {array} data
  */
-const Topics = ({ data }) => {
+const Topics = ({ data, user }) => {
   // ? hooks
+  const dispatch = useDispatch()
   const [t] = useTranslation('global')
+  // const [topicsComplete, saveTopicsComplete] = useState(null)
+  useEffect(() => {
+    if (user.data.userTopicId === null) {
+      handleCreateTopicPrivate().then(v => {
+        const idTopic = v.value.data.createTopic.id
+        handleUpdateUserTopicId(user.id, idTopic).then(h => {
+          dispatch(getAllTopicsAction(user.data.userTopicId))
+        })
+      })
+    }
+    // eslint-disable-next-line
+  }, []);
 
   // ? render functions
   /**
@@ -45,6 +64,16 @@ const Topics = ({ data }) => {
         </Grid>
       )
     })
+  }
+
+  const handleCreateTopicPrivate = async () => {
+    const result = await gqlquery2(createTopicPrivate('topics/private.svg', 'Private', 'topics/private.jpg'))
+    return result
+  }
+
+  const handleUpdateUserTopicId = async (id, idTopic) => {
+    const result = await gqlquery2(updateUserTopicId(id, idTopic))
+    return result
   }
 
   return (
@@ -82,7 +111,9 @@ const Topics = ({ data }) => {
           </Grid>
         </Fragment>}
         {/* // bd topics */}
-        {renderTopics()}
+        <Fragment>
+          {renderTopics()}
+        </Fragment>
       </Grid>
     </div>
   )
@@ -91,7 +122,8 @@ const Topics = ({ data }) => {
 // prop types
 Topics.propTypes = {
   /** data */
-  data: PropTypes.array
+  data: PropTypes.array,
+  user: PropTypes.object
 }
 
 export default Topics

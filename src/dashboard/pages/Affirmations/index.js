@@ -35,9 +35,8 @@ const Affirmations = () => {
   const [show, setShow] = useState(showPacksOrTopics)
 
   useEffect(async () => {
-    console.log(packsReducer)
     dispatch(listPacksAction(user.id))
-    dispatch(getAllTopicsAction())
+    dispatch(getAllTopicsAction(user.data.userTopicId))
   }, [user.loading])
 
   // ? handle functions
@@ -72,7 +71,7 @@ const Affirmations = () => {
               ? <Fragment>
                   {packsReducer.loading ? <Loading /> : <Packs data={packsReducer.packs}/>}
                 </Fragment>
-              : <Topics data={topicsReducer.topics} />
+              : <Topics data={topicsReducer.topics} user={user}/>
             }
           </div>
       </div>

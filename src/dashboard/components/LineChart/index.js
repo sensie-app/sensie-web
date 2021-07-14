@@ -2,6 +2,8 @@
 import React from 'react'
 import { ResponsiveLine } from '@nivo/line'
 import { linearGradientDef } from '@nivo/core'
+import PropTypes from 'prop-types'
+
 // constants
 import { COLORS } from '../../constants/theme'
 // styles
@@ -29,7 +31,7 @@ const LineChart = ({ data }) => {
   const hours = data[0].data.length
   const precision = hours <= 100 ? 'hour' : (hours <= 1000 ? 'day' : 'month')
   const tickValues = `every 1 ${precision}`
-  const format = precision === 'hour' ? '%m/%d %H:%M' : '%m/%d'
+  const format = precision === 'hour' ? '%m/%d %H:%M' : (precision === 'day' ? '%m/%d' : '%m/%d/%y')
 
   return (
     <div className={styles.LineChartContainer}>
@@ -53,7 +55,10 @@ const LineChart = ({ data }) => {
             tickSize: 7,
             tickPadding: 0,
             tickRotation: -45,
-            format: `${format}`
+            format: `${format}`,
+            legend: 'Date',
+            legendOffset: 70,
+            legendPosition: 'middle'
           }}
           yScale={{
             type: 'linear',
@@ -75,9 +80,9 @@ const LineChart = ({ data }) => {
             tickSize: 0,
             tickPadding: 10,
             tickRotation: 0,
-            legend: '',
+            legend: 'Flow',
             legendPosition: 'middle',
-            legendOffset: -40
+            legendOffset: -45
           }}
           defs={[
             linearGradientDef('gradientHigh', [
@@ -107,7 +112,7 @@ const LineChart = ({ data }) => {
 
 // prop-types
 LineChart.propTypes = {
-  data: LineChartDataPropTypes
+  data: PropTypes.arrayOf(LineChartDataPropTypes)
 }
 
 export default LineChart

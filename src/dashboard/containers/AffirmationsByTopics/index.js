@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'
 import 'pure-react-carousel/dist/react-carousel.es.css'
+import { Element, Link } from 'react-scroll'
 // contaniners
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
@@ -22,6 +23,13 @@ import { setCheckboxAllAffirmationsByTopicsAction } from '../../../redux/actions
 import { handleArrTopics } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
+
+import { gqlquery2 } from '../../utils/queries'
+import { createTopicPrivate, updateUserTopicId } from '../../graphql/mutations'
+import { getTopicByIdQuery } from '../../graphql/queries'
+import { getAllTopicsAction } from '../../../redux/actions/topics.action'
+// import { useParams } from 'react-router-dom'
+// import Grid from "@material-ui/core/Grid";
 
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
@@ -42,6 +50,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   // ? hooks
   const dispatch = useDispatch()
   const {
+    userReducer: { user },
     topicsReducer: { topics },
     checkboxReducer: { all: { affirmationsByTopics } }
   } = useSelector(state => state)
@@ -52,15 +61,52 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
 
   useEffect(async () => await handleOnClickProps(), [topic])
 
+  useEffect(() => {
+    if (user.id !== null) {
+      if (user.data.userTopicId === null) {
+        handleCreateTopicPrivate().then(v => {
+          const idTopic = v.value.data.createTopic.id
+          handleUpdateUserTopicId(user.id, idTopic).then(h => {
+            user.data.userTopicId = idTopic
+            dispatch(getAllTopicsAction(user.data.userTopicId))
+          })
+        })
+      }
+    }
+  }, [])
+
+  const handleCreateTopicPrivate = async () => {
+    const result = await gqlquery2(createTopicPrivate('topics/private.svg', 'Private', 'topics/private.jpg'))
+    return result
+  }
+
+  const handleUpdateUserTopicId = async (id, idTopic) => {
+    const result = await gqlquery2(updateUserTopicId(id, idTopic))
+    return result
+  }
+
   // ? handle functions
   /**
    * handleOnClickProps
    */
   const handleOnClickProps = async () => {
     if (topic) {
-      const listaffirmations = topics.filter(item => item.id === topic.id)[0]
-      setAffirmations(listaffirmations.affirmations.items)
+      let listaffirmations = topics.filter(item => item.id === topic.id)[0]
+
+      if (typeof listaffirmations === 'undefined') {
+        const r = await gqlquery2(getTopicByIdQuery(topic.id))
+        listaffirmations = r.value.data.getTopic
+      }
+
+      const listUniqueAffirmations = getUniqueListAffirmations(listaffirmations.affirmations.items)
+      setAffirmations(listUniqueAffirmations)
     }
+  }
+
+  const getUniqueListAffirmations = (items) => {
+    return items.filter((item, index, self) => {
+      return self.findIndex(selfVal => selfVal.affirmation.id === item.affirmation.id) === index
+    })
   }
 
   /**
@@ -120,29 +166,31 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
    * @returns {undefined} Topic component
    */
   const renderTopics = () => {
-    return topics.map((_topic, index) => {
-      return (
-        <Slide key={index} index={index}>
-          <button
-            className={styles.affirmationsByTopicsButton}
-            onClick={() => handleOnClickBtn(_topic)}>
-            {/* <a href="#listTopics"> */}
+    if (topics !== null) {
+      return topics.map((_topic, index) => {
+        return (
+          <Slide key={index} index={index}>
+            <Link className={styles.affirmationsByTopicsButton}
+              to="listTopics" smooth={true} offset={-150}
+              onClick={() => handleOnClickBtn(_topic)}>
               <Topic
-                img={_topic.picture}
-                icon={_topic.icon}
-                title={_topic}
-                topic={_topic}
-                withLink={false}
-                witCheckbox={false}
-                min={true}
-                iconSize='25px'
-                active={active === _topic.id}
+                  img={_topic.picture}
+                  icon={_topic.icon}
+                  title={_topic}
+                  topic={_topic}
+                  withLink={false}
+                  witCheckbox={false}
+                  min={true}
+                  iconSize='25px'
+                  active={active === _topic.id}
               />
-            {/* </a> */}
-          </button>
-        </Slide>
-      )
-    })
+            </Link>
+          </Slide>
+        )
+      })
+    } else {
+      return null
+    }
   }
 
   /**
@@ -160,6 +208,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
         selectedTopics={handleArrTopics(item.affirmation.topics.items)}
         withRemoveBtn={false}
         withAddBtn={true}
+        withDeleteBtn={false}
         onAddToPack={onAddToPack}
       />
     })
@@ -186,7 +235,9 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
               // hasMasterSpinner
               infinite
             >
-              <Slider>{renderTopics()}</Slider>
+              <Slider>
+                {renderTopics()}
+              </Slider>
               <ButtonBack className={styles.affirmationsByTopicsCaruselBtn}><Icon name="arrow-ios-back-outline" color={fontColor1} size="md" /></ButtonBack>
               <ButtonNext className={styles.affirmationsByTopicsCaruselBtn}><Icon name="arrow-ios-forward-outline" color={fontColor1} size="md" /></ButtonNext>
             </CarouselProvider>
@@ -206,9 +257,9 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
         </div>
       </div>
       {/* affirmations list */}
-      <div id="listTopics" className={styles.AffirmationsByTopicsListContainer}>
+      <Element id="listTopics" name="listTopics" className={styles.AffirmationsByTopicsListContainer}>
         {renderListAffirmations()}
-      </div>
+      </Element>
     </div>
   )
 }

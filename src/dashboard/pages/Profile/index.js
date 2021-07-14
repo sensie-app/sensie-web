@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 // material-ui
 import Grid from '@material-ui/core/Grid'
+import Checkbox from '@material-ui/core/Checkbox'
 // components
 import Title from '../../components/Title'
 import ImageAvatar from '../../components/ImageAvatar'
@@ -36,18 +37,26 @@ const Profile = () => {
   const dispatch = useDispatch()
   const [t] = useTranslation('global')
   const [picture, setPicture] = useState()
-  const [info, setInfo] = useState(data.infoText)
+  const [info, setInfo] = useState(data.infoText || '')
+  const [firstName, setFirstName] = useState(data.firstName)
+  const [lastName, setLastName] = useState(data.lastName)
+  const [shareData, setShareData] = useState(true)
   const imageUploader = React.useRef(null)
   const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
   const getImage = async function (k) {
-    console.log('picture: ', k, typeof k)
     return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
   }
 
   useEffect(() => {
+    data.infoText = data.infoText || ''
     getImage(data.picture).then(d => setPicture(d))
     setInfo(data.infoText)
+    setFirstName(data.firstName)
+    setLastName(data.lastName)
+    if (data.shareData !== undefined && data.shareData !== null) {
+      setShareData(data.shareData)
+    }
   }, [data])
 
   const handleImageUpload = e => {
@@ -59,13 +68,27 @@ const Profile = () => {
           data.picture = res.key
         })
       setPicture(URL.createObjectURL(e.target.files[0]))
-      console.log(data)
     }
   }
 
   const handleInfo = e => {
     setInfo(e.target.value)
     data.infoText = e.target.value
+  }
+
+  const handleFirstName = e => {
+    setFirstName(e.target.value)
+    data.firstName = e.target.value
+  }
+
+  const handleShareData = e => {
+    setShareData(e.target.checked)
+    data.shareData = e.target.checked
+  }
+
+  const handleLastName = e => {
+    setLastName(e.target.value)
+    data.lastName = e.target.value
   }
 
   const handleRemoveImage = e => {
@@ -88,8 +111,12 @@ const Profile = () => {
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
             <div className={styles.ProfileGridContainer}>
               <div>
-                <label>{t('dashboard.Profile.firstLastName')}</label>
-                <input value={data.firstName + ' ' + data.lastName} disabled/>
+                <label>{t('dashboard.Profile.firstName')}</label>
+                <input value={firstName} onChange={handleFirstName} />
+              </div>
+              <div>
+                <label>{t('dashboard.Profile.lastName')}</label>
+                <input value={lastName} onChange={handleLastName} />
               </div>
               <div>
                 <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.role')}</label>
@@ -104,16 +131,27 @@ const Profile = () => {
                 <input value={data.email} disabled />
               </div>
               <div>
-                <label>{t('dashboard.Profile.useSensie')}</label>
-                <input disabled />
+                <label className={styles.ProfileLabelDisabled}>{t('dashboard.Profile.useSensie')}</label>
+                <input defaultValue={''} disabled />
               </div>
+              {data.userCoachId &&
+                <div className={styles.ItemCheckboxContainer}>
+                  <label>{t('dashboard.Profile.shareData')}</label>
+                  <Checkbox
+                    checked={shareData}
+                    className={styles.ItemCheckboxCheck}
+                    // onChange={() => setCheck(!_check)}
+                    onChange={handleShareData}
+                  />
+                </div>
+              }
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <div className={styles.ProfileGridContainer}>
               <div>
                 <label className={styles.ProfileLabelDisabled}>{t('Info')}</label>
-                <textarea value={info} onChange={handleInfo} cols='50' rows='5'/>
+                <textarea value={info} onChange={handleInfo} cols='50' rows='5' />
               </div>
             </div>
           </Grid>
@@ -135,7 +173,7 @@ const Profile = () => {
         </Grid>
         <div className={styles.ProfileFooterContainer}>
           <Link to={home}>
-           <button>{t('dashboard.Profile.cancel')}</button>
+            <button>{t('dashboard.Profile.cancel')}</button>
           </Link>
           <button onClick={saveUserData}>{t('dashboard.Profile.save')}</button>
         </div>
