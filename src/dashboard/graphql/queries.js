@@ -466,6 +466,7 @@ export const getPacksFromUser = id => `
                     }
                   }
                 }
+                createdAt
               }
             }
           }
@@ -506,6 +507,7 @@ export const getPacksFromUser = id => `
                   }
                 }
               }
+              createdAt
             }
           }
         }
