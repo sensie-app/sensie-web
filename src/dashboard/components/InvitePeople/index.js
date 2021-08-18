@@ -20,7 +20,7 @@ import styles from './styles.module.scss'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { listPacksAction } from '../../../redux/actions/packs.actions'
-import { createInvitation, getLastInvitationByCoach, updateInvitation } from '../../../redux/actions/invitations.actions'
+import { createInvitation, getLastInvitationByCoach, updateInvitation, updateInvitationLocal } from '../../../redux/actions/invitations.actions'
 
 // const
 const { fontColor1 } = COLORS
@@ -129,7 +129,9 @@ const InvitePeople = ({ link }) => {
 
       toggleCheckPack(packId, true)
     }
-
+    const p = invitation
+    p.packsId = getCheckedPacksId()
+    dispatch(updateInvitationLocal(p))
     dispatch(updateInvitation(invitation.id, getCheckedPacksId()))
   }
 
