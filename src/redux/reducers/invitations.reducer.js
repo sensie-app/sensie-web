@@ -18,6 +18,7 @@ const {
   GET_INVITATION,
   GET_LAST_INVITATION,
   LOADING_INVITATIONS,
+  UPDATE_INVITATIONS_LOCAL,
   ERROR_INVITATION
 } = INVITATIONS
 
@@ -49,6 +50,14 @@ const invitationsReducer = (state = INITIAL_STATE, { payload, type }) => {
       }
 
     case GET_LAST_INVITATION:
+      return {
+        ...state,
+        invitation: payload,
+        loading: false,
+        error: null
+      }
+
+    case UPDATE_INVITATIONS_LOCAL:
       return {
         ...state,
         invitation: payload,
