@@ -10,6 +10,7 @@ const {
   GET_LAST_INVITATION,
   LOADING_INVITATIONS,
   MODIFY_PACK_INVITATION,
+  UPDATE_INVITATIONS_LOCAL,
   ERROR_INVITATION
 } = INVITATIONS
 
@@ -75,6 +76,20 @@ export const updateInvitation = (invitationId, packsId) => async dispatch => {
     dispatch({
       type: ERROR_INVITATION,
       payload: 'Error updating the invitation'
+    })
+  }
+}
+
+export const updateInvitationLocal = (payload) => async dispatch => {
+  try {
+    dispatch({
+      type: UPDATE_INVITATIONS_LOCAL,
+      payload: payload
+    })
+  } catch (error) {
+    dispatch({
+      type: ERROR_INVITATION,
+      payload: 'Error updating local the invitation'
     })
   }
 }
