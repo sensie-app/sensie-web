@@ -177,7 +177,7 @@ const InvitePeople = ({ link }) => {
 
             {!packsReducer.loading
               ? packsReducer.packs.length > 0
-                  ? <>
+                ? <>
                     <h4 className={styles.InvitePeopleListTitle}>{t('dashboard.InvitePeople.selectPack')}</h4>
                     <Divider className={styles.InvitePeopleDivider} />
 
@@ -204,7 +204,7 @@ const InvitePeople = ({ link }) => {
                       }
                     </List>
                   </>
-                  : <></>
+                : <></>
               : <Loading />
             }
 
