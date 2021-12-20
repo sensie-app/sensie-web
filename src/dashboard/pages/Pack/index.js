@@ -195,8 +195,8 @@ const Pack = () => {
     if (affItems) {
       return pack.affirmations
         ? pack.affirmations.items.sort((a, b) => b.createdAt > a.createdAt ? -1 : 1).map(item => {
-            const { name, topics } = item.affirmation
-            return <NewAffirmation
+          const { name, topics } = item.affirmation
+          return <NewAffirmation
               key={item.affirmation.id}
               joinId={item.id}
               checkAll={checkboxReducer.all.affirmations}
@@ -210,7 +210,7 @@ const Pack = () => {
               onAddToPack={handleAddToPack}
               onRemovePack={handleRemoveToPack}
             />
-          })
+        })
         : <Loading />
     } else {
       return null
