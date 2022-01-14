@@ -1,43 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
     <!-- <meta name="theme-color" content="#000000" />   -->
 
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json" />
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Sensie">
-    <meta name="apple-mobile-web-app-title" content="Sensie">
-    <meta name="theme-color" content="#071215">
-    <meta name="msapplication-navbutton-color" content="#071215">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="msapplication-starturl" content="https://joinsensie.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" sizes="512x512" href="./logo512.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="./logo512.png">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Sensie" />
+    <meta name="apple-mobile-web-app-title" content="Sensie" />
+    <meta name="theme-color" content="#071215" />
+    <meta name="msapplication-navbutton-color" content="#071215" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="msapplication-starturl" content="https://joinsensie.com" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" type="image/png" sizes="512x512" href="./logo512.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="./logo512.png" />
     <link rel="apple-touch-icon" size="192x192" href="%PUBLIC_URL%/logo192.png" />
 
     <meta name="description" content="Uncover and manage hidden stress. Sensie is everyone's million dollar coach, available whenever, wherever." />
 
-    <meta property="og:title" content="Sensie">
-    <meta property="og:description" content="Uncover and manage hidden stress. Sensie is everyone's million dollar coach, available whenever, wherever.">
-    <meta property="og:image" content="./og_image.png">
+    <meta property="og:title" content="Sensie" />
+    <meta property="og:description" content="Uncover and manage hidden stress. Sensie is everyone's million dollar coach, available whenever, wherever." />
+    <meta property="og:image" content="./og_image.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Sensie website homepage." />
-    <meta property="og:url" content="https://joinsensie.com">
-    <meta name="twitter:card" content="./og_image.png">
-    <meta name="twitter:image:alt" content="Sensie website homepage.">
-    <meta name="twitter:description" content="Uncover and manage hidden stress. Sensie is everyone's million dollar coach, available whenever, wherever.">
+    <meta property="og:url" content="https://joinsensie.com" />
+    <meta name="twitter:card" content="./og_image.png" />
+    <meta name="twitter:image:alt" content="Sensie website homepage." />
+    <meta name="twitter:description" content="Uncover and manage hidden stress. Sensie is everyone's million dollar coach, available whenever, wherever." />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -56,36 +55,37 @@
 </head>
 
 <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <!-- TODO: revisar Uncaught SyntaxError: Unexpected token '<' en bodymovin.js -->
-    <script src="js/bodymovin.js" type="text/javascript"></script>
-    <div id="app" />
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<!-- TODO: revisar Uncaught SyntaxError: Unexpected token '<' en bodymovin.js -->
+<!--script src="js/bodymovin.js" type="text/javascript"></script-->
+<div id="app"></div>
+<!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-    <script>window.twttr = (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-      if (d.getElementById(id)) return t;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js, fjs);
+  To begin the development, run `npm start` or `yarn start`.
+  To create a production bundle, use `npm run build` or `yarn build`.
+-->
+<script>
+    window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
 
-      t._e = [];
-      t.ready = function(f) {
-        t._e.push(f);
-      };
+        t._e = [];
+        t.ready = function(f) {
+            t._e.push(f);
+        };
 
-      return t;
-    }(document, "script", "twitter-wjs"));</script>
-  </body>
-
+        return t;
+    }(document, "script", "twitter-wjs"));
+</script>
+</body>
 </html>
