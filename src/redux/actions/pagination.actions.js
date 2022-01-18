@@ -1,6 +1,6 @@
 import PAGINATION from '../constants/pagination.constants'
 
-const { PAGINATION_AFFIRMATION, PAGINATION_AFFIRMATIONS_LIST, PAGINATION_CLIENT_SNAPSHOT, PAGINATION_USERS_LIST } = PAGINATION
+const { PAGINATION_AFFIRMATION, PAGINATION_AFFIRMATIONS_LIST, PAGINATION_CLIENT_SNAPSHOT, PAGINATION_USERS_LIST, CLEAR_PAGINATION } = PAGINATION
 
 export const setPaginationAffirmationAction = data => {
   return {
@@ -29,3 +29,14 @@ export const setPaginationUserListAction = data => {
     payload: data
   }
 }
+
+export function onClearPagination () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_PAGINATION,
+  payload: []
+})

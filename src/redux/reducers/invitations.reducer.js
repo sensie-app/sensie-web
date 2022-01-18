@@ -19,7 +19,8 @@ const {
   GET_LAST_INVITATION,
   LOADING_INVITATIONS,
   UPDATE_INVITATIONS_LOCAL,
-  ERROR_INVITATION
+  ERROR_INVITATION,
+  CLEAR_INVITATIONS
 } = INVITATIONS
 
 const invitationsReducer = (state = INITIAL_STATE, { payload, type }) => {
@@ -76,6 +77,19 @@ const invitationsReducer = (state = INITIAL_STATE, { payload, type }) => {
         ...state,
         loading: false,
         error: payload
+      }
+
+    case CLEAR_INVITATIONS:
+      return {
+        ...state,
+        invitation: {
+          id: null,
+          packsId: [],
+          createdAt: '',
+          updatedAt: ''
+        },
+        loading: false,
+        error: null
       }
 
     default: return state

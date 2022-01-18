@@ -8,7 +8,7 @@ import { getClientFromCoach, getClientsFromCoach } from '../../dashboard/graphql
 // constants
 import USERS from '../constants/users.constants'
 
-const { GET_ALL_USERS, REMOVE_USER_FROM_COACH, LOADING, ERROR } = USERS
+const { GET_ALL_USERS, REMOVE_USER_FROM_COACH, LOADING, ERROR, CLEAR_USERS } = USERS
 
 export const listUsersByOrganizationIdAction = (id, dates) => async (dispatch) => {
   dispatch({
@@ -85,3 +85,14 @@ export const removeClientFromCoachAction = (clientId, coachId, coachPacks) => as
     })
   }
 }
+
+export function onClearUsers () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_USERS,
+  payload: []
+})

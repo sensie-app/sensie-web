@@ -32,7 +32,8 @@ const {
   CREATE_AFFIRMATION,
   DELETE_AFFIRMATION,
   LOADING,
-  ERROR
+  ERROR,
+  CLEAR_AFFIRMATION
 } = AFFIRMATIONS
 
 export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispatch => {
@@ -192,3 +193,14 @@ export const deleteAffirmationAction = (affirmation) => async dispatch => {
     return false
   }
 }
+
+export function onClearAff () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_AFFIRMATION,
+  payload: []
+})

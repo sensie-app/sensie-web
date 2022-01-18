@@ -29,7 +29,8 @@ const {
   CLIENTS,
   TEAMS,
   AFFIRMATIONS,
-  AFFIRMATIONS_BY_TOPICS
+  AFFIRMATIONS_BY_TOPICS,
+  CLEAR_CHECKBOX
 } = CHECKBOX
 
 const checkboxReducer = (state = INITIAL_STATE, { payload, type }) => {
@@ -135,6 +136,18 @@ const checkboxReducer = (state = INITIAL_STATE, { payload, type }) => {
       return {
         ...state,
         affirmationsByTopics: payload
+      }
+    case CLEAR_CHECKBOX:
+      return {
+        ...state,
+        all: {
+          packs: false,
+          topics: false,
+          clients: false,
+          teams: false,
+          affirmations: false,
+          affirmationsByTopics: false
+        }
       }
 
     default: return state

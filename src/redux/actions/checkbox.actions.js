@@ -12,7 +12,8 @@ const {
   CLIENTS,
   TEAMS,
   AFFIRMATIONS,
-  AFFIRMATIONS_BY_TOPICS
+  AFFIRMATIONS_BY_TOPICS,
+  CLEAR_CHECKBOX
 } = CHECKBOX
 
 export const setCheckboxAllPacksAction = data => {
@@ -98,3 +99,14 @@ export const setCheckboxAffirmationsByTopicsAction = data => {
     payload: data
   }
 }
+
+export function onClearCheckbox () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_CHECKBOX,
+  payload: []
+})

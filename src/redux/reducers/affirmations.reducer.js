@@ -33,7 +33,8 @@ const {
   CREATE_AFFIRMATION,
   DELETE_AFFIRMATION,
   LOADING,
-  ERROR
+  ERROR,
+  CLEAR_AFFIRMATION
 } = AFFIRMATIONS
 
 const affirmationsReducer = (state = INITIAL_STATE, { payload, type }) => {
@@ -107,6 +108,14 @@ const affirmationsReducer = (state = INITIAL_STATE, { payload, type }) => {
       return {
         ...state,
         affirmations: state.affirmations.filter(a => a.id !== payload.id),
+        loading: false,
+        error: null
+      }
+
+    case CLEAR_AFFIRMATION:
+      return {
+        ...state,
+        affirmations: payload,
         loading: false,
         error: null
       }
