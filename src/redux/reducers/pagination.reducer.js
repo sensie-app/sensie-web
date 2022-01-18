@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   }
 }
 
-const { PAGINATION_AFFIRMATION, PAGINATION_AFFIRMATIONS_LIST, PAGINATION_CLIENT_SNAPSHOT, PAGINATION_USERS_LIST } = PAGINATION
+const { PAGINATION_AFFIRMATION, PAGINATION_AFFIRMATIONS_LIST, PAGINATION_CLIENT_SNAPSHOT, PAGINATION_USERS_LIST, CLEAR_PAGINATION } = PAGINATION
 
 const paginationReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
@@ -51,6 +51,16 @@ const paginationReducer = (state = INITIAL_STATE, { payload, type }) => {
           pagAffirmationsList: state.pagination.pagAffirmationsList,
           pagClientSpanshot: state.pagination.pagClientSpanshot,
           pagUsersList: payload
+        }
+      }
+    case CLEAR_PAGINATION:
+      return {
+        ...state,
+        pagination: {
+          pagAffirmation: 1,
+          pagAffirmationsList: 1,
+          pagClientSpanshot: 1,
+          pagUsersList: 1
         }
       }
 

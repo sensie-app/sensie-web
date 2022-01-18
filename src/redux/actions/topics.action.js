@@ -5,7 +5,7 @@ import { getTopicByIdQuery, listTopicsQuery } from '../../dashboard/graphql/quer
 // constants
 import TOPICS from '../constants/topics.constants'
 
-const { TOPICS_LIST, GET_ALL_TOPICS, LOADING, ERROR } = TOPICS
+const { TOPICS_LIST, GET_ALL_TOPICS, LOADING, ERROR, CLEAR_TOPICS } = TOPICS
 
 export const setTopicsAction = data => {
   return {
@@ -43,3 +43,14 @@ export const getAllTopicsAction = userTopicId => async dispatch => {
     })
   }
 }
+
+export function onClearTopics () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_TOPICS,
+  payload: []
+})

@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   error: null
 }
 
-const { TOPICS_LIST, GET_ALL_TOPICS, LOADING, ERROR } = TOPICS
+const { TOPICS_LIST, GET_ALL_TOPICS, LOADING, ERROR, CLEAR_TOPICS } = TOPICS
 
 const topicsReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
@@ -35,6 +35,12 @@ const topicsReducer = (state = INITIAL_STATE, { payload, type }) => {
         ...state,
         loading: false,
         error: payload
+      }
+
+    case CLEAR_TOPICS:
+      return {
+        ...state,
+        topics: payload
       }
 
     default: return state

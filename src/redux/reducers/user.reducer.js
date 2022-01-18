@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   }
 }
 
-const { USER_ID, USER_DATA, LOADING, ERROR } = USER
+const { USER_ID, USER_DATA, LOADING, ERROR, CLEAR_USER } = USER
 
 const userReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
@@ -57,6 +57,17 @@ const userReducer = (state = INITIAL_STATE, { payload, type }) => {
           data: state.user.data,
           loading: false,
           error: payload
+        }
+      }
+
+    case CLEAR_USER:
+      return {
+        ...state,
+        user: {
+          id: null,
+          loading: false,
+          data: {},
+          error: null
         }
       }
 

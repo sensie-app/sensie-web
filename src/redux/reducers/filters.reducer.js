@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   }
 }
 
-const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_PACK_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION } = FILTERS
+const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_PACK_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION, CLEAR_FILTERS } = FILTERS
 
 const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
@@ -63,6 +63,12 @@ const filtersReducer = (state = INITIAL_STATE, { payload, type }) => {
           stateFilter: state.affirmations.stateFilter,
           affirmation: payload
         }
+      }
+
+    case CLEAR_FILTERS:
+      return {
+        ...state,
+        globalDateFilter: MenuDateHeaderComponent[0]
       }
 
     default: return state

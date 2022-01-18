@@ -6,7 +6,7 @@ import { updateUserData } from '../../dashboard/graphql/mutations'
 // constants
 import USER from '../constants/user.constants'
 
-const { USER_DATA, USER_ID, LOADING, ERROR } = USER
+const { USER_DATA, USER_ID, LOADING, ERROR, CLEAR_USER } = USER
 
 export const setUserDataAction = data => async (dispatch) => {
   try {
@@ -49,3 +49,14 @@ export const getUserByIdAction = (id) => async (dispatch) => {
     })
   }
 }
+
+export function onClearUser () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_USER,
+  payload: []
+})
