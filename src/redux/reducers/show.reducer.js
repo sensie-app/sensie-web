@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   showPacksOrTopics: CreatePacksTags.packs
 }
 
-const { SHOW_USER_LIST_INFO, SHOW_PACKS_OR_TOPICS } = SHOW
+const { SHOW_USER_LIST_INFO, SHOW_PACKS_OR_TOPICS, CLEAR_SHOW } = SHOW
 
 const showReducer = (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
@@ -27,6 +27,13 @@ const showReducer = (state = INITIAL_STATE, { payload, type }) => {
           showInfo: state.userList.showInfo
         },
         showPacksOrTopics: payload
+      }
+    case CLEAR_SHOW:
+      return {
+        ...state,
+        userList: {
+          showInfo: UserListBtns.summary
+        }
       }
 
     default: return state

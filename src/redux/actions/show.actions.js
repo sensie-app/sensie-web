@@ -1,6 +1,6 @@
 import SHOW from '../constants/show.constants'
 
-const { SHOW_USER_LIST_INFO, SHOW_PACKS_OR_TOPICS } = SHOW
+const { SHOW_USER_LIST_INFO, SHOW_PACKS_OR_TOPICS, CLEAR_SHOW } = SHOW
 
 export const setUserListInfo = data => {
   return {
@@ -15,3 +15,14 @@ export const setShowPacksOrTopicsAction = data => {
     payload: data
   }
 }
+
+export function onClearShow () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_SHOW,
+  payload: []
+})

@@ -8,7 +8,9 @@ import { updateUserWithCoach } from '../../dashboard/graphql/mutations'
 import { setUserIdAction, getUserByIdAction } from '../../redux/actions/user.actions'
 
 // amplify
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import { API, graphqlOperation } from 'aws-amplify'
+import Amplify from '@aws-amplify/core'
+import { Auth } from '@aws-amplify/auth'
 import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react'
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components'
 import awsconfig from '../../aws-exports'
@@ -18,7 +20,7 @@ import { toast, ToastContainer } from 'react-toastify'
 
 // amplify config
 Amplify.configure(awsconfig)
-
+Auth.configure(awsconfig)
 // * container
 /**
  * AuthStateApp container (Amplify)

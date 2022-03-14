@@ -1,8 +1,23 @@
 // react
 import React, { Fragment } from 'react'
+// redux
+import { useDispatch } from 'react-redux'
+import { onClearAff } from '../../redux/actions/affirmations.actions'
+import { onClearCheckbox } from '../../redux/actions/checkbox.actions'
+import { onClearFilters } from '../../redux/actions/filters.actions'
+import { onClearInvitations } from '../../redux/actions/invitations.actions'
+import { onClearPacks } from '../../redux/actions/packs.actions'
+import { onClearPagination } from '../../redux/actions/pagination.actions'
+import { onClearShow } from '../../redux/actions/show.actions'
+import { onClearTopics } from '../../redux/actions/topics.action'
+import { onClearUser } from '../../redux/actions/user.actions'
+import { onClearUsers } from '../../redux/actions/users.actions'
+
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 // amplify
 import { AmplifySignOut } from '@aws-amplify/ui-react'
+
 // material-ui
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -36,15 +51,32 @@ const AlertDialog = ({
   disagreeOnClick = () => {},
   withLogout = false
 }) => {
+  const dispatch = useDispatch()
   // ? hooks
   const [open, setOpen] = React.useState(false)
-
+  const history = useHistory()
   // ? handle functions
   /**
    * handle open
    * @return  {boolean} open = true
    */
   const handleClickOpen = () => setOpen(true)
+
+  const handleAuthStateChange = state => {
+    if (state === 'signedout') {
+      dispatch(onClearAff())
+      dispatch(onClearCheckbox())
+      dispatch(onClearFilters())
+      dispatch(onClearInvitations())
+      dispatch(onClearPacks())
+      dispatch(onClearPagination())
+      dispatch(onClearShow())
+      dispatch(onClearTopics())
+      dispatch(onClearUser())
+      dispatch(onClearUsers())
+      history.push('/dashboard')
+    }
+  }
 
   /**
    * handle close
@@ -92,7 +124,7 @@ const AlertDialog = ({
             {disagreeText}
           </Button>
           {withLogout
-            ? <button onClick={handleClose}><AmplifySignOut /></button>
+            ? <button onClick={handleClose}><AmplifySignOut handleAuthStateChange={handleAuthStateChange} /></button>
             : <Button onClick={handleAgreeOnClick} color={agreeColor} autoFocus>{agreeText}</Button>
           }
         </DialogActions>

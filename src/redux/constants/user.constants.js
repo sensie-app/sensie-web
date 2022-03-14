@@ -2,7 +2,8 @@ const USER = {
   USER_ID: 'USER_ID',
   USER_DATA: 'USER_DATA',
   LOADING: '[USER] LOADING',
-  ERROR: '[USER] ERROR'
+  ERROR: '[USER] ERROR',
+  CLEAR_USER: 'CLEAR_USER'
 }
 
 export default USER

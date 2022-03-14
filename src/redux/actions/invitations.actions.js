@@ -11,7 +11,8 @@ const {
   LOADING_INVITATIONS,
   MODIFY_PACK_INVITATION,
   UPDATE_INVITATIONS_LOCAL,
-  ERROR_INVITATION
+  ERROR_INVITATION,
+  CLEAR_INVITATIONS
 } = INVITATIONS
 
 export const getLastInvitationByCoach = (id) => async (dispatch) => {
@@ -93,3 +94,14 @@ export const updateInvitationLocal = (payload) => async dispatch => {
     })
   }
 }
+
+export function onClearInvitations () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_INVITATIONS,
+  payload: []
+})

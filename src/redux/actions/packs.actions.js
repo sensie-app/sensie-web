@@ -7,7 +7,7 @@ import { createPackMutation, deletePackMutation, updatePackCommunityMutation, up
 // constants
 import PACKS from '../constants/packs.constants'
 
-const { CLEAN_NEWPACK, GET_ALL_PACKS, CREATE_PACK, UPDATE_PACK, DELETE_PACK, LOADING, ERROR } = PACKS
+const { CLEAN_NEWPACK, GET_ALL_PACKS, CREATE_PACK, UPDATE_PACK, DELETE_PACK, LOADING, ERROR, CLEAR_PACKS } = PACKS
 
 export const cleanNewPackAction = data => {
   return {
@@ -107,3 +107,14 @@ export const deletePacksAction = (id) => async dispatch => {
     })
   }
 }
+
+export function onClearPacks () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_PACKS,
+  payload: []
+})

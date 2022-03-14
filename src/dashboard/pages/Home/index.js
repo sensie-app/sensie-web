@@ -120,7 +120,7 @@ const Home = () => {
     let count = 0
     const clientIds = usersReducer.users.map(client => client.id)
     count = !affirmationsReducer.loading && handleTotalClients() > 0
-      ? affirmationsReducer.affirmations.map(aff => count + aff.sensies.items.filter(s => clientIds.indexOf(s.userId) > -1).length)
+      ? (affirmationsReducer.affirmations.length === 0 ? 0 : affirmationsReducer.affirmations.map(aff => count + aff.sensies.items.filter(s => clientIds.indexOf(s.userId) > -1).length))
       : 0
     return count === 0 ? count : count.reduce((total, value) => total + value)
   }
@@ -158,21 +158,23 @@ const Home = () => {
 
   const generateDateList = (start, n) => {
     const arr = []
-    for (let i = 0; i <= n; i++) {
-      const d = new Date(start.setHours(start.getHours() + 1))
+
+    for (let i = 1; i <= n; i++) {
+      const d = moment(start).add(i, 'h')
       arr.push(d)
     }
+
     return arr
   }
 
   const handleGraphData = () => {
-    const dates = globalDateFilter.value
-    const diff = moment(dates[1]).diff(moment(dates[0]), 'hours')
-    const dateList = generateDateList(new Date(dates[0]), diff)
+    const dates = globalDateFilter.value.map(d => moment(d).startOf('hour'))
+    const diff = dates[1].diff(dates[0], 'hours')
+    const dateList = generateDateList(dates[0], diff)
     const format = diff <= 100 ? 'MM/DD HH' : (diff <= 1000 ? 'MM/DD' : 'MM/DD/YY')
 
     // let data = [{ id: 'low', data: [{ x: new Date(dates[0]), y: 0 }, { x: new Date(dates[1]), y: 0 }] }]
-    let data = [{ id: 'low', data: dateList.map(d => { return { x: new Date(d), y: 0 } }) }]
+    let data = [{ id: 'low', data: dateList.map(d => { return { x: d._d, y: 0 } }) }]
 
     if (!affirmationsReducer.loading && handleTotalClients() > 0) {
       // const userSensies = usersReducer.users.map(user => user.sensies.items)

@@ -9,6 +9,7 @@ import { COLORS } from '../../constants/theme'
 import { IconChartTypes } from '../../constants/charts'
 // styles
 import styles from './styles.module.scss'
+import NumberAbbreviate from 'number-abbreviate'
 
 // const
 const { actionColor1, actionColor2, actionColor3, fontColor1 } = COLORS
@@ -33,12 +34,12 @@ const IconChart = ({ title, value, valueType = 'number', icon, theme = 1, forced
    */
   const handleValue = () => {
     let _value = value
+
     if (valueType === 'number') {
-      _value = _value.toString()
-      const units = _value.length
-      if (units > 3 && units <= 6) _value = (_value / 1000).toString() + 'K'
-      if (units > 6) _value = (_value / 1000000).toString() + 'M'
+      const numAbbr = new NumberAbbreviate(['K', 'M', 'B', 'T'])
+      _value = numAbbr.abbreviate(value, 1)
     }
+
     return _value
   }
 

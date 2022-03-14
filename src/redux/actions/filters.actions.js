@@ -1,6 +1,6 @@
 import FILTERS from '../constants/filters.constants'
 
-const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_PACK_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION } = FILTERS
+const { GLOBAL_DATE_FILTER, AFFIRMATIONS_STATE_FILTER, AFFIRMATIONS_PACK_FILTER, AFFIRMATIONS_TOPIC_FILTER, AFFIRMATIONS_AFFIRMATION, CLEAR_FILTERS } = FILTERS
 
 export const setGlobalDateFilterAction = data => {
   return {
@@ -36,3 +36,14 @@ export const setAffirmationAction = data => {
     payload: data
   }
 }
+
+export function onClearFilters () {
+  return (dispatch) => {
+    dispatch(clear())
+  }
+}
+
+const clear = () => ({
+  type: CLEAR_FILTERS,
+  payload: []
+})
