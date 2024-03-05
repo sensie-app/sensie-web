@@ -23,7 +23,9 @@ import { NotFound404 } from '../components/Globals'
 import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
 // amplify
-import '@aws-amplify/ui/dist/style.css'
+// import '@aws-amplify/ui/dist/style.css'
+import '@aws-amplify/ui-react/styles.css'
+
 // styles
 import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
