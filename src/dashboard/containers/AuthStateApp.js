@@ -24,7 +24,7 @@ Auth.configure(awsconfig)
  */
 const AuthStateApp = ({ children }) => {
   // ? hooks
-  const { user, route, signOut } = useAuthenticator((context) => [context.user, context.route])
+  const { user, route } = useAuthenticator((context) => [context.user, context.route])
   const dispatch = useDispatch()
   const [userData, setUser] = useState(null)
   const [authState, setAuthState] = useState()
