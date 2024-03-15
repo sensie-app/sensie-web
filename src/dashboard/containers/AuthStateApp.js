@@ -46,7 +46,6 @@ const AuthStateApp = ({ children }) => {
   }, [route])
 
   useEffect(async () => {
-    // setCoach('test')
     if (userData !== null && authState === 'authenticated') {
       const { username } = user
       dispatch(setUserIdAction(username))
@@ -111,9 +110,10 @@ const AuthStateApp = ({ children }) => {
   }
   return user && authState === 'authenticated'
     ? <div className="App">{children} </div>
-    : <Authenticator initialState='signUp' formFields={formFields}>
-        <div className="App">{children}</div>
+    : <div className="authenticator-container">
+      <Authenticator initialState='signUp' formFields={formFields}>
       </Authenticator>
+    </div>
 }
 
 // prop-types
