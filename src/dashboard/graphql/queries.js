@@ -243,10 +243,43 @@ export const getUsersAllQuery = (id = '8e5a85d1-3f68-4fca-8db9-9f0e18e91082', da
   }
 `
 
-export const getClientsFromCoach = (id, dates) => `
+export const getClientsFromCoach = (id) => `
   query getClientsFromCoach {
     getUser(id: "${id}") {
-      clients {
+      clients{
+        items {
+          id
+          firstName
+          lastName
+          gender
+          picture
+          userCoachId
+          selfAwareness
+          subscribedPacks {
+            items {
+              id
+              packId
+              userId
+            }
+          }
+          selfAwarenessScores {
+            items {
+              id
+              timestamp
+              selfAssessment
+              score
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const getClientsFromCoachDates = (id, dates) => `
+  query getClientsFromCoach {
+    getUser(id: "${id}") {
+      clients(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"] }}){
         items {
           id
           firstName
@@ -430,84 +463,40 @@ export const getTopicByIdQuery = id => `
 `
 
 export const getPacksFromUser = id => `
-  query getPacksFromUser {
-    getUser(id: "${id}") {
-      subscribedPacks {
+  query listYourPacks {
+    listPackFilters(input: {filterType: yourPacks}) {
+      author
+      createdAt
+      id
+      isCommunityPack
+      name
+      picture
+      pictureURL
+      affirmationCount
+      affirmations {
         items {
-          pack {
-            name
-            id
+          affirmation {
+            createdAt
             description
-            picture
-            author
-            affirmations(limit:10000, sortDirection: DESC) {
+            id
+            name
+            packs {
               items {
-                affirmation {
+                pack {
                   description
                   id
                   name
-                  createdAt
-                  packs {
-                    items {
-                      pack {
-                        description
-                        id
-                        name
-                      }
-                    }
-                  }
-                  topics {
-                    items {
-                      topic {
-                        description
-                        id
-                        name
-                      }
-                    }
-                  }
                 }
-                createdAt
               }
             }
-          }
-        }
-      }
-      packs {
-        items {
-          name
-          id
-          description
-          picture
-          author
-          isCommunityPack
-          affirmations(sortDirection: DESC) {
-            items {
-              id
-              affirmation {
-                description
-                id
-                name
-                createdAt
-                packs {
-                  items {
-                    pack {
-                      description
-                      id
-                      name
-                    }
-                  }
-                }
-                topics {
-                  items {
-                    topic {
-                      description
-                      id
-                      name
-                    }
-                  }
+            topics {
+              items {
+                topic {
+                  description
+                  id
+                  name
                 }
               }
-              createdAt
             }
           }
         }

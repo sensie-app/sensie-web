@@ -47,7 +47,7 @@ const { affirmations } = DASHBOARD_ROUTES
  * @component
  */
 const Pack = () => {
-  // ? hooks
+  // ? hook
   const dispatch = useDispatch()
   const {
     userReducer: { user },
@@ -172,7 +172,7 @@ const Pack = () => {
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => pack.affirmations ? pack.affirmations.items.length : 0
+  const handleCountAffirmations = () => pack.affirmationCount ? pack.affirmationCount : 0
 
   /**
    * handleAffirmationsByTopicsQuery
