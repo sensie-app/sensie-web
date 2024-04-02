@@ -82,13 +82,13 @@ const User = ({ user, flow, awareness, totalSensies }) => {
         <div className={styles.UserBodyContainer}>
           <div>
             {flow === 'NO_SENSIES'
-              ? <IconChart title={t('dashboard.IconChart.flow')} value={'Null'} valueType="" icon={null} theme={2} />
+              ? <IconChart title={t('dashboard.IconChart.flow')} value={'0'} valueType="" icon={null} theme={2} />
               : <IconChart title={t('dashboard.IconChart.flow')} value={flow.toString()} valueType="%" icon={ACTIVITY} theme={2} />}
           </div>
           {/* <PercentageChart title={t('dashboard.User.awarness')} value={handleAwareness()} /> */}
           <div>
             {awareness === 'NO_AWARENESS'
-              ? <IconChart title={t('dashboard.User.awarness')} value={'Null'} valueType="" icon={null} theme={2} />
+              ? <IconChart title={t('dashboard.User.awarness')} value={'0'} valueType="" icon={null} theme={2} />
               : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/18'} valueType="" icon={UP} theme={2} />}
           </div>
           {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
