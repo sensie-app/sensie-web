@@ -89,7 +89,7 @@ const User = ({ user, flow, awareness, totalSensies }) => {
           <div>
             {awareness === 'NO_AWARENESS'
               ? <IconChart title={t('dashboard.User.awarness')} value={'0'} valueType="" icon={null} theme={2} />
-              : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/18'} valueType="" icon={UP} theme={2} />}
+              : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/20'} valueType="" icon={UP} theme={2} />}
           </div>
           {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
           <div><IconChart title={t('dashboard.IconChart.sensies')} value={totalSensies.toString()} valueType="number" icon={UP} theme={2} /></div>
