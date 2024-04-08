@@ -276,33 +276,36 @@ export const getClientsFromCoach = (id) => `
   }
 `
 
-export const getClientsFromCoachDates = (id, dates) => `
-  query getClientsFromCoach {
-    getUser(id: "${id}") {
-      clients(filter: {createdAt: {between: ["${dates[0]}", "${dates[1]}"] }}){
+export const listClientsCoach = (dates) => `
+  query listClientsCoach {
+    listClientsCoach(input: {endDate: "${dates[1]}", startDate: "${dates[0]}"}) {
+      id
+      firstName
+      gender
+      lastName
+      sensies {
+        items {
+          createdAt
+          id
+          result
+        }
+      }
+      picture
+      selfAwareness
+      subscribedPacks {
         items {
           id
-          firstName
-          lastName
-          gender
-          picture
-          userCoachId
-          selfAwareness
-          subscribedPacks {
-            items {
-              id
-              packId
-              userId
-            }
-          }
-          selfAwarenessScores {
-            items {
-              id
-              timestamp
-              selfAssessment
-              score
-            }
-          }
+          packId
+          userId
+        }
+      }
+      userCoachId
+      selfAwarenessScores {
+      items {
+        id
+        score
+        selfAssessment
+        timestamp
         }
       }
     }
