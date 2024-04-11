@@ -4,7 +4,7 @@ import { deletePackSubscription, updateUserWithCoach } from '../../dashboard/gra
 
 // queries
 // import { listUsersByOrganizationId } from '../../dashboard/graphql/queries'
-import { getClientFromCoach, getClientsFromCoach, getClientsFromCoachDates } from '../../dashboard/graphql/queries'
+import { getClientFromCoach, getClientsFromCoach, listClientsCoach } from '../../dashboard/graphql/queries'
 // constants
 import USERS from '../constants/users.constants'
 
@@ -30,17 +30,17 @@ export const listUsersByOrganizationIdAction = (id) => async (dispatch) => {
   }
 }
 
-export const listUsersByOrganizationIdDatesAction = (id, dates) => async (dispatch) => {
+export const listUsersByOrganizationDatesAction = (dates) => async (dispatch) => {
   dispatch({
     type: LOADING
   })
 
   try {
     // const response = await API.graphql(graphqlOperation(listUsersByOrganizationId(id, dates)))
-    const response = await API.graphql(graphqlOperation(getClientsFromCoachDates(id, dates)))
+    const response = await API.graphql(graphqlOperation(listClientsCoach(dates)))
     dispatch({
       type: GET_ALL_USERS,
-      payload: response.data.getUser.clients.items
+      payload: response.data.listClientsCoach
     })
   } catch (error) {
     dispatch({
