@@ -41,10 +41,6 @@ export const listPacksAction = (id, filterPacks) => async dispatch => {
 }
 
 export const createPacksAction = (name, description, author, userId, imgKey) => async dispatch => {
-  dispatch({
-    type: LOADING
-  })
-
   try {
     const response = await API.graphql(graphqlOperation(createPackMutation(name, description, author, userId, imgKey)))
     dispatch({
