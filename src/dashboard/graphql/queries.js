@@ -478,6 +478,7 @@ export const getPacksFromUser = id => `
       affirmationCount
       affirmations {
         items {
+          id
           affirmation {
             createdAt
             description

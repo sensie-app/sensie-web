@@ -13,7 +13,7 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 import styles from './styles.module.scss'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { listPacksAction, createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
+import { createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
 
 import { Storage } from 'aws-amplify'
 import { v4 as uuidv4 } from 'uuid'
@@ -98,7 +98,6 @@ const CreatePack = ({ onSave }) => {
           packsReducer.newpack = true
           dispatch(createPacksAction(value, value, author, user.id, res.key))
           setShowError(false)
-          dispatch(listPacksAction(user.id))
         })
     }
     return false
