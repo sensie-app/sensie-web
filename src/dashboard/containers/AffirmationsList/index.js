@@ -253,7 +253,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
         case 'flowing': return item._flow >= 50 && renderAffirmationChart(item, item._flow)
         case 'blocked': return item._flow < 50 && renderAffirmationChart(item, item._flow)
         case 'all': return renderAffirmationChart(item, item._flow)
-        case 'incomplete': return item._flow === 0 && renderAffirmationChart(item, item._flow)
+        case 'incomplete': return item._flow === 'NO_SENSIES' && renderAffirmationChart(item, item._flow)
         default: return renderAffirmationChart(item, item._flow)
       }
     })
