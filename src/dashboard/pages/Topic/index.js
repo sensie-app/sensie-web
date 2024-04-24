@@ -170,9 +170,9 @@ const Topic = () => {
         newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
       })
       setNewAff(!newAff)
-      toast.success(t('dashboard.Pack.createAffirmation'))
+      toast.success(t('dashboard.Pack.createIntention'))
     } else {
-      toast.error(t('dashboard.Pack.createAffirmationError'))
+      toast.error(t('dashboard.Pack.createIntentionError'))
     }
     // setWaitQuery(false)
     return successAffirmation ? newAffirmation.value.data.createAffirmation.id : null
@@ -277,9 +277,9 @@ const Topic = () => {
 
     if (deleted) {
       setNewAff(!newAff)
-      toast.success(t('dashboard.Affirmation.deleteAffirmation'))
+      toast.success(t('dashboard.Intention.deleteIntention'))
     } else {
-      toast.error(t('dashboard.Affirmation.deleteAffirmationError'))
+      toast.error(t('dashboard.Intention.deleteIntentionError'))
     }
   }
 
@@ -334,7 +334,7 @@ const Topic = () => {
                     <h6>{topic.description}</h6>
                   </div> */}
                   <div className={styles.TopicHeaderTextAffirmations}>
-                    <span>{topic !== null && handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
+                    <span>{topic !== null && handleCountAffirmations()} {t('dashboard.Topic.intentions')}</span>
                   </div>
                 </div>
               </div>

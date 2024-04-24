@@ -44,7 +44,7 @@ const {
   client,
   team,
   // user,
-  affirmations,
+  intentions,
   pack,
   topic,
   sageDashboard,
@@ -83,7 +83,7 @@ const DashboardRoutes = () => {
               <Route exact path={entrypoint} component={Home} />
               <Route path={client} component={Client} />
               <Route path={team} component={Team} />
-              <Route path={affirmations} component={Affirmations} />
+              <Route path={intentions} component={Affirmations} />
               <Route path={sageDashboard} component={SageDashboard} />
               <Route path={profile} component={Profile} />
               <Route path={'/dashboard/user' + '/:id'} component={User} />
