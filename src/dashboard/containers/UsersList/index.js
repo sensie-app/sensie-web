@@ -124,7 +124,7 @@ const UsersList = () => {
         <div className={styles.UsersListHeaderTitle}>
           <Title text={t('dashboard.UserList.clients')} />
           <span> - </span>
-          <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Affirmation.selectAOption')} color={grayColor3} />
+          <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Intention.selectAOption')} color={grayColor3} />
         </div>
         {/* <div className={styles.UsersListHeaderAction}>
           <div>

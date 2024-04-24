@@ -40,7 +40,7 @@ import { notificationsTest } from './testData'
 import { Storage } from 'aws-amplify'
 
 // constants
-const { home, client, affirmations, /* sageDashboard, */ profile } = DASHBOARD_ROUTES
+const { home, client, intentions, /* sageDashboard, */ profile } = DASHBOARD_ROUTES
 const { grayColor8, fontColor1 } = COLORS
 const { logo, avatarFemale, avatarMale } = IMG
 const drawerWidth = 210
@@ -81,9 +81,9 @@ const Layout = ({ children }) => {
     //   link: team
     // }
     {
-      title: <span>{t('dashboard.Layout.affirmations').toUpperCase()}</span>,
+      title: <span>{t('dashboard.Layout.intentions').toUpperCase()}</span>,
       icon: 'list-outline',
-      link: affirmations
+      link: intentions
     }
     // {
     //  title: <Fragment>

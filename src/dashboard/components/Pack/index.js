@@ -58,7 +58,7 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations, type, id }
         {isSubbed && <span> SUB </span>}
         {author && <span style={{ fontSize: '16px' }}>By: {author}</span>}
         <div>
-          <span>{totalAffirmations} {t('dashboard.Pack.affirmations')}</span>
+          <span>{totalAffirmations} {t('dashboard.Pack.intentions')}</span>
         </div>
       </div>
     </div>

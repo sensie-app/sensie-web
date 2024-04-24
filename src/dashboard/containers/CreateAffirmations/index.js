@@ -171,7 +171,7 @@ const CreateAffirmations = ({
    */
   const handleTitleModal = () => {
     const count = '' // todo finish this
-    return `${t('dashboard.CreateAffirmations.add')} ${count} ${t('dashboard.CreateAffirmations.affirmationsTo')}`
+    return `${t('dashboard.CreateIntentions.add')} ${count} ${t('dashboard.CreateIntentions.intentionsTo')}`
   }
 
   const handleOnClickSelectAll = value => dispatch(setCheckboxAllAffirmationsAction(value))
@@ -218,7 +218,7 @@ const CreateAffirmations = ({
             <div className={styles.CreateAffirmationsFormD1Inputs}>
               <input
                 ref={inputRef}
-                placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
+                placeholder={t('dashboard.CreateIntentions.writeNewIntentions')}
                 onChange={handleInputValue}
                 className={showErrorTitle ? styles.inputBorderError : styles.inputBorder}
               />
@@ -282,18 +282,18 @@ const CreateAffirmations = ({
                 {!addToPack
                   ? <span />
                   : <Modal title={handleTitleModal()}>
-                    <span>{t('dashboard.CreateAffirmations.addToPack')}</span>
+                    <span>{t('dashboard.CreateIntentions.addToPack')}</span>
                     <AddToPack packs={packs} onAddToPack={onAddToPack} />
                   </Modal>
                 }
               </div>
-              : <h5>{t('dashboard.CreateAffirmations.selectAll')}</h5>
+              : <h5>{t('dashboard.CreateIntentions.selectAll')}</h5>
             }
           </ItemCheckbox>
         </div>
         <button className={styles.CreateAffirmationsAddBtn} disabled={showNewForm} onClick={() => setShowNewForm(true)} style={{ opacity: !showNewForm ? 1 : 0.5 }}>
           <Icon name="plus-outline" color={fontColor1} size="md" />
-          {t('dashboard.CreateAffirmations.addNew')}
+          {t('dashboard.CreateIntentions.addNew')}
         </button>
       </div>
       {/* list affirmations */}

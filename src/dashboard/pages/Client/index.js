@@ -68,7 +68,7 @@ const Client = () => {
               ? <Loading />
               : <TrackAffirmations
                   chipsUp={true}
-                  title={t('dashboard.Client.affirmations')}
+                  title={t('dashboard.Client.intentions')}
                   btn={btn}
                   theme={3}
                 />
