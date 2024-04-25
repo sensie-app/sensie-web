@@ -9,7 +9,7 @@ const DASHBOARD_ROUTES = {
   client: dashboard + '/client',
   team: dashboard + '/team',
   user: dashboard + '/user',
-  affirmations: dashboard + '/affirmations',
+  intentions: dashboard + '/intentions',
   addPacks: dashboard + '/add_packs',
   pack: dashboard + '/pack',
   topic: dashboard + '/topic',

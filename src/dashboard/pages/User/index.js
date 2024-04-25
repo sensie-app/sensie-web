@@ -136,7 +136,7 @@ const User = () => {
             : <TrackAffirmations
                 // data={}
                 theme={2}
-                title={t('dashboard.User.trackAffirmations')}
+                title={t('dashboard.User.trackIntentions')}
                 chipsUp={true}
                 multiUser={false}
                 user={client}

@@ -29,7 +29,7 @@ const Packs = ({ data }) => {
   // TODO: TERMINAR ESTO! COPIAR EJEMLPO DE COMPONENTS/TOPICS Y COMPONENTS/TOPIC
   const renderPacks = () => {
     return data && data.map(item => {
-      const countAffirmation = item.affirmations.items.length
+      const countAffirmation = item.affirmationCount
       return (
         <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
           <Pack author={item.author} img={item.picture} route={pack + '/' + item.id} title={item.name} totalAffirmations={countAffirmation} type={item.type} id={item.id} />

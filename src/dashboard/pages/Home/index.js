@@ -25,7 +25,7 @@ import styles from './styles.module.scss'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux'
-import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
+import { listUsersByOrganizationDatesAction } from '../../../redux/actions/users.actions'
 import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
 const moment = require('moment')
 // import usersReducer from '../../../redux/reducers/users.reducer'
@@ -60,7 +60,7 @@ const Home = () => {
 
   useEffect(() => {
     if (user.id) {
-      dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
+      dispatch(listUsersByOrganizationDatesAction(globalDateFilter.value))
       dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
     }
   }, [user.id, globalDateFilter.name])

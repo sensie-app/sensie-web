@@ -47,7 +47,7 @@ const { affirmations } = DASHBOARD_ROUTES
  * @component
  */
 const Pack = () => {
-  // ? hooks
+  // ? hook
   const dispatch = useDispatch()
   const {
     userReducer: { user },
@@ -126,9 +126,9 @@ const Pack = () => {
         newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
       })
 
-      toast.success(t('dashboard.Pack.createAffirmation'))
+      toast.success(t('dashboard.Pack.createIntention'))
     } else {
-      toast.error(t('dashboard.Pack.createAffirmationError'))
+      toast.error(t('dashboard.Pack.createIntentionErrorWithPrivate'))
     }
     setNewAff(successAffirmation && successJoinPack ? !newAff : newAff)
     setWaitQuery(false)
@@ -172,7 +172,7 @@ const Pack = () => {
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => pack.affirmations ? pack.affirmations.items.length : 0
+  const handleCountAffirmations = () => pack.affirmationCount ? pack.affirmationCount : 0
 
   /**
    * handleAffirmationsByTopicsQuery
@@ -229,7 +229,7 @@ const Pack = () => {
               {pack !== null && <span>{pack.name}</span>}
               {pack !== null && pack.author && <span style={{ fontSize: '14px' }}>By {pack.author}</span>}
               <div>
-                <span>{pack !== null && handleCountAffirmations()} {t('dashboard.Pack.affirmations')}</span>
+                <span>{pack !== null && handleCountAffirmations()} {t('dashboard.Pack.intentions')}</span>
               </div>
             </div>
           </div>
