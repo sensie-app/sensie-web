@@ -175,6 +175,11 @@ const Pack = () => {
   const handleCountAffirmations = () => pack.affirmationCount ? pack.affirmationCount : 0
 
   /**
+   * handleCountAffirmations
+   * @returns {number}
+   */
+  const handleCountClients = () => pack.clientsCount ? pack.clientsCount : 0
+  /**
    * handleAffirmationsByTopicsQuery
    * @param {strinf} topicId
    * @param {string} userId
@@ -230,6 +235,7 @@ const Pack = () => {
               {pack !== null && pack.author && <span style={{ fontSize: '14px' }}>By {pack.author}</span>}
               <div>
                 <span>{pack !== null && handleCountAffirmations()} {t('dashboard.Pack.intentions')}</span>
+                <span>{pack !== null && handleCountClients()} {t('dashboard.Pack.clients')}</span>
               </div>
             </div>
           </div>

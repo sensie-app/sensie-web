@@ -11,10 +11,11 @@ amplify-authenticator {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Ajusta la altura según sea necesario */
+  height: 100%; /* Ajusta la altura según sea necesario */
   margin: 0;
   padding: 0;
   background-color: black;
+  min-height: 100vh;
 }
 
 [data-amplify-authenticator] {
@@ -38,7 +39,6 @@ amplify-authenticator {
   color: white;
 }
 
-
 [data-amplify-authenticator] .amplify-heading {
   color: white;
   line-height: var(--amplify-components-heading-line-height);
@@ -48,4 +48,11 @@ amplify-authenticator {
 [data-amplify-authenticator] .amplify-text {
   color: white;
   display: block;
+}
+
+[data-amplify-authenticator] .amplify-field__show-password {
+  --amplify-internal-button-background-color : white; 
+}
+[data-amplify-authenticator] .amplify-button--link:hover {
+  --amplify-internal-button-background-color: var(--amplify-white);
 }

@@ -24,7 +24,7 @@ const { noImg } = IMG
  * @param {string} title
  * @param {number} totalAffirmations
  */
-const Pack = ({ route, img = noImg, title, author, totalAffirmations, type, id }) => {
+const Pack = ({ route, img = noImg, title, author, totalAffirmations, clients, type, id }) => {
   // ? hooks
   const [t] = useTranslation('global')
   // const [check, setCheck] = useState(false)
@@ -59,6 +59,7 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations, type, id }
         {author && <span style={{ fontSize: '16px' }}>By: {author}</span>}
         <div>
           <span>{totalAffirmations} {t('dashboard.Pack.intentions')}</span>
+          <span>{clients} {t('dashboard.Pack.clients')}</span>
         </div>
       </div>
     </div>
@@ -77,6 +78,7 @@ Pack.propTypes = {
   title: PropTypes.string.isRequired,
   /** totalAffirmations */
   totalAffirmations: PropTypes.number.isRequired,
+  clients: PropTypes.number.isRequired,
   type: PropTypes.string,
   /** id */
   id: PropTypes.string.isRequired

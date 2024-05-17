@@ -161,6 +161,7 @@
     },
     "Pack": {
       "intentions": "Intentions",
+      "clients": "Clients",
       "addPack": "Added successfully",
       "addPackError": "Error adding intention",
       "removePack": "Removed successfully",
