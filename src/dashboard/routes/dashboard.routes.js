@@ -1,6 +1,6 @@
 // react
-import React, { useEffect } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter, Switch, Route, useLocation, Redirect } from 'react-router-dom'
 // import { ThemeProvider } from '@material-ui/core/styles'
 // redux
 import { useSelector } from 'react-redux'
@@ -72,6 +72,19 @@ const DashboardRoutes = () => {
     // dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [globalDateFilter])
 
+  const [initialAuthState, setInitialAuthState] = useState(false)
+
+  const location = useLocation()
+  const urlParts = location.pathname.split('/')
+  const lastFragment = urlParts[urlParts.length - 1]
+
+  useEffect(() => {
+    // Verificar si el parámetro 'authType' indica un login
+    if (lastFragment === 'login' || lastFragment === 'signup') {
+      setInitialAuthState(true) // Cambiar el initialState a signIn si es un login
+    }
+  }, [])
+
   return (
     <AuthStateApp>
       {/* <ThemeProvider theme={theme}> */}
@@ -79,6 +92,7 @@ const DashboardRoutes = () => {
           <Switch>
             <Layout>
               <Route path={home} component={Home} />
+              {initialAuthState && <Redirect to={'/dashboard'}/>}
               <Route path={dashboard} component={Home} />
               <Route exact path={entrypoint} component={Home} />
               <Route path={client} component={Client} />

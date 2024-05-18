@@ -28,6 +28,7 @@ const AuthStateApp = ({ children }) => {
   const dispatch = useDispatch()
   const [userData, setUser] = useState(null)
   const [authState, setAuthState] = useState()
+  const [initialAuthState, setInitialAuthState] = useState('signUp')
   // const [coach, setCoach] = useState(null)
 
   const updateUserCoach = async (userId, coachId) => {
@@ -57,49 +58,75 @@ const AuthStateApp = ({ children }) => {
   const invinfo = q.get('invcode')
   const [id] = window.atob(invinfo).split(';')
 
+  const validateForm = (formData) => {
+    if (formData.email !== formData.preferred_username) {
+      return {
+        preferred_username: 'Emails do not match'
+      }
+    }
+    return {}
+  }
+
+  const location = useLocation()
+  const urlParts = location.pathname.split('/')
+  const lastFragment = urlParts[urlParts.length - 1]
+
+  useEffect(() => {
+    // Verificar si el parámetro 'authType' indica un login
+    if (lastFragment === 'login') {
+      setInitialAuthState('login') // Cambiar el initialState a signIn si es un login
+    }
+  }, [])
+
   const formFields = {
     signUp: {
       email: {
         label: 'Email',
         placeholder: 'jondoe@gmail.com',
-        isRequired: false,
+        isRequired: true,
         order: 1
+      },
+      preferred_username: {
+        label: 'Confirm email',
+        placeholder: 'jondoe@gmail.com',
+        isRequired: true,
+        order: 2
       },
       password: {
         label: 'Password:',
         placeholder: 'Enter your Password:',
         isRequired: true,
-        order: 2
+        order: 3
       },
       confirm_password: {
         label: 'Confirm Password:',
         placeholder: 'Confirm your Password:',
         isRequired: true,
-        order: 3
+        order: 4
       },
       phone_number: {
         label: 'Phone #',
         placeholder: '(415) 348-9900',
-        order: 4,
-        isRequired: false
+        order: 5,
+        isRequired: true
       },
       name: {
         label: 'First Name',
         placeholder: 'John',
         isRequired: true,
-        order: 5
+        order: 6
       },
       family_name: {
         label: 'Last Name',
         placeholder: 'Doe',
         isRequired: false,
-        order: 6
+        order: 7
       },
       gender: {
         label: 'Gender',
         placeholder: 'Gender',
         isRequired: false,
-        order: 7
+        order: 8
       },
       birthdate: {
         label: 'Birthdate',
@@ -109,9 +136,35 @@ const AuthStateApp = ({ children }) => {
     }
   }
   return user && authState === 'authenticated'
-    ? <div className="App">{children} </div>
+    ? <div className="App">{children}</div>
     : <div className="authenticator-container">
-      <Authenticator initialState='signUp' formFields={formFields}>
+      <Authenticator
+        // Default to Sign Up screen
+        initialState={initialAuthState}
+        formFields={formFields}
+        // Customize `Authenticator.SignUp.FormFields`
+        components={{
+          SignUp: {
+            FormFields () {
+              return (
+                <>
+                  {/* Re-use default `Authenticator.SignUp.FormFields` */}
+                  <Authenticator.SignUp.FormFields />
+                </>
+              )
+            }
+          }
+        }}
+        services={{
+          async validateCustomSignUp (formData) {
+            const formErrors = validateForm(formData)
+            if (Object.keys(formErrors).length > 0) {
+              return formErrors
+            }
+            return {}
+          }
+        }}
+      >
       </Authenticator>
     </div>
 }

@@ -162,6 +162,7 @@ const CreateAffirmations = ({
   const resetForm = () => {
     setTitle('')
     setTopics([])
+    setShowErrorTitle(false)
     setShowNewForm(false)
   }
 
@@ -222,7 +223,7 @@ const CreateAffirmations = ({
                 onChange={handleInputValue}
                 className={showErrorTitle ? styles.inputBorderError : styles.inputBorder}
               />
-              {showErrorTitle && <span className={styles.errorMessage}>{t('dashboard.CreateAffirmations.errorTitle')}</span>}
+              {showErrorTitle && <span className={styles.errorMessage}>{t('dashboard.CreateIntentions.errorTitle')}</span>}
             </div>
             <div className={styles.CreateAffirmationsFormD1Btns}>
               <div>
@@ -239,7 +240,8 @@ const CreateAffirmations = ({
                 </div>
                 {showErrorTopics && <span className={styles.errorMessage}>{t('dashboard.CreateAffirmations.errorTopic')}</span>}
               </div>
-              <button onClick={() => handleClickBtnDone()} className={styles.CreateAffirmationsFormButtonDone}>Done</button>
+                <button onClick={() => handleClickBtnDone()} className={styles.CreateAffirmationsFormButtonDone}>Done</button>
+                <button onClick={() => resetForm()} className={styles.CancelAffirmationsFormButtonDone}>Cancel</button>
             </div>
           </div>
           <div className={styles.CreateAffirmationsFormD2}>
