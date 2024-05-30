@@ -135,7 +135,7 @@ const AlertDialog = ({
             {disagreeText}
           </Button>
           {withLogout
-            ? <Button onClick={handleSignOut} color={agreeColor} autoFocus>{agreeText} Sing Out</Button>
+            ? <Button onClick={handleSignOut} color={agreeColor} autoFocus>{agreeText} Sign Out</Button>
             : <Button onClick={handleAgreeOnClick} color={agreeColor} autoFocus>{agreeText}</Button>
           }
         </DialogActions>

@@ -145,7 +145,7 @@ const CreateAffirmations = ({
 
             resetForm()
           } else {
-            toast.error(t('dashboard.Pack.createAffirmationErrorWithPrivate'))
+            toast.error(t('dashboard.Pack.createIntentionErrorWithPrivate'))
           }
         } else {
           _list.push({ title, topics })

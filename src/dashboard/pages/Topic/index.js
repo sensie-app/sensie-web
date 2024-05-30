@@ -51,7 +51,7 @@ const {
   personalImg,
   performanceImg
 } = IMG
-const { affirmations } = DASHBOARD_ROUTES
+const { intentions } = DASHBOARD_ROUTES
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
 
 // * page
@@ -318,7 +318,7 @@ const Topic = () => {
 
   return (
     <Fragment>
-      <Header withBack={true} withPeople={false} withDate={false} backTo={affirmations} />
+      <Header withBack={true} withPeople={false} withDate={false} backTo={intentions}/>
       {topic !== null
         ? <div className={styles.TopicContainer}>
             {/* header */}
