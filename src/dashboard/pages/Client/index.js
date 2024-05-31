@@ -50,9 +50,8 @@ const Client = () => {
   // ? const
   const btn = {
     title: t('dashboard.Client.author'),
-    route: DASHBOARD_ROUTES.affirmations
+    route: DASHBOARD_ROUTES.intentions
   }
-
   return (
     <section className={styles.ClientContainer}>
       {/* seo */}

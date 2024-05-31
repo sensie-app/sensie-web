@@ -29,6 +29,7 @@ const AuthStateApp = ({ children }) => {
   const [userData, setUser] = useState(null)
   const [authState, setAuthState] = useState()
   const [initialAuthState, setInitialAuthState] = useState('signUp')
+
   // const [coach, setCoach] = useState(null)
 
   const updateUserCoach = async (userId, coachId) => {
@@ -58,15 +59,6 @@ const AuthStateApp = ({ children }) => {
   const invinfo = q.get('invcode')
   const [id] = window.atob(invinfo).split(';')
 
-  const validateForm = (formData) => {
-    if (formData.email !== formData.preferred_username) {
-      return {
-        preferred_username: 'Emails do not match'
-      }
-    }
-    return {}
-  }
-
   const location = useLocation()
   const urlParts = location.pathname.split('/')
   const lastFragment = urlParts[urlParts.length - 1]
@@ -86,85 +78,53 @@ const AuthStateApp = ({ children }) => {
         isRequired: true,
         order: 1
       },
-      preferred_username: {
-        label: 'Confirm email',
-        placeholder: 'jondoe@gmail.com',
-        isRequired: true,
-        order: 2
-      },
       password: {
         label: 'Password:',
         placeholder: 'Enter your Password:',
         isRequired: true,
-        order: 3
+        order: 2
       },
       confirm_password: {
         label: 'Confirm Password:',
         placeholder: 'Confirm your Password:',
         isRequired: true,
-        order: 4
+        order: 3
       },
       phone_number: {
         label: 'Phone #',
         placeholder: '(415) 348-9900',
-        order: 5,
+        order: 4,
         isRequired: true
       },
       name: {
         label: 'First Name',
         placeholder: 'John',
         isRequired: true,
-        order: 6
+        order: 5
       },
       family_name: {
         label: 'Last Name',
         placeholder: 'Doe',
-        isRequired: false,
-        order: 7
+        isRequired: true,
+        order: 6
       },
       gender: {
         label: 'Gender',
         placeholder: 'Gender',
-        isRequired: false,
-        order: 8
+        isRequired: true,
+        order: 7
       },
       birthdate: {
         label: 'Birthdate',
         placeholder: '06/17/1990',
-        isRequired: false
+        isRequired: true
       }
     }
   }
   return user && authState === 'authenticated'
-    ? <div className="App">{children}</div>
+    ? <div className="App">{children} </div>
     : <div className="authenticator-container">
-      <Authenticator
-        // Default to Sign Up screen
-        initialState={initialAuthState}
-        formFields={formFields}
-        // Customize `Authenticator.SignUp.FormFields`
-        components={{
-          SignUp: {
-            FormFields () {
-              return (
-                <>
-                  {/* Re-use default `Authenticator.SignUp.FormFields` */}
-                  <Authenticator.SignUp.FormFields />
-                </>
-              )
-            }
-          }
-        }}
-        services={{
-          async validateCustomSignUp (formData) {
-            const formErrors = validateForm(formData)
-            if (Object.keys(formErrors).length > 0) {
-              return formErrors
-            }
-            return {}
-          }
-        }}
-      >
+      <Authenticator initialState={initialAuthState} formFields={formFields}>
       </Authenticator>
     </div>
 }

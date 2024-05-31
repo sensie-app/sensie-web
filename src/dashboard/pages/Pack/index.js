@@ -39,7 +39,7 @@ import { Storage } from 'aws-amplify'
 
 // const
 const { noImg } = IMG
-const { affirmations } = DASHBOARD_ROUTES
+const { intentions } = DASHBOARD_ROUTES
 
 // * page
 /**
@@ -224,7 +224,7 @@ const Pack = () => {
 
   return (
     <Fragment>
-      <Header withBack={true} withPeople={false} withDate={false} backTo={affirmations} />
+      <Header withBack={true} withPeople={false} withDate={false} backTo={intentions} />
       <div className={styles.PackContainer}>
         {/* header */}
         <div className={styles.PackHeaderContainer}>
