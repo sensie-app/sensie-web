@@ -22,12 +22,12 @@ import ReactGA from 'react-ga'
 Amplify.configure(awsExports)
 
 Analytics.autoTrack('session', {
-  enable: false,
+  enable: true,
   provider: 'AWSPinpoint'
 })
 
 Analytics.autoTrack('pageView', {
-  enable: false,
+  enable: true,
   eventName: 'pageView',
   type: 'SPA',
   provider: 'AWSPinpoint',
