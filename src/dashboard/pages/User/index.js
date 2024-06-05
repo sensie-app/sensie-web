@@ -38,6 +38,7 @@ const User = () => {
   // ? hooks
   const { id } = useParams()
 
+  const routeClient = DASHBOARD_ROUTES.client
   const {
     filtersReducer: { globalDateFilter },
     affirmationsReducer,
@@ -117,7 +118,7 @@ const User = () => {
       {/* seo */}
       <HelmetSEO title={t('seo.User.title')} subtitle={t('seo.User.subtitle')} />
       {/* header */}
-      <Header withBack={true} withPeople={false} />
+      <Header withBack={true} withPeople={false} backTo={routeClient} />
       {/* body */}
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -136,7 +137,7 @@ const User = () => {
             : <TrackAffirmations
                 // data={}
                 theme={2}
-                title={t('dashboard.User.trackAffirmations')}
+                title={t('dashboard.User.trackIntentions')}
                 chipsUp={true}
                 multiUser={false}
                 user={client}

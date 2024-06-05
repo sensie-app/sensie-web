@@ -106,7 +106,7 @@ const Navbar = () => {
               <Grid item xs={12} sm={2}>
                 <Box display="flex" justifyContent="flex-end">
                   <Box>
-                    <a href={APP_ROUTES.dashboard + '/'}>
+                    <a href={APP_ROUTES.dashboard + '/login'}>
                       <Button
                         variant="contained"
                         color="secondary"
@@ -118,14 +118,16 @@ const Navbar = () => {
                     </a>
                   </Box>
                   <Box>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      size="small"
-                      className={classes.btnStyle}
-                    >
-                      SIGN UP
-                    </Button>
+                    <a href={APP_ROUTES.dashboard + '/signup'}>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        size="small"
+                        className={classes.btnStyle}
+                      >
+                        SIGN UP
+                      </Button>
+                    </a>
                   </Box>
                 </Box>
               </Grid>

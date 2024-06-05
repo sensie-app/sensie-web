@@ -145,7 +145,7 @@ const CreateAffirmations = ({
 
             resetForm()
           } else {
-            toast.error(t('dashboard.Pack.createAffirmationErrorWithPrivate'))
+            toast.error(t('dashboard.Pack.createIntentionErrorWithPrivate'))
           }
         } else {
           _list.push({ title, topics })
@@ -162,6 +162,7 @@ const CreateAffirmations = ({
   const resetForm = () => {
     setTitle('')
     setTopics([])
+    setShowErrorTitle(false)
     setShowNewForm(false)
   }
 
@@ -171,7 +172,7 @@ const CreateAffirmations = ({
    */
   const handleTitleModal = () => {
     const count = '' // todo finish this
-    return `${t('dashboard.CreateAffirmations.add')} ${count} ${t('dashboard.CreateAffirmations.affirmationsTo')}`
+    return `${t('dashboard.CreateIntentions.add')} ${count} ${t('dashboard.CreateIntentions.intentionsTo')}`
   }
 
   const handleOnClickSelectAll = value => dispatch(setCheckboxAllAffirmationsAction(value))
@@ -218,11 +219,11 @@ const CreateAffirmations = ({
             <div className={styles.CreateAffirmationsFormD1Inputs}>
               <input
                 ref={inputRef}
-                placeholder={t('dashboard.CreateAffirmations.writeNewAffirmation')}
+                placeholder={t('dashboard.CreateIntentions.writeNewIntentions')}
                 onChange={handleInputValue}
                 className={showErrorTitle ? styles.inputBorderError : styles.inputBorder}
               />
-              {showErrorTitle && <span className={styles.errorMessage}>{t('dashboard.CreateAffirmations.errorTitle')}</span>}
+              {showErrorTitle && <span className={styles.errorMessage}>{t('dashboard.CreateIntentions.errorTitle')}</span>}
             </div>
             <div className={styles.CreateAffirmationsFormD1Btns}>
               <div>
@@ -239,7 +240,8 @@ const CreateAffirmations = ({
                 </div>
                 {showErrorTopics && <span className={styles.errorMessage}>{t('dashboard.CreateAffirmations.errorTopic')}</span>}
               </div>
-              <button onClick={() => handleClickBtnDone()} className={styles.CreateAffirmationsFormButtonDone}>Done</button>
+                <button onClick={() => handleClickBtnDone()} className={styles.CreateAffirmationsFormButtonDone}>Done</button>
+                <button onClick={() => resetForm()} className={styles.CancelAffirmationsFormButtonDone}>Cancel</button>
             </div>
           </div>
           <div className={styles.CreateAffirmationsFormD2}>
@@ -282,18 +284,18 @@ const CreateAffirmations = ({
                 {!addToPack
                   ? <span />
                   : <Modal title={handleTitleModal()}>
-                    <span>{t('dashboard.CreateAffirmations.addToPack')}</span>
+                    <span>{t('dashboard.CreateIntentions.addToPack')}</span>
                     <AddToPack packs={packs} onAddToPack={onAddToPack} />
                   </Modal>
                 }
               </div>
-              : <h5>{t('dashboard.CreateAffirmations.selectAll')}</h5>
+              : <h5>{t('dashboard.CreateIntentions.selectAll')}</h5>
             }
           </ItemCheckbox>
         </div>
         <button className={styles.CreateAffirmationsAddBtn} disabled={showNewForm} onClick={() => setShowNewForm(true)} style={{ opacity: !showNewForm ? 1 : 0.5 }}>
           <Icon name="plus-outline" color={fontColor1} size="md" />
-          {t('dashboard.CreateAffirmations.addNew')}
+          {t('dashboard.CreateIntentions.addNew')}
         </button>
       </div>
       {/* list affirmations */}

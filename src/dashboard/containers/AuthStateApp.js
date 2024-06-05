@@ -1,4 +1,3 @@
-// react
 import Proptypes from 'prop-types'
 import { useLocation } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
@@ -9,17 +8,13 @@ import { setUserIdAction, getUserByIdAction } from '../../redux/actions/user.act
 
 // amplify
 import { API, graphqlOperation } from 'aws-amplify'
-import Amplify from '@aws-amplify/core'
 import { Auth } from '@aws-amplify/auth'
-import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react'
-import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components'
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import awsconfig from '../../aws-exports'
-
 // Components
-import { toast, ToastContainer } from 'react-toastify'
+// import { ToastContainer } from 'react-toastify'
 
 // amplify config
-Amplify.configure(awsconfig)
 Auth.configure(awsconfig)
 // * container
 /**
@@ -29,9 +24,12 @@ Auth.configure(awsconfig)
  */
 const AuthStateApp = ({ children }) => {
   // ? hooks
+  const { user, route } = useAuthenticator((context) => [context.user, context.route])
   const dispatch = useDispatch()
+  const [userData, setUser] = useState(null)
   const [authState, setAuthState] = useState()
-  const [user, setUser] = useState(null)
+  const [initialAuthState, setInitialAuthState] = useState('signUp')
+
   // const [coach, setCoach] = useState(null)
 
   const updateUserCoach = async (userId, coachId) => {
@@ -40,120 +38,95 @@ const AuthStateApp = ({ children }) => {
   }
 
   useEffect(() => {
-    onAuthUIStateChange((nextAuthState, authData) => {
-      setAuthState(nextAuthState)
-      invinfo && authData && updateUserCoach(authData.username, id)
-      setUser(authData)
-    })
-  }, [])
+    if (route === 'authenticated') {
+      setAuthState(route)
+      invinfo && user && updateUserCoach(user.username, id)
+      setUser(user)
+    } else {
+      setAuthState(route)
+    }
+  }, [route])
 
   useEffect(async () => {
-    // setCoach('test')
-    if (user !== null && authState === 'signedin') {
+    if (userData !== null && authState === 'authenticated') {
       const { username } = user
       dispatch(setUserIdAction(username))
       dispatch(getUserByIdAction(username))
     }
-  }, [user])
-
-  useEffect(() => {
-    onAuthUIStateChange((nextAuthState) => {
-      if (nextAuthState === AuthState.ConfirmSignUp) {
-        toast.clearWaitingQueue()
-        toast.dark('Confirmation code sent to your phone')
-      }
-    })
-  }, [authState])
+  }, [userData])
 
   const q = new URLSearchParams(useLocation().search)
-
   const invinfo = q.get('invcode')
-  const [id, coachFirst, coachLast] = window.atob(invinfo).split(';')
+  const [id] = window.atob(invinfo).split(';')
 
-  return authState === AuthState.SignedIn && user
-    ? <div className="App">{children}</div>
-    : <>
-        <ToastContainer
-          limit={1}
-          position="top-center"
-          autoClose={false}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <AmplifyAuthenticator initialAuthState={AuthState.SignUp}>
-          <AmplifySignUp
-            slot="sign-up"
-            headerText={invinfo ? `Joining ${coachFirst} ${coachLast}'s team` : 'Create Account ' }
-            usernameAlias="email"
-            formFields={[
-              {
-                type: 'email',
-                label: 'Email',
-                placeholder: 'jondoe@gmail.com',
-                required: true
-              },
-              {
-                type: 'password',
-                label: 'Password',
-                placeholder: '',
-                required: true
-              },
-              {
-                type: 'phone_number',
-                label: 'Phone #',
-                placeholder: '(415) 348-9900',
-                required: false
-              },
-              {
-                type: 'name',
-                label: 'First Name',
-                placeholder: 'John',
-                required: false
-              },
-              {
-                type: 'family_name',
-                label: 'Last Name',
-                placeholder: 'Doe',
-                required: false
-              },
-              // {
-              //   type: 'username',
-              //   label: 'user name',
-              //   placeholder: 'custom Phone placeholder',
-              //   required: false
-              // },
-              {
-                type: 'gender',
-                label: 'Gender',
-                placeholder: 'Gender',
-                required: false
-              },
-              {
-                type: 'birthdate',
-                label: 'Birthdate',
-                placeholder: '06/17/1990',
-                required: false
-              }
-              // {
-              //   type: 'userCoachId',
-              //   label: '',
-              //   value: id,
-              //   required: false,
-              //   name: 'CoachID',
-              //   fieldId: 'tester',
-              //   inputProps: { style: { display: 'none' } },
-              //   disabled: true
-              // }
+  const location = useLocation()
+  const urlParts = location.pathname.split('/')
+  const lastFragment = urlParts[urlParts.length - 1]
 
-            ]}
-          />
-        </AmplifyAuthenticator>
-      </>
+  useEffect(() => {
+    // Verificar si el parámetro 'authType' indica un login
+    if (lastFragment === 'login') {
+      setInitialAuthState('login') // Cambiar el initialState a signIn si es un login
+    }
+  }, [])
+
+  const formFields = {
+    signUp: {
+      email: {
+        label: 'Email',
+        placeholder: 'jondoe@gmail.com',
+        isRequired: true,
+        order: 1
+      },
+      password: {
+        label: 'Password:',
+        placeholder: 'Enter your Password:',
+        isRequired: true,
+        order: 2
+      },
+      confirm_password: {
+        label: 'Confirm Password:',
+        placeholder: 'Confirm your Password:',
+        isRequired: true,
+        order: 3
+      },
+      phone_number: {
+        label: 'Phone #',
+        placeholder: '(415) 348-9900',
+        order: 4,
+        isRequired: true
+      },
+      name: {
+        label: 'First Name',
+        placeholder: 'John',
+        isRequired: true,
+        order: 5
+      },
+      family_name: {
+        label: 'Last Name',
+        placeholder: 'Doe',
+        isRequired: true,
+        order: 6
+      },
+      gender: {
+        label: 'Gender',
+        placeholder: 'Gender',
+        isRequired: true,
+        order: 7
+      },
+      birthdate: {
+        label: 'Birthdate',
+        placeholder: '06/17/1990',
+        isRequired: true
+      }
+    }
+  }
+  return user && authState === 'authenticated'
+    ? <div className="App">{children} </div>
+    : <div className="authenticator-container">
+      <Authenticator initialState={initialAuthState} formFields={formFields}>
+      </Authenticator>
+    </div>
 }
 
 // prop-types

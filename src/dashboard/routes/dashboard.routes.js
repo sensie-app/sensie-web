@@ -1,6 +1,6 @@
 // react
-import React, { useEffect } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter, Switch, Route, useLocation, Redirect } from 'react-router-dom'
 // import { ThemeProvider } from '@material-ui/core/styles'
 // redux
 import { useSelector } from 'react-redux'
@@ -23,7 +23,9 @@ import { NotFound404 } from '../components/Globals'
 import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
 // amplify
-import '@aws-amplify/ui/dist/style.css'
+// import '@aws-amplify/ui/dist/style.css'
+import '@aws-amplify/ui-react/styles.css'
+
 // styles
 import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
@@ -42,7 +44,7 @@ const {
   client,
   team,
   // user,
-  affirmations,
+  intentions,
   pack,
   topic,
   sageDashboard,
@@ -70,6 +72,19 @@ const DashboardRoutes = () => {
     // dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
   }, [globalDateFilter])
 
+  const [initialAuthState, setInitialAuthState] = useState(false)
+
+  const location = useLocation()
+  const urlParts = location.pathname.split('/')
+  const lastFragment = urlParts[urlParts.length - 1]
+
+  useEffect(() => {
+    // Verificar si el parámetro 'authType' indica un login
+    if (lastFragment === 'login' || lastFragment === 'signup') {
+      setInitialAuthState(true) // Cambiar el initialState a signIn si es un login
+    }
+  }, [])
+
   return (
     <AuthStateApp>
       {/* <ThemeProvider theme={theme}> */}
@@ -77,11 +92,12 @@ const DashboardRoutes = () => {
           <Switch>
             <Layout>
               <Route path={home} component={Home} />
+              {initialAuthState && <Redirect to={'/dashboard'}/>}
               <Route path={dashboard} component={Home} />
               <Route exact path={entrypoint} component={Home} />
               <Route path={client} component={Client} />
               <Route path={team} component={Team} />
-              <Route path={affirmations} component={Affirmations} />
+              <Route path={intentions} component={Affirmations} />
               <Route path={sageDashboard} component={SageDashboard} />
               <Route path={profile} component={Profile} />
               <Route path={'/dashboard/user' + '/:id'} component={User} />

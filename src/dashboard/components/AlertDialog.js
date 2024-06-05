@@ -16,8 +16,9 @@ import { onClearUsers } from '../../redux/actions/users.actions'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 // amplify
-import { AmplifySignOut } from '@aws-amplify/ui-react'
-
+// import { AmplifySignOut } from '@aws-amplify/ui-react'
+// import { Auth } from 'aws-amplify'
+import { useAuthenticator } from '@aws-amplify/ui-react'
 // material-ui
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -53,6 +54,7 @@ const AlertDialog = ({
 }) => {
   const dispatch = useDispatch()
   // ? hooks
+  const { signOut } = useAuthenticator()
   const [open, setOpen] = React.useState(false)
   const history = useHistory()
   // ? handle functions
@@ -75,6 +77,15 @@ const AlertDialog = ({
       dispatch(onClearUser())
       dispatch(onClearUsers())
       history.push('/dashboard')
+    }
+  }
+
+  const handleSignOut = async () => {
+    try {
+      await signOut()
+      handleAuthStateChange('signedout')
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error)
     }
   }
 
@@ -124,7 +135,7 @@ const AlertDialog = ({
             {disagreeText}
           </Button>
           {withLogout
-            ? <button onClick={handleClose}><AmplifySignOut handleAuthStateChange={handleAuthStateChange} /></button>
+            ? <Button onClick={handleSignOut} color={agreeColor} autoFocus>{agreeText} Sign Out</Button>
             : <Button onClick={handleAgreeOnClick} color={agreeColor} autoFocus>{agreeText}</Button>
           }
         </DialogActions>
