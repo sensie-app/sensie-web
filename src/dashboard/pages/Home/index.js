@@ -147,7 +147,7 @@ const Home = () => {
   const handleTotalFlow = () => {
     if (!affirmationsReducer.loading && handleTotalClients() > 0) {
       const clientIds = usersReducer.users.map(client => client.id)
-      const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items)).filter(s => clientIds.indexOf(s.userId) > 0)
+      const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items)).filter(s => clientIds.indexOf(s.userId) !== -1)
       if (s.length === 0) return 0
       const sensies = s.filter(s => s.result === 1)
       const flow = sensies.length / s.length * 100
