@@ -475,6 +475,7 @@ export const getPacksFromUser = id => `
       name
       picture
       pictureURL
+      clientsCount
       affirmationCount
       affirmations {
         items {

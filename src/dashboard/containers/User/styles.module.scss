@@ -41,7 +41,6 @@
       font-weight: 700;
     }
     div {
-      margin-left: 5px;
       @include flex(row, center, flex-start, nowrap);
     }
 
@@ -61,7 +60,7 @@
   }
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1311px) {
   .UserBodyContainer {    
     @include flex(row, flex-end, center, nowrap);
     width: 100% !important;
@@ -69,5 +68,24 @@
 
   .UserChartContainer {
     display: none;
+  }
+  .UserContainer {
+    max-height: 15vh;
+    height: 15vh;
+    .UserAvatarContainer {
+      @include flex(row, flex-start, center, wrap);
+      span{
+        color: $fontColor1;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      div {
+        @include flex(row, center, flex-start, wrap);
+      }
+      .UserAvatarContainerRenderName {
+        align-items: center;
+      }
+    }
+    
   }
 }
