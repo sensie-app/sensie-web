@@ -63,6 +63,21 @@ const AuthStateApp = ({ children }) => {
   const urlParts = location.pathname.split('/')
   const lastFragment = urlParts[urlParts.length - 1]
 
+  const validateForm = (formData) => {
+    const errors = {}
+    if (formData.phone_number === undefined) {
+      return errors
+    }
+    const isPhoneNumberValid = /^\d+$/.test(formData.phone_number)
+    if (!isPhoneNumberValid) {
+      errors.phone_number = 'Phone number contains invalid characters'
+    } else if (formData.phone_number.length !== 10) {
+      // Validar que el número de teléfono tenga 10 dígitos
+      errors.phone_number = 'Phone number must be 10 digits'
+    }
+    return errors
+  }
+
   useEffect(() => {
     // Verificar si el parámetro 'authType' indica un login
     if (lastFragment === 'login') {
@@ -92,7 +107,7 @@ const AuthStateApp = ({ children }) => {
       },
       phone_number: {
         label: 'Phone #',
-        placeholder: '(415) 348-9900',
+        placeholder: '4153489900',
         order: 4,
         isRequired: true
       },
@@ -124,7 +139,33 @@ const AuthStateApp = ({ children }) => {
   return user && authState === 'authenticated'
     ? <div className="App">{children} </div>
     : <div className="authenticator-container">
-      <Authenticator initialState={initialAuthState} formFields={formFields}>
+      <Authenticator
+        // Default to Sign Up screen
+        initialState={initialAuthState}
+        formFields={formFields}
+        // Customize `Authenticator.SignUp.FormFields`
+        components={{
+          SignUp: {
+            FormFields () {
+              return (
+                <>
+                  {/* Re-use default `Authenticator.SignUp.FormFields` */}
+                  <Authenticator.SignUp.FormFields />
+                </>
+              )
+            }
+          }
+        }}
+        services={{
+          async validateCustomSignUp (formData) {
+            const formErrors = validateForm(formData)
+            if (Object.keys(formErrors).length > 0) {
+              return formErrors
+            }
+            return {}
+          }
+        }}
+      >
       </Authenticator>
     </div>
 }
