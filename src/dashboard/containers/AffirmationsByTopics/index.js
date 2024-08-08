@@ -218,7 +218,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
     <div className={styles.AffirmationsByTopicsContainer}>
       {/* title */}
       <div className={styles.AffirmationsByTopicsTitleContainer}>
-        <Title text={t('dashboard.AffirmationsByTopics.title')} />
+        <Title text={t('dashboard.IntentionsByTopics.title')} />
         <span className={styles.AffirmationsByTopicsTitleTopic}>{topic !== null && `- ${topic.name}`}</span>
       </div>
       {/* header images */}
@@ -248,10 +248,10 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
             {affirmationsByTopics
               ? <div className={styles.CreateAffirmationsHeaderActions}>
                   <button>
-                    <span>{t('dashboard.AffirmationsByTopics.addToPack')}</span>
+                    <span>{t('dashboard.IntentionsByTopics.addToPack')}</span>
                   </button>
                 </div>
-              : <h5>{t('dashboard.AffirmationsByTopics.selectAll')}</h5>
+              : <h5>{t('dashboard.IntentionsByTopics.selectAll')}</h5>
             }
           </ItemCheckbox>
         </div>

@@ -244,7 +244,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
     //   return (b._userCount === a._userCount) ? (b.sensies.items.length - a.sensies.items.length) : (b._userCount - a._userCount)
     // })
     // _data.sort((a, b) => a._packId === b._packId ? 1 : -1)
-    if (_data.length < 1) return <span>{t('dashboard.AffirmationsList.noData')}</span>
+    if (_data.length < 1) return <span>{t('dashboard.IntentionsList.noData')}</span>
     return !affirmationsReducer.loading && _data.map(item => {
       // const flow = handleFlow(item.sensies.items)
       // console.log('flow: ', flow)
@@ -253,7 +253,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
         case 'flowing': return item._flow >= 50 && renderAffirmationChart(item, item._flow)
         case 'blocked': return item._flow < 50 && renderAffirmationChart(item, item._flow)
         case 'all': return renderAffirmationChart(item, item._flow)
-        case 'incomplete': return item._flow === 0 && renderAffirmationChart(item, item._flow)
+        case 'incomplete': return item._flow === 'NO_SENSIES' && renderAffirmationChart(item, item._flow)
         default: return renderAffirmationChart(item, item._flow)
       }
     })
@@ -307,7 +307,7 @@ const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, titl
         <div className={styles.AffirmationsListAffirmationChartContainer}>
           {handleTotalAffirmations() > 0
             ? renderAffirmationsAffirmationChart()
-            : <span>{t('dashboard.AffirmationsList.noData')}</span>
+            : <span>{t('dashboard.IntentionsList.noData')}</span>
           }
           {/* {!limit && <div className={styles.AffirmationsListAffirmationChartPagination}>
             {handleTotalAffirmations() > 0 && <Pagination count={4} onChange={() => handlePaginationChange()} defaultPage={pagAffirmationsList} />}

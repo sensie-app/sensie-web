@@ -4,7 +4,9 @@ import ReactDOM from 'react-dom'
 import App from './routes/App'
 import reportWebVitals from './reportWebVitals'
 // amplify
-import Amplify, { Analytics } from 'aws-amplify'
+import { Analytics, Amplify } from 'aws-amplify'
+import { Authenticator } from '@aws-amplify/ui-react'
+
 import awsExports from './aws-exports'
 // styles
 import './styles/global.scss'
@@ -41,7 +43,9 @@ ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
       <Provider store={store}>
+      <Authenticator.Provider>
         <App />
+      </Authenticator.Provider>
       </Provider>
     </I18nextProvider>
   </React.StrictMode>,

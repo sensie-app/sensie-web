@@ -39,7 +39,7 @@ import { Storage } from 'aws-amplify'
 
 // const
 const { noImg } = IMG
-const { affirmations } = DASHBOARD_ROUTES
+const { intentions } = DASHBOARD_ROUTES
 
 // * page
 /**
@@ -47,7 +47,7 @@ const { affirmations } = DASHBOARD_ROUTES
  * @component
  */
 const Pack = () => {
-  // ? hooks
+  // ? hook
   const dispatch = useDispatch()
   const {
     userReducer: { user },
@@ -126,9 +126,9 @@ const Pack = () => {
         newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
       })
 
-      toast.success(t('dashboard.Pack.createAffirmation'))
+      toast.success(t('dashboard.Pack.createIntention'))
     } else {
-      toast.error(t('dashboard.Pack.createAffirmationError'))
+      toast.error(t('dashboard.Pack.createIntentionErrorWithPrivate'))
     }
     setNewAff(successAffirmation && successJoinPack ? !newAff : newAff)
     setWaitQuery(false)
@@ -172,8 +172,13 @@ const Pack = () => {
    * handleCountAffirmations
    * @returns {number}
    */
-  const handleCountAffirmations = () => pack.affirmations ? pack.affirmations.items.length : 0
+  const handleCountAffirmations = () => pack.affirmationCount ? pack.affirmationCount : 0
 
+  /**
+   * handleCountAffirmations
+   * @returns {number}
+   */
+  const handleCountClients = () => pack.clientsCount ? pack.clientsCount : 0
   /**
    * handleAffirmationsByTopicsQuery
    * @param {strinf} topicId
@@ -219,7 +224,7 @@ const Pack = () => {
 
   return (
     <Fragment>
-      <Header withBack={true} withPeople={false} withDate={false} backTo={affirmations} />
+      <Header withBack={true} withPeople={false} withDate={false} backTo={intentions} />
       <div className={styles.PackContainer}>
         {/* header */}
         <div className={styles.PackHeaderContainer}>
@@ -229,7 +234,8 @@ const Pack = () => {
               {pack !== null && <span>{pack.name}</span>}
               {pack !== null && pack.author && <span style={{ fontSize: '14px' }}>By {pack.author}</span>}
               <div>
-                <span>{pack !== null && handleCountAffirmations()} {t('dashboard.Pack.affirmations')}</span>
+                <span>{pack !== null && handleCountAffirmations()} {t('dashboard.Pack.intentions')}</span>
+                <span>{pack !== null && handleCountClients()} {t('dashboard.Pack.clients')}</span>
               </div>
             </div>
           </div>

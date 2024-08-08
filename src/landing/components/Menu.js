@@ -125,7 +125,7 @@ export default function TemporaryDrawer () {
         <Grid container style={{ textAlign: 'center' }}>
           <Grid item xs={12}>
             <Box mx={2}>
-              <a href={APP_ROUTES.dashboard + '/'}>
+              <a href={APP_ROUTES.dashboard + '/login'}>
                 <Button
                   variant="contained"
                   color="secondary"
@@ -140,15 +140,17 @@ export default function TemporaryDrawer () {
           </Grid>
           <Grid item xs={12}>
             <Box mt={2} mx={2}>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="large"
-                fullWidth
-                className={classes.btnStyle}
-              >
-                SIGN UP
+              <a href={APP_ROUTES.dashboard + '/signup'}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                  fullWidth
+                  className={classes.btnStyle}
+                >
+                  SIGN UP
               </Button>
+              </a>
             </Box>
           </Grid>
         </Grid>

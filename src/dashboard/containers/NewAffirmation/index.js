@@ -199,26 +199,26 @@ const NewAffirmation = ({
 
         <div className={styles.NewAffirmationS2}>
           {withRemoveBtn && !withAddBtn && <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => onRemovePack(joinId)}>
-                <span>{t('dashboard.NewAffirmation.remove')}</span>
+                <span>{t('dashboard.NewIntention.remove')}</span>
              </button>
           }
           {withAddBtn && !withRemoveBtn && <button className={styles.NewAffirmationS2AddBtn} onClick={() => onAddToPack(data.id, packId)}>
-                <span>{t('dashboard.NewAffirmation.add')}</span>
+                <span>{t('dashboard.NewIntention.add')}</span>
               </button>
           }
           {withDeleteBtn && !withRemoveBtn && canDelete &&
             <div className={styles.NewAffirmationS2DeleteBtn}>
               <AlertDialog
                 withLogout={false}
-                title={t('dashboard.NewAffirmation.deleteAffTitle')}
-                description={t('dashboard.NewAffirmation.deleteAffDescription')}
-                disagreeText={t('dashboard.NewAffirmation.deleteAffCancel')}
-                agreeText={t('dashboard.NewAffirmation.deleteAffAccept')}
+                title={t('dashboard.NewIntention.deleteAffTitle')}
+                description={t('dashboard.NewIntention.deleteAffDescription')}
+                disagreeText={t('dashboard.NewIntention.deleteAffCancel')}
+                agreeText={t('dashboard.NewIntention.deleteAffAccept')}
                 agreeColor='secondary'
                 disagreeColor='primary'
                 agreeOnClick={() => onDelete(data)}
               >
-                {t('dashboard.NewAffirmation.deleteAffButton')}
+                {t('dashboard.NewIntention.deleteAffButton')}
               </AlertDialog>
             </div>
           }

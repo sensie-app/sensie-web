@@ -25,7 +25,7 @@ import styles from './styles.module.scss'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux'
-import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
+import { listUsersByOrganizationDatesAction } from '../../../redux/actions/users.actions'
 import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
 const moment = require('moment')
 // import usersReducer from '../../../redux/reducers/users.reducer'
@@ -60,7 +60,7 @@ const Home = () => {
 
   useEffect(() => {
     if (user.id) {
-      dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
+      dispatch(listUsersByOrganizationDatesAction(globalDateFilter.value))
       dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
     }
   }, [user.id, globalDateFilter.name])
@@ -147,7 +147,7 @@ const Home = () => {
   const handleTotalFlow = () => {
     if (!affirmationsReducer.loading && handleTotalClients() > 0) {
       const clientIds = usersReducer.users.map(client => client.id)
-      const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items)).filter(s => clientIds.indexOf(s.userId) > 0)
+      const s = [].concat(...affirmationsReducer.affirmations.map(aff => aff.sensies.items)).filter(s => clientIds.indexOf(s.userId) !== -1)
       if (s.length === 0) return 0
       const sensies = s.filter(s => s.result === 1)
       const flow = sensies.length / s.length * 100

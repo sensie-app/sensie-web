@@ -138,7 +138,7 @@ const UserStatistics = ({ data, sensies }) => {
           <div className={styles.UserStatisticsBodyChartsContainer}>
             {awareness === 'NO_AWARENESS'
               ? <IconChart title={t('dashboard.User.awarness')} value={'Null'} valueType="" icon={null} theme={2} />
-              : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/18'} valueType="" icon={UP} theme={2} />}
+              : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/20'} valueType="" icon={UP} theme={2} />}
           </div>
           {/* <Separator />
           <div className={styles.UserStatisticsBodyChartsContainer}>

@@ -17,7 +17,7 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 import { useDispatch, useSelector } from 'react-redux'
 // styles
 import styles from './styles.module.scss'
-import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
+import { listUsersByOrganizationDatesAction } from '../../../redux/actions/users.actions'
 import { listAffirmationsByCoachId } from '../../../redux/actions/affirmations.actions'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 import { listPacksAction } from '../../../redux/actions/packs.actions'
@@ -42,7 +42,7 @@ const Client = () => {
     if (user.id) {
       dispatch(getAllTopicsAction(user.data.userTopicId))
       dispatch(listPacksAction(user.id))
-      dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
+      dispatch(listUsersByOrganizationDatesAction(globalDateFilter.value))
       dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000))
     }
   }, [user.loading, globalDateFilter])
@@ -50,9 +50,8 @@ const Client = () => {
   // ? const
   const btn = {
     title: t('dashboard.Client.author'),
-    route: DASHBOARD_ROUTES.affirmations
+    route: DASHBOARD_ROUTES.intentions
   }
-
   return (
     <section className={styles.ClientContainer}>
       {/* seo */}
@@ -68,7 +67,7 @@ const Client = () => {
               ? <Loading />
               : <TrackAffirmations
                   chipsUp={true}
-                  title={t('dashboard.Client.affirmations')}
+                  title={t('dashboard.Client.intentions')}
                   btn={btn}
                   theme={3}
                 />

@@ -74,7 +74,7 @@ const Topic = ({
               {witCheckbox &&
                   <div className={styles.TopicHeaderContainer}>
                     {/* <Checkbox checked={check} onChange={handleCheck} className={styles.TopicCheckbox} /> */}
-                    {count !== 0 && <h6>{count} Affirmations</h6>}
+                    {count !== 0 && <h6>{count} Intentions</h6>}
                   </div>
               }
                 {withLink
