@@ -1,59 +1,63 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+@use "../../styles/mixins" as mixins2;
+
 
 .AffirmationsListContainer {
   width: 100%;
   height: 100%;
-  background-color: $grayColor6;
-  color: $fontColor1;
+  background-color: variables.$grayColor6;
+  color: variables.$fontColor1;
   border-radius: 5px; 
 }
 
 .AffirmationsListFilterBtnMenuContainerTheme1 {
-  @include flex(row, flex-start, center, nowrap);
+  @include mixins.flex(row, flex-start, center, nowrap);
   width: 100%;
 }
 
 .AffirmationsListFilterBtnMenuContainerTheme2 {
-  @include flex(row, flex-end, center, nowrap);
+  @include mixins.flex(row, flex-end, center, nowrap);
   width: 50%;
 }
 
 .AffirmationsListFiltersContainer {
   padding: 10px 0;
   width: 100%;
-  @include flex(row, space-between, center, wrap);
+  @include mixins.flex(row, space-between, center, wrap);
   .AffirmationsListFilterBtnMenu {
     min-width: 30%;
     height: 100%;
-    @include flex(row, space-between, center, wrap);
-    @include border(solid, 1px, 5px, $grayColor5);
-    color: $fontColor1;
-    background-color: $grayColor5;
+    @include mixins.flex(row, space-between, center, wrap);
+    @include mixins.border(solid, 1px, 5px, variables.$grayColor5);
+    color: variables.$fontColor1;
+    background-color: variables.$grayColor5;
     padding-left: 10px 5px;
     margin-right: 10px;
     &:hover{
-      @include border(solid, 1px, 5px, $actionColor1);
+      @include mixins.border(solid, 1px, 5px, variables.$actionColor1);
     }
   }
 }
 
 .AffirmationsListBodyContainer {
-  @include flex(column, space-between, center, nowrap);
+  @include mixins.flex(column, space-between, center, nowrap);
   height: auto;
   // max-height: 100%;
   width: 100%;
 
   .AffirmationsListAffirmationChartContainer {
-    @include flex(column, space-between, center, nowrap);
+    @include mixins.flex(column, space-between, center, nowrap);
     width: 100%;
   }
 
   .AffirmationsListAffirmationChartPagination{
-    @include flex(row, flex-end, center, nowrap);
+    @include mixins.flex(row, flex-end, center, nowrap);
     width: 100%;
   }
   .AffirmationsListChipsContainer {
-    @include flex(row, flex-start, center, wrap);
+    @include mixins.flex(row, flex-start, center, wrap);
     width: 100%;
   }
   .AffirmationsListChipsUp {
@@ -66,10 +70,10 @@
 }   
 
 .AffirmationsListFilterBtnMenuTitleContainer {
-  @include G50HeaderTitleContainer();  
+  @include mixins2.G50HeaderTitleContainer();  
 }
 
 .AffirmationsListMultipleSelectCheckboxItemCount {
-  @include CountCheckboxInBtn();
+  @include mixins2.CountCheckboxInBtn();
 }
 

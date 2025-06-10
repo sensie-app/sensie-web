@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .WrongSizeContainer {
   width: 100vw;
@@ -10,18 +13,18 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: $grayColor7;
+  background-color: variables.$grayColor7;
   z-index: 100000000000000;
   overflow-y: hidden;
   overflow-x: hidden;
-  @include flex(column, center, center, nowrap);
+  @include mixins.flex(column, center, center, nowrap);
   .WrongSizeTextContainer {
     width: 100%;
     text-align: center;
-    @include flex(column, center, center, nowrap);
+    @include mixins.flex(column, center, center, nowrap);
     b, span {
       margin-top: 10px;
-      color: $fontColor1
+      color: variables.$fontColor1
     }
     b {
       font-size: 1.5rem;

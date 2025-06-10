@@ -1,13 +1,16 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .ShareButton {
-  @include border(solid, 0px, 0px, transparent);
+  @include mixins.border(solid, 0px, 0px, transparent);
   background-color: transparent;
   opacity: 0.9;
   div {
-    @include flex(row, center, center, nowrap);
+    @include mixins.flex(row, center, center, nowrap);
     span {
-      color: $fontColor1;
+      color: variables.$fontColor1;
       font-size: 1rem;
       margin-left: 5px;
     }
@@ -25,13 +28,13 @@
     padding: 5px 0px;
     button {
       padding: 5px 10px;
-      color: $fontColor1;
+      color: variables.$fontColor1;
       background-color: transparent;
       border-style: none;
       margin-left: 10px;
       &:hover {
         cursor: pointer;
-        color: $actionColor1;
+        color: variables.$actionColor1;
       }
     }
   }

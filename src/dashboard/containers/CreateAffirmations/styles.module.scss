@@ -1,4 +1,8 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+@use "../../styles/mixins" as mixins2;
+
 
 .CreateAffirmationsContainer {
   width: 100%;  
@@ -7,39 +11,39 @@
 .CreateAffirmationsHeaderContainer {
   width: 100%;
   padding: 10px 10px;
-  @include flex(row, left, center, nowrap);
+  @include mixins.flex(row, left, center, nowrap);
   div {
-    @include flex(row, flex-start, center, nowrap);
+    @include mixins.flex(row, flex-start, center, nowrap);
   }
   .CreateAffirmationsAddBtn {
-    @include flex(row, center, center, nowrap);
-    background-color: $grayColor8;
-    color: $fontColor1;
+    @include mixins.flex(row, center, center, nowrap);
+    background-color: variables.$grayColor8;
+    color: variables.$fontColor1;
     padding: 5px 10px;
     font-size: 1rem;
-    @include border(solid, 1px, 5px, $grayColor8);
+    @include mixins.border(solid, 1px, 5px, variables.$grayColor8);
     margin-left: 10px;
     &:hover {
-      @include border(solid, 1px, 5px, $fontColor1);
+      @include mixins.border(solid, 1px, 5px, variables.$fontColor1);
       cursor: pointer;
     }
   }
   .CreateAffirmationsCheckbox {
-    color: $actionColor1;
+    color: variables.$actionColor1;
   }
   h5 {
-    color: $grayColor3;
+    color: variables.$grayColor3;
   }
 }
 
 .CreateAffirmationsForm {
   width: 100%;
-  background-color: $grayColor5;
+  background-color: variables.$grayColor5;
   border-radius: 5px;
   padding: 10px;
 
   .CreateAffirmationsFormTopContainer {
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
     width: 100%;
 
     .CreateAffirmationsFormD1 {
@@ -47,25 +51,25 @@
       .CreateAffirmationsFormD1Inputs {
         margin-right: 10px;
         width: 50%;
-        @include flex(column, flex-start, center, nowrap);
+        @include mixins.flex(column, flex-start, center, nowrap);
         input {
           width: 100%;
-          color: $fontColor1;
-          background-color: $grayColor7;
+          color: variables.$fontColor1;
+          background-color: variables.$grayColor7;
           padding: 7.5px 10px;
           font-size: 1.25rem;
         }
       }
       .CreateAffirmationsFormD1Btns{
         width: 50%;
-        @include flex(row, flex-start, flex-start, nowrap);
+        @include mixins.flex(row, flex-start, flex-start, nowrap);
         div {
-          @include flex(column, center, flex-start, nowrap);
+          @include mixins.flex(column, center, flex-start, nowrap);
         }
         .CreateAffirmationsFormButtonDone {
           width: 100px;
-          color: $actionColor1;
-          @include border(solid, 1px, 5px, $actionColor1);
+          color: variables.$actionColor1;
+          @include mixins.border(solid, 1px, 5px, variables.$actionColor1);
           padding: 6px 15px;
           background-color: transparent;
           margin: 2px 20px;
@@ -78,8 +82,8 @@
         }
         .CancelAffirmationsFormButtonDone {
           width: 100px;
-          color: $actionColor2;
-          @include border(solid, 1px, 5px, $actionColor2);
+          color: variables.$actionColor2;
+          @include mixins.border(solid, 1px, 5px, variables.$actionColor2);
           padding: 6px 15px;
           background-color: transparent;
           margin: 2px 0px;
@@ -94,16 +98,16 @@
         button {
           width: 100%;
           border-radius: 5px;
-          background-color: $grayColor7;
+          background-color: variables.$grayColor7;
         }
       }
     }
   
     .CreateAffirmationsFormD2 {
-      @include flex(row, flex-end, center, nowrap);
+      @include mixins.flex(row, flex-end, center, nowrap);
       width: 25%;
       div {
-        @include flex(row, space-between, center, wrap);
+        @include mixins.flex(row, space-between, center, wrap);
         width: 25%;
         padding: 0px 10px;
       }
@@ -111,7 +115,7 @@
   }
 
   hr {
-    border-color: $grayColor4;
+    border-color: variables.$grayColor4;
     margin: 10px 0px;
   }
 
@@ -122,59 +126,59 @@
 }
 
 .CreateAffirmationsChipsContainer {
-  @include flex(row, flex-start, center, wrap);
+  @include mixins.flex(row, flex-start, center, wrap);
   padding: 10px 0px;
   width: 100%;
 }
 
 .CreateAffirmationsCountCheckbox {
-  @include CountCheckboxInBtn();
+  @include mixins2.CountCheckboxInBtn();
 }
 
 .inputBorderError {
-  @include border(solid, 1px, 5px, $actionColor4);
+  @include mixins.border(solid, 1px, 5px, variables.$actionColor4);
 }
 
 .inputBorder {
-  @include border(solid, 1px, 5px, transparent);
+  @include mixins.border(solid, 1px, 5px, transparent);
 }
 
 .CreateAffirmationsFormD1FlexError {
-  @include flex(row, flex-start, flex-start, nowrap);
+  @include mixins.flex(row, flex-start, flex-start, nowrap);
 }
 
 .CreateAffirmationsFormD1Flex {
-  @include flex(row, flex-start, center, nowrap);
+  @include mixins.flex(row, flex-start, center, nowrap);
 }
 
 .btnTopicsError {
-  @include border(solid, 1px, 5px, $actionColor4);
+  @include mixins.border(solid, 1px, 5px, variables.$actionColor4);
 }
 
 .btnTopics {
-  @include border(solid, 1px, 5px, transparent);
+  @include mixins.border(solid, 1px, 5px, transparent);
 }
 
 .errorMessage {
-  color: $actionColor4;
+  color: variables.$actionColor4;
   font-size: 0.9rem;
   margin-top: 2.5px;
   width: 100%;
 }
 
 .CreateAffirmationsHeaderActions {
-  @include flex(row, flex-start, center, nowrap);
+  @include mixins.flex(row, flex-start, center, nowrap);
   button {
     background-color: transparent;
-    @include border(solid, 1px, 5px, $grayColor3);
-    color: $grayColor3;
+    @include mixins.border(solid, 1px, 5px, variables.$grayColor3);
+    color: variables.$grayColor3;
     padding: 5px 15px;
     margin-left: 10px;
     font-size: 1rem;
     opacity: 0.8;
     &:hover {
       opacity: 1;
-      @include border(solid, 1px, 5px, $grayColor3);
+      @include mixins.border(solid, 1px, 5px, variables.$grayColor3);
       cursor: pointer;
     }
   }  

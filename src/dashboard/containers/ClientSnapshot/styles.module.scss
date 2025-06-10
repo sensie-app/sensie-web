@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .ClientSnapshotContainer {
   width: 100%;
@@ -6,14 +9,14 @@
 }
 
 .ClientSnapshotBarChartContainer {
-  background-color: $grayColor6;
+  background-color: variables.$grayColor6;
   padding: 10px;
   width: 100%;
-  @include border(solid, 1px, 5px, transparent);
+  @include mixins.border(solid, 1px, 5px, transparent);
   .ClientSnapshotBarChartHeader {
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
     div {
-      @include flex(row, flex-start, center, nowrap);
+      @include mixins.flex(row, flex-start, center, nowrap);
       h4 {
         margin-left: 10px;
         font-size: 1rem;
@@ -34,6 +37,6 @@
 
 .ClientSnapshotFooter {
   width: 100%;
-  @include flex(row, flex-end, center, nowrap);
+  @include mixins.flex(row, flex-end, center, nowrap);
   padding: 5px 0px;
 }

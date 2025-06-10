@@ -1,23 +1,27 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins" as mixins2;
+@use "../../../styles/variables";
+@use "../../styles/mixins";
+
 
 .TrackAffirmationsHeaderContainer { 
-  @include G50HeaderContainer(); 
+  @include mixins.G50HeaderContainer(); 
   padding-top: 12px; 
 }
 
 .TrackAffirmationsHeaderTitleContainer {
-  @include G50HeaderTitleContainer();   
+  @include mixins.G50HeaderTitleContainer();   
 }
 
 .TrackAffirmationsHeaderBtnContainer {
   button {
-    @include border(solid, 2px, 5px, $grayColor4);
-    background-color: $grayColor5;
+    @include mixins2.border(solid, 2px, 5px, variables.$grayColor4);
+    background-color: variables.$grayColor5;
     padding: 10px 15px;
     font-size: 1rem;
-    color: $fontColor1;
+    color: variables.$fontColor1;
     &:hover {
-      @include border(solid, 2px, 5px, $actionColor3);
+      @include mixins2.border(solid, 2px, 5px, variables.$actionColor3);
       cursor: pointer;
     }
   }

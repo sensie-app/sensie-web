@@ -1,6 +1,6 @@
-@import '../../styles/index.scss'; // global styles
-@import './mixins.scss'; // mixins for dashboard
-@import './styles-material-ui.scss'; // material ui styles forced
+@use '../../styles/index.scss'; // global styles
+@use 'mixins.scss'; // mixins for dashboard
+@use 'styles-material-ui.scss'; // material ui styles forced
 
 main {
   padding: 7.5px 35px !important;

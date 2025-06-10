@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .PackContainer {
   padding: 10px;
@@ -13,20 +16,20 @@
     // height: 75%;
     border-radius: 5px;
     // margin-bottom: 10px;
-    @include backgroundImg(cover)
+    @include mixins.backgroundImg(cover)
   }
   .PackCheckbox {
     position: absolute;
     top: 5px;
     left: 5px;
-    color: $actionColor1;
+    color: variables.$actionColor1;
   }
 }
 .PackBodyContainer {
-  @include flex(column, space-between, center, nowrap);
+  @include mixins.flex(column, space-between, center, nowrap);
   height: 25%;
   padding: 10px 0px;
-  color: $fontColor1;
+  color: variables.$fontColor1;
   span {
     font-size: 1.25rem;
     font-weight: bold;
@@ -34,11 +37,11 @@
   }
   div {
     padding: 5px 10px;
-    background-color: $grayColor7;
+    background-color: variables.$grayColor7;
     border-radius: 5px;
     span {
       font-size: 1rem;
-      color: $grayColor3;
+      color: variables.$grayColor3;
       margin-right: 10px;
     }
   }

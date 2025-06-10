@@ -1,23 +1,26 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .ChipContainer {
-  @include flex(row, space-between, center, nowrap);
-  @include border(none, 0px, 5px, transparent);
-  background-color: $grayColor7;
+  @include mixins.flex(row, space-between, center, nowrap);
+  @include mixins.border(none, 0px, 5px, transparent);
+  background-color: variables.$grayColor7;
   padding: 3px 5px;
   margin-bottom: 5px;
   margin-right: 5px;
   
   span {
-    color: $fontColor1;
+    color: variables.$fontColor1;
     font-size: 0.75rem;
     // margin-right: 10px;
   }
 
   button {
     width: 10px;
-    @include border(none, 0px, 0px, transparent);
-    @include flex(row, center, center, nowrap);
+    @include mixins.border(none, 0px, 0px, transparent);
+    @include mixins.flex(row, center, center, nowrap);
     background-color: transparent;
     span {
       display: none;   

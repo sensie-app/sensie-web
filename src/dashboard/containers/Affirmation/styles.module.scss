@@ -1,12 +1,16 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins" as mixins2;
+@use "../../../styles/variables";
+@use "../../styles/mixins";
+
 
 .AffirmationContainer {
-  background-color: $grayColor6;
+  background-color: variables.$grayColor6;
   border-radius: 5px;
   width: 100%;
-  @include G50Container(); 
-  @include heightGrid();
-  @include flex(row, flex-start, center, wrap);
+  @include mixins.G50Container(); 
+  @include mixins.heightGrid();
+  @include mixins2.flex(row, flex-start, center, wrap);
 }
 
 .AffirmationSpiderHeaderContainer {
@@ -15,11 +19,11 @@
 }
 
 .AffirmationSpiderHeaderTitleContainer {
-  @include flex(row, flex-start, center, wrap);
+  @include mixins2.flex(row, flex-start, center, wrap);
   padding-top: 8px;
 }
 
 .AffirmationPagination {
   width: 100%;
-  @include flex(row, flex-end, center, nowrap);
+  @include mixins2.flex(row, flex-end, center, nowrap);
 }

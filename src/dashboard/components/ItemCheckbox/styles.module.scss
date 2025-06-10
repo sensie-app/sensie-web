@@ -1,12 +1,15 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .ItemCheckboxContainer {
   width: 100%;
-  @include flex(row, flex-start, center, nowrap);
+  @include mixins.flex(row, flex-start, center, nowrap);
   padding: 5px 0px;
 
   .ItemCheckboxCheck {
-    color: $actionColor1 !important;
+    color: variables.$actionColor1 !important;
   }
 
   .ItemCheckboxTitle {

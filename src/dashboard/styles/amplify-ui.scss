@@ -1,5 +1,5 @@
-@import '../../styles/index.scss'; // global styles
-@import './mixins.scss'; // mixins for dashboard
+@use '../../styles/index.scss'; // global styles
+@use 'mixins.scss'; // mixins for dashboard
 
 amplify-authenticator {
   background-color: #030303;

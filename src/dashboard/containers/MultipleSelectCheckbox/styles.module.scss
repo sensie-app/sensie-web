@@ -1,13 +1,16 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .MultipleSelectCheckboxContainer {
-  @include flex(row, center, center, nowrap);
+  @include mixins.flex(row, center, center, nowrap);
   position: relative;
   button {
     width: 100%;
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
     span {
-      color: $fontColor1;
+      color: variables.$fontColor1;
       margin-right: 10px;
     }
   }
@@ -15,7 +18,7 @@
 
 .MultipleSelectCheckboxMenuItem {
   .MultipleSelectCheckboxMenuItemCheckbox {
-    color: $actionColor1 !important;
+    color: variables.$actionColor1 !important;
   }
   div {
     padding-right: 10px;
@@ -24,11 +27,11 @@
 
 .MultipleSelectCheckboxButton {
   opacity: 1;
-  color: $fontColor1;
+  color: variables.$fontColor1;
   background-color: transparent;
-  @include border(none, 0px, 0px, transparent);
+  @include mixins.border(none, 0px, 0px, transparent);
   &:hover, &:focus, &:active {
-    @include border(none, 0px, 0px, transparent);
+    @include mixins.border(none, 0px, 0px, transparent);
   }
 }
 
