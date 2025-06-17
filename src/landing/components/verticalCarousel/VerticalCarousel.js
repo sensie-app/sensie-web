@@ -4,7 +4,7 @@ import React from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import './VerticalCarousel.scss'
 
-import { Box } from '@material-ui/core'
+import { Box } from '@mui/material'
 import Users from '../Users'
 
 const Carousel = require('react-responsive-carousel').Carousel

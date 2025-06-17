@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react'
-import { Grid, Avatar, makeStyles, Box } from '@material-ui/core'
+import { Grid, Avatar, Box } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import Quotes from '../assets/img/Quotes.svg'
 
 const useStyles = makeStyles({

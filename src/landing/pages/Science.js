@@ -1,5 +1,6 @@
 import React from 'react'
-import { Grid, Box, Typography, makeStyles, Hidden } from '@material-ui/core'
+import { Grid, Box, Typography, Hidden } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import Title from '../components/Title/Title'
 import { Parallax, Background } from 'react-parallax'
 import Epigraph from '../components/Epigraph'
@@ -23,7 +24,7 @@ const Science = () => {
   return (
     <div id="scc" style={{ backgroundColor: '#071215' }}>
       {/* BLOQUE 1 */}
-      <Hidden smDown>
+      <Hidden mdDown>
         <Parallax strength={400}>
           <Background className="backgroundImg">
             <img className={classes.bgImg} src={backgroundScienceMan1} />
@@ -36,7 +37,7 @@ const Science = () => {
                   <Box>
                     <Grid>
                       <Link to={scienceanchor}>
-                        <Typography style={{ fontSize: '1.3rem' }}>&lt; Back</Typography>
+                        <Typography style={{ fontSize: '1.3rem' }}>&lt Back</Typography>
                       </Link>
                     </Grid>
                   </Box>
@@ -77,7 +78,7 @@ const Science = () => {
                 <Box>
                   <Grid>
                     <Link to={scienceanchor}>
-                      <Typography>&lt; Back</Typography>
+                      <Typography>&lt Back</Typography>
                     </Link>
                   </Grid>
                 </Box>
@@ -107,10 +108,8 @@ const Science = () => {
           <Grid item xs={1}></Grid>
         </Grid>
       </Hidden>
-
       {/* BLOQUE 2 */}
-
-      <Hidden smDown>
+      <Hidden mdDown>
         <Parallax strength={400}>
           <Background className="backgroundImg">
             <img className={classes.bgImg} src={backgroundScienceMan2} />

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 // material-ui
-// import Checkbox from '@material-ui/core/Checkbox'
+// import Checkbox from '@mui/material/Checkbox'
 // component
 import SvgIcon from '../SvgIcon'
 // constants

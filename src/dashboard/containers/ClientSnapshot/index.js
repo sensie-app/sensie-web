@@ -2,7 +2,7 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
 // material-ui
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 // redux
 import { /* useDispatch, */ useSelector } from 'react-redux'
 // import { setPaginationClientSnapshotAction } from '../../../redux/actions/pagination.actions'

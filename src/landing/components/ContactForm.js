@@ -1,11 +1,6 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  TextField,
-  makeStyles,
-  Button
-} from '@material-ui/core'
+import { Box, Typography, TextField, Button } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles({
   root: {

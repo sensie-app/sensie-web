@@ -29,7 +29,7 @@ import { createTopicPrivate, updateUserTopicId } from '../../graphql/mutations'
 import { getTopicByIdQuery } from '../../graphql/queries'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // import { useParams } from 'react-router-dom'
-// import Grid from "@material-ui/core/Grid";
+// import Grid from "@mui/material/Grid"
 
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants

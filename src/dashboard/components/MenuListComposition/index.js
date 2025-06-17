@@ -12,7 +12,7 @@ import {
   Grow,
   Popper,
   MenuList
-} from '@material-ui/core'
+} from '@mui/material'
 // components
 import Icon from '../Icon'
 // constants

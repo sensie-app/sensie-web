@@ -1,7 +1,7 @@
 // react
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Switch, Route, useLocation, Redirect } from 'react-router-dom'
-// import { ThemeProvider } from '@material-ui/core/styles'
+
 // redux
 import { useSelector } from 'react-redux'
 // import { getAllTopicsAction } from '../../redux/actions/topics.action'
@@ -87,7 +87,6 @@ const DashboardRoutes = () => {
 
   return (
     <AuthStateApp>
-      {/* <ThemeProvider theme={theme}> */}
         <BrowserRouter>
           <Switch>
             <Layout>
@@ -108,7 +107,6 @@ const DashboardRoutes = () => {
             <Route component={NotFound404} />
           </Switch>
         </BrowserRouter>
-      {/* </ThemeProvider> */}
     </AuthStateApp>
   )
 }

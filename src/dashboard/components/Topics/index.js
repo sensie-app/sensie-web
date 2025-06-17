@@ -3,7 +3,7 @@ import React, { Fragment, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 // material-ui
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 // components
 import Topic from '../Topic'
 // constants
@@ -48,7 +48,7 @@ const Topics = ({ data, user }) => {
       })
     }
     // eslint-disable-next-line
-  }, []);
+  }, [])
 
   // ? render functions
   /**

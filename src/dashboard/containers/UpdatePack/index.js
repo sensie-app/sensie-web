@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux'
 import { updatePacksAction, deletePacksAction } from '../../../redux/actions/packs.actions'
 
 import { Storage } from 'aws-amplify'
-import { ClickAwayListener, IconButton, Grow, MenuList, Popper } from '@material-ui/core'
+import { ClickAwayListener, IconButton, Grow, MenuList, Popper } from '@mui/material'
 // import { v4 as uuidv4 } from 'uuid'
 
 // const
@@ -197,7 +197,12 @@ const UpdatePack = ({ img, title, authorName, id }) => {
     <>
       <div className={styles.UpdatePackContainer}>
         <div className={styles.UpdatePackBtn}>
-          <IconButton ref={anchorRef} aria-controls={open ? 'menu-list-grow' : undefined} aria-haspopup="true" onClick={handleToggle}>
+          <IconButton
+            ref={anchorRef}
+            aria-controls={open ? 'menu-list-grow' : undefined}
+            aria-haspopup="true"
+            onClick={handleToggle}
+            size="large">
             <Icon name="more-vertical-outline" color={grayColor3} size="sm"></Icon>
           </IconButton>
         </div>
@@ -256,7 +261,6 @@ const UpdatePack = ({ img, title, authorName, id }) => {
     </>
   )
 }
-
 // prop-types
 UpdatePack.propTypes = {
   /** img */

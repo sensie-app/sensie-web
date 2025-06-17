@@ -37,7 +37,7 @@ const { fontColor1, grayColor5 } = COLORS
  * @param {boolean} chipsUp (default: false)
  * @param {number} limit
  * @param {string} title (default: ')
- * @param {number} theme (1, 2, 3) -> 1: default; 2: change title; 3: change backgroundColor & padding
+ * @param {number} theme (1, 2, 3) -> 1: default 2: change title 3: change backgroundColor & padding
  * @param {undefined} getSensies (default: () => {})
  */
 const AffirmationsList = ({ chipsUp = false, multiUser = true, user, limit, title = '', theme = 1, getSensies = () => {} }) => {

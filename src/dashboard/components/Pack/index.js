@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { Storage } from 'aws-amplify'
 // material-ui
-// import Checkbox from '@material-ui/core/Checkbox'
+// import Checkbox from '@mui/material/Checkbox'
 // constants
 import IMG from '../../constants/images'
 // sytyles

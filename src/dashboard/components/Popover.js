@@ -2,9 +2,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 // material-ui
-import Popover from '@material-ui/core/Popover'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
+import Popover from '@mui/material/Popover'
+import Typography from '@mui/material/Typography'
+import makeStyles from '@mui/styles/makeStyles'
 // constants
 import { COLORS } from '../../constants/theme'
 

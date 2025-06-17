@@ -1,5 +1,6 @@
 import React from 'react'
-import { makeStyles, Grid, Box } from '@material-ui/core'
+import { Grid, Box } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import Title from '../components/Title/Title'
 import Features from '../components/Features'
 // import Idea from '../assets/img/idea.svg'
@@ -190,7 +191,7 @@ const AboutSensie = () => {
             xs={10}
             sm={12}
             container
-            justify="center"
+            justifyContent="center"
             alignItems="center"
           >
             <Grid item xs={12}>
@@ -278,7 +279,7 @@ const AboutSensie = () => {
             xs={10}
             sm={12}
             container
-            justify="center"
+            justifyContent="center"
             alignItems="center"
           >
             <Grid item xs={12}>

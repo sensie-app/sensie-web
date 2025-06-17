@@ -19,6 +19,10 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 import ReactGA from 'react-ga'
 
+// mui
+import { ThemeProvider, CssBaseline } from '@mui/material'
+import theme from './landing/themeConfig' // ⬅️ Importas el theme
+
 Amplify.configure(awsExports)
 
 Analytics.autoTrack('session', {
@@ -41,18 +45,19 @@ ReactGA.pageview(window.location.pathname + window.location.search)
 
 ReactDOM.render(
   <React.StrictMode>
-    <I18nextProvider i18n={i18next}>
-      <Provider store={store}>
-      <Authenticator.Provider>
-        <App />
-      </Authenticator.Provider>
-      </Provider>
-    </I18nextProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <I18nextProvider i18n={i18next}>
+        <Provider store={store}>
+          <Authenticator.Provider>
+            <App />
+          </Authenticator.Provider>
+        </Provider>
+      </I18nextProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('app')
 )
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Performance
 reportWebVitals()

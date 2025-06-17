@@ -2,7 +2,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 // material-ui
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 // containers
 import Header from '../../containers/Header'
 // components

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
+import { Divider, List, ListItem, ListItemText } from '@mui/material'
 
 // components
 import Loading from '../Loading'

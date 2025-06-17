@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Redirect, useParams } from 'react-router-dom'
 // material-ui
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 // containers
 import Header from '../../containers/Header'
 import UserStatistics from '../../containers/UserStatistics'

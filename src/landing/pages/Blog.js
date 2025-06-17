@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, useHistory } from 'react-router-dom'
-import { makeStyles, Grid } from '@material-ui/core'
-import { Pagination } from '@material-ui/lab'
+import { Grid, Pagination } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 
 import Loading from '../components/Loading'
 import userSvg from '../assets/img/user.svg'

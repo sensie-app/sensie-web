@@ -1,5 +1,6 @@
 import React from 'react'
-import { TextField, makeStyles } from '@material-ui/core'
+import { TextField } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles({
   root: {
@@ -13,7 +14,7 @@ const Email = () => {
   return (
     <form
       id="mc-embedded-subscribe-form"
-        action="https://Sensieapp.us14.list-manage.com/subscribe/post?u=1d3a330059900e75b4cbd38d4&amp;id=292a1f4049"
+        action="https://Sensieapp.us14.list-manage.com/subscribe/post?u=1d3a330059900e75b4cbd38d4&ampid=292a1f4049"
         method="post"
         noValidate
         autoComplete="off"

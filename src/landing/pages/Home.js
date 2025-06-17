@@ -3,7 +3,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable multiline-ternary */
 import React, { useState, useEffect } from 'react'
-import { Grid, Box, makeStyles, Hidden } from '@material-ui/core'
+import { Grid, Box, Hidden } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import { Parallax, Background } from 'react-parallax'
 
 // Components
@@ -109,12 +110,12 @@ const Home = () => {
           <Box mt={'8rem'}></Box>
         </Grid>
         <Grid item xs={1} sm={1} md={5}>
-          <Hidden smDown>
+          <Hidden mdDown>
             <Box mt={-16}>
               <Trazado />
             </Box>
           </Hidden>
-          <Hidden smDown>
+          <Hidden mdDown>
             <Hand />
           </Hidden>
         </Grid>
@@ -156,9 +157,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={0} sm={1} md={1}></Grid>
       </Grid>
-
       {/* BLOQUE 2 Carousel & Sponsor */}
-
       <Grid direction="column">
         <Box mb={18}>
           <Grid container>
@@ -176,7 +175,7 @@ const Home = () => {
               xs={10}
               sm={8}
               container
-              justify="space-evenly"
+              justifyContent="space-evenly"
               alignItems="center"
               data-aos="zoom-out-up"
             >
@@ -225,7 +224,6 @@ const Home = () => {
           </Grid>
         </Box>
       </Grid>
-
       {/* BLOQUE 3 Citation */}
       <Grid container direction="column">
         <Box mt={2} mb={6}>
@@ -239,7 +237,7 @@ const Home = () => {
         <Box>
           <Grid item container>
             <Grid item xs={5} md={1}></Grid>
-            <Grid item container xs={2} sm={12} md={10} justify="space-evenly">
+            <Grid item container xs={2} sm={12} md={10} justifyContent="space-evenly">
               <Box mt={4} data-aos="fade-right">
                 <WisdomCard
                   ImageW={MindfullBeginner}
@@ -280,7 +278,7 @@ const Home = () => {
         <Grid container className={classes.background}>
           <Grid item xs={1}></Grid>
           <Grid item container xs={10}>
-            <Hidden smDown>
+            <Hidden mdDown>
               <Grid item xs={12} sm={6}>
                 <Box my={18}>
                   <Grid data-aos="zoom-out-up">
@@ -380,7 +378,7 @@ const Home = () => {
                 </Box>
               </Grid>
             </Hidden>
-            <Hidden smDown>
+            <Hidden mdDown>
               <Grid xs={12} sm={6} style={{ textAlign: 'right' }}>
                 <video
                   id="videowhip"
@@ -405,7 +403,7 @@ const Home = () => {
       </div>
       {/* BLOQUE 5 The Science */}
       <div id="science"></div>
-      <Hidden smDown>
+      <Hidden mdDown>
         <Parallax strength={300}>
           <Background>
             <img
@@ -479,7 +477,6 @@ const Home = () => {
           <Grid item xs={1}></Grid>
         </Grid>
       </Hidden>
-
       {/* BLOQUE 6 Web and mobile solution */}
       <div style={{ mixBlendMode: 'lighten' }}>
         <Grid direction="column">
@@ -494,7 +491,7 @@ const Home = () => {
             <Grid item xs={12}>
               {showDashboard ? null : (
                 <Box>
-                  <Hidden smDown>
+                  <Hidden mdDown>
                     <Grid item xs={6}></Grid>
                     <Grid
                       item
@@ -531,7 +528,7 @@ const Home = () => {
                   </Grid>
                   <Grid item xs={1}></Grid>
                 </Hidden>
-                <Hidden smDown>
+                <Hidden mdDown>
                   <Box data-aos-delay="3000">
                     <video
                       id="videosensie"
@@ -550,7 +547,7 @@ const Home = () => {
         </Grid>
       </div>
       {/* BLOQUE 7 Citation */}
-      <Hidden smDown>
+      <Hidden mdDown>
         <Parallax strength={300}>
           <Background>
             <img
@@ -583,7 +580,6 @@ const Home = () => {
           </Box>
         </Grid>
       </Hidden>
-
       {/* BLOQUE 8 Membership */}
       {/* <div id="membership"></div>
       <Grid container direction="column">

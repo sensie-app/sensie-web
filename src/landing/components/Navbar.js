@@ -5,9 +5,9 @@ import {
   Grid,
   Box,
   Button,
-  Hidden,
-  makeStyles
-} from '@material-ui/core'
+  Hidden
+} from '@mui/material'
+
 import { NavLink } from 'react-router-dom'
 import { HashLink as Link } from 'react-router-hash-link'
 
@@ -18,43 +18,27 @@ import APP_ROUTES from '../../constants/routes'
 import LogoSensie from './Logo'
 import CustomizedMenus from './Menu'
 
-const { /* membership, */ howitworks, blog, scienceanchor, abs, contact, hm } = LANDING_ROUTES
-
-const useStyle = makeStyles((theme) => ({
-  offset: {
-    theme: theme.mixins.toolbar,
-    offset2: theme.spacing(2)
-  },
-  btnStyle: {
-    borderRadius: '0.8rem',
-    margin: theme.spacing(1),
-    fontSize: '1rem',
-    fontWeight: 'bold',
-    width: '8.2rem',
-    height: '3.5rem'
-  },
-  textTab: {
-    fontSize: '1rem',
-    fontStyle: 'normal',
-    color: 'white',
-    justifyContent: 'center'
-  },
-  navbarStyle: {
-    backgroundColor: 'rgba(7, 18, 21, 0.8)',
-    minHeight: '8rem',
-    backdropFilter: 'blur(10px)'
-  },
-  toolbarStyle: {
-    minHeight: '8rem'
-  }
-}))
+const {
+  howitworks,
+  blog,
+  scienceanchor,
+  abs,
+  contact,
+  hm
+} = LANDING_ROUTES
 
 const Navbar = () => {
-  const classes = useStyle()
   return (
     <>
-      <AppBar position="fixed" className={classes.navbarStyle}>
-        <Toolbar className={classes.toolbarStyle}>
+      <AppBar
+        position="fixed"
+        sx={{
+          backgroundColor: 'rgba(7, 18, 21, 0.8)',
+          minHeight: '8rem',
+          backdropFilter: 'blur(10px)'
+        }}
+      >
+        <Toolbar sx={{ minHeight: '8rem' }}>
           <Grid container alignItems="center">
             <Hidden mdUp>
               <Grid xs={1}>
@@ -69,31 +53,29 @@ const Navbar = () => {
               </Box>
             </Grid>
             <Hidden smDown>
-
               <Grid
                 item
                 container
-              xs={12}
-              sm={8}
+                xs={12}
+                sm={8}
                 direction="row"
-                className={classes.textTab}
+                sx={{
+                  fontSize: '1rem',
+                  fontStyle: 'normal',
+                  color: 'white',
+                  justifyContent: 'center'
+                }}
               >
                 <Link to={howitworks}>
                   <Box mx={1}>HOW IT WORKS</Box>
                 </Link>
-
                 <Link to={scienceanchor}>
                   <Box mx={1}>SCIENCE</Box>
                 </Link>
-
-                {/* <Link to={membership}>
-                  <Box mx={1}>MEMBERSHIP</Box>
-                </Link> */}
-
                 {process.env.REACT_APP_FEAT_BLOG_ENABLED === 'true' && (
-                <NavLink to={blog}>
-                  <Box mx={1}>BLOG</Box>
-                </NavLink>
+                  <NavLink to={blog}>
+                    <Box mx={1}>BLOG</Box>
+                  </NavLink>
                 )}
                 <Link to={abs}>
                   <Box mx={1}>ABOUT</Box>
@@ -103,39 +85,56 @@ const Navbar = () => {
                 </Link>
               </Grid>
               {process.env.REACT_APP_FEAT_DASHBOARD_ENABLED === 'true' && (
-              <Grid item xs={12} sm={2}>
-                <Box display="flex" justifyContent="flex-end">
-                  <Box>
-                    <a href={APP_ROUTES.dashboard + '/login'}>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        size="large"
-                        className={classes.btnStyle}
-                      >
-                        LOGIN
-                      </Button>
-                    </a>
+                <Grid item xs={12} sm={2}>
+                  <Box display="flex" justifyContent="flex-end">
+                    <Box>
+                      <a href={APP_ROUTES.dashboard + '/login'}>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          size="large"
+                          sx={{
+                            borderRadius: '0.8rem',
+                            margin: 1,
+                            fontSize: '1rem',
+                            fontWeight: 'bold',
+                            width: '8.2rem',
+                            height: '3.5rem'
+                          }}
+                        >
+                          LOGIN
+                        </Button>
+                      </a>
+                    </Box>
+                    <Box>
+                      <a href={APP_ROUTES.dashboard + '/signup'}>
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          size="small"
+                          sx={{
+                            borderRadius: '0.8rem',
+                            margin: 1,
+                            fontSize: '1rem',
+                            fontWeight: 'bold',
+                            width: '8.2rem',
+                            height: '3.5rem'
+                          }}
+                        >
+                          SIGN UP
+                        </Button>
+                      </a>
+                    </Box>
                   </Box>
-                  <Box>
-                    <a href={APP_ROUTES.dashboard + '/signup'}>
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                        size="small"
-                        className={classes.btnStyle}
-                      >
-                        SIGN UP
-                      </Button>
-                    </a>
-                  </Box>
-                </Box>
-              </Grid>
+                </Grid>
               )}
             </Hidden>
           </Grid>
         </Toolbar>
       </AppBar>
+
+      {/* Aquí agregamos el espacio para el AppBar */}
+      <Box sx={(theme) => ({ ...theme.mixins.toolbar })} />
     </>
   )
 }

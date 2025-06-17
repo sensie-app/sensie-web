@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 // material-ui
-import Grid from '@material-ui/core/Grid'
-import Checkbox from '@material-ui/core/Checkbox'
+import Grid from '@mui/material/Grid'
+import Checkbox from '@mui/material/Checkbox'
 // components
 import Title from '../../components/Title'
 import ImageAvatar from '../../components/ImageAvatar'

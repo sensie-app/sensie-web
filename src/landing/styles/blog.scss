@@ -173,9 +173,6 @@ production stylesheet in assets/built/screen.css
   html {
       box-sizing: border-box;
       font-family: sans-serif;
-
-      -ms-text-size-adjust: 100%;
-      -webkit-text-size-adjust: 100%;
   }
   *,
   *:before,
@@ -863,7 +860,6 @@ production stylesheet in assets/built/screen.css
         display: flex;
         align-items: center;
         justify-content: space-between;
-        user-select: none;
     }
     .home-template #gh-head .gh-head-brand {
         justify-content: flex-end;
@@ -1953,7 +1949,6 @@ production stylesheet in assets/built/screen.css
 
   .author-profile-content {
     height: auto;
-    position: sticky;
     top: 4vmin;
     font-size: 1.4em;
     line-height:  1.4em;

@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { makeStyles, Grid, Box, Typography } from '@material-ui/core'
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
+import { Grid, Box, Typography } from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 const useStyle = makeStyles({
   icon: {
     fontSize: '0.7rem'
@@ -18,7 +20,7 @@ const Features = ({ text }) => {
   const classes = useStyle()
   return (
     <Grid container>
-      <Grid item container xs={1} justify='center'>
+      <Grid item container xs={1} justifyContent='center'>
         <Box mt={0.5} color="primary.main">
           <FiberManualRecordIcon className={classes.icon} />
         </Box>

@@ -1,9 +1,8 @@
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
-// material-ui
-import { makeStyles } from '@material-ui/core/styles'
-import Alert from '@material-ui/lab/Alert'
+import makeStyles from '@mui/styles/makeStyles'
+import Alert from '@mui/material/Alert'
 
 // materil-styles
 const useStyles = makeStyles((theme) => ({
