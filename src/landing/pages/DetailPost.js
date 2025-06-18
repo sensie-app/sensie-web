@@ -68,14 +68,16 @@ const DetailPost = () => {
   const [post, savePost] = useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(async () => {
-    const response = await getPost(id)
-    if (response?.data?.posts) {
-      savePost(response.data.posts[0])
-      window.twttr.widgets.load()
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getPost(id)
+      if (response?.data?.posts) {
+        savePost(response.data.posts[0])
+        window.twttr.widgets.load()
+      }
+      setLoading(false)
     }
-
-    setLoading(false)
+    fetchData()
   }, [])
 
   const getPost = async (id) => {

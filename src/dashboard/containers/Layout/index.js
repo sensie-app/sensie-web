@@ -194,21 +194,22 @@ const Layout = ({ children }) => {
                   </div>
                     )
                   : null}
-                <IconButton
-                  aria-label="logout"
-                  aria-controls="logout-menu"
-                  color="inherit"
-                  onClick={() => {}}
-                >
+                <div className={styles.LayoutAppBarLeftIconsLogout}>
                   <AlertDialog
                     title={t('dashboard.Layout.signOut')}
                     withLogout={true}
                     description={t('dashboard.Layout.signOut?')}
                     disagreeText={t('dashboard.Layout.close')}
                   >
-                    <Icon name="log-out-outline" size="md" color={fontColor1} />
+                    <IconButton
+                      aria-label="logout"
+                      aria-controls="logout-menu"
+                      color="inherit"
+                    >
+                      <Icon name="log-out-outline" size="md" color={fontColor1} />
+                    </IconButton>
                   </AlertDialog>
-                </IconButton>
+                </div>
               </div>
             </div>
           </Toolbar>

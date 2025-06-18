@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import makeStyles from '@mui/styles/makeStyles'
 import lottie from 'lottie-web'
 import animation from '../scripts/data.json'
@@ -16,13 +16,19 @@ const useStyles = makeStyles({
 
 const Trazado = () => {
   const classes = useStyles()
-  const animationContainer = React.createRef()
+  const animationContainer = useRef(null)
+  const animInstance = useRef(null)
 
   useEffect(() => {
-    const anim = lottie.loadAnimation({
+    animInstance.current = lottie.loadAnimation({
       container: animationContainer.current,
       animationData: animation
     })
+    return () => {
+      if (animInstance.current) {
+        animInstance.current.destroy()
+      }
+    }
   }, [])
   return <div ref={animationContainer} className={classes.root}></div>
 }

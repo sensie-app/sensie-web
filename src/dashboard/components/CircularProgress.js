@@ -1,7 +1,7 @@
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import CircularProgress from '@mui/material/CircularProgress'
 
 // * component
@@ -11,23 +11,18 @@ import CircularProgress from '@mui/material/CircularProgress'
  * @param {number} size (default: 20)
  */
 const CircularIndeterminate = ({ color = 'white', size = 20 }) => {
-  // material-ui-styles
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      padding: 5
-    },
-    button: {
-      color: color
-    }
-  }))
+  const Root = styled('div')({
+    padding: 5
+  })
 
-  // ? hooks
-  const classes = useStyles()
+  const StyledCircularProgress = styled(CircularProgress)({
+    color: color
+  })
 
   return (
-    <div className={classes.root}>
-      <CircularProgress className={classes.button} size={size} />
-    </div>
+    <Root>
+      <StyledCircularProgress size={size} />
+    </Root>
   )
 }
 

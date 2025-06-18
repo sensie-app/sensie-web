@@ -67,8 +67,11 @@ const Pack = () => {
   useEffect(() => handlePackId(), [packsReducer])
   useEffect(() => dispatch(listPacksAction(user.id)), [user.loading, newAff])
 
-  useEffect(async () => {
-    dispatch(getAllTopicsAction(user.data.userTopicId))
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(getAllTopicsAction(user.data.userTopicId))
+    }
+    fetchData()
   }, [user.loading, newAff])
 
   const [uri, setUri] = useState('')

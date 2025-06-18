@@ -47,11 +47,14 @@ const AuthStateApp = ({ children }) => {
     }
   }, [route])
 
-  useEffect(async () => {
+  useEffect(() => {
     if (userData !== null && authState === 'authenticated') {
-      const { username } = user
-      dispatch(setUserIdAction(username))
-      dispatch(getUserByIdAction(username))
+      const fetchData = async () => {
+        const { username } = user
+        dispatch(setUserIdAction(username))
+        dispatch(getUserByIdAction(username))
+      }
+      fetchData()
     }
   }, [userData])
 

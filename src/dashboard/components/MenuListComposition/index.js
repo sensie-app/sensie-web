@@ -1,7 +1,3 @@
-// TODO:
-// ! ERROR React.StrictMode -> desde Header
-
-// react
 import React, { useState, useEffect, useRef, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
@@ -49,10 +45,16 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
   const prevOpen = useRef(open)
   const [t] = useTranslation('global')
 
-  useEffect(() => defaultValue === null && setItem(defValue), [])
-  useEffect(() => setItem(defaultValue), [defaultValue])
   useEffect(() => {
-    prevOpen.current === true && open === false && anchorRef.current.focus()
+    if (defaultValue === null) {
+      setItem(defValue)
+    }
+  }, [defaultValue])
+
+  useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current?.focus()
+    }
     prevOpen.current = open
   }, [open])
 
@@ -66,7 +68,6 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
   /**
    * handle close
    * @param {Object} event event
-   * @return  {boolean} false
    */
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -107,11 +108,18 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
   const renderItems = () => {
     return data.length > 0 && data.map(item => {
       return (
-        <button style={handleThemeStyles()} className={styles.MenuListCompositionItem} key={item.index} onClick={() => handleClick(item, event)}>
+        <div
+          style={handleThemeStyles()}
+          className={styles.MenuListCompositionItem}
+          key={item.index}
+          onClick={() => handleClick(item, event)}
+          role="button"
+          tabIndex={0}
+        >
           <div>
             {t(`dashboard.MenuListComposition.${item.name}`)}
           </div>
-        </button>
+        </div>
       )
     })
   }

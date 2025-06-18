@@ -1,6 +1,6 @@
 // react
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import App from './routes/App'
 import reportWebVitals from './reportWebVitals'
 // amplify
@@ -21,7 +21,7 @@ import ReactGA from 'react-ga'
 
 // mui
 import { ThemeProvider, CssBaseline } from '@mui/material'
-import theme from './landing/themeConfig' // ⬅️ Importas el theme
+import theme from './landing/themeConfig'
 
 Amplify.configure(awsExports)
 
@@ -43,7 +43,10 @@ Analytics.autoTrack('pageView', {
 ReactGA.initialize('G-PRY3HQYSH8')
 ReactGA.pageview(window.location.pathname + window.location.search)
 
-ReactDOM.render(
+const container = document.getElementById('app')
+const root = createRoot(container)
+
+root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -55,8 +58,7 @@ ReactDOM.render(
         </Provider>
       </I18nextProvider>
     </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('app')
+  </React.StrictMode>
 )
 
 // Performance

@@ -59,7 +59,11 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   const [affirmations, setAffirmations] = useState([])
   const [active, setActive] = useState(null)
 
-  useEffect(async () => await handleOnClickProps(), [topic])
+  useEffect(() => {
+    if (topic) {
+      handleOnClickProps()
+    }
+  }, [topic])
 
   useEffect(() => {
     if (user.id !== null) {

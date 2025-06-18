@@ -115,9 +115,9 @@ const AlertDialog = ({
 
   return (
     <Fragment>
-      <Button onClick={handleClickOpen}>
+      <div onClick={handleClickOpen} style={{ cursor: 'pointer' }}>
         {children}
-      </Button>
+      </div>
       <Dialog
         open={open}
         onClose={handleClose}

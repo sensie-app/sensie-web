@@ -61,26 +61,24 @@ const Blog = () => {
   const { id } = useParams()
   const history = useHistory()
 
-  useEffect(async () => {
-    let valueInt = parseInt(id)
-
-    if (!Number.isInteger(valueInt)) {
-      valueInt = 1
-      history.push(`/blog/${valueInt}`)
-    }
-
-    const response = await getPost(valueInt)
-
-    if (response?.data?.posts) {
-      if (valueInt !== page) {
-        setPage(valueInt)
+  useEffect(() => {
+    const fetchData = async () => {
+      let valueInt = parseInt(id)
+      if (!Number.isInteger(valueInt)) {
+        valueInt = 1
+        history.push(`/blog/${valueInt}`)
       }
-
-      savePost(response.data.posts)
-      setNumPages(response.data.meta.pagination.pages)
+      const response = await getPost(valueInt)
+      if (response?.data?.posts) {
+        if (valueInt !== page) {
+          setPage(valueInt)
+        }
+        savePost(response.data.posts)
+        setNumPages(response.data.meta.pagination.pages)
+      }
+      setLoading(false)
     }
-
-    setLoading(false)
+    fetchData()
   }, [page])
 
   const handleChangePaginate = async (event, value) => {

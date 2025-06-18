@@ -67,9 +67,12 @@ const DashboardRoutes = () => {
   //   dispatch(getAllTopicsAction())
   // }, [])
 
-  useEffect(async () => {
-    // dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
-    // dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
+  useEffect(() => {
+    // const fetchData = async () => {
+    //   // dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
+    //   // dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
+    // }
+    // fetchData()
   }, [globalDateFilter])
 
   const [initialAuthState, setInitialAuthState] = useState(false)

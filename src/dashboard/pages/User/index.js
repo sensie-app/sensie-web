@@ -63,11 +63,14 @@ const User = () => {
     dispatch(listPacksAction(user.id))
   }, [user.id, globalDateFilter])
 
-  useEffect(async () => {
-    if (user.id) {
-      await handleUserQuery()
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user.id) {
+        await handleUserQuery()
+      }
+      // await handleAffirmationsQuery()
     }
-    // await handleAffirmationsQuery()
+    fetchData()
   }, [globalDateFilter, affirmationsReducer.affirmations, usersReducer.users])
 
   // ? handle functions
