@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Grid, Pagination } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 
@@ -59,14 +59,14 @@ const Blog = () => {
   const [post, savePost] = useState([])
   const [loading, setLoading] = useState(true)
   const { id } = useParams()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
       let valueInt = parseInt(id)
       if (!Number.isInteger(valueInt)) {
         valueInt = 1
-        history.push(`/blog/${valueInt}`)
+        navigate(`/blog/${valueInt}`)
       }
       const response = await getPost(valueInt)
       if (response?.data?.posts) {
@@ -83,7 +83,7 @@ const Blog = () => {
 
   const handleChangePaginate = async (event, value) => {
     setPage(value)
-    history.push(`/blog/${value}`)
+    navigate(`/blog/${value}`)
   }
 
   const getPost = async (id) => {
@@ -93,7 +93,7 @@ const Blog = () => {
   }
 
   const handleOpenPost = id => {
-    history.push(`/detail/${id}`)
+    navigate(`/detail/${id}`)
   }
 
   const handleParseDate = date => {

@@ -1,10 +1,7 @@
 // react
-import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-// amplify
-// import Amplify, { API, graphqlOperation } from 'aws-amplify'
-// import awsExports from '../aws-exports'
-// containers
+import React, { useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import DashboardRoutes from '../dashboard/routes/dashboard.routes'
 import LandingRoutes from '../landing/routes/Routes'
 // components
@@ -14,16 +11,23 @@ import APP_ROUTES from '../constants/routes'
 
 // Amplify.configure(awsExports)
 
+const AppleAssociation = () => {
+  useEffect(() => {
+    window.location.reload()
+  }, [])
+  return null
+}
+
 const App = () => {
   const { dashboard, landing } = APP_ROUTES
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path={'/apple-app-site-association'} onEnter={window.location.reload} />
-        <Route path={dashboard} component={DashboardRoutes} />
-        <Route path={landing} component={LandingRoutes} />
-        <Route component={NotFound404} />
-      </Switch>
+      <Routes>
+        <Route path="/apple-app-site-association" element={<AppleAssociation />} />
+        <Route path={`${dashboard}/*`} element={<DashboardRoutes />} />
+        <Route path={`${landing}/*`} element={<LandingRoutes />} />
+        <Route path="*" element={<NotFound404 />} />
+      </Routes>
     </BrowserRouter>
   )
 }

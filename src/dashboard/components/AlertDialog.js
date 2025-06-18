@@ -14,7 +14,7 @@ import { onClearUser } from '../../redux/actions/user.actions'
 import { onClearUsers } from '../../redux/actions/users.actions'
 
 import PropTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // amplify
 // import { AmplifySignOut } from '@aws-amplify/ui-react'
 // import { Auth } from 'aws-amplify'
@@ -56,7 +56,7 @@ const AlertDialog = ({
   // ? hooks
   const { signOut } = useAuthenticator()
   const [open, setOpen] = React.useState(false)
-  const history = useHistory()
+  const navigate = useNavigate()
   // ? handle functions
   /**
    * handle open
@@ -76,7 +76,7 @@ const AlertDialog = ({
       dispatch(onClearTopics())
       dispatch(onClearUser())
       dispatch(onClearUsers())
-      history.push('/dashboard')
+      navigate('/dashboard')
     }
   }
 

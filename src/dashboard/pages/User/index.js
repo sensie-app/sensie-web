@@ -1,7 +1,7 @@
 // react
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Redirect, useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 // material-ui
 import Grid from '@mui/material/Grid'
 // containers
@@ -55,13 +55,13 @@ const User = () => {
 
   useEffect(() => {
     client === undefined ? setRedirect(true) : setRedirect(false)
-  }, [globalDateFilter])
+  }, [client, globalDateFilter])
 
   useEffect(() => {
     dispatch(getAllTopicsAction(user.data.userTopicId))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
     dispatch(listPacksAction(user.id))
-  }, [user.id, globalDateFilter])
+  }, [user.id, globalDateFilter, dispatch, id])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,7 +71,7 @@ const User = () => {
       // await handleAffirmationsQuery()
     }
     fetchData()
-  }, [globalDateFilter, affirmationsReducer.affirmations, usersReducer.users])
+  }, [globalDateFilter, affirmationsReducer.affirmations, usersReducer.users, user.id])
 
   // ? handle functions
   /**
@@ -115,9 +115,12 @@ const User = () => {
    */
   // const handleSensies = () => sensies && (sensies.length > -1)
 
+  if (redirect) {
+    return <Navigate to={home} replace />
+  }
+
   return (
     <section className={styles.UserContainer}>
-      {redirect && <Redirect to={home} />}
       {/* seo */}
       <HelmetSEO title={t('seo.User.title')} subtitle={t('seo.User.subtitle')} />
       {/* header */}

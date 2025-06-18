@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 // components
 import Icon from '../../components/Icon'
 import Modal from '../../components/Modal'
@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux'
 import { updatePacksAction, deletePacksAction } from '../../../redux/actions/packs.actions'
 
 import { Storage } from 'aws-amplify'
-import { ClickAwayListener, IconButton, Grow, MenuList, Popper } from '@mui/material'
+import { ClickAwayListener, IconButton, Grow, MenuList, Popper, Paper } from '@mui/material'
 // import { v4 as uuidv4 } from 'uuid'
 
 // const
@@ -59,7 +59,7 @@ const UpdatePack = ({ img, title, authorName, id }) => {
       setPrevImg(d)
       setShowFile(d)
     })
-  }, [])
+  }, [img])
 
   useEffect(() => {
     prevOpen.current === true && open === false && anchorRef.current.focus()
@@ -115,10 +115,12 @@ const UpdatePack = ({ img, title, authorName, id }) => {
           .then(res => {
             dispatch(updatePacksAction(packId, value, value, author, res.key))
             setShowError(false)
+            setRedirect(true)
           })
       } else {
         dispatch(updatePacksAction(packId, value, value, author, img))
         setShowError(false)
+        setRedirect(true)
       }
     }
     return false
@@ -136,6 +138,10 @@ const UpdatePack = ({ img, title, authorName, id }) => {
   }
 
   const handleToggle = () => setOpen((prevOpen) => !prevOpen)
+
+  if (redirect) {
+    return <Navigate to={`${pack}/${packId}`} replace />
+  }
 
   // ? render functions
   /**
@@ -187,7 +193,6 @@ const UpdatePack = ({ img, title, authorName, id }) => {
             type="submit"
             onClick={e => handleForm(e)}
           >{t('dashboard.CreatePack.update')}</button>
-          {redirect && <Redirect to={pack + '/' + packId} />}
         </div>
       </form>
     </form>
@@ -202,61 +207,40 @@ const UpdatePack = ({ img, title, authorName, id }) => {
             aria-controls={open ? 'menu-list-grow' : undefined}
             aria-haspopup="true"
             onClick={handleToggle}
-            size="large">
-            <Icon name="more-vertical-outline" color={grayColor3} size="sm"></Icon>
+          >
+            <Icon name="more-vertical-outline" color={grayColor3} size="m" />
           </IconButton>
+          <Popper
+            open={open}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            transition
+            disablePortal
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList autoFocusItem={open} id="menu-list-grow">
+                      <Modal
+                        title={t('dashboard.CreatePack.edit')}
+                        body={renderModalBody()}
+                        btn={renderModalBtn()}
+                        onClose={handleOnModalClose}
+                      />
+                      <div onClick={handleDelete}>
+                        {t('dashboard.CreatePack.delete')}
+                      </div>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
         </div>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-            >
-              <div className={styles.MenuListCompositionMenuContainer}>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList autoFocusItem={open} id="menu-list-grow">
-                    <button className={styles.MenuListCompositionItem}>
-                      <Modal
-                        title={t('dashboard.CreatePack.updatePack')}
-                        width='38%'
-                        initialState={false}
-                        width2='100%'
-                        onClose={handleOnModalClose}
-                        styleBtn={{ color: 'white' }}
-                      >
-                        {renderModalBtn()}
-                        {renderModalBody()}
-                      </Modal>
-                    </button>
-                    <button className={styles.MenuListCompositionItem}>
-                      <Modal
-                        title={t('dashboard.CreatePack.deletePack')}
-                        width='38%'
-                        initialState={false}
-                        width2='100%'
-                        onClose={handleOnModalClose}
-                        styleBtn={{ color: 'white' }}
-                      >
-                        <div>
-                          {t('dashboard.CreatePack.delete')}
-                        </div>
-                        <div className={styles.CreatePackBodyForm}>
-                          <p style={{ color: 'white' }}>{t('dashboard.CreatePack.confirmDelete')}</p>
-                          <div className={styles.CreatePackBodyFormBtn}>
-                            <button
-                              type="button"
-                              onClick={e => handleDelete(e)}
-                            >{t('dashboard.CreatePack.delete')}</button>
-                          </div>
-                        </div>
-                      </Modal>
-                    </button>
-                  </MenuList>
-                </ClickAwayListener>
-              </div>
-            </Grow>
-          )}
-        </Popper>
       </div>
     </>
   )

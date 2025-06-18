@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import '../styles/index.scss'
 import { NotFound404 } from '../components/Globals'
 import AOS from 'aos'
@@ -27,23 +27,21 @@ function App () {
 
   return (
     <div className='global'>
-      <BrowserRouter>
-        <Navbar />
-        <Switch>
-          <Route path={contact} component={Contact} />
-          <Route path={aboutsensie} component={AboutSensie} />
-          <Route exact path={blog} component={Blog} />
-          <Route path={blog + '/:id'} component={Blog} />
-          <Route path={detail + '/:id'} component={DetailPost} />
-          <Route path={science} component={Science} />
-          <Route path={home} component={Home} />
-          <Route path={privacy} component={Privacy} />
-          <Route path={terms} component={Terms} />
-          <Redirect from={entrypoint} to={home} />
-          <Route component={NotFound404} />
-        </Switch>
-        <Footer />
-      </BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path={contact} element={<Contact />} />
+        <Route path={aboutsensie} element={<AboutSensie />} />
+        <Route path={blog} element={<Blog />} />
+        <Route path={`${blog}/:id`} element={<Blog />} />
+        <Route path={`${detail}/:id`} element={<DetailPost />} />
+        <Route path={science} element={<Science />} />
+        <Route path={home} element={<Home />} />
+        <Route path={privacy} element={<Privacy />} />
+        <Route path={terms} element={<Terms />} />
+        <Route path={entrypoint} element={<Navigate to={home} replace />} />
+        <Route path="*" element={<NotFound404 />} />
+      </Routes>
+      <Footer />
     </div>
   )
 }

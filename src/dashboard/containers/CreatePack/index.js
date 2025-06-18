@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 // components
 import Icon from '../../components/Icon'
 import Modal from '../../components/Modal'
@@ -50,7 +50,7 @@ const CreatePack = ({ onSave }) => {
       setRedirect(true)
       dispatch(cleanNewPackAction())
     }
-  }, [packsReducer])
+  }, [packsReducer, dispatch])
 
   // ? handle functions
   /**
@@ -103,6 +103,10 @@ const CreatePack = ({ onSave }) => {
     return false
   }
 
+  if (redirect) {
+    return <Navigate to={`${pack}/${newPackId}`} replace />
+  }
+
   // ? render functions
   /**
    * render modal button
@@ -152,7 +156,6 @@ const CreatePack = ({ onSave }) => {
             type="submit"
             onClick={e => handleForm(e)}
           >{t('dashboard.CreatePack.create')}</button>
-          {redirect && <Redirect to={pack + '/' + newPackId} />}
         </div>
       </form>
     </form>
