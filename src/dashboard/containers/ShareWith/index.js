@@ -18,7 +18,7 @@ import styles from './styles.module.scss'
 
 import Loading from '../../components/Loading'
 
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from '@aws-amplify/api'
 import { createPackSubscriptionMutation } from '../../graphql/mutations'
 import PropTypes from 'prop-types'
 
@@ -64,7 +64,8 @@ const ShareWith = ({ pack }) => {
 
   const subPack = async (userId, packId) => {
     try {
-      await API.graphql(graphqlOperation(createPackSubscriptionMutation(userId, packId)))
+      const client = generateClient()
+      await client.graphql({ query: createPackSubscriptionMutation(userId, packId) })
     } catch (error) {
       console.log('error', error)
       toast.success(`Pack ${pack.name} failed to share to user ${userId}!`)

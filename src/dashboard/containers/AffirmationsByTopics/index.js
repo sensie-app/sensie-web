@@ -180,8 +180,8 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
               <Topic
                   img={_topic.picture}
                   icon={_topic.icon}
-                  title={_topic}
-                  topic={_topic}
+                  title={_topic.name}
+                  topic={_topic.name}
                   withLink={false}
                   witCheckbox={false}
                   min={true}

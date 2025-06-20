@@ -60,7 +60,7 @@ const Topics = ({ data, user }) => {
       const countAffirmation = item.affirmations.items.length
       return (
         <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Topic img={item.picture} icon={item.icon} route={topic + '/' + item.id} title={item.name} topic={item} count={countAffirmation} />
+          <Topic img={item.picture} icon={item.icon} route={topic + '/' + item.id} title={item.name} topic={item.name} count={countAffirmation} />
         </Grid>
       )
     })

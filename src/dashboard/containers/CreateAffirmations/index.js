@@ -71,7 +71,10 @@ const CreateAffirmations = ({
   const [showErrorTopics] = useState(false)
   const [showNewForm, setShowNewForm] = useState(initShowForm)
 
-  useEffect(() => dispatch(setNewAffirmationAction({ title, topics })), [title, topics])
+  useEffect(() => {
+    const nuevaAf = { title, topics }
+    dispatch(setNewAffirmationAction(nuevaAf))
+  }, [title, topics])
   useEffect(() => {
     defaultTopic !== '0' && defaultTopic.length !== 0
       ? setTopics(defaultTopic)

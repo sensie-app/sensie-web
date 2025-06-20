@@ -50,7 +50,7 @@ const DashboardRoutes = () => {
         <Routes>
           {initialAuthState && <Route path="*" element={<Navigate to="/" replace />} />}
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/client" element={<Client />} />
           <Route path="/team" element={<Team />} />
           <Route path="/intentions" element={<Affirmations />} />

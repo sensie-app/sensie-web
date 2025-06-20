@@ -33,7 +33,7 @@ import IMG from '../../constants/images'
 import styles from './styles.module.scss'
 // test data
 import { notificationsTest } from './testData'
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 
 // constants
 const { home, client, intentions, profile } = DASHBOARD_ROUTES
@@ -77,8 +77,11 @@ const Layout = ({ children }) => {
       <NavLink
         to={item.link}
         key={index}
-        className={styles.LayoutLinkTo}
-        activeClassName={styles.LayoutLinkToSelected}
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.LayoutLinkTo} ${styles.LayoutLinkToSelected}`
+            : styles.LayoutLinkTo
+        }
         onClick={() => setOpen(false)}
       >
         <div className={styles.LayoutLinkToListItem}>
@@ -103,8 +106,12 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     const getImage = async (k) => {
-      const img = (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
-      setPicture(img)
+      if (k && k !== 'null') {
+        const { url } = await getUrl({ path: k })
+        setPicture(url)
+      } else {
+        setPicture(defaultAvatar)
+      }
     }
     getImage(data.picture)
   }, [data])
@@ -280,6 +287,6 @@ const Layout = ({ children }) => {
   )
 }
 Layout.propTypes = {
-  children: PropTypes.array
+  children: PropTypes.node
 }
 export default Layout

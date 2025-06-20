@@ -15,7 +15,7 @@ import { IconChartTypes } from '../../constants/charts'
 import { handleDefaultPictureUser, handleFlow, handleAwareness } from '../../utils/functions'
 // styles
 import styles from './syles.module.scss'
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 
 import IMG from '../../constants/images'
 import { useDispatch, useSelector } from 'react-redux'
@@ -66,7 +66,11 @@ const UserStatistics = ({ data, sensies }) => {
   const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
   const getImage = async function (k) {
-    return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
+    if (k && k !== 'null') {
+      const { url } = await getUrl({ path: k })
+      return url
+    }
+    return defaultAvatar
   }
 
   const handleRemoveClient = () => {

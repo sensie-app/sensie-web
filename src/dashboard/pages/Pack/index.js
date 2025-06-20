@@ -35,7 +35,7 @@ import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // styles
 import styles from './styles.module.scss'
 
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 
 // const
 const { noImg } = IMG
@@ -78,7 +78,9 @@ const Pack = () => {
   // const [iconUri, setIconUri] = useState('')
 
   const getImage = async function (k) {
-    return (k ? await Storage.get(k) : noImg)
+    if (!k) return noImg
+    const { url } = await getUrl({ path: `public/${k}` })
+    return url
   }
 
   useEffect(() => {

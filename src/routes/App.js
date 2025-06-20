@@ -21,7 +21,7 @@ const AppleAssociation = () => {
 const App = () => {
   const { dashboard, landing } = APP_ROUTES
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
         <Route path="/apple-app-site-association" element={<AppleAssociation />} />
         <Route path={`${dashboard}/*`} element={<DashboardRoutes />} />

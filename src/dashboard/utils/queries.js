@@ -1,10 +1,11 @@
 // amplify
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from '@aws-amplify/api'
 
 export const gqlquery = async (query) => {
   const response = { loading: true, value: null }
   try {
-    const value = await API.graphql(graphqlOperation(query))
+    const client = generateClient()
+    const value = await client.graphql({ query })
     response.value = value
     response.loading = false
   } catch (error) {
@@ -16,7 +17,8 @@ export const gqlquery = async (query) => {
 export const gqlquery2 = async (query, input = null) => {
   const response = { loading: true, value: null }
   try {
-    const value = await API.graphql(graphqlOperation(query, input))
+    const client = generateClient()
+    const value = await client.graphql({ query, variables: input })
     response.value = value
     response.loading = false
   } catch (error) {

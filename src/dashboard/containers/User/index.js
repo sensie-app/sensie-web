@@ -20,7 +20,7 @@ import { handleDefaultPictureUser } from '../../utils/functions'
 import styles from './styles.module.scss'
 // prop-types
 import { UserPropTypes } from '../../prop-types'
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 
 import IMG from '../../constants/images'
 const { avatarFemale, avatarMale } = IMG
@@ -59,7 +59,7 @@ const User = ({ user, flow, awareness, totalSensies }) => {
   const defaultAvatar = user.gender === 'Male' ? avatarMale : avatarFemale
 
   const getImage = async function (k) {
-    return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
+    return (k && k !== 'null') ? await getUrl({ path: k }).url : defaultAvatar
   }
 
   useEffect(() => {

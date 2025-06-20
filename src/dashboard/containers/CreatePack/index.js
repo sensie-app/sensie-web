@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
 
-import { Storage } from 'aws-amplify'
+import { uploadData } from '@aws-amplify/storage'
 import { v4 as uuidv4 } from 'uuid'
 
 // const
@@ -91,14 +91,14 @@ const CreatePack = ({ onSave }) => {
       setRedirect(false)
     } else {
       const packId = uuidv4()
-      Storage.put('packs/' + packId + '.png', file, {
-        contentType: file.type
+      const { result } = await uploadData({
+        key: 'packs/' + packId + '.png',
+        data: file,
+        options: { contentType: file.type }
       })
-        .then(res => {
-          packsReducer.newpack = true
-          dispatch(createPacksAction(value, value, author, user.id, res.key))
-          setShowError(false)
-        })
+      packsReducer.newpack = true
+      dispatch(createPacksAction(value, value, author, user.id, result.key))
+      setShowError(false)
     }
     return false
   }

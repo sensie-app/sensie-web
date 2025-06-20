@@ -4,10 +4,11 @@ import { createRoot } from 'react-dom/client'
 import App from './routes/App'
 import reportWebVitals from './reportWebVitals'
 // amplify
-import { Analytics, Amplify } from 'aws-amplify'
+import { Amplify } from 'aws-amplify'
+import { Analytics } from '@aws-amplify/analytics'
 import { Authenticator } from '@aws-amplify/ui-react'
 
-import awsExports from './aws-exports'
+import amplifyconfig from './amplifyconfiguration.json'
 // styles
 import './styles/global.scss'
 import './styles/dateRangePickerStyle/index.scss' // global styles for React-dateRangePicker
@@ -23,7 +24,7 @@ import ReactGA from 'react-ga'
 import { ThemeProvider, CssBaseline } from '@mui/material'
 import theme from './landing/themeConfig'
 
-Amplify.configure(awsExports)
+Amplify.configure(amplifyconfig)
 
 Analytics.autoTrack('session', {
   enable: true,
@@ -47,7 +48,6 @@ const container = document.getElementById('app')
 const root = createRoot(container)
 
 root.render(
-  <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <I18nextProvider i18n={i18next}>
@@ -58,7 +58,6 @@ root.render(
         </Provider>
       </I18nextProvider>
     </ThemeProvider>
-  </React.StrictMode>
 )
 
 // Performance

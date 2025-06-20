@@ -12,7 +12,7 @@ import IMG from '../../constants/images'
 import { handleLargeName } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 // const
 const { noImg } = IMG
 
@@ -50,7 +50,9 @@ const Topic = ({
   const [iconUri, setIconUri] = useState('')
 
   const getImage = async function (k) {
-    return (k ? await Storage.get(k) : noImg)
+    if (!k) return noImg
+    const { url } = await getUrl({ path: `public/${k}` })
+    return url
   }
 
   useEffect(() => {
@@ -80,13 +82,13 @@ const Topic = ({
                 {withLink
                   ? <Link to={route}>
                       <div className={styles.TopicIconContainer}>
-                          <SvgIcon icon={iconUri} size={iconSize}/>
-                        <span>{handleLargeName(topic.name, 18)}</span>
+                          <SvgIcon icon={typeof iconUri === 'string' ? iconUri : ''} size={iconSize}/>
+                        <span>{handleLargeName(topic, 18)}</span>
                       </div>
                     </Link>
                   : <div className={styles.TopicIconContainer}>
-                      <SvgIcon icon={iconUri} size={iconSize}/>
-                      <span>{handleLargeName(topic.name, 18)}</span>
+                      <SvgIcon icon={typeof iconUri === 'string' ? iconUri : ''} size={iconSize}/>
+                      <span>{handleLargeName(topic, 18)}</span>
                     </div>
                 }
             </div>

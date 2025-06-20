@@ -1,4 +1,4 @@
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from '@aws-amplify/api'
 
 import { createInvite, updateInvite } from '../../dashboard/graphql/mutations'
 import { listLastUnusedInvitations } from '../../dashboard/graphql/queries'
@@ -21,7 +21,7 @@ export const getLastInvitationByCoach = (id) => async (dispatch) => {
   })
 
   try {
-    const response = await API.graphql(graphqlOperation(listLastUnusedInvitations(id)))
+    const response = await generateClient().graphql({ query: listLastUnusedInvitations(id) })
     const invites = response.data.getUser.invites.items
     const emptyInvite = {
       id: null,
@@ -51,7 +51,8 @@ export const createInvitation = (userId) => async dispatch => {
   })
 
   try {
-    const response = await API.graphql(graphqlOperation(createInvite(userId)))
+    const client = generateClient()
+    const response = await client.graphql({ query: createInvite(userId) })
 
     dispatch({
       type: CREATE_INVITATION,
@@ -67,7 +68,8 @@ export const createInvitation = (userId) => async dispatch => {
 
 export const updateInvitation = (invitationId, packsId) => async dispatch => {
   try {
-    await API.graphql(graphqlOperation(updateInvite(invitationId, JSON.stringify(packsId))))
+    const client = generateClient()
+    await client.graphql({ query: updateInvite(invitationId, JSON.stringify(packsId)) })
 
     dispatch({
       type: MODIFY_PACK_INVITATION,

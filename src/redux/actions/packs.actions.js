@@ -1,5 +1,5 @@
 // amplify
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from '@aws-amplify/api'
 // queries
 // import { listPacksWiyhAffirmationsIdsByIdQuery } from '../../dashboard/graphql/queries'
 import { getPacksFromUser } from '../../dashboard/graphql/queries'
@@ -22,7 +22,8 @@ export const listPacksAction = (id, filterPacks) => async dispatch => {
   })
 
   try {
-    const response = await API.graphql(graphqlOperation(getPacksFromUser(id)))
+    const client = generateClient()
+    const response = await client.graphql({ query: getPacksFromUser(id) })
     // const sPacks = response.data.getUser.subscribedPacks.items.filter(i => i.pack !== null)
     // const subbedPacks = sPacks.map(i => Object.assign(i.pack, { type: 'subscription' }))
     const createdPacks = response.data.listPackFilters || []
@@ -42,7 +43,8 @@ export const listPacksAction = (id, filterPacks) => async dispatch => {
 
 export const createPacksAction = (name, description, author, userId, imgKey) => async dispatch => {
   try {
-    const response = await API.graphql(graphqlOperation(createPackMutation(name, description, author, userId, imgKey)))
+    const client = generateClient()
+    const response = await client.graphql({ query: createPackMutation(name, description, author, userId, imgKey) })
     dispatch({
       type: CREATE_PACK,
       payload: response.data.createPack
@@ -61,7 +63,8 @@ export const updatePacksAction = (id, name, description, author, imgKey) => asyn
   })
 
   try {
-    const response = await API.graphql(graphqlOperation(updatePackMutation(id, name, description, author, imgKey)))
+    const client = generateClient()
+    const response = await client.graphql({ query: updatePackMutation(id, name, description, author, imgKey) })
     dispatch({
       type: UPDATE_PACK,
       payload: response.data.updatePack
@@ -76,7 +79,8 @@ export const updatePacksAction = (id, name, description, author, imgKey) => asyn
 
 export const updatePackCommunityAction = (id, isCommunityPack) => async dispatch => {
   try {
-    await API.graphql(graphqlOperation(updatePackCommunityMutation(id, isCommunityPack)))
+    const client = generateClient()
+    await client.graphql({ query: updatePackCommunityMutation(id, isCommunityPack) })
   } catch (error) {
     dispatch({
       type: ERROR,
@@ -91,7 +95,8 @@ export const deletePacksAction = (id) => async dispatch => {
   })
 
   try {
-    const response = await API.graphql(graphqlOperation(deletePackMutation(id)))
+    const client = generateClient()
+    const response = await client.graphql({ query: deletePackMutation(id) })
     dispatch({
       type: DELETE_PACK,
       payload: response.data.deletePack

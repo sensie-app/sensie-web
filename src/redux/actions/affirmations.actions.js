@@ -1,5 +1,5 @@
 // amplify
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from '@aws-amplify/api'
 // queries
 // import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
 import {
@@ -43,7 +43,8 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
   // const action = user ? listAffirmationsByUserIdAndTopicIdAndUser(id, dates, limit, user) : listAffirmationsByUserIdAndTopicId(id, dates, limit)
   const action = user ? getAffirmationsFromPacksByUser(id, dates, limit, user) : getAffirmationsFromPacks(id, dates, limit)
   try {
-    const response = await API.graphql(graphqlOperation(action))
+    const client = generateClient()
+    const response = await client.graphql({ query: action })
     const packs = response.data.getUser.packs.items.map(item => {
       return item.affirmations.items.map(i => Object.assign(i, { _packName: item.name, _packId: item.id }))
     })
@@ -59,11 +60,11 @@ export const listAffirmationsByCoachId = (id, dates, limit, user) => async dispa
     const full = await Promise.all(affsUnique.map(async aff => {
       let nextToken = null
       const sAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
-      const r = await API.graphql(graphqlOperation(sAction))
+      const r = await client.graphql({ query: sAction })
       nextToken = r.data.sensiesByAffirmationAndTimestamp.nextToken
       while (nextToken) {
         const subAction = user ? getSensiesByAffIdAndUser(aff.id, dates, user, nextToken) : getSensiesByAffId(aff.id, dates, nextToken)
-        const subReq = await API.graphql(graphqlOperation(subAction))
+        const subReq = await client.graphql({ query: subAction })
         nextToken = subReq.data.sensiesByAffirmationAndTimestamp.nextToken
         r.data.sensiesByAffirmationAndTimestamp.items = r.data.sensiesByAffirmationAndTimestamp.items.concat(subReq.data.sensiesByAffirmationAndTimestamp.items)
       }
@@ -88,15 +89,16 @@ export const createAffirmationAction = (name, description, topicsId, packId, use
   })
 
   try {
-    const newAffirmation = await API.graphql(graphqlOperation(createAffirmationMutation(name, description, userId)))
+    const client = generateClient()
+    const newAffirmation = await client.graphql({ query: createAffirmationMutation(name, description, userId) })
 
     if (!newAffirmation.loading && newAffirmation.value !== null) {
       const newAffirmationId = newAffirmation.value.data.createAffirmation.id
       // join pack
-      await API.graphql(graphqlOperation(joinAffirmationWithPackMutation(newAffirmationId, packId)))
+      await client.graphql({ query: joinAffirmationWithPackMutation(newAffirmationId, packId) })
       // join topics
       topicsId.map(async topicId => {
-        await API.graphql(graphqlOperation(joinAffirmationWithTopicMutation(newAffirmationId, topicId)))
+        await client.graphql({ query: joinAffirmationWithTopicMutation(newAffirmationId, topicId) })
       })
 
       dispatch({
@@ -165,15 +167,16 @@ export const deleteAffirmationAction = (affirmation) => async dispatch => {
     const packs = affirmation?.packs?.items || []
     const topics = affirmation?.topics?.items || []
 
-    const response = await API.graphql(graphqlOperation(deleteAffirmationMutation(affirmation.id)))
+    const client = generateClient()
+    const response = await client.graphql({ query: deleteAffirmationMutation(affirmation.id) })
 
     if (response?.data?.deleteAffirmation?.id) {
       await packs.map(async pack => {
-        return await API.graphql(graphqlOperation(removeJoinAffirmationPackMutation(pack.idPackAffJoin)))
+        return await client.graphql({ query: removeJoinAffirmationPackMutation(pack.idPackAffJoin) })
       })
 
       await topics.map(async topic => {
-        return await API.graphql(graphqlOperation(deleteTopicAffirmationJoinMutation(topic.idTopicAffJoin)))
+        return await client.graphql({ query: deleteTopicAffirmationJoinMutation(topic.idTopicAffJoin) })
       })
     }
 
