@@ -7,7 +7,8 @@ import './VerticalCarousel.scss'
 import { Box } from '@mui/material'
 import Users from '../Users'
 
-const Carousel = require('react-responsive-carousel').Carousel
+// const Carousel = require('react-responsive-carousel').Carousel
+import { Carousel } from 'react-responsive-carousel'
 
 const VerticalCarousel = () => {
   return (
