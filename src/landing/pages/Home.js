@@ -494,9 +494,8 @@ const Home = () => {
                   <Hidden mdDown>
                     <Grid item xs={6}></Grid>
                     <Grid
-                      item
                       xs={6}
-                      style={{ position: 'absolute', zIndex: '1000' }}
+                      style={{ position: 'absolute', zIndex: '1000', width: '50%' }}
                     >
                       <Box data-aos="fade-right" ml={6} mt="50%">
                         <VerticalCarousel />
