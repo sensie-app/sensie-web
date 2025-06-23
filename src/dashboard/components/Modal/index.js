@@ -55,9 +55,12 @@ const ModalComponent = ({ children, initialState = false, title = '', width = '2
         open={open}
         onClose={handleClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+            style: { zIndex: '-1' }
+          }
         }}
       >
         <Fade in={open}>
