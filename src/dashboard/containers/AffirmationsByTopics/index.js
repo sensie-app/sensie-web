@@ -98,7 +98,8 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
       let listaffirmations = topics.filter(item => item.id === topic.id)[0]
 
       if (typeof listaffirmations === 'undefined') {
-        const r = await gqlquery2(getTopicByIdQuery(topic.id))
+        // const r = await gqlquery2(getTopicByIdQuery(topic.id))
+        const r = await gqlquery2(getTopicByIdQuery, { id: topic.id })
         listaffirmations = r.value.data.getTopic
       }
 
@@ -152,6 +153,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
         key={index}
         onClick={() => handleOnClickBtn(_topic)}>
         <Topic
+          route=""
           img={handleImageTopics(_topic)}
           icon={_topic.icon}
           title={_topic}
@@ -178,6 +180,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
               to="listTopics" smooth={true} offset={-150}
               onClick={() => handleOnClickBtn(_topic)}>
               <Topic
+                  route=""
                   img={_topic.picture}
                   icon={_topic.icon}
                   title={_topic.name}

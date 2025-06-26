@@ -23,7 +23,9 @@ const TitleAndButton = ({ title, route, btnTitle }) => {
       </div>
       <div className={styles.TrackAffirmationsHeaderBtnContainer}>
         <Link to={route}>
-          <button>{btnTitle}</button>
+          <div role="button" tabIndex={0} className={styles.TrackAffirmationsHeaderBtn} onKeyPress={e => { if (e.key === 'Enter') e.target.click() }}>
+            {btnTitle}
+          </div>
         </Link>
       </div>
     </div>

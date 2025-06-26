@@ -27,7 +27,7 @@ const {
 // Usar styled en lugar de makeStyles
 const StyledDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
-    width: 250,
+    width: '100%',
     color: '#FFFFFF',
     backgroundColor: '#071215'
   }

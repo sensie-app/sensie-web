@@ -19,9 +19,12 @@ const ImageAvatar = ({ url, alt, size = 'medium' }) => {
     xlarge: { width: '20vh', height: '20vh' }
   }
 
+  // Asegura que url sea string, si no, usa string vacío
+  const safeUrl = typeof url === 'string' ? url : ''
+
   return (
     <Box sx={{ display: 'flex', '& > *': { m: 1 } }}>
-      <Avatar alt={alt} src={url} sx={sizeStyles[size] || sizeStyles.medium} />
+      <Avatar alt={alt} src={safeUrl} sx={sizeStyles[size] || sizeStyles.medium} />
     </Box>
   )
 }

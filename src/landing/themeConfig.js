@@ -24,6 +24,17 @@ const theme = createTheme({
           color: '#FFFFFF'
         }
       }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          background: '#151e1f',
+          borderRadius: 12
+        },
+        input: {
+          padding: '18.5px 14px'
+        }
+      }
     }
   },
   spacing: 8,

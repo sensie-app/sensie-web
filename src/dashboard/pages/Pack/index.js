@@ -65,11 +65,13 @@ const Pack = () => {
     handlePackId()
   }, [])
   useEffect(() => handlePackId(), [packsReducer])
-  useEffect(() => dispatch(listPacksAction(user.id)), [user.loading, newAff])
+  useEffect(() => {
+    dispatch(listPacksAction(user.id))
+  }, [user.loading, newAff])
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch(getAllTopicsAction(user.data.userTopicId))
+    async function fetchData () {
+      await dispatch(getAllTopicsAction(user.data.userTopicId))
     }
     fetchData()
   }, [user.loading, newAff])
@@ -97,7 +99,7 @@ const Pack = () => {
    * */
   const handlePackId = () => {
     const pk = packsReducer.packs.filter(pack => pack.id === id)[0]
-    setPack(pk || [])
+    setPack(pk || null)
   }
 
   /**
@@ -225,6 +227,11 @@ const Pack = () => {
     } else {
       return null
     }
+  }
+
+  // Render loading if pack is null
+  if (pack === null) {
+    return <Loading />
   }
 
   return (

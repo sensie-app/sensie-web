@@ -5,7 +5,6 @@ import App from './routes/App'
 import reportWebVitals from './reportWebVitals'
 // amplify
 import { Amplify } from 'aws-amplify'
-import { Analytics } from '@aws-amplify/analytics'
 import { Authenticator } from '@aws-amplify/ui-react'
 
 import amplifyconfig from './amplifyconfiguration.json'
@@ -26,20 +25,20 @@ import theme from './landing/themeConfig'
 
 Amplify.configure(amplifyconfig)
 
-Analytics.autoTrack('session', {
-  enable: true,
-  provider: 'AWSPinpoint'
-})
+// record('session', {
+//   enable: true,
+//   provider: 'AWSPinpoint'
+// })
 
-Analytics.autoTrack('pageView', {
-  enable: true,
-  eventName: 'pageView',
-  type: 'SPA',
-  provider: 'AWSPinpoint',
-  getUrl: () => {
-    return window.location.origin + window.location.pathname
-  }
-})
+// record('pageView', {
+//   enable: true,
+//   eventName: 'pageView',
+//   type: 'SPA',
+//   provider: 'AWSPinpoint',
+//   getUrl: () => {
+//     return window.location.origin + window.location.pathname
+//   }
+// })
 
 ReactGA.initialize('G-PRY3HQYSH8')
 ReactGA.pageview(window.location.pathname + window.location.search)

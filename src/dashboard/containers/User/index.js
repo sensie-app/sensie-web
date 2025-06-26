@@ -59,7 +59,11 @@ const User = ({ user, flow, awareness, totalSensies }) => {
   const defaultAvatar = user.gender === 'Male' ? avatarMale : avatarFemale
 
   const getImage = async function (k) {
-    return (k && k !== 'null') ? await getUrl({ path: k }).url : defaultAvatar
+    if (k && k !== 'null') {
+      const result = await getUrl({ path: k })
+      return result.url || ''
+    }
+    return defaultAvatar
   }
 
   useEffect(() => {

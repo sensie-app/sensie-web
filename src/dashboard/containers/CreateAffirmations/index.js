@@ -82,7 +82,8 @@ const CreateAffirmations = ({
   }, [defaultTopic])
 
   const handleGetTopicById = async (id) => {
-    return await gqlquery2(getTopicByIdQuery(id))
+    // return await gqlquery2(getTopicByIdQuery(id))
+    return await gqlquery2(getTopicByIdQuery, { id })
   }
 
   // ? handle functions

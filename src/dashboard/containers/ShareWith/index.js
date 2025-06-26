@@ -41,7 +41,9 @@ const ShareWith = ({ pack }) => {
   const [allChecked, setAllChecked] = useState(false)
   const [, forceUpdate] = useReducer(x => x + 1, 0)
 
-  useEffect(() => dispatch(listUsersByOrganizationIdAction(user.id, [])), [])
+  useEffect(() => {
+    dispatch(listUsersByOrganizationIdAction(user.id, []))
+  }, [dispatch, user.id])
   // useEffect(() => dispatch(listPacksAction(user.id, [])), [])
 
   // ? handle functions

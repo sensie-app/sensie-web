@@ -1,5 +1,5 @@
 @use "sass:meta";
-@import-normalize;
+@import 'normalize.css';
 @include meta.load-css('variables.scss');
 @include meta.load-css('fonts.scss');
 * {

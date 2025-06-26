@@ -1,61 +1,64 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { Grid, Box, Typography } from '@mui/material'
+import { Grid, Box, Typography, styled } from '@mui/material'
 
-import makeStyles from '@mui/styles/makeStyles'
 import Quotes from '../assets/img/Quotes.svg'
 
-const useStyle = makeStyles({
+// Styled components usando @emotion/styled
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  color: 'white',
+  alignSelf: 'center',
+  fontSize: '1.7rem'
+}))
 
-  text: {
-    color: 'white',
-    alignSelf: 'center',
-    fontSize: '1.7rem'
-  },
-  feel: {
-    color: 'white',
-    alignSelf: 'center',
-    fontSize: '1.7rem',
-    fontStyle: 'italic'
-  },
-  title: {
-    fontSize: '1.7rem'
-  }
-})
+const StyledFeelTypography = styled(Typography)(({ theme }) => ({
+  color: 'white',
+  alignSelf: 'center',
+  fontSize: '1.7rem',
+  fontStyle: 'italic'
+}))
+
+const StyledTitleTypography = styled(Typography)(({ theme }) => ({
+  fontSize: '1.7rem'
+}))
+
+const StyledFeelSpan = styled('span')(({ theme }) => ({
+  fontSize: '1.7rem',
+  color: '#15E7BC'
+}))
 
 const Manifesto = ({ title, text, feel, feel2 }) => {
-  const classes = useStyle()
   return (
     <Grid container direction="column">
       <Grid item container>
         <Grid item xs={12}>
           <Box color="primary.main">
-            <Typography className={classes.title} color="primary">
+            <StyledTitleTypography color="primary">
               {title}
-            </Typography>
+            </StyledTitleTypography>
           </Box>
         </Grid>
       </Grid>{' '}
       <Grid item container xs={12}>
         <Grid item xs={12}>
           <Box mt={2} style={{ textAlign: 'left' }}>
-            <Typography className={classes.text}>{text}</Typography>
+            <StyledTypography>{text}</StyledTypography>
           </Box>
         </Grid>
       </Grid>
-      <Grid xs={12} item className={classes.quotesStyle}>
-        <Box mt={6} className={classes.imgStyle}>
-          <img src={Quotes} />
+      <Grid xs={12} item>
+        <Box mt={6}>
+          <img src={Quotes} alt="Quotes" />
         </Box>
       </Grid>
       <Grid item container xs={12}>
         <Grid item xs={0} sm={2}></Grid>
         <Grid item xs={12} sm={8}>
           <Box mt={3}>
-            <Typography className={classes.feel}>
+            <StyledFeelTypography>
               {feel}<br/>{feel2}
-              <span className={classes.title} style={{ color: '#15E7BC' }}>feel</span>.
-            </Typography>
+              <StyledFeelSpan>feel</StyledFeelSpan>.
+            </StyledFeelTypography>
           </Box>
         </Grid>
         <Grid item xs={0} sm={2}></Grid>

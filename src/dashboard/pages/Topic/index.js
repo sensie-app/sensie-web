@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 // containers
 import Header from '../../containers/Header'
+import CreateAffirmations from '../../containers/CreateAffirmations'
 import NewAffirmation from '../../containers/NewAffirmation'
 // components
 // import Share from '../../components/Share'
@@ -14,28 +15,44 @@ import SvgIcon from '../../components/SvgIcon'
 // constants
 import IMG from '../../constants/images'
 import DASHBOARD_ROUTES from '../../constants/routes'
+import TopicsConstants from '../../constants/topics'
 import { SIZE } from '../../constants/theme'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteAffirmationAction } from '../../../redux/actions/affirmations.actions'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
-import { getUrl } from 'aws-amplify/storage'
+import { deleteAffirmationAction } from '../../../redux/actions/affirmations.actions'
 
 // utils
 import { /* gqlquery, */ gqlquery2 } from '../../utils/queries'
 // graphql queries
 import { getTopicByIdQuery } from '../../graphql/queries'
 import {
+  createAffirmationMutation,
+  joinAffirmationWithTopicMutation,
   joinAffirmationWithPackMutation,
   removeJoinAffirmationPackMutation
 } from '../../graphql/mutations'
 // styles
 import styles from './styles.module.scss'
+
+import { getUrl } from '@aws-amplify/storage'
+
 // const
 const {
-  noImg
+  noImg,
+  // connectionMomentsImg,
+  spiritImg,
+  healthImg,
+  financeImg,
+  funImg,
+  loveImg,
+  familyImg,
+  parentingImg,
+  personalImg,
+  performanceImg
 } = IMG
 const { intentions } = DASHBOARD_ROUTES
+const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
 
 // * page
 /**
@@ -53,8 +70,11 @@ const Topic = () => {
     checkboxReducer
   } = useSelector(state => state)
   const [topic, setTopic] = useState(null)
+  const [defaultTopic, setDefaultTopic] = useState({})
   const [newAff, setNewAff] = useState(false)
+  // const [waitQuery, setWaitQuery] = useState(true)
   const [checkedAffirmations, setCheckedAffirmations] = useState([])
+  const [showOptions, setShowOptions] = useState(false)
 
   useEffect(() => {
     if (!topicsReducer.loading) {
@@ -75,18 +95,21 @@ const Topic = () => {
     if (!key) return noImg
     try {
       const result = await getUrl({
-        path: `public/${key}`, // ajusta si usas "private" o "protected"
+        path: `public/${key}`,
         options: {
-          // validación opcional, más segura:
           validateObjectExistence: true
         }
       })
-      return typeof result.url.href === 'string' ? result.url.href : noImg
+      // Amplify puede retornar { url: string } o { url: { href: string } }
+      if (typeof result.url === 'string') return result.url
+      if (result.url && typeof result.url.href === 'string') return result.url.href
+      return noImg
     } catch (err) {
       console.error('Error getting image URL from S3:', err)
       return noImg
     }
   }
+
   useEffect(() => {
     if (topic !== null) {
       getImage(topic.picture).then(d => setUri(d))
@@ -100,11 +123,17 @@ const Topic = () => {
    * @returns {array}
    * */
   const handleTopicId = async () => {
-    // const r = await gqlquery2(getTopicByIdQuery(id))
     const r = await gqlquery2(getTopicByIdQuery, { id })
     const tp = r.value.data.getTopic
 
     // topicsReducer.topics.filter(topic => topic.id === id)[0] || {}
+    const defTopic = [{
+      id: tp.id,
+      name: tp.name,
+      description: tp.description
+    }]
+
+    setDefaultTopic(defTopic)
     setTopic(tp || [])
   }
 
@@ -116,6 +145,28 @@ const Topic = () => {
    * @param {string} packId
    * @returns {string} new pack id
    */
+  const handleCreateAffirmationMutation = async (name, description, topicsId, packId = null) => {
+    // setWaitQuery(true)
+    const newAffirmationTopicJoin = []
+    // save affirmation
+    const newAffirmation = await gqlquery2(createAffirmationMutation(name, description, user.id))
+    const successAffirmation = !newAffirmation.loading && newAffirmation.value !== null
+
+    if (successAffirmation) {
+      const newAffirmationId = newAffirmation.value.data.createAffirmation.id
+      // join to topics
+      topicsId.map(async topicId => {
+        const joinTopic = await gqlquery2(joinAffirmationWithTopicMutation(newAffirmationId, topicId))
+        newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
+      })
+      setNewAff(!newAff)
+      toast.success(t('dashboard.Pack.createIntention'))
+    } else {
+      toast.error(t('dashboard.Pack.createIntentionError'))
+    }
+    // setWaitQuery(false)
+    return successAffirmation ? newAffirmation.value.data.createAffirmation.id : null
+  }
 
   /**
    * handleAddToPack
@@ -133,6 +184,18 @@ const Topic = () => {
    * @param {string} affirmationId
    * @param {string} packId
    */
+  const handleAddManyToPack = (packId) => {
+    if (checkedAffirmations.length > 0) {
+      checkedAffirmations.map(async item => {
+        const joinPack = await gqlquery2(joinAffirmationWithPackMutation(item, packId))
+        return !joinPack.loading && joinPack.value !== null
+      })
+      setNewAff(!newAff)
+      toast.success(t('dashboard.Pack.addPack'))
+    } else {
+      toast.error(t('dashboard.Pack.addPackError'))
+    }
+  }
 
   /**
    * handleRemoveToPack
@@ -144,6 +207,27 @@ const Topic = () => {
     setNewAff(!remove.loading && remove.value !== null ? !newAff : newAff)
     return !remove.loading && remove.value !== null
   }
+
+  /**
+   * handle img
+   * @returns {string} img
+   */
+  const handleImg = () => {
+    switch (id) {
+      case spirit: return spiritImg
+      case health: return healthImg
+      case family: return familyImg
+      case finance: return financeImg
+      case fun: return funImg
+      case parenting: return parentingImg
+      case perfomance: return performanceImg
+      case personal: return personalImg
+      case love: return loveImg
+      default: return noImg
+    }
+  }
+
+  console.log(handleImg())
 
   /**
    * handleCountAffirmations
@@ -171,6 +255,7 @@ const Topic = () => {
     } else {
       newArr = affirmations.filter(item => item !== affirmationId)
     }
+    setShowOptions(newArr.length > 0)
     setCheckedAffirmations(newArr)
   }
 
@@ -232,7 +317,7 @@ const Topic = () => {
                 <div className={styles.TopicHeaderImg} style={{ backgroundImage: `url(${uri})` }} />
                 <div className={styles.TopicHeaderTextContainer}>
                   <div className={styles.TopicHeaderTextTitle}>
-                    <SvgIcon icon={typeof iconUri === 'string' ? iconUri : noImg} size={SIZE.xxl} />
+                    <SvgIcon icon={iconUri} size={SIZE.xxl} />
                     {topic !== null && <span>{topic.name}</span>}
                   </div>
                   {/* <div className={styles.TopicHeaderTextDescription}>
@@ -249,6 +334,15 @@ const Topic = () => {
             </div>
             {/* body */}
             <div className={styles.TopicBodyContainer}>
+              <CreateAffirmations
+                defaultTopic={defaultTopic}
+                initShowForm={false}
+                showOptions={showOptions}
+                withAffirmationsByTopics={false}
+                addToPack={true}
+                onSave={handleCreateAffirmationMutation}
+                onAddToPack={handleAddManyToPack}
+              />
                 {topic !== null && renderDbAffirmations()}
             </div>
           </div>
