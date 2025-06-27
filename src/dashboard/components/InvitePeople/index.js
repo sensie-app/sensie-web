@@ -206,6 +206,7 @@ const InvitePeople = ({ link }) => {
               pauseOnFocusLoss
               draggable
               pauseOnHover
+              theme='colored'
             />
           </>
         : <Loading />

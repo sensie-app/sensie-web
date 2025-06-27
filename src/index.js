@@ -25,21 +25,6 @@ import theme from './landing/themeConfig'
 
 Amplify.configure(amplifyconfig)
 
-// record('session', {
-//   enable: true,
-//   provider: 'AWSPinpoint'
-// })
-
-// record('pageView', {
-//   enable: true,
-//   eventName: 'pageView',
-//   type: 'SPA',
-//   provider: 'AWSPinpoint',
-//   getUrl: () => {
-//     return window.location.origin + window.location.pathname
-//   }
-// })
-
 ReactGA.initialize('G-PRY3HQYSH8')
 ReactGA.pageview(window.location.pathname + window.location.search)
 

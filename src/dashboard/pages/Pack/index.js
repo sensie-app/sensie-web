@@ -282,6 +282,7 @@ const Pack = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        theme='colored'
       />
     </Fragment>
   )

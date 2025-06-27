@@ -167,7 +167,7 @@ const Home = () => {
             </Grid>
             <Grid item xs={0} sm={3}></Grid>
           </Grid>
-          <Grid container justify-content="space-evenly">
+          <Grid container justifyContent="space-evenly">
             <Grid item xs={1} sm={2}></Grid>
 
             <Grid

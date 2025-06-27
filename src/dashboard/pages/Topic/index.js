@@ -97,7 +97,7 @@ const Topic = () => {
       const result = await getUrl({
         path: `public/${key}`,
         options: {
-          validateObjectExistence: true
+          validateObjectExistence: false
         }
       })
       // Amplify puede retornar { url: string } o { url: { href: string } }
@@ -357,6 +357,7 @@ const Topic = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        theme='colored'
       />
     </Fragment>
   )

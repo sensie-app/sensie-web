@@ -188,7 +188,7 @@ const UpdatePack = ({ img, title, authorName, id }) => {
           >
             <div className={styles.MenuListCompositionMenuContainer}>
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList autoFocusItem={open} id="menu-list-grow">
+                <MenuList autoFocusItem={!!open} id="menu-list-grow">
                   <button className={styles.MenuListCompositionItem}>
                     <Modal
                       title={t('dashboard.CreatePack.updatePack')}

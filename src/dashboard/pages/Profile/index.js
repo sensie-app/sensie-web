@@ -45,9 +45,9 @@ const Profile = () => {
   const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
   const getImage = async function (k) {
-    if (k && k !== 'null') {
-      const { url } = await getUrl({ path: k })
-      return url
+    if (k && k !== 'null' && k !== 'undefined') {
+      const { url } = await getUrl({ path: `${k}` })
+      return url.href
     }
     return defaultAvatar
   }
@@ -65,12 +65,12 @@ const Profile = () => {
 
   const handleImageUpload = async e => {
     if (e.target.files[0]) {
-      const { result } = await uploadData({
-        key: 'profiles/' + data.id + '.png',
-        data: e.target.files[0],
-        options: { contentType: e.target.files[0].type }
-      })
-      data.picture = result.key
+      const result = await uploadData({
+        path: 'public/profiles/' + data.id + '.png',
+        data: e.target.files[0]
+      }).result
+      console.log('result: ', result)
+      data.picture = result.path
       setPicture(URL.createObjectURL(e.target.files[0]))
     }
   }
@@ -96,7 +96,7 @@ const Profile = () => {
   }
 
   const handleRemoveImage = e => {
-    data.picture = null
+    data.picture = undefined
     setPicture()
   }
 
@@ -191,6 +191,7 @@ const Profile = () => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
+          theme='colored'
         />
       </Grid>
     </div>

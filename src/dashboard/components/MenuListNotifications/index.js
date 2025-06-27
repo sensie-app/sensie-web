@@ -113,7 +113,7 @@ const MenuListNotifications = ({ data, onClickValue, children }) => {
           >
             <div className={styles.MenuListNotificationsMenuContainer}>
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList autoFocusItem={open} id="menu-list-grow">
+                <MenuList autoFocusItem={!!open} id="menu-list-grow">
                   {/* header */}
                   <div className={styles.MenuListNotificationsMenuHeader}>
                     <h4>{t('dashboard.MenuListNotifications.activity')}</h4>

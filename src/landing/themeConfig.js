@@ -35,6 +35,66 @@ const theme = createTheme({
           padding: '18.5px 14px'
         }
       }
+    },
+    MuiInput: {
+      styleOverrides: {
+        underline: {
+          '&::before': {
+            borderStyle: 'none'
+          },
+          '&::after': {
+            borderStyle: 'none'
+          }
+        },
+        root: {
+          zIndex: 998,
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0
+        }
+      }
+    },
+    MuiList: {
+      styleOverrides: {
+        padding: {
+          boxSizing: 'border-box'
+        }
+      }
+    },
+    MuiListItem: {
+      styleOverrides: {
+        gutters: {
+          paddingLeft: 0,
+          paddingRight: 0
+        }
+      }
+    },
+    MuiBadge: {
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: '#15E7BC'
+        }
+      }
+    },
+    MuiPagination: {
+      styleOverrides: {
+        ul: {
+          '& .Mui-selected': {
+            backgroundColor: '#15E7BC'
+          }
+        }
+      }
+    },
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          color: '#ffffff'
+        },
+        ellipsis: {
+          color: '#ffffff'
+        }
+      }
     }
   },
   spacing: 8,

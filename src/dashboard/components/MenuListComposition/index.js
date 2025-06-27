@@ -149,7 +149,7 @@ const MenuListComposition = ({ data, onClickValue, defaultValue = null, children
           >
             <div className={styles.MenuListCompositionMenuContainer}>
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList autoFocusItem={open} id="menu-list-grow">
+                <MenuList autoFocusItem={!!open} id="menu-list-grow">
                   {renderItems()}
                 </MenuList>
               </ClickAwayListener>

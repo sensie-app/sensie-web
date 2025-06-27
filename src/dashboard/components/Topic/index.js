@@ -52,7 +52,7 @@ const Topic = ({
   const getImage = async function (k) {
     if (!k) return noImg
     const { url } = await getUrl({ path: `public/${k}` })
-    return url
+    return url.href
   }
 
   useEffect(() => {
