@@ -16,7 +16,7 @@ const CircularIndeterminate = ({ color = 'white', size = 20 }) => {
   })
 
   const StyledCircularProgress = styled(CircularProgress)({
-    color: color
+    color
   })
 
   return (

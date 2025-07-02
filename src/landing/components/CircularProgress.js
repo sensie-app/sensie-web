@@ -18,7 +18,7 @@ const CircularIndeterminate = ({ color = 'white', size = 20 }) => {
       display: 'flex'
     },
     button: {
-      color: color
+      color
     }
   }))
 

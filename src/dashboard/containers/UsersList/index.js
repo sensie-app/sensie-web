@@ -12,9 +12,6 @@ import { COLORS } from '../../constants/theme'
 // import { UserListBtns } from '../../constants/globals'
 // redux
 import { useSelector /*, useDispatch */ } from 'react-redux'
-// import { setUserListInfo } from '../../../redux/actions/show.actions'
-// import { setPaginationUserListAction } from '../../../redux/actions/pagination.actions'
-// styles
 import styles from './styles.module.scss'
 // utils
 import { handleFlow, handleAwareness } from '../../utils/functions'
@@ -90,7 +87,7 @@ const UsersList = () => {
       const { id } = client
       const sensies = s.filter(s => s.userId === id)
       return {
-        client: client,
+        client,
         flow: flow(sensies),
         awareness: awareness(client),
         totalSensies: handleTotalSensies(sensies)
