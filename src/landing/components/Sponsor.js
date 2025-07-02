@@ -16,7 +16,7 @@ const Sponsor = ({ SponsorImg, width, height, link }) => {
         <img
         src={SponsorImg}
         className={classes.root}
-        style={{ width: width, height: height }}
+        style={{ width, height }}
         />
       </a>
   )

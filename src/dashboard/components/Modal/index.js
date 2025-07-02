@@ -64,7 +64,7 @@ const ModalComponent = ({ children, initialState = false, title = '', width = '2
         }}
       >
         <Fade in={open}>
-          <div className={styles.ModalComponentBodyContainer} style={{ width: width }}>
+          <div className={styles.ModalComponentBodyContainer} style={{ width }}>
             <div className={styles.ModalComponentHeader}>
               <span>{title}</span>
               <button onClick={() => handleClose()}>

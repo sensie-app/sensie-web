@@ -70,11 +70,11 @@ const LineChart = ({ data }) => {
         xScale={{
           type: 'time',
           format: 'native',
-          precision: precision
+          precision
         }}
         xFormat={`time:${format}`}
         axisBottom={{
-          tickValues: tickValues,
+          tickValues,
           tickSize: 7,
           tickPadding: 0,
           tickRotation: -45,
