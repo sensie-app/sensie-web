@@ -35,7 +35,7 @@ import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // styles
 import styles from './styles.module.scss'
 
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 
 // const
 const { noImg } = IMG
@@ -65,17 +65,24 @@ const Pack = () => {
     handlePackId()
   }, [])
   useEffect(() => handlePackId(), [packsReducer])
-  useEffect(() => dispatch(listPacksAction(user.id)), [user.loading, newAff])
+  useEffect(() => {
+    dispatch(listPacksAction(user.id))
+  }, [user.loading, newAff])
 
-  useEffect(async () => {
-    dispatch(getAllTopicsAction(user.data.userTopicId))
+  useEffect(() => {
+    async function fetchData () {
+      await dispatch(getAllTopicsAction(user.data.userTopicId))
+    }
+    fetchData()
   }, [user.loading, newAff])
 
   const [uri, setUri] = useState('')
   // const [iconUri, setIconUri] = useState('')
 
   const getImage = async function (k) {
-    return (k ? await Storage.get(k) : noImg)
+    if (!k) return noImg
+    const { url } = await getUrl({ path: `public/${k}` })
+    return url
   }
 
   useEffect(() => {
@@ -92,7 +99,7 @@ const Pack = () => {
    * */
   const handlePackId = () => {
     const pk = packsReducer.packs.filter(pack => pack.id === id)[0]
-    setPack(pk || [])
+    setPack(pk || null)
   }
 
   /**
@@ -222,6 +229,11 @@ const Pack = () => {
     }
   }
 
+  // Render loading if pack is null
+  if (pack === null) {
+    return <Loading />
+  }
+
   return (
     <Fragment>
       <Header withBack={true} withPeople={false} withDate={false} backTo={intentions} />
@@ -270,6 +282,7 @@ const Pack = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        theme='colored'
       />
     </Fragment>
   )

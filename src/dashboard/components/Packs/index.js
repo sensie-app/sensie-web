@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 // material-ui
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 // components
 import Pack from '../Pack'
 import CreatePack from '../../containers/CreatePack'

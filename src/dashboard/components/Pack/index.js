@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 // material-ui
-// import Checkbox from '@material-ui/core/Checkbox'
+// import Checkbox from '@mui/material/Checkbox'
 // constants
 import IMG from '../../constants/images'
 // sytyles
@@ -31,7 +31,9 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations, clients, t
   const [uri, setUri] = useState('')
 
   const getImage = async function (k) {
-    return (k ? await Storage.get(k) : noImg)
+    if (!k) return noImg
+    const { url } = await getUrl({ path: `public/${k}` })
+    return url
   }
   useEffect(() => {
     getImage(img).then(d => setUri(d))

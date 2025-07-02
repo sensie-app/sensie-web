@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import hand from '../assets/img/hand.png'
-import { makeStyles } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
 const useStyles = makeStyles({
   root: {
     width: '100%',

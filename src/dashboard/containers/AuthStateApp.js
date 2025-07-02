@@ -7,15 +7,15 @@ import { updateUserWithCoach } from '../../dashboard/graphql/mutations'
 import { setUserIdAction, getUserByIdAction } from '../../redux/actions/user.actions'
 
 // amplify
-import { API, graphqlOperation } from 'aws-amplify'
-import { Auth } from '@aws-amplify/auth'
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import awsconfig from '../../aws-exports'
+import { generateClient } from '@aws-amplify/api'
+import { Amplify } from 'aws-amplify'
 // Components
 // import { ToastContainer } from 'react-toastify'
 
 // amplify config
-Auth.configure(awsconfig)
+Amplify.configure(awsconfig)
 // * container
 /**
  * AuthStateApp container (Amplify)
@@ -33,7 +33,8 @@ const AuthStateApp = ({ children }) => {
   // const [coach, setCoach] = useState(null)
 
   const updateUserCoach = async (userId, coachId) => {
-    const response = await API.graphql(graphqlOperation(updateUserWithCoach(userId, coachId)))
+    const client = generateClient()
+    const response = await client.graphql({ query: updateUserWithCoach(userId, coachId) })
     return response
   }
 
@@ -47,11 +48,14 @@ const AuthStateApp = ({ children }) => {
     }
   }, [route])
 
-  useEffect(async () => {
+  useEffect(() => {
     if (userData !== null && authState === 'authenticated') {
-      const { username } = user
-      dispatch(setUserIdAction(username))
-      dispatch(getUserByIdAction(username))
+      const fetchData = async () => {
+        const { username } = user
+        dispatch(setUserIdAction(username))
+        dispatch(getUserByIdAction(username))
+      }
+      fetchData()
     }
   }, [userData])
 

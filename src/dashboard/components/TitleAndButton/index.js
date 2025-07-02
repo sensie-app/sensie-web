@@ -23,7 +23,12 @@ const TitleAndButton = ({ title, route, btnTitle }) => {
       </div>
       <div className={styles.TrackAffirmationsHeaderBtnContainer}>
         <Link to={route}>
-          <button>{btnTitle}</button>
+          <button
+            className={styles.TrackAffirmationsHeaderBtn}
+            type="button"
+          >
+            {btnTitle}
+          </button>
         </Link>
       </div>
     </div>

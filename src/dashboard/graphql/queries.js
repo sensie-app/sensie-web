@@ -374,9 +374,9 @@ export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
   }
 `
 
-export const listTopicsQuery = () => `
-  query MyQuery {
-    listTopics(filter: {isPrivate: {eq: false}}) {
+export const listTopicsQuery = /* GraphQL */ `
+  query ListTopics {
+    listTopics(filter: { isPrivate: { eq: false } }) {
       items {
         id
         name
@@ -428,9 +428,9 @@ export const listTopicsWiyhAffirmationsIdsQuery = () => `
   }
 `
 
-export const getTopicByIdQuery = id => `
-  query MyQuery {
-    getTopic(id: "${id}") {
+export const getTopicByIdQuery = /* GraphQL */ `
+  query GetTopic($id: ID!) {
+    getTopic(id: $id) {
       name
       id
       description

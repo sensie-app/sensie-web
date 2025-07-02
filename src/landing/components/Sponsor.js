@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { makeStyles } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyle = makeStyles({
   root: {
-    paddingLeft: '22px;',
+    paddingLeft: '22px',
     paddingRight: '22px'
   }
 })

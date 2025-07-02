@@ -6,15 +6,15 @@ import {
   CardContent,
   Typography,
   CardActions,
-  makeStyles,
   Button,
   Box,
-  Grid
-} from '@material-ui/core'
+  Grid,
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import axios from 'axios'
 import AOS from 'aos'
 import StripeCheckout from 'react-stripe-checkout'
-import WifiRoundedIcon from '@material-ui/icons/WifiRounded'
+import WifiRoundedIcon from '@mui/icons-material/WifiRounded'
 
 const useStyles = makeStyles((theme) => ({
   scard: {
@@ -81,7 +81,7 @@ const CustomCard = ({
     description: 'Cool car'
   })
   async function handleToken (token, addresses) {
-    // console.log(token, addresses);
+    // console.log(token, addresses)
     const response = await axios.post(
       'https://rokf3.sse.codesandbox.io/checkout',
       {
@@ -107,7 +107,7 @@ const CustomCard = ({
       <Box
         border={3}
         borderColor="primary.main"
-        borderRadius={16}
+        borderRadius="16px"
         style={{ width: '270px' }}
       >
         <Card
@@ -158,7 +158,7 @@ const CustomCard = ({
     )
   } else if (freeCard) {
     return (
-      <Box borderRadius={16} style={{ width: '270px' }}>
+      <Box borderRadius="16px" style={{ width: '270px' }}>
         <Card className={classes.scard}>
           <Grid container alignItems="flex-end">
             <Grid item xs={12}>
@@ -211,7 +211,7 @@ const CustomCard = ({
     )
   } else {
     return (
-      <Box borderRadius={16} style={{ width: '270px' }}>
+      <Box borderRadius="16px" style={{ width: '270px' }}>
         <Card className={classes.scard}>
           <Grid container alignItems="flex-end">
             <Grid item xs={12}>

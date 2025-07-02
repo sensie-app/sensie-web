@@ -1,12 +1,15 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .PercentageChartContainer {
   width: 100%;
   padding: 10px;
-  @include flex(column, center, center, nowrap);
+  @include mixins.flex(column, center, center, nowrap);
 
   span {
-    color: $fontColor1;
+    color: variables.$fontColor1;
     font-size: 1rem;
     padding-bottom: 5px;
   }

@@ -1,6 +1,8 @@
 import React from 'react'
 import LogoSensie from '../assets/img/Sensie_Logo.svg'
-import { makeStyles, Box } from '@material-ui/core'
+import { Box } from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles({
   root: {

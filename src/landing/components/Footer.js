@@ -1,15 +1,9 @@
 import React from 'react'
-import {
-  makeStyles,
-  Grid,
-  Box,
-  Typography,
-  Button,
-  Hidden
-} from '@material-ui/core'
-import InstagramIcon from '@material-ui/icons/Instagram'
-import TwitterIcon from '@material-ui/icons/Twitter'
-import FacebookIcon from '@material-ui/icons/Facebook'
+import { Grid, Box, Typography, Button, Hidden } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import InstagramIcon from '@mui/icons-material/Instagram'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import FacebookIcon from '@mui/icons-material/Facebook'
 import { NavLink } from 'react-router-dom'
 
 import LANDING_ROUTES from '../constants/routes'
@@ -88,12 +82,12 @@ const Footer = () => {
           container
           xs={10}
           direction="row"
-          justify="space-between"
+          justifyContent="space-between"
           alignItems="center"
           className={classes.footerText}
         >
           {' '}
-          <Hidden xsDown>
+          <Hidden smDown>
             <Grid item xs={2} sm={2}>
               <NavLink to={privacy}>
                 <Box xs={1}>Privacy Policy</Box>
@@ -108,7 +102,7 @@ const Footer = () => {
             <Grid item xs={3} sm={3} style={{ textAlign: '-webkit-center' }}>
               Sensie technology is patented
             </Grid>
-            <Grid item xs={5} sm={3} container justify="flex-end">
+            <Grid item xs={5} sm={3} container justifyContent="flex-end">
               <Box>
                 <a
                   href="https://www.instagram.com/sensieapp/"

@@ -1,13 +1,16 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .MenuListNotificationsContainer {
-  @include flex(row, center, center, nowrap);
-  z-index: $zIndexLevel1K;
+  @include mixins.flex(row, center, center, nowrap);
+  z-index: variables.$zIndexLevel1K;
   button {
     width: 100%;
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
     span {
-      color: $fontColor1;
+      color: variables.$fontColor1;
       margin-right: 10px;
     }
   }
@@ -16,37 +19,37 @@
 .MenuListNotificationsMenuContainer {
   padding: 10px;
   width: 500px;
-  background-color: $grayColor6;
-  @include border(solid, 1px, 5px, $grayColor4);
+  background-color: variables.$grayColor6;
+  @include mixins.border(solid, 1px, 5px, variables.$grayColor4);
 }
 
 .MenuListNotificationsItem {
-  @include border(solid, 1px, 5px, transparent);
-  @include flex(column, center, center, nowrap);
-  @include font($fontColor1, 1rem);
+  @include mixins.border(solid, 1px, 5px, transparent);
+  @include mixins.flex(column, center, center, nowrap);
+  @include mixins.font(variables.$fontColor1, 1rem);
   width: 100%;
-  background-color: $grayColor5;
+  background-color: variables.$grayColor5;
   padding: 5px 10px;
   margin-bottom: 10px;
   &:hover {
-    background-color: $actionColor1;
+    background-color: variables.$actionColor1;
     cursor: pointer;
   }
   .MenuListNotificationsItemInfo {
     width: 75%;
-    @include flex(row, flex-start, center, nowrap);
+    @include mixins.flex(row, flex-start, center, nowrap);
     b, span {
       margin-left: 10px;
     }
   }
   .MenuListNotificationsItemTime {
     width: 25%;
-    @include flex(row, flex-end, center, nowrap);
+    @include mixins.flex(row, flex-end, center, nowrap);
   }
 }
 
 .MenuListNotificationsMenuHeader {
-  @include flex(row, space-between, center, nowrap);
+  @include mixins.flex(row, space-between, center, nowrap);
   width: 100%;
   padding: 10px;
 }
@@ -56,11 +59,11 @@
   padding: 10px;
   button {
     background-color: transparent;
-    color: $fontColor1;
-    @include flex(row, center, center, nowrap);
-    @include border(solid, 1px, 0px, transparent);
+    color: variables.$fontColor1;
+    @include mixins.flex(row, center, center, nowrap);
+    @include mixins.border(solid, 1px, 0px, transparent);
     &:hover {
-      @include border(solid, 1px, 0px, $grayColor3);
+      @include mixins.border(solid, 1px, 0px, variables.$grayColor3);
       cursor: pointer;
     }
   }

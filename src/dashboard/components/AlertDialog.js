@@ -14,18 +14,18 @@ import { onClearUser } from '../../redux/actions/user.actions'
 import { onClearUsers } from '../../redux/actions/users.actions'
 
 import PropTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // amplify
 // import { AmplifySignOut } from '@aws-amplify/ui-react'
 // import { Auth } from 'aws-amplify'
 import { useAuthenticator } from '@aws-amplify/ui-react'
 // material-ui
-import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 
 // * componet
 /**
@@ -56,7 +56,7 @@ const AlertDialog = ({
   // ? hooks
   const { signOut } = useAuthenticator()
   const [open, setOpen] = React.useState(false)
-  const history = useHistory()
+  const navigate = useNavigate()
   // ? handle functions
   /**
    * handle open
@@ -76,7 +76,7 @@ const AlertDialog = ({
       dispatch(onClearTopics())
       dispatch(onClearUser())
       dispatch(onClearUsers())
-      history.push('/dashboard')
+      navigate('/dashboard')
     }
   }
 
@@ -115,9 +115,9 @@ const AlertDialog = ({
 
   return (
     <Fragment>
-      <Button onClick={handleClickOpen}>
+      <div onClick={handleClickOpen} style={{ cursor: 'pointer' }}>
         {children}
-      </Button>
+      </div>
       <Dialog
         open={open}
         onClose={handleClose}

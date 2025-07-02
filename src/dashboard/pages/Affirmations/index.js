@@ -34,9 +34,12 @@ const Affirmations = () => {
   const [t] = useTranslation('global')
   const [show, setShow] = useState(showPacksOrTopics)
 
-  useEffect(async () => {
-    dispatch(listPacksAction(user.id))
-    dispatch(getAllTopicsAction(user.data.userTopicId))
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(listPacksAction(user.id))
+      dispatch(getAllTopicsAction(user.data.userTopicId))
+    }
+    fetchData()
   }, [user.loading])
 
   // ? handle functions

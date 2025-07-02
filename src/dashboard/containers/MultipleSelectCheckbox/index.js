@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 // import { useTranslation } from 'react-i18next'
 // material-ui
-import MenuItem from '@material-ui/core/MenuItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Select from '@material-ui/core/Select'
-import Checkbox from '@material-ui/core/Checkbox'
-import Button from '@material-ui/core/Button'
+import MenuItem from '@mui/material/MenuItem'
+import ListItemText from '@mui/material/ListItemText'
+import Select from '@mui/material/Select'
+import Checkbox from '@mui/material/Checkbox'
+import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
 // components
 // import Popover from '../../components/Popover'
 // import Icon from '../../components/Icon'
@@ -18,13 +20,70 @@ import { COLORS } from '../../constants/theme'
 import { useSelector } from 'react-redux'
 // utils
 import { handleLargeName } from '../../utils/functions'
-// styles
-import styles from './styles.module.scss'
 // test data
 import { testData } from './data'
 
 // const
-const { grayColor6, fontColor1 } = COLORS
+const { grayColor6, fontColor1, actionColor1 } = COLORS
+
+// Styled components for Material UI 5
+const StyledContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative',
+  width: '100%'
+}))
+
+const StyledButton = styled(Button)(({ theme, disabled }) => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  flexWrap: 'nowrap',
+  opacity: disabled ? 0.8 : 1,
+  color: fontColor1,
+  backgroundColor: 'transparent',
+  border: 'none',
+  borderRadius: 0,
+  '&:hover, &:focus, &:active': {
+    border: 'none',
+    backgroundColor: 'transparent'
+  },
+  '& .MuiButton-startIcon': {
+    color: fontColor1,
+    marginRight: theme.spacing(1.25)
+  }
+}))
+
+const StyledSelect = styled(Select)(({ theme }) => ({
+  '& .MuiSelect-select': {
+    padding: 0
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: 'none'
+  },
+  '&:hover .MuiOutlinedInput-notchedOutline': {
+    border: 'none'
+  },
+  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    border: 'none'
+  }
+}))
+
+const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+  '& .MuiCheckbox-root': {
+    color: actionColor1 + ' !important'
+  },
+  '& .MuiListItemText-root': {
+    paddingRight: theme.spacing(1.25)
+  },
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover
+  }
+}))
 
 // * containers
 /**
@@ -60,10 +119,15 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
   // material-ui const
   const MenuProps = {
     PaperProps: {
-      style: {
+      sx: {
         width: 250,
         backgroundColor: grayColor6,
-        color: fontColor1
+        color: fontColor1,
+        '& .MuiMenuItem-root': {
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)'
+          }
+        }
       }
     }
   }
@@ -92,17 +156,30 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
    */
   const renderItems = () => {
     return data.length > 0 && data.map((value, index) => (
-      <MenuItem key={index} value={value} className={styles.MultipleSelectCheckboxMenuItem}>
-        <Checkbox checked={items.indexOf(value) > -1} className={styles.MultipleSelectCheckboxMenuItemCheckbox} />
+      <StyledMenuItem key={index} value={value}>
+        <Checkbox
+          checked={items.indexOf(value) > -1}
+          sx={{ color: actionColor1 }}
+        />
         <ListItemText primary={handleLargeName(value.name, 10)} />
-      </MenuItem>
+      </StyledMenuItem>
     ))
   }
 
   return (
-    <div className={styles.MultipleSelectCheckboxContainer} id="container">
-      <Button disabled={disabled} className={`${styles.MultipleSelectCheckboxButton} ${disabled ? styles.MultipleSelectCheckboxButtonDisabled : undefined}`} onClick={() => handleOpen(true)}>{children}</Button>
-      <Select
+    <StyledContainer id="container">
+      <StyledButton
+        disabled={disabled}
+        onClick={() => handleOpen(true)}
+        sx={{
+          '&.Mui-disabled': {
+            opacity: 0.8
+          }
+        }}
+      >
+        {children}
+      </StyledButton>
+      <StyledSelect
         id="select"
         onBlurCapture={e => e.relatedTarget === null && handleOpen(false)}
         autoWidth={true}
@@ -112,10 +189,15 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
         renderValue={() => {}}
         onChange={handleChange}
         MenuProps={MenuProps}
+        sx={{
+          position: 'absolute',
+          opacity: 0,
+          pointerEvents: 'none'
+        }}
       >
         { renderItems() }
-      </Select>
-    </div>
+      </StyledSelect>
+    </StyledContainer>
   )
 }
 

@@ -1,11 +1,15 @@
 import { COLORS } from '../../constants/theme'
 
-// const
+// https://nivo.rocks/guides/theming/
 const { grayColor3, grayColor5, grayColor6, grayColor8, actionColor1, fontColor1 } = COLORS
 
 const theme = {
   textColor: grayColor3,
   fontSize: '0.75rem',
+  text: {
+    fontSize: '0.75rem',
+    fill: grayColor3
+  },
   axis: {
     domain: {
       line: {
@@ -17,6 +21,10 @@ const theme = {
       line: {
         stroke: grayColor3,
         strokeWidth: 0
+      },
+      text: {
+        fill: grayColor3,
+        fontSize: '0.75rem'
       }
     }
   },

@@ -1,6 +1,7 @@
-@import-normalize;
-@import './variables.scss';
-@import './fonts.scss';
+@use "sass:meta";
+@import 'normalize.css';
+@include meta.load-css('variables.scss');
+@include meta.load-css('fonts.scss');
 * {
     margin: 0px 0px;
     padding: 0px 0px;

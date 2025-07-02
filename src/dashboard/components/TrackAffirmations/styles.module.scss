@@ -1,38 +1,42 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins" as mixins2;
+@use "../../../styles/variables";
+@use "../../styles/mixins";
+
 
 .TrackAffirmationsContainer {
-  @include G50Container();   
+  @include mixins.G50Container();   
 }
 
 .TrackAffirmationsContainerHeight {
-  @include heightGrid();
+  @include mixins.heightGrid();
 }
 
 .TrackAffirmationsContainerHeightMin {
-  @include heightGridMin();
+  @include mixins.heightGridMin();
 }
 
 .TrackAffirmationsBodyContainer {  
-  @include G50BodyContainer();
+  @include mixins.G50BodyContainer();
 }
 
 .TrackAffirmationsHeaderContainer { 
-  @include G50HeaderContainer();  
+  @include mixins.G50HeaderContainer();  
 }
 
 .TrackAffirmationsHeaderTitleContainer {
-  @include G50HeaderTitleContainer();   
+  @include mixins.G50HeaderTitleContainer();   
 }
 
 .TrackAffirmationsHeaderBtnContainer {
   button {
-    @include border(solid, 2px, 5px, $grayColor4);
-    background-color: $grayColor5;
+    @include mixins2.border(solid, 2px, 5px, variables.$grayColor4);
+    background-color: variables.$grayColor5;
     padding: 10px 15px;
     font-size: 1rem;
-    color: $fontColor1;
+    color: variables.$fontColor1;
     &:hover {
-      @include border(solid, 2px, 5px, $actionColor3);
+      @include mixins2.border(solid, 2px, 5px, variables.$actionColor3);
       cursor: pointer;
     }
   }

@@ -1,9 +1,11 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+
 
 .LoadingContainer {
   width: 100%;
   // min-height: 300px;
   height: 100%;
   padding: 50px;
-  @include flex(column, center, center, nowrap);
+  @include mixins.flex(column, center, center, nowrap);
 }

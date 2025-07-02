@@ -1,11 +1,10 @@
 import React from 'react'
-import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
-import Divider from '@material-ui/core/Divider'
-import { IconButton, Box, Button, Grid } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+import { styled } from '@mui/material/styles'
+import Drawer from '@mui/material/Drawer'
+import List from '@mui/material/List'
+import Divider from '@mui/material/Divider'
+import { IconButton, Box, Button, Grid } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
 
 import { NavLink } from 'react-router-dom'
 
@@ -25,30 +24,24 @@ const {
   hm
 } = LANDING_ROUTES
 
-const useStyles = makeStyles((theme) => ({
-  list: {
-    width: 250,
+// Usar styled en lugar de makeStyles
+const StyledDrawer = styled(Drawer)(({ theme }) => ({
+  '& .MuiDrawer-paper': {
+    width: '100%',
     color: '#FFFFFF',
     backgroundColor: '#071215'
-  },
-  fullList: {
-    width: 'auto'
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    color: '#15E7BC'
-  },
-  hide: {
-    display: 'none'
   }
 }))
 
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  marginRight: theme.spacing(2),
+  color: '#15E7BC'
+}))
+
 export default function TemporaryDrawer () {
-  const classes = useStyles()
   const [state, setState] = React.useState({
     top: false
   })
-  const [open] = React.useState(false)
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -63,62 +56,59 @@ export default function TemporaryDrawer () {
 
   const list = (anchor) => (
     <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom'
-      })}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-        <Grid
-          item
-          container
-          xs={12}
-          sm={8}
-          direction="column"
-          className={classes.textTab}
-        >
-          <Link to={hm}>
-            <Box mt={2} ml={3}>
-              <LogoSensie />
-            </Box>
-          </Link>
-          <Divider />
+      <Grid
+        item
+        container
+        xs={12}
+        sm={8}
+        direction="column"
+        sx={{ color: 'white', fontSize: '1rem', fontStyle: 'normal', justifyContent: 'center' }}
+      >
+        <Link to={hm}>
+          <Box mt={2} ml={3}>
+            <LogoSensie />
+          </Box>
+        </Link>
+        <Divider />
 
-          <Link to={howitworks}>
-            <Box mt={3} ml={3}>
-              HOW IT WORKS
-            </Box>
-          </Link>
+        <Link to={howitworks}>
+          <Box mt={3} ml={3}>
+            HOW IT WORKS
+          </Box>
+        </Link>
 
-          <Link to={scienceanchor}>
-            <Box mt={3} mx={3}>
-              SCIENCE
-            </Box>
-          </Link>
+        <Link to={scienceanchor}>
+          <Box mt={3} mx={3}>
+            SCIENCE
+          </Box>
+        </Link>
 
-          {/* <Link to={membership}>
-                  <Box mx={1}>MEMBERSHIP</Box>
-                </Link> */}
-          {process.env.REACT_APP_FEAT_BLOG_ENABLED === 'true' && (
-          <NavLink to={blog}>
-            <Box mt={3} mx={3}>
-              BLOG
-            </Box>
-          </NavLink>
-          )}
+        {/* <Link to={membership}>
+                <Box mx={1}>MEMBERSHIP</Box>
+              </Link> */}
+        {process.env.REACT_APP_FEAT_BLOG_ENABLED === 'true' && (
+        <NavLink to={blog}>
+          <Box mt={3} mx={3}>
+            BLOG
+          </Box>
+        </NavLink>
+        )}
 
-          <Link to={abs}>
-            <Box mt={3} mx={3}>
-              ABOUT
-            </Box>
-          </Link>
-          <Link to={contact}>
-            <Box mt={3} mx={3} mb={3}>
-              CONTACT
-            </Box>
-          </Link>
-        </Grid>
+        <Link to={abs}>
+          <Box mt={3} mx={3}>
+            ABOUT
+          </Box>
+        </Link>
+        <Link to={contact}>
+          <Box mt={3} mx={3} mb={3}>
+            CONTACT
+          </Box>
+        </Link>
+      </Grid>
       <Divider />
       <List>
         {process.env.REACT_APP_FEAT_DASHBOARD_ENABLED === 'true' && (
@@ -131,7 +121,6 @@ export default function TemporaryDrawer () {
                   color="secondary"
                   size="large"
                   fullWidth
-                  className={classes.btnStyle}
                 >
                   LOGIN
                 </Button>
@@ -146,10 +135,9 @@ export default function TemporaryDrawer () {
                   color="primary"
                   size="large"
                   fullWidth
-                  className={classes.btnStyle}
                 >
                   SIGN UP
-              </Button>
+                </Button>
               </a>
             </Box>
           </Grid>
@@ -163,21 +151,20 @@ export default function TemporaryDrawer () {
     <div>
       {['top'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <IconButton
+          <StyledIconButton
             aria-label="open drawer"
             onClick={toggleDrawer(anchor, true)}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
-          </IconButton>
-          <Drawer
+          </StyledIconButton>
+          <StyledDrawer
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
           >
             {list(anchor)}
-          </Drawer>
+          </StyledDrawer>
         </React.Fragment>
       ))}
     </div>

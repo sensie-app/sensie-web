@@ -1,13 +1,15 @@
+@use '../../styles/variables.scss';
+@use "../../styles/mixins.scss" as mixins2;
 $blockH: 60vh;
 
 // Home Grid 50%
 @mixin G50Container {
-  background-color: $grayColor6;
+  background-color: variables.$grayColor6;
   border-radius: 5px;
   padding: 20px;
   width: 100%;
   height: 100%;
-  @include flex(column, flex-start, center, nowrap);
+  @include mixins2.flex(column, flex-start, center, nowrap);
 }
 
 @mixin heightGrid {
@@ -24,14 +26,14 @@ $blockH: 60vh;
 @mixin G50BodyContainer {
   width: 100%;
   height: 100%;
-  @include flex(column, flex-start, flex-start, nowrap);
+  @include mixins2.flex(column, flex-start, flex-start, nowrap);
 }
 
 // Home Grid 50%
-@mixin G50HeaderContainer { 
+@mixin G50HeaderContainer {
   // height: 15%;
   width: 100%;
-  @include flex(row, space-between, center, nowrap);
+  @include mixins2.flex(row, space-between, center, nowrap);
 }
 
 // Home Grid 50%
@@ -44,8 +46,8 @@ $blockH: 60vh;
 }
 
 @mixin CountCheckboxInBtn {
-  color: $grayColor6 !important;
+  color: variables.$grayColor6 !important;
   background-color: white;
   padding: 2px 7.5px;
-  @include border(none, 0px, 5px, transparent)
+  @include mixins2.border(none, 0px, 5px, transparent)
 }

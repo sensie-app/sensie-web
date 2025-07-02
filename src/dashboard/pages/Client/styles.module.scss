@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .ClientContainer {
   width: 100%;
@@ -6,9 +9,9 @@
 }
 
 .ClientG1Container {
-  background-color: $grayColor6;
+  background-color: variables.$grayColor6;
   border-radius: 5px;
   width: 100%;
-  @include flex(row, flex-start, center, wrap);
+  @include mixins.flex(row, flex-start, center, wrap);
   margin-bottom: 20px;
 }

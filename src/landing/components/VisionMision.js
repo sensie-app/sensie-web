@@ -1,29 +1,27 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { Grid, Box, makeStyles } from '@material-ui/core'
+import { Grid, Typography, styled } from '@mui/material'
 
-const useStyles = makeStyles({
-  title: {
-    fontSize: '2rem'
-  },
-  text: {
-    fontSize: '1.9rem',
-    fontStyle: 'italic',
-    color: 'white'
-  }
+const StyledTitle = styled(Typography)({
+  fontSize: '2rem'
+})
+
+const StyledText = styled(Typography)({
+  fontSize: '1.9rem',
+  fontStyle: 'italic',
+  color: 'white'
 })
 
 const VisionMision = ({ title, text }) => {
-  const classes = useStyles()
   return (
     <Grid container direction="column">
       <Grid item xs={12}>
-        <Box className={classes.title} mt={4} color="primary.main">
+        <StyledTitle mt={4} color="primary.main">
           {title}
-        </Box>
+        </StyledTitle>
       </Grid>
       <Grid item xs={12}>
-        <Box className={classes.text} mt={2}>{text}</Box>
+        <StyledText mt={2}>{text}</StyledText>
       </Grid>
     </Grid>
   )

@@ -1,9 +1,12 @@
-.MuiInput-underline::before, .MuiInput-underline::after {
-  border-style: none !important; 
+@use '../../styles/variables.scss';
+
+.MuiInput-underline::before,
+.MuiInput-underline::after {
+  border-style: none !important;
 }
 
 .MuiInput-root {
-  z-index: $zIndexLevel998 !important;
+  z-index: variables.$zIndexLevel998 !important;
   position: absolute !important;
   top: 0;
   bottom: 0;
@@ -21,7 +24,7 @@
 }
 
 .MuiBadge-colorPrimary {
-  background-color: $actionColor1 !important;
+  background-color: variables.$actionColor1 !important;
 }
 
 .MuiListItem-gutters {
@@ -31,10 +34,11 @@
 
 .MuiPagination-ul {
   .Mui-selected {
-    background-color: $actionColor1 !important;
+    background-color: variables.$actionColor1 !important;
   }
 }
 
-.MuiPaginationItem-root, .MuiPaginationItem-ellipsis {
-  color: $fontColor1 !important;
+.MuiPaginationItem-root,
+.MuiPaginationItem-ellipsis {
+  color: variables.$fontColor1 !important;
 }
