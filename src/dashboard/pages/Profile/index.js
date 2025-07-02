@@ -20,6 +20,8 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { getUrl, uploadData } from '@aws-amplify/storage'
+// mixpanel
+import { trackEvents } from '../../../utils/mixpanel'
 // import { v4 as uuidv4 } from 'uuid'
 
 // const
@@ -72,6 +74,8 @@ const Profile = () => {
       console.log('result: ', result)
       data.picture = result.path
       setPicture(URL.createObjectURL(e.target.files[0]))
+      // Track image upload
+      trackEvents.uploadProfileImage()
     }
   }
 
@@ -98,13 +102,21 @@ const Profile = () => {
   const handleRemoveImage = e => {
     data.picture = undefined
     setPicture()
+    // Track image removal
+    trackEvents.useFeature('Remove Profile Image')
   }
 
   const saveUserData = () => {
     dispatch(setUserDataAction(data))
     toast.success(t('Profile Saved'))
+    // Track profile update
+    const updatedFields = []
+    if (firstName !== data.firstName) updatedFields.push('first_name')
+    if (lastName !== data.lastName) updatedFields.push('last_name')
+    if (info !== data.infoText) updatedFields.push('info')
+    if (shareData !== data.shareData) updatedFields.push('share_data')
+    trackEvents.updateProfile(updatedFields)
   }
-
   return (
     <div className={styles.ProfileContainer}>
       <div className={styles.ProfileTitleContainer}>

@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react'
 import { Grid, Box, Hidden } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import { Parallax, Background } from 'react-parallax'
+import { trackEvents } from '../../utils/mixpanel'
 
 // Components
 import Title from '../components/Title/Title'
@@ -101,6 +102,7 @@ const Home = () => {
         }
       }
     }
+    trackEvents.navigateToPage('Landing Page')
   }, [playDashboard, playWhip])
   return (
     <div id="hm" style={{ backgroundColor: '#071215' }}>

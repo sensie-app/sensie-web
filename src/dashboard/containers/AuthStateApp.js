@@ -14,6 +14,9 @@ import { Amplify } from 'aws-amplify'
 // Components
 // import { ToastContainer } from 'react-toastify'
 
+// mixpanel
+import { trackEvents, MixpanelUtils } from '../../utils/mixpanel'
+
 // amplify config
 Amplify.configure(awsconfig)
 // * container
@@ -29,6 +32,7 @@ const AuthStateApp = ({ children }) => {
   const [userData, setUser] = useState(null)
   const [authState, setAuthState] = useState()
   const [initialAuthState, setInitialAuthState] = useState('signUp')
+  const [previousRoute, setPreviousRoute] = useState(null)
 
   // const [coach, setCoach] = useState(null)
 
@@ -37,6 +41,44 @@ const AuthStateApp = ({ children }) => {
     const response = await client.graphql({ query: updateUserWithCoach(userId, coachId) })
     return response
   }
+
+  // Función robusta para obtener el email
+  const getUserEmail = (user) => {
+    return (
+      user?.attributes?.email ||
+      user?.email ||
+      user?.signInUserSession?.idToken?.payload?.email ||
+      user?.signInDetails?.loginId ||
+      undefined
+    )
+  }
+
+  useEffect(() => {
+    // Track authentication state changes
+    if (route === 'authenticated' && previousRoute !== 'authenticated') {
+      // User just logged in
+      trackEvents.userLogin('email')
+      // Depuración: mostrar el usuario en consola
+      console.log('Amplify user:', user)
+      // Identify user in Mixpanel
+      if (user) {
+        MixpanelUtils.identify(user.username, {
+          $email: getUserEmail(user),
+          $name: `${user.attributes?.name || ''} ${user.attributes?.family_name || ''}`.trim(),
+          user_id: user.username,
+          sign_up_date: user.attributes?.created_at,
+          phone_number: user.attributes?.phone_number
+        })
+      }
+    } else if (route === 'signUp' && previousRoute !== 'signUp') {
+      // User is signing up
+      trackEvents.userSignup('email')
+    } else if (route === 'signOut' && previousRoute !== 'signOut') {
+      // User just logged out
+      trackEvents.userLogout()
+    }
+    setPreviousRoute(route)
+  }, [route, user, previousRoute])
 
   useEffect(() => {
     if (route === 'authenticated') {

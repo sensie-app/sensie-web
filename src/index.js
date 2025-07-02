@@ -23,7 +23,20 @@ import ReactGA from 'react-ga'
 import { ThemeProvider, CssBaseline } from '@mui/material'
 import theme from './landing/themeConfig'
 
+// mixpanel
+import mixpanel from 'mixpanel-browser'
+
 Amplify.configure(amplifyconfig)
+
+// Initialize Mixpanel
+mixpanel.init(process.env.REACT_APP_MIXPANEL_TOKEN, {
+  debug: process.env.NODE_ENV === 'development',
+  track_pageview: true,
+  persistence: 'localStorage'
+})
+
+// Track initial page view
+mixpanel.track('App Loaded')
 
 ReactGA.initialize('G-PRY3HQYSH8')
 ReactGA.pageview(window.location.pathname + window.location.search)
