@@ -23,7 +23,7 @@
 
 .MenuListCompositionItem {
   @include mixins.border();
-  @include mixins.flex(column, center, center, nowrap);
+  @include mixins.flex(column, left, left, nowrap);
   @include mixins.font(variables.$fontColor1, 1rem);
   width: 100%;
   background-color: transparent;  
