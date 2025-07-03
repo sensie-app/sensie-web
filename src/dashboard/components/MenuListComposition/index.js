@@ -40,13 +40,15 @@ const defValue = {
 const MenuListComposition = ({ data, onClickValue, defaultValue = null, children, theme = 1, withName = true, onlyChildren = false }) => {
   // ? hooks
   const [open, setOpen] = useState(false)
-  const [item, setItem] = useState(defValue)
+  const [item, setItem] = useState(defaultValue || defValue)
   const anchorRef = useRef(null)
   const prevOpen = useRef(open)
   const [t] = useTranslation('global')
 
   useEffect(() => {
-    if (defaultValue === null) {
+    if (defaultValue !== null) {
+      setItem(defaultValue)
+    } else {
       setItem(defValue)
     }
   }, [defaultValue])
