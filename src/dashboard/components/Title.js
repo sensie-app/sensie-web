@@ -19,9 +19,9 @@ const Title = ({
   margin = '0px 0px',
   padding = '0px 0px'
 }) => <span style={{
-  color: color,
-  margin: margin,
-  padding: padding,
+  color,
+  margin,
+  padding,
   fontSize: '1.5rem',
   fontWeight: 'bold'
 }}>{text}</span>

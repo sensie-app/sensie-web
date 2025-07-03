@@ -58,7 +58,10 @@ const LineChart = ({ data }) => {
   }, [])
 
   return (
-    <div className={styles.LineChartContainer} ref={containerRef} style={{ height: '400px', width: '100%' }}>
+    <div
+      className={styles.LineChartContainer}
+      ref={containerRef}
+    >
       <ResponsiveLine
         data={data}
         margin={{ top: margin, right: margin, bottom: margin * 3, left: margin * 2 }}
@@ -70,11 +73,11 @@ const LineChart = ({ data }) => {
         xScale={{
           type: 'time',
           format: 'native',
-          precision: precision
+          precision
         }}
         xFormat={`time:${format}`}
         axisBottom={{
-          tickValues: tickValues,
+          tickValues,
           tickSize: 7,
           tickPadding: 0,
           tickRotation: -45,
@@ -112,10 +115,6 @@ const LineChart = ({ data }) => {
             { offset: 0, color: '#fff', opacity: 0.75 },
             { offset: 100, color: 'inherit', opacity: 0.1 }
           ]),
-          // linearGradientDef('gradientMedium', [
-          //   { offset: 0, color: actionColor3, opacity: 1 },
-          //   { offset: 100, color: 'inherit', opacity: 0.5 }
-          // ]),
           linearGradientDef('gradientLow', [
             { offset: 0, color: actionColor1, opacity: 0.95 },
             { offset: 40, color: actionColor1, opacity: 0.25 },

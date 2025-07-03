@@ -87,7 +87,7 @@ export const updateInvitationLocal = (payload) => async dispatch => {
   try {
     dispatch({
       type: UPDATE_INVITATIONS_LOCAL,
-      payload: payload
+      payload
     })
   } catch (error) {
     dispatch({
