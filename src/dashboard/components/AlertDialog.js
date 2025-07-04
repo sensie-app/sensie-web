@@ -27,6 +27,9 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
+// mixpanel
+import { trackEvents } from '../../utils/mixpanel'
+
 // * componet
 /**
  * AlertDialog component
@@ -82,6 +85,8 @@ const AlertDialog = ({
 
   const handleSignOut = async () => {
     try {
+      // Track manual logout
+      trackEvents.userLogout()
       await signOut()
       handleAuthStateChange('signedout')
     } catch (error) {
