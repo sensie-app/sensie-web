@@ -27,16 +27,18 @@ import { testData } from './data'
 const { grayColor6, fontColor1, actionColor1 } = COLORS
 
 // Styled components for Material UI 5
-const StyledContainer = styled(Box)(({ theme }) => ({
+const StyledContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
   width: '100%'
-}))
+})
 
-const StyledButton = styled(Button)(({ theme, disabled }) => ({
+const StyledButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== 'disabled'
+})(({ theme, disabled }) => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'row',
@@ -58,7 +60,7 @@ const StyledButton = styled(Button)(({ theme, disabled }) => ({
   }
 }))
 
-const StyledSelect = styled(Select)(({ theme }) => ({
+const StyledSelect = styled(Select)({
   '& .MuiSelect-select': {
     padding: 0
   },
@@ -71,11 +73,11 @@ const StyledSelect = styled(Select)(({ theme }) => ({
   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
     border: 'none'
   }
-}))
+})
 
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
   '& .MuiCheckbox-root': {
-    color: actionColor1 + ' !important'
+    color: `${actionColor1} !important`
   },
   '& .MuiListItemText-root': {
     paddingRight: theme.spacing(1.25)
@@ -112,9 +114,10 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
     } else {
       setData(topics.length > 0 ? topics : testData)
     }
-  }, [topics, packs])
-  useEffect(() => setItems(defValue), [open])
-  useEffect(() => onClickValue(items), [items])
+  }, [topics, packs, isPacks])
+
+  useEffect(() => setItems(defValue), [open, defValue])
+  useEffect(() => onClickValue(items), [items, onClickValue])
 
   // material-ui const
   const MenuProps = {
@@ -139,7 +142,9 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
    * @return  {boolean | undefined} open = true + items = event.target.value
    */
   const handleChange = event => {
-    !open && handleOpen(true)
+    if (!open) {
+      handleOpen(true)
+    }
     setItems(event.target.value)
   }
 
@@ -182,7 +187,7 @@ const MultipleSelectCheckbox = ({ onClickValue, children, defValue, disabled = f
       <StyledSelect
         id="select"
         onBlurCapture={e => e.relatedTarget === null && handleOpen(false)}
-        autoWidth={true}
+        autoWidth
         open={open}
         multiple
         value={items}
