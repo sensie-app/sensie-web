@@ -11,6 +11,7 @@ import IMG from '../../constants/images'
 // sytyles
 import styles from './styles.module.scss'
 import UpdatePack from '../../containers/UpdatePack'
+import useImagePack from '../../hooks/useImagePack'
 
 // const
 const { noImg } = IMG
@@ -29,12 +30,14 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations, clients, t
   const [t] = useTranslation('global')
   // const [check, setCheck] = useState(false)
   const [uri, setUri] = useState('')
+  const cleanPublic = useImagePack()
 
   const getImage = async function (k) {
-    if (!k) return noImg
-    const { url } = await getUrl({ path: `public/${k}` })
+    if (k === 'undefined') return noImg
+    const { url } = await getUrl({ path: `public/${cleanPublic(k)}` })
     return url
   }
+
   useEffect(() => {
     getImage(img).then(d => setUri(d))
   }, [])

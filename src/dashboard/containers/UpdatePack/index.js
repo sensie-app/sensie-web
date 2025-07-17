@@ -55,7 +55,7 @@ const UpdatePack = ({ img, title, authorName, id }) => {
 
   // Amplify v6 - get image
   const getImage = async (key) => {
-    if (!key) return noImg
+    if (key === 'undefined') return noImg
     try {
       const { url } = await getUrl({ path: `public/${key}` })
       return url
@@ -102,14 +102,14 @@ const UpdatePack = ({ img, title, authorName, id }) => {
     if (file) {
       try {
         const uploadRes = await uploadData({
-          path: `packs/${packId}.png`,
+          path: `public/packs/${packId}.png`,
           data: file,
           options: {
             contentType: file.type
           }
         }).result
 
-        dispatch(updatePacksAction(packId, value, value, author, uploadRes.key))
+        dispatch(updatePacksAction(packId, value, value, author, uploadRes.path))
       } catch (err) {
         console.error('Error uploading image', err)
       }
