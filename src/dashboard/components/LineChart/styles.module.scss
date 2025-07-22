@@ -1,8 +1,19 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/variables";
+
 
 .LineChartContainer {
-  color: $fontColor1 !important;
+  color: variables.$fontColor1 !important;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 2.5 / 1;
+  min-height: 180px;
+  max-height: 420px;
+  height: auto;
+  max-width: 100%;
+  overflow: hidden;
+  background: transparent;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
   // padding: 2vh;
 }

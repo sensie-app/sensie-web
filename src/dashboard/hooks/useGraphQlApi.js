@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 // amplify
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from '@aws-amplify/api'
 
 // * custom hook
 /**
@@ -22,7 +22,8 @@ const useGraphQlApi = (query, ...state) => {
   const sendQuery = async () => {
     try {
       setLoading(true)
-      const response = await API.graphql(graphqlOperation(query))
+      const client = generateClient()
+      const response = await client.graphql({ query })
       setLoading(false)
       setValue(response.data)
     } catch (err) {

@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .UserListContainer {
   width: 100%;
@@ -7,7 +10,7 @@
 
 .UsersListHeaderContainer {
   width: 100%;
-  @include flex(column, center, flex-start, nowrap);
+  @include mixins.flex(column, center, flex-start, nowrap);
 }
 
 .UsersListHeaderTitle {
@@ -17,25 +20,25 @@
 
 .UsersListHeaderAction {
   width: 100%;
-  @include flex(row, space-between, center, nowrap);
+  @include mixins.flex(row, space-between, center, nowrap);
   div {
-    @include flex(row, flex-start, center, nowrap);
+    @include mixins.flex(row, flex-start, center, nowrap);
     padding: 10px 0px;
 
     button {
       margin-right: 10px;
       font-size: 1rem;
-      background-color: $grayColor8;
-      color: $grayColor2;
+      background-color: variables.$grayColor8;
+      color: variables.$grayColor2;
       padding: 5px 10px;
       opacity: 0.95;
-      @include border(solid, 1px, 5px, $grayColor8);
+      @include mixins.border(solid, 1px, 5px, variables.$grayColor8);
       
       &:hover {
-        color: $fontColor1;
+        color: variables.$fontColor1;
         opacity: 1;
         cursor: pointer;
-        @include border(solid, 1px, 5px, $actionColor1);
+        @include mixins.border(solid, 1px, 5px, variables.$actionColor1);
       }
     }
 
@@ -43,14 +46,14 @@
 }
 
 .UsersListHeaderActionActiveBtn {
-  color: $fontColor1 !important;
+  color: variables.$fontColor1 !important;
   opacity: 1 !important;
   cursor: pointer;
-  border: solid 1px $actionColor1 !important;
+  border: solid 1px variables.$actionColor1 !important;
   border-radius: 5px !important;
 }
 
 .UserListPagination {
   width: 100%;
-  @include flex(row, flex-end, center, nowrap);
+  @include mixins.flex(row, flex-end, center, nowrap);
 }

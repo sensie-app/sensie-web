@@ -34,9 +34,12 @@ const Affirmations = () => {
   const [t] = useTranslation('global')
   const [show, setShow] = useState(showPacksOrTopics)
 
-  useEffect(async () => {
-    dispatch(listPacksAction(user.id))
-    dispatch(getAllTopicsAction(user.data.userTopicId))
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(listPacksAction(user.id))
+      dispatch(getAllTopicsAction(user.data.userTopicId))
+    }
+    fetchData()
   }, [user.loading])
 
   // ? handle functions
@@ -56,12 +59,12 @@ const Affirmations = () => {
         {/* header */}
         <div className={styles.AffirmationsHeaderContainer}>
           <div className={styles.AffirmationsHeaderTitleContainer}>
-            <Title text={t('dashboard.Affirmations.affirmations')} />
+            <Title text={t('dashboard.Intentions.intentions')} />
           </div>
           <div className={styles.AffirmationsHeaderTabsContainer}>
             <div>
-              <button className={show === CreatePacksTags.packs ? styles.AffirmationsBtnSelected : undefined} onClick={() => handleShow(CreatePacksTags.packs)}><span>{t('dashboard.Affirmations.packs')}</span></button>
-              <button className={show === CreatePacksTags.topics ? styles.AffirmationsBtnSelected : undefined} onClick={() => handleShow(CreatePacksTags.topics)}><span>{t('dashboard.Affirmations.topics')}</span></button>
+              <button className={show === CreatePacksTags.packs ? styles.AffirmationsBtnSelected : undefined} onClick={() => handleShow(CreatePacksTags.packs)}><span>{t('dashboard.Intentions.packs')}</span></button>
+              <button className={show === CreatePacksTags.topics ? styles.AffirmationsBtnSelected : undefined} onClick={() => handleShow(CreatePacksTags.topics)}><span>{t('dashboard.Intentions.topics')}</span></button>
             </div>
             {/* <Share /> */}
           </div>

@@ -1,25 +1,28 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .InvitePeopleContainer {
   width: 100%;
   padding: 10px 0px;
-  @include flex(column, center, flex-start, nowrap);
+  @include mixins.flex(column, center, flex-start, nowrap);
   textarea {
     width: 100%;
     height: 100px;
     resize: none;
-    background-color: $grayColor6;
-    color: $fontColor1;
-    @include border(solid, 1px, 5px, transparent);
+    background-color: variables.$grayColor6;
+    color: variables.$fontColor1;
+    @include mixins.border(solid, 1px, 5px, transparent);
     padding: 5px;
     font-size: 16px;
   }
   input {
     width: 100%;
-    background-color: $grayColor7;
-    @include border(solid, 1px, 5px, transparent);
+    background-color: variables.$grayColor7;
+    @include mixins.border(solid, 1px, 5px, transparent);
     padding: 10px;
-    color: $fontColor1;
+    color: variables.$fontColor1;
     font-size: 1rem;
   }
 
@@ -29,7 +32,7 @@
   }
 
   .InvitePeopleDivider {
-    background-color: $grayColor5;
+    background-color: variables.$grayColor5;
     width: 100%;
   }
 
@@ -39,8 +42,8 @@
     overflow: auto;
 
     .InvitePeopleListItem {
-      color: $grayColor3;
-      background-color: $grayColor5;
+      color: variables.$grayColor3;
+      background-color: variables.$grayColor5;
       border-radius: 5px;
       margin-bottom: 10px;
     }
@@ -48,31 +51,31 @@
 
   .InvitePeopleFooterContainer {
     width: 100%;
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
     padding-top: 20px;
     .InvitePeopleLinkContainer {
       background-color: transparent;
       border-style: none;
-      @include flex(row, flex-start, center, nowrap);
+      @include mixins.flex(row, flex-start, center, nowrap);
       opacity: 0.9;
       span {
-        color: $fontColor1;
+        color: variables.$fontColor1;
         margin-left: 10px;
       }
       &:hover{
         opacity: 1;
         cursor: pointer;
         span {
-          color: $actionColor1;
+          color: variables.$actionColor1;
         }
       }
     }
     button {
-      background-color: $grayColor6;
-      @include border(solid, 1px, 5px, $actionColor1);
+      background-color: variables.$grayColor6;
+      @include mixins.border(solid, 1px, 5px, variables.$actionColor1);
       padding: 5px 15px;
       opacity: 0.9;
-      color: $actionColor1;
+      color: variables.$actionColor1;
       &:hover{
         opacity: 1;
         cursor: pointer;
@@ -83,10 +86,10 @@
 
 .inputError {
   width: 100%;
-  @include flex(row, flex-end, center, nowrap);
+  @include mixins.flex(row, flex-end, center, nowrap);
   span {
     font-size: 13px;
-    color: $actionColor4;
+    color: variables.$actionColor4;
   }
 }
 

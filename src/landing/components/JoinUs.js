@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { makeStyles, Grid, Box, Typography } from '@material-ui/core'
+import { Grid, Box, Typography } from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyle = makeStyles({
   title: {

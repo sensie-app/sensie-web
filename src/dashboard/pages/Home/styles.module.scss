@@ -1,4 +1,6 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/variables";
+
 
 .HomeContainer {
   width: 100%;
@@ -8,7 +10,7 @@
 .HomeG2Container,
 .HomeG3Container {    
   width: 100%;  
-  color: $fontColor1;
+  color: variables.$fontColor1;
   box-sizing: border-box;
 }
 

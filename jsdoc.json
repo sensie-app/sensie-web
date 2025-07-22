@@ -4,7 +4,7 @@
       "src"
     ],
     "includePattern": "\\.(jsx|js)$",
-    "excludePattern": "(node_modules|docs)"
+    "excludePattern": "(node_modules|docs|build|dist)"
   },
   "tags": {
     "allowUnknownTags": true
@@ -12,11 +12,15 @@
   "plugins": ["plugins/markdown", "better-docs/component", "better-docs/category"],
   "templates": {
     "cleverLinks": true,
-    "monospaceLinks": true
+    "monospaceLinks": true,
+    "default": {
+      "outputSourceFiles": true
+    }
   },
   "opts": {
     "recurse": true,
     "destination": "./docs",
-    "template": "node_modules/better-docs"
+    "template": "node_modules/better-docs",
+    "readme": "./README.md"
   }  
 }

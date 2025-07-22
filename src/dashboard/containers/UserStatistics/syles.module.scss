@@ -1,29 +1,33 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins" as mixins2;
+@use "../../../styles/variables";
+@use "../../styles/mixins";
+
 
 $size: 100px;
 
 .UserStatisticsContainer {
-  @include G50Container();
-  @include heightGrid();
+  @include mixins.G50Container();
+  @include mixins.heightGrid();
   height: 40vh; // override
   padding: 0;
-  @include flex(column, flex-start, center, nowrap);
+  @include mixins2.flex(column, flex-start, center, nowrap);
 }
 
 .UserStatisticsHeaderContainer {
-  @include flex(row, flex-start, center, wrap);
+  @include mixins2.flex(row, flex-start, center, wrap);
   width: 100%;
   height: 65%;
   margin-bottom: 10px;
 
   .UserStatisticsHeaderAvatar {
-    @include flex(column, center, center, nowrap);
+    @include mixins2.flex(column, center, center, nowrap);
     width: 30%;
     height: 100%;
   }
 
   .UserStatisticsHeaderBody {
-    @include flex(column, center, flex-start, nowrap);
+    @include mixins2.flex(column, center, flex-start, nowrap);
     width: 70%;
     height: 100%;
     padding-left: 20px;
@@ -31,21 +35,21 @@ $size: 100px;
       padding: 0px;
       margin: 0px;
       padding-bottom: 5px;
-      color: $fontColor1;
+      color: variables.$fontColor1;
       font-weight: bold;
       font-size: 2.5rem;
     }
 
     div {
-      @include flex(column, center, flex-start, wrap);
+      @include mixins2.flex(column, center, flex-start, wrap);
       font-size: 2rem;
       .UserStatisticsHeaderBodySubtitle {
-        color: $actionColor1;
+        color: variables.$actionColor1;
         font-size: 1.25rem;
         font-weight: bold;
       }
       .UserStatisticsHeaderBodyDate {
-        color: $fontColor1;
+        color: variables.$fontColor1;
         font-size: 1.5rem;
       }
     }
@@ -54,11 +58,11 @@ $size: 100px;
 
 .UserStatisticsBorder {
   width: 100%;
-  @include border(solid, 0px 0px 1px 0px, 0px, $grayColor5);
+  @include mixins2.border(solid, 0px 0px 1px 0px, 0px, variables.$grayColor5);
 }
 
 .UserStatisticsBodyContainer {
-  @include flex(column, space-around, center, nowrap);
+  @include mixins2.flex(column, space-around, center, nowrap);
   width: 90%;
   height: 35%;
 
@@ -66,21 +70,21 @@ $size: 100px;
     width: 100%;
     border-radius: 5px;
     padding: 5px 0px;
-    @include flex(row, space-between, center, wrap);
+    @include mixins2.flex(row, space-between, center, wrap);
   }
   .UserStatisticsBodyCharts2Container {
-    background-color: $grayColor5;
+    background-color: variables.$grayColor5;
     border-radius: 5px;
     width: 100%;
     padding: 5px 0px;
-    @include flex(row, space-between, center, wrap);
+    @include mixins2.flex(row, space-between, center, wrap);
   }
 }
 
 .UserStatisticsBodyChartsContainer{
-  background-color: $grayColor5;
+  background-color: variables.$grayColor5;
   border-radius: 5px;
-  @include flex(row, center, center, nowrap);
+  @include mixins2.flex(row, center, center, nowrap);
   padding: 0px 0px;
   width: 20%;
   height: 100%;
@@ -91,18 +95,18 @@ $size: 100px;
 .UserBtnsContainer {
   width: 100%;
 
-  @include flex(column, center, center, nowrap);
+  @include mixins2.flex(column, center, center, nowrap);
   button {
     background-color: transparent;
     cursor: pointer;
 
-    @include border(solid, 1px, 5px, transparent);
-    color: $actionColor4;
+    @include mixins2.border(solid, 1px, 5px, transparent);
+    color: variables.$actionColor4;
     font-size: 1.25rem;
     padding: 5px 20px;
     margin-bottom: 5px;
     &:hover {
-      @include border(solid, 1px, 5px, $grayColor3);
+      @include mixins2.border(solid, 1px, 5px, variables.$grayColor3);
     }
     input {
       display: none;

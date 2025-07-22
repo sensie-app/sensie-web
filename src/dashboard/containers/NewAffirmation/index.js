@@ -87,22 +87,28 @@ const NewAffirmation = ({
     }
   }, [selectTopics, itemTitle])
 
-  useEffect(async () => {
-    menuAction.value === 'edit'
-      ? setDisabledTopics(false)
-      : menuAction.value === 'delete'
-        ? await onDelete(data.id)
-        : console.log('🗑')
+  useEffect(() => {
+    if (menuAction.value === 'edit') {
+      setDisabledTopics(false)
+    } else if (menuAction.value === 'delete') {
+      const deleteAff = async () => {
+        try {
+          await onDelete(data.id)
+        } catch (error) {
+          console.error('Error al eliminar:', error)
+        }
+      }
+      deleteAff()
+    }
   }, [menuAction])
 
   useEffect(() => {
     if (!user.loading && user?.data?.id) {
       const admins = ADMINS.split(',')
       const isAdmin = admins.findIndex((email) => email.trim() === user.data.email)
-
       setCanDelete(user.id === data?.user?.id || isAdmin > -1)
     }
-  }, [user.loading])
+  }, [user.loading, user.data, data?.user?.id])
 
   // ? handle functions
   /**
@@ -142,11 +148,8 @@ const NewAffirmation = ({
    * @return {}
    */
   const handleClickBtnDone = () => {
-    // inputRef.current.value = ''
     setMenuAction({})
     setDisabledTopics(true)
-    // TODO: use Mutation
-    // * edit
   }
 
   // ? render functions
@@ -199,26 +202,26 @@ const NewAffirmation = ({
 
         <div className={styles.NewAffirmationS2}>
           {withRemoveBtn && !withAddBtn && <button className={styles.NewAffirmationS2RemoveBtn} onClick={() => onRemovePack(joinId)}>
-                <span>{t('dashboard.NewAffirmation.remove')}</span>
+                <span>{t('dashboard.NewIntention.remove')}</span>
              </button>
           }
           {withAddBtn && !withRemoveBtn && <button className={styles.NewAffirmationS2AddBtn} onClick={() => onAddToPack(data.id, packId)}>
-                <span>{t('dashboard.NewAffirmation.add')}</span>
+                <span>{t('dashboard.NewIntention.add')}</span>
               </button>
           }
           {withDeleteBtn && !withRemoveBtn && canDelete &&
             <div className={styles.NewAffirmationS2DeleteBtn}>
               <AlertDialog
                 withLogout={false}
-                title={t('dashboard.NewAffirmation.deleteAffTitle')}
-                description={t('dashboard.NewAffirmation.deleteAffDescription')}
-                disagreeText={t('dashboard.NewAffirmation.deleteAffCancel')}
-                agreeText={t('dashboard.NewAffirmation.deleteAffAccept')}
+                title={t('dashboard.NewIntention.deleteAffTitle')}
+                description={t('dashboard.NewIntention.deleteAffDescription')}
+                disagreeText={t('dashboard.NewIntention.deleteAffCancel')}
+                agreeText={t('dashboard.NewIntention.deleteAffAccept')}
                 agreeColor='secondary'
                 disagreeColor='primary'
                 agreeOnClick={() => onDelete(data)}
               >
-                {t('dashboard.NewAffirmation.deleteAffButton')}
+                {t('dashboard.NewIntention.deleteAffButton')}
               </AlertDialog>
             </div>
           }

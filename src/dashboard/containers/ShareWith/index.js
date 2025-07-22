@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { useParams } from 'react-router-dom'
 // import { setCheckboxAllClientsAction /*, setCheckboxAllTeamsAction */ } from '../../../redux/actions/checkbox.actions'
 import { listUsersByOrganizationIdAction } from '../../../redux/actions/users.actions'
+import { listPacksAction } from '../../../redux/actions/packs.actions'
+
 // styles
 import styles from './styles.module.scss'
 // fake data
@@ -16,7 +18,7 @@ import styles from './styles.module.scss'
 
 import Loading from '../../components/Loading'
 
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from '@aws-amplify/api'
 import { createPackSubscriptionMutation } from '../../graphql/mutations'
 import PropTypes from 'prop-types'
 
@@ -39,7 +41,10 @@ const ShareWith = ({ pack }) => {
   const [allChecked, setAllChecked] = useState(false)
   const [, forceUpdate] = useReducer(x => x + 1, 0)
 
-  useEffect(() => dispatch(listUsersByOrganizationIdAction(user.id, [])), [])
+  useEffect(() => {
+    dispatch(listUsersByOrganizationIdAction(user.id, []))
+  }, [dispatch, user.id])
+  // useEffect(() => dispatch(listPacksAction(user.id, [])), [])
 
   // ? handle functions
   /**
@@ -61,7 +66,8 @@ const ShareWith = ({ pack }) => {
 
   const subPack = async (userId, packId) => {
     try {
-      await API.graphql(graphqlOperation(createPackSubscriptionMutation(userId, packId)))
+      const client = generateClient()
+      await client.graphql({ query: createPackSubscriptionMutation(userId, packId) })
     } catch (error) {
       console.log('error', error)
       toast.success(`Pack ${pack.name} failed to share to user ${userId}!`)
@@ -77,17 +83,24 @@ const ShareWith = ({ pack }) => {
   //   setChecked(checked)
   // }, [usersReducer.users])
 
-  const handleShare = () => {
+  const handleShare = async () => {
     let i = 0
+    const promises = []
     for (const k in checked) {
       if (checked[k]) {
         console.log('Sub this user to this pack!')
-        subPack(k, pack.id)
+        promises.push(subPack(k, pack.id))
         i++
       }
     }
-    dispatch(listUsersByOrganizationIdAction(user.id, []))
-    toast.success(`Shared Pack to ${i} users Succesfully!`)
+    try {
+      await Promise.all(promises)
+      dispatch(listUsersByOrganizationIdAction(user.id, []))
+      dispatch(listPacksAction(user.id))
+      toast.success(`Shared Pack to ${i} users Succesfully!`)
+    } catch (error) {
+      console.error('Failed to share pack to all users:', error)
+    }
   }
 
   const handleChange = (e) => {

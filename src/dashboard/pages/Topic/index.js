@@ -35,7 +35,7 @@ import {
 // styles
 import styles from './styles.module.scss'
 
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 
 // const
 const {
@@ -51,7 +51,7 @@ const {
   personalImg,
   performanceImg
 } = IMG
-const { affirmations } = DASHBOARD_ROUTES
+const { intentions } = DASHBOARD_ROUTES
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
 
 // * page
@@ -76,11 +76,6 @@ const Topic = () => {
   const [checkedAffirmations, setCheckedAffirmations] = useState([])
   const [showOptions, setShowOptions] = useState(false)
 
-  // useEffect(async () => await handleTopicQuery(), [])
-  // useEffect(() => handleTopicId(), [])
-  // useEffect(async () => await handleTopicQuery(), [newAff])
-
-  // useEffect(() => handleTopicId(), [])
   useEffect(() => {
     if (!topicsReducer.loading) {
       handleTopicId()
@@ -96,8 +91,23 @@ const Topic = () => {
   const [uri, setUri] = useState('')
   const [iconUri, setIconUri] = useState('')
 
-  const getImage = async function (k) {
-    return (k ? await Storage.get(k) : noImg)
+  const getImage = async (key) => {
+    if (!key) return noImg
+    try {
+      const result = await getUrl({
+        path: `public/${key}`,
+        options: {
+          validateObjectExistence: false
+        }
+      })
+      // Amplify puede retornar { url: string } o { url: { href: string } }
+      if (typeof result.url === 'string') return result.url
+      if (result.url && typeof result.url.href === 'string') return result.url.href
+      return noImg
+    } catch (err) {
+      console.error('Error getting image URL from S3:', err)
+      return noImg
+    }
   }
 
   useEffect(() => {
@@ -113,7 +123,7 @@ const Topic = () => {
    * @returns {array}
    * */
   const handleTopicId = async () => {
-    const r = await gqlquery2(getTopicByIdQuery(id))
+    const r = await gqlquery2(getTopicByIdQuery, { id })
     const tp = r.value.data.getTopic
 
     // topicsReducer.topics.filter(topic => topic.id === id)[0] || {}
@@ -126,26 +136,6 @@ const Topic = () => {
     setDefaultTopic(defTopic)
     setTopic(tp || [])
   }
-
-  /**
-   * handleTopicQuery
-   */
-  // const handleTopicQuery = async () => {
-  //   const dbTopic = await gqlquery(getTopicByIdQuery(id))
-  //   const { loading, value } = dbTopic
-  //   if (!loading && value !== null) {
-  //     setTopic(value.data.getTopic)
-  //     const defTopic = [{
-  //       name: value.data.getTopic.name,
-  //       description: value.data.getTopic.description,
-  //       id: value.data.getTopic.id
-  //     }]
-  //     setDefaultTopic(defTopic)
-  //     setWaitQuery(false)
-  //   } else {
-  //     setWaitQuery(true)
-  //   }
-  // }
 
   /**
    * handleCreateAffirmationMutation
@@ -170,9 +160,9 @@ const Topic = () => {
         newAffirmationTopicJoin.push(!joinTopic.loading && joinTopic.value !== null)
       })
       setNewAff(!newAff)
-      toast.success(t('dashboard.Pack.createAffirmation'))
+      toast.success(t('dashboard.Pack.createIntention'))
     } else {
-      toast.error(t('dashboard.Pack.createAffirmationError'))
+      toast.error(t('dashboard.Pack.createIntentionError'))
     }
     // setWaitQuery(false)
     return successAffirmation ? newAffirmation.value.data.createAffirmation.id : null
@@ -277,9 +267,9 @@ const Topic = () => {
 
     if (deleted) {
       setNewAff(!newAff)
-      toast.success(t('dashboard.Affirmation.deleteAffirmation'))
+      toast.success(t('dashboard.Intention.deleteIntention'))
     } else {
-      toast.error(t('dashboard.Affirmation.deleteAffirmationError'))
+      toast.error(t('dashboard.Intention.deleteIntentionError'))
     }
   }
 
@@ -318,7 +308,7 @@ const Topic = () => {
 
   return (
     <Fragment>
-      <Header withBack={true} withPeople={false} withDate={false} backTo={affirmations} />
+      <Header withBack={true} withPeople={false} withDate={false} backTo={intentions}/>
       {topic !== null
         ? <div className={styles.TopicContainer}>
             {/* header */}
@@ -334,7 +324,7 @@ const Topic = () => {
                     <h6>{topic.description}</h6>
                   </div> */}
                   <div className={styles.TopicHeaderTextAffirmations}>
-                    <span>{topic !== null && handleCountAffirmations()} {t('dashboard.Topic.affirmations')}</span>
+                    <span>{topic !== null && handleCountAffirmations()} {t('dashboard.Topic.intentions')}</span>
                   </div>
                 </div>
               </div>
@@ -367,6 +357,7 @@ const Topic = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        theme='colored'
       />
     </Fragment>
   )

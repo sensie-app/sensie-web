@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 // material-ui
-import Grid from '@material-ui/core/Grid'
-import Checkbox from '@material-ui/core/Checkbox'
+import Grid from '@mui/material/Grid'
+import Checkbox from '@mui/material/Checkbox'
 // components
 import Title from '../../components/Title'
 import ImageAvatar from '../../components/ImageAvatar'
@@ -19,7 +19,9 @@ import styles from './styles.module.scss'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Storage } from 'aws-amplify'
+import { getUrl, uploadData } from '@aws-amplify/storage'
+// mixpanel
+import { trackEvents } from '../../../utils/mixpanel'
 // import { v4 as uuidv4 } from 'uuid'
 
 // const
@@ -45,7 +47,11 @@ const Profile = () => {
   const defaultAvatar = data.gender === 'Male' ? avatarMale : avatarFemale
 
   const getImage = async function (k) {
-    return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
+    if (k && k !== 'null' && k !== 'undefined') {
+      const { url } = await getUrl({ path: `${k}` })
+      return url.href
+    }
+    return defaultAvatar
   }
 
   useEffect(() => {
@@ -59,15 +65,17 @@ const Profile = () => {
     }
   }, [data])
 
-  const handleImageUpload = e => {
+  const handleImageUpload = async e => {
     if (e.target.files[0]) {
-      Storage.put('profiles/' + data.id + '.png', e.target.files[0], {
-        contentType: e.target.files[0].type
-      })
-        .then(res => {
-          data.picture = res.key
-        })
+      const result = await uploadData({
+        path: 'public/profiles/' + data.id + '.png',
+        data: e.target.files[0]
+      }).result
+      console.log('result: ', result)
+      data.picture = result.path
       setPicture(URL.createObjectURL(e.target.files[0]))
+      // Track image upload
+      trackEvents.uploadProfileImage()
     }
   }
 
@@ -92,15 +100,23 @@ const Profile = () => {
   }
 
   const handleRemoveImage = e => {
-    data.picture = null
+    data.picture = undefined
     setPicture()
+    // Track image removal
+    trackEvents.useFeature('Remove Profile Image')
   }
 
   const saveUserData = () => {
     dispatch(setUserDataAction(data))
     toast.success(t('Profile Saved'))
+    // Track profile update
+    const updatedFields = []
+    if (firstName !== data.firstName) updatedFields.push('first_name')
+    if (lastName !== data.lastName) updatedFields.push('last_name')
+    if (info !== data.infoText) updatedFields.push('info')
+    if (shareData !== data.shareData) updatedFields.push('share_data')
+    trackEvents.updateProfile(updatedFields)
   }
-
   return (
     <div className={styles.ProfileContainer}>
       <div className={styles.ProfileTitleContainer}>
@@ -187,6 +203,7 @@ const Profile = () => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
+          theme='colored'
         />
       </Grid>
     </div>

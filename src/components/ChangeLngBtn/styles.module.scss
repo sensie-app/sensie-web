@@ -1,12 +1,12 @@
-@import '../../styles/variables.scss';
+@use '../../styles/variables.scss';
 
 .ChangeLngButton {
   background-color: transparent;
   border-style: none;
-  color: $fontColor1;
+  color: variables.$fontColor1;
   padding: 5px;
   &:hover {
-    background-color: $actionColor1;
+    background-color: variables.$actionColor1;
     opacity: 0.85;
     cursor: pointer;
   }

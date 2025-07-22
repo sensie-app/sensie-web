@@ -1,5 +1,5 @@
 // amplify
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from '@aws-amplify/api'
 // queries
 import { getUserByIdQuery } from '../../dashboard/graphql/queries'
 import { updateUserData } from '../../dashboard/graphql/mutations'
@@ -10,7 +10,8 @@ const { USER_DATA, USER_ID, LOADING, ERROR, CLEAR_USER } = USER
 
 export const setUserDataAction = data => async (dispatch) => {
   try {
-    const response = await API.graphql(graphqlOperation(updateUserData(data.id, data.picture, data.infoText, data.firstName, data.lastName, data.shareData)))
+    const client = generateClient()
+    const response = await client.graphql({ query: updateUserData(data.id, data.picture, data.infoText, data.firstName, data.lastName, data.shareData) })
     dispatch({
       type: USER_DATA,
       payload: response.data.updateUser
@@ -24,10 +25,10 @@ export const setUserDataAction = data => async (dispatch) => {
   }
 }
 
-export const setUserIdAction = data => {
+export const setUserIdAction = id => {
   return {
     type: USER_ID,
-    payload: data
+    payload: id
   }
 }
 
@@ -37,7 +38,8 @@ export const getUserByIdAction = (id) => async (dispatch) => {
   })
 
   try {
-    const response = await API.graphql(graphqlOperation(getUserByIdQuery(id)))
+    const client = generateClient()
+    const response = await client.graphql({ query: getUserByIdQuery(id) })
     dispatch({
       type: USER_DATA,
       payload: response.data.getUser

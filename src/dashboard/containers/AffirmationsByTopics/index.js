@@ -29,7 +29,7 @@ import { createTopicPrivate, updateUserTopicId } from '../../graphql/mutations'
 import { getTopicByIdQuery } from '../../graphql/queries'
 import { getAllTopicsAction } from '../../../redux/actions/topics.action'
 // import { useParams } from 'react-router-dom'
-// import Grid from "@material-ui/core/Grid";
+// import Grid from "@mui/material/Grid"
 
 // const
 const { spirit, health, family, finance, fun, parenting, perfomance, personal, love } = TopicsConstants
@@ -59,7 +59,11 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
   const [affirmations, setAffirmations] = useState([])
   const [active, setActive] = useState(null)
 
-  useEffect(async () => await handleOnClickProps(), [topic])
+  useEffect(() => {
+    if (topic) {
+      handleOnClickProps()
+    }
+  }, [topic])
 
   useEffect(() => {
     if (user.id !== null) {
@@ -94,7 +98,8 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
       let listaffirmations = topics.filter(item => item.id === topic.id)[0]
 
       if (typeof listaffirmations === 'undefined') {
-        const r = await gqlquery2(getTopicByIdQuery(topic.id))
+        // const r = await gqlquery2(getTopicByIdQuery(topic.id))
+        const r = await gqlquery2(getTopicByIdQuery, { id: topic.id })
         listaffirmations = r.value.data.getTopic
       }
 
@@ -148,6 +153,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
         key={index}
         onClick={() => handleOnClickBtn(_topic)}>
         <Topic
+          route=""
           img={handleImageTopics(_topic)}
           icon={_topic.icon}
           title={_topic}
@@ -174,10 +180,11 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
               to="listTopics" smooth={true} offset={-150}
               onClick={() => handleOnClickBtn(_topic)}>
               <Topic
+                  route=""
                   img={_topic.picture}
                   icon={_topic.icon}
-                  title={_topic}
-                  topic={_topic}
+                  title={_topic.name}
+                  topic={_topic.name}
                   withLink={false}
                   witCheckbox={false}
                   min={true}
@@ -218,7 +225,7 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
     <div className={styles.AffirmationsByTopicsContainer}>
       {/* title */}
       <div className={styles.AffirmationsByTopicsTitleContainer}>
-        <Title text={t('dashboard.AffirmationsByTopics.title')} />
+        <Title text={t('dashboard.IntentionsByTopics.title')} />
         <span className={styles.AffirmationsByTopicsTitleTopic}>{topic !== null && `- ${topic.name}`}</span>
       </div>
       {/* header images */}
@@ -248,10 +255,10 @@ const AffirmationsByTopics = ({ onClick, checkAll, packId, onAddToPack = () => {
             {affirmationsByTopics
               ? <div className={styles.CreateAffirmationsHeaderActions}>
                   <button>
-                    <span>{t('dashboard.AffirmationsByTopics.addToPack')}</span>
+                    <span>{t('dashboard.IntentionsByTopics.addToPack')}</span>
                   </button>
                 </div>
-              : <h5>{t('dashboard.AffirmationsByTopics.selectAll')}</h5>
+              : <h5>{t('dashboard.IntentionsByTopics.selectAll')}</h5>
             }
           </ItemCheckbox>
         </div>

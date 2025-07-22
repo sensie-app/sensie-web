@@ -60,8 +60,8 @@ const Affirmation = () => {
       {/* header */}
       <div className={styles.AffirmationSpiderHeaderContainer} style={{ height: '10%' }}>
         <div className={styles.AffirmationSpiderHeaderTitleContainer}>
-          <Title text={`${t('dashboard.Affirmation.affirmation')}:`} color={fontColor1} margin="0px 10px 0px 0px" />
-          <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Affirmation.selectAOption')} color={grayColor3} />
+          <Title text={`${t('dashboard.Affirmation.intentions')}:`} color={fontColor1} margin="0px 10px 0px 0px" />
+          <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Intention.selectAOption')} color={grayColor3} />
         </div>
       </div>
       <div style={{ height: '80%', width: '100%' }}>

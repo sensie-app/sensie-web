@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .AffirmationsByTopicsContainer {
   width: 100%;
@@ -6,11 +9,11 @@
 
 .AffirmationsByTopicsTitleContainer {
   width: 100%;
-  @include flex(row, flex-start, center, nowrap);
+  @include mixins.flex(row, flex-start, center, nowrap);
   padding-bottom: 10px;
   margin-top: 20px;
   .AffirmationsByTopicsTitleTopic {
-    color: $fontColor1;
+    color: variables.$fontColor1;
     font-style: italic;
     font-size: 1.25rem;
     margin-left: 10px;
@@ -19,21 +22,21 @@
 
 .AffirmationsByTopicsHeaderContainer {
   width: 100%;
-  @include flex(column, center, flex-start, nowrap);
+  @include mixins.flex(column, center, flex-start, nowrap);
   .AffirmationsByTopicsActionContainer {
     width: 100%;
     padding: 10px 0px;
-    @include flex(row, flex-start, center, wrap);
+    @include mixins.flex(row, flex-start, center, wrap);
     h5 {
-      color: $grayColor3;
+      color: variables.$grayColor3;
     }
     .AffirmationsByTopicsCheckbox {
-      color: $actionColor1;
+      color: variables.$actionColor1;
     }
     div button {
       background-color: transparent;
-      @include border(solid, 1px, 5px, $grayColor3);
-      color: $grayColor3;
+      @include mixins.border(solid, 1px, 5px, variables.$grayColor3);
+      color: variables.$grayColor3;
       padding: 5px 15px;
       margin-left: 10px;
       font-size: 1rem;
@@ -64,7 +67,7 @@
 }
 
 .affirmationsByTopicsCaruselContainer {
-  @include flex(row, flex-start, center, nowrap);
+  @include mixins.flex(row, flex-start, center, nowrap);
 }
 
 .affirmationsByTopicsCaruselBtn {

@@ -1,22 +1,25 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .UserContainer {
   width: 100%;
-  background-color: $grayColor5;
-  @include border(solid, 0px, 5px, transparent);
-  @include flex(row, space-between, center, nowrap);
+  background-color: variables.$grayColor5;
+  @include mixins.border(solid, 0px, 5px, transparent);
+  @include mixins.flex(row, space-between, center, nowrap);
   padding: 0px 10px;
   margin-bottom: 5px;
   max-height: 12vh;
   height: 12vh;
   
   .UserBodySummary {
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
     width: 70%;
   }
 
   .UserBodyContainer {    
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
     width: 100%;
     padding: 0 10px;
     div {
@@ -31,22 +34,21 @@
   }
 
   .UserAvatarContainer {
-    @include flex(row, flex-start, center, nowrap);
+    @include mixins.flex(row, flex-start, center, nowrap);
     width: 25%;
     min-width: 25%;
     max-width: 25%;
     span{
-      color: $fontColor1;
+      color: variables.$fontColor1;
       font-size: 1.25rem;
       font-weight: 700;
     }
     div {
-      margin-left: 5px;
-      @include flex(row, center, flex-start, nowrap);
+      @include mixins.flex(row, center, flex-start, nowrap);
     }
 
     .UserAvatarContainerRenderName {
-      @include flex(column, center, flex-start, nowrap);
+      @include mixins.flex(column, center, flex-start, nowrap);
     }
   }
 }
@@ -56,18 +58,37 @@
     text-decoration: underline;
     cursor: pointer;
     span {
-      color: $actionColor1;
+      color: variables.$actionColor1;
     }
   }
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1311px) {
   .UserBodyContainer {    
-    @include flex(row, flex-end, center, nowrap);
+    @include mixins.flex(row, flex-end, center, nowrap);
     width: 100% !important;
   }
 
   .UserChartContainer {
     display: none;
+  }
+  .UserContainer {
+    max-height: 15vh;
+    height: 15vh;
+    .UserAvatarContainer {
+      @include mixins.flex(row, flex-start, center, wrap);
+      span{
+        color: variables.$fontColor1;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      div {
+        @include mixins.flex(row, center, flex-start, wrap);
+      }
+      .UserAvatarContainerRenderName {
+        align-items: center;
+      }
+    }
+    
   }
 }

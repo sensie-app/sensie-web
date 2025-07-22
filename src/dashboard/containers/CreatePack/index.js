@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 // components
 import Icon from '../../components/Icon'
 import Modal from '../../components/Modal'
@@ -13,9 +13,9 @@ import DASHBOARD_ROUTES from '../../constants/routes'
 import styles from './styles.module.scss'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { listPacksAction, createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
+import { createPacksAction, cleanNewPackAction } from '../../../redux/actions/packs.actions'
 
-import { Storage } from 'aws-amplify'
+import { uploadData } from '@aws-amplify/storage'
 import { v4 as uuidv4 } from 'uuid'
 
 // const
@@ -50,7 +50,7 @@ const CreatePack = ({ onSave }) => {
       setRedirect(true)
       dispatch(cleanNewPackAction())
     }
-  }, [packsReducer])
+  }, [packsReducer, dispatch])
 
   // ? handle functions
   /**
@@ -91,17 +91,20 @@ const CreatePack = ({ onSave }) => {
       setRedirect(false)
     } else {
       const packId = uuidv4()
-      Storage.put('packs/' + packId + '.png', file, {
-        contentType: file.type
+      const { result } = await uploadData({
+        key: 'packs/' + packId + '.png',
+        data: file,
+        options: { contentType: file.type }
       })
-        .then(res => {
-          packsReducer.newpack = true
-          dispatch(createPacksAction(value, value, author, user.id, res.key))
-          setShowError(false)
-          dispatch(listPacksAction(user.id))
-        })
+      packsReducer.newpack = true
+      dispatch(createPacksAction(value, value, author, user.id, result.key))
+      setShowError(false)
     }
     return false
+  }
+
+  if (redirect) {
+    return <Navigate to={`${pack}/${newPackId}`} replace />
   }
 
   // ? render functions
@@ -153,7 +156,6 @@ const CreatePack = ({ onSave }) => {
             type="submit"
             onClick={e => handleForm(e)}
           >{t('dashboard.CreatePack.create')}</button>
-          {redirect && <Redirect to={pack + '/' + newPackId} />}
         </div>
       </form>
     </form>

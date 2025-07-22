@@ -1,15 +1,15 @@
 // react
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+// material-ui
+import Box from '@mui/material/Box'
 // components
 import AffirmationsList from '../../containers/AffirmationsList'
 import Line from '../../components/Line'
-// components
 import TitleAndButton from '../../components/TitleAndButton'
 // styles
 import styles from './styles.module.scss'
 
-// * component
 /**
  * TrackAffirmations component
  * @component
@@ -34,41 +34,30 @@ const TrackAffirmations = ({
 }) => {
   return (
     <section className={`${styles.TrackAffirmationsContainer} ${fixHeight ? styles.TrackAffirmationsContainerHeight : styles.TrackAffirmationsContainerHeightMin}`}>
-      <div className={styles.TrackAffirmationsBodyContainer}>
+      <Box className={styles.TrackAffirmationsBodyContainer}>
         {/* header */}
-        {theme !== 2 && <Fragment><TitleAndButton title={title} btnTitle={btn.title} route={btn.route} /> <Line /></Fragment>}
-        {/* line */}
+        {theme !== 2 && <><TitleAndButton title={title} btnTitle={btn.title} route={btn.route} /> <Line /></>}
         {/* body */}
-        <div className={styles.TrackAffirmationsOptionsContainer}>
+        <Box className={styles.TrackAffirmationsOptionsContainer}>
           <AffirmationsList getSensies={getSensies} multiUser={multiUser} user={user} chipsUp={chipsUp} limit={limit} title={title} theme={theme} />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </section>
   )
 }
 
-// prop-types
 TrackAffirmations.propTypes = {
-  /** whether chips are displayed above or below the declaration list */
   chipsUp: PropTypes.bool,
-  /** multiUser */
   multiUser: PropTypes.bool,
-  /** user */
   user: PropTypes.object,
-  /** number of affirmations */
   limit: PropTypes.number,
-  /** title section */
   title: PropTypes.string.isRequired,
-  /** btn: { title(string), route(string) } */
   btn: PropTypes.shape({
     title: PropTypes.string,
     route: PropTypes.string
   }),
-  /** fixed height (true, false) */
   fixHeight: PropTypes.bool,
-  /** theme (1,2) */
   theme: PropTypes.number,
-  /** getSensies */
   getSensies: PropTypes.func
 }
 

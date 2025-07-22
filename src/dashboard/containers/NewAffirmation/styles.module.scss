@@ -1,27 +1,31 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+@use "../../styles/mixins" as mixins2;
+
 
 .NewAffirmationContainer {
   width: 100%;
-  @include flex(column, space-between, flex-start, nowrap);
-  background-color: $grayColor5;
+  @include mixins.flex(column, space-between, flex-start, nowrap);
+  background-color: variables.$grayColor5;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
 }
 
 .NewAffirmationSTop {
-  @include flex(row, space-between, center, nowrap);
+  @include mixins.flex(row, space-between, center, nowrap);
   width: 100%;
   .NewAffirmationS1 {
     word-break: break-all;
-    @include flex(row, flex-start, center, nowrap);
+    @include mixins.flex(row, flex-start, center, nowrap);
     width: 60%;
     h4 {
       font-size: 16px;
-      color: $fontColor1;
+      color: variables.$fontColor1;
     }
     .NewAffirmationCheckbox {
-      color: $actionColor1 !important;
+      color: variables.$actionColor1 !important;
     }
     .NewAffirmationEditTitleContainer {
       width: 90%;
@@ -29,16 +33,16 @@
         width: 60%;
         border-style: none;
         border-radius: 5px;
-        color: $fontColor1;
-        background-color: $grayColor7;
+        color: variables.$fontColor1;
+        background-color: variables.$grayColor7;
         padding: 5px 10px;
         font-size: 16px;
         margin-right: 10px;
       }
       button {
         width: 100px;
-        color: $actionColor1;
-        @include border(solid, 1px, 5px, $actionColor1);
+        color: variables.$actionColor1;
+        @include mixins.border(solid, 1px, 5px, variables.$actionColor1);
         padding: 6px 15px;
         background-color: transparent;
         margin-right: 20px;
@@ -53,12 +57,12 @@
   }
 
   .NewAffirmationS2 {
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
 
     .NewAffirmationS2RemoveBtn {
-      color: $actionColor2;
-      @include border(solid, 1px, 5px, $actionColor2);
-      @include flex(row, center, center, nowrap);
+      color: variables.$actionColor2;
+      @include mixins.border(solid, 1px, 5px, variables.$actionColor2);
+      @include mixins.flex(row, center, center, nowrap);
       padding: 6px 15px;
       background-color: transparent;
       margin-right: 20px;
@@ -74,9 +78,9 @@
     }
 
     .NewAffirmationS2AddBtn {
-      color: $actionColor1;
-      @include border(solid, 1px, 5px, $actionColor1);
-      @include flex(row, center, center, nowrap);
+      color: variables.$actionColor1;
+      @include mixins.border(solid, 1px, 5px, variables.$actionColor1);
+      @include mixins.flex(row, center, center, nowrap);
       padding: 6px 15px;
       background-color: transparent;
       margin-right: 20px;
@@ -92,10 +96,10 @@
     }
 
     .NewAffirmationS2DeleteBtn {
-      @include flex(row, space-between, center, nowrap);
+      @include mixins.flex(row, space-between, center, nowrap);
 
       button {
-        color: $actionColor2;
+        color: variables.$actionColor2;
         background-color: transparent;
         cursor: pointer;
         padding: 6px 15px;
@@ -106,8 +110,8 @@
         line-height: 1.43;
         font-weight: 400;
 
-        @include border(solid, 1px, 5px, $actionColor2);
-        @include flex(row, center, center, nowrap);
+        @include mixins.border(solid, 1px, 5px, variables.$actionColor2);
+        @include mixins.flex(row, center, center, nowrap);
 
         &:hover {
           cursor: pointer;
@@ -126,16 +130,16 @@
       button {
         width: 150px;
         border-radius: 5px;
-        background-color: $grayColor7;
+        background-color: variables.$grayColor7;
       }
     }
 
     .NewAffirmationS2Icons {
-      @include flex(row, space-between, center, nowrap);
+      @include mixins.flex(row, space-between, center, nowrap);
       padding: 0px 10px;
       .NewAffirmationMenuActions {
         div ul {
-          @include flex(column, flex-start, center, nowrap);
+          @include mixins.flex(column, flex-start, center, nowrap);
           button {
             padding: 0px;
             width: 100%;
@@ -160,9 +164,9 @@
 
 .NewAffirmationSBottom {
   width: 100%;
-  @include flex(row, flex-start, center, nowrap);
+  @include mixins.flex(row, flex-start, center, nowrap);
 }
 
 .NewAffirmationCountCheckbox {
-  @include CountCheckboxInBtn();
+  @include mixins2.CountCheckboxInBtn();
 }

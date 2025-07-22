@@ -1,9 +1,58 @@
-@import '../../styles/index.scss'; // global styles
-@import './mixins.scss'; // mixins for dashboard
+@use '../../styles/index.scss'; // global styles
+@use './mixins.scss'; // mixins for dashboard
 
 amplify-authenticator {
-  background-color: $grayColor8;
+  background-color: #030303;
   width: 100%;
-  flex: 1;
+  flex: 1 1;
 }
 
+.authenticator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ajusta la altura según sea necesario */
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  min-height: 100vh;
+}
+
+[data-amplify-authenticator] {
+  --amplify-components-authenticator-router-box-shadow: 0 0 16px var(--amplify-colors-overlay-10);
+  --amplify-components-authenticator-router-border-width: 0;
+  --amplify-components-authenticator-form-padding: var(--amplify-space-medium) var(--amplify-space-xl) var(--amplify-space-xl);
+  --amplify-components-button-primary-background-color: var(--amplify-primary-color);
+  --amplify-components-button-primary-color: black;
+  --amplify-components-fieldcontrol-focus-box-shadow: 0 0 0 2px var(--amplify-primary-color);
+  --amplify-components-tabs-item-active-border-color: var(--amplify-primary-color);
+  --amplify-components-tabs-item-color: white;
+  --amplify-components-tabs-item-focus-color: var(--amplify-primary-color);
+  --amplify-components-tabs-item-active-color: var(--amplify-primary-color);
+  --amplify-components-button-link-color: var(--amplify-primary-color);
+  --amplify-components-authenticator-router-background-color: var(--amplify-white);
+  --amplify-components-field-label-color: var(--amplify-secondary-color);
+  --amplify-components-authenticator-state-inactive-background-color: var(--amplify-white);
+}
+
+[data-amplify-authenticator] .amplify-input {
+  color: white;
+}
+
+[data-amplify-authenticator] .amplify-heading {
+  color: white;
+  line-height: var(--amplify-components-heading-line-height);
+  display: block;
+}
+
+[data-amplify-authenticator] .amplify-text {
+  color: white;
+  display: block;
+}
+
+[data-amplify-authenticator] .amplify-field__show-password {
+  --amplify-internal-button-background-color : white; 
+}
+[data-amplify-authenticator] .amplify-button--link:hover {
+  --amplify-internal-button-background-color: var(--amplify-white);
+}

@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .ModalComponentContainer {
   button {
@@ -8,21 +11,21 @@
 }
 
 .ModalContainer {
-  @include flex(row, center, center, nowrap);  
+  @include mixins.flex(row, center, center, nowrap);  
 }
 
 .ModalComponentBodyContainer {
   width: 30vw;
-  background-color: $grayColor8;
+  background-color: variables.$grayColor8;
   padding: 20px;
 }
 
 .ModalComponentHeader {
   width: 100%;
   padding: 10px 0px;
-  @include flex(row, space-between, center, nowrap);
+  @include mixins.flex(row, space-between, center, nowrap);
   span {
-    color: $fontColor1;
+    color: variables.$fontColor1;
     font-size: 1.5rem;
   }
   button {

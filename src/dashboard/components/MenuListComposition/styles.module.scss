@@ -1,31 +1,34 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .MenuListCompositionContainer {
-  @include flex(row, center, center, nowrap);
-  z-index: $zIndexLevel999;
+  @include mixins.flex(row, center, center, nowrap);
+  z-index: variables.$zIndexLevel999;
   button {
     width: 100%;
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
     span {
-      color: $fontColor1;
+      color: variables.$fontColor1;
       margin-right: 10px;
     }
   }
 }
 
 .MenuListCompositionMenuContainer {
-  background-color: $grayColor6;
-  @include border(solid, 1px, 5px, $grayColor4);
+  background-color: variables.$grayColor6;
+  @include mixins.border(solid, 1px, 5px, variables.$grayColor4);
 }
 
 .MenuListCompositionItem {
-  @include border();
-  @include flex(column, center, center, nowrap);
-  @include font($fontColor1, 1rem);
+  @include mixins.border();
+  @include mixins.flex(column, left, left, nowrap);
+  @include mixins.font(variables.$fontColor1, 1rem);
   width: 100%;
   background-color: transparent;  
   &:hover {
-    background-color: $actionColor1;
+    background-color: variables.$actionColor1;
     cursor: pointer;
   }  
 }

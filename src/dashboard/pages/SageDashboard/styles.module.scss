@@ -1,15 +1,18 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .SageDashboardContainer {
   width: 100%;
-  @include flex(column, space-between, center, nowrap);
+  @include mixins.flex(column, space-between, center, nowrap);
   border-radius: 5px;
   padding: 20px;
 }
 
 .SageDashboardSectionContainer {
   margin: 10px;
-  background-color: $grayColor6;
+  background-color: variables.$grayColor6;
   border-radius: 5px;
   padding: 20px 40px;
   width: 100%;

@@ -3,14 +3,15 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 // material-ui
-// import Checkbox from '@material-ui/core/Checkbox'
+// import Checkbox from '@mui/material/Checkbox'
 // constants
 import IMG from '../../constants/images'
 // sytyles
 import styles from './styles.module.scss'
 import UpdatePack from '../../containers/UpdatePack'
+import useImagePack from '../../hooks/useImagePack'
 
 // const
 const { noImg } = IMG
@@ -24,15 +25,19 @@ const { noImg } = IMG
  * @param {string} title
  * @param {number} totalAffirmations
  */
-const Pack = ({ route, img = noImg, title, author, totalAffirmations, type, id }) => {
+const Pack = ({ route, img = noImg, title, author, totalAffirmations, clients, type, id }) => {
   // ? hooks
   const [t] = useTranslation('global')
   // const [check, setCheck] = useState(false)
   const [uri, setUri] = useState('')
+  const cleanPublic = useImagePack()
 
   const getImage = async function (k) {
-    return (k ? await Storage.get(k) : noImg)
+    if (k === 'undefined') return noImg
+    const { url } = await getUrl({ path: `public/${cleanPublic(k)}` })
+    return url
   }
+
   useEffect(() => {
     getImage(img).then(d => setUri(d))
   }, [])
@@ -58,7 +63,8 @@ const Pack = ({ route, img = noImg, title, author, totalAffirmations, type, id }
         {isSubbed && <span> SUB </span>}
         {author && <span style={{ fontSize: '16px' }}>By: {author}</span>}
         <div>
-          <span>{totalAffirmations} {t('dashboard.Pack.affirmations')}</span>
+          <span>{totalAffirmations} {t('dashboard.Pack.intentions')}</span>
+          <span>{clients} {t('dashboard.Pack.clients')}</span>
         </div>
       </div>
     </div>
@@ -77,6 +83,7 @@ Pack.propTypes = {
   title: PropTypes.string.isRequired,
   /** totalAffirmations */
   totalAffirmations: PropTypes.number.isRequired,
+  clients: PropTypes.number.isRequired,
   type: PropTypes.string,
   /** id */
   id: PropTypes.string.isRequired

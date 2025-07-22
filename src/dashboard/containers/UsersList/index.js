@@ -12,9 +12,6 @@ import { COLORS } from '../../constants/theme'
 // import { UserListBtns } from '../../constants/globals'
 // redux
 import { useSelector /*, useDispatch */ } from 'react-redux'
-// import { setUserListInfo } from '../../../redux/actions/show.actions'
-// import { setPaginationUserListAction } from '../../../redux/actions/pagination.actions'
-// styles
 import styles from './styles.module.scss'
 // utils
 import { handleFlow, handleAwareness } from '../../utils/functions'
@@ -90,7 +87,7 @@ const UsersList = () => {
       const { id } = client
       const sensies = s.filter(s => s.userId === id)
       return {
-        client: client,
+        client,
         flow: flow(sensies),
         awareness: awareness(client),
         totalSensies: handleTotalSensies(sensies)
@@ -124,7 +121,7 @@ const UsersList = () => {
         <div className={styles.UsersListHeaderTitle}>
           <Title text={t('dashboard.UserList.clients')} />
           <span> - </span>
-          <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Affirmation.selectAOption')} color={grayColor3} />
+          <Title text={affirmation !== null ? `"${affirmation.name}"` : t('dashboard.Intention.selectAOption')} color={grayColor3} />
         </div>
         {/* <div className={styles.UsersListHeaderAction}>
           <div>

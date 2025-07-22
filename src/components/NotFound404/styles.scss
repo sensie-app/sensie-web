@@ -1,9 +1,12 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../styles/mixins";
+@use "../../styles/variables";
+
 
 .NotFound404Container {
-  background: linear-gradient(to bottom, $actionColor1, $actionColor3, $actionColor2);
-  color: $fontColor1;
+  background: linear-gradient(to bottom, variables.$actionColor1, variables.$actionColor3, variables.$actionColor2);
+  color: variables.$fontColor1;
   width: 100vw;
   height: 100vh;
-  @include flex(column, center, center, wrap);
+  @include mixins.flex(column, center, center, wrap);
 }

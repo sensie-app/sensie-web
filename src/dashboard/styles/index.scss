@@ -1,7 +1,21 @@
-@import '../../styles/index.scss'; // global styles
-@import './mixins.scss'; // mixins for dashboard
-@import './styles-material-ui.scss'; // material ui styles forced
+@use '../../styles/variables.scss';
+@use '../../styles/index.scss'; // global styles
+@use './mixins.scss'; // mixins for dashboard
+@use './styles-material-ui.scss'; // load material ui styles
 
 main {
   padding: 7.5px 35px !important;
+}
+.MuiInputBase-root {
+  z-index: variables.$zIndexLevel998 !important;
+  position: absolute !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  svg {
+    display: none !important;
+  }
+}
+.MuiOutlinedInput-notchedOutline{
+  border-style: none !important;
 }

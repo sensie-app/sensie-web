@@ -1,11 +1,7 @@
 import React from 'react'
-import { makeStyles, Grid, Box } from '@material-ui/core'
+import { Grid, Box, Typography, styled } from '@mui/material'
 import Title from '../components/Title/Title'
 import Features from '../components/Features'
-// import Idea from '../assets/img/idea.svg'
-// import Innovation from '../assets/img/innovation.svg'
-// import Microscope from '../assets/img/microscope.svg'
-// import NeuroImaging from '../assets/img/neuroimaging.svg'
 import Manifesto from '../components/Manifesto'
 import Mike from '../assets/img/MikeDannheim.png'
 import MikeySiegel from '../assets/img/MikeySiegel.jpg'
@@ -27,29 +23,29 @@ import ContactForm from '../components/ContactForm'
 import Member from '../components/Member'
 import VisionMision from '../components/VisionMision'
 
-const useStyles = makeStyles({
-  background: {
-    backgroundColor: '#071215'
-  },
-  members: {
-    textAlign: '-webkit-center'
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: '2.8rem',
-    textAlign: '-webkit-center',
-    color: 'white'
-  }
+// Styled components usando @emotion/styled
+const StyledContainer = styled('div')({
+  backgroundColor: '#071215'
+})
+
+const StyledMembersBox = styled(Box)({
+  textAlign: '-webkit-center'
+})
+
+const StyledTitle = styled(Typography)({
+  fontWeight: 'bold',
+  fontSize: '2.8rem',
+  textAlign: '-webkit-center',
+  color: 'white'
 })
 
 const AboutSensie = () => {
-  const classes = useStyles()
   return (
     <div id="abs">
-      <Grid container className={classes.background}>
+      <Grid container component={StyledContainer}>
         <Grid item xs={1}></Grid>
         <Grid item container xs={10}>
-          <Box className={classes.members}>
+          <StyledMembersBox>
             <Grid item xs={12} data-aos="zoom-out-up">
               <Box mt={'12rem'} mb={4}>
                 <Title title="About"></Title>
@@ -60,14 +56,14 @@ const AboutSensie = () => {
               <Box mt={4}>
                 <Manifesto
                   title="MANIFESTO"
-                  text="Our manifesto is how we share our culture with the world. It’s evolving, ever-expanding and is intended to uplift, empower, and shift us into ways of being that help us and the world simultaneously thrive. Like attracts like, our values and manifesto are designed to attract likeminded teammates, partners and customers to help us fulfill our mission and vision. Internally, our manifesto and values are used as guiding principles to help us move in a rhythm that supports our teammates, customers, partners and investors."
+                  text="Our manifesto is how we share our culture with the world. It's evolving, ever-expanding and is intended to uplift, empower, and shift us into ways of being that help us and the world simultaneously thrive. Like attracts like, our values and manifesto are designed to attract likeminded teammates, partners and customers to help us fulfill our mission and vision. Internally, our manifesto and values are used as guiding principles to help us move in a rhythm that supports our teammates, customers, partners and investors."
                   feel="Like an instrument, I perform "
                   feel2="based on how I "
                 />
               </Box>
             </Grid>
             <Grid item xs={1}></Grid>
-          </Box>
+          </StyledMembersBox>
           <Grid item xs={0} sm={1}></Grid>
           <Grid item xs={12} sm={5}>
             <Box mt={6} data-aos="zoom-out-up">
@@ -94,7 +90,7 @@ const AboutSensie = () => {
             <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
-                  'Feelings of powerlessness are a reminder that I’m supported by a community of loving beings.'
+                  "Feelings of powerlessness are a reminder that I'm supported by a community of loving beings."
                 }
               />
             </Box>
@@ -144,12 +140,12 @@ const AboutSensie = () => {
             <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
-                  'We commit to supporting each other from a place of authentically supporting ourselves. The statement, “I am supported” and my feelings associated with it are a litmus test for my well being.'
+                  'We commit to supporting each other from a place of authentically supporting ourselves. The statement, "I am supported" and my feelings associated with it are a litmus test for my well being.'
                 }
               />
             </Box>
             <Box mt={2} data-aos="zoom-out-up">
-              <Features text={'We don’t take ourselves too seriously.'} />
+              <Features text={"We don't take ourselves too seriously."} />
             </Box>
             <Box mt={2} data-aos="zoom-out-up">
               <Features text={'We bring play to our work.'} />
@@ -157,7 +153,7 @@ const AboutSensie = () => {
             <Box mt={2} data-aos="zoom-out-up">
               <Features
                 text={
-                  'Deeply committed, but not attached to making the vision a reality everyday'
+                    'Deeply committed, but not attached to making the vision a reality everyday'
                 }
               />
             </Box>
@@ -183,19 +179,19 @@ const AboutSensie = () => {
           <Grid item xs={1} sm={3}></Grid>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Grid container justify-content="space-evenly">
+        <Grid container justifyContent="space-evenly">
           <Grid item xs={1}></Grid>
           <Grid
             item
             xs={10}
             sm={12}
             container
-            justify="center"
+            justifyContent="center"
             alignItems="center"
           >
             <Grid item xs={12}>
-              <Box mt={14} className={classes.title} data-aos="zoom-out-up">
-                <span className={classes.title}>Advisory Board</span>
+              <Box mt={14} data-aos="zoom-out-up">
+                <StyledTitle>Advisory Board</StyledTitle>
               </Box>
             </Grid>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">
@@ -278,12 +274,12 @@ const AboutSensie = () => {
             xs={10}
             sm={12}
             container
-            justify="center"
+            justifyContent="center"
             alignItems="center"
           >
             <Grid item xs={12}>
-              <Box mt={14} className={classes.title} data-aos="zoom-out-up">
-                <span className={classes.title}>Our Team</span>
+              <Box mt={14} data-aos="zoom-out-up">
+                <StyledTitle>Our Team</StyledTitle>
               </Box>
             </Grid>
             <Box mt={8} textAlign="center" data-aos="zoom-out-up">
@@ -343,7 +339,7 @@ const AboutSensie = () => {
             <Box my={12}>
               <JoinUs
                 title="Join us"
-                text="We’re building tools to help elevate human performance and explore how amazing this life can be. Join us."
+                text="We're building tools to help elevate human performance and explore how amazing this life can be. Join us."
               />
             </Box>
           </Grid>

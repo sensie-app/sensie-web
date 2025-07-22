@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
+import { Divider, List, ListItem, ListItemText } from '@mui/material'
 
 // components
 import Loading from '../Loading'
@@ -24,7 +24,7 @@ import { createInvitation, getLastInvitationByCoach, updateInvitation, updateInv
 
 // const
 const { fontColor1 } = COLORS
-const limitChecked = 2
+const limitChecked = 100
 
 // * component
 /**
@@ -38,7 +38,6 @@ const InvitePeople = ({ link }) => {
   const [coachLink, setCoachLink] = useState(null)
   const [/* valueInput, */setValueInput] = useState('')
   const [checked, setChecked] = useState({})
-  const [disableChecks, setDisableCheks] = useState(false)
   const [, forceUpdate] = useReducer(x => x + 1, 0)
 
   const {
@@ -117,14 +116,11 @@ const InvitePeople = ({ link }) => {
 
     if (actualValue) {
       toggleCheckPack(packId, false)
-      setDisableCheks(false)
     } else {
       if (marked.length === limitChecked) {
         toast.dark(t('dashboard.InvitePeople.checkedPacksLimit'))
 
         return false
-      } else {
-        setDisableCheks(true)
       }
 
       toggleCheckPack(packId, true)
@@ -147,13 +143,6 @@ const InvitePeople = ({ link }) => {
           invitation.packsId.forEach((packId) => {
             toggleCheckPack(packId, true)
           })
-
-          const totalMarked = getCheckedPacksId()
-
-          // Evitamos que se pase del límite permitido
-          if (totalMarked.length >= limitChecked) {
-            setDisableCheks(true)
-          }
         }
 
         setCoachLink(generateLink())
@@ -192,7 +181,6 @@ const InvitePeople = ({ link }) => {
                                 check={checked[pack.id]}
                                 onChange={handleChange}
                                 onClick={() => { }}
-                                disabled={disableChecks && !checked[pack.id]}
                               >
                                 <ListItem role={undefined} >
                                   <ListItemText id={pack.id} primary={`${pack.name} - ${pack.author}`} />
@@ -218,6 +206,7 @@ const InvitePeople = ({ link }) => {
               pauseOnFocusLoss
               draggable
               pauseOnHover
+              theme='colored'
             />
           </>
         : <Loading />

@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { Grid, makeStyles, Box, Typography, Hidden } from '@material-ui/core'
+import { Grid, Box, Typography, Hidden } from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles({
   icon: {
@@ -18,7 +20,7 @@ const BulletPoint = ({ IconItem, title = false }) => {
   const classes = useStyles()
   return (
     <Grid container direction="column">
-      <Hidden xsDown>
+      <Hidden smDown>
 
       <Grid container xs={12}>
           <Box>

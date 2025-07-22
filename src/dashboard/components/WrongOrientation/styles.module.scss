@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .WrongOrientationContainer {
   width: 100vw;
@@ -10,13 +13,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: $grayColor7;
+  background-color: variables.$grayColor7;
   z-index: 100000000000000;
   overflow-y: hidden;
   overflow-x: hidden;
-  @include flex(column, center, center, nowrap);
+  @include mixins.flex(column, center, center, nowrap);
   .WrongOrientationImgContainer {
-    @include backgroundImg();
+    @include mixins.backgroundImg();
     background-image: url('../../assets/img/rotate-smartphone.svg');
     width: 25%;
     height: 25%;
@@ -24,10 +27,10 @@
   .WrongOrientationTextContainer {
     width: 100%;
     text-align: center;
-    @include flex(column, center, center, nowrap);
+    @include mixins.flex(column, center, center, nowrap);
     b, span {
       margin-top: 10px;
-      color: $fontColor1
+      color: variables.$fontColor1
     }
     b {
       font-size: 1.5rem;

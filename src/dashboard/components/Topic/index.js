@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 // material-ui
-// import Checkbox from '@material-ui/core/Checkbox'
+// import Checkbox from '@mui/material/Checkbox'
 // component
 import SvgIcon from '../SvgIcon'
 // constants
@@ -12,7 +12,7 @@ import IMG from '../../constants/images'
 import { handleLargeName } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 // const
 const { noImg } = IMG
 
@@ -50,7 +50,9 @@ const Topic = ({
   const [iconUri, setIconUri] = useState('')
 
   const getImage = async function (k) {
-    return (k ? await Storage.get(k) : noImg)
+    if (!k) return noImg
+    const { url } = await getUrl({ path: `public/${k}` })
+    return url.href
   }
 
   useEffect(() => {
@@ -74,19 +76,19 @@ const Topic = ({
               {witCheckbox &&
                   <div className={styles.TopicHeaderContainer}>
                     {/* <Checkbox checked={check} onChange={handleCheck} className={styles.TopicCheckbox} /> */}
-                    {count !== 0 && <h6>{count} Affirmations</h6>}
+                    {count !== 0 && <h6>{count} Intentions</h6>}
                   </div>
               }
                 {withLink
                   ? <Link to={route}>
                       <div className={styles.TopicIconContainer}>
-                          <SvgIcon icon={iconUri} size={iconSize}/>
-                        <span>{handleLargeName(topic.name, 18)}</span>
+                          <SvgIcon icon={typeof iconUri === 'string' ? iconUri : ''} size={iconSize}/>
+                        <span>{handleLargeName(topic, 18)}</span>
                       </div>
                     </Link>
                   : <div className={styles.TopicIconContainer}>
-                      <SvgIcon icon={iconUri} size={iconSize}/>
-                      <span>{handleLargeName(topic.name, 18)}</span>
+                      <SvgIcon icon={typeof iconUri === 'string' ? iconUri : ''} size={iconSize}/>
+                      <span>{handleLargeName(topic, 18)}</span>
                     </div>
                 }
             </div>

@@ -20,7 +20,7 @@ import { handleDefaultPictureUser } from '../../utils/functions'
 import styles from './styles.module.scss'
 // prop-types
 import { UserPropTypes } from '../../prop-types'
-import { Storage } from 'aws-amplify'
+import { getUrl } from '@aws-amplify/storage'
 
 import IMG from '../../constants/images'
 const { avatarFemale, avatarMale } = IMG
@@ -59,7 +59,11 @@ const User = ({ user, flow, awareness, totalSensies }) => {
   const defaultAvatar = user.gender === 'Male' ? avatarMale : avatarFemale
 
   const getImage = async function (k) {
-    return (k && k !== 'null') ? await Storage.get(k) : defaultAvatar
+    if (k && k !== 'null') {
+      const result = await getUrl({ path: k })
+      return result.url || ''
+    }
+    return defaultAvatar
   }
 
   useEffect(() => {
@@ -82,14 +86,14 @@ const User = ({ user, flow, awareness, totalSensies }) => {
         <div className={styles.UserBodyContainer}>
           <div>
             {flow === 'NO_SENSIES'
-              ? <IconChart title={t('dashboard.IconChart.flow')} value={'Null'} valueType="" icon={null} theme={2} />
+              ? <IconChart title={t('dashboard.IconChart.flow')} value={'0'} valueType="" icon={null} theme={2} />
               : <IconChart title={t('dashboard.IconChart.flow')} value={flow.toString()} valueType="%" icon={ACTIVITY} theme={2} />}
           </div>
           {/* <PercentageChart title={t('dashboard.User.awarness')} value={handleAwareness()} /> */}
           <div>
             {awareness === 'NO_AWARENESS'
-              ? <IconChart title={t('dashboard.User.awarness')} value={'Null'} valueType="" icon={null} theme={2} />
-              : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/18'} valueType="" icon={UP} theme={2} />}
+              ? <IconChart title={t('dashboard.User.awarness')} value={'0'} valueType="" icon={null} theme={2} />
+              : <IconChart title={t('dashboard.User.awarness')} value={awareness + '/20'} valueType="" icon={UP} theme={2} />}
           </div>
           {/* <div><IconChart title={t('dashboard.IconChart.engagement')} value={handleEngagement(globalDateFilter.value, handleTotalSensies())} icon={UP} theme={2} /></div> */}
           <div><IconChart title={t('dashboard.IconChart.sensies')} value={totalSensies.toString()} valueType="number" icon={UP} theme={2} /></div>

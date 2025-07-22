@@ -243,10 +243,10 @@ export const getUsersAllQuery = (id = '8e5a85d1-3f68-4fca-8db9-9f0e18e91082', da
   }
 `
 
-export const getClientsFromCoach = (id, dates) => `
+export const getClientsFromCoach = (id) => `
   query getClientsFromCoach {
     getUser(id: "${id}") {
-      clients {
+      clients{
         items {
           id
           firstName
@@ -270,6 +270,42 @@ export const getClientsFromCoach = (id, dates) => `
               score
             }
           }
+        }
+      }
+    }
+  }
+`
+
+export const listClientsCoach = (dates) => `
+  query listClientsCoach {
+    listClientsCoach(input: {endDate: "${dates[1]}", startDate: "${dates[0]}"}) {
+      id
+      firstName
+      gender
+      lastName
+      sensies {
+        items {
+          createdAt
+          id
+          result
+        }
+      }
+      picture
+      selfAwareness
+      subscribedPacks {
+        items {
+          id
+          packId
+          userId
+        }
+      }
+      userCoachId
+      selfAwarenessScores {
+      items {
+        id
+        score
+        selfAssessment
+        timestamp
         }
       }
     }
@@ -338,9 +374,9 @@ export const listUsersByOrganizationIdClientSnapshot = (id, dates, dates2) => `
   }
 `
 
-export const listTopicsQuery = () => `
-  query MyQuery {
-    listTopics(filter: {isPrivate: {eq: false}}) {
+export const listTopicsQuery = /* GraphQL */ `
+  query ListTopics {
+    listTopics(filter: { isPrivate: { eq: false } }) {
       items {
         id
         name
@@ -392,9 +428,9 @@ export const listTopicsWiyhAffirmationsIdsQuery = () => `
   }
 `
 
-export const getTopicByIdQuery = id => `
-  query MyQuery {
-    getTopic(id: "${id}") {
+export const getTopicByIdQuery = /* GraphQL */ `
+  query GetTopic($id: ID!) {
+    getTopic(id: $id) {
       name
       id
       description
@@ -430,84 +466,42 @@ export const getTopicByIdQuery = id => `
 `
 
 export const getPacksFromUser = id => `
-  query getPacksFromUser {
-    getUser(id: "${id}") {
-      subscribedPacks {
+  query listYourPacks {
+    listPackFilters(input: {filterType: yourPacks}) {
+      author
+      createdAt
+      id
+      isCommunityPack
+      name
+      picture
+      pictureURL
+      clientsCount
+      affirmationCount
+      affirmations {
         items {
-          pack {
-            name
-            id
+          id
+          affirmation {
+            createdAt
             description
-            picture
-            author
-            affirmations(limit:10000, sortDirection: DESC) {
+            id
+            name
+            packs {
               items {
-                affirmation {
+                pack {
                   description
                   id
                   name
-                  createdAt
-                  packs {
-                    items {
-                      pack {
-                        description
-                        id
-                        name
-                      }
-                    }
-                  }
-                  topics {
-                    items {
-                      topic {
-                        description
-                        id
-                        name
-                      }
-                    }
-                  }
                 }
-                createdAt
               }
             }
-          }
-        }
-      }
-      packs {
-        items {
-          name
-          id
-          description
-          picture
-          author
-          isCommunityPack
-          affirmations(sortDirection: DESC) {
-            items {
-              id
-              affirmation {
-                description
-                id
-                name
-                createdAt
-                packs {
-                  items {
-                    pack {
-                      description
-                      id
-                      name
-                    }
-                  }
-                }
-                topics {
-                  items {
-                    topic {
-                      description
-                      id
-                      name
-                    }
-                  }
+            topics {
+              items {
+                topic {
+                  description
+                  id
+                  name
                 }
               }
-              createdAt
             }
           }
         }

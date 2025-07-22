@@ -1,9 +1,9 @@
 // react
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Redirect, useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 // material-ui
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 // containers
 import Header from '../../containers/Header'
 import UserStatistics from '../../containers/UserStatistics'
@@ -38,6 +38,7 @@ const User = () => {
   // ? hooks
   const { id } = useParams()
 
+  const routeClient = DASHBOARD_ROUTES.client
   const {
     filtersReducer: { globalDateFilter },
     affirmationsReducer,
@@ -54,20 +55,23 @@ const User = () => {
 
   useEffect(() => {
     client === undefined ? setRedirect(true) : setRedirect(false)
-  }, [globalDateFilter])
+  }, [client, globalDateFilter])
 
   useEffect(() => {
     dispatch(getAllTopicsAction(user.data.userTopicId))
     dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10000, id))
     dispatch(listPacksAction(user.id))
-  }, [user.id, globalDateFilter])
+  }, [user.id, globalDateFilter, dispatch, id])
 
-  useEffect(async () => {
-    if (user.id) {
-      await handleUserQuery()
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user.id) {
+        await handleUserQuery()
+      }
+      // await handleAffirmationsQuery()
     }
-    // await handleAffirmationsQuery()
-  }, [globalDateFilter, affirmationsReducer.affirmations, usersReducer.users])
+    fetchData()
+  }, [globalDateFilter, affirmationsReducer.affirmations, usersReducer.users, user.id])
 
   // ? handle functions
   /**
@@ -111,13 +115,16 @@ const User = () => {
    */
   // const handleSensies = () => sensies && (sensies.length > -1)
 
+  if (redirect) {
+    return <Navigate to={home} replace />
+  }
+
   return (
     <section className={styles.UserContainer}>
-      {redirect && <Redirect to={home} />}
       {/* seo */}
       <HelmetSEO title={t('seo.User.title')} subtitle={t('seo.User.subtitle')} />
       {/* header */}
-      <Header withBack={true} withPeople={false} />
+      <Header withBack={true} withPeople={false} backTo={routeClient} />
       {/* body */}
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -136,7 +143,7 @@ const User = () => {
             : <TrackAffirmations
                 // data={}
                 theme={2}
-                title={t('dashboard.User.trackAffirmations')}
+                title={t('dashboard.User.trackIntentions')}
                 chipsUp={true}
                 multiUser={false}
                 user={client}

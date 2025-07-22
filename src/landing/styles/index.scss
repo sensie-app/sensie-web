@@ -1,6 +1,6 @@
-@import '../../styles/index.scss'; // global styles
+@use '../../styles/index.scss'; // global styles
 
-@import './blog'; // blog styles
+@use 'blog'; // blog styles
 
 .global {
     overflow-x: hidden;

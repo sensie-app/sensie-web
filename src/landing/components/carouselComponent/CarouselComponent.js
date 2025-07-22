@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import './CarouselComponent.scss'
 import KurtBilups from '../../assets/img/KurtBilups.jpg'
@@ -7,12 +7,20 @@ import DanaBaruch from '../../assets/img/DanaBaruch.jpg'
 import LauraLea from '../../assets/img/LauraLea.jpg'
 
 import Citation from '../Citation'
-
-import { Box } from '@material-ui/core'
+import { Box } from '@mui/material'
 
 const Carousel = require('react-responsive-carousel').Carousel
 
 const CarouselComponent = () => {
+  const isMounted = useRef(true)
+
+  useEffect(() => {
+    return () => {
+      // Marcamos como desmontado al salir del componente
+      isMounted.current = false
+    }
+  }, [])
+
   return (
     <Box mt={6} mx={4}>
       <Carousel

@@ -1,28 +1,31 @@
 
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 $drawerWidth: 210px;
 $drawerWidthIcon: 55px;
 
 .LayoutContainer {
-  @include flex(row, center, center, wrap);
-  background-color: $grayColor7;
+  @include mixins.flex(row, center, center, wrap);
+  background-color: variables.$grayColor7;
   margin-left: $drawerWidthIcon;
-  z-index: $zIndexLevel1K;
+  z-index: variables.$zIndexLevel1K;
 }
 
 .LayoutLinkTo {
   width: $drawerWidth;
   text-decoration: none;
-  color: $fontColor1;
+  color: variables.$fontColor1;
 }
 
 .LayoutLinkToListItem {
   width: 100%;
   min-height: 46px;
   height: 46px;
-  @include flex(row, flex-start, center, nowrap);
-  margin-bottom: $step1;  
+  @include mixins.flex(row, flex-start, center, nowrap);
+  margin-bottom: variables.$step1;  
 }
 
 .LayoutLinkToIcon, .LayoutAvatarImgContainer {
@@ -31,13 +34,13 @@ $drawerWidthIcon: 55px;
   max-width: $drawerWidthIcon;
   width: $drawerWidthIcon;
   height: 100%;  
-  @include flex(column, center, center, nowrap);
+  @include mixins.flex(column, center, center, nowrap);
 }
 
 .LayoutLinkToIcon {
   border-radius: 0px 5px 5px 0px;
   &:hover {
-    background-color: $grayColor5;
+    background-color: variables.$grayColor5;
   }
 }
 
@@ -56,22 +59,22 @@ $drawerWidthIcon: 55px;
 }
 
 .LayoutLinkToText, .LayoutAvatarText {
-  @include flex(column, center, flex-start, nowrap);
+  @include mixins.flex(column, center, flex-start, nowrap);
   padding: 0px 14px;
-  color: $fontColor1;
+  color: variables.$fontColor1;
   font-size: 1rem;
   word-break: break-all;    
 }
 
 .LayoutAvatarNameContainer {
-  @include flex(row, space-between, center, wrap);
-  @include border(solid, 0px 0px 1px 0px, 0px, transparent);
+  @include mixins.flex(row, space-between, center, wrap);
+  @include mixins.border(solid, 0px 0px 1px 0px, 0px, transparent);
   &:hover {
     cursor: pointer;
-    @include border(solid, 0px 0px 1px 0px, 0px, $actionColor1);
+    @include mixins.border(solid, 0px 0px 1px 0px, 0px, variables.$actionColor1);
     span {
       &:hover {
-        color: $actionColor1;
+        color: variables.$actionColor1;
       }
     }
   }
@@ -82,17 +85,17 @@ $drawerWidthIcon: 55px;
 }
 
 .LayoutLinkToSubText, .LayoutAvatarSubText {
-  color:$fontColor2;
-  margin-right: $step1;
+  color:variables.$fontColor2;
+  margin-right: variables.$step1;
   font-size: 1rem;
 }
 
 .LayoutLinkToSelected {
   .LayoutLinkToIcon {
-    background-color: $actionColor1;    
+    background-color: variables.$actionColor1;    
   }
   .LayoutLinkToText {
-    color: $actionColor1;
+    color: variables.$actionColor1;
   }
 }
 
@@ -102,22 +105,22 @@ $drawerWidthIcon: 55px;
 }
 
 .LayoutAppBarLeftIconsContainer {
-  @include flex(row, space-between, center, wrap);  
+  @include mixins.flex(row, space-between, center, wrap);  
   width: 100%;
   div {
-    @include flex(row, space-between, center, wrap);  
+    @include mixins.flex(row, space-between, center, wrap);  
   }
 }
 
 .LayoutListContainer {
-  @include flex(column, space-between, flex-start, wrap);  
+  @include mixins.flex(column, space-between, flex-start, wrap);  
   height: 100vh;
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
 .LayoutAvatarSubTextContainer {
-  @include flex(row, center, center, wrap);
+  @include mixins.flex(row, center, center, wrap);
 }
 
 .LayoutAppBarLogo {
