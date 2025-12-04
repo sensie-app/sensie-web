@@ -829,3 +829,18 @@ export const listLastUnusedInvitations = id => `
     }
   }
 `
+export const listAllUsers = () => `
+  query ListAllUsers {
+    listCognitoUsers {
+      Username
+      UserStatus
+      Enabled
+      Attributes {
+        email
+        name
+        family_name
+        phone_number
+      }
+    }
+  }
+`

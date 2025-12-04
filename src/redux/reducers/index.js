@@ -6,6 +6,7 @@ import showReducer from './show.reducer'
 import paginationReducer from './pagination.reducer'
 import checkboxReducer from './checkbox.reducer'
 import userReducer from './user.reducer'
+import usersCognitoReducer from './usercognito.reducer'
 import topicsReducer from './topics.reducer'
 import packsReducer from './packs.reducer'
 import usersReducer from './users.reducer'
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   checkboxReducer,
   userReducer,
   topicsReducer,
+  usersCognitoReducer,
   affirmationsReducer,
   packsReducer,
   usersReducer,
