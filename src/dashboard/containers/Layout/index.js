@@ -39,7 +39,7 @@ import { notificationsTest } from './testData'
 import { getUrl } from '@aws-amplify/storage'
 
 // constants
-const { home, client, intentions, profile } = DASHBOARD_ROUTES
+const { home, client, intentions, profile, userAll } = DASHBOARD_ROUTES
 const { grayColor8, fontColor1, actionColor1 } = COLORS
 const { logo, avatarFemale, avatarMale } = IMG
 const drawerWidth = 210
@@ -121,6 +121,14 @@ const Layout = ({ children }) => {
       link: intentions
     }
   ]
+
+  if (data.isAdmin) {
+    listItems.push({
+      title: <span>{t('dashboard.Layout.userAll').toUpperCase()}</span>,
+      icon: 'people-outline',
+      link: userAll
+    })
+  }
 
   const handleDrawerOpen = () => setOpen(!open)
 

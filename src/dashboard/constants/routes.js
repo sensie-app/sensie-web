@@ -14,7 +14,8 @@ const DASHBOARD_ROUTES = {
   pack: dashboard + '/pack',
   topic: dashboard + '/topic',
   sageDashboard: dashboard + '/sage_dashboard',
-  profile: dashboard + '/profile'
+  profile: dashboard + '/profile',
+  userAll: dashboard + '/user-all'
 }
 
 export default DASHBOARD_ROUTES

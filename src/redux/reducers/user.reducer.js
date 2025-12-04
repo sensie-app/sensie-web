@@ -4,7 +4,9 @@ const INITIAL_STATE = {
   user: {
     id: null,
     loading: false,
-    data: {},
+    data: {
+      isAdmin: false
+    },
     error: null
   }
 }
