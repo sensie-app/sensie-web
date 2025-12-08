@@ -395,7 +395,7 @@ export const listTopicsQuery = /* GraphQL */ `
               topics {
                 items {
                   topic {
-                    id
+                  id
                     name
                   }
                 }
@@ -829,17 +829,66 @@ export const listLastUnusedInvitations = id => `
     }
   }
 `
-export const listAllUsers = () => `
-  query ListAllUsers {
-    listCognitoUsers {
+export const listAllUsers = (limit = 10, paginationToken = null, filter = null) => {
+  const tokenPart = paginationToken ? `paginationToken: "${paginationToken}"` : ''
+  const filterPart = filter ? `filter: "${filter}"` : ''
+  const args = [
+    `limit: ${limit}`,
+    tokenPart,
+    filterPart
+  ].filter(Boolean).join('\n')
+
+  return `
+  query ListUsersWithFilterAndPagination {
+  listCognitoUsers(
+    input: {
+      ${args}
+    }
+  ) {
+    users {
       Username
       UserStatus
       Enabled
+      UserCreateDate
+      UserLastModifiedDate
       Attributes {
         email
+        email_verified
+        phone_number
+        phone_number_verified
         name
         family_name
+        preferred_username
+        gender
+        birthdate
+        sub
+      }
+    }
+    paginationToken
+    }
+  }
+`
+}
+
+export const getCognitoUserQuery = (username) => `
+  query GetUser {
+    getCognitoUser(input: { username: "${username}" }) {
+      Username
+      UserStatus
+      Enabled
+      UserCreateDate
+      UserLastModifiedDate
+      Attributes {
+        email
+        email_verified
         phone_number
+        phone_number_verified
+        name
+        family_name
+        preferred_username
+        gender
+        birthdate
+        sub
       }
     }
   }

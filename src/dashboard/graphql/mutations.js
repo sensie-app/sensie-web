@@ -1,3 +1,46 @@
+export const updateCognitoUserMutation = (username, attributes) => `
+  mutation UpdateUser {
+    updateCognitoUser(
+      input: {
+        username: "${username}"
+        attributes: [
+          ${attributes.map(attr => `{ Name: "${attr.Name}", Value: "${attr.Value}" }`).join('\n')}
+        ]
+      }
+    ) {
+      success
+      username
+      message
+    }
+  }
+`
+
+export const verifyCognitoUserAttributeMutation = (username, attributeName, attributeValue) => `
+  mutation VerifyUserAttribute {
+    verifyCognitoUserAttribute(
+      input: {
+        username: "${username}"
+        attributeName: "${attributeName}"
+        attributeValue: "${attributeValue}"
+      }
+    ) {
+      success
+      username
+      message
+    }
+  }
+`
+
+export const resetCognitoUserPasswordMutation = (username) => `
+  mutation ResetPassword {
+    resetCognitoUserPassword(input: { username: "${username}" }) {
+      success
+      username
+      message
+    }
+  }
+`
+
 export const createInvite = id => `
   mutation createInvite {
     createInvite(input: {userId: "${id}"}) {

@@ -117,9 +117,10 @@ export const listAllUsersCognitoAction = () => async (dispatch) => {
   try {
     const client = generateClient()
     const response = await client.graphql({ query: listAllUsers() })
+    console.log(response.data.listCognitoUsers.users)
     dispatch({
       type: GET_ALL_USERS_COGNITO,
-      payload: response.data.listCognitoUsers
+      payload: response.data.listCognitoUsers.users
     })
   } catch (error) {
     dispatch({

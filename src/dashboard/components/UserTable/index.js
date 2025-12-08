@@ -1,6 +1,6 @@
 // src/dashboard/components/UserTable.js
 
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types' // Para validar las props
 import { styled } from '@mui/material/styles'
 import Table from '@mui/material/Table'
@@ -9,7 +9,6 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import TablePagination from '@mui/material/TablePagination'
 import Paper from '@mui/material/Paper'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -96,27 +95,13 @@ const splitPhoneNumber = (phoneNumber) => {
 }
 
 // 1. Receive the data and the action functions as props
-const UserTable = ({ users, onEdit, onDelete }) => {
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
-
-  if (!users || users.length === 0) {
+const UserTable = ({ users, onEdit, onDelete, paginationToken, onChangePage, limit }) => {
+  if (!users) {
     return <Typography sx={{ mt: 2 }}>No users found.</Typography>
   }
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage)
-  }
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10))
-    setPage(0)
-  }
-
-  // Calculate the rows to display on the current page
-  const visibleRows = users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-
+  // We are handling pagination via backend, so we don't slice users here.
+  // The 'users' prop should contain only the current page's users.
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden', backgroundColor: (theme) => theme.palette.grey[900] }}>
       <TableContainer component={Paper} sx={{ backgroundColor: (theme) => theme.palette.grey[900] }}>
@@ -134,7 +119,7 @@ const UserTable = ({ users, onEdit, onDelete }) => {
           </TableHead>
           {/* Table body */}
           <TableBody>
-            {visibleRows.map((user) => {
+            {users.map((user) => {
               const { code, number } = splitPhoneNumber(user.Attributes.phone_number)
               return (
                 <StyledTableRow
@@ -162,6 +147,7 @@ const UserTable = ({ users, onEdit, onDelete }) => {
                       aria-label="Delete"
                       onClick={() => onDelete(user.Username)} // Call the prop
                       color="inherit"
+                      sx={{ mr: 1 }}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -173,16 +159,26 @@ const UserTable = ({ users, onEdit, onDelete }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25]}
-        component="div"
-        count={users.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{ color: COLORS.fontColor1 }}
-      />
+      <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
+         {/* Simple Next button for token-based pagination if we don't have total count */}
+         {/* Or we can adapt TablePagination if we mock the count or just use "next" logic */}
+         <div style={{ color: COLORS.fontColor1, display: 'flex', alignItems: 'center' }}>
+            <span style={{ marginRight: '10px' }}>Rows per page: {limit}</span>
+            <button
+              disabled={!paginationToken}
+              onClick={() => onChangePage(1)} // 1 indicating "next"
+              style={{
+                background: 'none',
+                border: 'none',
+                color: paginationToken ? COLORS.actionColor1 : COLORS.grayColor4,
+                cursor: paginationToken ? 'pointer' : 'default',
+                fontWeight: 'bold'
+              }}
+            >
+              Next Page &gt;
+            </button>
+         </div>
+      </div>
     </Paper>
   )
 }
@@ -201,7 +197,10 @@ UserTable.propTypes = {
     })
   ).isRequired,
   onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  paginationToken: PropTypes.string,
+  onChangePage: PropTypes.func,
+  limit: PropTypes.number
 }
 
 export default UserTable
