@@ -9,8 +9,7 @@ import {
 // Componentes de MUI necesarios para la tabla y acciones
 import {
   Box,
-  Typography,
-  Button
+  Typography
 } from '@mui/material'
 // Iconos de MUI
 import styles from './styles.module.scss'
@@ -24,11 +23,8 @@ const UserAll = () => {
   const [selectedUser, setSelectedUser] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
+
   // Pagination State
-  // We keep a history of tokens to allow "Previous" functionality if needed,
-  // though basic token pagination is often just forward-only or requires caching.
-  // For now, let's implement simple forward pagination.
-  // We can also reset to first page.
   const [limit] = useState(10)
 
   useEffect(() => {
@@ -37,18 +33,14 @@ const UserAll = () => {
   }, [dispatch, limit])
 
   // --- Funciones de Manejo de Acciones ---
+
   const handlePageChange = (direction) => {
-    // direction: 1 for next
-    // For now we only support "Next" with token, as we don't have "Previous" token from API
-    // To implement "Previous", we'd need to store the token stack in local state
     if (direction === 1 && usersCognitoReducer.paginationToken) {
       dispatch(listAllUsersCognitoAction(limit, usersCognitoReducer.paginationToken))
     }
-    // If we wanted "Previous", we would pop from a history stack.
   }
 
   const handleEdit = (username) => {
-    // Find full user object
     const user = usersCognitoReducer.users.find(u => u.Username === username)
     if (user) {
       setSelectedUser(user)
@@ -56,10 +48,24 @@ const UserAll = () => {
     }
   }
 
+  const handleResetPassword = async (username) => {
+    // We could add a confirmation dialog here before resetting
+    if (window.confirm(`Are you sure you want to reset the password for user ${username}?`)) {
+      const result = await onResetPassword(username)
+      // Toast logic is handled inside onResetPassword wrapper or here
+      console.log('Reset Password result:', result)
+    }
+  }
+
+  const handleUpdateAttribute = (username) => {
+    // Logic for Update Attribute (likely opening another dialog or repurposing EditUserDialog)
+    console.log('Update attribute for:', username)
+    // Placeholder implementation
+    showToast('Update Attribute functionality pending', 'info')
+  }
+
   const handleDelete = (userId) => {
     console.log(`Delete user with ID: ${userId}`)
-    // Aquí iría la lógica para mostrar un diálogo de confirmación y luego llamar a la API de borrado si existe
-    // Por ahora solo log
   }
 
   const handleCloseModal = () => {
@@ -98,6 +104,7 @@ const UserAll = () => {
     } else {
       showToast(result.message, 'error')
     }
+    return result
   }
 
   return (
@@ -118,18 +125,13 @@ const UserAll = () => {
         <UserTable
           users={usersCognitoReducer.users}
           onEdit={handleEdit}
+          onResetPassword={handleResetPassword}
+          onUpdateAttribute={handleUpdateAttribute}
           onDelete={handleDelete}
           paginationToken={usersCognitoReducer.paginationToken}
           onChangePage={handlePageChange}
           limit={limit}
         />
-
-        {/* Button to create new user, outside of the table */}
-        <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
-          <Button variant="contained" color="success">
-            Create New User
-          </Button>
-        </Box>
 
         {selectedUser && (
           <EditUserDialog
