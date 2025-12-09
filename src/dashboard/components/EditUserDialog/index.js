@@ -112,7 +112,7 @@ const EditUserDialog = ({ open, onClose, user, onUpdateUser }) => {
         <div className={styles.EditUserHeader}>
           <Typography variant="h5" style={{ color: '#fff', fontWeight: 'bold' }}>
             Edit User
-          </Typography>
+        </Typography>
         </div>
 
         {apiError && (
@@ -171,7 +171,7 @@ const EditUserDialog = ({ open, onClose, user, onUpdateUser }) => {
             <button
               type="submit"
               onClick={handleForm}
-              disabled={loading}
+          disabled={loading}
               className={styles.btnSave}
             >
               {loading ? 'Saving...' : (t('dashboard.Profile.save') || 'Save')}

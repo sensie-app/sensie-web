@@ -15,28 +15,66 @@ import {
 import styles from './styles.module.scss'
 import UserTable from '../../components/UserTable'
 import EditUserDialog from '../../components/EditUserDialog'
+import VerifyUserAttributeDialog from '../../components/VerifyUserAttributeDialog'
 import Toast from '../../components/Toast' // Asumiendo que existe un componente Toast
 
 const UserAll = () => {
   const dispatch = useDispatch()
   const { usersCognitoReducer } = useSelector(state => state)
   const [selectedUser, setSelectedUser] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false)
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
 
   // Pagination State
+  const [pageHistory, setPageHistory] = useState([null])
+  const [currentPage, setCurrentPage] = useState(0)
   const [limit] = useState(10)
+  const [currentFilter, setCurrentFilter] = useState(null)
 
   useEffect(() => {
     // Initial load
-    dispatch(listAllUsersCognitoAction(limit, null))
+    dispatch(listAllUsersCognitoAction(limit, null, null))
   }, [dispatch, limit])
 
   // --- Funciones de Manejo de Acciones ---
 
+  const handleSearch = (filter) => {
+    console.log('handleSearch called in UserAll')
+    console.log('Filter received:', filter)
+    // Reset pagination when a new search/filter is applied
+    setPageHistory([null])
+    setCurrentPage(0)
+    setCurrentFilter(filter)
+    console.log('Dispatching listAllUsersCognitoAction with filter:', filter)
+    // Fetch with new filter from page 1
+    dispatch(listAllUsersCognitoAction(limit, null, filter))
+  }
+
   const handlePageChange = (direction) => {
-    if (direction === 1 && usersCognitoReducer.paginationToken) {
-      dispatch(listAllUsersCognitoAction(limit, usersCognitoReducer.paginationToken))
+    if (direction === 1) {
+      // Next Page
+      const nextToken = usersCognitoReducer.paginationToken
+      if (nextToken) {
+        const newHistory = [...pageHistory.slice(0, currentPage + 1), nextToken]
+        setPageHistory(newHistory)
+
+        const nextPageIndex = currentPage + 1
+        setCurrentPage(nextPageIndex)
+
+        // Fetch using the token for the new page with current filter
+        dispatch(listAllUsersCognitoAction(limit, nextToken, currentFilter))
+      }
+    } else if (direction === -1) {
+      // Previous Page
+      if (currentPage > 0) {
+        const prevPageIndex = currentPage - 1
+        const prevToken = pageHistory[prevPageIndex]
+
+        setCurrentPage(prevPageIndex)
+        // Fetch using the token that generated the previous page with current filter
+        dispatch(listAllUsersCognitoAction(limit, prevToken, currentFilter))
+      }
     }
   }
 
@@ -44,32 +82,36 @@ const UserAll = () => {
     const user = usersCognitoReducer.users.find(u => u.Username === username)
     if (user) {
       setSelectedUser(user)
-      setIsModalOpen(true)
+      setIsEditModalOpen(true)
     }
   }
 
   const handleResetPassword = async (username) => {
-    // We could add a confirmation dialog here before resetting
     if (window.confirm(`Are you sure you want to reset the password for user ${username}?`)) {
       const result = await onResetPassword(username)
-      // Toast logic is handled inside onResetPassword wrapper or here
       console.log('Reset Password result:', result)
     }
   }
 
   const handleUpdateAttribute = (username) => {
-    // Logic for Update Attribute (likely opening another dialog or repurposing EditUserDialog)
-    console.log('Update attribute for:', username)
-    // Placeholder implementation
-    showToast('Update Attribute functionality pending', 'info')
+    const user = usersCognitoReducer.users.find(u => u.Username === username)
+    if (user) {
+      setSelectedUser(user)
+      setIsVerifyModalOpen(true)
+    }
   }
 
   const handleDelete = (userId) => {
     console.log(`Delete user with ID: ${userId}`)
   }
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false)
+    setSelectedUser(null)
+  }
+
+  const handleCloseVerifyModal = () => {
+    setIsVerifyModalOpen(false)
     setSelectedUser(null)
   }
 
@@ -95,6 +137,7 @@ const UserAll = () => {
     } else {
       showToast(result.message, 'error')
     }
+    return result
   }
 
   const onResetPassword = async (username) => {
@@ -131,17 +174,25 @@ const UserAll = () => {
           paginationToken={usersCognitoReducer.paginationToken}
           onChangePage={handlePageChange}
           limit={limit}
+          currentPage={currentPage}
+          onSearch={handleSearch}
         />
 
         {selectedUser && (
-          <EditUserDialog
-            open={isModalOpen}
-            onClose={handleCloseModal}
-            user={selectedUser}
-            onUpdateUser={onUpdateUser}
-            onVerifyAttribute={onVerifyAttribute}
-            onResetPassword={onResetPassword}
-          />
+          <>
+            <EditUserDialog
+              open={isEditModalOpen}
+              onClose={handleCloseEditModal}
+              user={selectedUser}
+              onUpdateUser={onUpdateUser}
+            />
+            <VerifyUserAttributeDialog
+              open={isVerifyModalOpen}
+              onClose={handleCloseVerifyModal}
+              user={selectedUser}
+              onVerifyAttribute={onVerifyAttribute}
+            />
+          </>
         )}
 
       </Box>

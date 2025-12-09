@@ -27,9 +27,14 @@ const {
 export const listAllUsersCognitoAction = (limit = 10, paginationToken = null, filter = null) => async (dispatch) => {
   dispatch({ type: LOADING })
 
+  console.log('listAllUsersCognitoAction called with:', { limit, paginationToken, filter })
+
   try {
     const client = generateClient()
-    const response = await client.graphql({ query: listAllUsers(limit, paginationToken, filter) })
+    const query = listAllUsers(limit, paginationToken, filter)
+    console.log('GraphQL Query:', query)
+    const response = await client.graphql({ query })
+    console.log('GraphQL Response:', response)
     // Structure matches backend response: { users: [...], paginationToken: "..." }
     const result = {
       users: response.data.listCognitoUsers.users,
@@ -41,6 +46,7 @@ export const listAllUsersCognitoAction = (limit = 10, paginationToken = null, fi
       payload: result
     })
   } catch (error) {
+    console.error('Error in listAllUsersCognitoAction:', error)
     dispatch({
       type: ERROR,
       payload: error.message || 'Error in list all users cognito'

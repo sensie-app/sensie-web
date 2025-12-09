@@ -1,6 +1,6 @@
 // src/dashboard/components/UserTable.js
 
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types' // Para validar las props
 import { styled } from '@mui/material/styles'
 import Table from '@mui/material/Table'
@@ -17,6 +17,8 @@ import { COLORS } from '../../../constants/theme'
 import EditIcon from '@mui/icons-material/Edit'
 import LockResetIcon from '@mui/icons-material/LockReset'
 import BuildIcon from '@mui/icons-material/Build'
+import SearchIcon from '@mui/icons-material/Search'
+import ClearIcon from '@mui/icons-material/Clear'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 
@@ -76,13 +78,96 @@ const splitPhoneNumber = (phoneNumber) => {
   return { code, number: formatNumber(number) }
 }
 
-const UserTable = ({ users, onEdit, onResetPassword, onUpdateAttribute, paginationToken, onChangePage, limit }) => {
+const UserTable = ({ users, onEdit, onResetPassword, onUpdateAttribute, paginationToken, onChangePage, limit, currentPage, onSearch }) => {
+  const [searchEmail, setSearchEmail] = useState('')
+
+  const handleSearchClick = () => {
+    console.log('Search button clicked')
+    console.log('Search email value:', searchEmail)
+    if (searchEmail.trim()) {
+      // Build Cognito filter syntax: email ^= "value" (starts with)
+      const filter = `email ^= "${searchEmail.trim()}"`
+      console.log('Filter created:', filter)
+      console.log('Calling onSearch with filter:', filter)
+      onSearch(filter)
+    } else {
+      console.log('Search email is empty, not searching')
+    }
+  }
+
+  const handleClearClick = () => {
+    console.log('Clear button clicked')
+    setSearchEmail('')
+    onSearch(null) // Clear filter
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchClick()
+    }
+  }
+
   if (!users) {
     return <Typography sx={{ mt: 2 }}>No users found.</Typography>
   }
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden', backgroundColor: (theme) => theme.palette.grey[900] }}>
+      {/* Search Filter Section */}
+      <div style={{
+        padding: '15px 20px',
+        backgroundColor: COLORS.grayColor7,
+        borderBottom: `1px solid ${COLORS.grayColor4}`,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px'
+      }}>
+        <Typography variant="body2" style={{ color: COLORS.fontColor1, minWidth: '120px' }}>
+          Search by Email:
+        </Typography>
+        <input
+          type="text"
+          value={searchEmail}
+          onChange={(e) => setSearchEmail(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Enter email to search..."
+          style={{
+            flex: 1,
+            padding: '8px 12px',
+            backgroundColor: COLORS.grayColor6,
+            color: COLORS.fontColor1,
+            border: `1px solid ${COLORS.grayColor4}`,
+            borderRadius: '4px',
+            fontSize: '14px',
+            outline: 'none'
+          }}
+        />
+        <Tooltip title="Search">
+          <IconButton
+            onClick={handleSearchClick}
+            sx={{
+              color: COLORS.actionColor1,
+              backgroundColor: COLORS.grayColor6,
+              '&:hover': { backgroundColor: COLORS.grayColor5 }
+            }}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Clear Filter">
+          <IconButton
+            onClick={handleClearClick}
+            sx={{
+              color: COLORS.fontColor2,
+              backgroundColor: COLORS.grayColor6,
+              '&:hover': { backgroundColor: COLORS.grayColor5 }
+            }}
+          >
+            <ClearIcon />
+          </IconButton>
+        </Tooltip>
+      </div>
+
       <TableContainer component={Paper} sx={{ backgroundColor: (theme) => theme.palette.grey[900] }}>
         <Table sx={{ minWidth: 650 }} aria-label="User table">
           <TableHead>
@@ -116,7 +201,7 @@ const UserTable = ({ users, onEdit, onResetPassword, onUpdateAttribute, paginati
                       <Tooltip title="Edit">
                         <IconButton
                           onClick={() => onEdit(user.Username)}
-                          sx={{ color: COLORS.actionColor3 }} // Cyan/Blueish
+                          sx={{ color: COLORS.actionColor3 }}
                         >
                           <EditIcon />
                         </IconButton>
@@ -124,15 +209,15 @@ const UserTable = ({ users, onEdit, onResetPassword, onUpdateAttribute, paginati
                       <Tooltip title="Reset Password">
                         <IconButton
                           onClick={() => onResetPassword(user.Username)}
-                          sx={{ color: COLORS.actionColor4 }} // Red/Warning color for sensitive action
+                          sx={{ color: COLORS.actionColor4 }}
                         >
                           <LockResetIcon />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Update Attribute (Pending)">
+                      <Tooltip title="Update Attribute">
                         <IconButton
                           onClick={() => onUpdateAttribute(user.Username)}
-                          sx={{ color: COLORS.fontColor2 }} // Grey/Disabled look or generic
+                          sx={{ color: COLORS.fontColor2 }}
                         >
                           <BuildIcon />
                         </IconButton>
@@ -148,6 +233,20 @@ const UserTable = ({ users, onEdit, onResetPassword, onUpdateAttribute, paginati
       <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
         <div style={{ color: COLORS.fontColor1, display: 'flex', alignItems: 'center' }}>
           <span style={{ marginRight: '10px' }}>Rows per page: {limit}</span>
+          <button
+            disabled={currentPage <= 0}
+            onClick={() => onChangePage(-1)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: currentPage > 0 ? COLORS.actionColor1 : COLORS.grayColor4,
+              cursor: currentPage > 0 ? 'pointer' : 'default',
+              fontWeight: 'bold',
+              marginRight: '15px'
+            }}
+          >
+            &lt; Prev Page
+          </button>
           <button
             disabled={!paginationToken}
             onClick={() => onChangePage(1)}
@@ -184,7 +283,9 @@ UserTable.propTypes = {
   onUpdateAttribute: PropTypes.func.isRequired,
   paginationToken: PropTypes.string,
   onChangePage: PropTypes.func,
-  limit: PropTypes.number
+  limit: PropTypes.number,
+  currentPage: PropTypes.number,
+  onSearch: PropTypes.func.isRequired
 }
 
 export default UserTable
