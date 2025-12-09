@@ -12,6 +12,7 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import UserStatusChip from '../UserStatusChip'
+import Loading from '../Loading'
 import { COLORS } from '../../../constants/theme'
 // Import individual icons
 import EditIcon from '@mui/icons-material/Edit'
@@ -78,25 +79,18 @@ const splitPhoneNumber = (phoneNumber) => {
   return { code, number: formatNumber(number) }
 }
 
-const UserTable = ({ users, onEdit, onResetPassword, onUpdateAttribute, paginationToken, onChangePage, limit, currentPage, onSearch }) => {
+const UserTable = ({ users, onEdit, onResetPassword, onUpdateAttribute, paginationToken, onChangePage, limit, currentPage, onSearch, loading }) => {
   const [searchEmail, setSearchEmail] = useState('')
 
   const handleSearchClick = () => {
-    console.log('Search button clicked')
-    console.log('Search email value:', searchEmail)
     if (searchEmail.trim()) {
       // Build Cognito filter syntax: email ^= "value" (starts with)
       const filter = `email ^= "${searchEmail.trim()}"`
-      console.log('Filter created:', filter)
-      console.log('Calling onSearch with filter:', filter)
       onSearch(filter)
-    } else {
-      console.log('Search email is empty, not searching')
     }
   }
 
   const handleClearClick = () => {
-    console.log('Clear button clicked')
     setSearchEmail('')
     onSearch(null) // Clear filter
   }
@@ -105,10 +99,6 @@ const UserTable = ({ users, onEdit, onResetPassword, onUpdateAttribute, paginati
     if (e.key === 'Enter') {
       handleSearchClick()
     }
-  }
-
-  if (!users) {
-    return <Typography sx={{ mt: 2 }}>No users found.</Typography>
   }
 
   return (
@@ -168,67 +158,79 @@ const UserTable = ({ users, onEdit, onResetPassword, onUpdateAttribute, paginati
         </Tooltip>
       </div>
 
-      <TableContainer component={Paper} sx={{ backgroundColor: (theme) => theme.palette.grey[900] }}>
-        <Table sx={{ minWidth: 650 }} aria-label="User table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>Email</StyledTableCell>
-              <StyledTableCell>Code</StyledTableCell>
-              <StyledTableCell>Phone Number</StyledTableCell>
-              <StyledTableCell>Status</StyledTableCell>
-              <StyledTableCell>Actions</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => {
-              const { code, number } = splitPhoneNumber(user.Attributes.phone_number)
-              return (
-                <StyledTableRow
-                  key={user.Username}
-                  hover
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <StyledTableCell component="th" scope="row">{user.Attributes.name}</StyledTableCell>
-                  <StyledTableCell >{user.Attributes.email}</StyledTableCell>
-                  <StyledTableCell >{code}</StyledTableCell>
-                  <StyledTableCell >{number}</StyledTableCell>
-                  <StyledTableCell >
-                    <UserStatusChip userStatus={user.UserStatus} />
-                  </StyledTableCell>
-                  <StyledTableCell >
-                    <div style={{ display: 'flex', gap: '5px' }}>
-                      <Tooltip title="Edit">
-                        <IconButton
-                          onClick={() => onEdit(user.Username)}
-                          sx={{ color: COLORS.actionColor3 }}
-                        >
-                          <EditIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Reset Password">
-                        <IconButton
-                          onClick={() => onResetPassword(user.Username)}
-                          sx={{ color: COLORS.actionColor4 }}
-                        >
-                          <LockResetIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Update Attribute">
-                        <IconButton
-                          onClick={() => onUpdateAttribute(user.Username)}
-                          sx={{ color: COLORS.fontColor2 }}
-                        >
-                          <BuildIcon />
-                        </IconButton>
-                      </Tooltip>
-                    </div>
-                  </StyledTableCell>
-                </StyledTableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
+      <TableContainer component={Paper} sx={{ backgroundColor: (theme) => theme.palette.grey[900], minHeight: '300px' }}>
+        {loading
+          ? (
+              <Loading />
+            )
+          : !users || users.length === 0
+              ? (
+                  <div style={{ padding: '50px', textAlign: 'center' }}>
+                    <Typography sx={{ color: COLORS.fontColor1 }}>No users found.</Typography>
+                  </div>
+                )
+              : (
+                  <Table sx={{ minWidth: 650 }} aria-label="User table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Name</StyledTableCell>
+                    <StyledTableCell>Email</StyledTableCell>
+                    <StyledTableCell>Code</StyledTableCell>
+                    <StyledTableCell>Phone Number</StyledTableCell>
+                    <StyledTableCell>Status</StyledTableCell>
+                    <StyledTableCell>Actions</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users.map((user) => {
+                    const { code, number } = splitPhoneNumber(user.Attributes.phone_number)
+                    return (
+                      <StyledTableRow
+                        key={user.Username}
+                        hover
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <StyledTableCell component="th" scope="row">{user.Attributes.name}</StyledTableCell>
+                        <StyledTableCell >{user.Attributes.email}</StyledTableCell>
+                        <StyledTableCell >{code}</StyledTableCell>
+                        <StyledTableCell >{number}</StyledTableCell>
+                        <StyledTableCell >
+                          <UserStatusChip userStatus={user.UserStatus} />
+                        </StyledTableCell>
+                        <StyledTableCell >
+                          <div style={{ display: 'flex', gap: '5px' }}>
+                            <Tooltip title="Edit">
+                              <IconButton
+                                onClick={() => onEdit(user.Username)}
+                                sx={{ color: COLORS.actionColor3 }}
+                              >
+                                <EditIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Reset Password">
+                              <IconButton
+                                onClick={() => onResetPassword(user.Username)}
+                                sx={{ color: COLORS.actionColor4 }}
+                              >
+                                <LockResetIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Update Attribute">
+                              <IconButton
+                                onClick={() => onUpdateAttribute(user.Username)}
+                                sx={{ color: COLORS.fontColor2 }}
+                              >
+                                <BuildIcon />
+                              </IconButton>
+                            </Tooltip>
+                          </div>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    )
+                  })}
+                </TableBody>
+                  </Table>
+                )}
       </TableContainer>
       <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
         <div style={{ color: COLORS.fontColor1, display: 'flex', alignItems: 'center' }}>
@@ -277,7 +279,7 @@ UserTable.propTypes = {
         phone_number: PropTypes.string
       })
     })
-  ).isRequired,
+  ),
   onEdit: PropTypes.func.isRequired,
   onResetPassword: PropTypes.func.isRequired,
   onUpdateAttribute: PropTypes.func.isRequired,
@@ -285,7 +287,8 @@ UserTable.propTypes = {
   onChangePage: PropTypes.func,
   limit: PropTypes.number,
   currentPage: PropTypes.number,
-  onSearch: PropTypes.func.isRequired
+  onSearch: PropTypes.func.isRequired,
+  loading: PropTypes.bool
 }
 
 export default UserTable

@@ -15,13 +15,19 @@ export const updateCognitoUserMutation = (username, attributes) => `
   }
 `
 
-export const verifyCognitoUserAttributeMutation = (username, attributeName, attributeValue) => `
+export const verifyCognitoUserAttributeMutation = (username, attributeName, attributeValue) => {
+  // Convert string 'true'/'false' to boolean if needed
+  const boolValue = typeof attributeValue === 'string'
+    ? attributeValue.toLowerCase() === 'true'
+    : attributeValue
+
+  return `
   mutation VerifyUserAttribute {
     verifyCognitoUserAttribute(
       input: {
         username: "${username}"
         attributeName: "${attributeName}"
-        attributeValue: "${attributeValue}"
+        attributeValue: ${boolValue}
       }
     ) {
       success
@@ -30,6 +36,7 @@ export const verifyCognitoUserAttributeMutation = (username, attributeName, attr
     }
   }
 `
+}
 
 export const resetCognitoUserPasswordMutation = (username) => `
   mutation ResetPassword {
