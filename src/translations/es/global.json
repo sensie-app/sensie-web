@@ -35,7 +35,8 @@
       "signOut?": "Are you sure you want to exit the SENSIE panel?",
       "close": "Close",
       "intentions": "Intentions",
-      "sage": "Sage"
+      "sage": "Sage",
+      "userAll": "Users"
     },
     "Header": {
       "back": "Back",

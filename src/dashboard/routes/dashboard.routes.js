@@ -12,6 +12,7 @@ import Pack from '../pages/Pack'
 import Topic from '../pages/Topic'
 import SageDashboard from '../pages/SageDashboard'
 import Profile from '../pages/Profile'
+import UserAll from '../pages/UserAll'
 // components
 import { NotFound404 } from '../components/Globals'
 // containers
@@ -25,6 +26,7 @@ import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
+import AdminGroupGuard from '../../components/AdminGroupGuard'
 
 // * component
 /**
@@ -59,6 +61,9 @@ const DashboardRoutes = () => {
           <Route path="/user/:id" element={<User />} />
           <Route path="/pack/:id" element={<Pack />} />
           <Route path="/topic/:id" element={<Topic />} />
+          <Route element={<AdminGroupGuard />}>
+            <Route path="/user-all" element={<UserAll />} />
+          </Route>
           <Route path="*" element={<NotFound404 />} />
         </Routes>
       </Layout>

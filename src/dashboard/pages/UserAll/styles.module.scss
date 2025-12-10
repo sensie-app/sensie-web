@@ -1,0 +1,10 @@
+@use '../../styles/index.scss';
+@use "../../../styles/variables";
+@use "../../styles/mixins";
+
+.UserAllContainer {
+  width: 100%;
+  color: variables.$fontColor1;
+  font-size: 1rem;
+  box-sizing: border-box;
+}

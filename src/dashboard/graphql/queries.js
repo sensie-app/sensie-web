@@ -395,7 +395,7 @@ export const listTopicsQuery = /* GraphQL */ `
               topics {
                 items {
                   topic {
-                    id
+                  id
                     name
                   }
                 }
@@ -825,6 +825,74 @@ export const listLastUnusedInvitations = id => `
           packsId
           updatedAt
         }
+      }
+    }
+  }
+`
+export const listAllUsers = (limit = 10, paginationToken = null, filter = null) => {
+  console.log('listAllUsers query builder called with:', { limit, paginationToken, filter })
+  const tokenPart = paginationToken ? `paginationToken: "${paginationToken}"` : ''
+  // Escape inner quotes in filter string for GraphQL syntax
+  const filterPart = filter ? `filter: "${filter.replace(/"/g, '\\"')}"` : ''
+  const args = [
+    `limit: ${limit}`,
+    tokenPart,
+    filterPart
+  ].filter(Boolean).join('\n')
+
+  const query = `
+  query ListUsersWithFilterAndPagination {
+  listCognitoUsers(
+    input: {
+      ${args}
+    }
+  ) {
+    users {
+      Username
+      UserStatus
+      Enabled
+      UserCreateDate
+      UserLastModifiedDate
+      Attributes {
+        email
+        email_verified
+        phone_number
+        phone_number_verified
+        name
+        family_name
+        preferred_username
+        gender
+        birthdate
+        sub
+      }
+    }
+    paginationToken
+    }
+  }
+`
+  console.log('Generated query:', query)
+  return query
+}
+
+export const getCognitoUserQuery = (username) => `
+  query GetUser {
+    getCognitoUser(input: { username: "${username}" }) {
+      Username
+      UserStatus
+      Enabled
+      UserCreateDate
+      UserLastModifiedDate
+      Attributes {
+        email
+        email_verified
+        phone_number
+        phone_number_verified
+        name
+        family_name
+        preferred_username
+        gender
+        birthdate
+        sub
       }
     }
   }

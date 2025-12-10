@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 // redux
 import { useDispatch } from 'react-redux'
 import { updateUserWithCoach } from '../../dashboard/graphql/mutations'
-import { setUserIdAction, getUserByIdAction } from '../../redux/actions/user.actions'
+import { setUserIdAction, getUserByIdAction, initializeUserDataAndAdminStatus } from '../../redux/actions/user.actions'
 
 // amplify
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
@@ -42,7 +42,7 @@ const AuthStateApp = ({ children }) => {
     return response
   }
 
-  // Función robusta para obtener el email
+  // Robust function to get the user email
   const getUserEmail = (user) => {
     return (
       user?.attributes?.email ||
@@ -58,8 +58,6 @@ const AuthStateApp = ({ children }) => {
     if (route === 'authenticated' && previousRoute !== 'authenticated') {
       // User just logged in
       trackEvents.userLogin('email')
-      // Depuración: mostrar el usuario en consola
-      console.log('Amplify user:', user)
       // Identify user in Mixpanel
       if (user) {
         MixpanelUtils.identify(user.username, {
@@ -94,6 +92,7 @@ const AuthStateApp = ({ children }) => {
     if (userData !== null && authState === 'authenticated') {
       const fetchData = async () => {
         const { username } = user
+        dispatch(initializeUserDataAndAdminStatus())
         dispatch(setUserIdAction(username))
         dispatch(getUserByIdAction(username))
       }

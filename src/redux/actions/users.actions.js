@@ -4,11 +4,11 @@ import { deletePackSubscription, updateUserWithCoach } from '../../dashboard/gra
 
 // queries
 // import { listUsersByOrganizationId } from '../../dashboard/graphql/queries'
-import { getClientFromCoach, getClientsFromCoach, listClientsCoach } from '../../dashboard/graphql/queries'
+import { getClientFromCoach, getClientsFromCoach, listClientsCoach, listAllUsers } from '../../dashboard/graphql/queries'
 // constants
 import USERS from '../constants/users.constants'
 
-const { GET_ALL_USERS, REMOVE_USER_FROM_COACH, LOADING, ERROR, CLEAR_USERS } = USERS
+const { GET_ALL_USERS, GET_ALL_USERS_COGNITO, REMOVE_USER_FROM_COACH, LOADING, ERROR, CLEAR_USERS } = USERS
 
 export const listUsersByOrganizationIdAction = (id) => async (dispatch) => {
   dispatch({
@@ -109,6 +109,26 @@ export const removeClientFromCoachAction = (clientId, coachId, coachPacks) => as
   }
 }
 
+export const listAllUsersCognitoAction = () => async (dispatch) => {
+  dispatch({
+    type: LOADING
+  })
+
+  try {
+    const client = generateClient()
+    const response = await client.graphql({ query: listAllUsers() })
+    console.log(response.data.listCognitoUsers.users)
+    dispatch({
+      type: GET_ALL_USERS_COGNITO,
+      payload: response.data.listCognitoUsers.users
+    })
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: 'Error in list all users cognito'
+    })
+  }
+}
 export function onClearUsers () {
   return (dispatch) => {
     dispatch(clear())
