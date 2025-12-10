@@ -12,7 +12,7 @@ import {
   Grow,
   Popper,
   MenuList
-} from '@material-ui/core'
+} from '@mui/material'
 // components
 import ImageAvatar from '../ImageAvatar'
 // import Icon from '../Icon'
@@ -113,7 +113,7 @@ const MenuListNotifications = ({ data, onClickValue, children }) => {
           >
             <div className={styles.MenuListNotificationsMenuContainer}>
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList autoFocusItem={open} id="menu-list-grow">
+                <MenuList autoFocusItem={!!open} id="menu-list-grow">
                   {/* header */}
                   <div className={styles.MenuListNotificationsMenuHeader}>
                     <h4>{t('dashboard.MenuListNotifications.activity')}</h4>

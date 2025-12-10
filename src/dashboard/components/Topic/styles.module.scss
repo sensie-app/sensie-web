@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 
 .PackContainer {
@@ -12,7 +15,7 @@
     max-width: 300px;
     margin: 0 auto;
     border-radius: 5px;
-    @include backgroundImg(cover);
+    @include mixins.backgroundImg(cover);
   }
 
   .PackImgContainerMin {
@@ -21,11 +24,11 @@
     height: 15vh;
     max-height: 15vh;
     border-radius: 5px;
-    @include backgroundImg(cover);
+    @include mixins.backgroundImg(cover);
   }
 }
 .PackBodyContainer {
-  @include flex(column, flex-start, center, nowrap);
+  @include mixins.flex(column, flex-start, center, nowrap);
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100%;
@@ -33,17 +36,17 @@
   left: 0px;
   position: absolute;  
   span {
-    color: $fontColor1;
+    color: variables.$fontColor1;
     text-align: center;
     font-size: 1rem;
   }
 
   .TopicCheckbox {
-    color: $actionColor1;
+    color: variables.$actionColor1;
   }
   div {
     span {
-      color: $fontColor1;
+      color: variables.$fontColor1;
       text-align: center;
       font-size: 1rem;
     }
@@ -56,7 +59,7 @@
     left: 0;
     bottom: 20px;
     right: 0;
-    @include flex(column, center, center, nowrap); 
+    @include mixins.flex(column, center, center, nowrap); 
   }
 
   .TopicIconContainer image {
@@ -66,14 +69,14 @@
   .TopicHeaderContainer {
     width: 100%;
     padding: 0px 10px;
-    @include flex(row, flex-start, center, nowrap); 
+    @include mixins.flex(row, flex-start, center, nowrap); 
     margin-top: 10px;
     span {
-      color: $actionColor1;
+      color: variables.$actionColor1;
       text-align: center;
     }
     h6 {
-      color: $fontColor1;
+      color: variables.$fontColor1;
       font-size: 1rem;
     }
   }   

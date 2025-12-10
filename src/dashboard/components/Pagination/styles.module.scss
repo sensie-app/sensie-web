@@ -1,26 +1,29 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .PaginationContainer{
   padding: 10px 0px;
-  color: $fontColor1;
+  color: variables.$fontColor1;
 }
 
 .test {
   ul {
-    color: $fontColor1 !important;
+    color: variables.$fontColor1 !important;
     li {
-      color: $fontColor1 !important;
+      color: variables.$fontColor1 !important;
       button {
-        color: $fontColor1 !important;
-        @include border(solid, 1px, 5px, $grayColor3);
+        color: variables.$fontColor1 !important;
+        @include mixins.border(solid, 1px, 5px, variables.$grayColor3);
         font-size: 1rem;
         &:hover {
           opacity: 0.8;
         }
         &:hover, &:focus, &:active {
-          @include border(solid, 1px, 5px, $fontColor1);
+          @include mixins.border(solid, 1px, 5px, variables.$fontColor1);
           cursor: pointer;
-          background-color: $actionColor1;
+          background-color: variables.$actionColor1;
         }
       }
     }

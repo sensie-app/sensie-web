@@ -1,5 +1,5 @@
 // amplify
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from '@aws-amplify/api'
 import { deletePackSubscription, updateUserWithCoach } from '../../dashboard/graphql/mutations'
 
 // queries
@@ -17,7 +17,8 @@ export const listUsersByOrganizationIdAction = (id) => async (dispatch) => {
 
   try {
     // const response = await API.graphql(graphqlOperation(listUsersByOrganizationId(id, dates)))
-    const response = await API.graphql(graphqlOperation(getClientsFromCoach(id)))
+    const client = generateClient()
+    const response = await client.graphql({ query: getClientsFromCoach(id) })
     dispatch({
       type: GET_ALL_USERS,
       payload: response.data.getUser.clients.items
@@ -37,7 +38,8 @@ export const listUsersByOrganizationDatesAction = (dates) => async (dispatch) =>
 
   try {
     // const response = await API.graphql(graphqlOperation(listUsersByOrganizationId(id, dates)))
-    const response = await API.graphql(graphqlOperation(listClientsCoach(dates)))
+    const client = generateClient()
+    const response = await client.graphql({ query: listClientsCoach(dates) })
     dispatch({
       type: GET_ALL_USERS,
       payload: response.data.listClientsCoach
@@ -56,26 +58,27 @@ export const removeClientFromCoachAction = (clientId, coachId, coachPacks) => as
   })
 
   try {
+    const client = generateClient()
     // Obtiene la lista completa de las suscripciones del usuario y elimina los packs que son del coach.
     // Si se detectan más páginas se vuelve recursiva la función hasta eliminar todas las suscripciones del coach
     const recursiveDelete = async (clientId, coachId, coachPacks, subscribedNextToken = null) => {
       if (coachPacks.length > 0) {
         // Consultamos las suscripciones del cliente
-        const respClientFromCoach = await API.graphql(graphqlOperation(getClientFromCoach(clientId, coachId, subscribedNextToken)))
-        const client = respClientFromCoach.data.getUser.clients?.items[0] || null
+        const respClientFromCoach = await client.graphql({ query: getClientFromCoach(clientId, coachId, subscribedNextToken) })
+        const clientData = respClientFromCoach.data.getUser.clients?.items[0] || null
 
         // Estandarizamos en un array
-        const subscribedPacks = client?.subscribedPacks.items || []
+        const subscribedPacks = clientData?.subscribedPacks.items || []
 
         // Si tiene paginación nos preparamos para una recursividad
-        subscribedNextToken = client?.subscribedPacks.nextToken || null
+        subscribedNextToken = clientData?.subscribedPacks.nextToken || null
 
         // Nos quedamos con los packs que tienen que ver con el coach
         const filteredSubs = subscribedPacks.filter((subscription) => coachPacks.findIndex((pack) => pack.id === subscription.packId) > -1)
 
         // Procedemos a eliminar la suscripción de todos los packs que le pertenecen al coach
         for (const i in filteredSubs) {
-          await API.graphql(graphqlOperation(deletePackSubscription(filteredSubs[i].id)))
+          await client.graphql({ query: deletePackSubscription(filteredSubs[i].id) })
         }
 
         // Si detectamos recursividad la aplicamos
@@ -91,7 +94,7 @@ export const removeClientFromCoachAction = (clientId, coachId, coachPacks) => as
     await recursiveDelete(clientId, coachId, coachPacks)
 
     // Delete coachId from the client
-    await API.graphql(graphqlOperation(updateUserWithCoach(clientId, null)))
+    await client.graphql({ query: updateUserWithCoach(clientId, null) })
 
     dispatch({
       type: REMOVE_USER_FROM_COACH,

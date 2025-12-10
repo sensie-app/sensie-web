@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams, useHistory } from 'react-router-dom'
-import { makeStyles, Grid } from '@material-ui/core'
-import { Pagination } from '@material-ui/lab'
+import { useParams, useNavigate } from 'react-router-dom'
+import { Grid, Pagination } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 
 import Loading from '../components/Loading'
 import userSvg from '../assets/img/user.svg'
@@ -59,33 +59,31 @@ const Blog = () => {
   const [post, savePost] = useState([])
   const [loading, setLoading] = useState(true)
   const { id } = useParams()
-  const history = useHistory()
+  const navigate = useNavigate()
 
-  useEffect(async () => {
-    let valueInt = parseInt(id)
-
-    if (!Number.isInteger(valueInt)) {
-      valueInt = 1
-      history.push(`/blog/${valueInt}`)
-    }
-
-    const response = await getPost(valueInt)
-
-    if (response?.data?.posts) {
-      if (valueInt !== page) {
-        setPage(valueInt)
+  useEffect(() => {
+    const fetchData = async () => {
+      let valueInt = parseInt(id)
+      if (!Number.isInteger(valueInt)) {
+        valueInt = 1
+        navigate(`/blog/${valueInt}`)
       }
-
-      savePost(response.data.posts)
-      setNumPages(response.data.meta.pagination.pages)
+      const response = await getPost(valueInt)
+      if (response?.data?.posts) {
+        if (valueInt !== page) {
+          setPage(valueInt)
+        }
+        savePost(response.data.posts)
+        setNumPages(response.data.meta.pagination.pages)
+      }
+      setLoading(false)
     }
-
-    setLoading(false)
+    fetchData()
   }, [page])
 
   const handleChangePaginate = async (event, value) => {
     setPage(value)
-    history.push(`/blog/${value}`)
+    navigate(`/blog/${value}`)
   }
 
   const getPost = async (id) => {
@@ -95,7 +93,7 @@ const Blog = () => {
   }
 
   const handleOpenPost = id => {
-    history.push(`/detail/${id}`)
+    navigate(`/detail/${id}`)
   }
 
   const handleParseDate = date => {

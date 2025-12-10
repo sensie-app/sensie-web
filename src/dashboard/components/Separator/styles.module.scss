@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .SeparatorContainer {
   span {
@@ -8,9 +11,9 @@
 }
 
 .Separator1 {
-  @include border(solid, 0px 1px 0px 0px, 0px, $grayColor3);
+  @include mixins.border(solid, 0px 1px 0px 0px, 0px, variables.$grayColor3);
 }
 
 .Separator2 {
-  @include border(solid, 0px 0px 0px 1px, 0px, $grayColor3);
+  @include mixins.border(solid, 0px 0px 0px 1px, 0px, variables.$grayColor3);
 }

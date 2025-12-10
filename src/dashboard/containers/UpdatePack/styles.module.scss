@@ -1,4 +1,7 @@
-@import "../../styles/index.scss";
+@use "../../styles/index.scss";
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .OptionsBtn {
   padding: 0;
@@ -15,30 +18,30 @@
 }
 
 .CreatePackBody {
-  @include flex(row, space-between, center, wrap);
+  @include mixins.flex(row, space-between, center, wrap);
   height: 180px;
   padding: 10px;
 }
 
 .CreactePackBodyBtnImg {
   width: 30%;
-  @include border(solid, 1px, 5px, $fontColor1);
-  @include backgroundImg(cover);
+  @include mixins.border(solid, 1px, 5px, variables.$fontColor1);
+  @include mixins.backgroundImg(cover);
   height: 100%;
   label {
     padding: 10px;
     height: 100%;
-    color: $fontColor1;
-    @include flex(column, center, center, nowrap);
+    color: variables.$fontColor1;
+    @include mixins.flex(column, center, center, nowrap);
   }
   input {
     display: none;
   }
   &:hover {
     cursor: pointer !important;
-    @include border(solid, 1px, 5px, $actionColor1);
+    @include mixins.border(solid, 1px, 5px, variables.$actionColor1);
     label {
-      color: $actionColor1;
+      color: variables.$actionColor1;
     }
   }
 
@@ -52,24 +55,24 @@
 .CreatePackBodyForm {
   width: 60%;
   height: 100%;
-  @include flex(column, space-between, center, nowrap);
+  @include mixins.flex(column, space-between, center, nowrap);
   .CreatePackBodyFormInput {
     width: 100%;
     padding: 5px 10px;
-    @include flex(column, space-between, flex-start, nowrap);
+    @include mixins.flex(column, space-between, flex-start, nowrap);
     label {
-      color: $fontColor1;
+      color: variables.$fontColor1;
       margin-bottom: 1px;
     }
     input {
       width: 100%;
-      background-color: $grayColor6;
-      color: $fontColor1;
+      background-color: variables.$grayColor6;
+      color: variables.$fontColor1;
       padding: 5px;
     }
     span {
       font-size: 13px;
-      color: $actionColor4;
+      color: variables.$actionColor4;
     }
   }
   .CreatePackBodyFormBtn {
@@ -77,13 +80,13 @@
     padding: 10px 10px;
     button {
       float: right;
-      background-color: $grayColor6;
-      color: $actionColor1;
+      background-color: variables.$grayColor6;
+      color: variables.$actionColor1;
       padding: 5px 15px;
-      @include border(solid, 1px, 5px, transparent);
+      @include mixins.border(solid, 1px, 5px, transparent);
       &:hover {
         cursor: pointer;
-        @include border(solid, 1px, 5px, $actionColor1);
+        @include mixins.border(solid, 1px, 5px, variables.$actionColor1);
       }
     }
   }
@@ -94,27 +97,27 @@
 }
 
 .inputBorderError {
-  @include border(solid, 1px, 5px, $actionColor4);
+  @include mixins.border(solid, 1px, 5px, variables.$actionColor4);
 }
 
 .inputBorder {
-  @include border(solid, 1px, 5px, transparent);
+  @include mixins.border(solid, 1px, 5px, transparent);
 }
 
 .MenuListCompositionMenuContainer {
-  background-color: $grayColor6;
-  @include border(solid, 1px, 5px, $grayColor4);
+  background-color: variables.$grayColor6;
+  @include mixins.border(solid, 1px, 5px, variables.$grayColor4);
 }
 
 .MenuListCompositionItem {
-  @include border();
-  @include flex(column, center, center, nowrap);
-  @include font($fontColor1, 1rem);
+  @include mixins.border();
+  @include mixins.flex(column, left, left, nowrap);
+  @include mixins.font(variables.$fontColor1, 1rem);
   width: 100%;
   background-color: transparent;
   padding: 5px;
   &:hover {
-    background-color: $actionColor1;
+    background-color: variables.$actionColor1;
     cursor: pointer;
   }
 }

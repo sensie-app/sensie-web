@@ -7,15 +7,18 @@ import { updateUserWithCoach } from '../../dashboard/graphql/mutations'
 import { setUserIdAction, getUserByIdAction } from '../../redux/actions/user.actions'
 
 // amplify
-import { API, graphqlOperation } from 'aws-amplify'
-import { Auth } from '@aws-amplify/auth'
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import awsconfig from '../../aws-exports'
+import { generateClient } from '@aws-amplify/api'
+import { Amplify } from 'aws-amplify'
 // Components
 // import { ToastContainer } from 'react-toastify'
 
+// mixpanel
+import { trackEvents, MixpanelUtils } from '../../utils/mixpanel'
+
 // amplify config
-Auth.configure(awsconfig)
+Amplify.configure(awsconfig)
 // * container
 /**
  * AuthStateApp container (Amplify)
@@ -29,13 +32,53 @@ const AuthStateApp = ({ children }) => {
   const [userData, setUser] = useState(null)
   const [authState, setAuthState] = useState()
   const [initialAuthState, setInitialAuthState] = useState('signUp')
+  const [previousRoute, setPreviousRoute] = useState(null)
 
   // const [coach, setCoach] = useState(null)
 
   const updateUserCoach = async (userId, coachId) => {
-    const response = await API.graphql(graphqlOperation(updateUserWithCoach(userId, coachId)))
+    const client = generateClient()
+    const response = await client.graphql({ query: updateUserWithCoach(userId, coachId) })
     return response
   }
+
+  // Función robusta para obtener el email
+  const getUserEmail = (user) => {
+    return (
+      user?.attributes?.email ||
+      user?.email ||
+      user?.signInUserSession?.idToken?.payload?.email ||
+      user?.signInDetails?.loginId ||
+      undefined
+    )
+  }
+
+  useEffect(() => {
+    // Track authentication state changes
+    if (route === 'authenticated' && previousRoute !== 'authenticated') {
+      // User just logged in
+      trackEvents.userLogin('email')
+      // Depuración: mostrar el usuario en consola
+      console.log('Amplify user:', user)
+      // Identify user in Mixpanel
+      if (user) {
+        MixpanelUtils.identify(user.username, {
+          $email: getUserEmail(user),
+          $name: `${user.attributes?.name || ''} ${user.attributes?.family_name || ''}`.trim(),
+          user_id: user.username,
+          sign_up_date: user.attributes?.created_at,
+          phone_number: user.attributes?.phone_number
+        })
+      }
+    } else if (route === 'signUp' && previousRoute !== 'signUp') {
+      // User is signing up
+      trackEvents.userSignup('email')
+    } else if (route === 'signOut' && previousRoute !== 'signOut') {
+      // User just logged out
+      trackEvents.userLogout()
+    }
+    setPreviousRoute(route)
+  }, [route, user, previousRoute])
 
   useEffect(() => {
     if (route === 'authenticated') {
@@ -47,11 +90,14 @@ const AuthStateApp = ({ children }) => {
     }
   }, [route])
 
-  useEffect(async () => {
+  useEffect(() => {
     if (userData !== null && authState === 'authenticated') {
-      const { username } = user
-      dispatch(setUserIdAction(username))
-      dispatch(getUserByIdAction(username))
+      const fetchData = async () => {
+        const { username } = user
+        dispatch(setUserIdAction(username))
+        dispatch(getUserByIdAction(username))
+      }
+      fetchData()
     }
   }, [userData])
 

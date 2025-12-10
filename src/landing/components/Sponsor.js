@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { makeStyles } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyle = makeStyles({
   root: {
-    paddingLeft: '22px;',
+    paddingLeft: '22px',
     paddingRight: '22px'
   }
 })
@@ -16,7 +16,7 @@ const Sponsor = ({ SponsorImg, width, height, link }) => {
         <img
         src={SponsorImg}
         className={classes.root}
-        style={{ width: width, height: height }}
+        style={{ width, height }}
         />
       </a>
   )

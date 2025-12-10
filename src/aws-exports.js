@@ -3,25 +3,54 @@
 
 const awsmobile = {
     "aws_project_region": "us-west-2",
-    "aws_cognito_identity_pool_id": "us-west-2:025eedc1-eacf-4875-8b57-5ccb1cbb713e",
-    "aws_cognito_region": "us-west-2",
-    "aws_user_pools_id": "us-west-2_UDgunwWHD",
-    "aws_user_pools_web_client_id": "1fn6pn8abe6c9c34rk4kqougig",
-    "oauth": {},
+    "aws_mobile_analytics_app_id": "54f86bc6b03c4cd38161e8b36615d973",
+    "aws_mobile_analytics_app_region": "us-west-2",
+    "Analytics": {
+        "AWSPinpoint": {
+            "appId": "54f86bc6b03c4cd38161e8b36615d973",
+            "region": "us-west-2"
+        }
+    },
     "aws_cloud_logic_custom": [
         {
             "name": "AdminQueries",
-            "endpoint": "https://xgfldbls1c.execute-api.us-west-2.amazonaws.com/staging",
+            "endpoint": "https://qvper05abl.execute-api.us-west-2.amazonaws.com/dev",
             "region": "us-west-2"
         }
     ],
-    "aws_appsync_graphqlEndpoint": "https://h5bqjhordnbhvdqof74wp6s73a.appsync-api.us-west-2.amazonaws.com/graphql",
+    "aws_appsync_graphqlEndpoint": "https://2ueiebfuvrbzlnaijnbdzve5oy.appsync-api.us-west-2.amazonaws.com/graphql",
     "aws_appsync_region": "us-west-2",
     "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
-    "aws_user_files_s3_bucket": "sensiecontent185139-staging",
-    "aws_user_files_s3_bucket_region": "us-west-2",
-    "aws_mobile_analytics_app_id": "f47e894428eb451383e3942335dbd1c8",
-    "aws_mobile_analytics_app_region": "us-west-2"
+    "aws_cognito_identity_pool_id": "us-west-2:fe21ef72-a5d4-4055-8982-cae72b091f4e",
+    "aws_cognito_region": "us-west-2",
+    "aws_user_pools_id": "us-west-2_RfLWHzgBj",
+    "aws_user_pools_web_client_id": "6upjqd9ofm4j09hb6256f8b6b0",
+    "oauth": {},
+    "aws_cognito_username_attributes": [
+        "EMAIL"
+    ],
+    "aws_cognito_social_providers": [],
+    "aws_cognito_signup_attributes": [
+        "BIRTHDATE",
+        "EMAIL",
+        "FAMILY_NAME",
+        "GENDER",
+        "NAME",
+        "PHONE_NUMBER"
+    ],
+    "aws_cognito_mfa_configuration": "OFF",
+    "aws_cognito_mfa_types": [
+        "SMS"
+    ],
+    "aws_cognito_password_protection_settings": {
+        "passwordPolicyMinLength": 8,
+        "passwordPolicyCharacters": []
+    },
+    "aws_cognito_verification_mechanisms": [
+        "PHONE_NUMBER"
+    ],
+    "aws_user_files_s3_bucket": "sensiecontent223927-dev",
+    "aws_user_files_s3_bucket_region": "us-west-2"
 };
 
 

@@ -1,12 +1,7 @@
 // react
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Switch, Route, useLocation, Redirect } from 'react-router-dom'
-// import { ThemeProvider } from '@material-ui/core/styles'
-// redux
-import { useSelector } from 'react-redux'
-// import { getAllTopicsAction } from '../../redux/actions/topics.action'
-// constants-routes
-import DASHBOARD_ROUTES from '../constants/routes'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
+
 // pages
 import Home from '../pages/Home'
 import Client from '../pages/Client'
@@ -23,7 +18,6 @@ import { NotFound404 } from '../components/Globals'
 import AuthStateApp from '../containers/AuthStateApp'
 import Layout from '../containers/Layout'
 // amplify
-// import '@aws-amplify/ui/dist/style.css'
 import '@aws-amplify/ui-react/styles.css'
 
 // styles
@@ -31,25 +25,6 @@ import '../styles/index.scss'
 import '../styles/amplify-ui.scss'
 // doc types
 import '../doc/types'
-// import { listUsersByOrganizationIdAction } from '../../redux/actions/users.actions'
-// import { listAffirmationsByCoachId } from '../../redux/actions/affirmations.actions'
-// theme
-// import theme from '../styles/theme'
-
-// const
-const {
-  entrypoint,
-  home,
-  dashboard,
-  client,
-  team,
-  // user,
-  intentions,
-  pack,
-  topic,
-  sageDashboard,
-  profile
-} = DASHBOARD_ROUTES
 
 // * component
 /**
@@ -57,21 +32,6 @@ const {
  * @component
  */
 const DashboardRoutes = () => {
-  // ? hooks
-  // const dispatch = useDispatch()
-  const {
-    filtersReducer: { globalDateFilter }
-  } = useSelector(state => state)
-
-  // useEffect(() => {
-  //   dispatch(getAllTopicsAction())
-  // }, [])
-
-  useEffect(async () => {
-    // dispatch(listUsersByOrganizationIdAction(user.id, globalDateFilter.value))
-    // dispatch(listAffirmationsByCoachId(user.id, globalDateFilter.value, 10))
-  }, [globalDateFilter])
-
   const [initialAuthState, setInitialAuthState] = useState(false)
 
   const location = useLocation()
@@ -79,36 +39,29 @@ const DashboardRoutes = () => {
   const lastFragment = urlParts[urlParts.length - 1]
 
   useEffect(() => {
-    // Verificar si el parámetro 'authType' indica un login
     if (lastFragment === 'login' || lastFragment === 'signup') {
-      setInitialAuthState(true) // Cambiar el initialState a signIn si es un login
+      setInitialAuthState(true)
     }
-  }, [])
+  }, [lastFragment])
 
   return (
     <AuthStateApp>
-      {/* <ThemeProvider theme={theme}> */}
-        <BrowserRouter>
-          <Switch>
-            <Layout>
-              <Route path={home} component={Home} />
-              {initialAuthState && <Redirect to={'/dashboard'}/>}
-              <Route path={dashboard} component={Home} />
-              <Route exact path={entrypoint} component={Home} />
-              <Route path={client} component={Client} />
-              <Route path={team} component={Team} />
-              <Route path={intentions} component={Affirmations} />
-              <Route path={sageDashboard} component={SageDashboard} />
-              <Route path={profile} component={Profile} />
-              <Route path={'/dashboard/user' + '/:id'} component={User} />
-              <Route path={pack + '/:id'} component={Pack} />
-              <Route path={topic + '/:id'} component={Topic} />
-              {/* <Redirect from={entrypoint} to={home} /> */}
-            </Layout>
-            <Route component={NotFound404} />
-          </Switch>
-        </BrowserRouter>
-      {/* </ThemeProvider> */}
+      <Layout>
+        <Routes>
+          {initialAuthState && <Route path="*" element={<Navigate to="/" replace />} />}
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/client" element={<Client />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/intentions" element={<Affirmations />} />
+          <Route path="/sage_dashboard" element={<SageDashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/user/:id" element={<User />} />
+          <Route path="/pack/:id" element={<Pack />} />
+          <Route path="/topic/:id" element={<Topic />} />
+          <Route path="*" element={<NotFound404 />} />
+        </Routes>
+      </Layout>
     </AuthStateApp>
   )
 }

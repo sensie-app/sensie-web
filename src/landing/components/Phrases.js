@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { Box, makeStyles } from '@material-ui/core'
+import { Box } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles({
   boxStyle: {

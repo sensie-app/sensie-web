@@ -1,22 +1,26 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins" as mixins2;
+@use "../../../styles/variables";
+@use "../../styles/mixins";
+
 
 .SymbolContainer {
   position: relative;
-  @include G50Container();  
-  @include heightGrid();
-  @include flex(column, center, center, nowrap);
+  @include mixins.G50Container();  
+  @include mixins.heightGrid();
+  @include mixins2.flex(column, center, center, nowrap);
 }
 
 .SymbolBtnsTestContainer {
   position: absolute;
   top: 0;
   right: 0;  
-  @include flex(row, center, center, nowrap);
+  @include mixins2.flex(row, center, center, nowrap);
   button {
-    @include border(solid, 1px, 5px, $actionColor1);
-    color: $fontColor1;
+    @include mixins2.border(solid, 1px, 5px, variables.$actionColor1);
+    color: variables.$fontColor1;
     margin-left: 2.5px;
     padding: 2.5px;
-    background-color: $grayColor8;
+    background-color: variables.$grayColor8;
   }
 }

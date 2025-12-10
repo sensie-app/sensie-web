@@ -1,9 +1,12 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .TeamContainer {
   width: 100%;
-  @include flex(column, center, center, nowrap);
+  @include mixins.flex(column, center, center, nowrap);
   h1 {
-    color: $fontColor1;
+    color: variables.$fontColor1;
   }
 }

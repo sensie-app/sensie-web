@@ -1,5 +1,5 @@
 // amplify
-import { API, graphqlOperation } from 'aws-amplify'
+import { generateClient } from 'aws-amplify/api'
 // queries
 import { getTopicByIdQuery, listTopicsQuery } from '../../dashboard/graphql/queries'
 // constants
@@ -7,36 +7,43 @@ import TOPICS from '../constants/topics.constants'
 
 const { TOPICS_LIST, GET_ALL_TOPICS, LOADING, ERROR, CLEAR_TOPICS } = TOPICS
 
-export const setTopicsAction = data => {
-  return {
-    type: TOPICS_LIST,
-    payload: data
-  }
-}
+const client = generateClient()
 
-export const getAllTopicsAction = userTopicId => async dispatch => {
-  dispatch({
-    type: LOADING
-  })
+export const setTopicsAction = data => ({
+  type: TOPICS_LIST,
+  payload: data
+})
+
+export const getAllTopicsAction = (userTopicId) => async (dispatch) => {
+  dispatch({ type: LOADING })
 
   try {
-    let r = null
+    let topicById = null
+
     if (userTopicId !== null && typeof userTopicId !== 'undefined') {
-      r = await API.graphql(graphqlOperation(getTopicByIdQuery(userTopicId)))
+      const res = await client.graphql({
+        query: getTopicByIdQuery,
+        variables: { id: userTopicId }
+      })
+      topicById = res.data?.getTopic
     }
 
-    const response = await API.graphql(graphqlOperation(listTopicsQuery()))
+    const response = await client.graphql({
+      query: listTopicsQuery
+    })
 
-    if (r?.data?.getTopic) {
-      response.data.listTopics.items.push(r.data.getTopic)
+    const items = response.data.listTopics.items ?? []
+
+    if (topicById) {
+      items.push(topicById)
     }
 
     dispatch({
       type: GET_ALL_TOPICS,
-      payload: response.data.listTopics.items
+      payload: items
     })
   } catch (error) {
-    console.log('err:', error)
+    console.error('err:', error)
     dispatch({
       type: ERROR,
       payload: 'Error in get topics'
@@ -46,11 +53,6 @@ export const getAllTopicsAction = userTopicId => async dispatch => {
 
 export function onClearTopics () {
   return (dispatch) => {
-    dispatch(clear())
+    dispatch({ type: CLEAR_TOPICS, payload: [] })
   }
 }
-
-const clear = () => ({
-  type: CLEAR_TOPICS,
-  payload: []
-})

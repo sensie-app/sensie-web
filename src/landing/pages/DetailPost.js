@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { makeStyles, Grid } from '@material-ui/core'
+import { Grid } from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
 
 import Loading from '../components/Loading'
 import userSvg from '../assets/img/user.svg'
@@ -66,14 +68,16 @@ const DetailPost = () => {
   const [post, savePost] = useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(async () => {
-    const response = await getPost(id)
-    if (response?.data?.posts) {
-      savePost(response.data.posts[0])
-      window.twttr.widgets.load()
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getPost(id)
+      if (response?.data?.posts) {
+        savePost(response.data.posts[0])
+        window.twttr.widgets.load()
+      }
+      setLoading(false)
     }
-
-    setLoading(false)
+    fetchData()
   }, [])
 
   const getPost = async (id) => {

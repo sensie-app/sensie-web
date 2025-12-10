@@ -1,9 +1,8 @@
 // react
 import React from 'react'
 import PropTypes from 'prop-types'
-// material-ui
-import { makeStyles } from '@material-ui/core/styles'
-import Pagination from '@material-ui/lab/Pagination'
+import makeStyles from '@mui/styles/makeStyles'
+import Pagination from '@mui/material/Pagination'
 // styles
 import styles from './styles.module.scss'
 

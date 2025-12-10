@@ -2,9 +2,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 // material-ui
-import Modal from '@material-ui/core/Modal'
-import Backdrop from '@material-ui/core/Backdrop'
-import Fade from '@material-ui/core/Fade'
+import Modal from '@mui/material/Modal'
+import Backdrop from '@mui/material/Backdrop'
+import Fade from '@mui/material/Fade'
 // components
 import Icon from '../Icon'
 // constants
@@ -55,13 +55,16 @@ const ModalComponent = ({ children, initialState = false, title = '', width = '2
         open={open}
         onClose={handleClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+            style: { zIndex: '-1' }
+          }
         }}
       >
         <Fade in={open}>
-          <div className={styles.ModalComponentBodyContainer} style={{ width: width }}>
+          <div className={styles.ModalComponentBodyContainer} style={{ width }}>
             <div className={styles.ModalComponentHeader}>
               <span>{title}</span>
               <button onClick={() => handleClose()}>

@@ -1,21 +1,24 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .HeaderContainer {
-  @include flex(row, space-between, center, wrap);
-  padding: $step1 0px;  
+  @include mixins.flex(row, space-between, center, wrap);
+  padding: variables.$step1 0px;  
   width: 100%;
 }
 
 .HeaderLeftContainer {
   width: 50%;
   .HeaderBack, .HeaderPeople {
-    @include flex(row, flex-start, center, wrap);
+    @include mixins.flex(row, flex-start, center, wrap);
     .HeaderLeftIcon {
-      margin-right: $step1;
+      margin-right: variables.$step1;
     }
     span {
       font-size: 1rem;
-      color: $fontColor1;
+      color: variables.$fontColor1;
     }
   }    
   .HeaderBack {
@@ -23,7 +26,7 @@
       text-decoration: none;
       cursor: pointer;
       span {        
-        color: $actionColor1;
+        color: variables.$actionColor1;
       }
     }
   }
@@ -32,11 +35,11 @@
 .HeaderRightContainer {
   width: 50%;
   .HeaderCalendar {
-    @include flex(row, flex-end, center, wrap);
+    @include mixins.flex(row, flex-end, center, wrap);
     .HeaderCalendarIcon,
     span {      
       font-size: 1rem;
-      color: $fontColor1;
+      color: variables.$fontColor1;
     };
   }
 

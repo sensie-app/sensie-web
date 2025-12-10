@@ -1,8 +1,11 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .LineContainer {
-  color: $grayColor4;
-  @include border(solid, 1px 0 0 0, 0, $grayColor5);
+  color: variables.$grayColor4;
+  @include mixins.border(solid, 1px 0 0 0, 0, variables.$grayColor5);
   margin-top: 10px;
   width: 100%;
 }

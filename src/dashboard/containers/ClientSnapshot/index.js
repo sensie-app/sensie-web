@@ -1,29 +1,15 @@
 // react
 import React from 'react'
-// import { Link } from 'react-router-dom'
 // material-ui
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 // redux
 import { /* useDispatch, */ useSelector } from 'react-redux'
-// import { setPaginationClientSnapshotAction } from '../../../redux/actions/pagination.actions'
-// components
-// import ImageAvatar from '../../components/ImageAvatar'
-// import BarChart from '../../components/BarChart'
-// import Icon from '../../components/Icon'
-// import Pagination from '../../components/Pagination'
-// constants
-// import { COLORS } from '../../constants/theme'
-// import DASHBOARD_ROUTES from '../../constants/routes'
 import User from '../../containers/User'
 // utils
 // import { handleDefaultPictureUser } from '../../utils/functions'
 // styles
 import styles from './styles.module.scss'
 import { handleAwareness, handleFlow } from '../../utils/functions'
-
-// const
-// const { fontColor1 } = COLORS
-// const { user } = DASHBOARD_ROUTES
 
 // * component
 /**
@@ -36,7 +22,6 @@ const ClientSnapshot = () => {
   const {
     usersReducer,
     affirmationsReducer
-    // paginationReducer: { pagination: { pagClientSnapshot } }
   } = useSelector(state => state)
 
   // ? handle functions
@@ -64,7 +49,7 @@ const ClientSnapshot = () => {
       return {
         id,
         idx,
-        client: client,
+        client,
         totalSensies: sensies.length,
         flow: flow(sensies),
         awareness: awareness(client)

@@ -1,4 +1,7 @@
-@import '../../styles/index.scss';
+@use '../../styles/index.scss';
+@use "../../../styles/mixins";
+@use "../../../styles/variables";
+
 
 .ShareWithContainer {
   width: 100%;
@@ -6,21 +9,21 @@
   height: 50vh;
   overflow-y: visible;
   overflow-x: hidden;
-  @include flex(column, flex-start, flex-start, nowrap);
+  @include mixins.flex(column, flex-start, flex-start, nowrap);
   .ShareWithListContainer {
     width: 100%;
-    @include flex(column, flex-start, flex-start, nowrap);
+    @include mixins.flex(column, flex-start, flex-start, nowrap);
  
     .ShareWithHeaderContainer {
       width: 100%;
       .ShareWithCheckbox {
-        color: $actionColor1;
+        color: variables.$actionColor1;
       }
       span {
-        color: $fontColor1;
+        color: variables.$fontColor1;
         font-size: 1rem;
       }
-      @include border(solid, 0px 0px 1px 0px, 0px, $fontColor1);
+      @include mixins.border(solid, 0px 0px 1px 0px, 0px, variables.$fontColor1);
     }
   }
 }
@@ -29,11 +32,11 @@
   
   .ShareWithFooterContainer {
     width: 100%;
-    @include flex(row, space-between, center, nowrap);
+    @include mixins.flex(row, space-between, center, nowrap);
     button {
-      background-color: $grayColor6;
-      color: $actionColor1;
-      @include border(solid, 1px, 5px, $actionColor1);
+      background-color: variables.$grayColor6;
+      color: variables.$actionColor1;
+      @include mixins.border(solid, 1px, 5px, variables.$actionColor1);
       padding: 5px 10px;
       opacity: 0.9;
       margin: 0px 5px;
@@ -47,6 +50,6 @@
 }
 
 .ShareWithItemCheckboxTitle {
-  color: $fontColor1;
+  color: variables.$fontColor1;
   font-size: 1rem;
 }

@@ -87,22 +87,28 @@ const NewAffirmation = ({
     }
   }, [selectTopics, itemTitle])
 
-  useEffect(async () => {
-    menuAction.value === 'edit'
-      ? setDisabledTopics(false)
-      : menuAction.value === 'delete'
-        ? await onDelete(data.id)
-        : console.log('🗑')
+  useEffect(() => {
+    if (menuAction.value === 'edit') {
+      setDisabledTopics(false)
+    } else if (menuAction.value === 'delete') {
+      const deleteAff = async () => {
+        try {
+          await onDelete(data.id)
+        } catch (error) {
+          console.error('Error al eliminar:', error)
+        }
+      }
+      deleteAff()
+    }
   }, [menuAction])
 
   useEffect(() => {
     if (!user.loading && user?.data?.id) {
       const admins = ADMINS.split(',')
       const isAdmin = admins.findIndex((email) => email.trim() === user.data.email)
-
       setCanDelete(user.id === data?.user?.id || isAdmin > -1)
     }
-  }, [user.loading])
+  }, [user.loading, user.data, data?.user?.id])
 
   // ? handle functions
   /**
@@ -142,11 +148,8 @@ const NewAffirmation = ({
    * @return {}
    */
   const handleClickBtnDone = () => {
-    // inputRef.current.value = ''
     setMenuAction({})
     setDisabledTopics(true)
-    // TODO: use Mutation
-    // * edit
   }
 
   // ? render functions
