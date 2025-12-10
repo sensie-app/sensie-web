@@ -830,7 +830,6 @@ export const listLastUnusedInvitations = id => `
   }
 `
 export const listAllUsers = (limit = 10, paginationToken = null, filter = null) => {
-  console.log('listAllUsers query builder called with:', { limit, paginationToken, filter })
   const tokenPart = paginationToken ? `paginationToken: "${paginationToken}"` : ''
   // Escape inner quotes in filter string for GraphQL syntax
   const filterPart = filter ? `filter: "${filter.replace(/"/g, '\\"')}"` : ''
@@ -840,7 +839,7 @@ export const listAllUsers = (limit = 10, paginationToken = null, filter = null) 
     filterPart
   ].filter(Boolean).join('\n')
 
-  const query = `
+  return `
   query ListUsersWithFilterAndPagination {
   listCognitoUsers(
     input: {
@@ -870,8 +869,6 @@ export const listAllUsers = (limit = 10, paginationToken = null, filter = null) 
     }
   }
 `
-  console.log('Generated query:', query)
-  return query
 }
 
 export const getCognitoUserQuery = (username) => `

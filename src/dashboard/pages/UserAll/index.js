@@ -40,13 +40,10 @@ const UserAll = () => {
   // --- Funciones de Manejo de Acciones ---
 
   const handleSearch = (filter) => {
-    console.log('handleSearch called in UserAll')
-    console.log('Filter received:', filter)
     // Reset pagination when a new search/filter is applied
     setPageHistory([null])
     setCurrentPage(0)
     setCurrentFilter(filter)
-    console.log('Dispatching listAllUsersCognitoAction with filter:', filter)
     // Fetch with new filter from page 1
     dispatch(listAllUsersCognitoAction(limit, null, filter))
   }
@@ -176,6 +173,7 @@ const UserAll = () => {
           limit={limit}
           currentPage={currentPage}
           onSearch={handleSearch}
+          loading={usersCognitoReducer.loading}
         />
 
         {selectedUser && (
