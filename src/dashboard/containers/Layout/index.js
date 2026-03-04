@@ -178,6 +178,8 @@ const Layout = ({ children }) => {
 
   const renderAvatar = () => {
     const user = data
+    const displayName = [user.firstName, user.lastName].filter(Boolean).join(' ').trim()
+    const profileLabel = displayName || (t('dashboard.Layout.profile') || 'Profile')
     return (
       <div className={styles.LayoutLinkToListItem}>
         <div className={styles.LayoutAvatarImgContainer}>
@@ -206,17 +208,7 @@ const Layout = ({ children }) => {
                     '&:hover': { color: actionColor1 }
                   }}
                 >
-                  {user.firstName}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  component="span"
-                  sx={{
-                    color: fontColor1,
-                    '&:hover': { color: actionColor1 }
-                  }}
-                >
-                  {user.lastName}
+                  {profileLabel}
                 </Typography>
               </div>
             </Link>
