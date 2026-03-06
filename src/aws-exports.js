@@ -3,40 +3,44 @@
 
 const awsmobile = {
     "aws_project_region": "us-west-2",
-    "aws_mobile_analytics_app_id": "54f86bc6b03c4cd38161e8b36615d973",
-    "aws_mobile_analytics_app_region": "us-west-2",
-    "Analytics": {
-        "AWSPinpoint": {
-            "appId": "54f86bc6b03c4cd38161e8b36615d973",
-            "region": "us-west-2"
-        }
-    },
     "aws_cloud_logic_custom": [
         {
             "name": "AdminQueries",
-            "endpoint": "https://qvper05abl.execute-api.us-west-2.amazonaws.com/dev",
+            "endpoint": "https://7z3aehem00.execute-api.us-west-2.amazonaws.com/dev",
             "region": "us-west-2"
         }
     ],
     "aws_appsync_graphqlEndpoint": "https://2ueiebfuvrbzlnaijnbdzve5oy.appsync-api.us-west-2.amazonaws.com/graphql",
     "aws_appsync_region": "us-west-2",
     "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
-    "aws_cognito_identity_pool_id": "us-west-2:fe21ef72-a5d4-4055-8982-cae72b091f4e",
+    "aws_cognito_identity_pool_id": "us-west-2:84b30b71-e50b-4c26-b61d-956b2fe06657",
     "aws_cognito_region": "us-west-2",
-    "aws_user_pools_id": "us-west-2_RfLWHzgBj",
-    "aws_user_pools_web_client_id": "6upjqd9ofm4j09hb6256f8b6b0",
-    "oauth": {},
+    "aws_user_pools_id": "us-west-2_eA1Iz4yK5",
+    "aws_user_pools_web_client_id": "3adnmq72avbn5b35bua8afdbop",
+    "oauth": {
+        "domain": "sensiebackend-dev.auth.us-west-2.amazoncognito.com",
+        "scope": [
+            "phone",
+            "email",
+            "openid",
+            "profile",
+            "aws.cognito.signin.user.admin"
+        ],
+        "redirectSignIn": "https://dev.joinsensie.com/dashboard/,sensie://callback/,http://localhost:3000/dashboard/",
+        "redirectSignOut": "https://dev.joinsensie.com/dashboard/,sensie://,http://localhost:3000/dashboard/",
+        "responseType": "code"
+    },
+    "federationTarget": "COGNITO_USER_AND_IDENTITY_POOLS",
     "aws_cognito_username_attributes": [
         "EMAIL"
     ],
-    "aws_cognito_social_providers": [],
+    "aws_cognito_social_providers": [
+        "GOOGLE",
+        "APPLE"
+    ],
     "aws_cognito_signup_attributes": [
-        "BIRTHDATE",
         "EMAIL",
-        "FAMILY_NAME",
-        "GENDER",
-        "NAME",
-        "PHONE_NUMBER"
+        "NAME"
     ],
     "aws_cognito_mfa_configuration": "OFF",
     "aws_cognito_mfa_types": [
@@ -50,7 +54,13 @@ const awsmobile = {
         "PHONE_NUMBER"
     ],
     "aws_user_files_s3_bucket": "sensiecontent223927-dev",
-    "aws_user_files_s3_bucket_region": "us-west-2"
+    "aws_user_files_s3_bucket_region": "us-west-2",
+    "Analytics": {
+        "AWSPinpoint": {
+            "appId": "54f86bc6b03c4cd38161e8b36615d973",
+            "region": "us-west-2"
+        }
+    }
 };
 
 

@@ -56,3 +56,57 @@ amplify-authenticator {
 [data-amplify-authenticator] .amplify-button--link:hover {
   --amplify-internal-button-background-color: var(--amplify-white);
 }
+
+/* Botones de inicio de sesión federado: estilos de marca por proveedor */
+[data-amplify-authenticator] .federated-sign-in-button {
+  /* Reset del color primario (verde) para que cada botón use el suyo */
+  --amplify-internal-button-background-color: transparent;
+  --amplify-components-button-primary-background-color: transparent;
+  border-width: 1px;
+  border-style: solid;
+  font-weight: 500;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Google: fondo blanco, texto y borde grises (guía de marca de Google) */
+/* Si los botones son hermanos directos: */
+[data-amplify-authenticator] .federated-sign-in-button:nth-child(1),
+/* Si cada botón está en su propio contenedor (ej. amplify-field-group): */
+[data-amplify-authenticator] .amplify-field-group:nth-child(1) .federated-sign-in-button {
+  --amplify-internal-button-background-color: #ffffff;
+  --amplify-internal-button-color: #3c4043;
+  --amplify-components-button-primary-background-color: #ffffff;
+  --amplify-components-button-primary-color: #3c4043;
+  background-color: #ffffff;
+  color: #3c4043;
+  border-color: #dadce0;
+  /* Forzar color del texto en hijos (amplify-text tiene color white en el tema) */
+  .amplify-text,
+  span {
+    color: #3c4043 !important;
+  }
+  &:hover {
+    background-color: #f8f9fa;
+    border-color: #dadce0;
+    color: #3c4043;
+    .amplify-text,
+    span {
+      color: #3c4043 !important;
+    }
+  }
+}
+
+/* Apple: fondo negro, texto blanco (guía de marca de Apple) */
+[data-amplify-authenticator] .federated-sign-in-button:nth-child(2),
+[data-amplify-authenticator] .amplify-field-group:nth-child(2) .federated-sign-in-button {
+  --amplify-internal-button-background-color: #000000;
+  --amplify-components-button-primary-background-color: #000000;
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+  &:hover {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+    color: #ffffff;
+  }
+}
