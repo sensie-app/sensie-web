@@ -18,7 +18,7 @@ import styles from './styles.module.scss'
 
 import Loading from '../../components/Loading'
 
-import { generateClient } from '@aws-amplify/api'
+import { generateClient } from 'aws-amplify/api'
 import { createPackSubscriptionMutation } from '../../graphql/mutations'
 import PropTypes from 'prop-types'
 

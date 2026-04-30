@@ -1,5 +1,5 @@
 // amplify
-import { generateClient } from '@aws-amplify/api'
+import { generateClient } from 'aws-amplify/api'
 // queries
 // import { listAffirmationsByUserIdAndTopicId, listAffirmationsByUserIdAndTopicIdAndUser } from '../../dashboard/graphql/queries'
 import {

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 // amplify
-import { generateClient } from '@aws-amplify/api'
+import { generateClient } from 'aws-amplify/api'
 
 // * custom hook
 /**

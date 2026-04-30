@@ -1,5 +1,5 @@
 // amplify
-import { generateClient } from '@aws-amplify/api'
+import { generateClient } from 'aws-amplify/api'
 
 export const gqlquery = async (query) => {
   const response = { loading: true, value: null }

@@ -1,4 +1,4 @@
-import { generateClient } from '@aws-amplify/api'
+import { generateClient } from 'aws-amplify/api'
 
 import { createInvite, updateInvite } from '../../dashboard/graphql/mutations'
 import { listLastUnusedInvitations } from '../../dashboard/graphql/queries'

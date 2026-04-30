@@ -17,7 +17,6 @@
         "@amcharts/amcharts4": "^4.10.40",
         "@amcharts/amcharts4-fonts": "^4.0.1",
         "@amcharts/amcharts4-geodata": "^4.1.30",
-        "@aws-amplify/api": "^6.3.13",
         "@aws-amplify/auth": "^6.13.1",
         "@aws-amplify/storage": "^6.9.1",
         "@aws-amplify/ui-react": "^6.11.2",

@@ -8,17 +8,18 @@ import { setUserIdAction, getUserByIdAction, initializeUserDataAndAdminStatus } 
 
 // amplify
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
-import awsconfig from '../../aws-exports'
-import { generateClient } from '@aws-amplify/api'
-import { Amplify } from 'aws-amplify'
+import { generateClient } from 'aws-amplify/api'
 // Components
 // import { ToastContainer } from 'react-toastify'
 
 // mixpanel
 import { trackEvents, MixpanelUtils } from '../../utils/mixpanel'
 
-// amplify config
-Amplify.configure(awsconfig)
+// Amplify is configured globally in src/setup-amplify.js (imported first
+// in src/index.js). Do NOT re-configure here — calling Amplify.configure
+// at module scope with the v5-format aws-exports caused the API client to
+// register a partial config and throw "Amplify has not been configured"
+// when generateClient() ran inside thunks at first useEffect.
 // * container
 /**
  * AuthStateApp container (Amplify)

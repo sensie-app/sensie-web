@@ -1,13 +1,17 @@
+// MUST be first — side-effect import that configures Amplify before any
+// other module's code can run. Action files call generateClient() inside
+// their thunks; those thunks fire from useEffect at mount time. If we
+// configure Amplify after `import App`, those thunks see an unconfigured
+// Amplify API client and throw "Amplify has not been configured."
+import './setup-amplify'
+
 // react
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './routes/App'
 import reportWebVitals from './reportWebVitals'
 // amplify
-import { Amplify } from 'aws-amplify'
 import { Authenticator } from '@aws-amplify/ui-react'
-
-import amplifyconfig from './amplifyconfiguration.json'
 // styles
 import './styles/global.scss'
 import './styles/dateRangePickerStyle/index.scss' // global styles for React-dateRangePicker
@@ -26,7 +30,7 @@ import theme from './landing/themeConfig'
 // mixpanel
 import mixpanel from 'mixpanel-browser'
 
-Amplify.configure(amplifyconfig)
+// Amplify is already configured by ./setup-amplify (side-effect import at top).
 
 // Initialize Mixpanel — guarded so a missing/invalid token doesn't crash boot.
 // If REACT_APP_MIXPANEL_TOKEN is unset, init silently no-ops AND a subsequent

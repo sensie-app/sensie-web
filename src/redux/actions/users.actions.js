@@ -1,5 +1,5 @@
 // amplify
-import { generateClient } from '@aws-amplify/api'
+import { generateClient } from 'aws-amplify/api'
 import { deletePackSubscription, updateUserWithCoach } from '../../dashboard/graphql/mutations'
 
 // queries

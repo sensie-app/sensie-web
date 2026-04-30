@@ -51,13 +51,44 @@ const InvitePeople = ({ link }) => {
    * handle click cpoy link
    * @returns {undefined} toast component
    */
-  const handleClickCopyLink = () => {
-    const link = document.getElementById('LINK_COPY')
-    link.disabled = false
-    link.select()
-    document.execCommand('copy')
-    link.disabled = true
-    toast.dark(t('dashboard.InvitePeople.linkWasCopied'))
+  const handleClickCopyLink = async () => {
+    const linkEl = document.getElementById('LINK_COPY')
+    const text = generateLink() || (linkEl && linkEl.value)
+
+    if (!text || text.endsWith('=null')) {
+      // Guard: invitation hasn't been created yet (createInvitation
+      // dispatched in useEffect didn't complete or errored). Trigger
+      // creation if we have a user, and tell the user to retry.
+      if (user && user.id) {
+        dispatch(createInvitation(user.id))
+        toast.dark('Generating your invite link — try again in a moment.')
+      } else {
+        toast.error('No user context — sign out and back in.')
+      }
+      return
+    }
+
+    try {
+      // Modern API — works in Chrome/Safari/Firefox on https + localhost.
+      // The previous document.execCommand('copy') was deprecated and
+      // silently failed in modern Chrome, with the toast lying about success.
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text)
+      } else if (linkEl) {
+        // Legacy fallback for non-secure contexts where Clipboard API is blocked
+        linkEl.disabled = false
+        linkEl.select()
+        const ok = document.execCommand('copy')
+        linkEl.disabled = true
+        if (!ok) throw new Error('execCommand copy returned false')
+      } else {
+        throw new Error('no clipboard API and no link element to fall back on')
+      }
+      toast.dark(t('dashboard.InvitePeople.linkWasCopied'))
+    } catch (err) {
+      console.error('[InvitePeople] copy link failed:', err)
+      toast.error('Could not copy link — copy manually: ' + text)
+    }
   }
 
   /**
@@ -69,8 +100,10 @@ const InvitePeople = ({ link }) => {
   const handleInputValueChange = e => setValueInput(e.target.value)
 
   const generateLink = () => {
-    // const id = user.data.invites.items.length > 0 ? user.data.invites.items[0].id : null
-    // return id ? window.location.origin + '/coach-invite?id=' + id : null
+    // Return null when invitation hasn't been created yet — caller decides
+    // how to surface that. Previously this returned `...?id=null` because
+    // string concat with a null value coerces to "null".
+    if (!invitation || !invitation.id) return null
     return 'https://joinsensie.app.link/coach-invite?id=' + invitation.id
   }
 
