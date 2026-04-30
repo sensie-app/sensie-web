@@ -6,19 +6,19 @@ const awsmobile = {
     "aws_cloud_logic_custom": [
         {
             "name": "AdminQueries",
-            "endpoint": "https://7z3aehem00.execute-api.us-west-2.amazonaws.com/dev",
+            "endpoint": "https://wtsng2cz4l.execute-api.us-west-2.amazonaws.com/production",
             "region": "us-west-2"
         }
     ],
-    "aws_appsync_graphqlEndpoint": "https://2ueiebfuvrbzlnaijnbdzve5oy.appsync-api.us-west-2.amazonaws.com/graphql",
+    "aws_appsync_graphqlEndpoint": "https://2v3spdyivbcz3dtefcfnq7kx4a.appsync-api.us-west-2.amazonaws.com/graphql",
     "aws_appsync_region": "us-west-2",
     "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
-    "aws_cognito_identity_pool_id": "us-west-2:84b30b71-e50b-4c26-b61d-956b2fe06657",
+    "aws_cognito_identity_pool_id": "us-west-2:8c7be667-b427-42ca-ad6e-47fef4724c7c",
     "aws_cognito_region": "us-west-2",
-    "aws_user_pools_id": "us-west-2_eA1Iz4yK5",
-    "aws_user_pools_web_client_id": "3adnmq72avbn5b35bua8afdbop",
+    "aws_user_pools_id": "us-west-2_l58Kk5WR7",
+    "aws_user_pools_web_client_id": "4oqunrcr6ativ73a8k6qbtdeec",
     "oauth": {
-        "domain": "sensiebackend-dev.auth.us-west-2.amazoncognito.com",
+        "domain": "sensiebackend-production.auth.us-west-2.amazoncognito.com",
         "scope": [
             "phone",
             "email",
@@ -26,11 +26,11 @@ const awsmobile = {
             "profile",
             "aws.cognito.signin.user.admin"
         ],
-        "redirectSignIn": "https://dev.joinsensie.com/dashboard/,sensie://callback/,http://localhost:3000/dashboard/",
-        "redirectSignOut": "https://dev.joinsensie.com/dashboard/,sensie://,http://localhost:3000/dashboard/",
+        "redirectSignIn": "https://joinsensie.com/dashboard/,sensie://callback/,http://localhost:3000/dashboard/",
+        "redirectSignOut": "https://joinsensie.com/dashboard/,sensie://,http://localhost:3000/dashboard/",
         "responseType": "code"
     },
-    "federationTarget": "COGNITO_USER_AND_IDENTITY_POOLS",
+    "federationTarget": "COGNITO_USER_POOLS",
     "aws_cognito_username_attributes": [
         "EMAIL"
     ],
@@ -53,7 +53,7 @@ const awsmobile = {
     "aws_cognito_verification_mechanisms": [
         "PHONE_NUMBER"
     ],
-    "aws_user_files_s3_bucket": "sensiecontent223927-dev",
+    "aws_user_files_s3_bucket": "sensiecontent409a7-production",
     "aws_user_files_s3_bucket_region": "us-west-2",
     "Analytics": {
         "AWSPinpoint": {

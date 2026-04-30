@@ -29,8 +29,6 @@ yarn-error.log*
 amplify/\#current-cloud-backend
 amplify/.config/local-*
 amplify/logs
-amplify/*
-.cursor/*
 amplify/mock-data
 amplify/mock-api-resources
 amplify/backend/amplify-meta.json
@@ -48,3 +46,4 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+.gstack/
