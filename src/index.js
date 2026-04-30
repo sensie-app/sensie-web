@@ -28,15 +28,24 @@ import mixpanel from 'mixpanel-browser'
 
 Amplify.configure(amplifyconfig)
 
-// Initialize Mixpanel
-mixpanel.init(process.env.REACT_APP_MIXPANEL_TOKEN, {
-  debug: process.env.NODE_ENV === 'development',
-  track_pageview: true,
-  persistence: 'localStorage'
-})
-
-// Track initial page view
-mixpanel.track('App Loaded')
+// Initialize Mixpanel — guarded so a missing/invalid token doesn't crash boot.
+// If REACT_APP_MIXPANEL_TOKEN is unset, init silently no-ops AND a subsequent
+// track() call throws on undefined config. We skip both when the token is empty.
+const mixpanelToken = process.env.REACT_APP_MIXPANEL_TOKEN
+if (mixpanelToken) {
+  try {
+    mixpanel.init(mixpanelToken, {
+      debug: process.env.NODE_ENV === 'development',
+      track_pageview: true,
+      persistence: 'localStorage'
+    })
+    mixpanel.track('App Loaded')
+  } catch (err) {
+    console.warn('[mixpanel] init/track failed — analytics disabled for this session:', err)
+  }
+} else {
+  console.warn('[mixpanel] REACT_APP_MIXPANEL_TOKEN not set — analytics disabled')
+}
 
 ReactGA.initialize('G-PRY3HQYSH8')
 ReactGA.pageview(window.location.pathname + window.location.search)
